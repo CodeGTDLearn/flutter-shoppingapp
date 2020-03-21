@@ -7,7 +7,7 @@ import 'appProperties.dart';
 
 class AppModule extends MainModule {
 
-  // here will be any class you want to inject into your project (eg bloc, dependency)
+  // here wxxill be any class you want to inject into your project (eg bloc, dependency)
   @override
   List<Bind> get binds => [];
 
