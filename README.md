@@ -35,6 +35,7 @@ Flutter framework is a pretty new tool in the development world. Even though its
 3. [Flutter_modular](https://pub.dev/packages/flutter_modular) - Modular gives us a structure that allows us to manage dependency injection and routes in just one file per module, so we can organize our files with that in mind.
 4. [Firebase Authentication](https://firebase.google.com/docs/auth) - The Google Firebase Authentication
 5. [Firebase Cloud](https://firebase.google.com/products/functions) - The Firebase Cloud
+6. [S.O.L.I.D.](https://scotch.io/bar-talk/s-o-l-i-d-the-first-five-principles-of-object-oriented-design) - The First 5 Principles of Object Oriented Design
 <!-- 1. [Get_It](https://pub.dev/packages/get_it) - Dependency injection: A simple Service Locator for Dart and Flutter projects with some additional goodies highly inspired by Splat. One of the strongest point of this libray is taht it does not need the **context** to work; hence, it can be used in anywhere in the application. -->
 
 
