@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 //SCREENS:
-// 1) PRODUCT OVERVIEW SCREEN
-const POS_TITLE_PAGE = "Overview";
-const POS_ICO_SHOP = Icon(Icons.shopping_cart);
-const POS_ICO_FAV = Icon(Icons.favorite);
-const POS_ICO_NOFAV = Icon(Icons.favorite_border);
-const POS_ICO_POPUP = Icon(Icons.more_vert);
-const POS_TXT_POPUP_FAV = 'Only Favorites';
-const POS_TXT_POPUP_ALL = 'Show All';
+// 1) ITEM OVERVIEW VIEW
+const IOS_APPBAR_TITLE = "Items For Sale";
+const IOS_ICO_SHOP = Icon(Icons.shopping_cart);
+const IOS_ICO_FAV = Icon(Icons.favorite);
+const IOS_ICO_NOFAV = Icon(Icons.favorite_border);
+const IOS_ICO_POPUP = Icon(Icons.more_vert);
+const IOS_TXT_POPUP_FAV = 'Only Favorites';
+const IOS_TXT_POPUP_ALL = 'Show All';
 
 // 2) CART SCREEN
-const CRT_TITLE_PAGE = "Your Cart";
+const CRT_APPBAR_TITLE = "Your Cart";
 const CRT_TXT_CARD = "Total";
 const CRT_TXT_ORDER = "Order Now";
 const CRT_ICO_DEL = Icon(Icons.delete, color: Colors.white, size: 40);

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'shared/appProperties.dart';
-import 'shared/themes.dart';
+import 'config/appProperties.dart';
+import 'config/themes.dart';
 
 class AppDriver extends StatefulWidget {
   @override
@@ -18,8 +18,6 @@ class _AppDriverState extends State<AppDriver> {
         theme: AppTheme().theme,
         initialRoute: "/",
         onGenerateRoute: Modular.generateRoute,
-        //routes: Routes().toScreens(),
-
     );
   }
 }

@@ -1,0 +1,4 @@
+enum ItemsOverviewPopup {
+  Favorites,
+  All,
+}

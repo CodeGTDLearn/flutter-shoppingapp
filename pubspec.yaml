@@ -10,12 +10,17 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_modular:
+  mobx: ^1.1.0
+  flutter_mobx:
+  flushbar: ^1.9.1
 
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mobx_codegen: ^1.0.2
+  build_runner: ^1.8.0
 
 
 flutter:
