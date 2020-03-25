@@ -16,8 +16,8 @@ class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
         Bind((i) => ItemsOverviewServStore()),
-        Bind((i) => GridProductServStore()),
-        Bind((i) => ProductsRepo()),
+        Bind((i) => GridProductsServStore()),
+        Bind<IProductsRepo>((i) => ProductsRepo()),
       ];
 
   // here will be the routes of your module

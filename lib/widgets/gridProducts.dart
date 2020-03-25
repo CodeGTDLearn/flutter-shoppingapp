@@ -7,7 +7,7 @@ import 'ProductItemGrid.dart';
 
 class GridProducts extends StatelessWidget {
   int _FavoritesFilter;
-  final _serv_store = Modular.get<GridProductServStore>();
+  final _serv_store = Modular.get<GridProductsServStore>();
 
   GridProducts(this._FavoritesFilter);
 
