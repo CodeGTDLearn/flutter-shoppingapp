@@ -14,4 +14,14 @@ class ProductsRepo implements IProductsRepo {
   List<Product> getFavorites() {
     return [...this._productsFromDb.where((item) => item.isFavorite == true).toList()];
   }
+
+  @override
+  void toggleFavoriteStatus(String id) {
+    Product productFound = getById(id);
+    productFound.isFavorite = !productFound.isFavorite;
+  }
+
+  Product getById(String id){
+    return this._productsFromDb.firstWhere((item) => item.id == id);
+  }
 }

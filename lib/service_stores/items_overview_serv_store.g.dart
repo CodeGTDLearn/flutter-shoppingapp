@@ -9,33 +9,33 @@ part of 'items_overview_serv_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ItemsOverviewServStore on IItemsOverviewServStore, Store {
-  final _$filterSelectedAtom =
-      Atom(name: 'IItemsOverviewServStore.filterSelected');
+  final _$filteredProductsAtom =
+      Atom(name: 'IItemsOverviewServStore.filteredProducts');
 
   @override
-  int get filterSelected {
-    _$filterSelectedAtom.context.enforceReadPolicy(_$filterSelectedAtom);
-    _$filterSelectedAtom.reportObserved();
-    return super.filterSelected;
+  List<Product> get filteredProducts {
+    _$filteredProductsAtom.context.enforceReadPolicy(_$filteredProductsAtom);
+    _$filteredProductsAtom.reportObserved();
+    return super.filteredProducts;
   }
 
   @override
-  set filterSelected(int value) {
-    _$filterSelectedAtom.context.conditionallyRunInAction(() {
-      super.filterSelected = value;
-      _$filterSelectedAtom.reportChanged();
-    }, _$filterSelectedAtom, name: '${_$filterSelectedAtom.name}_set');
+  set filteredProducts(List<Product> value) {
+    _$filteredProductsAtom.context.conditionallyRunInAction(() {
+      super.filteredProducts = value;
+      _$filteredProductsAtom.reportChanged();
+    }, _$filteredProductsAtom, name: '${_$filteredProductsAtom.name}_set');
   }
 
   final _$IItemsOverviewServStoreActionController =
       ActionController(name: 'IItemsOverviewServStore');
 
   @override
-  void selectFilter(int popupSelection) {
+  void applyFilter(ItemsOverviewPopup filterSelected) {
     final _$actionInfo =
         _$IItemsOverviewServStoreActionController.startAction();
     try {
-      return super.selectFilter(popupSelection);
+      return super.applyFilter(filterSelected);
     } finally {
       _$IItemsOverviewServStoreActionController.endAction(_$actionInfo);
     }
@@ -43,7 +43,7 @@ mixin _$ItemsOverviewServStore on IItemsOverviewServStore, Store {
 
   @override
   String toString() {
-    final string = 'filterSelected: ${filterSelected.toString()}';
+    final string = 'filteredProducts: ${filteredProducts.toString()}';
     return '{$string}';
   }
 }

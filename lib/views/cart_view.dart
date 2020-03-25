@@ -24,7 +24,7 @@ class CartView extends StatelessWidget {
                   child: Text(IOS_TXT_POPUP_ALL), value: ItemsOverviewPopup.All)
             ],
             onSelected: (popupOptionSelected) =>
-                store.selectFilter(popupOptionSelected),
+                store.applyFilter(popupOptionSelected),
           ),
           Badge(child: null, value: "10"),
           IconButton(
