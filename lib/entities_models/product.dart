@@ -1,3 +1,5 @@
+import 'package:shopingapp/db/Products.dart';
+
 class Product {
   final String id;
   final String title;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shopingapp/enum/itemOverviewPopup.dart';
-import 'package:shopingapp/service_stores/items_overview_serv_store.dart';
+import 'package:shopingapp/service_stores/ItemsOverviewGridProductsStore.dart';
 import 'package:shopingapp/config/appProperties.dart';
 import 'package:shopingapp/config/titlesIcons.dart';
 import 'package:shopingapp/widgets/badge.dart';
@@ -15,7 +15,7 @@ class ItemsOverviewView extends StatefulWidget {
 }
 
 class _ItemsOverviewViewState extends State<ItemsOverviewView> {
-  final _servStore = Modular.get<ItemsOverviewServStore>();
+  final _servStore = Modular.get<IItemsOverviewGridProductsStore>();
 
   @override
   void initState() {

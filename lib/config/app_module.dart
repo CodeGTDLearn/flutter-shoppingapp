@@ -1,9 +1,11 @@
 // extends from MainModule
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shopingapp/entities_models/product.dart';
 import 'package:shopingapp/repositories/i_products_repo.dart';
 import 'package:shopingapp/repositories/products_repo.dart';
-import 'package:shopingapp/service_stores/items_overview_serv_store.dart';
+import 'package:shopingapp/service_stores/ItemsOverviewGridProductItemStore.dart';
+import 'package:shopingapp/service_stores/ItemsOverviewGridProductsStore.dart';
 import 'package:shopingapp/views/cart_view.dart';
 import 'package:shopingapp/views/items_overview_view.dart';
 
@@ -14,8 +16,10 @@ class AppModule extends MainModule {
   // here will be any class you want to inject into your project (eg bloc, dependency)
   @override
   List<Bind> get binds => [
-        Bind((i) => ItemsOverviewServStore()),
+        Bind<IItemsOverviewGridProductsStore>((i) => ItemsOverviewGridProductsStore()),
+        Bind<IItemsOverviewGridProductItemStore>((i) => ItemsOverviewGridProductItemStore(), singleton: false),
         Bind<IProductsRepo>((i) => ProductsRepo()),
+        Bind((i) => Product),
       ];
 
   // here will be the routes of your module

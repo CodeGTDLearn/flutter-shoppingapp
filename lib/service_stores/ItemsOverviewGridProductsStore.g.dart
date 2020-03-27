@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'items_overview_serv_store.dart';
+part of 'ItemsOverviewGridProductsStore.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,9 +8,10 @@ part of 'items_overview_serv_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$ItemsOverviewServStore on IItemsOverviewServStore, Store {
+mixin _$ItemsOverviewGridProductsStore
+    on IItemsOverviewGridProductsStore, Store {
   final _$filteredProductsAtom =
-      Atom(name: 'IItemsOverviewServStore.filteredProducts');
+      Atom(name: 'IItemsOverviewGridProductsStore.filteredProducts');
 
   @override
   List<Product> get filteredProducts {
@@ -27,17 +28,17 @@ mixin _$ItemsOverviewServStore on IItemsOverviewServStore, Store {
     }, _$filteredProductsAtom, name: '${_$filteredProductsAtom.name}_set');
   }
 
-  final _$IItemsOverviewServStoreActionController =
-      ActionController(name: 'IItemsOverviewServStore');
+  final _$IItemsOverviewGridProductsStoreActionController =
+      ActionController(name: 'IItemsOverviewGridProductsStore');
 
   @override
   void applyFilter(ItemsOverviewPopup filterSelected) {
     final _$actionInfo =
-        _$IItemsOverviewServStoreActionController.startAction();
+        _$IItemsOverviewGridProductsStoreActionController.startAction();
     try {
       return super.applyFilter(filterSelected);
     } finally {
-      _$IItemsOverviewServStoreActionController.endAction(_$actionInfo);
+      _$IItemsOverviewGridProductsStoreActionController.endAction(_$actionInfo);
     }
   }
 
