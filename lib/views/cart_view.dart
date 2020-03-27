@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shopingapp/enum/itemOverviewPopup.dart';
-import 'package:shopingapp/service_stores/items_overview_serv_store.dart';
+import 'package:shopingapp/service_stores/ItemsOverviewGridProductsStore.dart';
 import 'package:shopingapp/config/appProperties.dart';
 import 'package:shopingapp/config/titlesIcons.dart';
 import 'package:shopingapp/widgets/badge.dart';
 
 class CartView extends StatelessWidget {
-  final store = Modular.get<ItemsOverviewServStore>();
+  final store = Modular.get<ItemsOverviewGridProductsStore>();
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class CartView extends StatelessWidget {
                   child: Text(IOS_TXT_POPUP_ALL), value: ItemsOverviewPopup.All)
             ],
             onSelected: (popupOptionSelected) =>
-                store.selectFilter(popupOptionSelected),
+                store.applyFilter(popupOptionSelected),
           ),
           Badge(child: null, value: "10"),
           IconButton(

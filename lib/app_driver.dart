@@ -16,7 +16,7 @@ class _AppDriverState extends State<AppDriver> {
         debugShowCheckedModeBanner: APP_DEB_CHECK,
         title: APP_TITLE,
         theme: AppTheme().theme,
-        initialRoute: "/",
+        initialRoute: ROUTE_ITEM_OVERV_VIEW,
         onGenerateRoute: Modular.generateRoute,
     );
   }
