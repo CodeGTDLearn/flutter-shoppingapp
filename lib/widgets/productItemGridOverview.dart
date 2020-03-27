@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../entities_models/product.dart';
 import '../config/titlesIcons.dart';
 import '../service_stores/items_overview_serv_store.dart';
 
-class productItemGridOverview extends StatefulWidget {
+class ProductItemGridOverview extends StatefulWidget {
   Product _product;
 
-  productItemGridOverview(this._product);
+  ProductItemGridOverview(this._product);
 
   @override
-  _productItemGridOverviewState createState() => _productItemGridOverviewState();
+  _ProductItemGridOverviewState createState() => _ProductItemGridOverviewState();
 }
 
-class _productItemGridOverviewState extends State<productItemGridOverview> {
+class _ProductItemGridOverviewState extends State<ProductItemGridOverview> {
   final _servStore = Modular.get<ItemsOverviewServStore>();
 
   void toggleFavoriteStatus(String id) {
@@ -27,23 +26,19 @@ class _productItemGridOverviewState extends State<productItemGridOverview> {
   @override
   Widget build(BuildContext context) {
     print('rebuildando tudo'); //TODO WORK IN FAVORITE ATOMICALLY USUGIN MOBIX
+
     return ClipRect(
         child: GridTile(
-      child: GestureDetector(
-          onTap: null, child: Image.network(widget._product.imageUrl, fit: BoxFit.cover)),
-      footer: GridTileBar(
-          leading: IconButton(
-            icon: widget._product.isFavorite ? IOS_ICO_FAV : IOS_ICO_NOFAV,
-            onPressed: () => toggleFavoriteStatus(widget._product.id),
-            color: Theme.of(context).accentColor,
-          ),
-          title: Text(this.widget._product.title),
-          trailing: IconButton(
-            icon: IOS_ICO_SHOP,
-            onPressed: null,
-            color: Theme.of(context).accentColor,
-          ),
-          backgroundColor: Colors.black87),
-    ));
+            child: GestureDetector(
+                onTap: null, child: Image.network(widget._product.imageUrl, fit: BoxFit.cover)),
+            footer: GridTileBar(
+                leading: IconButton(
+                    icon: widget._product.isFavorite ? IOS_ICO_FAV : IOS_ICO_NOFAV,
+                    onPressed: () => toggleFavoriteStatus(widget._product.id),
+                    color: Theme.of(context).accentColor),
+                title: Text(this.widget._product.title),
+                trailing: IconButton(
+                    icon: IOS_ICO_SHOP, onPressed: null, color: Theme.of(context).accentColor),
+                backgroundColor: Colors.black87)));
   }
 }

@@ -14,7 +14,7 @@ class GridProducts extends StatelessWidget {
       padding: EdgeInsets.all(10),
       itemCount: _products.length,
       itemBuilder: (ctx, item) {
-        return productItemGridOverview(_products[item]);
+        return ProductItemGridOverview(_products[item]);
       },
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
