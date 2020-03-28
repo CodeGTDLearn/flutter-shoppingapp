@@ -7,7 +7,7 @@ import 'package:shopingapp/config/titlesIcons.dart';
 import 'package:shopingapp/widgets/badge.dart';
 
 class CartView extends StatelessWidget {
-  final store = Modular.get<ItemsOverviewGridProductsStore>();
+  final store = Modular.get<IItemsOverviewGridProductsStore>();
 
   @override
   Widget build(BuildContext context) {

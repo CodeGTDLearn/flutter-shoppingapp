@@ -9,6 +9,7 @@ const IOS_ICO_NOFAV = Icon(Icons.favorite_border);
 const IOS_ICO_POPUP = Icon(Icons.more_vert);
 const IOS_TXT_POPUP_FAV = 'Only Favorites';
 const IOS_TXT_POPUP_ALL = 'Show All';
+const IOS_ICO_FAV_NOTIF = Icon(Icons.notifications_active, color: Colors.white);
 
 // 2) CART SCREEN
 const CRT_APPBAR_TITLE = "Your Cart";
