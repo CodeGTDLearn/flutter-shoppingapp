@@ -11,6 +11,7 @@ class GridProductItem extends StatelessWidget {
   Product _product;
   var _servStore = Modular.get<IItemsOverviewGridProductItemStore>();
 
+
   GridProductItem(this._product);
 
   @override
@@ -27,7 +28,10 @@ class GridProductItem extends StatelessWidget {
                             _servStore.favoriteStatus ?? _product.isFavorite
                                 ? IOS_ICO_FAV
                                 : IOS_ICO_NOFAV),
-                    onPressed: () => _servStore.toggleFavoriteStatus(_product.id),
+                    onPressed: () {
+                      _servStore.toggleFavoriteStatus(_product.id);
+
+                    },
                     color: Theme.of(context).accentColor),
                 title: Text(_product.title),
                 trailing: IconButton(

@@ -8,7 +8,7 @@ import '../entities_models/product.dart';
 
 class GridProducts extends StatelessWidget {
   List<Product> _products;
-  final _servStore = Modular.get<IItemsOverviewGridProductsStore>();
+  var _servStore = Modular.get<IItemsOverviewGridProductsStore>();
 
   GridProducts(this._products);
 

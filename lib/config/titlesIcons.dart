@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //SCREENS:
 // 1) ITEM OVERVIEW VIEW
 const IOS_APPBAR_TITLE = "Items For Sale";
+const IOS_APPBAR_FAV_TITLE = "Favorite Items";
 const IOS_ICO_SHOP = Icon(Icons.shopping_cart);
 const IOS_ICO_FAV = Icon(Icons.favorite);
 const IOS_ICO_NOFAV = Icon(Icons.favorite_border);
