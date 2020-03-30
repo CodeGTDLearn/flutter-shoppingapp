@@ -17,14 +17,10 @@ class CartView extends StatelessWidget {
         actions: [
           PopupMenuButton(
             itemBuilder: (_) => [
-              PopupMenuItem(
-                  child: Text(IOS_TXT_POPUP_FAV),
-                  value: ItemsOverviewPopup.Favorites),
-              PopupMenuItem(
-                  child: Text(IOS_TXT_POPUP_ALL), value: ItemsOverviewPopup.All)
+              PopupMenuItem(child: Text(IOS_TXT_POPUP_FAV), value: ItemsOverviewPopup.Favorites),
+              PopupMenuItem(child: Text(IOS_TXT_POPUP_ALL), value: ItemsOverviewPopup.All)
             ],
-            onSelected: (popupOptionSelected) =>
-                store.applyFilter(popupOptionSelected),
+            onSelected: (popupOptionSelected) => store.applyFilter(popupOptionSelected, context),
           ),
           Badge(child: null, value: "10"),
           IconButton(
