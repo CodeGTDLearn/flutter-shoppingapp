@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
 import 'package:shopingapp/service_stores/ItemsOverviewGridProductItemStore.dart';
 
 class ItemDetailView extends StatelessWidget {
@@ -9,6 +10,7 @@ class ItemDetailView extends StatelessWidget {
 
   ItemDetailView(this._id);
 
+  //could be done with Statefull widget as well
   @override
   Widget build(BuildContext context) {
     var _item = _servStore.getById(_id);
@@ -29,7 +31,7 @@ class ItemDetailView extends StatelessWidget {
                 width: double.infinity,
                 child: Text(_item.description,
                     textAlign: TextAlign.center, style: Theme.of(context).textTheme.body1))
-          ],
+          ]
         )));
   }
 }

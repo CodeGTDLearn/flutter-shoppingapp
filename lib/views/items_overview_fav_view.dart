@@ -13,35 +13,37 @@ import '../widgets/badge.dart';
 import '../widgets/drawwer.dart';
 import '../widgets/gridProducts.dart';
 
-class ItemsOverviewView extends StatefulWidget {
+class ItemsOverviewFavView extends StatefulWidget {
   @override
   _ItemsOverviewViewState createState() => _ItemsOverviewViewState();
 }
 
-class _ItemsOverviewViewState extends State<ItemsOverviewView> {
+class _ItemsOverviewViewState extends State<ItemsOverviewFavView> {
   final _servStore = Modular.get<IItemsOverviewGridProductsStore>();
 
   @override
   void initState() {
-    _servStore.applyFilter(ItemsOverviewPopup.All, context);
+    _servStore.applyFilter(ItemsOverviewPopup.Favorites, context);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(IOS_APPBAR_TITLE), actions: [
+      appBar: AppBar(title: Text(IOS_APPBAR_FAV_TITLE), actions: [
         PopupMenuButton(
             itemBuilder: (_) => [
                   PopupMenuItem(
-                      child: Text(IOS_TXT_POPUP_FAV), value: ItemsOverviewPopup.Favorites),
-                  PopupMenuItem(
-                    child: Text(
-                      IOS_TXT_POPUP_ALL,
-                    ),
-                    value: ItemsOverviewPopup.All,
+                    child: Text(IOS_TXT_POPUP_FAV),
+                    value: ItemsOverviewPopup.Favorites,
                     enabled: false,
-                  )
+                  ),
+                  PopupMenuItem(child: Text(IOS_TXT_POPUP_ALL), value: ItemsOverviewPopup.All)
                 ],
             onSelected: (filterSelected) {
               if (filterSelected == ItemsOverviewPopup.All) {
