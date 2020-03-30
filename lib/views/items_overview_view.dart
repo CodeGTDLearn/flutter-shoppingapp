@@ -20,31 +20,15 @@ class ItemsOverviewView extends StatefulWidget {
 
 class _ItemsOverviewViewState extends State<ItemsOverviewView> {
   final _servStore = Modular.get<IItemsOverviewGridProductsStore>();
-  List<ReactionDisposer> disposers;
 
   @override
   void initState() {
-    _servStore.applyFilter(ItemsOverviewPopup.All);
-
-    disposers = [
-      autorun((r) {
-        Flushbar(
-          title: "Sorry...",
-          message: "Favorites not found.",
-          duration: Duration(milliseconds: 2000),
-          icon: IOS_ICO_FAV_NOTIF,
-          shouldIconPulse: true,
-        ).show(context);
-
-
-      })
-    ];
+    _servStore.applyFilter(ItemsOverviewPopup.All, context);
     super.initState();
   }
 
   @override
   void dispose() {
-    disposers.forEach((dispose) => dispose());
     super.dispose();
   }
 
@@ -58,7 +42,7 @@ class _ItemsOverviewViewState extends State<ItemsOverviewView> {
                       child: Text(IOS_TXT_POPUP_FAV), value: ItemsOverviewPopup.Favorites),
                   PopupMenuItem(child: Text(IOS_TXT_POPUP_ALL), value: ItemsOverviewPopup.All)
                 ],
-            onSelected: (filterSelected) => _servStore.applyFilter(filterSelected)),
+            onSelected: (filterSelected) => _servStore.applyFilter(filterSelected,context)),
         Badge(
             child: IconButton(
                 icon: IOS_ICO_SHOP,
@@ -71,31 +55,4 @@ class _ItemsOverviewViewState extends State<ItemsOverviewView> {
       body: Observer(builder: (BuildContext _) => GridProducts(_servStore.filteredProducts)),
     );
   }
-
-  void flushNotifier(String title, String message, int time) {
-    Flushbar(
-      title: title,
-      message: message,
-      duration: Duration(milliseconds: time),
-      icon: IOS_ICO_FAV_NOTIF,
-      shouldIconPulse: true,
-    ).show(context);
-
-//            Flushbar(
-//            title: "Sorry...",
-//            message: "Favorites not found.",
-//            duration: Duration(milliseconds: 2000),
-//            icon: IOS_ICO_FAV_NOTIF,
-//            shouldIconPulse: true,
-//          ).show(context);
-  }
 }
-
-//        if (_servStore.getFavorites() == 0) {
-//          flushNotifier("Sorry...", "Favorites not found.", 2000);
-//        } else if (_servStore.getFavorites() != 0) {
-//          flushNotifier(
-//              "Awesome!", "You have favorites ${_servStore.getFavorites()}.", 2000);
-//        } else {
-//          flushNotifier("Opss...", "There is no products in stock.", 2000);
-//        }

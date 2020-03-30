@@ -32,11 +32,11 @@ mixin _$ItemsOverviewGridProductsStore
       ActionController(name: 'IItemsOverviewGridProductsStore');
 
   @override
-  void applyFilter(ItemsOverviewPopup filter) {
+  void applyFilter(ItemsOverviewPopup filter, BuildContext context) {
     final _$actionInfo =
         _$IItemsOverviewGridProductsStoreActionController.startAction();
     try {
-      return super.applyFilter(filter);
+      return super.applyFilter(filter, context);
     } finally {
       _$IItemsOverviewGridProductsStoreActionController.endAction(_$actionInfo);
     }
