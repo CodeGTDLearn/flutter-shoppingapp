@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shopingapp/entities_models/product.dart';
+import 'package:shopingapp/repositories/cart_repo.dart';
+import 'package:shopingapp/repositories/i_cart_repo.dart';
 import 'package:shopingapp/repositories/i_products_repo.dart';
 import 'package:shopingapp/repositories/products_repo.dart';
 import 'package:shopingapp/service_stores/ItemsOverviewGridProductItemStore.dart';
@@ -24,6 +26,7 @@ class AppModule extends MainModule {
             singleton: false),
         Bind<IProductsRepo>((i) => ProductsRepo()),
         Bind<ICartStore>((i) => CartStore()),
+        Bind<ICartRepo>((i) => CartRepo()),
         Bind((i) => Product),
       ];
 

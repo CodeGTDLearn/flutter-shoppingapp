@@ -1,13 +1,10 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shopingapp/enum/itemOverviewPopup.dart';
 import 'package:shopingapp/service_stores/CartStore.dart';
 import 'package:shopingapp/service_stores/ItemsOverviewGridProductsStore.dart';
-import 'package:shopingapp/config/appProperties.dart';
 import 'package:shopingapp/config/titlesIcons.dart';
-import 'package:shopingapp/widgets/badge.dart';
+import 'package:shopingapp/widgets/cartCardItem.dart';
 
 class CartView extends StatelessWidget {
   final _servGridProductsStore = Modular.get<IItemsOverviewGridProductsStore>();
@@ -48,7 +45,13 @@ class CartView extends StatelessWidget {
                 ]),
               )),
           SizedBox(height: 10),
-          Expanded()
+          Expanded(
+            child: ListView.builder(
+                itemCount: _servCartStore.getAll().length,
+                itemBuilder: (ctx, item) {
+                  CartCardItem(_servCartStore.getAll().values.elementAt(item));
+                }),
+          )
         ],
       ),
     );
