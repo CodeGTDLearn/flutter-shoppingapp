@@ -15,7 +15,7 @@ import '../app_driver.dart';
 import 'appProperties.dart';
 
 class AppModule extends MainModule {
-  // here will be any class you want to inject into your project (eg bloc, dependency)
+
   @override
   List<Bind> get binds => [
         Bind<IItemsOverviewGridProductsStore>((i) => ItemsOverviewGridProductsStore()),
@@ -25,7 +25,7 @@ class AppModule extends MainModule {
         Bind((i) => Product),
       ];
 
-  // here will be the routes of your module
+  
   @override
   List<Router> get routers => [
         Router(ROUTE_ITEM_OVERV_VIEW, child: (_, args) => ItemsOverviewView()),
