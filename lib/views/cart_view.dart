@@ -33,13 +33,15 @@ class CartView extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: <Widget>[
-                  Text(CRT_TXT_CARD),
+                  Text(CRT_TXT_CARD, style: TextStyle(fontSize: 20)),
+                  Spacer(),
                   Chip(
                       label: Text(_servCartStore.getTotalCartAmount(),
-                          style: TextStyle(color: Theme.of(context).primaryTextTheme.title.color))),
-                  Spacer(),
+                          style: TextStyle(color: Theme.of(context).primaryTextTheme.title.color)),
+                      backgroundColor: Theme.of(context).primaryColor),
                   FlatButton(
-                      onPressed: null,
+                      textColor: Theme.of(context).primaryColor,
+                      onPressed: () {},
                       child: Text(CRT_TXT_ORDER,
                           style: TextStyle(color: Theme.of(context).primaryTextTheme.title.color)))
                 ]),

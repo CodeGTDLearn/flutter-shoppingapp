@@ -19,6 +19,6 @@ abstract class ICartStore with Store {
     getAll().forEach((key, itemCart) {
       total += itemCart.price * itemCart.qtde;
     });
-    return total.toString();
+    return total == null ? '00.00' : total.toStringAsFixed(2);
   }
 }
