@@ -7,7 +7,9 @@ import 'package:shopingapp/config/titlesIcons.dart';
 import 'package:shopingapp/widgets/badge.dart';
 
 class CartView extends StatelessWidget {
+
   final _servStore = Modular.get<IItemsOverviewGridProductsStore>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class CartView extends StatelessWidget {
             onSelected: (popupOptionSelected) =>
                 _servStore.applyFilter(popupOptionSelected, context),
           ),
+
         ],
       ),
     );

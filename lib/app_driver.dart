@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'shared/appProperties.dart';
-import 'shared/themes.dart';
+import 'config/appProperties.dart';
+import 'config/themes.dart';
 
 class AppDriver extends StatefulWidget {
   @override
@@ -12,14 +12,13 @@ class AppDriver extends StatefulWidget {
 class _AppDriverState extends State<AppDriver> {
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-        debugShowCheckedModeBanner: APP_DEB_CHECK,
-        title: APP_TITLE,
-        theme: AppTheme().theme,
-        initialRoute: "/",
-        onGenerateRoute: Modular.generateRoute,
-        //routes: Routes().toScreens(),
-
+    return MaterialApp(
+      debugShowCheckedModeBanner: APP_DEB_CHECK,
+      title: APP_TITLE,
+      theme: AppTheme().theme,
+      navigatorKey: Modular.navigatorKey,
+      initialRoute: ROUTE_ITEM_OVERV_VIEW,
+      onGenerateRoute: Modular.generateRoute,
     );
   }
 }
