@@ -28,6 +28,24 @@ mixin _$ItemsOverviewGridProductsStore
     }, _$filteredProductsAtom, name: '${_$filteredProductsAtom.name}_set');
   }
 
+  final _$pageTitleAtom =
+      Atom(name: 'IItemsOverviewGridProductsStore.pageTitle');
+
+  @override
+  String get pageTitle {
+    _$pageTitleAtom.context.enforceReadPolicy(_$pageTitleAtom);
+    _$pageTitleAtom.reportObserved();
+    return super.pageTitle;
+  }
+
+  @override
+  set pageTitle(String value) {
+    _$pageTitleAtom.context.conditionallyRunInAction(() {
+      super.pageTitle = value;
+      _$pageTitleAtom.reportChanged();
+    }, _$pageTitleAtom, name: '${_$pageTitleAtom.name}_set');
+  }
+
   final _$IItemsOverviewGridProductsStoreActionController =
       ActionController(name: 'IItemsOverviewGridProductsStore');
 
@@ -44,7 +62,8 @@ mixin _$ItemsOverviewGridProductsStore
 
   @override
   String toString() {
-    final string = 'filteredProducts: ${filteredProducts.toString()}';
+    final string =
+        'filteredProducts: ${filteredProducts.toString()},pageTitle: ${pageTitle.toString()}';
     return '{$string}';
   }
 }
