@@ -14,11 +14,9 @@ class Badge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        child,
-        Positioned(
+    return Stack(alignment: Alignment.center, children: [
+      child,
+      Positioned(
           right: 8,
           top: 8,
           child: Container(
@@ -28,20 +26,9 @@ class Badge extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.0),
               color: color != null ? color : Theme.of(context).accentColor,
             ),
-            constraints: BoxConstraints(
-              minWidth: 16,
-              minHeight: 16,
-            ),
-            child: Text(
-              value,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 10,
-              ),
-            ),
-          ),
-        )
-      ],
-    );
+            constraints: BoxConstraints(minWidth: 16, minHeight: 16),
+            child: Text(value, textAlign: TextAlign.center, style: TextStyle(fontSize: 10)),
+          ))
+    ]);
   }
 }
