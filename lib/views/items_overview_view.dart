@@ -12,6 +12,7 @@ import '../config/titlesIcons.dart';
 import '../widgets/badge.dart';
 import '../widgets/drawwer.dart';
 import '../widgets/gridProducts.dart';
+import '../widgets/appbar_popup_menu.dart';
 
 class ItemsOverviewView extends StatefulWidget {
   @override
@@ -31,26 +32,7 @@ class _ItemsOverviewViewState extends State<ItemsOverviewView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(IOS_APPBAR_TITLE), actions: [
-        PopupMenuButton(
-            itemBuilder: (_) => [
-                  PopupMenuItem(
-                      child: Text(IOS_TXT_POPUP_FAV), value: ItemsOverviewPopup.Favorites),
-                  PopupMenuItem(
-                    child: Text(
-                      IOS_TXT_POPUP_ALL,
-                    ),
-                    value: ItemsOverviewPopup.All,
-                    enabled: false,
-                  )
-                ],
-            onSelected: (filterSelected) {
-              if (filterSelected == ItemsOverviewPopup.All) {
-                Modular.to.pushNamed(ROUTE_ITEM_OVERV_VIEW);
-              } else if (_servStore.totalFavoritesQtde() > 0) {
-                Modular.to.pushNamed(ROUTE_ITEM_OVERV_FAV_VIEW);
-              }
-              _servStore.applyFilter(filterSelected, context);
-            }),
+        AppbarPopupMenu(allOption: false, favoriteOption: true),
         Badge(
             child: IconButton(
                 icon: IOS_ICO_SHOP,
