@@ -1,4 +1,5 @@
 import 'package:flushbar/flushbar.dart';
+import 'package:shopingapp/widgets/appbar_popup_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -28,31 +29,10 @@ class _ItemsOverviewViewState extends State<ItemsOverviewFavView> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(IOS_APPBAR_FAV_TITLE), actions: [
-        PopupMenuButton(
-            itemBuilder: (_) => [
-                  PopupMenuItem(
-                    child: Text(IOS_TXT_POPUP_FAV),
-                    value: ItemsOverviewPopup.Favorites,
-                    enabled: false,
-                  ),
-                  PopupMenuItem(child: Text(IOS_TXT_POPUP_ALL), value: ItemsOverviewPopup.All)
-                ],
-            onSelected: (filterSelected) {
-              if (filterSelected == ItemsOverviewPopup.All) {
-                Modular.to.pushNamed(ROUTE_ITEM_OVERV_VIEW);
-              } else if (_servStore.totalFavoritesQtde() > 0) {
-                Modular.to.pushNamed(ROUTE_ITEM_OVERV_FAV_VIEW);
-              }
-              _servStore.applyFilter(filterSelected, context);
-            }),
+        AppbarPopupMenu(allOption: true, favoriteOption: false),
         Badge(
             child: IconButton(
                 icon: IOS_ICO_SHOP,
