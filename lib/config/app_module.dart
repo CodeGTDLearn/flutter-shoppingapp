@@ -9,7 +9,6 @@ import 'package:shopingapp/repositories/products_repo.dart';
 import 'package:shopingapp/service_stores/ItemsOverviewGridProductItemStore.dart';
 import 'package:shopingapp/service_stores/ItemsOverviewGridProductsStore.dart';
 import 'package:shopingapp/service_stores/CartStore.dart';
-import 'package:shopingapp/views/cart_view.dart';
 
 import 'package:shopingapp/views/item_detail_view.dart';
 import 'package:shopingapp/views/items_overview_fav_view.dart';
