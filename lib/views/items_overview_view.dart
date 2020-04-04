@@ -10,7 +10,7 @@ import '../enum/itemOverviewPopup.dart';
 import '../service_stores/ItemsOverviewGridProductsStore.dart';
 import '../config/appProperties.dart';
 import '../config/titlesIcons.dart';
-import '../widgets/badge.dart';
+import '../widgets/BadgeShopCartObserver.dart';
 import '../widgets/drawwer.dart';
 import '../widgets/gridProducts.dart';
 import '../widgets/appbar_popup_menu.dart';
@@ -35,14 +35,7 @@ class _ItemsOverviewViewState extends State<ItemsOverviewView> {
     return Scaffold(
       appBar: AppBar(title: Text(IOS_APPBAR_TITLE), actions: [
         AppbarPopupMenu(allOption: false, favoriteOption: true),
-        Observer(
-            builder: (BuildContext _) => Badge(
-                child: IconButton(
-                    icon: IOS_ICO_SHOP,
-                    onPressed: () {
-                      Navigator.pushNamed(context, ROUTE_CART);
-                    }),
-                value: _servCartStore.totalCartItems))
+        BadgeShopCartObserver()
       ]),
       drawer: Drawwer(),
       body: Observer(

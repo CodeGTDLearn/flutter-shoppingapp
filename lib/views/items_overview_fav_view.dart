@@ -11,7 +11,7 @@ import '../enum/itemOverviewPopup.dart';
 import '../service_stores/ItemsOverviewGridProductsStore.dart';
 import '../config/appProperties.dart';
 import '../config/titlesIcons.dart';
-import '../widgets/badge.dart';
+import '../widgets/BadgeShopCartObserver.dart';
 import '../widgets/drawwer.dart';
 import '../widgets/gridProducts.dart';
 
@@ -33,15 +33,9 @@ class _ItemsOverviewViewState extends State<ItemsOverviewFavView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(IOS_APPBAR_FAV_TITLE), actions: [
-        AppbarPopupMenu(allOption: true, favoriteOption: false),
-        Observer(
-            builder: (BuildContext _) => Badge(
-                  child: IconButton(
-                      icon: IOS_ICO_SHOP,
-                      onPressed: () => Navigator.pushNamed(context, ROUTE_CART)),
-                value: _servCartStore.totalCartItems))
-      ]),
+      appBar: AppBar(
+          title: Text(IOS_APPBAR_FAV_TITLE),
+          actions: [AppbarPopupMenu(allOption: true, favoriteOption: false), BadgeShopCartObserver()]),
       drawer: Drawwer(),
       body: Observer(
           builder: (BuildContext _) => GridProducts(_GridProductsServStore.filteredProducts)),

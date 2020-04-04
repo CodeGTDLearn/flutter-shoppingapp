@@ -14,6 +14,9 @@ abstract class ICartStore with Store {
   final _repo = Modular.get<ICartRepo>();
 
   @observable
+  String totalCartMoneyAmount = "0";
+
+  @observable
   String totalCartItems = "0";
 
   Map<String, CartItem> getAll() {
@@ -27,20 +30,22 @@ abstract class ICartStore with Store {
   }
 
   @action
-  void removeCartItem(Product product) {
-    if (_repo.getById(product.id) != null) {
-      _repo.removeCartItem(product);
+  void removeCartItem(CartItem cartItem) {
+    if (_repo.getById(cartItem.id) != null) {
+      _repo.removeCartItem(cartItem);
     } else {
       FlushNotifier('Ops...', 'Product not found.', 2000);
     }
   }
 
-  String getTotalCartAmount() {
+  @action
+  String getTotalCartMoneyAmount() {
     double total = 0;
     getAll().forEach((key, itemCart) {
       total += itemCart.price * itemCart.qtde;
     });
-    return total == null ? '00.00' : total.toStringAsFixed(2);
+    totalCartMoneyAmount = total == null ? '00.00' : total.toStringAsFixed(2);
+    return total.toString();
   }
 
   void clearCart() {

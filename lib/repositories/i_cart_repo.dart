@@ -6,7 +6,7 @@ abstract class ICartRepo {
 
   void addCartItem(Product product);
 
-  void removeCartItem(Product product);
+  void removeCartItem(CartItem cartItem);
 
   void clearCart();
 

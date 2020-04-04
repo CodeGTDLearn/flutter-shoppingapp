@@ -9,6 +9,26 @@ part of 'CartStore.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$CartStore on ICartStore, Store {
+  final _$totalCartMoneyAmountAtom =
+      Atom(name: 'ICartStore.totalCartMoneyAmount');
+
+  @override
+  String get totalCartMoneyAmount {
+    _$totalCartMoneyAmountAtom.context
+        .enforceReadPolicy(_$totalCartMoneyAmountAtom);
+    _$totalCartMoneyAmountAtom.reportObserved();
+    return super.totalCartMoneyAmount;
+  }
+
+  @override
+  set totalCartMoneyAmount(String value) {
+    _$totalCartMoneyAmountAtom.context.conditionallyRunInAction(() {
+      super.totalCartMoneyAmount = value;
+      _$totalCartMoneyAmountAtom.reportChanged();
+    }, _$totalCartMoneyAmountAtom,
+        name: '${_$totalCartMoneyAmountAtom.name}_set');
+  }
+
   final _$totalCartItemsAtom = Atom(name: 'ICartStore.totalCartItems');
 
   @override
@@ -39,10 +59,20 @@ mixin _$CartStore on ICartStore, Store {
   }
 
   @override
-  void removeCartItem(Product product) {
+  void removeCartItem(CartItem cartItem) {
     final _$actionInfo = _$ICartStoreActionController.startAction();
     try {
-      return super.removeCartItem(product);
+      return super.removeCartItem(cartItem);
+    } finally {
+      _$ICartStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  String getTotalCartMoneyAmount() {
+    final _$actionInfo = _$ICartStoreActionController.startAction();
+    try {
+      return super.getTotalCartMoneyAmount();
     } finally {
       _$ICartStoreActionController.endAction(_$actionInfo);
     }
@@ -50,7 +80,8 @@ mixin _$CartStore on ICartStore, Store {
 
   @override
   String toString() {
-    final string = 'totalCartItems: ${totalCartItems.toString()}';
+    final string =
+        'totalCartMoneyAmount: ${totalCartMoneyAmount.toString()},totalCartItems: ${totalCartItems.toString()}';
     return '{$string}';
   }
 }

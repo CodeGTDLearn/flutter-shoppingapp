@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shopingapp/enum/itemOverviewPopup.dart';
 import 'package:shopingapp/service_stores/CartStore.dart';
@@ -24,9 +25,12 @@ class CartView extends StatelessWidget {
                     Text(CRT_TXT_CARD, style: TextStyle(fontSize: 20)),
                     Spacer(),
                     Chip(
-                        label: Text(_servCartStore.getTotalCartAmount(),
-                            style:
-                                TextStyle(color: Theme.of(context).primaryTextTheme.title.color)),
+                      //todo: fix amount when the item is demissed
+                        label: Observer(
+                            builder: (BuildContext _) => Text(
+                                _servCartStore.getTotalCartMoneyAmount(),
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryTextTheme.title.color))),
                         backgroundColor: Theme.of(context).primaryColor),
                     FlatButton(
                         textColor: Theme.of(context).primaryColor,

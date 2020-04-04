@@ -23,8 +23,8 @@ class CartRepo implements ICartRepo {
   }
 
   @override
-  void removeCartItem(Product product) {
-    _listCartItems.remove(product.id);
+  void removeCartItem(CartItem cartItem) {
+    _listCartItems.remove(cartItem.id);
   }
 
   @override
