@@ -9,6 +9,7 @@ import 'package:shopingapp/repositories/products_repo.dart';
 import 'package:shopingapp/service_stores/ItemsOverviewGridProductItemStore.dart';
 import 'package:shopingapp/service_stores/ItemsOverviewGridProductsStore.dart';
 import 'package:shopingapp/service_stores/CartStore.dart';
+import 'package:shopingapp/views/cart_view.dart';
 
 import 'package:shopingapp/views/item_detail_view.dart';
 import 'package:shopingapp/views/items_overview_fav_view.dart';
@@ -36,7 +37,7 @@ class AppModule extends MainModule {
         Router(ROUTE_ITEM_OVERV_VIEW, child: (_, args) => ItemsOverviewView()),
         Router(ROUTE_ITEM_OVERV_FAV_VIEW,
             child: (_, args) => ItemsOverviewFavView(), transition: TransitionType.noTransition),
-        //Router(ROUTE_CART, child: (_, args) => CartView()),
+        Router(ROUTE_CART, child: (_, args) => CartView()),
         Router(ROUTE_ITEM_DETAIL + ':id', child: (_, args) => ItemDetailView(args.params['id'])),
       ];
 

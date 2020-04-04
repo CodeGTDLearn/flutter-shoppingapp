@@ -1,4 +1,5 @@
 import 'package:shopingapp/entities_models/cart_item.dart';
+import 'package:shopingapp/entities_models/product.dart';
 import 'package:shopingapp/repositories/i_cart_repo.dart';
 
 class CartRepo implements ICartRepo {
@@ -7,5 +8,44 @@ class CartRepo implements ICartRepo {
   @override
   Map<String, CartItem> getAll() {
     return {..._listCartItems};
+  }
+
+  @override
+  void addCartItem(Product product) {
+    if (_listCartItems.containsKey(product.id)) {
+      _listCartItems.update(product.id, (itemFound) {
+        return CartItem(itemFound.id, itemFound.title, itemFound.qtde + 1, itemFound.price);
+      });
+    } else {
+      _listCartItems.putIfAbsent(
+          product.id, () => CartItem(product.id, product.title, 1, product.price));
+    }
+  }
+
+  @override
+  void removeCartItem(Product product) {
+    _listCartItems.remove(product.id);
+  }
+
+  @override
+  void clearCart() {
+    if (getAll().length != 0) _listCartItems.clear();
+  }
+
+  @override
+  CartItem getById(String id) {
+    _listCartItems.forEach((ctx, item) {
+      return item.id == id;
+    });
+    return null;
+  }
+
+  @override
+  String getTotalQtdeItems() {
+    int totalQtdeItems = 0;
+    _listCartItems.forEach((x,item){
+      totalQtdeItems += item.qtde;
+    });
+    return totalQtdeItems.toString();
   }
 }

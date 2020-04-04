@@ -1,4 +1,5 @@
 import 'package:flushbar/flushbar.dart';
+import 'package:shopingapp/service_stores/CartStore.dart';
 import 'package:shopingapp/widgets/appbar_popup_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -20,11 +21,12 @@ class ItemsOverviewFavView extends StatefulWidget {
 }
 
 class _ItemsOverviewViewState extends State<ItemsOverviewFavView> {
-  final _servStore = Modular.get<IItemsOverviewGridProductsStore>();
+  final _GridProductsServStore = Modular.get<IItemsOverviewGridProductsStore>();
+  final _servCartStore = Modular.get<ICartStore>();
 
   @override
   void initState() {
-    _servStore.applyFilter(ItemsOverviewPopup.Favorites, context);
+    _GridProductsServStore.applyFilter(ItemsOverviewPopup.Favorites, context);
     super.initState();
   }
 
@@ -33,16 +35,16 @@ class _ItemsOverviewViewState extends State<ItemsOverviewFavView> {
     return Scaffold(
       appBar: AppBar(title: Text(IOS_APPBAR_FAV_TITLE), actions: [
         AppbarPopupMenu(allOption: true, favoriteOption: false),
-        Badge(
-            child: IconButton(
-                icon: IOS_ICO_SHOP,
-                onPressed: () {
-                  Navigator.pushNamed(context, ROUTE_CART);
-                }),
-            value: "10")
+        Observer(
+            builder: (BuildContext _) => Badge(
+                  child: IconButton(
+                      icon: IOS_ICO_SHOP,
+                      onPressed: () => Navigator.pushNamed(context, ROUTE_CART)),
+                value: _servCartStore.totalCartItems))
       ]),
       drawer: Drawwer(),
-      body: Observer(builder: (BuildContext _) => GridProducts(_servStore.filteredProducts)),
+      body: Observer(
+          builder: (BuildContext _) => GridProducts(_GridProductsServStore.filteredProducts)),
     );
   }
 }

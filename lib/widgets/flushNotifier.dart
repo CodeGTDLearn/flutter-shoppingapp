@@ -7,8 +7,6 @@ class FlushNotifier {
   final String _message;
   final int _duration;
 
-//  final Icon _icon;
-
   FlushNotifier(this._title, this._message, this._duration);
 
   Future<Widget> show(BuildContext context) {

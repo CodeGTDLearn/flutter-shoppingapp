@@ -7,7 +7,7 @@ import 'package:shopingapp/config/titlesIcons.dart';
 import 'package:shopingapp/widgets/cartCardItem.dart';
 
 class CartView extends StatelessWidget {
-  final _servGridProductsStore = Modular.get<IItemsOverviewGridProductsStore>();
+//  final _servGridProductsStore = Modular.get<IItemsOverviewGridProductsStore>();
   final _servCartStore = Modular.get<ICartStore>();
 
   @override
@@ -40,7 +40,7 @@ class CartView extends StatelessWidget {
               child: ListView.builder(
                   itemCount: _servCartStore.getAll().length,
                   itemBuilder: (ctx, item) {
-                    CartCardItem(_servCartStore.getAll().values.elementAt(item));
+                    return CartCardItem(_servCartStore.getAll().values.elementAt(item));
                   }))
         ],
       ),

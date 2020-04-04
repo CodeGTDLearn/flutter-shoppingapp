@@ -23,11 +23,10 @@ class GridProducts extends StatelessWidget {
               return GridProductItem(_products[item]);
             },
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 3 / 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-            ),
+                crossAxisCount: 2,
+                childAspectRatio: 3 / 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10),
           );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shopingapp/config/appProperties.dart';
+import 'package:shopingapp/service_stores/CartStore.dart';
 
 import '../service_stores/ItemsOverviewGridProductItemStore.dart';
 import '../entities_models/product.dart';
@@ -9,8 +10,8 @@ import '../config/titlesIcons.dart';
 
 class GridProductItem extends StatelessWidget {
   Product _product;
-  var _servStore = Modular.get<IItemsOverviewGridProductItemStore>();
-
+  var _GridProductItemServStore = Modular.get<IItemsOverviewGridProductItemStore>();
+  var _CartServStore = Modular.get<ICartStore>();
 
   GridProductItem(this._product);
 
@@ -25,17 +26,24 @@ class GridProductItem extends StatelessWidget {
                 leading: IconButton(
                     icon: Observer(
                         builder: (BuildContext context) =>
-                            _servStore.favoriteStatus ?? _product.isFavorite
-                                ? IOS_ICO_FAV
-                                : IOS_ICO_NOFAV),
+                        _GridProductItemServStore.favoriteStatus ?? _product.isFavorite
+                            ? IOS_ICO_FAV
+                            : IOS_ICO_NOFAV),
                     onPressed: () {
-                      _servStore.toggleFavoriteStatus(_product.id);
-
+                      _GridProductItemServStore.toggleFavoriteStatus(_product.id);
                     },
-                    color: Theme.of(context).accentColor),
+                    color: Theme
+                        .of(context)
+                        .accentColor),
                 title: Text(_product.title),
                 trailing: IconButton(
-                    icon: IOS_ICO_SHOP, onPressed: null, color: Theme.of(context).accentColor),
+                    icon: IOS_ICO_SHOP,
+                    onPressed: () {
+                      _CartServStore.addCartItem(_product);
+                    },
+                    color: Theme
+                        .of(context)
+                        .accentColor),
                 backgroundColor: Colors.black87)));
   }
 }
