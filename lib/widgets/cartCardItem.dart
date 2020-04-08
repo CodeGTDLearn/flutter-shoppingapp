@@ -20,9 +20,7 @@ class CartCardItem extends StatelessWidget {
             padding: EdgeInsets.only(right: 20),
             margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(2), color: Theme
-                .of(context)
-                .errorColor)),
+                borderRadius: BorderRadius.circular(2), color: Theme.of(context).errorColor)),
         direction: DismissDirection.endToStart,
         onDismissed: (direction) {
           _servCartStore.removeCartItem(_cartItem);
@@ -37,7 +35,8 @@ class CartCardItem extends StatelessWidget {
                           padding: EdgeInsets.all(5),
                           child: FittedBox(child: Text('\$${_cartItem.price}')))),
                   title: Text(_cartItem.title),
-                  subtitle: Text('Total \$${(_cartItem.price * _cartItem.qtde)}'),
+                  subtitle:
+                      Text('Total \$${(_cartItem.price * _cartItem.qtde).toStringAsFixed(2)}'),
                   trailing: Text('x${_cartItem.qtde}')),
             )));
   }

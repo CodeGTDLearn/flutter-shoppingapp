@@ -11,11 +11,11 @@ class CartView extends StatefulWidget {
 }
 
 class _CartViewState extends State<CartView> {
-  final _servCartStore = Modular.get<ICartStore>();
+  final _servStore = Modular.get<ICartStore>();
 
   @override
   void initState() {
-    _servCartStore.calcTotalCartMoneyAmount();
+    _servStore.calcTotalCartMoneyAmount();
   }
 
   @override
@@ -23,7 +23,12 @@ class _CartViewState extends State<CartView> {
     return Scaffold(
       appBar: AppBar(
         title: Text(CRT_APPBAR_TITLE),
-
+        actions: <Widget>[
+          IconButton(
+              icon: CRT_ICO_CLRALL,
+              onPressed: () => _servStore.clearCartItems(),
+              tooltip: CRT_ICO_CLRALL_TIP)
+        ],
       ),
       body: Column(
         children: [
@@ -36,7 +41,7 @@ class _CartViewState extends State<CartView> {
                     Spacer(),
                     Chip(
                         label: Observer(
-                            builder: (BuildContext _) => Text(_servCartStore.totalMoneyCartItems,
+                            builder: (BuildContext _) => Text(_servStore.totalMoneyCartItems,
                                 style: TextStyle(
                                     color: Theme.of(context).primaryTextTheme.title.color))),
                         backgroundColor: Theme.of(context).primaryColor),
@@ -50,9 +55,9 @@ class _CartViewState extends State<CartView> {
           SizedBox(height: 10),
           Expanded(
               child: ListView.builder(
-                  itemCount: _servCartStore.getAll().length,
+                  itemCount: _servStore.getAll().length,
                   itemBuilder: (ctx, item) {
-                    return CartCardItem(_servCartStore.getAll().values.elementAt(item));
+                    return CartCardItem(_servStore.getAll().values.elementAt(item));
                   }))
         ],
       ),

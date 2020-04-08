@@ -17,6 +17,8 @@ const CRT_APPBAR_TITLE = "Your Cart";
 const CRT_TXT_CARD = "Total";
 const CRT_TXT_ORDER = "Order Now";
 const CRT_ICO_DEL = Icon(Icons.delete, color: Colors.white, size: 40);
+const CRT_ICO_CLRALL = Icon(Icons.clear_all);
+const CRT_ICO_CLRALL_TIP = "Clear All";
 
 // 3) ORDERS VIEW
 const ORD_TITLE_PAGE = "Your Orders";

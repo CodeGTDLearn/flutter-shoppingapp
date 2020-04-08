@@ -25,13 +25,13 @@ abstract class ICartStore with Store {
   @action
   void addCartItem(Product product) {
     _repo.addCartItem(product);
-    calcTotalQtdeCartItems();
+    calcTotalCartQtdeItems();
   }
 
   @action
   void removeCartItem(CartItem cartItem) {
     _repo.removeCartItem(cartItem);
-    calcTotalQtdeCartItems();
+    calcTotalCartQtdeItems();
     calcTotalCartMoneyAmount();
   }
 
@@ -42,19 +42,19 @@ abstract class ICartStore with Store {
       total += itemCart.price * itemCart.qtde;
     });
     totalMoneyCartItems = total.toStringAsFixed(2);
+//    totalMoneyCartItems = total == 0 ? 0 : total.toStringAsFixed(2);
   }
 
   void clearCartItems() {
-    _repo.clearCartItems;
+    _repo.clearCartItems();
     calcTotalCartMoneyAmount();
-    calcTotalQtdeCartItems();
+    calcTotalCartQtdeItems();
+    Modular.to.pop();
   }
 
-  void calcTotalQtdeCartItems() {
+  void calcTotalCartQtdeItems() {
     int totalQtdeItems = 0;
-    getAll().forEach((x, item) {
-      totalQtdeItems += item.qtde;
-    });
+    getAll().forEach((x, item) => totalQtdeItems += item.qtde);
     totalQtdeCartItems = totalQtdeItems.toString();
   }
 }
