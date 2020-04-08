@@ -27,6 +27,7 @@ class CartCardItem extends StatelessWidget {
         onDismissed: (direction) {
           _servCartStore.removeCartItem(_cartItem);
         },
+        //
         child: Card(
             margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
             child: Padding(
