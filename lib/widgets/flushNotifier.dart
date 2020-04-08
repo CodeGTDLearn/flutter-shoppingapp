@@ -6,15 +6,16 @@ class FlushNotifier {
   final String _title;
   final String _message;
   final int _duration;
+  final BuildContext _context;
 
-  FlushNotifier(this._title, this._message, this._duration);
+  FlushNotifier(this._title, this._message, this._duration, this._context);
 
-  Future<Widget> show(BuildContext context) {
+  Future<Widget> show() {
     return Flushbar(
       title: _title,
       message: _message,
       duration: Duration(milliseconds: _duration),
       icon: IOS_ICO_FAV_NOTIF,
-    ).show(context);
+    ).show(_context);
   }
 }

@@ -32,9 +32,7 @@ abstract class ICartStore with Store {
   @action
   void removeCartItem(CartItem cartItem) {
     if (_repo.getById(cartItem.id) != null) {
-      _repo.removeCartItem(cartItem);
-    } else {
-      FlushNotifier('Ops...', 'Product not found.', 2000);
+      _repo.removeCartItem(cartItem); //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     }
   }
 

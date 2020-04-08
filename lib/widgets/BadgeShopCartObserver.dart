@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shopingapp/config/appProperties.dart';
 import 'package:shopingapp/config/titlesIcons.dart';
 import 'package:shopingapp/service_stores/CartStore.dart';
+import 'package:shopingapp/widgets/flushNotifier.dart';
 
 class BadgeShopCartObserver extends StatelessWidget {
   const BadgeShopCartObserver({
@@ -23,7 +24,15 @@ class BadgeShopCartObserver extends StatelessWidget {
     return Observer(
         builder: (BuildContext _) => Stack(alignment: Alignment.center, children: [
               IconButton(
-                  icon: IOS_ICO_SHOP, onPressed: () => Navigator.pushNamed(context, ROUTE_CART)),
+                  icon: IOS_ICO_SHOP,
+                  onPressed: () {
+                    if (_servCartStore.totalCartItems == "0") {
+                      FlushNotifier(FLBAR_TIT_CARTEMPTY, FLBAR_MSG_CARTEMPTY, FLBAR_TIME, context)
+                          .show();
+                    } else {
+                      Navigator.pushNamed(context, ROUTE_CART);
+                    }
+                  }),
               Positioned(
                   right: 8,
                   top: 8,
