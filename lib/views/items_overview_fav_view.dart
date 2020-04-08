@@ -1,15 +1,10 @@
-import 'package:flushbar/flushbar.dart';
-import 'package:shopingapp/service_stores/CartStore.dart';
 import 'package:shopingapp/widgets/appbar_popup_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobx/mobx.dart';
-import 'package:shopingapp/widgets/flushNotifier.dart';
 
 import '../enum/itemOverviewPopup.dart';
 import '../service_stores/ItemsOverviewGridProductsStore.dart';
-import '../config/appProperties.dart';
 import '../config/titlesIcons.dart';
 import '../widgets/BadgeShopCartObserver.dart';
 import '../widgets/drawwer.dart';
@@ -22,7 +17,6 @@ class ItemsOverviewFavView extends StatefulWidget {
 
 class _ItemsOverviewViewState extends State<ItemsOverviewFavView> {
   final _GridProductsServStore = Modular.get<IItemsOverviewGridProductsStore>();
-  final _servCartStore = Modular.get<ICartStore>();
 
   @override
   void initState() {

@@ -8,9 +8,7 @@ abstract class ICartRepo {
 
   void removeCartItem(CartItem cartItem);
 
-  void clearCart();
+  void clearCartItems();
 
   CartItem getById(String id);
-
-  String getTotalQtdeItems();
 }

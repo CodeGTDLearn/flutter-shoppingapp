@@ -10,7 +10,7 @@ class FlushNotifier {
 
   FlushNotifier(this._title, this._message, this._duration, this._context);
 
-  Future<Widget> show() {
+  Future<Object> show() {
     return Flushbar(
       title: _title,
       message: _message,

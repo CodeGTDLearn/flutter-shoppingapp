@@ -1,20 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shopingapp/enum/itemOverviewPopup.dart';
 import 'package:shopingapp/service_stores/CartStore.dart';
-import 'package:shopingapp/service_stores/ItemsOverviewGridProductsStore.dart';
 import 'package:shopingapp/config/titlesIcons.dart';
 import 'package:shopingapp/widgets/cartCardItem.dart';
 
-class CartView extends StatelessWidget {
-//  final _servGridProductsStore = Modular.get<IItemsOverviewGridProductsStore>();
+class CartView extends StatefulWidget {
+  @override
+  _CartViewState createState() => _CartViewState();
+}
+
+class _CartViewState extends State<CartView> {
   final _servCartStore = Modular.get<ICartStore>();
+
+  @override
+  void initState() {
+    _servCartStore.calcTotalCartMoneyAmount();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(CRT_APPBAR_TITLE)),
+      appBar: AppBar(
+        title: Text(CRT_APPBAR_TITLE),
+
+      ),
       body: Column(
         children: [
           Card(
@@ -25,10 +35,8 @@ class CartView extends StatelessWidget {
                     Text(CRT_TXT_CARD, style: TextStyle(fontSize: 20)),
                     Spacer(),
                     Chip(
-                      //todo: fix amount when the item is demissed
                         label: Observer(
-                            builder: (BuildContext _) => Text(
-                                _servCartStore.getTotalCartMoneyAmount(),
+                            builder: (BuildContext _) => Text(_servCartStore.totalMoneyCartItems,
                                 style: TextStyle(
                                     color: Theme.of(context).primaryTextTheme.title.color))),
                         backgroundColor: Theme.of(context).primaryColor),

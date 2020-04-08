@@ -9,8 +9,8 @@ import 'package:shopingapp/widgets/flushNotifier.dart';
 class BadgeShopCartObserver extends StatelessWidget {
   const BadgeShopCartObserver({
     Key key,
-    @required this.child,
-    @required this.value,
+    this.child,
+    this.value,
     this.color,
   }) : super(key: key);
 
@@ -26,7 +26,7 @@ class BadgeShopCartObserver extends StatelessWidget {
               IconButton(
                   icon: IOS_ICO_SHOP,
                   onPressed: () {
-                    if (_servCartStore.totalCartItems == "0") {
+                    if (_servCartStore.totalQtdeCartItems == "0") {
                       FlushNotifier(FLBAR_TIT_CARTEMPTY, FLBAR_MSG_CARTEMPTY, FLBAR_TIME, context)
                           .show();
                     } else {
@@ -43,7 +43,7 @@ class BadgeShopCartObserver extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10.0),
                           color: color != null ? color : Theme.of(context).accentColor),
                       constraints: BoxConstraints(minWidth: 16, minHeight: 16),
-                      child: Text(_servCartStore.totalCartItems,
+                      child: Text(_servCartStore.totalQtdeCartItems,
                           textAlign: TextAlign.center, style: TextStyle(fontSize: 10))))
             ]));
   }
