@@ -3,7 +3,6 @@ import 'package:mobx/mobx.dart';
 
 import 'package:shopingapp/entities_models/cart_item.dart';
 import 'package:shopingapp/repositories/i_cart_repo.dart';
-import 'package:shopingapp/widgets/flushNotifier.dart';
 import '../entities_models/product.dart';
 
 part 'CartStore.g.dart';
@@ -14,10 +13,10 @@ abstract class ICartStore with Store {
   final _repo = Modular.get<ICartRepo>();
 
   @observable
-  String totalCartMoneyAmount = "0";
+  String totalMoneyCartItems = "0";
 
   @observable
-  String totalCartItems = "0";
+  String totalQtdeCartItems = "0";
 
   Map<String, CartItem> getAll() {
     return _repo.getAll();
@@ -26,27 +25,36 @@ abstract class ICartStore with Store {
   @action
   void addCartItem(Product product) {
     _repo.addCartItem(product);
-    totalCartItems = _repo.getTotalQtdeItems();
+    calcTotalCartQtdeItems();
   }
 
   @action
   void removeCartItem(CartItem cartItem) {
-    if (_repo.getById(cartItem.id) != null) {
-      _repo.removeCartItem(cartItem); //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    }
+    _repo.removeCartItem(cartItem);
+    calcTotalCartQtdeItems();
+    calcTotalCartMoneyAmount();
   }
 
   @action
-  String getTotalCartMoneyAmount() {
+  void calcTotalCartMoneyAmount() {
     double total = 0;
     getAll().forEach((key, itemCart) {
       total += itemCart.price * itemCart.qtde;
     });
-    totalCartMoneyAmount = total == null ? '00.00' : total.toStringAsFixed(2);
-    return total.toString();
+    totalMoneyCartItems = total.toStringAsFixed(2);
+//    totalMoneyCartItems = total == 0 ? 0 : total.toStringAsFixed(2);
   }
 
-  void clearCart() {
-    _repo.clearCart;
+  void clearCartItems() {
+    _repo.clearCartItems();
+    calcTotalCartMoneyAmount();
+    calcTotalCartQtdeItems();
+    Modular.to.pop();
+  }
+
+  void calcTotalCartQtdeItems() {
+    int totalQtdeItems = 0;
+    getAll().forEach((x, item) => totalQtdeItems += item.qtde);
+    totalQtdeCartItems = totalQtdeItems.toString();
   }
 }

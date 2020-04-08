@@ -28,7 +28,7 @@ class CartRepo implements ICartRepo {
   }
 
   @override
-  void clearCart() {
+  void clearCartItems() {
     if (getAll().length != 0) _listCartItems.clear();
   }
 
@@ -38,14 +38,5 @@ class CartRepo implements ICartRepo {
       return item.id == id;
     });
     return null;
-  }
-
-  @override
-  String getTotalQtdeItems() {
-    int totalQtdeItems = 0;
-    _listCartItems.forEach((x,item){
-      totalQtdeItems += item.qtde;
-    });
-    return totalQtdeItems.toString();
   }
 }

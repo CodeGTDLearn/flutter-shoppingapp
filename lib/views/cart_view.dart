@@ -1,20 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shopingapp/enum/itemOverviewPopup.dart';
 import 'package:shopingapp/service_stores/CartStore.dart';
-import 'package:shopingapp/service_stores/ItemsOverviewGridProductsStore.dart';
 import 'package:shopingapp/config/titlesIcons.dart';
 import 'package:shopingapp/widgets/cartCardItem.dart';
 
-class CartView extends StatelessWidget {
-//  final _servGridProductsStore = Modular.get<IItemsOverviewGridProductsStore>();
-  final _servCartStore = Modular.get<ICartStore>();
+class CartView extends StatefulWidget {
+  @override
+  _CartViewState createState() => _CartViewState();
+}
+
+class _CartViewState extends State<CartView> {
+  final _servStore = Modular.get<ICartStore>();
+
+  @override
+  void initState() {
+    _servStore.calcTotalCartMoneyAmount();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(CRT_APPBAR_TITLE)),
+      appBar: AppBar(
+        title: Text(CRT_APPBAR_TITLE),
+        actions: <Widget>[
+          IconButton(
+              icon: CRT_ICO_CLRALL,
+              onPressed: () => _servStore.clearCartItems(),
+              tooltip: CRT_ICO_CLRALL_TIP)
+        ],
+      ),
       body: Column(
         children: [
           Card(
@@ -25,10 +40,8 @@ class CartView extends StatelessWidget {
                     Text(CRT_TXT_CARD, style: TextStyle(fontSize: 20)),
                     Spacer(),
                     Chip(
-                      //todo: fix amount when the item is demissed
                         label: Observer(
-                            builder: (BuildContext _) => Text(
-                                _servCartStore.getTotalCartMoneyAmount(),
+                            builder: (BuildContext _) => Text(_servStore.totalMoneyCartItems,
                                 style: TextStyle(
                                     color: Theme.of(context).primaryTextTheme.title.color))),
                         backgroundColor: Theme.of(context).primaryColor),
@@ -42,9 +55,9 @@ class CartView extends StatelessWidget {
           SizedBox(height: 10),
           Expanded(
               child: ListView.builder(
-                  itemCount: _servCartStore.getAll().length,
+                  itemCount: _servStore.getAll().length,
                   itemBuilder: (ctx, item) {
-                    return CartCardItem(_servCartStore.getAll().values.elementAt(item));
+                    return CartCardItem(_servStore.getAll().values.elementAt(item));
                   }))
         ],
       ),
