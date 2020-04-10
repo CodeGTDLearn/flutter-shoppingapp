@@ -26,8 +26,8 @@ class BadgeShopCartObserver extends StatelessWidget {
               IconButton(
                   icon: IOS_ICO_SHOP,
                   onPressed: () {
-                    if (_servCartStore.totalQtdeCartItems == "0") {
-                      FlushNotifier(FLBAR_TIT_CARTEMPTY, FLBAR_MSG_CARTEMPTY, FLBAR_TIME, context)
+                    if (_servCartStore.totalQtdeCartItems == 0) {
+                      FlushNotifier(FLBAR_TIT_OPS, FLBAR_MSG_CARTEMPTY, FLBAR_TIME, context)
                           .show();
                     } else {
                       Navigator.pushNamed(context, ROUTE_CART);
@@ -43,7 +43,7 @@ class BadgeShopCartObserver extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10.0),
                           color: color != null ? color : Theme.of(context).accentColor),
                       constraints: BoxConstraints(minWidth: 16, minHeight: 16),
-                      child: Text(_servCartStore.totalQtdeCartItems,
+                      child: Text(_servCartStore.totalQtdeCartItems.toString(),
                           textAlign: TextAlign.center, style: TextStyle(fontSize: 10))))
             ]));
   }

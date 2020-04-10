@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shopingapp/config/titlesIcons.dart';
 import 'package:shopingapp/service_stores/OrdersStore.dart';
+import 'package:shopingapp/widgets/OrderCollapsableTile.dart';
 
 class OrderView extends StatefulWidget {
   @override
@@ -8,15 +10,21 @@ class OrderView extends StatefulWidget {
 }
 
 class _OrderViewState extends State<OrderView> {
-  final store = Modular.get<OrdersStore>();
+  final _store = Modular.get<OrdersStore>();
 
   @override
   void initState() {}
 
-
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(title: Text(ORD_TITLE_PAGE)),
+      drawer: null,
+      body: Container(
+          child: ListView.builder(
+        itemCount: _store.getAll().length,
+        itemBuilder: (ctx, item) => OrderCollapsableTile(_store.getAll()[item]),
+      )),
+    );
   }
-
 }

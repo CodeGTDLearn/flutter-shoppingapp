@@ -13,6 +13,7 @@ dependencies:
   mobx: ^1.1.0
   flutter_mobx:
   flushbar: ^1.9.1
+  intl: ^0.16.1
 
   cupertino_icons: ^0.1.2
 

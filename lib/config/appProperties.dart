@@ -1,4 +1,6 @@
 //GENERAL PROPERTIES
+import 'package:shopingapp/views/item_detail_view.dart';
+
 const APP_TITLE = "MyShopp";
 const APP_DEB_CHECK = false;
 
@@ -11,4 +13,7 @@ const ROUTE_ORDERS = '/orders';
 
 //FLUSHBAR
 const FLBAR_TIME = 2000;
+
+//ORDERS-ITEM
+const DATE_FORM = 'dd MMM yyyy - hh:mm';
 
