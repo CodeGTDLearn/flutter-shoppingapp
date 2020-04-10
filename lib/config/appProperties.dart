@@ -7,7 +7,7 @@ const ROUTE_ITEM_OVERV_VIEW = '/';
 const ROUTE_ITEM_OVERV_FAV_VIEW = '/item-overview-favorites';
 const ROUTE_ITEM_DETAIL = '/item-details/';
 const ROUTE_CART = '/cart-items';
-const ROUTE_ORDERS = '/cart-orders';
+const ROUTE_ORDERS = '/orders';
 
 //FLUSHBAR
 const FLBAR_TIME = 2000;
