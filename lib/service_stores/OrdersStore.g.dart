@@ -9,6 +9,23 @@ part of 'OrdersStore.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$OrdersStore on IOrdersStore, Store {
+  final _$collapsingIconAtom = Atom(name: 'IOrdersStore.collapsingIcon');
+
+  @override
+  Icon get collapsingIcon {
+    _$collapsingIconAtom.context.enforceReadPolicy(_$collapsingIconAtom);
+    _$collapsingIconAtom.reportObserved();
+    return super.collapsingIcon;
+  }
+
+  @override
+  set collapsingIcon(Icon value) {
+    _$collapsingIconAtom.context.conditionallyRunInAction(() {
+      super.collapsingIcon = value;
+      _$collapsingIconAtom.reportChanged();
+    }, _$collapsingIconAtom, name: '${_$collapsingIconAtom.name}_set');
+  }
+
   final _$isCollapsedAtom = Atom(name: 'IOrdersStore.isCollapsed');
 
   @override
@@ -58,7 +75,7 @@ mixin _$OrdersStore on IOrdersStore, Store {
   @override
   String toString() {
     final string =
-        'isCollapsed: ${isCollapsed.toString()},totalOrders: ${totalOrders.toString()}';
+        'collapsingIcon: ${collapsingIcon.toString()},isCollapsed: ${isCollapsed.toString()},totalOrders: ${totalOrders.toString()}';
     return '{$string}';
   }
 }

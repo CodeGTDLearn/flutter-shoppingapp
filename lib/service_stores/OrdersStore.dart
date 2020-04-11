@@ -13,6 +13,7 @@ class OrdersStore = IOrdersStore with _$OrdersStore;
 abstract class IOrdersStore with Store {
   final _repo = Modular.get<IOrdersRepo>();
 
+  @observable
   Icon collapsingIcon;
 
   @observable

@@ -23,5 +23,4 @@ abstract class IItemsOverviewGridProductItemStore with Store {
   Product getById(String id){
     return _repo.getById(id);
   }
-
 }
