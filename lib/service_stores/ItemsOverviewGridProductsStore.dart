@@ -30,9 +30,9 @@ abstract class IItemsOverviewGridProductsStore with Store {
     } else if (filter == ItemsOverviewPopup.All && totalItemsQtde() != 0) {
       filteredProducts = _repo.getAll();
     } else if (filter == ItemsOverviewPopup.Favorites && totalFavoritesQtde() == 0) {
-      FlushNotifier(FLBAR_TIT_NOFAV, FLBAR_MSG_NOFAV, FLBAR_TIME, context).show();
+      FlushNotifier(FLBAR_TIT_SORRY, FLBAR_MSG_NOFAV, FLBAR_TIME, context).show();
     } else if (filter == ItemsOverviewPopup.All && totalItemsQtde() == 0) {
-      FlushNotifier(FLBAR_TIT_DBEMPTY, FLBAR_MSG_DBEMPTY, FLBAR_TIME, context).show();
+      FlushNotifier(FLBAR_TIT_OPS, FLBAR_MSG_DBEMPTY, FLBAR_TIME, context).show();
     }
 
     //pageTitle = filter == ItemsOverviewPopup.Favorites ? IOS_APPBAR_FAV_TITLE : IOS_APPBAR_TITLE;

@@ -13,10 +13,10 @@ abstract class ICartStore with Store {
   final _repo = Modular.get<ICartRepo>();
 
   @observable
-  String totalMoneyCartItems = "0";
+  double totalMoneyCartItems = 0.0;
 
   @observable
-  String totalQtdeCartItems = "0";
+  int totalQtdeCartItems = 0;
 
   Map<String, CartItem> getAll() {
     return _repo.getAll();
@@ -41,8 +41,7 @@ abstract class ICartStore with Store {
     getAll().forEach((key, itemCart) {
       total += itemCart.price * itemCart.qtde;
     });
-    totalMoneyCartItems = total.toStringAsFixed(2);
-//    totalMoneyCartItems = total == 0 ? 0 : total.toStringAsFixed(2);
+    totalMoneyCartItems = total;
   }
 
   void clearCartItems() {
@@ -55,6 +54,6 @@ abstract class ICartStore with Store {
   void calcTotalCartQtdeItems() {
     int totalQtdeItems = 0;
     getAll().forEach((x, item) => totalQtdeItems += item.qtde);
-    totalQtdeCartItems = totalQtdeItems.toString();
+    totalQtdeCartItems = totalQtdeItems;
   }
 }

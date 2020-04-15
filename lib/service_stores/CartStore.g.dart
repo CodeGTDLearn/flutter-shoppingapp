@@ -13,7 +13,7 @@ mixin _$CartStore on ICartStore, Store {
       Atom(name: 'ICartStore.totalMoneyCartItems');
 
   @override
-  String get totalMoneyCartItems {
+  double get totalMoneyCartItems {
     _$totalMoneyCartItemsAtom.context
         .enforceReadPolicy(_$totalMoneyCartItemsAtom);
     _$totalMoneyCartItemsAtom.reportObserved();
@@ -21,7 +21,7 @@ mixin _$CartStore on ICartStore, Store {
   }
 
   @override
-  set totalMoneyCartItems(String value) {
+  set totalMoneyCartItems(double value) {
     _$totalMoneyCartItemsAtom.context.conditionallyRunInAction(() {
       super.totalMoneyCartItems = value;
       _$totalMoneyCartItemsAtom.reportChanged();
@@ -32,7 +32,7 @@ mixin _$CartStore on ICartStore, Store {
   final _$totalQtdeCartItemsAtom = Atom(name: 'ICartStore.totalQtdeCartItems');
 
   @override
-  String get totalQtdeCartItems {
+  int get totalQtdeCartItems {
     _$totalQtdeCartItemsAtom.context
         .enforceReadPolicy(_$totalQtdeCartItemsAtom);
     _$totalQtdeCartItemsAtom.reportObserved();
@@ -40,7 +40,7 @@ mixin _$CartStore on ICartStore, Store {
   }
 
   @override
-  set totalQtdeCartItems(String value) {
+  set totalQtdeCartItems(int value) {
     _$totalQtdeCartItemsAtom.context.conditionallyRunInAction(() {
       super.totalQtdeCartItems = value;
       _$totalQtdeCartItemsAtom.reportChanged();

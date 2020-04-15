@@ -29,7 +29,7 @@ const ORD_ICO_EXPLES = Icon(Icons.expand_less);
 // 4) DRAWER
 const DRW_TXT_APPBAR = "Hello Seller";
 const DRW_ICO_SHOP = Icon(Icons.shop);
-const DRW_TITLE_SHOP = "Shop";
+const DRW_TITLE_SHOP = "Cart";
 const DRW_ICO_PAY = Icon(Icons.payment);
 const DRW_TITLE_PAY = "Orders";
 
@@ -37,12 +37,12 @@ const DRW_TITLE_PAY = "Orders";
 const GP_TXT_NOTIF = 'There is no products in the database.';
 
 //FLUSH-BAR
-const FLBAR_TIT_DBEMPTY = "Ops...";
+const FLBAR_TIT_OPS = "Ops...";
+const FLBAR_TIT_SORRY = "Sorry...";
 const FLBAR_MSG_DBEMPTY = "There is no item in database.";
-const FLBAR_TIT_NOFAV = "Sorry...";
 const FLBAR_MSG_NOFAV = "Favorites not found.";
-const FLBAR_TIT_CARTEMPTY = "Ops...";
-const FLBAR_MSG_CARTEMPTY= "No items in the cart yet.";
+const FLBAR_MSG_CARTEMPTY= "No items in the cart, yet.";
+const FLBAR_MSG_NOORDER= "No orders were done, yet.";
 
 
 

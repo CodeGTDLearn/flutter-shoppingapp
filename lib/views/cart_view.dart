@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shopingapp/service_stores/CartStore.dart';
 import 'package:shopingapp/config/titlesIcons.dart';
+import 'package:shopingapp/service_stores/OrdersStore.dart';
 import 'package:shopingapp/widgets/cartCardItem.dart';
 
 class CartView extends StatefulWidget {
@@ -11,27 +12,27 @@ class CartView extends StatefulWidget {
 }
 
 class _CartViewState extends State<CartView> {
-  final _servStore = Modular.get<ICartStore>();
+  final _servCartStore = Modular.get<ICartStore>();
+  final _servOrderStore = Modular.get<IOrdersStore>();
 
   @override
   void initState() {
-    _servStore.calcTotalCartMoneyAmount();
+    _servCartStore.calcTotalCartMoneyAmount();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(CRT_APPBAR_TITLE),
-        actions: <Widget>[
-          IconButton(
-              icon: CRT_ICO_CLRALL,
-              onPressed: () => _servStore.clearCartItems(),
-              tooltip: CRT_ICO_CLRALL_TIP)
-        ],
-      ),
-      body: Column(
-        children: [
+        appBar: AppBar(
+          title: Text(CRT_APPBAR_TITLE),
+          actions: <Widget>[
+            IconButton(
+                icon: CRT_ICO_CLRALL,
+                onPressed: () => _servCartStore.clearCartItems(),
+                tooltip: CRT_ICO_CLRALL_TIP)
+          ],
+        ),
+        body: Column(children: [
           Card(
               margin: EdgeInsets.all(15),
               child: Padding(
@@ -41,26 +42,35 @@ class _CartViewState extends State<CartView> {
                     Spacer(),
                     Chip(
                         label: Observer(
-                            builder: (BuildContext _) => Text(_servStore.totalMoneyCartItems,
+                            builder: (BuildContext _) => Text(
+                                _servCartStore.totalMoneyCartItems
+                                    .toStringAsFixed(2),
                                 style: TextStyle(
-                                    color: Theme.of(context).primaryTextTheme.title.color))),
+                                    color: Theme.of(context)
+                                        .primaryTextTheme
+                                        .title
+                                        .color))),
                         backgroundColor: Theme.of(context).primaryColor),
                     FlatButton(
-                        textColor: Theme.of(context).primaryColor,
-                        onPressed: () {},
+                        onPressed: () {
+                          _servOrderStore.addOrder(
+                            _servCartStore.getAll().values.toList(),
+                            _servCartStore.totalMoneyCartItems,
+                          );
+                          _servCartStore.clearCartItems();
+                        },
                         child: Text(CRT_TXT_ORDER,
-                            style:
-                                TextStyle(color: Theme.of(context).primaryTextTheme.title.color)))
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor)))
                   ]))),
           SizedBox(height: 10),
           Expanded(
               child: ListView.builder(
-                  itemCount: _servStore.getAll().length,
+                  itemCount: _servCartStore.getAll().length,
                   itemBuilder: (ctx, item) {
-                    return CartCardItem(_servStore.getAll().values.elementAt(item));
+                    return CartCardItem(
+                        _servCartStore.getAll().values.elementAt(item));
                   }))
-        ],
-      ),
-    );
+        ]));
   }
 }
