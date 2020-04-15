@@ -10,7 +10,7 @@ class OrderView extends StatefulWidget {
 }
 
 class _OrderViewState extends State<OrderView> {
-  final _store = Modular.get<OrdersStore>();
+  final _store = Modular.get<IOrdersStore>();
 
   @override
   void initState() {}

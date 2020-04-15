@@ -29,7 +29,7 @@ const ORD_ICO_EXPLES = Icon(Icons.expand_less);
 // 4) DRAWER
 const DRW_TXT_APPBAR = "Hello Seller";
 const DRW_ICO_SHOP = Icon(Icons.shop);
-const DRW_TITLE_SHOP = "Shop";
+const DRW_TITLE_SHOP = "Cart";
 const DRW_ICO_PAY = Icon(Icons.payment);
 const DRW_TITLE_PAY = "Orders";
 

@@ -12,6 +12,7 @@ import 'package:shopingapp/repositories/products_repo.dart';
 import 'package:shopingapp/service_stores/ItemsOverviewGridProductItemStore.dart';
 import 'package:shopingapp/service_stores/ItemsOverviewGridProductsStore.dart';
 import 'package:shopingapp/service_stores/CartStore.dart';
+import 'package:shopingapp/service_stores/OrderCollapsableTileStore.dart';
 import 'package:shopingapp/service_stores/OrdersStore.dart';
 import 'package:shopingapp/views/cart_view.dart';
 
@@ -26,16 +27,15 @@ import 'appProperties.dart';
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
-        Bind<IItemsOverviewGridProductsStore>(
-            (i) => ItemsOverviewGridProductsStore()),
-        Bind<IItemsOverviewGridProductItemStore>(
-            (i) => ItemsOverviewGridProductItemStore(),
+        Bind<IItemsOverviewGridProductsStore>((i) => ItemsOverviewGridProductsStore()),
+        Bind<IItemsOverviewGridProductItemStore>((i) => ItemsOverviewGridProductItemStore(),
             singleton: false),
         Bind<IProductsRepo>((i) => ProductsRepo()),
         Bind<ICartRepo>((i) => CartRepo()),
         Bind<ICartStore>((i) => CartStore()),
         Bind<IOrdersRepo>((i) => OrdersRepo()),
         Bind<IOrdersStore>((i) => OrdersStore()),
+        Bind<IOrderCollapsableTileStore>((i) => OrderCollapsableTileStore(), singleton: false),
         Bind((i) => Product),
       ];
 
@@ -43,12 +43,10 @@ class AppModule extends MainModule {
   List<Router> get routers => [
         Router(ROUTE_ITEM_OVERV_VIEW, child: (_, args) => ItemsOverviewView()),
         Router(ROUTE_ITEM_OVERV_FAV_VIEW,
-            child: (_, args) => ItemsOverviewFavView(),
-            transition: TransitionType.noTransition),
+            child: (_, args) => ItemsOverviewFavView(), transition: TransitionType.noTransition),
         Router(ROUTE_CART, child: (_, args) => CartView()),
         Router(ROUTE_ORDERS, child: (_, args) => OrderView()),
-        Router(ROUTE_ITEM_DETAIL + ':id',
-            child: (_, args) => ItemDetailView(args.params['id'])),
+        Router(ROUTE_ITEM_DETAIL + ':id', child: (_, args) => ItemDetailView(args.params['id'])),
       ];
 
   @override
