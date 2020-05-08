@@ -5,12 +5,12 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 import 'package:shopingapp/config/appProperties.dart';
 import 'package:shopingapp/config/titlesIcons.dart';
-import 'package:shopingapp/entities_models/order.dart';
+import 'package:shopingapp/entities_models/Order.dart';
 import 'package:shopingapp/service_stores/OrderCollapsableTileStore.dart';
 
 class OrderCollapsableTile extends StatefulWidget {
   final Order _order;
-  final _CollapseTileStore = Modular.get<IOrderCollapsableTileStore>();
+  final _CollapseTileStore = Modular.get<OrderCollapsableTileStoreInt>();
 
   OrderCollapsableTile(this._order);
 
@@ -38,9 +38,9 @@ class _OrderCollapsableTileState extends State<OrderCollapsableTile> {
                     boxShadow: [_boxShadow(Colors.grey, 5.0)]),
                 child: ListTile(
                     dense: true,
-                    title: Text(widget._order.amount.toStringAsFixed(2)),
-                    subtitle: Text(
-                        DateFormat(DATE_FORM).format(widget._order.datetime)),
+                    title: Text(widget._order.get_amount().toStringAsFixed(2)),
+                    subtitle: Text(DateFormat(DATE_FORMAT)
+                        .format(widget._order.get_datetime())),
                     trailing: IconButton(
                         icon: widget._CollapseTileStore.collapsingTileIcon,
                         onPressed: () =>
@@ -49,7 +49,7 @@ class _OrderCollapsableTileState extends State<OrderCollapsableTile> {
               Visibility(
                 visible: widget._CollapseTileStore.isTileCollapsed,
                 child: Container(
-                    height: widget._order.cartItemsList.length * 38.0,
+                    height: widget._order.get_cartItemsList().length * 38.0,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(2.0),
                         color: Colors.white,
@@ -58,15 +58,16 @@ class _OrderCollapsableTileState extends State<OrderCollapsableTile> {
                     padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
                     child: ListView(
                         padding: EdgeInsets.all(5),
-                        children: widget._order.cartItemsList
+                        children: widget._order
+                            .get_cartItemsList()
                             .map((item) => Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      _rowContainer('${item.title}', 18),
-                                      _rowContainer('x${item.qtde}', 18),
+                                      _rowContainer('${item.get_title()}', 18),
+                                      _rowContainer('x${item.get_qtde()}', 18),
                                       _rowContainer(
-                                          '${item.price.toString()}', 18)
+                                          '${item.get_price().toString()}', 18)
                                     ]))
                             .toList())),
               )

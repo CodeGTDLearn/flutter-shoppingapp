@@ -12,27 +12,26 @@ import '../widgets/gridProducts.dart';
 
 class ItemsOverviewFavView extends StatefulWidget {
   @override
-  _ItemsOverviewViewState createState() => _ItemsOverviewViewState();
+  ItemsOverviewViewState createState() => ItemsOverviewViewState();
 }
 
-class _ItemsOverviewViewState extends State<ItemsOverviewFavView> {
-  final _GridProductsServStore = Modular.get<IItemsOverviewGridProductsStore>();
+class ItemsOverviewViewState extends State<ItemsOverviewFavView> {
+  final _store = Modular.get<ItemsOverviewGridProductsStoreInt>();
 
   @override
   void initState() {
-    _GridProductsServStore.applyFilter(ItemsOverviewPopup.Favorites, context);
+    _store.applyFilter(ItemsOverviewPopup.Favorites, context);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text(IOS_APPBAR_FAV_TITLE),
-          actions: [AppbarPopupMenu(allOption: true, favoriteOption: false), BadgeShopCartObserver()]),
-      drawer: Drawwer(),
-      body: Observer(
-          builder: (BuildContext _) => GridProducts(_GridProductsServStore.filteredProducts)),
-    );
+        appBar: AppBar(title: Text(IOS_APPBAR_FAV_TIT), actions: [
+          AppbarPopupMenu(allOption: true, favoriteOption: false),
+          BadgeShopCartObserver()
+        ]),
+        drawer: Drawwer(),
+        body: Observer(builder: (BuildContext _) => GridProducts(_store.filteredProducts)));
   }
 }

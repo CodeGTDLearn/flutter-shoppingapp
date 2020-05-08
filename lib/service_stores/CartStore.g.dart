@@ -8,9 +8,9 @@ part of 'CartStore.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$CartStore on ICartStore, Store {
+mixin _$CartStore on CartStoreInt, Store {
   final _$totalMoneyCartItemsAtom =
-      Atom(name: 'ICartStore.totalMoneyCartItems');
+      Atom(name: 'CartStoreInt.totalMoneyCartItems');
 
   @override
   double get totalMoneyCartItems {
@@ -29,7 +29,8 @@ mixin _$CartStore on ICartStore, Store {
         name: '${_$totalMoneyCartItemsAtom.name}_set');
   }
 
-  final _$totalQtdeCartItemsAtom = Atom(name: 'ICartStore.totalQtdeCartItems');
+  final _$totalQtdeCartItemsAtom =
+      Atom(name: 'CartStoreInt.totalQtdeCartItems');
 
   @override
   int get totalQtdeCartItems {
@@ -47,35 +48,35 @@ mixin _$CartStore on ICartStore, Store {
     }, _$totalQtdeCartItemsAtom, name: '${_$totalQtdeCartItemsAtom.name}_set');
   }
 
-  final _$ICartStoreActionController = ActionController(name: 'ICartStore');
+  final _$CartStoreIntActionController = ActionController(name: 'CartStoreInt');
 
   @override
   void addCartItem(Product product) {
-    final _$actionInfo = _$ICartStoreActionController.startAction();
+    final _$actionInfo = _$CartStoreIntActionController.startAction();
     try {
       return super.addCartItem(product);
     } finally {
-      _$ICartStoreActionController.endAction(_$actionInfo);
+      _$CartStoreIntActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void removeCartItem(CartItem cartItem) {
-    final _$actionInfo = _$ICartStoreActionController.startAction();
+    final _$actionInfo = _$CartStoreIntActionController.startAction();
     try {
       return super.removeCartItem(cartItem);
     } finally {
-      _$ICartStoreActionController.endAction(_$actionInfo);
+      _$CartStoreIntActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void calcTotalCartMoneyAmount() {
-    final _$actionInfo = _$ICartStoreActionController.startAction();
+    final _$actionInfo = _$CartStoreIntActionController.startAction();
     try {
       return super.calcTotalCartMoneyAmount();
     } finally {
-      _$ICartStoreActionController.endAction(_$actionInfo);
+      _$CartStoreIntActionController.endAction(_$actionInfo);
     }
   }
 

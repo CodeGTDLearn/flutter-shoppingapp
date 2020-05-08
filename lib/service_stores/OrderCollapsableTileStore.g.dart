@@ -8,9 +8,9 @@ part of 'OrderCollapsableTileStore.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$OrderCollapsableTileStore on IOrderCollapsableTileStore, Store {
+mixin _$OrderCollapsableTileStore on OrderCollapsableTileStoreInt, Store {
   final _$collapsingTileIconAtom =
-      Atom(name: 'IOrderCollapsableTileStore.collapsingTileIcon');
+      Atom(name: 'OrderCollapsableTileStoreInt.collapsingTileIcon');
 
   @override
   Icon get collapsingTileIcon {
@@ -29,7 +29,7 @@ mixin _$OrderCollapsableTileStore on IOrderCollapsableTileStore, Store {
   }
 
   final _$isTileCollapsedAtom =
-      Atom(name: 'IOrderCollapsableTileStore.isTileCollapsed');
+      Atom(name: 'OrderCollapsableTileStoreInt.isTileCollapsed');
 
   @override
   bool get isTileCollapsed {
@@ -46,17 +46,17 @@ mixin _$OrderCollapsableTileStore on IOrderCollapsableTileStore, Store {
     }, _$isTileCollapsedAtom, name: '${_$isTileCollapsedAtom.name}_set');
   }
 
-  final _$IOrderCollapsableTileStoreActionController =
-      ActionController(name: 'IOrderCollapsableTileStore');
+  final _$OrderCollapsableTileStoreIntActionController =
+      ActionController(name: 'OrderCollapsableTileStoreInt');
 
   @override
   void toggleCollapseTile() {
     final _$actionInfo =
-        _$IOrderCollapsableTileStoreActionController.startAction();
+        _$OrderCollapsableTileStoreIntActionController.startAction();
     try {
       return super.toggleCollapseTile();
     } finally {
-      _$IOrderCollapsableTileStoreActionController.endAction(_$actionInfo);
+      _$OrderCollapsableTileStoreIntActionController.endAction(_$actionInfo);
     }
   }
 

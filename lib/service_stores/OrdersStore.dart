@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:shopingapp/entities_models/cart_item.dart';
-import 'package:shopingapp/entities_models/order.dart';
-import 'package:shopingapp/repositories/i_orders_repo.dart';
+import 'package:shopingapp/entities_models/CartItem.dart';
+import 'package:shopingapp/entities_models/Order.dart';
+import 'package:shopingapp/repositories/OrdersRepoInt.dart';
 
 part 'OrdersStore.g.dart';
 
-class OrdersStore = IOrdersStore with _$OrdersStore;
+class OrdersStore = OrdersStoreInt with _$OrdersStore;
 
-abstract class IOrdersStore with Store {
-  final _repo = Modular.get<IOrdersRepo>();
+abstract class OrdersStoreInt with Store {
+  final _repo = Modular.get<OrdersRepoInt>();
 
   @observable
   int totalOrders = 0;

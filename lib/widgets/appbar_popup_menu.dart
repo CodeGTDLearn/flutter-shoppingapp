@@ -17,7 +17,7 @@ class AppbarPopupMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _servStore = Modular.get<IItemsOverviewGridProductsStore>();
+    final _servStore = Modular.get<ItemsOverviewGridProductsStoreInt>();
     return PopupMenuButton(
         itemBuilder: (_) => [
               PopupMenuItem(
@@ -33,9 +33,9 @@ class AppbarPopupMenu extends StatelessWidget {
             ],
         onSelected: (filterSelected) {
           if (filterSelected == ItemsOverviewPopup.All) {
-            Modular.to.pushNamed(ROUTE_ITEM_OVERV_VIEW);
+            Modular.to.pushNamed(RT_OVERV_VIEW);
           } else if (_servStore.totalFavoritesQtde() > 0) {
-            Modular.to.pushNamed(ROUTE_ITEM_OVERV_FAV_VIEW);
+            Modular.to.pushNamed(RT_OVERV_FAV_VIEW);
           }
           _servStore.applyFilter(filterSelected, context);
         });

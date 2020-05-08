@@ -16,24 +16,22 @@ class ItemsOverviewView extends StatefulWidget {
 }
 
 class _ItemsOverviewViewState extends State<ItemsOverviewView> {
-  final _GridProductsServStore = Modular.get<IItemsOverviewGridProductsStore>();
+  final _store = Modular.get<ItemsOverviewGridProductsStoreInt>();
 
   @override
   void initState() {
-    _GridProductsServStore.applyFilter(ItemsOverviewPopup.All, context);
+    _store.applyFilter(ItemsOverviewPopup.All, context);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(IOS_APPBAR_TITLE), actions: [
-        AppbarPopupMenu(allOption: false, favoriteOption: true),
-        BadgeShopCartObserver()
-      ]),
-      drawer: Drawwer(),
-      body: Observer(
-          builder: (BuildContext _) => GridProducts(_GridProductsServStore.filteredProducts)),
-    );
+        appBar: AppBar(title: Text(IOS_APPBAR_TIT), actions: [
+          AppbarPopupMenu(allOption: false, favoriteOption: true),
+          BadgeShopCartObserver()
+        ]),
+        drawer: Drawwer(),
+        body: Observer(builder: (BuildContext _) => GridProducts(_store.filteredProducts)));
   }
 }

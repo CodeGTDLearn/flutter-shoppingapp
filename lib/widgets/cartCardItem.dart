@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shopingapp/config/titlesIcons.dart';
-import 'package:shopingapp/entities_models/cart_item.dart';
+import 'package:shopingapp/entities_models/CartItem.dart';
 import 'package:shopingapp/service_stores/CartStore.dart';
 
 class CartCardItem extends StatelessWidget {
   CartItem _cartItem;
-  final _servCartStore = Modular.get<ICartStore>();
+  final _servCartStore = Modular.get<CartStoreInt>();
 
   CartCardItem(this._cartItem);
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-        key: ValueKey(_cartItem.id),
+        key: ValueKey(_cartItem.get_id()),
         background: Container(
             child: CRT_ICO_DEL,
             alignment: Alignment.centerRight,
@@ -34,11 +34,11 @@ class CartCardItem extends StatelessWidget {
                   leading: CircleAvatar(
                       child: Padding(
                           padding: EdgeInsets.all(5),
-                          child: FittedBox(child: Text('\$${_cartItem.price}')))),
-                  title: Text(_cartItem.title),
+                          child: FittedBox(child: Text('\$${_cartItem.get_price()}')))),
+                  title: Text(_cartItem.get_title()),
                   subtitle:
-                      Text('Total \$${(_cartItem.price * _cartItem.qtde).toStringAsFixed(2)}'),
-                  trailing: Text('x${_cartItem.qtde}')),
+                      Text('Total \$${(_cartItem.get_price() * _cartItem.get_price()).toStringAsFixed(2)}'),
+                  trailing: Text('x${_cartItem.get_price()}')),
             )));
   }
 }

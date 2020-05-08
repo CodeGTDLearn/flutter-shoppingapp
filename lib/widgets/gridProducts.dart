@@ -4,11 +4,11 @@ import 'package:shopingapp/config/titlesIcons.dart';
 import 'package:shopingapp/service_stores/ItemsOverviewGridProductsStore.dart';
 
 import '../widgets/gridProductItem.dart';
-import '../entities_models/product.dart';
+import '../entities_models/Product.dart';
 
 class GridProducts extends StatelessWidget {
   List<Product> _products;
-  var _servStore = Modular.get<IItemsOverviewGridProductsStore>();
+  var _servStore = Modular.get<ItemsOverviewGridProductsStoreInt>();
 
   GridProducts(this._products);
 

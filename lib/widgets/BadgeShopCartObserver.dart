@@ -20,17 +20,17 @@ class BadgeShopCartObserver extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _servCartStore = Modular.get<ICartStore>();
+    final _servCartStore = Modular.get<CartStoreInt>();
     return Observer(
         builder: (BuildContext _) => Stack(alignment: Alignment.center, children: [
               IconButton(
                   icon: IOS_ICO_SHOP,
                   onPressed: () {
                     if (_servCartStore.totalQtdeCartItems == 0) {
-                      FlushNotifier(FLBAR_TIT_OPS, FLBAR_MSG_CARTEMPTY, FLBAR_TIME, context)
+                      FlushNotifier(FLB_TIT_OPS, FLB_MSG_CARTEMPTY, FLB_TIME, context)
                           .show();
                     } else {
-                      Navigator.pushNamed(context, ROUTE_CART);
+                      Navigator.pushNamed(context, RT_CART);
                     }
                   }),
               Positioned(

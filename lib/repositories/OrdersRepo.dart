@@ -1,7 +1,7 @@
-import 'package:shopingapp/entities_models/order.dart';
-import 'package:shopingapp/repositories/i_orders_repo.dart';
+import 'package:shopingapp/entities_models/Order.dart';
+import 'package:shopingapp/repositories/OrdersRepoInt.dart';
 
-class OrdersRepo implements IOrdersRepo {
+class OrdersRepo implements OrdersRepoInt {
   List<Order> _orders = [];
 
   @override

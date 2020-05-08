@@ -12,26 +12,23 @@ class CartView extends StatefulWidget {
 }
 
 class _CartViewState extends State<CartView> {
-  final _servCartStore = Modular.get<ICartStore>();
-  final _servOrderStore = Modular.get<IOrdersStore>();
+  final _cartStore = Modular.get<CartStoreInt>();
+  final _orderStore = Modular.get<OrdersStoreInt>();
 
   @override
   void initState() {
-    _servCartStore.calcTotalCartMoneyAmount();
+    _cartStore.calcTotalCartMoneyAmount();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(CRT_APPBAR_TITLE),
-          actions: <Widget>[
-            IconButton(
-                icon: CRT_ICO_CLRALL,
-                onPressed: () => _servCartStore.clearCartItems(),
-                tooltip: CRT_ICO_CLRALL_TIP)
-          ],
-        ),
+        appBar: AppBar(title: Text(CRT_APPBAR_TIT), actions: <Widget>[
+          IconButton(
+              icon: CRT_ICO_CLRALL,
+              onPressed: () => _cartStore.clearCartItems(),
+              tooltip: CRT_ICO_CLRALL_TIP)
+        ]),
         body: Column(children: [
           Card(
               margin: EdgeInsets.all(15),
@@ -43,33 +40,27 @@ class _CartViewState extends State<CartView> {
                     Chip(
                         label: Observer(
                             builder: (BuildContext _) => Text(
-                                _servCartStore.totalMoneyCartItems
-                                    .toStringAsFixed(2),
+                                _cartStore.totalMoneyCartItems.toStringAsFixed(2),
                                 style: TextStyle(
-                                    color: Theme.of(context)
-                                        .primaryTextTheme
-                                        .title
-                                        .color))),
+                                    color: Theme.of(context).primaryTextTheme.title.color))),
                         backgroundColor: Theme.of(context).primaryColor),
                     FlatButton(
                         onPressed: () {
-                          _servOrderStore.addOrder(
-                            _servCartStore.getAll().values.toList(),
-                            _servCartStore.totalMoneyCartItems,
+                          _orderStore.addOrder(
+                            _cartStore.getAll().values.toList(),
+                            _cartStore.totalMoneyCartItems,
                           );
-                          _servCartStore.clearCartItems();
+                          _cartStore.clearCartItems();
                         },
                         child: Text(CRT_TXT_ORDER,
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor)))
+                            style: TextStyle(color: Theme.of(context).primaryColor)))
                   ]))),
           SizedBox(height: 10),
           Expanded(
               child: ListView.builder(
-                  itemCount: _servCartStore.getAll().length,
+                  itemCount: _cartStore.getAll().length,
                   itemBuilder: (ctx, item) {
-                    return CartCardItem(
-                        _servCartStore.getAll().values.elementAt(item));
+                    return CartCardItem(_cartStore.getAll().values.elementAt(item));
                   }))
         ]));
   }

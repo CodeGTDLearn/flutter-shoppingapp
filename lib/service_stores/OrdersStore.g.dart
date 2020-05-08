@@ -8,8 +8,8 @@ part of 'OrdersStore.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$OrdersStore on IOrdersStore, Store {
-  final _$totalOrdersAtom = Atom(name: 'IOrdersStore.totalOrders');
+mixin _$OrdersStore on OrdersStoreInt, Store {
+  final _$totalOrdersAtom = Atom(name: 'OrdersStoreInt.totalOrders');
 
   @override
   int get totalOrders {

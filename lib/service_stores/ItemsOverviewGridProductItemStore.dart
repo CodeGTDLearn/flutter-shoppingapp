@@ -1,15 +1,15 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:shopingapp/entities_models/product.dart';
-import 'package:shopingapp/repositories/i_products_repo.dart';
+import 'package:shopingapp/entities_models/Product.dart';
+import 'package:shopingapp/repositories/ProductsRepoInt.dart';
 
 part 'ItemsOverviewGridProductItemStore.g.dart';
 
-class ItemsOverviewGridProductItemStore = IItemsOverviewGridProductItemStore
+class ItemsOverviewGridProductItemStore = ItemsOverviewGridProductItemStoreInt
     with _$ItemsOverviewGridProductItemStore;
 
-abstract class IItemsOverviewGridProductItemStore with Store {
-  final _repo = Modular.get<IProductsRepo>();
+abstract class ItemsOverviewGridProductItemStoreInt with Store {
+  final _repo = Modular.get<ProductsRepoInt>();
 
   @observable
   bool favoriteStatus;
@@ -17,7 +17,7 @@ abstract class IItemsOverviewGridProductItemStore with Store {
   @action
   void toggleFavoriteStatus(String id) {
     _repo.toggleFavoriteStatus(id);
-    favoriteStatus = _repo.getById(id).isFavorite;
+    favoriteStatus = _repo.getById(id).get_isFavorite();
   }
 
   Product getById(String id){

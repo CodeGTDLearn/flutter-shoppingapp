@@ -1,16 +1,16 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
-import 'package:shopingapp/entities_models/cart_item.dart';
-import 'package:shopingapp/repositories/i_cart_repo.dart';
-import '../entities_models/product.dart';
+import 'package:shopingapp/entities_models/CartItem.dart';
+import 'package:shopingapp/repositories/CartRepoInt.dart';
+import '../entities_models/Product.dart';
 
 part 'CartStore.g.dart';
 
-class CartStore = ICartStore with _$CartStore;
+class CartStore = CartStoreInt with _$CartStore;
 
-abstract class ICartStore with Store {
-  final _repo = Modular.get<ICartRepo>();
+abstract class CartStoreInt with Store {
+  final _repo = Modular.get<CartRepoInt>();
 
   @observable
   double totalMoneyCartItems = 0.0;
@@ -39,7 +39,7 @@ abstract class ICartStore with Store {
   void calcTotalCartMoneyAmount() {
     double total = 0;
     getAll().forEach((key, itemCart) {
-      total += itemCart.price * itemCart.qtde;
+      total += itemCart.get_price() * itemCart.get_qtde();
     });
     totalMoneyCartItems = total;
   }
@@ -53,7 +53,7 @@ abstract class ICartStore with Store {
 
   void calcTotalCartQtdeItems() {
     int totalQtdeItems = 0;
-    getAll().forEach((x, item) => totalQtdeItems += item.qtde);
+    getAll().forEach((x, item) => totalQtdeItems += item.get_qtde());
     totalQtdeCartItems = totalQtdeItems;
   }
 }

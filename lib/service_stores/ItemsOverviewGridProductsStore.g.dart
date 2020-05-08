@@ -9,9 +9,9 @@ part of 'ItemsOverviewGridProductsStore.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ItemsOverviewGridProductsStore
-    on IItemsOverviewGridProductsStore, Store {
+    on ItemsOverviewGridProductsStoreInt, Store {
   final _$filteredProductsAtom =
-      Atom(name: 'IItemsOverviewGridProductsStore.filteredProducts');
+      Atom(name: 'ItemsOverviewGridProductsStoreInt.filteredProducts');
 
   @override
   List<Product> get filteredProducts {
@@ -29,7 +29,7 @@ mixin _$ItemsOverviewGridProductsStore
   }
 
   final _$pageTitleAtom =
-      Atom(name: 'IItemsOverviewGridProductsStore.pageTitle');
+      Atom(name: 'ItemsOverviewGridProductsStoreInt.pageTitle');
 
   @override
   String get pageTitle {
@@ -46,17 +46,18 @@ mixin _$ItemsOverviewGridProductsStore
     }, _$pageTitleAtom, name: '${_$pageTitleAtom.name}_set');
   }
 
-  final _$IItemsOverviewGridProductsStoreActionController =
-      ActionController(name: 'IItemsOverviewGridProductsStore');
+  final _$ItemsOverviewGridProductsStoreIntActionController =
+      ActionController(name: 'ItemsOverviewGridProductsStoreInt');
 
   @override
   void applyFilter(ItemsOverviewPopup filter, BuildContext context) {
     final _$actionInfo =
-        _$IItemsOverviewGridProductsStoreActionController.startAction();
+        _$ItemsOverviewGridProductsStoreIntActionController.startAction();
     try {
       return super.applyFilter(filter, context);
     } finally {
-      _$IItemsOverviewGridProductsStoreActionController.endAction(_$actionInfo);
+      _$ItemsOverviewGridProductsStoreIntActionController
+          .endAction(_$actionInfo);
     }
   }
 

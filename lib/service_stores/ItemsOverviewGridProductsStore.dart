@@ -5,17 +5,17 @@ import 'package:shopingapp/config/appProperties.dart';
 import 'package:shopingapp/config/titlesIcons.dart';
 import 'package:shopingapp/widgets/flushNotifier.dart';
 
-import '../entities_models/product.dart';
+import '../entities_models/Product.dart';
 import '../enum/itemOverviewPopup.dart';
-import '../repositories/i_products_repo.dart';
+import '../repositories/ProductsRepoInt.dart';
 
 part 'ItemsOverviewGridProductsStore.g.dart';
 
-class ItemsOverviewGridProductsStore = IItemsOverviewGridProductsStore
+class ItemsOverviewGridProductsStore = ItemsOverviewGridProductsStoreInt
     with _$ItemsOverviewGridProductsStore;
 
-abstract class IItemsOverviewGridProductsStore with Store {
-  final _repo = Modular.get<IProductsRepo>();
+abstract class ItemsOverviewGridProductsStoreInt with Store {
+  final _repo = Modular.get<ProductsRepoInt>();
 
   @observable
   List<Product> filteredProducts = [];
@@ -30,9 +30,9 @@ abstract class IItemsOverviewGridProductsStore with Store {
     } else if (filter == ItemsOverviewPopup.All && totalItemsQtde() != 0) {
       filteredProducts = _repo.getAll();
     } else if (filter == ItemsOverviewPopup.Favorites && totalFavoritesQtde() == 0) {
-      FlushNotifier(FLBAR_TIT_SORRY, FLBAR_MSG_NOFAV, FLBAR_TIME, context).show();
+      FlushNotifier(FLB_TIT_SORRY, FLB_MSG_NOFAV, FLB_TIME, context).show();
     } else if (filter == ItemsOverviewPopup.All && totalItemsQtde() == 0) {
-      FlushNotifier(FLBAR_TIT_OPS, FLBAR_MSG_DBEMPTY, FLBAR_TIME, context).show();
+      FlushNotifier(FLB_TIT_OPS, FLB_MSG_DBEMPTY, FLB_TIME, context).show();
     }
 
     //pageTitle = filter == ItemsOverviewPopup.Favorites ? IOS_APPBAR_FAV_TITLE : IOS_APPBAR_TITLE;

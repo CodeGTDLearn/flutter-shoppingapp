@@ -1,7 +1,7 @@
-import 'package:shopingapp/entities_models/cart_item.dart';
-import 'package:shopingapp/entities_models/product.dart';
+import 'package:shopingapp/entities_models/CartItem.dart';
+import 'package:shopingapp/entities_models/Product.dart';
 
-abstract class ICartRepo {
+abstract class CartRepoInt {
   Map<String, CartItem> getAll();
 
   void addCartItem(Product product);

@@ -4,9 +4,9 @@ import 'package:shopingapp/config/titlesIcons.dart';
 
 part 'OrderCollapsableTileStore.g.dart';
 
-class OrderCollapsableTileStore = IOrderCollapsableTileStore with _$OrderCollapsableTileStore;
+class OrderCollapsableTileStore = OrderCollapsableTileStoreInt with _$OrderCollapsableTileStore;
 
-abstract class IOrderCollapsableTileStore with Store {
+abstract class OrderCollapsableTileStoreInt with Store {
   @observable
   Icon collapsingTileIcon;
 

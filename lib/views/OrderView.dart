@@ -10,7 +10,7 @@ class OrderView extends StatefulWidget {
 }
 
 class _OrderViewState extends State<OrderView> {
-  final _store = Modular.get<IOrdersStore>();
+  final _store = Modular.get<OrdersStoreInt>();
 
   @override
   void initState() {}
@@ -18,13 +18,11 @@ class _OrderViewState extends State<OrderView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(ORD_TITLE_PAGE)),
-      drawer: null,
-      body: Container(
-          child: ListView.builder(
-        itemCount: _store.getAll().length,
-        itemBuilder: (ctx, item) => OrderCollapsableTile(_store.getAll()[item]),
-      )),
-    );
+        appBar: AppBar(title: Text(ORD_TIT_PAGE)),
+        drawer: null,
+        body: Container(
+            child: ListView.builder(
+                itemCount: _store.getAll().length,
+                itemBuilder: (ctx, item) => OrderCollapsableTile(_store.getAll()[item]))));
   }
 }
