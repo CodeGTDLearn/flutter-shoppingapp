@@ -20,10 +20,10 @@ class Drawwer extends StatelessWidget {
       AppBar(title: Text(DRW_TXT_APPBAR), automaticallyImplyLeading: false),
       Divider(),
       _drawwerListTile(
-          _cartStore.totalQtdeCartItems, DRW_ICO_SHOP, DRW_TIT_SHOP, FLB_MSG_CARTEMPTY, RT_CART),
+          _cartStore.totalQtdeCartItems, DRW_ICO_SHOP, DRW_TIT_SHOP, MSG_CARTEMPTY, RT_CART),
       Divider(),
       _drawwerListTile(
-          _ordersStore.totalOrders, DRW_ICO_PAY, DRW_TIT_PAY, FLB_MSG_NOORDER, RT_ORDERS)
+          _ordersStore.totalOrders, DRW_ICO_PAY, DRW_TIT_PAY, MSG_NOORDER, RT_ORDERS)
     ]));
   }
 
@@ -34,7 +34,7 @@ class Drawwer extends StatelessWidget {
         title: Text(title),
         onTap: () {
           if (qtde == 0) {
-            FlushNotifier(FLB_TIT_OPS, flushMessage, FLB_TIME, this._context).show();
+            FlushNotifier(OPS, flushMessage, FLSBR_TIME, this._context).simple();
           } else {
             Modular.to.pushNamed(route);
           }

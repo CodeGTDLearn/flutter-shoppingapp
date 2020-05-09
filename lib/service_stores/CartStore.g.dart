@@ -51,10 +51,20 @@ mixin _$CartStore on CartStoreInt, Store {
   final _$CartStoreIntActionController = ActionController(name: 'CartStoreInt');
 
   @override
-  void addCartItem(Product product) {
+  void addProductInTheCart(Product product) {
     final _$actionInfo = _$CartStoreIntActionController.startAction();
     try {
-      return super.addCartItem(product);
+      return super.addProductInTheCart(product);
+    } finally {
+      _$CartStoreIntActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void undoAddProductInTheCart(Product product) {
+    final _$actionInfo = _$CartStoreIntActionController.startAction();
+    try {
+      return super.undoAddProductInTheCart(product);
     } finally {
       _$CartStoreIntActionController.endAction(_$actionInfo);
     }

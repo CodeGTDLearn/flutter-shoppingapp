@@ -31,7 +31,6 @@ const ORD_ICO_EXPMOR = Icon(Icons.expand_more);
 const ORD_ICO_EXPLES = Icon(Icons.expand_less);
 
 
-//todo: phase 02.3: ManagedProductItems titles and icons
 // 4) MANAGE PRODUCTS
 const MAN_APPBAR_TIT = "Your Products";
 const MAN_ADD_APPBAR_TIT = "Add Product";
@@ -39,9 +38,7 @@ const MAN_APPBAR_ICO = Icon(Icons.add);
 const MAN_EDIT_APPBAR_TIT = "Edit Product";
 const MAN_TILE_EDIT_ICO = Icon(Icons.edit);
 const MAN_TILE_DELETE_ICO = Icon(Icons.delete);
-//todo: phase 2.6: Submitting values
 const MAN_SAVE_FORM_APPBAR = Icon(Icons.save);
-//todo: phase 02.4: AddEditManagedProductItem - Fields and focus
 const MAN_FLD_TIT = "Title";
 const MAN_FLD_PRICE = "Price";
 const MAN_FLD_DESC = "Description";
@@ -55,21 +52,21 @@ const DRW_ICO_SHOP = Icon(Icons.shop);
 const DRW_TIT_SHOP = "Cart";
 const DRW_ICO_PAY = Icon(Icons.payment);
 const DRW_TIT_PAY = "Orders";
-//todo: phase 02.3: ManagedProductItems drawer
 const DRW_TIT_MAN = "Manage Products";
 const DRW_ICO_MAN = Icon(Icons.edit);
 
 
 // FLUSH-BAR: NOTIFICATIONS
-const FLB_TIT_OPS = "Ops...";
-const FLB_TIT_SORRY = "Sorry...";
-const FLB_MSG_DBEMPTY = "There is no item in database.";
-const FLB_MSG_NOFAV = "Favorites not found.";
-const FLB_MSG_CARTEMPTY= "No items in the cart, yet.";
-const FLB_MSG_NOORDER= "No orders were done, yet.";
-
-// GRID PRODUCTS WIDGET
-const GP_TXT_NOTIF = 'There is no products in the database.';
+const OPS = "Ops...";
+const UNDO = "Undo";
+const SORRY = "Sorry...";
+const DONE = "Done";
+const MSG_CART_ADD = ": Added in the cart.";
+const MSG_DATA = "There is no items in database.";
+const MSG_NOFAV = "Favorites not found.";
+const MSG_CARTEMPTY= "No items in the cart, yet.";
+const MSG_NOORDER= "No orders were done, yet.";
+const GRD_PRODUCT_MSG = 'There is no products to display.';
 
 
 

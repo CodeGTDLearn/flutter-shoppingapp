@@ -20,15 +20,15 @@ class BadgeShopCartObserver extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _servCartStore = Modular.get<CartStoreInt>();
+    final _cartStore = Modular.get<CartStoreInt>();
     return Observer(
         builder: (BuildContext _) => Stack(alignment: Alignment.center, children: [
               IconButton(
                   icon: IOS_ICO_SHOP,
                   onPressed: () {
-                    if (_servCartStore.totalQtdeCartItems == 0) {
-                      FlushNotifier(FLB_TIT_OPS, FLB_MSG_CARTEMPTY, FLB_TIME, context)
-                          .show();
+                    if (_cartStore.totalQtdeCartItems == 0) {
+                      FlushNotifier(OPS, MSG_CARTEMPTY, FLSBR_TIME, context)
+                          .simple();
                     } else {
                       Navigator.pushNamed(context, RT_CART);
                     }
@@ -43,7 +43,7 @@ class BadgeShopCartObserver extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10.0),
                           color: color != null ? color : Theme.of(context).accentColor),
                       constraints: BoxConstraints(minWidth: 16, minHeight: 16),
-                      child: Text(_servCartStore.totalQtdeCartItems.toString(),
+                      child: Text(_cartStore.totalQtdeCartItems.toString(),
                           textAlign: TextAlign.center, style: TextStyle(fontSize: 10))))
             ]));
   }

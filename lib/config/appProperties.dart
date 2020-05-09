@@ -11,7 +11,7 @@ const RT_CART = '/cart-items';
 const RT_ORDERS = '/orders';
 
 //FLUSHBAR
-const FLB_TIME = 2000;
+const FLSBR_TIME = 2000;
 
 //ORDERS-ITEM
 const DATE_FORMAT = 'dd MMM yyyy - hh:mm';

@@ -4,7 +4,9 @@ import 'package:shopingapp/entities_models/Product.dart';
 abstract class CartRepoInt {
   Map<String, CartItem> getAll();
 
-  void addCartItem(Product product);
+  void addProductInTheCart(Product product);
+
+  void undoAddProductInTheCart(Product product);
 
   void removeCartItem(CartItem cartItem);
 

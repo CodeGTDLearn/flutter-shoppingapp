@@ -8,14 +8,14 @@ import '../entities_models/Product.dart';
 
 class GridProducts extends StatelessWidget {
   List<Product> _products;
-  var _servStore = Modular.get<ItemsOverviewGridProductsStoreInt>();
+  var _store = Modular.get<ItemsOverviewGridProductsStoreInt>();
 
   GridProducts(this._products);
 
   @override
   Widget build(BuildContext context) {
-    return _servStore.totalItemsQtde() == 0
-        ? Center(child: Text(GP_TXT_NOTIF, style: TextStyle(fontSize: 20)))
+    return _store.totalItemsQtde() == 0
+        ? Center(child: Text(GRD_PRODUCT_MSG, style: TextStyle(fontSize: 20)))
         : GridView.builder(
             padding: EdgeInsets.all(10),
             itemCount: _products.length,

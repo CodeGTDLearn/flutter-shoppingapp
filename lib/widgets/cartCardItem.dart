@@ -6,7 +6,7 @@ import 'package:shopingapp/service_stores/CartStore.dart';
 
 class CartCardItem extends StatelessWidget {
   CartItem _cartItem;
-  final _servCartStore = Modular.get<CartStoreInt>();
+  final _cartStore = Modular.get<CartStoreInt>();
 
   CartCardItem(this._cartItem);
 
@@ -23,7 +23,7 @@ class CartCardItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(2), color: Theme.of(context).errorColor)),
         direction: DismissDirection.endToStart,
         onDismissed: (direction) {
-          _servCartStore.removeCartItem(_cartItem);
+          _cartStore.removeCartItem(_cartItem);
         },
         //
         child: Card(

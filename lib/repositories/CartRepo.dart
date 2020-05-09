@@ -11,8 +11,8 @@ class CartRepo implements CartRepoInt {
   }
 
   @override
-  void addCartItem(Product product) {
-    print(product.toString());
+  void addProductInTheCart(Product product) {
+    //print(product.toString());
     if (_listCartItems.containsKey(product.get_id())) {
       _listCartItems.update(product.get_id(), (itemFound) {
         return CartItem(
@@ -23,10 +23,25 @@ class CartRepo implements CartRepoInt {
         );
       });
     } else {
-      _listCartItems.putIfAbsent(
-          product.get_id(),
-          () => CartItem(
-              product.get_id(), product.get_title(), 1, product.get_price()));
+      _listCartItems.putIfAbsent(product.get_id(),
+          () => CartItem(product.get_id(), product.get_title(), 1, product.get_price()));
+    }
+  }
+
+  @override
+  void undoAddProductInTheCart(Product product) {
+    //print(product.toString());
+    if (_listCartItems.containsKey(product.get_id())) {
+      _listCartItems.update(product.get_id(), (itemFound) {
+        return CartItem(
+          itemFound.get_id(),
+          itemFound.get_title(),
+          itemFound.get_qtde() - 1,
+          itemFound.get_price(),
+        );
+      });
+    } else {
+      _listCartItems.remove(product.get_id());
     }
   }
 

@@ -10,7 +10,7 @@ import 'package:shopingapp/service_stores/OrderCollapsableTileStore.dart';
 
 class OrderCollapsableTile extends StatefulWidget {
   final Order _order;
-  final _CollapseTileStore = Modular.get<OrderCollapsableTileStoreInt>();
+  final _collapseTileStore = Modular.get<OrderCollapsableTileStoreInt>();
 
   OrderCollapsableTile(this._order);
 
@@ -21,13 +21,13 @@ class OrderCollapsableTile extends StatefulWidget {
 class _OrderCollapsableTileState extends State<OrderCollapsableTile> {
   @override
   void initState() {
-    widget._CollapseTileStore.collapsingTileIcon = ORD_ICO_EXPMOR;
-    widget._CollapseTileStore.isTileCollapsed = false;
+    widget._collapseTileStore.collapsingTileIcon = ORD_ICO_EXPMOR;
+    widget._collapseTileStore.isTileCollapsed = false;
   }
 
   @override
   Widget build(BuildContext context) {
-    widget._CollapseTileStore.collapsingTileIcon ??= ORD_ICO_EXPMOR;
+    widget._collapseTileStore.collapsingTileIcon ??= ORD_ICO_EXPMOR;
     return Observer(
         builder: (BuildContext _) => Card(
             margin: EdgeInsets.all(15),
@@ -42,12 +42,12 @@ class _OrderCollapsableTileState extends State<OrderCollapsableTile> {
                     subtitle: Text(DateFormat(DATE_FORMAT)
                         .format(widget._order.get_datetime())),
                     trailing: IconButton(
-                        icon: widget._CollapseTileStore.collapsingTileIcon,
+                        icon: widget._collapseTileStore.collapsingTileIcon,
                         onPressed: () =>
-                            widget._CollapseTileStore.toggleCollapseTile())),
+                            widget._collapseTileStore.toggleCollapseTile())),
               ),
               Visibility(
-                visible: widget._CollapseTileStore.isTileCollapsed,
+                visible: widget._collapseTileStore.isTileCollapsed,
                 child: Container(
                     height: widget._order.get_cartItemsList().length * 38.0,
                     decoration: BoxDecoration(

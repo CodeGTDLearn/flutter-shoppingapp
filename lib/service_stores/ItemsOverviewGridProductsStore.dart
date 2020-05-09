@@ -30,9 +30,9 @@ abstract class ItemsOverviewGridProductsStoreInt with Store {
     } else if (filter == ItemsOverviewPopup.All && totalItemsQtde() != 0) {
       filteredProducts = _repo.getAll();
     } else if (filter == ItemsOverviewPopup.Favorites && totalFavoritesQtde() == 0) {
-      FlushNotifier(FLB_TIT_SORRY, FLB_MSG_NOFAV, FLB_TIME, context).show();
+      FlushNotifier(SORRY, MSG_NOFAV, FLSBR_TIME, context).simple();
     } else if (filter == ItemsOverviewPopup.All && totalItemsQtde() == 0) {
-      FlushNotifier(FLB_TIT_OPS, FLB_MSG_DBEMPTY, FLB_TIME, context).show();
+      FlushNotifier(OPS, MSG_DATA, FLSBR_TIME, context).simple();
     }
 
     //pageTitle = filter == ItemsOverviewPopup.Favorites ? IOS_APPBAR_FAV_TITLE : IOS_APPBAR_TITLE;
@@ -45,14 +45,4 @@ abstract class ItemsOverviewGridProductsStoreInt with Store {
   int totalItemsQtde() {
     return _repo.getAll().length;
   }
-
-//  void flushNotifier(String title, String message, int time, BuildContext context) {
-//    Flushbar(
-//      title: title,
-//      message: message,
-//      duration: Duration(milliseconds: time),
-//      icon: IOS_ICO_FAV_NOTIF,
-//      shouldIconPulse: true,
-//    ).show(context);
-//  }
 }

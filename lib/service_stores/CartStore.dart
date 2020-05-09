@@ -23,8 +23,14 @@ abstract class CartStoreInt with Store {
   }
 
   @action
-  void addCartItem(Product product) {
-    _repo.addCartItem(product);
+  void addProductInTheCart(Product product) {
+    _repo.addProductInTheCart(product);
+    calcTotalCartQtdeItems();
+  }
+
+  @action
+  void undoAddProductInTheCart(Product product) {
+    _repo.undoAddProductInTheCart(product);
     calcTotalCartQtdeItems();
   }
 
