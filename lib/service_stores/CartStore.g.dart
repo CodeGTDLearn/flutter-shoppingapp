@@ -48,6 +48,26 @@ mixin _$CartStore on CartStoreInt, Store {
     }, _$totalQtdeCartItemsAtom, name: '${_$totalQtdeCartItemsAtom.name}_set');
   }
 
+  final _$addProductInTheCartNotificationAtom =
+      Atom(name: 'CartStoreInt.addProductInTheCartNotification');
+
+  @override
+  bool get addProductInTheCartNotification {
+    _$addProductInTheCartNotificationAtom.context
+        .enforceReadPolicy(_$addProductInTheCartNotificationAtom);
+    _$addProductInTheCartNotificationAtom.reportObserved();
+    return super.addProductInTheCartNotification;
+  }
+
+  @override
+  set addProductInTheCartNotification(bool value) {
+    _$addProductInTheCartNotificationAtom.context.conditionallyRunInAction(() {
+      super.addProductInTheCartNotification = value;
+      _$addProductInTheCartNotificationAtom.reportChanged();
+    }, _$addProductInTheCartNotificationAtom,
+        name: '${_$addProductInTheCartNotificationAtom.name}_set');
+  }
+
   final _$CartStoreIntActionController = ActionController(name: 'CartStoreInt');
 
   @override
@@ -93,7 +113,7 @@ mixin _$CartStore on CartStoreInt, Store {
   @override
   String toString() {
     final string =
-        'totalMoneyCartItems: ${totalMoneyCartItems.toString()},totalQtdeCartItems: ${totalQtdeCartItems.toString()}';
+        'totalMoneyCartItems: ${totalMoneyCartItems.toString()},totalQtdeCartItems: ${totalQtdeCartItems.toString()},addProductInTheCartNotification: ${addProductInTheCartNotification.toString()}';
     return '{$string}';
   }
 }

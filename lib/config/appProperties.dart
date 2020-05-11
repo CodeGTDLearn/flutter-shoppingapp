@@ -10,7 +10,7 @@ const RT_CART = '/cart-items';
 const RT_ORDERS = '/orders';
 
 //FLUSHBAR
-const FLSBR_TIME = 2000;
+const FLSH_TIME = 2000;
 
 //DATE-FORMATS
 //ORDERS-ITEM

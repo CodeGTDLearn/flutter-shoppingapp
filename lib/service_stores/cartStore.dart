@@ -18,6 +18,9 @@ abstract class CartStoreInt with Store {
   @observable
   int totalQtdeCartItems = 0;
 
+  @observable
+  bool addProductInTheCartNotification;
+
   Map<String, CartItem> getAll() {
     return _repo.getAll();
   }
@@ -26,12 +29,14 @@ abstract class CartStoreInt with Store {
   void addProductInTheCart(Product product) {
     _repo.addProductInTheCart(product);
     calcTotalCartQtdeItems();
+    addProductInTheCartNotification = true;
   }
 
   @action
   void undoAddProductInTheCart(Product product) {
     _repo.undoAddProductInTheCart(product);
     calcTotalCartQtdeItems();
+    addProductInTheCartNotification = false;
   }
 
   @action

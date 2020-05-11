@@ -12,7 +12,6 @@ class CartRepo implements CartRepoInt {
 
   @override
   void addProductInTheCart(Product product) {
-    //print(product.toString());
     if (_listCartItems.containsKey(product.get_id())) {
       _listCartItems.update(product.get_id(), (itemFound) {
         return CartItem(
@@ -30,7 +29,6 @@ class CartRepo implements CartRepoInt {
 
   @override
   void undoAddProductInTheCart(Product product) {
-    //print(product.toString());
     if (_listCartItems.containsKey(product.get_id())) {
       _listCartItems.update(product.get_id(), (itemFound) {
         return CartItem(

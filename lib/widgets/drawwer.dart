@@ -36,7 +36,7 @@ class Drawwer extends StatelessWidget {
         title: Text(title),
         onTap: () {
           if (qtde == 0) {
-            FlushNotifier(OPS, flushMessage, FLSBR_TIME, this._context).simple();
+            FlushNotifier(OPS, flushMessage, FLSH_TIME, this._context).simple();
           } else {
             Modular.to.pushNamed(route);
           }

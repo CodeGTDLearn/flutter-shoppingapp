@@ -29,7 +29,7 @@ class BadgeShopCartObserver extends StatelessWidget {
                   icon: IOS_ICO_SHOP,
                   onPressed: () {
                     if (_cartStore.totalQtdeCartItems == 0) {
-                      FlushNotifier(OPS, MSG_CARTEMPTY, FLSBR_TIME, context)
+                      FlushNotifier(OPS, MSG_CARTEMPTY, FLSH_TIME, context)
                           .simple();
                     } else {
                       Navigator.pushNamed(context, RT_CART);
