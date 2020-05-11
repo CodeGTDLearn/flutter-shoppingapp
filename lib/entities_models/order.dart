@@ -1,7 +1,8 @@
 import 'package:lombok/lombok.dart';
-import 'package:shopingapp/entities_models/CartItem.dart';
 
-part 'Order.g.dart';
+import 'cartItem.dart';
+
+part 'order.g.dart';
 
 @getter
 class Order with _$OrderLombok {

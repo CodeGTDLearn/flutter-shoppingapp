@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'package:shopingapp/service_stores/ItemsOverviewGridProductItemStore.dart';
+import 'package:shopingapp/service_stores/itemsOverviewGridProductItemStore.dart';
 
 class ItemDetailView extends StatelessWidget {
   final String _id;

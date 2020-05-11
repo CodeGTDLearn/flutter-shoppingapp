@@ -1,9 +1,9 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:shopingapp/entities_models/Product.dart';
-import 'package:shopingapp/repositories/ProductsRepoInt.dart';
+import 'package:shopingapp/entities_models/product.dart';
+import 'package:shopingapp/repositories/productsRepoInt.dart';
 
-part 'ItemsOverviewGridProductItemStore.g.dart';
+part 'itemsOverviewGridProductItemStore.g.dart';
 
 class ItemsOverviewGridProductItemStore = ItemsOverviewGridProductItemStoreInt
     with _$ItemsOverviewGridProductItemStore;

@@ -1,6 +1,6 @@
 import 'package:lombok/lombok.dart';
 
-part 'Product.g.dart';
+part 'product.g.dart';
 
 @data
 class Product with _$ProductLombok {

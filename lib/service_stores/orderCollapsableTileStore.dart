@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:shopingapp/config/titlesIcons.dart';
+import 'package:shopingapp/config/titlesIcons/ordersView.dart';
 
-part 'OrderCollapsableTileStore.g.dart';
+part 'orderCollapsableTileStore.g.dart';
 
 class OrderCollapsableTileStore = OrderCollapsableTileStoreInt with _$OrderCollapsableTileStore;
 

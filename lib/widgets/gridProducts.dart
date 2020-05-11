@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shopingapp/config/titlesIcons.dart';
-import 'package:shopingapp/service_stores/ItemsOverviewGridProductsStore.dart';
+import 'package:shopingapp/config/titlesIcons/flushbarNotifications.dart';
+
+import 'package:shopingapp/service_stores/itemsOverviewGridProductsStore.dart';
 
 import '../widgets/gridProductItem.dart';
-import '../entities_models/Product.dart';
+import '../entities_models/product.dart';
 
 class GridProducts extends StatelessWidget {
   List<Product> _products;
@@ -19,9 +20,7 @@ class GridProducts extends StatelessWidget {
         : GridView.builder(
             padding: EdgeInsets.all(10),
             itemCount: _products.length,
-            itemBuilder: (ctx, item) {
-              return GridProductItem(_products[item]);
-            },
+            itemBuilder: (ctx, item) => GridProductItem(_products[item]),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 3 / 2,

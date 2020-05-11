@@ -1,6 +1,6 @@
-import 'package:shopingapp/db/Products.dart';
-import 'package:shopingapp/entities_models/Product.dart';
-import 'package:shopingapp/repositories/ProductsRepoInt.dart';
+import 'package:shopingapp/db/products.dart';
+import 'package:shopingapp/entities_models/product.dart';
+import 'package:shopingapp/repositories/productsRepoInt.dart';
 
 class ProductsRepo implements ProductsRepoInt {
 

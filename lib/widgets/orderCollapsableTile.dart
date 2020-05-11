@@ -4,9 +4,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 import 'package:shopingapp/config/appProperties.dart';
-import 'package:shopingapp/config/titlesIcons.dart';
-import 'package:shopingapp/entities_models/Order.dart';
-import 'package:shopingapp/service_stores/OrderCollapsableTileStore.dart';
+import 'package:shopingapp/config/titlesIcons/ordersView.dart';
+
+import 'package:shopingapp/entities_models/order.dart';
+import 'package:shopingapp/service_stores/orderCollapsableTileStore.dart';
 
 class OrderCollapsableTile extends StatefulWidget {
   final Order _order;

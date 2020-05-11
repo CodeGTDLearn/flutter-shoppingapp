@@ -1,24 +1,25 @@
 // extends from MainModule
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shopingapp/entities_models/Product.dart';
-import 'package:shopingapp/repositories/CartRepo.dart';
-import 'package:shopingapp/repositories/CartRepoInt.dart';
-import 'package:shopingapp/repositories/OrdersRepoInt.dart';
-import 'package:shopingapp/repositories/ProductsRepoInt.dart';
-import 'package:shopingapp/repositories/OrdersRepo.dart';
-import 'package:shopingapp/repositories/ProductsRepo.dart';
-import 'package:shopingapp/service_stores/ItemsOverviewGridProductItemStore.dart';
-import 'package:shopingapp/service_stores/ItemsOverviewGridProductsStore.dart';
-import 'package:shopingapp/service_stores/CartStore.dart';
-import 'package:shopingapp/service_stores/OrderCollapsableTileStore.dart';
-import 'package:shopingapp/service_stores/OrdersStore.dart';
-import 'package:shopingapp/views/CartView.dart';
 
-import 'package:shopingapp/views/ItemDetailView.dart';
-import 'package:shopingapp/views/ItemsOverviewFavView.dart';
-import 'package:shopingapp/views/ItemsOverviewView.dart';
-import 'package:shopingapp/views/OrderView.dart';
+import 'package:shopingapp/entities_models/product.dart';
+import 'package:shopingapp/repositories/cartRepo.dart';
+import 'package:shopingapp/repositories/cartRepoInt.dart';
+import 'package:shopingapp/repositories/ordersRepoInt.dart';
+import 'package:shopingapp/repositories/productsRepoInt.dart';
+import 'package:shopingapp/repositories/ordersRepo.dart';
+import 'package:shopingapp/repositories/productsRepo.dart';
+import 'package:shopingapp/service_stores/itemsOverviewGridProductItemStore.dart';
+import 'package:shopingapp/service_stores/itemsOverviewGridProductsStore.dart';
+import 'package:shopingapp/service_stores/cartStore.dart';
+import 'package:shopingapp/service_stores/orderCollapsableTileStore.dart';
+import 'package:shopingapp/service_stores/ordersStore.dart';
+import 'package:shopingapp/views/cartView.dart';
+
+import 'package:shopingapp/views/itemDetailView.dart';
+import 'package:shopingapp/views/itemsOverviewFavView.dart';
+import 'package:shopingapp/views/itemsOverviewView.dart';
+import 'package:shopingapp/views/orderView.dart';
 
 import '../app_driver.dart';
 import 'appProperties.dart';

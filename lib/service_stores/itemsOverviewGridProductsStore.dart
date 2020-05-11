@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:shopingapp/config/appProperties.dart';
-import 'package:shopingapp/config/titlesIcons.dart';
+import 'package:shopingapp/config/titlesIcons/flushbarNotifications.dart';
 import 'package:shopingapp/widgets/flushNotifier.dart';
 
-import '../entities_models/Product.dart';
+import '../entities_models/product.dart';
 import '../enum/itemOverviewPopup.dart';
-import '../repositories/ProductsRepoInt.dart';
+import '../repositories/productsRepoInt.dart';
 
-part 'ItemsOverviewGridProductsStore.g.dart';
+part 'itemsOverviewGridProductsStore.g.dart';
 
 class ItemsOverviewGridProductsStore = ItemsOverviewGridProductsStoreInt
     with _$ItemsOverviewGridProductsStore;

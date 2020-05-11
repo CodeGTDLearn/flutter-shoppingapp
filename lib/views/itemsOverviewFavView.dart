@@ -1,12 +1,12 @@
-import 'package:shopingapp/widgets/appbar_popup_menu.dart';
+import 'package:shopingapp/config/titlesIcons/ItemOverviewView.dart';
+import 'package:shopingapp/widgets/appbarPopupMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../enum/itemOverviewPopup.dart';
-import '../service_stores/ItemsOverviewGridProductsStore.dart';
-import '../config/titlesIcons.dart';
-import '../widgets/BadgeShopCartObserver.dart';
+import '../service_stores/itemsOverviewGridProductsStore.dart';
+import '../widgets/badgeShopCartObserver.dart';
 import '../widgets/drawwer.dart';
 import '../widgets/gridProducts.dart';
 

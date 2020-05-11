@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shopingapp/config/appProperties.dart';
-import 'package:shopingapp/config/titlesIcons.dart';
+import 'package:shopingapp/config/titlesIcons/ItemOverviewView.dart';
+
 import 'package:shopingapp/enum/itemOverviewPopup.dart';
-import 'package:shopingapp/service_stores/ItemsOverviewGridProductsStore.dart';
+import 'package:shopingapp/service_stores/itemsOverviewGridProductsStore.dart';
 
 class AppbarPopupMenu extends StatelessWidget {
   bool _enableFavorite;

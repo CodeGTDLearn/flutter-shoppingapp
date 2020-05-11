@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shopingapp/config/appProperties.dart';
-import 'package:shopingapp/config/titlesIcons.dart';
-import 'package:shopingapp/service_stores/CartStore.dart';
-import 'package:shopingapp/service_stores/OrdersStore.dart';
+import 'package:shopingapp/config/titlesIcons/drawwer.dart';
+import 'package:shopingapp/config/titlesIcons/flushbarNotifications.dart';
+
+import 'package:shopingapp/service_stores/cartStore.dart';
+import 'package:shopingapp/service_stores/ordersStore.dart';
 import 'package:shopingapp/widgets/flushNotifier.dart';
 
 class Drawwer extends StatelessWidget {
-  BuildContext _context = null;
+  BuildContext _context;
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,4 @@
-import 'package:shopingapp/entities_models/Order.dart';
+import 'package:shopingapp/entities_models/order.dart';
 
 abstract class OrdersRepoInt {
   List<Order> getAll();

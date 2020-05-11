@@ -3,7 +3,8 @@ import 'dart:ui';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:shopingapp/config/titlesIcons.dart';
+
+import 'package:shopingapp/config/titlesIcons/ItemOverviewView.dart';
 
 class FlushNotifier {
   final String _title;

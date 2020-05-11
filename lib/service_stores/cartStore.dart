@@ -1,11 +1,11 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
-import 'package:shopingapp/entities_models/CartItem.dart';
-import 'package:shopingapp/repositories/CartRepoInt.dart';
-import '../entities_models/Product.dart';
+import 'package:shopingapp/entities_models/cartItem.dart';
+import 'package:shopingapp/repositories/cartRepoInt.dart';
+import '../entities_models/product.dart';
 
-part 'CartStore.g.dart';
+part 'cartStore.g.dart';
 
 class CartStore = CartStoreInt with _$CartStore;
 

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'ItemsOverviewGridProductsStore.dart';
+part of 'itemsOverviewGridProductsStore.dart';
 
 // **************************************************************************
 // StoreGenerator

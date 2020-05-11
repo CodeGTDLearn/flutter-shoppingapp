@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shopingapp/config/titlesIcons.dart';
-import 'package:shopingapp/service_stores/OrdersStore.dart';
-import 'package:shopingapp/widgets/OrderCollapsableTile.dart';
+import 'package:shopingapp/config/titlesIcons/ordersView.dart';
+import 'package:shopingapp/service_stores/ordersStore.dart';
+import 'package:shopingapp/widgets/orderCollapsableTile.dart';
 
 class OrderView extends StatefulWidget {
   @override

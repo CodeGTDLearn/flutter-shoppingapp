@@ -1,6 +1,6 @@
 import 'package:lombok/lombok.dart';
 
-part 'CartItem.g.dart';
+part 'cartItem.g.dart';
 
 @getter
 class CartItem with _$CartItemLombok   {

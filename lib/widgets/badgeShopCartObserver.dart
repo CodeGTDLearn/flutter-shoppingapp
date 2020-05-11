@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shopingapp/config/appProperties.dart';
-import 'package:shopingapp/config/titlesIcons.dart';
-import 'package:shopingapp/service_stores/CartStore.dart';
+import 'package:shopingapp/config/titlesIcons/ItemOverviewView.dart';
+import 'package:shopingapp/config/titlesIcons/flushbarNotifications.dart';
+
+import 'package:shopingapp/service_stores/cartStore.dart';
 import 'package:shopingapp/widgets/flushNotifier.dart';
 
 class BadgeShopCartObserver extends StatelessWidget {

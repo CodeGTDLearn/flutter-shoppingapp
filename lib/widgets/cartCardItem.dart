@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shopingapp/config/titlesIcons.dart';
-import 'package:shopingapp/entities_models/CartItem.dart';
-import 'package:shopingapp/service_stores/CartStore.dart';
+import 'package:shopingapp/config/titlesIcons/CartView.dart';
+
+import 'package:shopingapp/entities_models/cartItem.dart';
+import 'package:shopingapp/service_stores/cartStore.dart';
 
 class CartCardItem extends StatelessWidget {
   CartItem _cartItem;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'OrderCollapsableTileStore.dart';
+part of 'orderCollapsableTileStore.dart';
 
 // **************************************************************************
 // StoreGenerator

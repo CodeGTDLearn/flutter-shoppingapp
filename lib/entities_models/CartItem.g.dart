@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'CartItem.dart';
+part of 'cartItem.dart';
 
 // **************************************************************************
 // GetterGenerator
