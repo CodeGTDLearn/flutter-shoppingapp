@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shopingapp/config/titlesIcons/ItemOverviewView.dart';
 
+import '../config/titlesIconsMessages/views/ItemOverviewView.dart';
 import '../enum/itemOverviewPopup.dart';
 import '../service_stores/itemsOverviewGridProductsStore.dart';
-
-import '../widgets/badgeShopCartObserver.dart';
+import '../widgets/appbarBadgeShopCart.dart';
 import '../widgets/drawwer.dart';
 import '../widgets/gridProducts.dart';
 import '../widgets/appbarPopupMenu.dart';
 
-class ItemsOverviewView extends StatefulWidget {
+class ItemsOverviewAllView extends StatefulWidget {
   @override
-  _ItemsOverviewViewState createState() => _ItemsOverviewViewState();
+  _ItemsOverviewAllViewState createState() => _ItemsOverviewAllViewState();
 }
 
-class _ItemsOverviewViewState extends State<ItemsOverviewView> {
+class _ItemsOverviewAllViewState extends State<ItemsOverviewAllView> {
   final _store = Modular.get<ItemsOverviewGridProductsStoreInt>();
 
   @override
@@ -28,9 +27,9 @@ class _ItemsOverviewViewState extends State<ItemsOverviewView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(IOS_APPBAR_TIT), actions: [
+        appBar: AppBar(title: Text(IOV_APPBAR_TIT), actions: [
           AppbarPopupMenu(allOption: false, favoriteOption: true),
-          BadgeShopCartObserver()
+          AppbarBadgeShopCart()
         ]),
         drawer: Drawwer(),
         body: Observer(builder: (BuildContext _) => GridProducts(_store.filteredProducts)));

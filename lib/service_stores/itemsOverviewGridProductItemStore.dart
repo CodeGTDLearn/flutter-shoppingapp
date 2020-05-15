@@ -1,7 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:shopingapp/entities_models/product.dart';
-import 'package:shopingapp/repositories/productsRepoInt.dart';
+import '../entities/product.dart';
+import '../repositories/productsRepoInt.dart';
 
 part 'itemsOverviewGridProductItemStore.g.dart';
 

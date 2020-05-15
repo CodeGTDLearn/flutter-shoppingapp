@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shopingapp/config/appProperties.dart';
-import 'package:shopingapp/config/titlesIcons/ItemOverviewView.dart';
-import 'package:shopingapp/config/titlesIcons/flushbarNotifications.dart';
 
-import 'package:shopingapp/service_stores/cartStore.dart';
-import 'package:shopingapp/widgets/flushNotifier.dart';
+import '../config/appProperties.dart';
+import '../config/titlesIconsMessages/views/ItemOverviewView.dart';
+import '../config/titlesIconsMessages/widgets/flushNotifier.dart';
+import '../service_stores/cartStore.dart';
+import '../widgets/flushNotifier.dart';
 
-class BadgeShopCartObserver extends StatelessWidget {
-  const BadgeShopCartObserver({
-    Key key,
-    this.child,
-    this.value,
-    this.color,
-  }) : super(key: key);
-
+class AppbarBadgeShopCart extends StatelessWidget {
   final Widget child;
   final String value;
   final Color color;
+
+  const AppbarBadgeShopCart({Key key, this.child, this.value, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +21,12 @@ class BadgeShopCartObserver extends StatelessWidget {
     return Observer(
         builder: (BuildContext _) => Stack(alignment: Alignment.center, children: [
               IconButton(
-                  icon: IOS_ICO_SHOP,
+                  icon: IOV_ICO_SHOP,
                   onPressed: () {
                     if (_cartStore.totalQtdeCartItems == 0) {
-                      FlushNotifier(OPS, MSG_CARTEMPTY, FLSH_TIME, context)
-                          .simple();
+                      FlushNotifier(OPSS, MSG_CARTEMPTY, FLSH_TIME, context).simple();
                     } else {
-                      Navigator.pushNamed(context, RT_CART);
+                      Navigator.pushNamed(context, RT_CART_VIEW);
                     }
                   }),
               Positioned(

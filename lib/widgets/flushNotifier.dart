@@ -4,7 +4,7 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
-import 'package:shopingapp/config/titlesIcons/ItemOverviewView.dart';
+import '../config/titlesIconsMessages/views/ItemOverviewView.dart';
 
 class FlushNotifier {
   final String _title;
@@ -19,7 +19,7 @@ class FlushNotifier {
       title: _title,
       message: _message,
       duration: Duration(milliseconds: _duration),
-      icon: IOS_ICO_FAV_NOTIF,
+      icon: IOV_ICO_FAV_NOTIF,
     ).show(_context);
   }
 
@@ -28,7 +28,7 @@ class FlushNotifier {
       title: _title,
       message: _message,
       duration: Duration(milliseconds: _duration),
-      icon: IOS_ICO_FAV_NOTIF,
+      icon: IOV_ICO_FAV_NOTIF,
       mainButton: FlatButton(
         onPressed: function,
         child: Text(

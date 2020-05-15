@@ -1,12 +1,12 @@
-import 'package:shopingapp/config/titlesIcons/ItemOverviewView.dart';
-import 'package:shopingapp/widgets/appbarPopupMenu.dart';
+import '../config/titlesIconsMessages/views/ItemOverviewView.dart';
+import '../widgets/appbarPopupMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../enum/itemOverviewPopup.dart';
 import '../service_stores/itemsOverviewGridProductsStore.dart';
-import '../widgets/badgeShopCartObserver.dart';
+import '../widgets/appbarBadgeShopCart.dart';
 import '../widgets/drawwer.dart';
 import '../widgets/gridProducts.dart';
 
@@ -27,9 +27,9 @@ class ItemsOverviewViewState extends State<ItemsOverviewFavView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(IOS_APPBAR_FAV_TIT), actions: [
+        appBar: AppBar(title: Text(IOV_APPBAR_FAV_TIT), actions: [
           AppbarPopupMenu(allOption: true, favoriteOption: false),
-          BadgeShopCartObserver()
+          AppbarBadgeShopCart()
         ]),
         drawer: Drawwer(),
         body: Observer(builder: (BuildContext _) => GridProducts(_store.filteredProducts)));

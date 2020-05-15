@@ -1,14 +1,15 @@
-import 'package:shopingapp/db/products.dart';
-import 'package:shopingapp/entities_models/product.dart';
-import 'package:shopingapp/repositories/productsRepoInt.dart';
+import '../db/products.dart';
+import '../entities/product.dart';
+import '../repositories/productsRepoInt.dart';
 
 class ProductsRepo implements ProductsRepoInt {
-
-  List<Product> _productsFromDb = PRODUCTS_DB;
+  List<Product> _productsFromDb = [];
 
   @override
   List<Product> getAll() {
-    return [...this._productsFromDb];
+    if (PRODUCTS_DB.isNotEmpty && PRODUCTS_DB != null && PRODUCTS_DB.length != 0)
+      return [...this._productsFromDb = PRODUCTS_DB];
+    return [..._productsFromDb];
   }
 
   @override
@@ -23,7 +24,7 @@ class ProductsRepo implements ProductsRepoInt {
   }
 
   @override
-  Product getById(String id){
+  Product getById(String id) {
     return this._productsFromDb.firstWhere((productToBeGoten) => productToBeGoten.get_id() == id);
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:shopingapp/config/titlesIcons/ordersView.dart';
+import '../config/titlesIconsMessages/views/ordersView.dart';
 
 part 'orderCollapsableTileStore.g.dart';
 

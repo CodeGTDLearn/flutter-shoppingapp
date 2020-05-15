@@ -28,22 +28,22 @@ mixin _$ItemsOverviewGridProductsStore
     }, _$filteredProductsAtom, name: '${_$filteredProductsAtom.name}_set');
   }
 
-  final _$pageTitleAtom =
-      Atom(name: 'ItemsOverviewGridProductsStoreInt.pageTitle');
+  final _$hasFavoritesAtom =
+      Atom(name: 'ItemsOverviewGridProductsStoreInt.hasFavorites');
 
   @override
-  String get pageTitle {
-    _$pageTitleAtom.context.enforceReadPolicy(_$pageTitleAtom);
-    _$pageTitleAtom.reportObserved();
-    return super.pageTitle;
+  bool get hasFavorites {
+    _$hasFavoritesAtom.context.enforceReadPolicy(_$hasFavoritesAtom);
+    _$hasFavoritesAtom.reportObserved();
+    return super.hasFavorites;
   }
 
   @override
-  set pageTitle(String value) {
-    _$pageTitleAtom.context.conditionallyRunInAction(() {
-      super.pageTitle = value;
-      _$pageTitleAtom.reportChanged();
-    }, _$pageTitleAtom, name: '${_$pageTitleAtom.name}_set');
+  set hasFavorites(bool value) {
+    _$hasFavoritesAtom.context.conditionallyRunInAction(() {
+      super.hasFavorites = value;
+      _$hasFavoritesAtom.reportChanged();
+    }, _$hasFavoritesAtom, name: '${_$hasFavoritesAtom.name}_set');
   }
 
   final _$ItemsOverviewGridProductsStoreIntActionController =
@@ -64,7 +64,7 @@ mixin _$ItemsOverviewGridProductsStore
   @override
   String toString() {
     final string =
-        'filteredProducts: ${filteredProducts.toString()},pageTitle: ${pageTitle.toString()}';
+        'filteredProducts: ${filteredProducts.toString()},hasFavorites: ${hasFavorites.toString()}';
     return '{$string}';
   }
 }

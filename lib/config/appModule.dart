@@ -2,24 +2,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'package:shopingapp/entities_models/product.dart';
-import 'package:shopingapp/repositories/cartRepo.dart';
-import 'package:shopingapp/repositories/cartRepoInt.dart';
-import 'package:shopingapp/repositories/ordersRepoInt.dart';
-import 'package:shopingapp/repositories/productsRepoInt.dart';
-import 'package:shopingapp/repositories/ordersRepo.dart';
-import 'package:shopingapp/repositories/productsRepo.dart';
-import 'package:shopingapp/service_stores/itemsOverviewGridProductItemStore.dart';
-import 'package:shopingapp/service_stores/itemsOverviewGridProductsStore.dart';
-import 'package:shopingapp/service_stores/cartStore.dart';
-import 'package:shopingapp/service_stores/orderCollapsableTileStore.dart';
-import 'package:shopingapp/service_stores/ordersStore.dart';
-import 'package:shopingapp/views/cartView.dart';
+import '../entities/product.dart';
+import '../repositories/cartRepo.dart';
+import '../repositories/cartRepoInt.dart';
+import '../repositories/ordersRepoInt.dart';
+import '../repositories/productsRepoInt.dart';
+import '../repositories/ordersRepo.dart';
+import '../repositories/productsRepo.dart';
+import '../service_stores/itemsOverviewGridProductItemStore.dart';
+import '../service_stores/itemsOverviewGridProductsStore.dart';
+import '../service_stores/cartStore.dart';
+import '../service_stores/orderCollapsableTileStore.dart';
+import '../service_stores/ordersStore.dart';
+import '../views/cartView.dart';
 
-import 'package:shopingapp/views/itemDetailView.dart';
-import 'package:shopingapp/views/itemsOverviewFavView.dart';
-import 'package:shopingapp/views/itemsOverviewView.dart';
-import 'package:shopingapp/views/orderView.dart';
+import '../views/itemDetailView.dart';
+import '../views/itemsOverviewFavView.dart';
+import '../views/ItemsOverviewAllView.dart';
+import '../views/orderView.dart';
 
 import '../app_driver.dart';
 import 'appProperties.dart';
@@ -44,12 +44,12 @@ class AppModule extends MainModule {
 
   @override
   List<Router> get routers => [
-        Router(RT_OVERV_VIEW, child: (_, args) => ItemsOverviewView()),
-        Router(RT_OVERV_FAV_VIEW,
+        Router(RT_IOV_ALL_VIEW, child: (_, args) => ItemsOverviewAllView()),
+        Router(RT_IOV_FAV_VIEW,
             child: (_, args) => ItemsOverviewFavView(), transition: TransitionType.noTransition),
-        Router(RT_CART, child: (_, args) => CartView()),
-        Router(RT_ORDERS, child: (_, args) => OrderView()),
-        Router(RT_ITEM_DETAILS + ':id', child: (_, args) => ItemDetailView(args.params['id'])),
+        Router(RT_CART_VIEW, child: (_, args) => CartView()),
+        Router(RT_ORDERS_VIEW, child: (_, args) => OrderView()),
+        Router(RT_ITEM_DET_VIEW + ':id', child: (_, args) => ItemDetailView(args.params['id'])),
       ];
 
   @override

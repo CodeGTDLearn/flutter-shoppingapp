@@ -1,4 +1,6 @@
-import 'package:shopingapp/entities_models/product.dart';
+import '../entities/product.dart';
+
+//final PRODUCTS_DB = [];
 
 final PRODUCTS_DB = [
   Product(

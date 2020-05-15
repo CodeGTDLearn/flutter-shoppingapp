@@ -1,6 +1,6 @@
-import 'package:shopingapp/entities_models/cartItem.dart';
-import 'package:shopingapp/entities_models/product.dart';
-import 'package:shopingapp/repositories/cartRepoInt.dart';
+import '../entities/cartItem.dart';
+import '../entities/product.dart';
+import '../repositories/cartRepoInt.dart';
 
 class CartRepo implements CartRepoInt {
   Map<String, CartItem> _listCartItems = {};

@@ -1,9 +1,9 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
-import 'package:shopingapp/entities_models/cartItem.dart';
-import 'package:shopingapp/repositories/cartRepoInt.dart';
-import '../entities_models/product.dart';
+import '../entities/cartItem.dart';
+import '../repositories/cartRepoInt.dart';
+import '../entities/product.dart';
 
 part 'cartStore.g.dart';
 

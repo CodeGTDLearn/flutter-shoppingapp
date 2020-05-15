@@ -1,5 +1,5 @@
-import 'package:shopingapp/entities_models/cartItem.dart';
-import 'package:shopingapp/entities_models/product.dart';
+import '../entities/cartItem.dart';
+import '../entities/product.dart';
 
 abstract class CartRepoInt {
   Map<String, CartItem> getAll();

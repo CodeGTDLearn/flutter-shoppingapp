@@ -1,4 +1,4 @@
-import 'package:shopingapp/entities_models/product.dart';
+import '../entities/product.dart';
 
 abstract class ProductsRepoInt {
   List<Product> getAll();
