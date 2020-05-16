@@ -9,43 +9,38 @@ part of 'cartStore.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$CartStore on CartStoreInt, Store {
-  final _$totalMoneyCartItemsAtom =
-      Atom(name: 'CartStoreInt.totalMoneyCartItems');
+  final _$amountCartItemsAtom = Atom(name: 'CartStoreInt.amountCartItems');
 
   @override
-  double get totalMoneyCartItems {
-    _$totalMoneyCartItemsAtom.context
-        .enforceReadPolicy(_$totalMoneyCartItemsAtom);
-    _$totalMoneyCartItemsAtom.reportObserved();
-    return super.totalMoneyCartItems;
+  double get amountCartItems {
+    _$amountCartItemsAtom.context.enforceReadPolicy(_$amountCartItemsAtom);
+    _$amountCartItemsAtom.reportObserved();
+    return super.amountCartItems;
   }
 
   @override
-  set totalMoneyCartItems(double value) {
-    _$totalMoneyCartItemsAtom.context.conditionallyRunInAction(() {
-      super.totalMoneyCartItems = value;
-      _$totalMoneyCartItemsAtom.reportChanged();
-    }, _$totalMoneyCartItemsAtom,
-        name: '${_$totalMoneyCartItemsAtom.name}_set');
+  set amountCartItems(double value) {
+    _$amountCartItemsAtom.context.conditionallyRunInAction(() {
+      super.amountCartItems = value;
+      _$amountCartItemsAtom.reportChanged();
+    }, _$amountCartItemsAtom, name: '${_$amountCartItemsAtom.name}_set');
   }
 
-  final _$totalQtdeCartItemsAtom =
-      Atom(name: 'CartStoreInt.totalQtdeCartItems');
+  final _$qtdeCartItemsAtom = Atom(name: 'CartStoreInt.qtdeCartItems');
 
   @override
-  int get totalQtdeCartItems {
-    _$totalQtdeCartItemsAtom.context
-        .enforceReadPolicy(_$totalQtdeCartItemsAtom);
-    _$totalQtdeCartItemsAtom.reportObserved();
-    return super.totalQtdeCartItems;
+  int get qtdeCartItems {
+    _$qtdeCartItemsAtom.context.enforceReadPolicy(_$qtdeCartItemsAtom);
+    _$qtdeCartItemsAtom.reportObserved();
+    return super.qtdeCartItems;
   }
 
   @override
-  set totalQtdeCartItems(int value) {
-    _$totalQtdeCartItemsAtom.context.conditionallyRunInAction(() {
-      super.totalQtdeCartItems = value;
-      _$totalQtdeCartItemsAtom.reportChanged();
-    }, _$totalQtdeCartItemsAtom, name: '${_$totalQtdeCartItemsAtom.name}_set');
+  set qtdeCartItems(int value) {
+    _$qtdeCartItemsAtom.context.conditionallyRunInAction(() {
+      super.qtdeCartItems = value;
+      _$qtdeCartItemsAtom.reportChanged();
+    }, _$qtdeCartItemsAtom, name: '${_$qtdeCartItemsAtom.name}_set');
   }
 
   final _$addProductInTheCartNotificationAtom =
@@ -101,10 +96,10 @@ mixin _$CartStore on CartStoreInt, Store {
   }
 
   @override
-  void calcTotalCartMoneyAmount() {
+  void calcAmount$CartItems() {
     final _$actionInfo = _$CartStoreIntActionController.startAction();
     try {
-      return super.calcTotalCartMoneyAmount();
+      return super.calcAmount$CartItems();
     } finally {
       _$CartStoreIntActionController.endAction(_$actionInfo);
     }
@@ -113,7 +108,7 @@ mixin _$CartStore on CartStoreInt, Store {
   @override
   String toString() {
     final string =
-        'totalMoneyCartItems: ${totalMoneyCartItems.toString()},totalQtdeCartItems: ${totalQtdeCartItems.toString()},addProductInTheCartNotification: ${addProductInTheCartNotification.toString()}';
+        'amountCartItems: ${amountCartItems.toString()},qtdeCartItems: ${qtdeCartItems.toString()},addProductInTheCartNotification: ${addProductInTheCartNotification.toString()}';
     return '{$string}';
   }
 }

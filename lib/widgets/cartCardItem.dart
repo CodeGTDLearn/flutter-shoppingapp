@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shopingapp/config/titlesIconsMessages/general.dart';
 
 import '../config/titlesIconsMessages/views/cartView.dart';
 import '../entities/cartItem.dart';
@@ -37,9 +38,21 @@ class CartCardItem extends StatelessWidget {
                           padding: EdgeInsets.all(5),
                           child: FittedBox(child: Text('\$${_cartItem.get_price()}')))),
                   title: Text(_cartItem.get_title()),
-                  subtitle:
-                      Text('Total \$${(_cartItem.get_price() * _cartItem.get_price()).toStringAsFixed(2)}'),
+                  subtitle: Text(
+                      'Total \$${(_cartItem.get_price() * _cartItem.get_price()).toStringAsFixed(2)}'),
                   trailing: Text('x${_cartItem.get_price()}')),
-            )));
+            )),
+        confirmDismiss: (direction) {
+          return showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                  title: Text(CRT_TIT_CONFIR_DESMIS),
+                  content: Text(CRT_TXT_CONFIR_DESMIS),
+                  actions: <Widget>[_flattButton(YES, true), _flattButton(NO, false)]));
+        });
+  }
+
+  FlatButton _flattButton(String label, bool remove) {
+    return FlatButton(onPressed: () => Modular.to.pop(remove), child: Text(label));
   }
 }

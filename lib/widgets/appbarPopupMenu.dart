@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+
+import '../config/titlesIconsMessages/general.dart';
 import '../config/appProperties.dart';
 import '../config/titlesIconsMessages/views/ItemOverviewView.dart';
 import '../config/titlesIconsMessages/widgets/flushNotifier.dart';
-
 import '../enum/itemOverviewPopup.dart';
 import '../service_stores/itemsOverviewGridProductsStore.dart';
 
@@ -62,9 +63,9 @@ class _AppbarPopupMenuState extends State<AppbarPopupMenu> {
             ],
         onSelected: (filterSelected) {
           if (filterSelected == ItemsOverviewPopup.All) {
-            Modular.to.pushNamed(RT_IOV_ALL_VIEW);
-          } else if (_store.totalFavoritesQtde() > 0) {
-            Modular.to.pushNamed(RT_IOV_FAV_VIEW);
+            Modular.to.pushNamed(IOV_ALL_VIEW);
+          } else if (_store.qtdeFavorites() > 0) {
+            Modular.to.pushNamed(IOV_FAV_VIEW);
           }
           _store.applyFilter(filterSelected, context);
         });

@@ -18,7 +18,7 @@ class _CartViewState extends State<CartView> {
 
   @override
   void initState() {
-    _cartStore.calcTotalCartMoneyAmount();
+    _cartStore.calcAmount$CartItems();
   }
 
   @override
@@ -27,7 +27,7 @@ class _CartViewState extends State<CartView> {
         appBar: AppBar(title: Text(CRT_APPBAR_TIT), actions: <Widget>[
           IconButton(
               icon: CRT_ICO_CLRALL,
-              onPressed: () => _cartStore.clearCartItems(),
+              onPressed: () => _cartStore.clearCart(),
               tooltip: CRT_ICO_CLRALL_TIP)
         ]),
         body: Column(children: [
@@ -41,7 +41,7 @@ class _CartViewState extends State<CartView> {
                     Chip(
                         label: Observer(
                             builder: (BuildContext _) => Text(
-                                _cartStore.totalMoneyCartItems.toStringAsFixed(2),
+                                _cartStore.amountCartItems.toStringAsFixed(2),
                                 style: TextStyle(
                                     color: Theme.of(context).primaryTextTheme.title.color))),
                         backgroundColor: Theme.of(context).primaryColor),
@@ -49,9 +49,9 @@ class _CartViewState extends State<CartView> {
                         onPressed: () {
                           _orderStore.addOrder(
                             _cartStore.getAll().values.toList(),
-                            _cartStore.totalMoneyCartItems,
+                            _cartStore.amountCartItems,
                           );
-                          _cartStore.clearCartItems();
+                          _cartStore.clearCart();
                         },
                         child: Text(CRT_TXT_ORDER,
                             style: TextStyle(color: Theme.of(context).primaryColor)))

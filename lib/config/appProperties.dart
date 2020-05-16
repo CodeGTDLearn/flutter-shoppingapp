@@ -3,11 +3,12 @@ const APP_TITLE = "MyShopp";
 const APP_DEB_CHECK = false;
 
 //ROUTES
-const RT_IOV_ALL_VIEW = '/';
-const RT_IOV_FAV_VIEW = '/item-overview-favorites';
-const RT_ITEM_DET_VIEW = '/item-details/';
-const RT_CART_VIEW = '/cart-items';
-const RT_ORDERS_VIEW = '/orders';
+const IOV_ALL_VIEW = '/';
+const IOV_FAV_VIEW = '/item-overview-favorites';
+const ITEM_DET_VIEW = '/item-details/';
+const CART_VIEW = '/cart-items';
+const ORDERS_VIEW = '/orders';
+const MANPRODUCTS_VIEW = '/managed-products';
 
 //FLUSHBAR
 const FLSH_TIME = 2000;

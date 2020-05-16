@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../config/titlesIconsMessages/general.dart';
 import '../config/appProperties.dart';
 import '../config/titlesIconsMessages/views/ItemOverviewView.dart';
 import '../config/titlesIconsMessages/widgets/flushNotifier.dart';
@@ -23,10 +24,10 @@ class AppbarBadgeShopCart extends StatelessWidget {
               IconButton(
                   icon: IOV_ICO_SHOP,
                   onPressed: () {
-                    if (_cartStore.totalQtdeCartItems == 0) {
-                      FlushNotifier(OPSS, MSG_CARTEMPTY, FLSH_TIME, context).simple();
+                    if (_cartStore.qtdeCartItems == 0) {
+                      FlushNotifier(OPS, MSG_CARTEMPT, FLSH_TIME, context).simple();
                     } else {
-                      Navigator.pushNamed(context, RT_CART_VIEW);
+                      Navigator.pushNamed(context, CART_VIEW);
                     }
                   }),
               Positioned(
@@ -39,7 +40,7 @@ class AppbarBadgeShopCart extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10.0),
                           color: color != null ? color : Theme.of(context).accentColor),
                       constraints: BoxConstraints(minWidth: 16, minHeight: 16),
-                      child: Text(_cartStore.totalQtdeCartItems.toString(),
+                      child: Text(_cartStore.qtdeCartItems.toString(),
                           textAlign: TextAlign.center, style: TextStyle(fontSize: 10))))
             ]));
   }

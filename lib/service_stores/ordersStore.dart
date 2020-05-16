@@ -13,13 +13,13 @@ abstract class OrdersStoreInt with Store {
   final _repo = Modular.get<OrdersRepoInt>();
 
   @observable
-  int totalOrders = 0;
+  int qtdeOrders = 0;
 
   List<Order> getAll() {
     return _repo.getAll();
   }
 
-  void clearOrderList() {
+  void clearOrders() {
     _repo.clearOrderList();
   }
 
@@ -30,6 +30,6 @@ abstract class OrdersStoreInt with Store {
       cartItemsList,
       DateTime.now(),
     ));
-    totalOrders = getAll().length;
+    qtdeOrders = getAll().length;
   }
 }

@@ -1,6 +1,8 @@
 // extends from MainModule
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shopingapp/service_stores/managedProductsStore.dart';
+import 'package:shopingapp/views/managedProductsView.dart';
 
 import '../entities/product.dart';
 import '../repositories/cartRepo.dart';
@@ -38,18 +40,20 @@ class AppModule extends MainModule {
         Bind<CartStoreInt>((i) => CartStore()),
         Bind<OrdersRepoInt>((i) => OrdersRepo()),
         Bind<OrdersStoreInt>((i) => OrdersStore()),
+        Bind<ManagedProductsStoreInt>((i) => ManagedProductsStore()),
         Bind<OrderCollapsableTileStoreInt>((i) => OrderCollapsableTileStore(), singleton: false),
         Bind((i) => Product),
       ];
 
   @override
   List<Router> get routers => [
-        Router(RT_IOV_ALL_VIEW, child: (_, args) => ItemsOverviewAllView()),
-        Router(RT_IOV_FAV_VIEW,
+        Router(IOV_ALL_VIEW, child: (_, args) => ItemsOverviewAllView()),
+        Router(IOV_FAV_VIEW,
             child: (_, args) => ItemsOverviewFavView(), transition: TransitionType.noTransition),
-        Router(RT_CART_VIEW, child: (_, args) => CartView()),
-        Router(RT_ORDERS_VIEW, child: (_, args) => OrderView()),
-        Router(RT_ITEM_DET_VIEW + ':id', child: (_, args) => ItemDetailView(args.params['id'])),
+        Router(CART_VIEW, child: (_, args) => CartView()),
+        Router(ORDERS_VIEW, child: (_, args) => OrderView()),
+        Router(MANPRODUCTS_VIEW, child: (_, args) => ManagedProductsView()),
+        Router(ITEM_DET_VIEW + ':id', child: (_, args) => ItemDetailView(args.params['id'])),
       ];
 
   @override

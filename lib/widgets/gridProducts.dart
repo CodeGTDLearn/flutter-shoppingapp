@@ -16,7 +16,7 @@ class GridProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _store.totalItemsQtde() == 0
+    return _store.qtdeItems() == 0
         ? Center(child: Text(GRD_PRODUCT_MSG, style: TextStyle(fontSize: 20)))
         : GridView.builder(
             padding: EdgeInsets.all(10),

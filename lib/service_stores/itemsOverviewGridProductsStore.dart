@@ -22,21 +22,21 @@ abstract class ItemsOverviewGridProductsStoreInt with Store {
 
   @action
   void applyFilter(ItemsOverviewPopup filter, BuildContext context) {
-    if (filter == ItemsOverviewPopup.Favorites && totalFavoritesQtde() != 0) {
+    if (filter == ItemsOverviewPopup.Favorites && qtdeFavorites() != 0) {
       filteredProducts = _repo.getFavorites();
       hasFavorites = true;
-    } else if (filter == ItemsOverviewPopup.Favorites && totalFavoritesQtde() == 0) {
+    } else if (filter == ItemsOverviewPopup.Favorites && qtdeFavorites() == 0) {
       hasFavorites = false;
-    } else if (filter == ItemsOverviewPopup.All && totalItemsQtde() != 0) {
+    } else if (filter == ItemsOverviewPopup.All && qtdeItems() != 0) {
       filteredProducts = _repo.getAll();
     }
   }
 
-  int totalFavoritesQtde() {
+  int qtdeFavorites() {
     return _repo.getFavorites().length;
   }
 
-  int totalItemsQtde() {
+  int qtdeItems() {
     return _repo.getAll().length;
   }
 }

@@ -13,10 +13,10 @@ abstract class CartStoreInt with Store {
   final _repo = Modular.get<CartRepoInt>();
 
   @observable
-  double totalMoneyCartItems = 0.0;
+  double amountCartItems = 0.0;
 
   @observable
-  int totalQtdeCartItems = 0;
+  int qtdeCartItems = 0;
 
   @observable
   bool addProductInTheCartNotification;
@@ -28,43 +28,43 @@ abstract class CartStoreInt with Store {
   @action
   void addProductInTheCart(Product product) {
     _repo.addProductInTheCart(product);
-    calcTotalCartQtdeItems();
+    calcQtdeCartItems();
     addProductInTheCartNotification = true;
   }
 
   @action
   void undoAddProductInTheCart(Product product) {
     _repo.undoAddProductInTheCart(product);
-    calcTotalCartQtdeItems();
+    calcQtdeCartItems();
     addProductInTheCartNotification = false;
   }
 
   @action
   void removeCartItem(CartItem cartItem) {
     _repo.removeCartItem(cartItem);
-    calcTotalCartQtdeItems();
-    calcTotalCartMoneyAmount();
+    calcQtdeCartItems();
+    calcAmount$CartItems();
   }
 
   @action
-  void calcTotalCartMoneyAmount() {
+  void calcAmount$CartItems() {
     double total = 0;
     getAll().forEach((key, itemCart) {
       total += itemCart.get_price() * itemCart.get_qtde();
     });
-    totalMoneyCartItems = total;
+    amountCartItems = total;
   }
 
-  void clearCartItems() {
+  void clearCart() {
     _repo.clearCartItems();
-    calcTotalCartMoneyAmount();
-    calcTotalCartQtdeItems();
+    calcAmount$CartItems();
+    calcQtdeCartItems();
     Modular.to.pop();
   }
 
-  void calcTotalCartQtdeItems() {
-    int totalQtdeItems = 0;
-    getAll().forEach((x, item) => totalQtdeItems += item.get_qtde());
-    totalQtdeCartItems = totalQtdeItems;
+  void calcQtdeCartItems() {
+    int totalQtde = 0;
+    getAll().forEach((x, item) => totalQtde += item.get_qtde());
+    qtdeCartItems = totalQtde;
   }
 }

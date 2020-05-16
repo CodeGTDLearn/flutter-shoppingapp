@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
+import '../config/titlesIconsMessages/general.dart';
 import '../config/appProperties.dart';
 import '../config/titlesIconsMessages/views/ItemOverviewView.dart';
 import '../config/titlesIconsMessages/widgets/flushNotifier.dart';
 import '../service_stores/cartStore.dart';
-
 import '../service_stores/itemsOverviewGridProductItemStore.dart';
 import '../entities/product.dart';
 import 'flushNotifier.dart';
@@ -31,7 +32,7 @@ class _GridProductItemState extends State<GridProductItem> {
     return ClipRect(
         child: GridTile(
             child: GestureDetector(
-                onTap: () => Modular.to.pushNamed(RT_ITEM_DET_VIEW + widget._product.get_id()),
+                onTap: () => Modular.to.pushNamed(ITEM_DET_VIEW + widget._product.get_id()),
                 child: Image.network(widget._product.get_imageUrl(), fit: BoxFit.cover)),
             footer: GridTileBar(
                 leading: IconButton(
