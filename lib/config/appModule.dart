@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shopingapp/service_stores/managedProductsStore.dart';
+import 'package:shopingapp/views/managedProductsEditionView.dart';
 import 'package:shopingapp/views/managedProductsView.dart';
 
 import '../entities/product.dart';
@@ -53,6 +54,7 @@ class AppModule extends MainModule {
         Router(CART_VIEW, child: (_, args) => CartView()),
         Router(ORDERS_VIEW, child: (_, args) => OrderView()),
         Router(MANPRODUCTS_VIEW, child: (_, args) => ManagedProductsView()),
+        Router(MANPRODUCTS_EDIT_VIEW, child: (_, args) => ManagedProductsEditionView()),
         Router(ITEM_DET_VIEW + ':id', child: (_, args) => ItemDetailView(args.params['id'])),
       ];
 

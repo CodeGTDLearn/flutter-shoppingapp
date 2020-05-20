@@ -1,5 +1,3 @@
-
-// FLUSH-BAR WIDGET: NOTIFICATIONS
 const MSG_CART_ADD = "Added in the cart.";
 const MSG_CART_REM= "Item removed successfully.";
 const MSG_CARTEMPT= "No items in the cart, yet.";

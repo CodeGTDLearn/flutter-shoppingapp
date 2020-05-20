@@ -4,7 +4,7 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
-import '../config/titlesIconsMessages/views/ItemOverviewView.dart';
+import '../config/titlesIconsMessages/views/itemOverviewView.dart';
 
 class FlushNotifier {
   final String _title;

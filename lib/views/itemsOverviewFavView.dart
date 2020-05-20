@@ -1,9 +1,9 @@
-import '../config/titlesIconsMessages/views/ItemOverviewView.dart';
-import '../widgets/appbarPopupMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../widgets/appbarPopupMenu.dart';
+import '../config/titlesIconsMessages/views/itemOverviewView.dart';
 import '../enum/itemOverviewPopup.dart';
 import '../service_stores/itemsOverviewGridProductsStore.dart';
 import '../widgets/appbarBadgeShopCart.dart';

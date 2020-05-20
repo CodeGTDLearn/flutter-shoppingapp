@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-//SCREENS:
-// 1) ITEM OVERVIEW VIEW
 const IOV_APPBAR_TIT = "Items For Sale";
 const IOV_APPBAR_FAV_TIT = "Favorite Items";
 const IOV_ICO_SHOP = Icon(Icons.shopping_cart);

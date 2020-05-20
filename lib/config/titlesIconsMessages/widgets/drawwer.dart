@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// DRAWER WIDGET:
 const DRW_TXT_APPBAR = "Hello Seller";
 const DRW_ICO_SHOP = Icon(Icons.shop);
 const DRW_LBL_SHOP = "Cart";

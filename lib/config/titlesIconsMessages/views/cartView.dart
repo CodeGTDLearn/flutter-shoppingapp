@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-//SCREENS:
-// 2) CART VIEW
 const CRT_APPBAR_TIT = "Your Cart";
 const CRT_TXT_CARD = "Total";
 const CRT_TXT_ORDER = "Order Now";

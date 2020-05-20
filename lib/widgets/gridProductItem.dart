@@ -4,7 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../config/titlesIconsMessages/general.dart';
 import '../config/appProperties.dart';
-import '../config/titlesIconsMessages/views/ItemOverviewView.dart';
+import '../config/titlesIconsMessages/views/itemOverviewView.dart';
 import '../config/titlesIconsMessages/widgets/flushNotifier.dart';
 import '../service_stores/cartStore.dart';
 import '../service_stores/itemsOverviewGridProductItemStore.dart';

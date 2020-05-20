@@ -4,7 +4,7 @@ import 'package:mobx/mobx.dart';
 
 import '../config/titlesIconsMessages/general.dart';
 import '../config/appProperties.dart';
-import '../config/titlesIconsMessages/views/ItemOverviewView.dart';
+import '../config/titlesIconsMessages/views/itemOverviewView.dart';
 import '../config/titlesIconsMessages/widgets/flushNotifier.dart';
 import '../enum/itemOverviewPopup.dart';
 import '../service_stores/itemsOverviewGridProductsStore.dart';

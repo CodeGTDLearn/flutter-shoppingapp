@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shopingapp/config/titlesIconsMessages/views/managedProductView.dart';
 
-import 'package:shopingapp/config/titlesIconsMessages/widgets/ManagedProductItem.dart';
 import 'package:shopingapp/service_stores/managedProductsStore.dart';
 import 'package:shopingapp/widgets/drawwer.dart';
 import 'package:shopingapp/widgets/managedProductItem.dart';
