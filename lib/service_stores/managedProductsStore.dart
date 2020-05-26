@@ -13,12 +13,41 @@ abstract class ManagedProductsStoreInt with Store {
   @observable
   int qtdeManagedProducts = 0;
 
-  List<Product> getAll(){
-    return _repo.getAll();
+  @observable
+  List<Product> products;
+
+  @action
+  List<Product> getAll() {
+    products = _repo.getAll();
+    return products;
   }
 
-  void calcQtdeManagedProducts(){
+  void calcQtdeManagedProducts() {
     qtdeManagedProducts = _repo.getAll().length;
   }
 
+  Product getById(String id) {
+    return _repo.getById(id);
+  }
+
+  @action
+  bool add(Product product) {
+    product.set_id(DateTime.now().toString());
+    bool ret = _repo.add(product);
+    products = getAll();
+    return ret;
+  }
+
+  @action
+  bool update(Product product) {
+    bool ret = _repo.update(product);
+    products = getAll();
+    return ret;
+  }
+
+  @action
+  void delete(String id) {
+    _repo.delete(id);
+    products = getAll();
+  }
 }

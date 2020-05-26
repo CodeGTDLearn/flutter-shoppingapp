@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shopingapp/config/routes.dart';
 
 import 'package:shopingapp/service_stores/managedProductsStore.dart';
 import '../config/titlesIconsMessages/general.dart';
@@ -27,7 +28,7 @@ class Drawwer extends StatelessWidget {
       _drawerItem(_cart.qtdeCartItems, DRW_ICO_SHOP, DRW_LBL_SHOP, MSG_CARTEMPT, CART_VIEW, false),
       _drawerItem(_orders.qtdeOrders, DRW_ICO_PAY, DRW_LBL_PAY, MSG_NOORDER, ORDERS_VIEW, false),
       _drawerItem(_manProd.qtdeManagedProducts, DRW_ICO_MAN, DRW_LBL_MAN, MSG_NOMANPRODUCT,
-          MANPRODUCTS_VIEW, true)
+          MANAGEDPRODUCT_VIEW, true)
     ]));
   }
 

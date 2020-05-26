@@ -12,6 +12,6 @@ class Product with _$ProductLombok {
   String _imageUrl;
   bool _isFavorite = false;
 
-  Product(this._id, this._title, this._description, this._price, this._imageUrl,
-      [this._isFavorite = false]);
+  Product([this._id, this._title, this._description, this._price, this._imageUrl,
+      this._isFavorite = false]);
 }

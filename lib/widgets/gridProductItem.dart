@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shopingapp/config/routes.dart';
 
 import '../config/titlesIconsMessages/general.dart';
 import '../config/appProperties.dart';
@@ -32,7 +33,7 @@ class _GridProductItemState extends State<GridProductItem> {
     return ClipRect(
         child: GridTile(
             child: GestureDetector(
-                onTap: () => Modular.to.pushNamed(ITEM_DET_VIEW + widget._product.get_id()),
+                onTap: () => Modular.to.pushNamed(ITEMDETAILS_VIEW + widget._product.get_id()),
                 child: Image.network(widget._product.get_imageUrl(), fit: BoxFit.cover)),
             footer: GridTileBar(
                 leading: IconButton(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shopingapp/config/routes.dart';
 
 import '../config/titlesIconsMessages/general.dart';
 import '../config/appProperties.dart';
