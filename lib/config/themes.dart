@@ -12,7 +12,7 @@ class AppTheme {
   }
 
   static final ThemeData _themeConfiguration = ThemeData(
-      primarySwatch: Colors.purple,
+      primarySwatch: Colors.blue,
       accentColor: Colors.deepOrange,
       canvasColor: Color.fromRGBO(255, 254, 229, 1),
       fontFamily: 'Lato');

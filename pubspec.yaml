@@ -15,8 +15,8 @@ dependencies:
   flushbar: ^1.9.1
   intl: ^0.16.1
   lombok: ^0.0.5
-
-  cupertino_icons: ^0.1.2
+  wc_form_validators: ^0.1.1
+  string_validator: ^0.1.4
 
 dev_dependencies:
   flutter_test:
@@ -26,8 +26,14 @@ dev_dependencies:
 
 
 flutter:
-
   uses-material-design: true
+
+scripts:
+  mb: flutter packages pub run build_runner build
+  mw: flutter packages pub run build_runner watch
+  mc: flutter packages pub run build_runner build clean
+  md: flutter packages pub run build_runner build --delete-conflicting-outputs
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'config/appProperties.dart';
+import 'config/routes.dart';
 import 'config/themes.dart';
 
 class AppDriver extends StatefulWidget {
@@ -17,7 +18,7 @@ class _AppDriverState extends State<AppDriver> {
       title: APP_TITLE,
       theme: AppTheme().theme,
       navigatorKey: Modular.navigatorKey,
-      initialRoute: IOV_ALL_VIEW,
+      initialRoute: ITENSOVER_ALL_VIEW,
       onGenerateRoute: Modular.generateRoute,
     );
   }

@@ -1,6 +1,7 @@
 // extends from MainModule
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shopingapp/config/routes.dart';
 import 'package:shopingapp/service_stores/managedProductsStore.dart';
 import 'package:shopingapp/views/managedProductsEditionView.dart';
 import 'package:shopingapp/views/managedProductsView.dart';
@@ -48,14 +49,15 @@ class AppModule extends MainModule {
 
   @override
   List<Router> get routers => [
-        Router(IOV_ALL_VIEW, child: (_, args) => ItemsOverviewAllView()),
-        Router(IOV_FAV_VIEW,
+        Router(ITENSOVER_ALL_VIEW, child: (_, args) => ItemsOverviewAllView()),
+        Router(ITENSOVER_FAV_VIEW,
             child: (_, args) => ItemsOverviewFavView(), transition: TransitionType.noTransition),
         Router(CART_VIEW, child: (_, args) => CartView()),
         Router(ORDERS_VIEW, child: (_, args) => OrderView()),
-        Router(MANPRODUCTS_VIEW, child: (_, args) => ManagedProductsView()),
-        Router(MANPRODUCTS_EDIT_VIEW, child: (_, args) => ManagedProductsEditionView()),
-        Router(ITEM_DET_VIEW + ':id', child: (_, args) => ItemDetailView(args.params['id'])),
+        Router(MANAGEDPRODUCT_VIEW, child: (_, args) => ManagedProductsView()),
+        Router(MANAGEDPRODUCT_ADD_VIEW, child: (_, args) => ManagedProductsEditionView()),
+        Router(MANAGEDPRODUCT_EDIT_VIEW, child: (_, args) => ManagedProductsEditionView(args.params['id'])),
+        Router(ITEMDETAILS_VIEW + '/:id', child: (_, args) => ItemDetailView(args.params['id'])),
       ];
 
   @override

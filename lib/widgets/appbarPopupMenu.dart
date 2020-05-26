@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:shopingapp/config/routes.dart';
 
 import '../config/titlesIconsMessages/general.dart';
 import '../config/appProperties.dart';
@@ -63,9 +64,9 @@ class _AppbarPopupMenuState extends State<AppbarPopupMenu> {
             ],
         onSelected: (filterSelected) {
           if (filterSelected == ItemsOverviewPopup.All) {
-            Modular.to.pushNamed(IOV_ALL_VIEW);
+            Modular.to.pushNamed(ITENSOVER_ALL_VIEW);
           } else if (_store.qtdeFavorites() > 0) {
-            Modular.to.pushNamed(IOV_FAV_VIEW);
+            Modular.to.pushNamed(ITENSOVER_FAV_VIEW);
           }
           _store.applyFilter(filterSelected, context);
         });
