@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../service_stores/itemsOverviewGridProductItemStore.dart';
+import '../services/itemsOverviewGridProductItemStore.dart';
 
 class ItemDetailView extends StatelessWidget {
   final String _id;
@@ -30,7 +30,7 @@ class ItemDetailView extends StatelessWidget {
               width: double.infinity,
               child: Text(_item.get_description(),
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.body1))
+                  style: Theme.of(context).textTheme.bodyText1))
         ])));
   }
 }

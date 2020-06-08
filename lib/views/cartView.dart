@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../service_stores/cartStore.dart';
+import '../components/cartCardItem.dart';
 import '../config/titlesIconsMessages/views/cartView.dart';
-import '../service_stores/ordersStore.dart';
-import '../widgets/cartCardItem.dart';
+import '../services/cartStore.dart';
+import '../services/ordersStore.dart';
 
 class CartView extends StatefulWidget {
   @override
@@ -43,7 +43,7 @@ class _CartViewState extends State<CartView> {
                             builder: (BuildContext _) => Text(
                                 _cartStore.amountCartItems.toStringAsFixed(2),
                                 style: TextStyle(
-                                    color: Theme.of(context).primaryTextTheme.title.color))),
+                                    color: Theme.of(context).primaryColor))),
                         backgroundColor: Theme.of(context).primaryColor),
                     FlatButton(
                         onPressed: () {
@@ -54,14 +54,16 @@ class _CartViewState extends State<CartView> {
                           _cartStore.clearCart();
                         },
                         child: Text(CRT_TXT_ORDER,
-                            style: TextStyle(color: Theme.of(context).primaryColor)))
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor)))
                   ]))),
           SizedBox(height: 10),
           Expanded(
               child: ListView.builder(
                   itemCount: _cartStore.getAll().length,
                   itemBuilder: (ctx, item) {
-                    return CartCardItem(_cartStore.getAll().values.elementAt(item));
+                    return CartCardItem(
+                        _cartStore.getAll().values.elementAt(item));
                   }))
         ]));
   }

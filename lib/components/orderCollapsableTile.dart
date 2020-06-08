@@ -4,12 +4,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 
-
 import '../config/appProperties.dart';
 import '../config/titlesIconsMessages/views/ordersView.dart';
-
 import '../entities/order.dart';
-import '../service_stores/orderCollapsableTileStore.dart';
+import '../services/orderCollapsableTileStore.dart';
 
 class OrderCollapsableTile extends StatefulWidget {
   final Order _order;

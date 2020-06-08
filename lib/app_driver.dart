@@ -18,7 +18,7 @@ class _AppDriverState extends State<AppDriver> {
       title: APP_TITLE,
       theme: AppTheme().theme,
       navigatorKey: Modular.navigatorKey,
-      initialRoute: ITENSOVER_ALL_VIEW,
+      initialRoute: ITENSOVER_ALL_ROUTE,
       onGenerateRoute: Modular.generateRoute,
     );
   }

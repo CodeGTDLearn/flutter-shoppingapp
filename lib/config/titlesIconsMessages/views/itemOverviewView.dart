@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const IOV_APPBAR_TIT = "Items For Sale";
+const IOV_APPBAR_ALL_TIT = "Items For Sale";
 const IOV_APPBAR_FAV_TIT = "Favorite Items";
 const IOV_ICO_SHOP = Icon(Icons.shopping_cart);
 const IOV_ICO_FAV = Icon(Icons.favorite);

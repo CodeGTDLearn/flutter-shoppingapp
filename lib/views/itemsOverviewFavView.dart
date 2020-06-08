@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../widgets/appbarPopupMenu.dart';
+import '../components/appbarBadgeShopCart.dart';
+import '../components/appbarPopupMenu.dart';
+import '../components/drawwer.dart';
+import '../components/gridProducts.dart';
 import '../config/titlesIconsMessages/views/itemOverviewView.dart';
 import '../enum/itemOverviewPopup.dart';
-import '../service_stores/itemsOverviewGridProductsStore.dart';
-import '../widgets/appbarBadgeShopCart.dart';
-import '../widgets/drawwer.dart';
-import '../widgets/gridProducts.dart';
+import '../services/itemsOverviewGridProductsStore.dart';
 
 class ItemsOverviewFavView extends StatefulWidget {
   @override
@@ -32,6 +32,8 @@ class ItemsOverviewViewState extends State<ItemsOverviewFavView> {
           AppbarBadgeShopCart()
         ]),
         drawer: Drawwer(),
-        body: Observer(builder: (BuildContext _) => GridProducts(_store.filteredProducts)));
+        body: Observer(
+          builder: (BuildContext _) => GridProducts(_store.filteredProducts),
+        ));
   }
 }

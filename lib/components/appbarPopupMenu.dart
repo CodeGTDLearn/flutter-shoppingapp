@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:shopingapp/config/routes.dart';
 
-import '../config/titlesIconsMessages/general.dart';
 import '../config/appProperties.dart';
+import '../config/routes.dart';
+import '../config/titlesIconsMessages/general.dart';
 import '../config/titlesIconsMessages/views/itemOverviewView.dart';
 import '../config/titlesIconsMessages/widgets/flushNotifier.dart';
 import '../enum/itemOverviewPopup.dart';
-import '../service_stores/itemsOverviewGridProductsStore.dart';
-
+import '../services/itemsOverviewGridProductsStore.dart';
 import 'flushNotifier.dart';
 
 class AppbarPopupMenu extends StatefulWidget {
@@ -64,9 +63,9 @@ class _AppbarPopupMenuState extends State<AppbarPopupMenu> {
             ],
         onSelected: (filterSelected) {
           if (filterSelected == ItemsOverviewPopup.All) {
-            Modular.to.pushNamed(ITENSOVER_ALL_VIEW);
+            Modular.to.pushNamed(ITENSOVER_ALL_ROUTE);
           } else if (_store.qtdeFavorites() > 0) {
-            Modular.to.pushNamed(ITENSOVER_FAV_VIEW);
+            Modular.to.pushNamed(ITENSOVER_FAV_ROUTE);
           }
           _store.applyFilter(filterSelected, context);
         });

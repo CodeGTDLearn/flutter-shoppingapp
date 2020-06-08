@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shopingapp/config/titlesIconsMessages/general.dart';
 
+import '../config/titlesIconsMessages/general.dart';
 import '../config/titlesIconsMessages/views/cartView.dart';
 import '../entities/cartItem.dart';
-import '../service_stores/cartStore.dart';
+import '../services/cartStore.dart';
 
 class CartCardItem extends StatelessWidget {
   CartItem _cartItem;
@@ -22,7 +22,8 @@ class CartCardItem extends StatelessWidget {
             padding: EdgeInsets.only(right: 20),
             margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(2), color: Theme.of(context).errorColor)),
+                borderRadius: BorderRadius.circular(2),
+                color: Theme.of(context).errorColor)),
         direction: DismissDirection.endToStart,
         onDismissed: (direction) {
           _cartStore.removeCartItem(_cartItem);
@@ -36,7 +37,8 @@ class CartCardItem extends StatelessWidget {
                   leading: CircleAvatar(
                       child: Padding(
                           padding: EdgeInsets.all(5),
-                          child: FittedBox(child: Text('\$${_cartItem.get_price()}')))),
+                          child: FittedBox(
+                              child: Text('\$${_cartItem.get_price()}')))),
                   title: Text(_cartItem.get_title()),
                   subtitle: Text(
                       'Total \$${(_cartItem.get_price() * _cartItem.get_price()).toStringAsFixed(2)}'),
@@ -46,13 +48,17 @@ class CartCardItem extends StatelessWidget {
           return showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                  title: Text(CRT_TIT_CONFIR_DESMIS),
-                  content: Text(CRT_TXT_CONFIR_DESMIS),
-                  actions: <Widget>[_flattButton(YES, true), _flattButton(NO, false)]));
+                      title: Text(CRT_TIT_CONFIR_DESMIS),
+                      content: Text(CRT_TXT_CONFIR_DESMIS),
+                      actions: <Widget>[
+                        _flattButton(YES, true),
+                        _flattButton(NO, false)
+                      ]));
         });
   }
 
   FlatButton _flattButton(String label, bool remove) {
-    return FlatButton(onPressed: () => Modular.to.pop(remove), child: Text(label));
+    return FlatButton(
+        onPressed: () => Modular.to.pop(remove), child: Text(label));
   }
 }

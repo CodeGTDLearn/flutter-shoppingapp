@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shopingapp/config/appProperties.dart';
-import 'package:shopingapp/config/routes.dart';
-import 'package:shopingapp/config/titlesIconsMessages/views/managedProductView.dart';
 
-import 'package:shopingapp/service_stores/managedProductsStore.dart';
-import 'package:shopingapp/widgets/drawwer.dart';
-import 'package:shopingapp/widgets/managedProductItem.dart';
+import '../components/drawwer.dart';
+import '../components/managedProductItem.dart';
+import '../config/routes.dart';
+import '../config/titlesIconsMessages/views/managedProductView.dart';
+import '../services/managedProductsStore.dart';
 
 class ManagedProductsView extends StatefulWidget {
   @override
@@ -29,7 +28,8 @@ class _ManagedProductsViewState extends State<ManagedProductsView> {
       appBar: AppBar(title: Text(MAN_APPBAR_TIT), actions: <Widget>[
         IconButton(
             icon: MAN_ADD_APPBAR_ICO,
-            onPressed: () => Modular.to.pushReplacementNamed(MANAGEDPRODUCT_ADD_VIEW))
+            onPressed: () =>
+                Modular.to.pushReplacementNamed(MANAGPRODUCT_ADD_ROUTE))
       ]),
       drawer: Drawwer(),
       body: Observer(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shopingapp/config/routes.dart';
-import 'package:shopingapp/service_stores/managedProductsStore.dart';
 
+import '../config/routes.dart';
 import '../config/titlesIconsMessages/widgets/managedProductItem.dart';
+import '../services/managedProductsStore.dart';
 
 class ManagedProductItems extends StatelessWidget {
   final String _id;
@@ -24,8 +24,8 @@ class ManagedProductItems extends StatelessWidget {
             child: Row(children: <Widget>[
               IconButton(
                   icon: MAN_TILE_EDIT_ICO,
-                  onPressed: () =>
-                      Modular.to.pushReplacementNamed('$MANAGEDPRODUCT_ADD_VIEW/$_id'),
+                  onPressed: () => Modular.to
+                      .pushReplacementNamed('$MANAGPRODUCT_ADD_ROUTE/$_id'),
                   color: Theme.of(context).errorColor),
               IconButton(
                   icon: MAN_TILE_DELETE_ICO,

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
+import '../components/gridProductItem.dart';
 import '../config/titlesIconsMessages/widgets/gridProducts.dart';
-import '../config/titlesIconsMessages/widgets/flushNotifier.dart';
-
-import '../service_stores/itemsOverviewGridProductsStore.dart';
-
-import '../widgets/gridProductItem.dart';
 import '../entities/product.dart';
+import '../services/itemsOverviewGridProductsStore.dart';
 
 class GridProducts extends StatelessWidget {
   List<Product> _products;
