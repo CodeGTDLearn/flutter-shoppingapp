@@ -1,0 +1,4 @@
+enum PopupOptionsAppbar {
+  Favorites,
+  All,
+}
