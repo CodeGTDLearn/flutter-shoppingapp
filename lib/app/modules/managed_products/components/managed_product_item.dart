@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shopingapp/app/config/app_routes.dart';
-import 'package:shopingapp/app/config/titles_icons/components/managed_product_item.dart';
 
+import '../../../config/app_routes.dart';
+import '../../../config/titles_icons/components/managed_product_item.dart';
 import '../managed_products_controller.dart';
 
 class ManagedProductItem extends StatelessWidget {

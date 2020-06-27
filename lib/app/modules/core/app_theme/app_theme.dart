@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shopingapp/app/config/app_theme.dart';
+
+import '../../../config/app_theme.dart';
 
 class AppTheme {
+
   ThemeData theme(bool isDark) {
     return ThemeData(
         primarySwatch: PRIMARY_SWATCH,

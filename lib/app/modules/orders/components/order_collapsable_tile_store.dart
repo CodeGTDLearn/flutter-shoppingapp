@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:shopingapp/app/config/titles_icons/views/orders.dart';
+
+import '../../../config/titles_icons/views/orders.dart';
 
 part 'order_collapsable_tile_store.g.dart';
 

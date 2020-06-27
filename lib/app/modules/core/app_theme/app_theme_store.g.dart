@@ -8,8 +8,8 @@ part of 'app_theme_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$AppThemeStore on AppThemeStoreBase, Store {
-  final _$isDarkAtom = Atom(name: 'AppThemeStoreBase.isDark');
+mixin _$AppThemeStore on _AppThemeStoreBase, Store {
+  final _$isDarkAtom = Atom(name: '_AppThemeStoreBase.isDark');
 
   @override
   bool get isDark {
@@ -26,16 +26,16 @@ mixin _$AppThemeStore on AppThemeStoreBase, Store {
     }, _$isDarkAtom, name: '${_$isDarkAtom.name}_set');
   }
 
-  final _$AppThemeStoreBaseActionController =
-      ActionController(name: 'AppThemeStoreBase');
+  final _$_AppThemeStoreBaseActionController =
+      ActionController(name: '_AppThemeStoreBase');
 
   @override
   void toggleDarkTheme(bool onChangedValue) {
-    final _$actionInfo = _$AppThemeStoreBaseActionController.startAction();
+    final _$actionInfo = _$_AppThemeStoreBaseActionController.startAction();
     try {
       return super.toggleDarkTheme(onChangedValue);
     } finally {
-      _$AppThemeStoreBaseActionController.endAction(_$actionInfo);
+      _$_AppThemeStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 

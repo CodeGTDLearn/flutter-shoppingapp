@@ -1,9 +1,8 @@
-import 'dart:ui';
-
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:shopingapp/app/config/titles_icons/components/flush_notifier.dart';
+
+import '../../../config/titles_icons/components/flush_notifier.dart';
 
 class FlushNotifier {
   final String _title;

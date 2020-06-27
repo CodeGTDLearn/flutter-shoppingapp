@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
-import 'package:shopingapp/app/config/app_monitor_builds.dart';
-import 'package:shopingapp/app/config/app_properties.dart';
-import 'package:shopingapp/app/config/titles_icons/views/orders.dart';
 
+import '../../../config/app_monitor_builds.dart';
+import '../../../config/app_properties.dart';
+import '../../../config/titles_icons/views/orders.dart';
 import '../order.dart';
 import 'order_collapsable_tile_store.dart';
 
@@ -33,7 +33,7 @@ class _OrderCollapsableTileState extends State<OrderCollapsableTile> {
     print(MON_BUILD_COMP_ORDERCOLLAP_TILE);
     widget._collapseTileStore.collapsingTileIcon ??= ORDERS_ICO_COLLAPSE;
     return Observer(
-        builder: (BuildContext _) => Card(
+        builder: (_) => Card(
             margin: EdgeInsets.all(15),
             child: Column(children: [
               Container(
@@ -61,30 +61,28 @@ class _OrderCollapsableTileState extends State<OrderCollapsableTile> {
                       margin:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                       padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-                      child: LayoutBuilder(
-                        builder: (_, specs) {
-                          return ListView(
-                              padding: EdgeInsets.all(5),
-                              children: widget._order
-                                  .get_cartItemsList()
-                                  .map((item) => Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            _rowContainer('${item.get_title()}',
-                                                18, specs.maxWidth * 0.55),
-                                            _rowContainer('x${item.get_qtde()}',
-                                                18, specs.maxWidth * 0.15),
-                                            _rowContainer(
-                                                '${item.get_price().toString()}',
-                                                18,
-                                                specs.maxWidth * 0.2)
-                                          ]))
-                                  .toList());
-                        },
-                      )))
+                      child: LayoutBuilder(builder: (_, specs) {
+                        return ListView(
+                            padding: EdgeInsets.all(5),
+                            children: widget._order
+                                .get_cartItemsList()
+                                .map((item) => Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          _rowContainer('${item.get_title()}',
+                                              18, specs.maxWidth * 0.55),
+                                          _rowContainer('x${item.get_qtde()}',
+                                              18, specs.maxWidth * 0.15),
+                                          _rowContainer(
+                                              '${item.get_price().toString()}',
+                                              18,
+                                              specs.maxWidth * 0.2)
+                                        ]))
+                                .toList());
+                      })))
             ])));
   }
 

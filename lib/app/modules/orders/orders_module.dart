@@ -4,17 +4,18 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'components/order_collapsable_tile_store.dart';
 import 'orders_controller.dart';
 import 'orders_page.dart';
-import 'orders_repo.dart';
+import 'repo/i_orders_repo.dart';
+import 'repo/orders_firebase_repo.dart';
 
 class OrdersModule extends ChildModule {
   @override
   List<Bind> get binds => [
-        Bind<OrdersRepo>((i) => OrdersRepo()),
+        //CONTROLLER (BOA PRATICA - NOVA INSTANCIA A CADA ACESSO)
+        Bind((i) => OrdersController()),
+        Bind<IOrdersRepo>((i) => OrdersFirebaseRepo()),
+
         Bind<OrderCollapsableTileStore>((i) => OrderCollapsableTileStore(),
             singleton: false),
-
-        //CONTROLLER (BOA PRATICA - NOVA INSTANCIA A CADA ACESSO)
-        Bind<OrdersController>((i) => OrdersController(), singleton: false),
       ];
 
   @override

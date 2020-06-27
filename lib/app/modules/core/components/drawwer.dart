@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shopingapp/app/config/app_properties.dart';
-import 'package:shopingapp/app/config/app_routes.dart';
-import 'package:shopingapp/app/config/messages/flush_notifier.dart';
-import 'package:shopingapp/app/config/titles_icons/app_core.dart';
-import 'package:shopingapp/app/config/titles_icons/components/drawwer.dart';
-import 'package:shopingapp/app/modules/cart/cart_controller.dart';
-import 'package:shopingapp/app/modules/core/app_theme/app_theme_store.dart';
-import 'package:shopingapp/app/modules/managed_products/managed_products_controller.dart';
-import 'package:shopingapp/app/modules/orders/orders_controller.dart';
 
+import '../../../config/app_properties.dart';
+import '../../../config/app_routes.dart';
+import '../../../config/messages/flush_notifier.dart';
+import '../../../config/titles_icons/app_core.dart';
+import '../../../config/titles_icons/components/drawwer.dart';
+import '../../../modules/cart/cart_controller.dart';
+import '../../../modules/core/app_theme/app_theme_store.dart';
+import '../../../modules/managed_products/managed_products_controller.dart';
+import '../../../modules/orders/orders_controller.dart';
 import 'flush_notifier.dart';
 
+// ignore: must_be_immutable
 class Drawwer extends StatelessWidget {
   BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
     _context = context;
-    final _theme = Modular.get<AppThemeStoreBase>();
-    final _cart = Modular.get<CartControllerBase>();
-    final _orders = Modular.get<OrdersControllerBase>();
-    final _manProd = Modular.get<ManagedProductsControllerBase>();
+    final _cart = Modular.get<CartController>();
+    final _theme = Modular.get<AppThemeStore>();
+    final _orders = Modular.get<OrdersController>();
+    final _manProd = Modular.get<ManagedProductsController>();
 
     return Drawer(
         child: Column(children: [
@@ -41,11 +42,11 @@ class Drawwer extends StatelessWidget {
       _drawerItem(_manProd.qtdeManagedProducts, DRAWER_ICO_MAN, DRAWER_LBL_MAN,
           FLUSHNOTIF_MSG_NOMANPRODUCT, MANAGPRODUCT_ROUTE, true),
       Observer(
-          builder: (BuildContext _) => SwitchListTile(
+          builder: (_) => SwitchListTile(
               secondary: DRAWER_ICO_DARK,
               title: Text(DRAWER_LBL_DARK),
               value: _theme.isDark,
-              onChanged: (value) => _theme.toggleDarkTheme(value)))
+              onChanged: _theme.toggleDarkTheme))
     ]));
   }
 
@@ -62,7 +63,7 @@ class Drawwer extends StatelessWidget {
         title: Text(title),
         onTap: () {
           if (!noConditional && qtde == 0) {
-            FlushNotifier(OPS, message, INTERVAL, this._context).simple();
+            FlushNotifier(OPS, message, INTERVAL, _context).simple();
           } else if (!noConditional && qtde != 0) {
             Modular.to.pushNamed(route);
           } else if (noConditional) {

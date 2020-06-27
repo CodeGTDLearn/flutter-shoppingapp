@@ -8,9 +8,9 @@ part of 'managed_products_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$ManagedProductsController on ManagedProductsControllerBase, Store {
+mixin _$ManagedProductsController on _ManagedProductsControllerBase, Store {
   final _$qtdeManagedProductsAtom =
-      Atom(name: 'ManagedProductsControllerBase.qtdeManagedProducts');
+      Atom(name: '_ManagedProductsControllerBase.qtdeManagedProducts');
 
   @override
   int get qtdeManagedProducts {
@@ -29,7 +29,7 @@ mixin _$ManagedProductsController on ManagedProductsControllerBase, Store {
         name: '${_$qtdeManagedProductsAtom.name}_set');
   }
 
-  final _$productsAtom = Atom(name: 'ManagedProductsControllerBase.products');
+  final _$productsAtom = Atom(name: '_ManagedProductsControllerBase.products');
 
   @override
   List<Product> get products {
@@ -46,50 +46,50 @@ mixin _$ManagedProductsController on ManagedProductsControllerBase, Store {
     }, _$productsAtom, name: '${_$productsAtom.name}_set');
   }
 
-  final _$ManagedProductsControllerBaseActionController =
-      ActionController(name: 'ManagedProductsControllerBase');
+  final _$_ManagedProductsControllerBaseActionController =
+      ActionController(name: '_ManagedProductsControllerBase');
 
   @override
   List<Product> getAll() {
     final _$actionInfo =
-        _$ManagedProductsControllerBaseActionController.startAction();
+        _$_ManagedProductsControllerBaseActionController.startAction();
     try {
       return super.getAll();
     } finally {
-      _$ManagedProductsControllerBaseActionController.endAction(_$actionInfo);
+      _$_ManagedProductsControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   bool add(Product product) {
     final _$actionInfo =
-        _$ManagedProductsControllerBaseActionController.startAction();
+        _$_ManagedProductsControllerBaseActionController.startAction();
     try {
       return super.add(product);
     } finally {
-      _$ManagedProductsControllerBaseActionController.endAction(_$actionInfo);
+      _$_ManagedProductsControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   bool update(Product product) {
     final _$actionInfo =
-        _$ManagedProductsControllerBaseActionController.startAction();
+        _$_ManagedProductsControllerBaseActionController.startAction();
     try {
       return super.update(product);
     } finally {
-      _$ManagedProductsControllerBaseActionController.endAction(_$actionInfo);
+      _$_ManagedProductsControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void delete(String id) {
     final _$actionInfo =
-        _$ManagedProductsControllerBaseActionController.startAction();
+        _$_ManagedProductsControllerBaseActionController.startAction();
     try {
       return super.delete(id);
     } finally {
-      _$ManagedProductsControllerBaseActionController.endAction(_$actionInfo);
+      _$_ManagedProductsControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 

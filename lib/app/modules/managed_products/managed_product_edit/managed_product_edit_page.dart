@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shopingapp/app/config/app_monitor_builds.dart';
-import 'package:shopingapp/app/config/app_owasp_regex.dart';
-import 'package:shopingapp/app/config/app_routes.dart';
-import 'package:shopingapp/app/config/messages/field_validation.dart';
-import 'package:shopingapp/app/config/titles_icons/app_core.dart';
-import 'package:shopingapp/app/config/titles_icons/views/managed_product_edit.dart';
-import 'package:shopingapp/app/modules/overview/product.dart';
 import 'package:string_validator/string_validator.dart';
 import 'package:wc_form_validators/wc_form_validators.dart';
 
+import '../../../config/app_monitor_builds.dart';
+import '../../../config/app_owasp_regex.dart';
+import '../../../config/app_routes.dart';
+import '../../../config/messages/field_validation.dart';
+import '../../../config/titles_icons/app_core.dart';
+import '../../../config/titles_icons/views/managed_product_edit.dart';
+import '../../../modules/overview/product.dart';
 import '../managed_products_controller.dart';
 
 class ManagedProductEditPage extends StatefulWidget {
@@ -33,11 +33,11 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
   final _form = GlobalKey<FormState>();
   Product _product = Product();
 
-  final _store = Modular.get<ManagedProductsControllerBase>();
+  final _store = Modular.get<ManagedProductsController>();
 
   @override
   void initState() {
-    _focusImgUrlNode.addListener(() => _previewImageUrl());
+    _focusImgUrlNode.addListener(_previewImageUrl);
     super.initState();
   }
 
@@ -57,7 +57,7 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
     var urlPattern =
         r"(https?|ftp)://([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?";
 
-    var result = new RegExp(urlPattern, caseSensitive: false)
+    var result = RegExp(urlPattern, caseSensitive: false)
         .firstMatch(_imgUrlController.text.trim());
 
     if (!_focusImgUrlNode.hasFocus) {
@@ -81,7 +81,7 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
     _focusPrice.dispose();
     _focusDescript.dispose();
 
-    _focusImgUrlNode.removeListener(() => _previewImageUrl());
+    _focusImgUrlNode.removeListener(_previewImageUrl);
     _focusImgUrlNode.dispose();
     _imgUrlController.dispose();
 
@@ -90,7 +90,7 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(MON_BUILD_VIEW_MANAGPRODSEDIT);
+    print(MON_BUILD_PAGE_MANAGPRODSEDIT);
     return Scaffold(
         appBar:
             AppBar(title: Text(MANAGED_PROD_LBL_ADD_APPBAR), actions: <Widget>[

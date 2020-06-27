@@ -1,0 +1,9 @@
+include: package:effective_dart/analysis_options.yaml
+
+linter:
+  rules:
+    public_member_api_docs: false
+    Sort directive sections alphabetically: false
+    constant_identifier_names: false
+    avoid_positional_boolean_parameters: false
+    prefer_mixin: false

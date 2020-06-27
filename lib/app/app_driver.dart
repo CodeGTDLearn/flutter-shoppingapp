@@ -13,9 +13,9 @@ class AppDriver extends StatefulWidget {
 }
 
 class _AppDriverState extends State<AppDriver> {
-  var _theme = Modular.get<AppTheme>();
-  var _sharedPref = Modular.get<SharedPreferencesRepo>();
-  var _appThemeStore = Modular.get<AppThemeStoreBase>();
+  final _theme = Modular.get<AppTheme>(); // era VAR
+  final _sharedPref = Modular.get<SharedPreferencesRepo>(); // era VAR
+  final _appThemeStore = Modular.get<AppThemeStore>(); // era VAR
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class _AppDriverState extends State<AppDriver> {
         (value) => {_appThemeStore.isDark = value == null ? false : value});
 
     return Observer(
-        builder: (BuildContext _) => MaterialApp(
+        builder: (_) => MaterialApp(
             debugShowCheckedModeBanner: APP_DEBUG_CHECK,
             title: APP_TITLE,
             theme: _theme.theme(_appThemeStore.isDark),

@@ -8,9 +8,9 @@ part of 'cart_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$CartController on CartControllerBase, Store {
+mixin _$CartController on _CartControllerBase, Store {
   final _$amountCartItemsAtom =
-      Atom(name: 'CartControllerBase.amountCartItems');
+      Atom(name: '_CartControllerBase.amountCartItems');
 
   @override
   double get amountCartItems {
@@ -27,7 +27,7 @@ mixin _$CartController on CartControllerBase, Store {
     }, _$amountCartItemsAtom, name: '${_$amountCartItemsAtom.name}_set');
   }
 
-  final _$qtdeCartItemsAtom = Atom(name: 'CartControllerBase.qtdeCartItems');
+  final _$qtdeCartItemsAtom = Atom(name: '_CartControllerBase.qtdeCartItems');
 
   @override
   int get qtdeCartItems {
@@ -45,7 +45,7 @@ mixin _$CartController on CartControllerBase, Store {
   }
 
   final _$addProductInTheCartNotificationAtom =
-      Atom(name: 'CartControllerBase.addProductInTheCartNotification');
+      Atom(name: '_CartControllerBase.addProductInTheCartNotification');
 
   @override
   bool get addProductInTheCartNotification {
@@ -64,46 +64,46 @@ mixin _$CartController on CartControllerBase, Store {
         name: '${_$addProductInTheCartNotificationAtom.name}_set');
   }
 
-  final _$CartControllerBaseActionController =
-      ActionController(name: 'CartControllerBase');
+  final _$_CartControllerBaseActionController =
+      ActionController(name: '_CartControllerBase');
 
   @override
   void addProductInTheCart(Product product) {
-    final _$actionInfo = _$CartControllerBaseActionController.startAction();
+    final _$actionInfo = _$_CartControllerBaseActionController.startAction();
     try {
       return super.addProductInTheCart(product);
     } finally {
-      _$CartControllerBaseActionController.endAction(_$actionInfo);
+      _$_CartControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void undoAddProductInTheCart(Product product) {
-    final _$actionInfo = _$CartControllerBaseActionController.startAction();
+    final _$actionInfo = _$_CartControllerBaseActionController.startAction();
     try {
       return super.undoAddProductInTheCart(product);
     } finally {
-      _$CartControllerBaseActionController.endAction(_$actionInfo);
+      _$_CartControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void removeCartItem(CartItem cartItem) {
-    final _$actionInfo = _$CartControllerBaseActionController.startAction();
+    final _$actionInfo = _$_CartControllerBaseActionController.startAction();
     try {
       return super.removeCartItem(cartItem);
     } finally {
-      _$CartControllerBaseActionController.endAction(_$actionInfo);
+      _$_CartControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void calcAmount$CartItems() {
-    final _$actionInfo = _$CartControllerBaseActionController.startAction();
+    final _$actionInfo = _$_CartControllerBaseActionController.startAction();
     try {
       return super.calcAmount$CartItems();
     } finally {
-      _$CartControllerBaseActionController.endAction(_$actionInfo);
+      _$_CartControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 

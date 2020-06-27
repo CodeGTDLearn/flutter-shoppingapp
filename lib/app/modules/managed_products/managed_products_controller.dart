@@ -1,16 +1,16 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:shopingapp/app/modules/overview/product_repo.dart';
 
 import '../overview/product.dart';
+import '../overview/repo/overview_firebase_repo.dart';
 
 part 'managed_products_controller.g.dart';
 
-class ManagedProductsController = ManagedProductsControllerBase
+class ManagedProductsController = _ManagedProductsControllerBase
     with _$ManagedProductsController;
 
-abstract class ManagedProductsControllerBase with Store {
-  final _repo = Modular.get<ProductsRepo>();
+abstract class _ManagedProductsControllerBase with Store {
+  final _repo = Modular.get<OverviewFirebaseRepo>();
 
   @observable
   int qtdeManagedProducts = 0;
@@ -35,14 +35,14 @@ abstract class ManagedProductsControllerBase with Store {
   @action
   bool add(Product product) {
     product.set_id(DateTime.now().toString());
-    bool ret = _repo.add(product);
+    var ret = _repo.add(product);
     products = getAll();
     return ret;
   }
 
   @action
   bool update(Product product) {
-    bool ret = _repo.update(product);
+    var ret = _repo.update(product);
     products = getAll();
     return ret;
   }

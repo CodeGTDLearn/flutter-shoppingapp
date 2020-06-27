@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shopingapp/app/config/titles_icons/app_core.dart';
-import 'package:shopingapp/app/config/titles_icons/views/cart.dart';
 
+import '../../../config/titles_icons/app_core.dart';
+import '../../../config/titles_icons/views/cart.dart';
 import '../cart_controller.dart';
 import '../cart_item.dart';
 
 class CardCartItem extends StatelessWidget {
   final CartItem _cartItem;
-  final _cartStore = Modular.get<CartControllerBase>();
+  final _cartStore = Modular.get<CartController>();
 
   CardCartItem(this._cartItem);
 

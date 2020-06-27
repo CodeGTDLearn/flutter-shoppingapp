@@ -1,7 +1,7 @@
 // extends from MainModule
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shopingapp/app/config/app_routes.dart';
 
+import '../../config/app_routes.dart';
 import 'managed_product_edit/managed_product_edit_module.dart';
 import 'managed_product_edit/managed_product_edit_page.dart';
 import 'managed_products_controller.dart';

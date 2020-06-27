@@ -1,16 +1,16 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:shopingapp/app/modules/cart/cart_item.dart';
 
+import '../../modules/cart/cart_item.dart';
 import 'order.dart';
-import 'orders_repo.dart';
+import 'repo/i_orders_repo.dart';
 
 part 'orders_controller.g.dart';
 
-class OrdersController = OrdersControllerBase with _$OrdersController;
+class OrdersController = _OrdersControllerBase with _$OrdersController;
 
-abstract class OrdersControllerBase with Store {
-  final _repo = Modular.get<OrdersRepo>();
+abstract class _OrdersControllerBase with Store {
+  final _repo = Modular.get<IOrdersRepo>();
 
   @observable
   int qtdeOrders = 0;
