@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:shopingapp/app/config/app_routes.dart';
 
 import '../../../config/app_properties.dart';
-import '../../../config/app_routes.dart';
 import '../../../config/messages/flush_notifier.dart';
 import '../../../config/titles_icons/app_core.dart';
 import '../../../config/titles_icons/views/overview.dart';
 import '../../../modules/core/components/flush_notifier.dart';
-import '../controllers/overview_controller.dart';
+import '../overview_controller.dart';
 import 'popup_appbar_enum.dart';
 
 // ignore: must_be_immutable
@@ -26,17 +26,16 @@ class PopupAppbar extends StatefulWidget {
 }
 
 class _PopupAppbarState extends ModularState<PopupAppbar, OverviewController> {
-  final _store = Modular.get<OverviewController>();
   List<ReactionDisposer> _disposers;
 
   @override
   void initState() {
     _disposers = [
-      reaction((_) => (_store.hasFavorites), (value) {
+      reaction((_) => (controller.hasFavorites), (value) {
         if (!value) {
           FlushNotifier(SORRY, FLUSHNOTIF_MSG_NOFAV, INTERVAL, context)
               .simple();
-          _store.hasFavorites = !value;
+          controller.hasFavorites = !value;
         }
       })
     ];
@@ -56,20 +55,28 @@ class _PopupAppbarState extends ModularState<PopupAppbar, OverviewController> {
         itemBuilder: (_) => [
               PopupMenuItem(
                   child: Text(OVERVIEW_TXT_POPUP_FAV),
-                  value: PopupAppbarEnum.Favorites,
+                  value: PopupEnum.Favorites,
                   enabled: widget._enableFavorite),
               PopupMenuItem(
                   child: Text(OVERVIEW_TXT_POPUP_ALL),
-                  value: PopupAppbarEnum.All,
+                  value: PopupEnum.All,
                   enabled: widget._enableAll)
             ],
         onSelected: (filterSelected) {
-          if (filterSelected == PopupAppbarEnum.All) {
-            Modular.to.pushNamed(Modular.initialRoute);
-          } else if (_store.qtdeFavorites() > 0) {
-            Modular.to.pushNamed(ITEMSOVER_FAV_ROUTE);
+          switch (filterSelected) {
+            case PopupEnum.Favorites:
+              Modular.to.pushNamed(OVERVIEW_FAV_ROUTE);
+              break;
+            case PopupEnum.All:
+              Modular.to.pushNamed(OVERVIEW_ALL_ROUTE);
+              break;
           }
-          _store.applyFilter(filterSelected);
+//          if (filterSelected == PopupAppbarEnum.All) {
+//            Modular.to.pushNamed(Modular.initialRoute);
+//          } else if (controller.qtdeFavorites() > 0) {
+//            Modular.to.pushNamed(ITEMSOVER_FAV_ROUTE);
+//          }
+//          controller.applyFilter(filterSelected);
         });
   }
 }

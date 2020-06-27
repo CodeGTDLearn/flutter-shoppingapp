@@ -1,9 +1,9 @@
 import '../order.dart';
 
 abstract class IOrdersRepo {
-  List<Order> getAll();
+  List<Order> getAllOrders();
 
   void addOrder(Order order);
 
-  void clearOrderList();
+  void clearOrdersList();
 }

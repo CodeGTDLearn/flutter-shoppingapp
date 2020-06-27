@@ -15,7 +15,7 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends ModularState<CartPage, CartController> {
   @override
   void initState() {
-    controller.calcAmount$CartItems();
+    controller.recalcQtdeAndAmountCart();
     super.initState();
   }
 

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shopingapp/app/modules/cart/service/i_cart_service.dart';
+import 'package:shopingapp/app/modules/managed_products/services/i_managed_products_service.dart';
+import 'package:shopingapp/app/modules/orders/service/i_orders_service.dart';
 
 import '../../../config/app_properties.dart';
 import '../../../config/app_routes.dart';
 import '../../../config/messages/flush_notifier.dart';
 import '../../../config/titles_icons/app_core.dart';
 import '../../../config/titles_icons/components/drawwer.dart';
-import '../../../modules/cart/cart_controller.dart';
 import '../../../modules/core/app_theme/app_theme_store.dart';
-import '../../../modules/managed_products/managed_products_controller.dart';
-import '../../../modules/orders/orders_controller.dart';
 import 'flush_notifier.dart';
 
 // ignore: must_be_immutable
@@ -20,10 +20,10 @@ class Drawwer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _context = context;
-    final _cart = Modular.get<CartController>();
     final _theme = Modular.get<AppThemeStore>();
-    final _orders = Modular.get<OrdersController>();
-    final _manProd = Modular.get<ManagedProductsController>();
+    final _cart = Modular.get<ICartService>();
+    final _orders = Modular.get<IOrdersService>();
+    final _manProd = Modular.get<IManagedProductsService>();
 
     return Drawer(
         child: Column(children: [
@@ -35,12 +35,17 @@ class Drawwer extends StatelessWidget {
           FLUSHNOTIF_MSG_PRODUCTS,
           Modular.initialRoute,
           false),
-      _drawerItem(_cart.qtdeCartItems, DRAWER_ICO_SHOP, DRAWER_LBL_SHOP,
+      _drawerItem(_cart.cartItemsQtde(), DRAWER_ICO_SHOP, DRAWER_LBL_SHOP,
           FLUSHNOTIF_MSG_CART_EMPTY, CART_ROUTE, false),
-      _drawerItem(_orders.qtdeOrders, DRAWER_ICO_PAY, DRAWER_LBL_PAY,
+      _drawerItem(_orders.ordersQtde(), DRAWER_ICO_PAY, DRAWER_LBL_PAY,
           FLUSHNOTIF_MSG_NOORDER, ORDERS_ROUTE, false),
-      _drawerItem(_manProd.qtdeManagedProducts, DRAWER_ICO_MAN, DRAWER_LBL_MAN,
-          FLUSHNOTIF_MSG_NOMANPRODUCT, MANAGPRODUCT_ROUTE, true),
+      _drawerItem(
+          _manProd.managedProductsQtde(),
+          DRAWER_ICO_MAN,
+          DRAWER_LBL_MAN,
+          FLUSHNOTIF_MSG_NOMANPRODUCT,
+          MANAGPRODUCT_ROUTE,
+          true),
       Observer(
           builder: (_) => SwitchListTile(
               secondary: DRAWER_ICO_DARK,

@@ -5,7 +5,7 @@ class OrdersFirebaseRepo implements IOrdersRepo {
   final List<Order> _orders = [];
 
   @override
-  List<Order> getAll() {
+  List<Order> getAllOrders() {
     return [..._orders];
   }
 
@@ -15,7 +15,7 @@ class OrdersFirebaseRepo implements IOrdersRepo {
   }
 
   @override
-  void clearOrderList() {
+  void clearOrdersList() {
     _orders.clear();
   }
 }

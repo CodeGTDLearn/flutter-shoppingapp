@@ -19,12 +19,16 @@ class _ManagedProductsPageState
   @override
   void initState() {
     controller.getAll();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print(MON_BUILD_PAGE_MANAGPRODSEDIT);
+    print(MON_BUILD_VIEW_MANAGPRODUCTS);
+    final test = Modular.get<ManagedProductsController>();// todo:Esta nulificando
+
+    print("1111" + test.toString());
     return Scaffold(
       appBar: AppBar(title: Text(MAN_APPBAR_TIT), actions: <Widget>[
         IconButton(
@@ -34,12 +38,12 @@ class _ManagedProductsPageState
       drawer: Drawwer(),
       body: Observer(
           builder: (_) => ListView.builder(
-              itemCount: controller.products.length,
-              itemBuilder: (ctx, item) => Column(children: <Widget>[
+              itemCount: controller.managedProducts.length,
+              itemBuilder: (ctx, item) => Column(children: [
                     ManagedProductItem(
-                      controller.products[item].get_id(),
-                      controller.products[item].get_title(),
-                      controller.products[item].get_imageUrl(),
+                      controller.managedProducts[item].get_id(),
+                      controller.managedProducts[item].get_title(),
+                      controller.managedProducts[item].get_imageUrl(),
                     ),
                     Divider()
                   ]))),

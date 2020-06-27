@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shopingapp/app/modules/cart/cart_controller.dart';
 
 import '../../../config/app_properties.dart';
 import '../../../config/app_routes.dart';
@@ -13,15 +15,17 @@ class BadgeShopCartAppbar extends StatelessWidget {
   final int value;
   final Color color;
 
-  const BadgeShopCartAppbar(this.value, {this.child, this.color});
+  const BadgeShopCartAppbar({this.child, this.value, this.color});
 
   @override
   Widget build(BuildContext context) {
+    final _controller = Modular.get<CartController>(); // todo:Esta nulificando
+    print("33333" + _controller.toString());
     return Stack(alignment: Alignment.center, children: [
       IconButton(
           icon: OVERVIEW_ICO_SHOP,
           onPressed: () {
-            if (value == 0) {
+            if (_controller.getAll().length == 0) {
               FlushNotifier(OPS, FLUSHNOTIF_MSG_CART_EMPTY, INTERVAL, context)
                   .simple();
             } else {
@@ -37,11 +41,10 @@ class BadgeShopCartAppbar extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
                 color: color != null ? color : Theme.of(context).accentColor),
             constraints: BoxConstraints(minWidth: 16, minHeight: 16),
-            child: Text(
-              value.toString(),
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 10),
-            ),
+            child: Observer(
+                builder: (_) => Text(_controller.qtdeCartItems.toString(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 10))),
           ))
     ]);
   }

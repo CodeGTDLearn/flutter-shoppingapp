@@ -2,18 +2,17 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import './../../modules/overview/product.dart';
-import '../orders/order.dart';
-import '../orders/repo/i_orders_repo.dart';
+import '../orders/service/i_orders_service.dart';
 import 'cart_item.dart';
-import 'repo/i_cart_repo.dart';
+import 'service/i_cart_service.dart';
 
 part 'cart_controller.g.dart';
 
 class CartController = _CartControllerBase with _$CartController;
 
 abstract class _CartControllerBase with Store {
-  final _cartRepo = Modular.get<ICartRepo>();
-  final _orderRepo = Modular.get<IOrdersRepo>();
+  final _cartService = Modular.get<ICartService>();
+  final _ordersService = Modular.get<IOrdersService>();
 
   @observable
   double amountCartItems = 0.0;
@@ -21,61 +20,40 @@ abstract class _CartControllerBase with Store {
   @observable
   int qtdeCartItems = 0;
 
-  @observable
-  bool addProductInTheCartNotification;
-
   Map<String, CartItem> getAll() {
-    return _cartRepo.getAll();
+    return _cartService.getAllCartItems();
   }
 
   @action
   void addProductInTheCart(Product product) {
-    _cartRepo.addProductInTheCart(product);
-    calcQtdeCartItems();
-    addProductInTheCartNotification = true;
+    _cartService.addCartItem(product);
+    recalcQtdeAndAmountCart();
   }
 
   @action
   void undoAddProductInTheCart(Product product) {
-    _cartRepo.undoAddProductInTheCart(product);
-    calcQtdeCartItems();
-    addProductInTheCartNotification = false;
+    _cartService.addCartItemUndo(product);
+    recalcQtdeAndAmountCart();
   }
 
   @action
   void removeCartItem(CartItem cartItem) {
-    _cartRepo.removeCartItem(cartItem);
-    calcQtdeCartItems();
-    calcAmount$CartItems();
+    _cartService.removeCartItem(cartItem);
+    recalcQtdeAndAmountCart();
   }
 
   @action
-  void calcAmount$CartItems() {
-    var total = 0.0;
-    getAll().forEach((key, cartItem) {
-      total += cartItem.get_price() * cartItem.get_qtde();
-    });
-    amountCartItems = total;
-  }
-
   void clearCart() {
-    _cartRepo.clearCartItems();
-    calcAmount$CartItems();
-    calcQtdeCartItems();
+    _cartService.clearCart();
+    recalcQtdeAndAmountCart();
   }
 
-  void calcQtdeCartItems() {
-    var totalQtde = 0;
-    getAll().forEach((x, item) => totalQtde += item.get_qtde());
-    qtdeCartItems = totalQtde;
+  void recalcQtdeAndAmountCart() {
+    qtdeCartItems = _cartService.cartItemsQtde();
+    amountCartItems = _cartService.cartItemTotal$Amount();
   }
 
   void addOrder(List<CartItem> cartItemsList, double amount) {
-    _orderRepo.addOrder(Order(
-      DateTime.now().toString(),
-      amount,
-      cartItemsList,
-      DateTime.now(),
-    ));
+    _ordersService.addOrder(cartItemsList, amount);
   }
 }

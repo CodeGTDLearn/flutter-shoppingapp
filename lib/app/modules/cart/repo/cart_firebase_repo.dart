@@ -49,20 +49,6 @@ class CartFirebaseRepo implements ICartRepo {
     }
   }
 
-//    if (_listCartItems.containsKey(product.get_id())) {
-//      _listCartItems.update(product.get_id(), (itemFound) {
-//        return EntityCartItem(
-//          itemFound.get_id(),
-//          itemFound.get_title(),
-//          itemFound.get_qtde() - 1,
-//          itemFound.get_price(),
-//        );
-//      });
-//    } else {
-//      _listCartItems.remove(product.get_id());
-//    }
-//}
-
   @override
   void removeCartItem(CartItem cartItem) {
     _listCartItems.remove(cartItem.get_id());

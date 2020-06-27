@@ -1,20 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shopingapp/app/config/app_monitor_builds.dart';
 
-import '../overview_grid_product_item_controller.dart';
+import '../../../config/app_monitor_builds.dart';
+import '../components/overview_item/overview_item_service.dart';
 
-class ItemDetailsPage extends StatelessWidget {
+class OverviewItemDetailsPage extends StatefulWidget {
   final String _id;
-  final _store = Modular.get<OverviewGridProductItemController>();
 
-  ItemDetailsPage(this._id);
+  OverviewItemDetailsPage(this._id);
 
+  @override
+  _OverviewItemDetailsPageState createState() =>
+      _OverviewItemDetailsPageState();
+}
+
+class _OverviewItemDetailsPageState
+    extends ModularState<OverviewItemDetailsPage, OverviewItemService> {
   @override
   Widget build(BuildContext context) {
     print(MON_BUILD_COMP_ITEMDETAIL);
-    var _item = _store.getById(_id);
+    var _item = controller.getById(widget._id);
     return Scaffold(
         appBar: AppBar(title: Text(_item.get_title())),
         body: SingleChildScrollView(

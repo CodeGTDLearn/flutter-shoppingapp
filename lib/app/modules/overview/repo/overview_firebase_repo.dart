@@ -1,6 +1,6 @@
 import '../../../datasource/products.dart';
 import '../product.dart';
-import 'i_overview_firebase_repo.dart';
+import 'i_overview_repo.dart';
 
 class OverviewFirebaseRepo implements IOverviewRepo {
   List<Product> _productsFromDb = [];

@@ -1,4 +1,4 @@
-enum PopupAppbarEnum {
+enum PopupEnum {
   Favorites,
   All,
 }

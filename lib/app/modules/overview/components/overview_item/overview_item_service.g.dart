@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'overview_grid_product_item_controller.dart';
+part of 'overview_item_service.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,10 +8,9 @@ part of 'overview_grid_product_item_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$OverviewGridProductItemController
-    on OverviewGridProductItemControllerBase, Store {
+mixin _$OverviewItemService on _OverviewItemServiceBase, Store {
   final _$favoriteStatusAtom =
-      Atom(name: 'OverviewGridProductItemControllerBase.favoriteStatus');
+      Atom(name: '_OverviewItemServiceBase.favoriteStatus');
 
   @override
   bool get favoriteStatus {
@@ -28,18 +27,17 @@ mixin _$OverviewGridProductItemController
     }, _$favoriteStatusAtom, name: '${_$favoriteStatusAtom.name}_set');
   }
 
-  final _$OverviewGridProductItemControllerBaseActionController =
-      ActionController(name: 'OverviewGridProductItemControllerBase');
+  final _$_OverviewItemServiceBaseActionController =
+      ActionController(name: '_OverviewItemServiceBase');
 
   @override
-  void toggleFavoriteStatus(String id) {
+  void toggleFavorite(String id) {
     final _$actionInfo =
-        _$OverviewGridProductItemControllerBaseActionController.startAction();
+        _$_OverviewItemServiceBaseActionController.startAction();
     try {
-      return super.toggleFavoriteStatus(id);
+      return super.toggleFavorite(id);
     } finally {
-      _$OverviewGridProductItemControllerBaseActionController
-          .endAction(_$actionInfo);
+      _$_OverviewItemServiceBaseActionController.endAction(_$actionInfo);
     }
   }
 

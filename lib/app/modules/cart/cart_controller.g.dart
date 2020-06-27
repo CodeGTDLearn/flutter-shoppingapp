@@ -44,26 +44,6 @@ mixin _$CartController on _CartControllerBase, Store {
     }, _$qtdeCartItemsAtom, name: '${_$qtdeCartItemsAtom.name}_set');
   }
 
-  final _$addProductInTheCartNotificationAtom =
-      Atom(name: '_CartControllerBase.addProductInTheCartNotification');
-
-  @override
-  bool get addProductInTheCartNotification {
-    _$addProductInTheCartNotificationAtom.context
-        .enforceReadPolicy(_$addProductInTheCartNotificationAtom);
-    _$addProductInTheCartNotificationAtom.reportObserved();
-    return super.addProductInTheCartNotification;
-  }
-
-  @override
-  set addProductInTheCartNotification(bool value) {
-    _$addProductInTheCartNotificationAtom.context.conditionallyRunInAction(() {
-      super.addProductInTheCartNotification = value;
-      _$addProductInTheCartNotificationAtom.reportChanged();
-    }, _$addProductInTheCartNotificationAtom,
-        name: '${_$addProductInTheCartNotificationAtom.name}_set');
-  }
-
   final _$_CartControllerBaseActionController =
       ActionController(name: '_CartControllerBase');
 
@@ -98,10 +78,10 @@ mixin _$CartController on _CartControllerBase, Store {
   }
 
   @override
-  void calcAmount$CartItems() {
+  void clearCart() {
     final _$actionInfo = _$_CartControllerBaseActionController.startAction();
     try {
-      return super.calcAmount$CartItems();
+      return super.clearCart();
     } finally {
       _$_CartControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -110,7 +90,7 @@ mixin _$CartController on _CartControllerBase, Store {
   @override
   String toString() {
     final string =
-        'amountCartItems: ${amountCartItems.toString()},qtdeCartItems: ${qtdeCartItems.toString()},addProductInTheCartNotification: ${addProductInTheCartNotification.toString()}';
+        'amountCartItems: ${amountCartItems.toString()},qtdeCartItems: ${qtdeCartItems.toString()}';
     return '{$string}';
   }
 }

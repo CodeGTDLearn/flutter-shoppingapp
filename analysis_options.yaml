@@ -7,3 +7,4 @@ linter:
     constant_identifier_names: false
     avoid_positional_boolean_parameters: false
     prefer_mixin: false
+    type_annotate_public_apis: false

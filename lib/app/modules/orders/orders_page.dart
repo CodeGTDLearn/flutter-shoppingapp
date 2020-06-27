@@ -20,9 +20,9 @@ class _OrdersPageState extends ModularState<OrdersPage, OrdersController> {
       drawer: null,
       body: Container(
           child: ListView.builder(
-              itemCount: controller.getAll().length,
+              itemCount: controller.getAllOrders().length,
               itemBuilder: (ctx, item) =>
-                  OrderCollapsableTile(controller.getAll()[item]))),
+                  OrderCollapsableTile(controller.getAllOrders()[item]))),
     );
   }
 }

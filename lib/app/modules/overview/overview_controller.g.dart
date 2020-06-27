@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'overview_grid_product_controller.dart';
+part of 'overview_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,10 +8,9 @@ part of 'overview_grid_product_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$OverviewGridProductController
-    on OverviewGridProductControllerBase, Store {
+mixin _$OverviewController on _OverviewControllerBase, Store {
   final _$filteredProductsAtom =
-      Atom(name: 'OverviewGridProductControllerBase.filteredProducts');
+      Atom(name: '_OverviewControllerBase.filteredProducts');
 
   @override
   List<Product> get filteredProducts {
@@ -28,8 +27,7 @@ mixin _$OverviewGridProductController
     }, _$filteredProductsAtom, name: '${_$filteredProductsAtom.name}_set');
   }
 
-  final _$hasFavoritesAtom =
-      Atom(name: 'OverviewGridProductControllerBase.hasFavorites');
+  final _$hasFavoritesAtom = Atom(name: '_OverviewControllerBase.hasFavorites');
 
   @override
   bool get hasFavorites {
@@ -46,18 +44,17 @@ mixin _$OverviewGridProductController
     }, _$hasFavoritesAtom, name: '${_$hasFavoritesAtom.name}_set');
   }
 
-  final _$OverviewGridProductControllerBaseActionController =
-      ActionController(name: 'OverviewGridProductControllerBase');
+  final _$_OverviewControllerBaseActionController =
+      ActionController(name: '_OverviewControllerBase');
 
   @override
-  void applyFilter(PopupOptionsAppbar filter) {
+  void applyFilter(PopupEnum filter) {
     final _$actionInfo =
-        _$OverviewGridProductControllerBaseActionController.startAction();
+        _$_OverviewControllerBaseActionController.startAction();
     try {
       return super.applyFilter(filter);
     } finally {
-      _$OverviewGridProductControllerBaseActionController
-          .endAction(_$actionInfo);
+      _$_OverviewControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
