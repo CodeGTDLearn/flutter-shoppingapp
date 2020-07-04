@@ -1,53 +1,49 @@
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobx/mobx.dart';
+import 'package:get/get.dart';
 
-import './../../modules/overview/product.dart';
 import '../orders/service/i_orders_service.dart';
+import '../orders/service/orders_service.dart';
+import './../../modules/overview/product.dart';
 import 'cart_item.dart';
+import 'service/cart_service.dart';
 import 'service/i_cart_service.dart';
 
-part 'cart_controller.g.dart';
+class CartController {
+  final ICartService _cartService = Get.put(CartService());
+  final IOrdersService _ordersService = Get.put(OrdersService());
 
-class CartController = _CartControllerBase with _$CartController;
-
-abstract class _CartControllerBase with Store {
-  final _cartService = Modular.get<ICartService>();
-  final _ordersService = Modular.get<IOrdersService>();
-
-  @observable
+//  @observable
   double amountCartItems = 0.0;
 
-  @observable
+//  @observable
   int qtdeCartItems = 0;
 
   Map<String, CartItem> getAll() {
     return _cartService.getAllCartItems();
   }
 
-  @action
+//  @action
   void addProductInTheCart(Product product) {
     _cartService.addCartItem(product);
     recalcQtdeAndAmountCart();
   }
 
-  @action
+//  @action
   void undoAddProductInTheCart(Product product) {
     _cartService.addCartItemUndo(product);
     recalcQtdeAndAmountCart();
   }
 
-  @action
+//  @action
   void removeCartItem(CartItem cartItem) {
     _cartService.removeCartItem(cartItem);
     recalcQtdeAndAmountCart();
   }
 
-  @action
   void clearCart() {
     _cartService.clearCart();
-    recalcQtdeAndAmountCart();
   }
 
+//  @action
   void recalcQtdeAndAmountCart() {
     qtdeCartItems = _cartService.cartItemsQtde();
     amountCartItems = _cartService.cartItemTotal$Amount();

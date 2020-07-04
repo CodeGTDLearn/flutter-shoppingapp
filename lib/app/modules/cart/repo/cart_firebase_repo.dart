@@ -12,20 +12,20 @@ class CartFirebaseRepo implements ICartRepo {
 
   @override
   void addProductInTheCart(Product product) {
-    if (_listCartItems.containsKey(product.get_id())) {
-      _listCartItems.update(product.get_id(), (itemFound) {
+    if (_listCartItems.containsKey(product.id)) {
+      _listCartItems.update(product.id, (itemFound) {
         return CartItem(
-          itemFound.get_id(),
-          itemFound.get_title(),
-          itemFound.get_qtde() + 1,
-          itemFound.get_price(),
+          itemFound.id,
+          itemFound.title,
+          itemFound.qtde + 1,
+          itemFound.price,
         );
       });
     } else {
       _listCartItems.putIfAbsent(
-          product.get_id(),
+          product.id,
           () => CartItem(
-              product.get_id(), product.get_title(), 1, product.get_price()));
+              product.id, product.title, 1, product.price));
     }
   }
 
@@ -33,17 +33,17 @@ class CartFirebaseRepo implements ICartRepo {
   void undoAddProductInTheCart(Product product) {
     var qtde = 0;
     _listCartItems.forEach((key, value) {
-      if (key == product.get_id()) qtde = value.get_qtde();
+      if (key == product.id) qtde = value.qtde;
     });
-    if (qtde == 1) _listCartItems.remove(product.get_id());
+    if (qtde == 1) _listCartItems.remove(product.id);
     if (qtde > 1) {
-      _listCartItems.update(product.get_id(), (itemFound) {
-        if (itemFound.get_qtde() == 1) _listCartItems.remove(product.get_id());
+      _listCartItems.update(product.id, (itemFound) {
+        if (itemFound.qtde == 1) _listCartItems.remove(product.id);
         return CartItem(
-          itemFound.get_id(),
-          itemFound.get_title(),
-          itemFound.get_qtde() - 1,
-          itemFound.get_price(),
+          itemFound.id,
+          itemFound.title,
+          itemFound.qtde - 1,
+          itemFound.price,
         );
       });
     }
@@ -51,7 +51,7 @@ class CartFirebaseRepo implements ICartRepo {
 
   @override
   void removeCartItem(CartItem cartItem) {
-    _listCartItems.remove(cartItem.get_id());
+    _listCartItems.remove(cartItem.id);
   }
 
   @override
@@ -62,7 +62,7 @@ class CartFirebaseRepo implements ICartRepo {
   @override
   CartItem getById(String id) {
     _listCartItems.forEach((ctx, item) {
-      return item.get_id() == id;
+      return item.id == id;
     });
     return null;
   }

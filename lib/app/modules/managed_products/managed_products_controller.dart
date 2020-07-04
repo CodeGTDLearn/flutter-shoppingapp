@@ -1,33 +1,30 @@
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobx/mobx.dart';
+import 'package:get/get.dart';
 
 import '../overview/product.dart';
 import 'services/i_managed_products_service.dart';
+import 'services/managed_products_service.dart';
 
-part 'managed_products_controller.g.dart';
+class ManagedProductsController extends GetxController {
+  final IManagedProductsService _service = Get.put(ManagedProductsService());
 
-class ManagedProductsController = _ManagedProductsControllerBase
-    with _$ManagedProductsController;
+  static ManagedProductsController get to => Get.find();
 
-abstract class _ManagedProductsControllerBase with Store {
-  final _service = Modular.get<IManagedProductsService>();
+  var managedProducts = <Product>[];
 
-  @observable
-  List<Product> managedProducts;
-
-  @action
   void getAll() {
-    managedProducts = ObservableList.of(_service.getAll());
+    managedProducts = _service.getAll();
+    update();
   }
 
-  @action
   void delete(String id) {
     _service.delete(id);
     getAll();
   }
 
   void add(Product product) {
-    product.set_id(DateTime.now().toString());
+    product.id = (DateTime.now().toString());
+
+
     _service.add(product);
     getAll();
   }
@@ -36,7 +33,7 @@ abstract class _ManagedProductsControllerBase with Store {
     return _service.getById(id);
   }
 
-  void update(Product product) {
+  void updatte(Product product) {
     _service.update(product);
     getAll();
   }

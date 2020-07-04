@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../config/app_monitor_builds.dart';
 import '../../../config/messages/grid_products.dart';
 import '../product.dart';
 import 'overview_item/overview_item.dart';
 
+// ignore: must_be_immutable
 class OverviewGrid extends StatelessWidget {
   List<Product> filteredProducts;
 
@@ -12,7 +12,6 @@ class OverviewGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(MON_BUILD_COMP_GRIDPRODUCTS);
     return filteredProducts.length == 0
         ? Center(child: Text(GRID_PRODUCTS_MSG, style: TextStyle(fontSize: 20)))
         : GridView.builder(

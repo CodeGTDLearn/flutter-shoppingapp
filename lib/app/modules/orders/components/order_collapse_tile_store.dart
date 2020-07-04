@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:mobx/mobx.dart';
 
 import '../../../config/titles_icons/views/orders.dart';
 
-part 'order_collapsable_tile_store.g.dart';
-
-class OrderCollapsableTileStore = OrderCollapsableTileStoreBase
-    with _$OrderCollapsableTileStore;
-
-abstract class OrderCollapsableTileStoreBase with Store {
-  @observable
+class OrderCollapseTileStore{
+//  @observable
   Icon collapsingTileIcon;
 
-  @observable
+//  @observable
   bool isTileCollapsed = false;
 
-  @action
+//  @action
   void toggleCollapseTile() {
     collapsingTileIcon =
         isTileCollapsed == false ? ORDERS_ICO_UNCOLLAPSE : ORDERS_ICO_COLLAPSE;

@@ -1,12 +1,13 @@
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get/get.dart';
 
 import '../../cart/cart_item.dart';
 import '../order.dart';
 import '../repo/i_orders_repo.dart';
+import '../repo/orders_firebase_repo.dart';
 import 'i_orders_service.dart';
 
 class OrdersService implements IOrdersService {
-  final _repo = Modular.get<IOrdersRepo>();
+  final IOrdersRepo _repo = Get.put(OrdersFirebaseRepo());
 
   @override
   List<Order> getAllOrders() {

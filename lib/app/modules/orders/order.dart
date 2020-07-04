@@ -1,10 +1,7 @@
-import 'package:lombok/lombok.dart';
-
 import '../../modules/cart/cart_item.dart';
 
 part 'order.g.dart';
 
-@getter
 class Order with _$OrderLombok {
   final String _id;
   final double _amount;

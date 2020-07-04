@@ -1,14 +1,9 @@
-import 'package:lombok/lombok.dart';
 
-part 'cart_item.g.dart';
+class CartItem {
+  final String id;
+  final String title;
+  final int qtde;
+  final double price;
 
-@getter
-//class CartItem with _$CartItemLombok {
-class CartItem with _$CartItemLombok {
-  final String _id;
-  final String _title;
-  final int _qtde;
-  final double _price;
-
-  CartItem(this._id, this._title, this._qtde, this._price);
+  CartItem(this.id, this.title, this.qtde, this.price);
 }

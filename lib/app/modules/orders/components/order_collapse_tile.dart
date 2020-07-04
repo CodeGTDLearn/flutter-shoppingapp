@@ -1,26 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../../config/app_monitor_builds.dart';
 import '../../../config/app_properties.dart';
 import '../../../config/titles_icons/views/orders.dart';
 import '../order.dart';
-import 'order_collapsable_tile_store.dart';
+import 'order_collapse_tile_store.dart';
 
-class OrderCollapsableTile extends StatefulWidget {
+class OrderCollapseTile extends StatefulWidget {
   final Order _order;
-  final _collapseTileStore = Modular.get<OrderCollapsableTileStore>();
+  final OrderCollapseTileStore _collapseTileStore =
+      Get.put(OrderCollapseTileStore());
 
-  OrderCollapsableTile(this._order);
+  OrderCollapseTile(this._order);
 
   @override
-  _OrderCollapsableTileState createState() => _OrderCollapsableTileState();
+  _OrderCollapseTileState createState() => _OrderCollapseTileState();
 }
 
-class _OrderCollapsableTileState extends State<OrderCollapsableTile> {
+class _OrderCollapseTileState extends State<OrderCollapseTile> {
   @override
   void initState() {
     widget._collapseTileStore.collapsingTileIcon = ORDERS_ICO_COLLAPSE;
@@ -30,10 +30,8 @@ class _OrderCollapsableTileState extends State<OrderCollapsableTile> {
 
   @override
   Widget build(BuildContext context) {
-    print(MON_BUILD_COMP_ORDERCOLLAP_TILE);
     widget._collapseTileStore.collapsingTileIcon ??= ORDERS_ICO_COLLAPSE;
-    return Observer(
-        builder: (_) => Card(
+    return Card(
             margin: EdgeInsets.all(15),
             child: Column(children: [
               Container(
@@ -72,18 +70,18 @@ class _OrderCollapsableTileState extends State<OrderCollapsableTile> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceAround,
                                         children: [
-                                          _rowContainer('${item.get_title()}',
+                                          _rowContainer('${item.title}',
                                               18, specs.maxWidth * 0.55),
-                                          _rowContainer('x${item.get_qtde()}',
+                                          _rowContainer('x${item.qtde}',
                                               18, specs.maxWidth * 0.15),
                                           _rowContainer(
-                                              '${item.get_price().toString()}',
+                                              '${item.price.toString()}',
                                               18,
                                               specs.maxWidth * 0.2)
                                         ]))
                                 .toList());
                       })))
-            ])));
+            ]));
   }
 
   BoxShadow _boxShadow(Color color, double radius) {
@@ -95,7 +93,6 @@ class _OrderCollapsableTileState extends State<OrderCollapsableTile> {
     return Container(
         padding: EdgeInsets.only(top: 5),
         alignment: Alignment.centerLeft,
-//        color: Colors.amber,
         width: width,
         child: Text(text,
             style: TextStyle(

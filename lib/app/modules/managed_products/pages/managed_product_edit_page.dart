@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get/get.dart';
 import 'package:string_validator/string_validator.dart';
 import 'package:wc_form_validators/wc_form_validators.dart';
 
-import '../../../config/app_monitor_builds.dart';
 import '../../../config/app_owasp_regex.dart';
 import '../../../config/app_routes.dart';
 import '../../../config/messages/field_validation.dart';
@@ -13,10 +12,6 @@ import '../../../modules/overview/product.dart';
 import '../managed_products_controller.dart';
 
 class ManagedProductEditPage extends StatefulWidget {
-  final String _id;
-
-  ManagedProductEditPage([this._id]);
-
   @override
   _ManagedProductEditPageState createState() => _ManagedProductEditPageState();
 }
@@ -33,7 +28,8 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
   final _form = GlobalKey<FormState>();
   Product _product = Product();
 
-  final _store = Modular.get<ManagedProductsController>();
+  final ManagedProductsController _controller =
+      Get.put(ManagedProductsController());
 
   @override
   void initState() {
@@ -44,10 +40,11 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      _product = widget._id == null ? Product() : _store.getById(widget._id);
+      _product = Get.arguments == null
+          ? Product()
+          : _controller.getById(Get.arguments);
 
-      //CONTROLLER e incompativel com INITIAL_VALUE
-      _imgUrlController.text = _product.get_imageUrl();
+      _imgUrlController.text = _product.imageUrl;
       _isInit = false;
     }
     super.didChangeDependencies();
@@ -71,9 +68,9 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
   void _saveForm() {
     if (!_form.currentState.validate()) return;
     _form.currentState.save();
-    if (_product.get_id() == null) _store.add(_product);
-    if (_product.get_id() != null) _store.update(_product);
-    Modular.to.popAndPushNamed(MANAGPRODUCT_ROUTE);
+    if (_product.id == null) _controller.add(_product);
+    if (_product.id != null) _controller.updatte(_product);
+    Get.offNamed(MAN_PROD_ROUTE);
   }
 
   @override
@@ -90,7 +87,6 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(MON_BUILD_PAGE_MANAGPRODSEDIT);
     return Scaffold(
         appBar:
             AppBar(title: Text(MANAGED_PROD_LBL_ADD_APPBAR), actions: <Widget>[
@@ -103,13 +99,13 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
                 child: SingleChildScrollView(
                     child: Column(children: <Widget>[
                   TextFormField(
-                      initialValue: _product.get_title(),
+                      initialValue: _product.title,
                       decoration:
                           InputDecoration(labelText: MANAGED_PROD_FIELD_TITLE),
                       textInputAction: TextInputAction.next,
                       maxLength: 15,
                       keyboardType: TextInputType.number,
-                      onSaved: (value) => _product.set_title(value),
+                      onSaved: (value) => _product.title = value,
                       onFieldSubmitted: (value) =>
                           FocusScope.of(context).requestFocus(_focusPrice),
                       validator: Validators.compose([
@@ -118,16 +114,15 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
                         Validators.minLength(5, MSG_VALID_MIN_SIZE_TIT)
                       ])),
                   TextFormField(
-                      initialValue: _product.get_price() == null
+                      initialValue: _product.price == null
                           ? ZERO$AMOUNT
-                          : _product.get_price().toString(),
+                          : _product.price.toString(),
                       decoration:
                           InputDecoration(labelText: MANAGED_PROD_FIELD_PRICE),
                       textInputAction: TextInputAction.next,
                       maxLength: 6,
                       keyboardType: TextInputType.number,
-                      onSaved: (value) =>
-                          _product.set_price(double.parse(value)),
+                      onSaved: (value) => _product.price = double.parse(value),
                       onFieldSubmitted: (_) =>
                           FocusScope.of(context).requestFocus(_focusDescript),
                       validator: Validators.compose([
@@ -136,14 +131,14 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
                         Validators.min(0, MSG_VALID_NEG)
                       ])),
                   TextFormField(
-                      initialValue: _product.get_description(),
+                      initialValue: _product.description,
                       decoration:
                           InputDecoration(labelText: MANAGED_PROD_FIELD_DESCR),
                       textInputAction: TextInputAction.next,
                       maxLength: 30,
                       keyboardType: TextInputType.multiline,
                       maxLines: 3,
-                      onSaved: (value) => _product.set_description(value),
+                      onSaved: (value) => _product.description = value,
                       onFieldSubmitted: (_) =>
                           FocusScope.of(context).requestFocus(_focusImgUrlNode),
                       validator: Validators.compose([
@@ -151,38 +146,41 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
                         Validators.patternString(SAFE_TEXT, MSG_VALID_TEXT),
                         Validators.minLength(10, MSG_VALID_MIN_SIZE_DESCR)
                       ])),
-                  Row(crossAxisAlignment: CrossAxisAlignment.end, children: <
-                      Widget>[
-                    Container(
-                        width: 100,
-                        height: 100,
-                        margin: EdgeInsets.only(top: 20, right: 10),
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 0.5, color: Colors.grey)),
-                        child: Container(
-                            child: _imgUrlController.text.isEmpty
-                                ? Center(child: Text(MANAGED_PROD_IMG_TIT))
-                                : FittedBox(
-                                    child: Image.network(_imgUrlController.text,
-                                        fit: BoxFit.cover)))),
-                    Expanded(
-                        child: TextFormField(
-                            //CONTROLLER e incompativel com INITIAL_VALUE
-                            //initialValue: _product.get_imageUrl().toString(),
-                            decoration: InputDecoration(
-                                labelText: MANAGED_PROD_FIELD_IMG_URL),
-                            textInputAction: TextInputAction.done,
-                            keyboardType: TextInputType.url,
-                            focusNode: _focusImgUrlNode,
-                            //CONTROLLER e incompativel com INITIAL_VALUE
-                            controller: _imgUrlController,
-                            onSaved: (value) => _product.set_imageUrl(value),
-                            onFieldSubmitted: (_) => _saveForm(),
-                            validator: (value) {
-                              if (!isURL(value)) return MSG_VALID_URL;
-                              return null;
-                            }))
-                  ])
+                  Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        Container(
+                            width: 100,
+                            height: 100,
+                            margin: EdgeInsets.only(top: 20, right: 10),
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(width: 0.5, color: Colors.grey)),
+                            child: Container(
+                                child: _imgUrlController.text.isEmpty
+                                    ? Center(child: Text(MANAGED_PROD_IMG_TIT))
+                                    : FittedBox(
+                                        child: Image.network(
+                                            _imgUrlController.text,
+                                            fit: BoxFit.cover)))),
+                        Expanded(
+                            child: TextFormField(
+                                //CONTROLLER e incompativel com INITIAL_VALUE
+                                //initialValue: _product.imageUrl.toString(),
+                                decoration: InputDecoration(
+                                    labelText: MANAGED_PROD_FIELD_IMG_URL),
+                                textInputAction: TextInputAction.done,
+                                keyboardType: TextInputType.url,
+                                focusNode: _focusImgUrlNode,
+                                //CONTROLLER e incompativel com INITIAL_VALUE
+                                controller: _imgUrlController,
+                                onSaved: (value) => _product.imageUrl = value,
+                                onFieldSubmitted: (_) => _saveForm(),
+                                validator: (value) {
+                                  if (!isURL(value)) return MSG_VALID_URL;
+                                  return null;
+                                }))
+                      ])
                 ])))));
   }
 }

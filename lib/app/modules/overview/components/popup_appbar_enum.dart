@@ -1,4 +1,4 @@
 enum PopupEnum {
-  Favorites,
+  Fav,
   All,
 }

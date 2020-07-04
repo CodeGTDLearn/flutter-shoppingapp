@@ -1,6 +1,6 @@
 import '../../app/modules/overview/product.dart';
 
-final List<Product> products = [
+List<Product> productsDb = [
   Product(
     'p1',
     'Red Shirt',

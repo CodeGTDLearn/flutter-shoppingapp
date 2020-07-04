@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shopingapp/app/modules/cart/cart_controller.dart';
+
+import 'package:get/get.dart';
 
 import '../../../config/app_properties.dart';
 import '../../../config/app_routes.dart';
@@ -9,18 +8,19 @@ import '../../../config/messages/flush_notifier.dart';
 import '../../../config/titles_icons/app_core.dart';
 import '../../../config/titles_icons/views/overview.dart';
 import '../../../modules/core/components/flush_notifier.dart';
+import '../../cart/cart_controller.dart';
 
 class BadgeShopCartAppbar extends StatelessWidget {
   final Widget child;
   final int value;
   final Color color;
 
-  const BadgeShopCartAppbar({this.child, this.value, this.color});
+  final CartController _controller = Get.put(CartController());
+
+  BadgeShopCartAppbar({this.child, this.value, this.color});
 
   @override
   Widget build(BuildContext context) {
-    final _controller = Modular.get<CartController>(); // todo:Esta nulificando
-    print("33333" + _controller.toString());
     return Stack(alignment: Alignment.center, children: [
       IconButton(
           icon: OVERVIEW_ICO_SHOP,
@@ -29,7 +29,7 @@ class BadgeShopCartAppbar extends StatelessWidget {
               FlushNotifier(OPS, FLUSHNOTIF_MSG_CART_EMPTY, INTERVAL, context)
                   .simple();
             } else {
-              Modular.to.pushNamed(CART_ROUTE);
+              Get.toNamed(CART_ROUTE);
             }
           }),
       Positioned(
@@ -41,10 +41,8 @@ class BadgeShopCartAppbar extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
                 color: color != null ? color : Theme.of(context).accentColor),
             constraints: BoxConstraints(minWidth: 16, minHeight: 16),
-            child: Observer(
-                builder: (_) => Text(_controller.qtdeCartItems.toString(),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 10))),
+            child: Text(_controller.qtdeCartItems.toString(),
+                textAlign: TextAlign.center, style: TextStyle(fontSize: 10)),
           ))
     ]);
   }

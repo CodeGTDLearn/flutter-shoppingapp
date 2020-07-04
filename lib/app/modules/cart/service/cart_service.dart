@@ -1,12 +1,14 @@
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get/get.dart';
 
 import '../../overview/product.dart';
 import '../cart_item.dart';
+import '../repo/cart_firebase_repo.dart';
 import '../repo/i_cart_repo.dart';
 import 'i_cart_service.dart';
 
 class CartService implements ICartService {
-  final _repo = Modular.get<ICartRepo>();
+//  final _repo = Modular.get<ICartRepo>();
+  final ICartRepo _repo = Get.put(CartFirebaseRepo());
 
   @override
   Map<String, CartItem> getAllCartItems() {
@@ -39,7 +41,7 @@ class CartService implements ICartService {
   double cartItemTotal$Amount() {
     var total = 0.0;
     getAllCartItems().forEach((key, cartItem) {
-      total += cartItem.get_price() * cartItem.get_qtde();
+      total += cartItem.price * cartItem.qtde;
     });
     return total;
   }
@@ -47,7 +49,7 @@ class CartService implements ICartService {
   @override
   int cartItemsQtde() {
     var totalQtde = 0;
-    getAllCartItems().forEach((x, item) => totalQtde += item.get_qtde());
+    getAllCartItems().forEach((x, item) => totalQtde += item.qtde);
     return totalQtde;
   }
 }

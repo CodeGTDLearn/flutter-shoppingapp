@@ -20,6 +20,7 @@ dependencies:
   shared_preferences: ^0.5.7+3
   slidy: ^2.1.2+2
   dio: ^3.0.9
+  get: 3.2.2
 
 dev_dependencies:
   flutter_test:

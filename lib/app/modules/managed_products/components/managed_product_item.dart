@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get/get.dart';
 
 import '../../../config/app_routes.dart';
 import '../../../config/titles_icons/components/managed_product_item.dart';
@@ -16,13 +16,11 @@ class ManagedProductItem extends StatefulWidget {
   _ManagedProductItemState createState() => _ManagedProductItemState();
 }
 
-class _ManagedProductItemState
-    extends ModularState<ManagedProductItem, ManagedProductsController> {
+class _ManagedProductItemState extends State<ManagedProductItem> {
+  final ManagedProductsController controller = Get.find();
+
   @override
   Widget build(BuildContext context) {
-    final test = Modular.get<ManagedProductsController>();
-    print("222" + test.toString());
-
     return ListTile(
         leading: CircleAvatar(backgroundImage: NetworkImage(widget._imageUrl)),
         title: Text(widget._title),
@@ -31,8 +29,8 @@ class _ManagedProductItemState
             child: Row(children: <Widget>[
               IconButton(
                   icon: MANAGED_PROD_ITEM_TILE_EDIT_ICO,
-                  onPressed: () => Modular.link
-                      .pushNamed('$MANAGPRODUCT_EDIT_ROUTE/${widget._id}'),
+                  onPressed: () => Get.toNamed(MAN_PROD_ADD_EDIT_ROUTE,
+                      arguments: widget._id),
                   color: Theme.of(context).errorColor),
               IconButton(
                   icon: MANAGED_PROD_ITEM_TILE_DELETE_ICO,

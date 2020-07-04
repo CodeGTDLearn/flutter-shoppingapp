@@ -1,18 +1,15 @@
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobx/mobx.dart';
-import 'package:shopingapp/app/modules/orders/service/i_orders_service.dart';
+import 'package:get/get.dart';
 
 import '../../modules/cart/cart_item.dart';
 import 'order.dart';
+import 'service/i_orders_service.dart';
+import 'service/orders_service.dart';
 
-part 'orders_controller.g.dart';
 
-class OrdersController = _OrdersControllerBase with _$OrdersController;
+class OrdersController{
+  final IOrdersService _service = Get.put(OrdersService());
 
-abstract class _OrdersControllerBase with Store {
-  final _service = Modular.get<IOrdersService>();
-
-  @observable
+//  @observable
   int qtdeOrders = 0;
 
   List<Order> getAllOrders() {

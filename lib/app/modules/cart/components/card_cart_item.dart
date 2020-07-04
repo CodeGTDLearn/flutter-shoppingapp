@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get/get.dart';
 
 import '../../../config/titles_icons/app_core.dart';
 import '../../../config/titles_icons/views/cart.dart';
@@ -8,14 +8,14 @@ import '../cart_item.dart';
 
 class CardCartItem extends StatelessWidget {
   final CartItem _cartItem;
-  final _cartStore = Modular.get<CartController>();
+  final CartController _cartStore = Get.put(CartController());
 
   CardCartItem(this._cartItem);
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-        key: ValueKey(_cartItem.get_id()),
+        key: ValueKey(_cartItem.id),
         background: Container(
             child: CART_ICO_DESMISS,
             alignment: Alignment.centerRight,
@@ -38,11 +38,11 @@ class CardCartItem extends StatelessWidget {
                       child: Padding(
                           padding: EdgeInsets.all(5),
                           child: FittedBox(
-                              child: Text('\$${_cartItem.get_price()}')))),
-                  title: Text(_cartItem.get_title()),
+                              child: Text('\$${_cartItem.price}')))),
+                  title: Text(_cartItem.title),
                   subtitle: Text(
-                      'Total \$${(_cartItem.get_price()).toStringAsFixed(2)}'),
-                  trailing: Text('x${_cartItem.get_qtde()}')),
+                      'Total \$${(_cartItem.price).toStringAsFixed(2)}'),
+                  trailing: Text('x${_cartItem.qtde}')),
             )),
         confirmDismiss: (direction) {
           return showDialog(
@@ -59,9 +59,7 @@ class CardCartItem extends StatelessWidget {
 
   FlatButton _flattButton(String label, bool remove) {
     return FlatButton(
-      onPressed: () {
-        Modular.to.pop(remove);
-      },
+      onPressed: Get.back,
       child: Text(label),
     );
   }
