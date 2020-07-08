@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/modules/cart/cart_controller.dart';
-import 'package:shopingapp/app/modules/overview/components/overview_item/overview_item_controller.dart';
 
 import '../../../config/titles_icons/views/overview.dart';
 import '../../core/components/drawwer.dart';

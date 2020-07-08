@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedPreferencesRepo {
+class SharedPrefsRepo {
   Future delete(String key) async {
     var shared = await SharedPreferences.getInstance();
     shared.remove(key);

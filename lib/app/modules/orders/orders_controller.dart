@@ -3,12 +3,9 @@ import 'package:get/get.dart';
 import '../../modules/cart/cart_item.dart';
 import 'order.dart';
 import 'service/i_orders_service.dart';
-import 'service/orders_service.dart';
 
-
-class OrdersController extends GetxController{
-
-  final IOrdersService _service = Get.put(OrdersService());
+class OrdersController {
+  final IOrdersService _service = Get.find();
 
   var qtdeOrders = 0.obs;
 

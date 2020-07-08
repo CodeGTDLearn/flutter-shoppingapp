@@ -55,18 +55,3 @@ class ManagedProductsPage extends StatelessWidget {
   }
 }
 
-//The following assertion was thrown building _BodyBuilder:
-//setState() or markNeedsBuild() called during build.
-//
-//This GetBuilder<ManagedProductsController> widget cannot be marked as needing to build because the framework is already in the process of building widgets.  A widget can be marked as needing to be built during the build phase only if one of its ancestors is currently building. This exception is allowed because the framework builds parent widgets before children, which means a dirty descendant will always be built. Otherwise, the framework might not visit this widget during this build phase.
-//The widget on which setState() or markNeedsBuild() was called was: GetBuilder<ManagedProductsController>
-//state: _GetBuilderState<ManagedProductsController>#2f87d
-//The widget which was currently being built when the offending call was made was: _BodyBuilder
-//The relevant error-causing widget was:
-//Scaffold file:///C:/Users/SERVIDOR/Projects/flutter-shoppingapp/lib/app/modules/managed_products/pages/managed_products_page.dart:13:12
-//When the exception was thrown, this was the stack:
-//#0      Element.markNeedsBuild.<anonymous closure> (package:flutter/src/widgets/framework.dart:4167:11)
-//#1      Element.markNeedsBuild (package:flutter/src/widgets/framework.dart:4182:6)
-//#2      State.setState (package:flutter/src/widgets/framework.dart:1253:14)
-//#3      GetxController.update.<anonymous closure> (package:get/src/state/get_state.dart:15:25)
-//#4      _SetBase.forEach (dart:collection/set.dart:438:30)

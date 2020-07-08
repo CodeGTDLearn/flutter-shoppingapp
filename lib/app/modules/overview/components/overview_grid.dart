@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '../../../config/messages/grid_products.dart';
 import '../overview_controller.dart';
-import '../product.dart';
 import 'overview_item/overview_item.dart';
 
 // ignore: must_be_immutable

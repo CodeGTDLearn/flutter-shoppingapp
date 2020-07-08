@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -10,12 +9,27 @@ import 'order_collapse_tile_controller.dart';
 
 class OrderCollapseTile extends StatelessWidget {
   final Order _order;
-  final _controller = OrderCollapseTileController();
+
+//  final OrderCollapseTileController _controller =
+//  Get.put(OrderCollapseTileController());
+//  final _controller = OrderCollapseTileController();
+//  final OrderCollapseTileController _controller = Get.find();
 
   OrderCollapseTile(this._order);
 
   @override
   Widget build(BuildContext context) {
+    OrderCollapseTileController _controller;
+//PAREI AQUI
+//ERRO
+//    The following NoSuchMethodError was thrown building OrderCollapseTile(dirty):
+//    The getter 'toggleCollapseTile' was called on null.
+//    Receiver: null
+//    Tried calling: toggleCollapseTile
+    GetInstance().create(() {
+      _controller = OrderCollapseTileController();
+    });
+
     return Card(
         margin: EdgeInsets.all(15),
         child: Column(children: [

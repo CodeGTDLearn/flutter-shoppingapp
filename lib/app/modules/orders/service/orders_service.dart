@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import '../../cart/cart_item.dart';
 import '../order.dart';
 import '../repo/i_orders_repo.dart';
-import '../repo/orders_firebase_repo.dart';
 import 'i_orders_service.dart';
 
 class OrdersService implements IOrdersService {
-  final IOrdersRepo _repo = Get.put(OrdersFirebaseRepo());
+
+  final IOrdersRepo _repo = Get.find();
 
   @override
   List<Order> getAllOrders() {
@@ -34,3 +34,4 @@ class OrdersService implements IOrdersService {
     return _repo.getAllOrders().length;
   }
 }
+//  final IOrdersRepo _repo = Get.put(OrdersFirebaseRepo());
