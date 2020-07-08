@@ -9,12 +9,26 @@ class ManagedProductsController extends GetxController {
 
   static ManagedProductsController get to => Get.find();
 
-  var managedProducts = <Product>[];
+  // GERENCIA DE ESTADO REATIVA - COM O GET
+  var managedProducts = <Product>[].obs;
+
+  // GERENCIA DE ESTADO REATIVA ou SIMPLES - COM O GET
+  @override
+  void onInit() {
+    getAll();
+  }
 
   void getAll() {
-    managedProducts = _service.getAll();
-    update();
+    managedProducts.value = _service.getAll();
   }
+
+// GERENCIA DE ESTADO SIMPLES - COM O GET
+//  var managedProducts = <Product>[];
+//
+//  void getAll() {
+//    managedProducts = _service.getAll();
+//    update();
+//  }
 
   void delete(String id) {
     _service.delete(id);
@@ -23,7 +37,6 @@ class ManagedProductsController extends GetxController {
 
   void add(Product product) {
     product.id = (DateTime.now().toString());
-
 
     _service.add(product);
     getAll();

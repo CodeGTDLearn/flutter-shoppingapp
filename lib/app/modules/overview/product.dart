@@ -8,11 +8,11 @@ class Product {
   bool isFavorite = false; // ignore: prefer_final_fields
 
   Product(
-      [id,
-      title,
-      description,
-      price,
-      imageUrl,
+      [this.id,
+      this.title,
+      this.description,
+      this.price,
+      this.imageUrl,
       // ignore: avoid_positional_boolean_parameters
-      isFavorite = false]);
+      this.isFavorite = false]);
 }

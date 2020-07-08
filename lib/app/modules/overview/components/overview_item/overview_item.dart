@@ -25,8 +25,9 @@ class OverviewItem extends StatelessWidget {
     return ClipRect(
         child: GridTile(
             child: GestureDetector(
-                onTap: () => Get.toNamed(OVERVIEW_DETAIL_ROUTE,
-                    arguments: _product.id),
+//                onTap: () => Get.toNamed(OVERVIEW_DETAIL_ROUTE + _product.id),
+                onTap: () =>
+                    Get.toNamed('$OVERVIEW_DETAIL_ROUTE${_product.id}'),
                 child:
                     Image.network(_product.imageUrl, fit: BoxFit.cover)),
             footer: GridTileBar(

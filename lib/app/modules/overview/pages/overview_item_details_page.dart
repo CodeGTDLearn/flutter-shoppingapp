@@ -5,10 +5,8 @@ import 'package:get/get.dart';
 import '../components/overview_item/overview_item_controller.dart';
 
 class OverviewItemDetailsPage extends StatelessWidget {
-  final String _id;
+  final String _id = Get.parameters['id'];
   final OverviewItemController controller = Get.put(OverviewItemController());
-
-  OverviewItemDetailsPage(this._id);
 
   @override
   Widget build(BuildContext context) {
