@@ -9,12 +9,8 @@ import 'modules/core/shared_preferences/shared_preferences_repo.dart';
 import 'modules/overview/components/popup_appbar_enum.dart';
 import 'modules/overview/pages/overview_page.dart';
 
-class AppDriver extends StatefulWidget {
-  @override
-  _AppDriverState createState() => _AppDriverState();
-}
+class AppDriver extends StatelessWidget {
 
-class _AppDriverState extends State<AppDriver> {
   final _theme = AppTheme();
   final _appThemeStore = DarkThemeStore();
   final _sharedPref = SharedPreferencesRepo();

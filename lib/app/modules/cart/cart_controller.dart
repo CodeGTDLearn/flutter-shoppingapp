@@ -14,6 +14,11 @@ class CartController extends GetxController  {
   var qtdeCartItems = 0.obs;
   var amountCartItems = 0.0.obs;
 
+  @override
+  void onInit() {
+    recalcQtdeAndAmountCart();
+  }
+
   Map<String, CartItem> getAll() {
     return _cartService.getAllCartItems();
   }

@@ -6,11 +6,11 @@ import 'service/i_orders_service.dart';
 import 'service/orders_service.dart';
 
 
-class OrdersController{
+class OrdersController extends GetxController{
+
   final IOrdersService _service = Get.put(OrdersService());
 
-//  @observable
-  int qtdeOrders = 0;
+  var qtdeOrders = 0.obs;
 
   List<Order> getAllOrders() {
     return _service.getAllOrders();
@@ -22,6 +22,6 @@ class OrdersController{
 
   void addOrder(List<CartItem> cartItemsList, double amount) {
     _service.addOrder(cartItemsList, amount);
-    qtdeOrders = getAllOrders().length;
+    qtdeOrders.value = getAllOrders().length;
   }
 }

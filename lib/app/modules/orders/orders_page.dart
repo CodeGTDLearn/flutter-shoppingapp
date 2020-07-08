@@ -5,13 +5,9 @@ import '../../config/titles_icons/views/orders.dart';
 import 'components/order_collapse_tile.dart';
 import 'orders_controller.dart';
 
-class OrdersPage extends StatefulWidget {
-  @override
-  _OrdersPageState createState() => _OrdersPageState();
-}
+class OrdersPage extends StatelessWidget {
 
-class _OrdersPageState extends State<OrdersPage> {
-  final OrdersController controller = Get.put(OrdersController());
+  final controller = Get.put(OrdersController());
 
   @override
   Widget build(BuildContext context) {

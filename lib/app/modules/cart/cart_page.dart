@@ -6,19 +6,9 @@ import './../../config/titles_icons/views/cart.dart';
 import 'cart_controller.dart';
 import 'components/card_cart_item.dart';
 
-class CartPage extends StatefulWidget {
-  @override
-  _CartPageState createState() => _CartPageState();
-}
+class CartPage extends StatelessWidget {
 
-class _CartPageState extends State<CartPage> {
   final CartController _controller = Get.find();
-
-  @override
-  void initState() {
-    _controller.recalcQtdeAndAmountCart();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
