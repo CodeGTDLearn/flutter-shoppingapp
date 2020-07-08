@@ -11,8 +11,8 @@ class CartController extends GetxController  {
   final ICartService _cartService = Get.put(CartService());
   final IOrdersService _ordersService = Get.put(OrdersService());
 
-  var qtdeCartItems = 0;
-  var amountCartItems = 0.0;
+  var qtdeCartItems = 0.obs;
+  var amountCartItems = 0.0.obs;
 
   Map<String, CartItem> getAll() {
     return _cartService.getAllCartItems();
@@ -28,6 +28,11 @@ class CartController extends GetxController  {
     recalcQtdeAndAmountCart();
   }
 
+  void recalcQtdeAndAmountCart() {
+    qtdeCartItems.value = _cartService.cartItemsQtde();
+    amountCartItems.value = _cartService.cartItemTotal$Amount();
+  }
+
   void removeCartItem(CartItem cartItem) {
     _cartService.removeCartItem(cartItem);
     recalcQtdeAndAmountCart();
@@ -35,12 +40,9 @@ class CartController extends GetxController  {
 
   void clearCart() {
     _cartService.clearCart();
+    recalcQtdeAndAmountCart();
   }
 
-  void recalcQtdeAndAmountCart() {
-    qtdeCartItems = _cartService.cartItemsQtde();
-    amountCartItems = _cartService.cartItemTotal$Amount();
-  }
 
   void addOrder(List<CartItem> cartItemsList, double amount) {
     _ordersService.addOrder(cartItemsList, amount);

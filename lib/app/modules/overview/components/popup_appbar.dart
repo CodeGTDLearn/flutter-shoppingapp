@@ -17,7 +17,7 @@ class PopupAppbar extends StatelessWidget {
   }
 
 //  List<ReactionDisposer> _disposers;
-  final OverviewController controller = Get.put(OverviewController());
+  final OverviewController controller = Get.find();
 
 //  @override
 //  void initState() {
@@ -45,19 +45,19 @@ class PopupAppbar extends StatelessWidget {
         itemBuilder: (_) => [
               PopupMenuItem(
                   child: Text(OVERVIEW_TXT_POPUP_FAV),
-                  value: PopupEnum.Fav,
+                  value: Popup.Fav,
                   enabled: _enableFavorite),
               PopupMenuItem(
                   child: Text(OVERVIEW_TXT_POPUP_ALL),
-                  value: PopupEnum.All,
+                  value: Popup.All,
                   enabled: _enableAll)
             ],
         onSelected: (filterSelected) {
           switch (filterSelected) {
-            case PopupEnum.Fav:
+            case Popup.Fav:
               Get.toNamed(OVERVIEW_FAV_ROUTE);
               break;
-            case PopupEnum.All:
+            case Popup.All:
               Get.toNamed(OVERVIEW_ALL_ROUTE);
               break;
           }

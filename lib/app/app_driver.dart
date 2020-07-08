@@ -30,7 +30,7 @@ class _AppDriverState extends State<AppDriver> {
       theme: _theme.theme(_appThemeStore.isDark),
 
       //Get PARAMETROS:
-      home: OverviewPage(PopupEnum.All),
+      home: OverviewPage(Popup.All),
       initialRoute: OVERVIEW_ALL_ROUTE, // USUALLY '/'-ROTA DE 'RETORNO RAIZ'
       getPages: getAppRoutes,
     );

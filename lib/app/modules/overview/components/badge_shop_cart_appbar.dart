@@ -15,7 +15,7 @@ class BadgeShopCartAppbar extends StatelessWidget {
   final int value;
   final Color color;
 
-  final CartController _controller = Get.put(CartController());
+  final _controller = Get.put(CartController());
 
   BadgeShopCartAppbar({this.child, this.value, this.color});
 
@@ -41,8 +41,10 @@ class BadgeShopCartAppbar extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
                 color: color != null ? color : Theme.of(context).accentColor),
             constraints: BoxConstraints(minWidth: 16, minHeight: 16),
-            child: Text(_controller.qtdeCartItems.toString(),
-                textAlign: TextAlign.center, style: TextStyle(fontSize: 10)),
+            child: Obx(
+              () => Text(_controller.qtdeCartItems.value.toString(),
+                  textAlign: TextAlign.center, style: TextStyle(fontSize: 10)),
+            ),
           ))
     ]);
   }

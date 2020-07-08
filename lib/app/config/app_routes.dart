@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/modules/overview/overview_binding.dart';
 import 'package:shopingapp/app/modules/overview/pages/overview_item_details_page.dart';
 
 import '../modules/cart/cart_page.dart';
@@ -18,8 +19,8 @@ const MAN_PROD_ROUTE = '/managed-products';
 const MAN_PROD_ADD_EDIT_ROUTE = '/managed-product-add-edit';
 
 List<GetPage> getAppRoutes = [
-  GetPage(name: OVERVIEW_ALL_ROUTE, page: () => OverviewPage(PopupEnum.All)),
-  GetPage(name: OVERVIEW_FAV_ROUTE, page: () => OverviewPage(PopupEnum.Fav)),
+  GetPage(name: OVERVIEW_ALL_ROUTE, page: () => OverviewPage(Popup.All)),
+  GetPage(name: OVERVIEW_FAV_ROUTE, page: () => OverviewPage(Popup.Fav)),
   GetPage(name: CART_ROUTE, page: () => CartPage()),
   GetPage(name: ORDERS_ROUTE, page: () => OrdersPage()),
   GetPage(name: MAN_PROD_ROUTE, page: () => ManagedProductsPage()),
@@ -27,3 +28,12 @@ List<GetPage> getAppRoutes = [
   GetPage(
       name: '$OVERVIEW_DETAIL_ROUTE:id', page: () => OverviewItemDetailsPage()),
 ];
+
+//GetPage(
+//name: OVERVIEW_ALL_ROUTE,
+//page: () => OverviewPage(Popup.All),
+//binding: OverviewBinding()),
+//GetPage(
+//name: OVERVIEW_FAV_ROUTE,
+//page: () => OverviewPage(Popup.Fav),
+//binding: OverviewBinding()),

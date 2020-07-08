@@ -39,14 +39,15 @@ class _CartPageState extends State<CartPage> {
                     Spacer(),
                     Chip(
                         label: Text(
-                            _controller.amountCartItems.toStringAsFixed(2),
+                            _controller.amountCartItems.value
+                                .toStringAsFixed(2),
                             style: TextStyle(color: Colors.white)),
                         backgroundColor: Theme.of(context).primaryColor),
                     FlatButton(
                         onPressed: () {
                           _controller.addOrder(
                             _controller.getAll().values.toList(),
-                            _controller.amountCartItems,
+                            _controller.amountCartItems.value,
                           );
                           _controller.clearCart();
                           _controller.recalcQtdeAndAmountCart();

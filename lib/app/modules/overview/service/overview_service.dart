@@ -10,8 +10,8 @@ class OverviewService implements IOverviewService {
   final IOverviewRepo _repo = Get.put(OverviewFirebaseRepo());
 
   @override
-  List<Product> getProductsFiltering(PopupEnum filter) {
-    if (filter == PopupEnum.Fav) {
+  List<Product> getProductsFiltering(Popup filter) {
+    if (filter == Popup.Fav) {
       return _repo.getFavorites().length != 0 ? _repo.getFavorites() : [];
     }
     return _repo.getAll().length != 0 ? _repo.getAll() : [];

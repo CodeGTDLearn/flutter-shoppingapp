@@ -17,39 +17,37 @@ class OverviewItem extends StatelessWidget {
 
   OverviewItem(this._product);
 
-  final OverviewItemController _ovControl = Get.put(OverviewItemController());
-  final CartController _cartControl = Get.find();
+  final OverviewItemController _ovItemControl =
+      Get.put(OverviewItemController());
+  final CartController _cartController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return ClipRect(
         child: GridTile(
             child: GestureDetector(
-//                onTap: () => Get.toNamed(OVERVIEW_DETAIL_ROUTE + _product.id),
                 onTap: () =>
                     Get.toNamed('$OVERVIEW_DETAIL_ROUTE${_product.id}'),
-                child:
-                    Image.network(_product.imageUrl, fit: BoxFit.cover)),
+                child: Image.network(_product.imageUrl, fit: BoxFit.cover)),
             footer: GridTileBar(
                 leading: IconButton(
-                    icon: _ovControl.favoriteStatus ?? _product.isFavorite
+                    icon: _ovItemControl.favoriteStatus ?? _product.isFavorite
                         ? OVERVIEW_ICO_FAV
                         : OVERVIEW_ICO_NOFAV,
-                    onPressed: () =>
-                        _ovControl.toggleFavorite(_product.id),
+                    onPressed: () => _ovItemControl.toggleFavorite(_product.id),
                     color: Theme.of(context).accentColor),
                 title: Text(_product.title),
                 trailing: IconButton(
                     icon: OVERVIEW_ICO_SHOP,
                     onPressed: () {
-                      _cartControl.addProductInTheCart(_product);
+                      _cartController.addProductInTheCart(_product);
                       FlushNotifier(
                               DONE,
                               _product.title + FLUSHNOTIF_MSG_CART_ADD,
                               INTERVAL,
                               context)
                           .withButton(UNDO, () {
-                        _cartControl.undoAddProductInTheCart(_product);
+                        _cartController.undoAddProductInTheCart(_product);
                       });
                     },
                     color: Theme.of(context).accentColor),

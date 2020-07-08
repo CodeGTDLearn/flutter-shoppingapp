@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/modules/cart/cart_controller.dart';
+import 'package:shopingapp/app/modules/overview/components/overview_item/overview_item_controller.dart';
 
 import '../../../config/titles_icons/views/overview.dart';
 import '../../core/components/drawwer.dart';
@@ -10,19 +12,13 @@ import '../components/popup_appbar_enum.dart';
 import '../overview_controller.dart';
 
 class OverviewPage extends StatelessWidget {
-  final PopupEnum _enum;
-  final OverviewController _overviewController = Get.put(OverviewController());
+  final Popup _enum;
+  final _controller = Get.put(OverviewController());
 
   OverviewPage(this._enum);
 
-//  @override
-//  void initState() {
-//    _overviewController.applyFilter(widget.popupEnum);
-//    super.initState();
-//  }
-
   Widget build(BuildContext context) {
-    _overviewController.applyFilter(_enum);
+    _controller.applyFilter(_enum);
     return Scaffold(
       appBar: AppBar(
         title: Text(OVERVIEW_APPBAR_ALL_TIT),
@@ -32,7 +28,7 @@ class OverviewPage extends StatelessWidget {
         ],
       ),
       drawer: Drawwer(),
-      body: OverviewGrid(_overviewController.filteredProducts),
+      body: OverviewGrid(),
     );
   }
 }

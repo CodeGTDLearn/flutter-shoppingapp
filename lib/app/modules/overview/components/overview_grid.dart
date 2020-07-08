@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../config/messages/grid_products.dart';
+import '../overview_controller.dart';
 import '../product.dart';
 import 'overview_item/overview_item.dart';
 
 // ignore: must_be_immutable
 class OverviewGrid extends StatelessWidget {
-  List<Product> filteredProducts;
-
-  OverviewGrid(this.filteredProducts);
+  final OverviewController _controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    return filteredProducts.length == 0
+    return _controller.filteredProducts.length == 0
         ? Center(child: Text(GRID_PRODUCTS_MSG, style: TextStyle(fontSize: 20)))
         : GridView.builder(
             padding: EdgeInsets.all(10),
-            itemCount: filteredProducts.length,
-            itemBuilder: (ctx, item) => OverviewItem(filteredProducts[item]),
+            itemCount: _controller.filteredProducts.length,
+            itemBuilder: (ctx, item) =>
+                OverviewItem(_controller.filteredProducts[item]),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 3 / 2,

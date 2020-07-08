@@ -8,7 +8,7 @@ import '../cart_item.dart';
 
 class CardCartItem extends StatelessWidget {
   final CartItem _cartItem;
-  final CartController _cartStore = Get.put(CartController());
+  final CartController _cartController = Get.find();
 
   CardCartItem(this._cartItem);
 
@@ -26,7 +26,7 @@ class CardCartItem extends StatelessWidget {
                 color: Theme.of(context).errorColor)),
         direction: DismissDirection.endToStart,
         onDismissed: (direction) {
-          _cartStore.removeCartItem(_cartItem);
+          _cartController.removeCartItem(_cartItem);
         },
         //
         child: Card(

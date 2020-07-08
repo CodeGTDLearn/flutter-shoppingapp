@@ -15,12 +15,12 @@ class OverviewController {
   bool hasFavorites;
 
   //@action
-  void applyFilter(PopupEnum filter) {
-    if (filter == PopupEnum.Fav) {
-      filteredProducts = _service.getProductsFiltering(PopupEnum.Fav);
+  void applyFilter(Popup filter) {
+    if (filter == Popup.Fav) {
+      filteredProducts = _service.getProductsFiltering(Popup.Fav);
       hasFavorites = filteredProducts.length != 0 ? true : false;
     } else {
-      filteredProducts = _service.getProductsFiltering(PopupEnum.All);
+      filteredProducts = _service.getProductsFiltering(Popup.All);
     }
   }
 
