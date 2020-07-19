@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../config/app_routes.dart';
-import '../../../config/titles_icons/views/overview.dart';
+import '../../core/app_routes.dart';
+import '../../core/configurable/textual_interaction/titles_icons/views/overview.dart';
 import '../overview_controller.dart';
 import 'popup_appbar_enum.dart';
 
 // ignore: must_be_immutable
 class PopupAppbar extends StatelessWidget {
-
   final Popup _enum;
 
   PopupAppbar(this._enum);
@@ -28,7 +27,8 @@ class PopupAppbar extends StatelessWidget {
                   value: Popup.All,
                   enabled: _enum == Popup.Fav)
             ],
-        onSelected: (value) => Get.toNamed(
-            value == Popup.All ? OVERVIEW_ALL_ROUTE : OVERVIEW_FAV_ROUTE));
+        onSelected: (value) => Get.toNamed(value == Popup.All
+            ? AppRoutes.OVERVIEW_ALL_ROUTE
+            : AppRoutes.OVERVIEW_FAV_ROUTE));
   }
 }

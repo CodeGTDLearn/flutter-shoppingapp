@@ -4,3 +4,5 @@ const PRIMARY_SWATCH = Colors.pink;
 const ACCENT_COLOR = Colors.deepOrange;
 const CARD_COLOR = Colors.white;
 const FONT_FAMILY = 'Lato';
+const DARK = Brightness.dark;
+const LIGHT = Brightness.light;

@@ -6,8 +6,6 @@ import 'cart_item.dart';
 import 'service/i_cart_service.dart';
 
 class CartController extends GetxController  {
-//  final ICartService _cartService = Get.put(CartService());
-//  final IOrdersService _ordersService = Get.put(OrdersService());
 
   final ICartService _cartService = Get.find();
   final IOrdersService _ordersService = Get.find();

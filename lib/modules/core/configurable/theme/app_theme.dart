@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../config/app_theme.dart';
+import 'theme_features.dart';
 
 class AppTheme {
 
@@ -9,7 +9,7 @@ class AppTheme {
         primarySwatch: PRIMARY_SWATCH,
         accentColor: ACCENT_COLOR,
         cardColor: CARD_COLOR,
-        brightness: isDark == true ? Brightness.dark : Brightness.light,
+        brightness: isDark == true ? DARK : LIGHT,
         fontFamily: FONT_FAMILY);
   }
 }

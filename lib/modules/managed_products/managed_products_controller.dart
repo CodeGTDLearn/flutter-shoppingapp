@@ -4,7 +4,6 @@ import '../overview/product.dart';
 import 'services/i_managed_products_service.dart';
 
 class ManagedProductsController extends GetxController {
-//  final IManagedProductsService _service = Get.put(ManagedProductsService());
   final IManagedProductsService _service = Get.find();
 
   static ManagedProductsController get to => Get.find();

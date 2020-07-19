@@ -1,38 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../config/app_routes.dart';
-import '../../../config/titles_icons/views/managed_products.dart';
+import '../../core/app_routes.dart';
 import '../../core/components/drawwer.dart';
+import '../../core/configurable/textual_interaction/titles_icons/views/managed_products.dart';
 import '../components/managed_product_item.dart';
 import '../managed_products_controller.dart';
 
 class ManagedProductsPage extends StatelessWidget {
-
-  // GERENCIA DE ESTADO REATIVA - COM O GET
-//  final ManagedProductsController c = Get.put(ManagedProductsController());
-  final ManagedProductsController c = Get.find();
+  final ManagedProductsController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(MAN_APPBAR_TIT), actions: <Widget>[
+      appBar: AppBar(title: Text(MANAG_PROD_TIT_APPBAR), actions: <Widget>[
         IconButton(
-            icon: MAN_ADD_APPBAR_ICO,
-            onPressed: () => Get.toNamed(MAN_PROD_ADD_EDIT_ROUTE))
+            icon: MANAG_PROD_ICO_ADD_APPBAR,
+            onPressed: () => Get.toNamed(AppRoutes.MAN_PROD_ADD_EDIT_ROUTE))
       ]),
       drawer: Drawwer(),
       //------
 
       // GERENCIA DE ESTADO REATIVA - COM O GET
-      body: Obx(() =>
-          ListView.builder(
-              itemCount: c.managedProducts.length,
-              itemBuilder: (ctx, item) => Column(children: [
+      body: Obx(() => ListView.builder(
+          itemCount: controller.managedProducts.length,
+          itemBuilder: (ctx, item) => Column(children: [
                 ManagedProductItem(
-                  c.managedProducts[item].id,
-                  c.managedProducts[item].title,
-                  c.managedProducts[item].imageUrl,
+                  controller.managedProducts[item].id,
+                  controller.managedProducts[item].title,
+                  controller.managedProducts[item].imageUrl,
                 ),
                 Divider()
               ]))),
@@ -55,4 +51,3 @@ class ManagedProductsPage extends StatelessWidget {
     );
   }
 }
-

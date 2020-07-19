@@ -1,6 +1,7 @@
 const FLUSHNOTIF_MSG_CART_ADD = " Added in the cart.";
 const FLUSHNOTIF_MSG_CART_REM = "Item removed successfully.";
 const FLUSHNOTIF_MSG_CART_EMPTY = "No items in the cart, yet.";
+
 const FLUSHNOTIF_MSG_PRODUCTS = "No items in the DB, yet.";
 
 const FLUSHNOTIF_MSG_NODB = "There is no items in database.";

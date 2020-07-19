@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import '../../core/configurable/app_properties.dart';
+import '../../core/configurable/textual_interaction/titles_icons/views/orders.dart';
 
-import '../../../config/app_properties.dart';
-import '../../../config/titles_icons/views/orders.dart';
 import '../order.dart';
 import 'order_collapse_tile_controller.dart';
 
@@ -14,10 +14,12 @@ class OrderCollapseTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     // todo:   OrderCollapseTileController >> implem. NOT-SINGLETON WITH GETX
-    //    OrderCollapseTileController _controller  = Get.find();
-    var _controller = OrderCollapseTileController();
+//    OrderCollapseTileController _controller  = Get.find();
+//    var _controller = OrderCollapseTileController();
+//    var _controller = GetInstance().create<OrderCollapseTileController>(
+//        () => OrderCollapseTileController());
+    var _controller = Get.create(() => OrderCollapseTileController());
 
     return Card(
         margin: EdgeInsets.all(15),

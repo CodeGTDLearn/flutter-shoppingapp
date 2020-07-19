@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../config/app_properties.dart';
-import '../../../config/app_routes.dart';
-import '../../../config/messages/flush_notifier.dart';
-import '../../../config/titles_icons/app_core.dart';
-import '../../../config/titles_icons/views/overview.dart';
 import '../../cart/cart_controller.dart';
+import '../../core/app_routes.dart';
 import '../../core/components/flush_notifier.dart';
+import '../../core/configurable/app_properties.dart';
+import '../../core/configurable/textual_interaction/messages/flush_notifier.dart';
+import '../../core/configurable/textual_interaction/titles_icons/app_core.dart';
+import '../../core/configurable/textual_interaction/titles_icons/views/overview.dart';
+
 
 class BadgeShopCartAppbar extends StatelessWidget {
   final Widget child;
   final int value;
   final Color color;
 
-//  final _controller = Get.put(CartController());
   final CartController _controller = Get.find();
 
   BadgeShopCartAppbar({this.child, this.value, this.color});
@@ -29,7 +29,7 @@ class BadgeShopCartAppbar extends StatelessWidget {
               FlushNotifier(OPS, FLUSHNOTIF_MSG_CART_EMPTY, INTERVAL, context)
                   .simple();
             } else {
-              Get.toNamed(CART_ROUTE);
+              Get.toNamed(AppRoutes.CART_ROUTE);
             }
           }),
       Positioned(

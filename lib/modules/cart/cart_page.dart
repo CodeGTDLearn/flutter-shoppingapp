@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
-import '../../config/titles_icons/views/cart.dart';
+import '../core/configurable/textual_interaction/titles_icons/views/cart.dart';
 import 'cart_controller.dart';
 import 'components/card_cart_item.dart';
 
 class CartPage extends StatelessWidget {
-
   final CartController _controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(CART_APPBAR_TIT), actions: <Widget>[
+        appBar: AppBar(title: Text(CART_TIT_APPBAR), actions: <Widget>[
           IconButton(
               icon: CART_ICO_CLEARALL,
               onPressed: _controller.clearCart,

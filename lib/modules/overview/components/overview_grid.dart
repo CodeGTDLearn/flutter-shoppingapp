@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../config/messages/grid_products.dart';
+import '../../core/configurable/textual_interaction/messages/grid_products.dart';
 import '../overview_controller.dart';
 import 'overview_item/overview_item.dart';
 

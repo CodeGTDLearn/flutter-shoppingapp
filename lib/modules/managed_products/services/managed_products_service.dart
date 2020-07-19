@@ -6,7 +6,6 @@ import 'i_managed_products_service.dart';
 
 class ManagedProductsService implements IManagedProductsService {
 
-//  final IOverviewRepo _repo = Get.put(OverviewFirebaseRepo());
   final IOverviewRepo _repo = Get.find();
 
   @override

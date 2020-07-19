@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../config/titles_icons/views/orders.dart';
+import '../core/configurable/textual_interaction/titles_icons/views/orders.dart';
 import 'components/order_collapse_tile.dart';
 import 'order.dart';
 import 'orders_controller.dart';
@@ -21,8 +21,7 @@ class OrdersPage extends StatelessWidget {
       body: Container(
           child: ListView.builder(
               itemCount: _orders.length,
-              itemBuilder: (ctx, item) =>
-                  OrderCollapseTile(_orders[item]))),
+              itemBuilder: (ctx, item) => OrderCollapseTile(_orders[item]))),
     );
   }
 }

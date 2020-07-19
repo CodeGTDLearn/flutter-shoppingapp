@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:string_validator/string_validator.dart';
 import 'package:wc_form_validators/wc_form_validators.dart';
 
-import '../../../config/app_owasp_regex.dart';
-import '../../../config/app_routes.dart';
-import '../../../config/messages/field_validation.dart';
-import '../../../config/titles_icons/app_core.dart';
-import '../../../config/titles_icons/views/managed_product_edit.dart';
+import '../../core/app_routes.dart';
+import '../../core/configurable/app_owasp_regex.dart';
+import '../../core/configurable/textual_interaction/messages/field_validation.dart';
+import '../../core/configurable/textual_interaction/titles_icons/app_core.dart';
+import '../../core/configurable/textual_interaction/titles_icons/views/managed_product_edit.dart';
 import '../../overview/product.dart';
 import '../managed_products_controller.dart';
 
@@ -29,9 +29,6 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
   Product _product = Product();
 
   final ManagedProductsController _controller = Get.find();
-
-//  final ManagedProductsController _controller =
-//      Get.put(ManagedProductsController());
 
   @override
   void initState() {
@@ -72,7 +69,7 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
     _form.currentState.save();
     if (_product.id == null) _controller.add(_product);
     if (_product.id != null) _controller.updatte(_product);
-    Get.offNamed(MAN_PROD_ROUTE);
+    Get.offNamed(AppRoutes.MAN_PROD_ROUTE);
   }
 
   @override
@@ -91,8 +88,8 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar:
-            AppBar(title: Text(MANAGED_PROD_LBL_ADD_APPBAR), actions: <Widget>[
-          IconButton(icon: MANAGED_PROD_ICO_SAVE_APPBAR, onPressed: _saveForm)
+            AppBar(title: Text(MANAG_PROD_EDIT_LBL_ADD_APPBAR), actions: <Widget>[
+          IconButton(icon: MANAG_PROD_EDIT_ICO_SAVE_APPBAR, onPressed: _saveForm)
         ]),
         body: Padding(
             padding: EdgeInsets.all(16),
@@ -103,7 +100,7 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
                   TextFormField(
                       initialValue: _product.title,
                       decoration:
-                          InputDecoration(labelText: MANAGED_PROD_FIELD_TITLE),
+                          InputDecoration(labelText: MANAG_PROD_EDIT_FLD_TITLE),
                       textInputAction: TextInputAction.next,
                       maxLength: 15,
                       keyboardType: TextInputType.number,
@@ -120,7 +117,7 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
                           ? ZERO$AMOUNT
                           : _product.price.toString(),
                       decoration:
-                          InputDecoration(labelText: MANAGED_PROD_FIELD_PRICE),
+                          InputDecoration(labelText: MANAG_PROD_EDIT_FLD_PRICE),
                       textInputAction: TextInputAction.next,
                       maxLength: 6,
                       keyboardType: TextInputType.number,
@@ -135,7 +132,7 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
                   TextFormField(
                       initialValue: _product.description,
                       decoration:
-                          InputDecoration(labelText: MANAGED_PROD_FIELD_DESCR),
+                          InputDecoration(labelText: MANAG_PROD_EDIT_FLD_DESCR),
                       textInputAction: TextInputAction.next,
                       maxLength: 30,
                       keyboardType: TextInputType.multiline,
@@ -160,7 +157,7 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
                                     Border.all(width: 0.5, color: Colors.grey)),
                             child: Container(
                                 child: _imgUrlController.text.isEmpty
-                                    ? Center(child: Text(MANAGED_PROD_IMG_TIT))
+                                    ? Center(child: Text(MANAG_PROD_EDIT_IMG_TIT))
                                     : FittedBox(
                                         child: Image.network(
                                             _imgUrlController.text,
@@ -170,7 +167,7 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
                                 //CONTROLLER e incompativel com INITIAL_VALUE
                                 //initialValue: _product.imageUrl.toString(),
                                 decoration: InputDecoration(
-                                    labelText: MANAGED_PROD_FIELD_IMG_URL),
+                                    labelText: MANAG_PROD_EDIT_FLD_IMG_URL),
                                 textInputAction: TextInputAction.done,
                                 keyboardType: TextInputType.url,
                                 focusNode: _focusImgUrlNode,

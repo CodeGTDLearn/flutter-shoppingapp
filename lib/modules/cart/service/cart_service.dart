@@ -6,8 +6,6 @@ import '../repo/i_cart_repo.dart';
 import 'i_cart_service.dart';
 
 class CartService implements ICartService {
-//  final _repo = Modular.get<ICartRepo>();
-//  final ICartRepo _repo = Get.put(CartFirebaseRepo());
   final ICartRepo _repo = Get.find();
 
   @override

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../config/titles_icons/app_core.dart';
-import '../../../config/titles_icons/views/cart.dart';
+import '../../core/configurable/textual_interaction/titles_icons/app_core.dart';
+import '../../core/configurable/textual_interaction/titles_icons/views/cart.dart';
 import '../cart_controller.dart';
 import '../cart_item.dart';
 
