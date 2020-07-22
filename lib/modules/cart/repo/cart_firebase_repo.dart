@@ -1,5 +1,5 @@
-import '../../overview/product.dart';
-import '../cart_item.dart';
+import '../../core/entities/cart_item.dart';
+import '../../core/entities/product.dart';
 import 'i_cart_repo.dart';
 
 class CartFirebaseRepo implements ICartRepo {
@@ -58,12 +58,12 @@ class CartFirebaseRepo implements ICartRepo {
   void clearCartItems() {
     if (getAll().length != 0) _listCartItems.clear();
   }
-
-  @override
-  CartItem getById(String id) {
-    _listCartItems.forEach((ctx, item) {
-      return item.id == id;
-    });
-    return null;
-  }
 }
+//
+//  @override
+//  CartItem getById(String id) {
+//    _listCartItems.forEach((ctx, item) {
+//      return item.id == id;
+//    });
+//    return null;
+//  }

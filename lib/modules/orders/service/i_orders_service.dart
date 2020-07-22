@@ -1,10 +1,10 @@
-import '../../cart/cart_item.dart';
-import '../order.dart';
+import '../../core/entities/cart_item.dart';
+import '../../core/entities/order.dart';
 
 abstract class IOrdersService {
-  List<Order> getAllOrders();
+  Future<List<Order>> getAllOrders();
 
-  int ordersQtde();
+//  int ordersQtde();
 
   void clearOrders();
 

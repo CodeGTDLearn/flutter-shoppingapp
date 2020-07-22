@@ -1,16 +1,15 @@
 import 'package:get/get.dart';
 
-import '../../cart/cart_item.dart';
-import '../order.dart';
+import '../../core/entities/cart_item.dart';
+import '../../core/entities/order.dart';
 import '../repo/i_orders_repo.dart';
 import 'i_orders_service.dart';
 
 class OrdersService implements IOrdersService {
-
   final IOrdersRepo _repo = Get.find();
 
   @override
-  List<Order> getAllOrders() {
+  Future<List<Order>> getAllOrders() async {
     return _repo.getAllOrders();
   }
 
@@ -21,17 +20,25 @@ class OrdersService implements IOrdersService {
 
   @override
   void addOrder(List<CartItem> cartItemsList, double amount) {
-    _repo.addOrder(Order(
-      DateTime.now().toString(),
-      amount,
-      cartItemsList,
-      DateTime.now(),
-    ));
+
+    var newOrder = Order(
+        id: DateTime.now().toString(),
+        amount: amount.toString(),
+        cartItemsList: cartItemsList,
+        datetime: DateTime.now().toString());
+
+    _repo.addOrder(newOrder);
   }
 
-  @override
-  int ordersQtde() {
-    return _repo.getAllOrders().length;
-  }
+//  @override
+//  Future<int> ordersQtde() async {
+//    return _repo.getAllOrders().asStream().length;
+//  }
 }
 
+//    Order(
+//      DateTime.now().toString(),
+//      amount,
+//      cartItemsList,
+//      DateTime.now().toString(),
+//    )

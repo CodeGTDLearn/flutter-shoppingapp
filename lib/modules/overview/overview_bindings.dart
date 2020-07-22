@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:shopingapp/modules/core/connection/custom_dio.dart';
 
 import '../cart/cart_controller.dart';
 import '../cart/repo/cart_firebase_repo.dart';
@@ -6,6 +7,8 @@ import '../cart/repo/i_cart_repo.dart';
 import '../cart/service/cart_service.dart';
 import '../cart/service/i_cart_service.dart';
 import '../core/configurable/theme/dark_theme_controller.dart';
+import '../managed_products/repo/i_managed_products_repo.dart';
+import '../managed_products/repo/managed_products_repo.dart';
 import '../managed_products/services/i_managed_products_service.dart';
 import '../managed_products/services/managed_products_service.dart';
 import '../orders/repo/i_orders_repo.dart';
@@ -36,6 +39,8 @@ class OverviewBindings  extends Bindings {
     Get.lazyPut<ICartService>(() => CartService());
     Get.lazyPut<CartController>(() => CartController());
 
+    Get.lazyPut<CustomDio>(() => CustomDio());
+    Get.lazyPut<IManagedProductsRepo>(() => ManagedProductsRepo());
     Get.lazyPut<IManagedProductsService>(() => ManagedProductsService());
   }
 }

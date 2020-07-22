@@ -20,11 +20,10 @@ class OverviewPage extends StatelessWidget {
     _controller.applyFilter(_enum);
     return Scaffold(
       appBar: AppBar(
-        title: Text(OVERVIEW_TIT_ALL_APPBAR),
-        actions: [
-          PopupAppbar(_enum),
-          BadgeShopCartAppbar()
-        ],
+        title: Text(_enum == Popup.All
+            ? OVERVIEW_TIT_ALL_APPBAR
+            : OVERVIEW_TIT_FAV_APPBAR),
+        actions: [PopupAppbar(_enum), BadgeShopCartAppbar()],
       ),
       drawer: Drawwer(),
       body: OverviewGrid(),

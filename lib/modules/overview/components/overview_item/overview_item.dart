@@ -8,7 +8,7 @@ import '../../../core/configurable/app_properties.dart';
 import '../../../core/configurable/textual_interaction/messages/flush_notifier.dart';
 import '../../../core/configurable/textual_interaction/titles_icons/app_core.dart';
 import '../../../core/configurable/textual_interaction/titles_icons/views/overview.dart';
-import '../../product.dart';
+import '../../../core/entities/product.dart';
 import 'overview_item_controller.dart';
 
 class OverviewItem extends StatelessWidget {
@@ -46,7 +46,7 @@ class OverviewItem extends StatelessWidget {
                       _cartController.addProductInTheCart(_product);
                       FlushNotifier(
                               DONE,
-                              _product.title + FLUSHNOTIF_MSG_CART_ADD,
+                              _product.title + MSG_ITEMCART_ADDED,
                               INTERVAL,
                               context)
                           .withButton(UNDO, () {

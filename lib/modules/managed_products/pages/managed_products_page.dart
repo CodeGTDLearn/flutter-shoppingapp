@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../core/app_routes.dart';
 import '../../core/components/drawwer.dart';
+import '../../core/configurable/textual_interaction/messages/db_empty.dart';
 import '../../core/configurable/textual_interaction/titles_icons/views/managed_products.dart';
 import '../components/managed_product_item.dart';
 import '../managed_products_controller.dart';
@@ -19,19 +20,22 @@ class ManagedProductsPage extends StatelessWidget {
             onPressed: () => Get.toNamed(AppRoutes.MAN_PROD_ADD_EDIT_ROUTE))
       ]),
       drawer: Drawwer(),
-      //------
 
+      //------
       // GERENCIA DE ESTADO REATIVA - COM O GET
-      body: Obx(() => ListView.builder(
-          itemCount: controller.managedProducts.length,
-          itemBuilder: (ctx, item) => Column(children: [
-                ManagedProductItem(
-                  controller.managedProducts[item].id,
-                  controller.managedProducts[item].title,
-                  controller.managedProducts[item].imageUrl,
-                ),
-                Divider()
-              ]))),
+      body: controller.managedProducts.length == 0
+          ? Center(child: Text(DB_EMPTY_MSG, style: TextStyle(fontSize: 20)))
+          : Obx(() => ListView.builder(
+              itemCount: controller.managedProducts.length,
+              itemBuilder: (ctx, item) => Column(children: [
+                    ManagedProductItem(
+                      controller.managedProducts[item].id,
+                      controller.managedProducts[item].title,
+                      controller.managedProducts[item].imageUrl,
+//                  controller.managedProducts[item].imageUrl,
+                    ),
+                    Divider()
+                  ]))),
 
       // GERENCIA DE ESTADO SIMPLES - COM O GET
 //      body: GetBuilder<ManagedProductsController>(

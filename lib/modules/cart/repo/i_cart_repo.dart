@@ -1,5 +1,5 @@
-import '../../overview/product.dart';
-import '../cart_item.dart';
+import '../../core/entities/cart_item.dart';
+import '../../core/entities/product.dart';
 
 abstract class ICartRepo {
   Map<String, CartItem> getAll();
@@ -11,6 +11,5 @@ abstract class ICartRepo {
   void removeCartItem(CartItem cartItem);
 
   void clearCartItems();
-
-  CartItem getById(String id);
 }
+//  CartItem getById(String id);

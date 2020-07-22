@@ -1,10 +1,9 @@
-const FLUSHNOTIF_MSG_CART_ADD = " Added in the cart.";
-const FLUSHNOTIF_MSG_CART_REM = "Item removed successfully.";
-const FLUSHNOTIF_MSG_CART_EMPTY = "No items in the cart, yet.";
+const MSG_ITEMCART_ADDED = " Added in the cart.";
+const MSG_ITEMCART_REMOVED = "Item removed successfully.";
+const MSG_NO_ITEMS_IN_CART = "No items in the cart, yet.";
 
-const FLUSHNOTIF_MSG_PRODUCTS = "No items in the DB, yet.";
+const MS_NO_IN_DB_YET = "No items in the DB, yet.";
 
-const FLUSHNOTIF_MSG_NODB = "There is no items in database.";
-const FLUSHNOTIF_MSG_NOFAV = "Favorites not found.";
-const FLUSHNOTIF_MSG_NOORDER = "No orders were done, yet.";
-const FLUSHNOTIF_MSG_NOMANPRODUCT = "There is no products to be managed.";
+const MSG_NO_FAVORITS = "Favorites not found.";
+const MSG_NO_ORDER = "No orders were done, yet.";
+const MSG_NO_MANAG_PRODUCT_YET = "There is no products to be managed.";

@@ -26,7 +26,7 @@ class BadgeShopCartAppbar extends StatelessWidget {
           icon: OVERVIEW_ICO_SHOP,
           onPressed: () {
             if (_controller.getAll().length == 0) {
-              FlushNotifier(OPS, FLUSHNOTIF_MSG_CART_EMPTY, INTERVAL, context)
+              FlushNotifier(OPS, MSG_NO_ITEMS_IN_CART, INTERVAL, context)
                   .simple();
             } else {
               Get.toNamed(AppRoutes.CART_ROUTE);

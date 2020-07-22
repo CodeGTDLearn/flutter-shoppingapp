@@ -1,17 +1,35 @@
-import '../order.dart';
+import 'package:dio/dio.dart';
+
+import '../../core/configurable/app_properties.dart';
+import '../../core/connection/custom_dio.dart';
+import '../../core/entities/order.dart';
 import 'i_orders_repo.dart';
 
-class OrdersFirebaseRepo implements IOrdersRepo {
+class OrdersFirebaseRepo extends IOrdersRepo {
   final List<Order> _orders = [];
+  final CustomDio _connect = CustomDio();
 
   @override
-  List<Order> getAllOrders() {
-    return [..._orders];
+  Future<int> addOrder(Order order) async {
+//    try {
+//      var response =
+//          await _connect.get_dio.call().post(ORDERS_URL, data: order.toJson());
+//      return response.statusCode;
+//    } on DioError catch (error) {
+//      throw (error.message);
+//    }
   }
 
   @override
-  void addOrder(Order order) {
-    _orders.add(order);
+  Future<List<Order>> getAllOrders() async {
+//    try {
+//      var response = await _connect.get_dio().get(ORDERS_URL);
+//      return (response.data as List)
+//          .map((order) => Order.fromJson(order))
+//          .toList();
+//    } on DioError catch (error) {
+//      throw (error.message);
+//    }
   }
 
   @override
@@ -19,3 +37,10 @@ class OrdersFirebaseRepo implements IOrdersRepo {
     _orders.clear();
   }
 }
+
+//    var response = await _client
+//        .post("/post", data: order)
+//        .then((value) => value.statusCode)
+//        .catchError((eventualError) {
+//      throw (eventualError.toString());
+//    });

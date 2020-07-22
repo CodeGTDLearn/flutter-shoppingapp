@@ -9,25 +9,24 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flushbar: ^1.9.1
-  intl: ^0.16.1
-  lombok: ^0.0.5
-  wc_form_validators: ^0.1.1
-  string_validator: ^0.1.4
-  shared_preferences: ^0.5.7+3
+  flushbar: 1.10.4
+  intl: 0.16.1
+  wc_form_validators: 0.1.1
+  string_validator: 0.1.4
+  shared_preferences: 0.5.7+3
   get: 3.3.0
+  dio: 3.0.9
+  lombok: ^0.0.5
+  http: ^0.012.0+2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  effective_dart: ^1.2.3
+  effective_dart: 1.2.3
+  build_runner: 1.7.2
 
 flutter:
   uses-material-design: true
-
-scripts:
-  mobb: flutter pub get & flutter packages pub run build_runner clean & flutter packages pub run build_runner build --delete-conflicting-outputs
-  mobw: flutter pub get & flutter packages pub run build_runner clean & flutter packages pub run build_runner build --delete-conflicting-outputs & flutter packages pub run build_runner watch
 
   # To add assets to your application, add an assets section, like this:
   # assets:

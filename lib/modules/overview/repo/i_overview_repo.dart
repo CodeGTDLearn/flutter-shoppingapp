@@ -1,4 +1,4 @@
-import '../product.dart';
+import '../../core/entities/product.dart';
 
 abstract class IOverviewRepo {
   List<Product> getAll();
@@ -8,10 +8,10 @@ abstract class IOverviewRepo {
   void toggleFavoriteStatus(String id);
 
   Product getById(String id);
-
-  bool add(Product product);
-
-  bool update(Product product);
-
-  void delete(String id);
 }
+
+//  bool add(Product product);
+//
+//  bool update(Product product);
+//
+//  void delete(String id);

@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 
 import '../../core/configurable/textual_interaction/titles_icons/app_core.dart';
 import '../../core/configurable/textual_interaction/titles_icons/views/cart.dart';
+import '../../core/entities/cart_item.dart';
 import '../cart_controller.dart';
-import '../cart_item.dart';
 
 class CardCartItem extends StatelessWidget {
   final CartItem _cartItem;

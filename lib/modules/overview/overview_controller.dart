@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 import 'components/popup_appbar_enum.dart';
-import 'product.dart';
+import '../core/entities/product.dart';
 import 'service/i_overview_service.dart';
 
 class OverviewController {

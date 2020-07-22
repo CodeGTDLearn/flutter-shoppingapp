@@ -1,12 +1,10 @@
 import '../../../datasource/products_db.dart';
-import '../product.dart';
+import '../../core/entities/product.dart';
 import 'i_overview_repo.dart';
 
 class OverviewFirebaseRepo implements IOverviewRepo {
   List<Product> _products = [];
 
-
-  //TODO: NAO ESTA CARREGANDO A DB
   @override
   List<Product> getAll() {
     if (productsDb.isNotEmpty &&
@@ -35,27 +33,27 @@ class OverviewFirebaseRepo implements IOverviewRepo {
     return _products
         .firstWhere((productToBeGoten) => productToBeGoten.id == id);
   }
-
-  @override
-  bool add(Product product) {
-    _products.add(product);
-    return !_products
-        .indexWhere((prod) => prod.id == product.id)
-        .isNegative;
-  }
-
-  @override
-  bool update(Product product) {
-    final _productFindIndex =
-        _products.indexWhere((prod) => prod.id == product.id);
-    if (_productFindIndex >= 0) _products[_productFindIndex] = product;
-    return !_products
-        .indexWhere((prod) => prod.id == product.id)
-        .isNegative;
-  }
-
-  @override
-  void delete(String id) {
-    _products.removeWhere((element) => element.id == id);
-  }
 }
+
+//  @override
+//  bool add(Product product) {
+//    _products.add(product);
+//    return !_products
+//        .indexWhere((prod) => prod.id == product.id)
+//        .isNegative;
+//  }
+//
+//  @override
+//  bool update(Product product) {
+//    final _productFindIndex =
+//        _products.indexWhere((prod) => prod.id == product.id);
+//    if (_productFindIndex >= 0) _products[_productFindIndex] = product;
+//    return !_products
+//        .indexWhere((prod) => prod.id == product.id)
+//        .isNegative;
+//  }
+//
+//  @override
+//  void delete(String id) {
+//    _products.removeWhere((element) => element.id == id);
+//  }

@@ -2,10 +2,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'i_shared_prefs_repo.dart';
 
 class SharedPrefsRepo implements ISharedPrefsRepo {
-  Future delete(String key) async {
-    var shared = await SharedPreferences.getInstance();
-    shared.remove(key);
-  }
 
   Future get(String key) async {
     var shared = await SharedPreferences.getInstance();
@@ -33,3 +29,7 @@ class SharedPrefsRepo implements ISharedPrefsRepo {
     }
   }
 }
+//  Future delete(String key) async {
+//    var shared = await SharedPreferences.getInstance();
+//    shared.remove(key);
+//  }

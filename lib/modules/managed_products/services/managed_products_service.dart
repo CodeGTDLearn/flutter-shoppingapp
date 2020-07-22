@@ -1,21 +1,22 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../overview/product.dart';
-import '../../overview/repo/i_overview_repo.dart';
+import '../../core/entities/product.dart';
+import '../repo/i_managed_products_repo.dart';
 import 'i_managed_products_service.dart';
 
 class ManagedProductsService implements IManagedProductsService {
-
-  final IOverviewRepo _repo = Get.find();
+  final IManagedProductsRepo _repo = Get.find();
 
   @override
   List<Product> getAll() {
-    return _repo.getAll().toList();
+    return _repo.getAll();
   }
 
   @override
   int managedProductsQtde() {
-    return _repo.getAll().length;
+    return getAll().length;
   }
 
   @override
@@ -24,8 +25,7 @@ class ManagedProductsService implements IManagedProductsService {
   }
 
   @override
-  void add(Product product) {
-    product.id = DateTime.now().toString();
+  Future<void> addProduct(Product product) {
     _repo.add(product);
   }
 

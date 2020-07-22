@@ -1,9 +1,9 @@
-import '../order.dart';
+import '../../core/entities/order.dart';
 
 abstract class IOrdersRepo {
-  List<Order> getAllOrders();
+  Future<int> addOrder(Order order);
 
-  void addOrder(Order order);
+  Future<List<Order>> getAllOrders();
 
   void clearOrdersList();
 }

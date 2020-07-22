@@ -8,27 +8,27 @@ part of 'order.dart';
 
 abstract class _$OrderLombok {
   /// Field
-  String _id;
-  double _amount;
-  List<CartItem> _cartItemsList;
-  DateTime _datetime;
+  String id;
+  String amount;
+  List<CartItem> cartItemsList;
+  String datetime;
 
   /// Setter
 
   /// Getter
-  String get_id() {
-    return _id;
+  String getId() {
+    return id;
   }
 
-  double get_amount() {
-    return _amount;
+  String getAmount() {
+    return amount;
   }
 
-  List<CartItem> get_cartItemsList() {
-    return _cartItemsList;
+  List<CartItem> getCartItemsList() {
+    return cartItemsList;
   }
 
-  DateTime get_datetime() {
-    return _datetime;
+  String getDatetime() {
+    return datetime;
   }
 }
