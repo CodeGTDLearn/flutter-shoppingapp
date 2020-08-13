@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/app_routes.dart';
-import '../../core/configurable/textual_interaction/titles_icons/components/managed_product_item.dart';
-import '../managed_products_controller.dart';
+import '../../../core/app_routes.dart';
+import '../../../core/configurable/textual_interaction/titles_icons/components/managed_product_item.dart';
+import '../controller/managed_products_controller.dart';
 
 class ManagedProductItem extends StatelessWidget {
   final String _id;

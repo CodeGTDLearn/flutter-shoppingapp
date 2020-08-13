@@ -1,1 +1,0 @@
-const MSG_ERROR_MANPRODUCT_ADDITION = " Added in the cart.";

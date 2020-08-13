@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../core/configurable/textual_interaction/titles_icons/views/cart.dart';
-import 'cart_controller.dart';
-import 'components/card_cart_item.dart';
+import '../../../core/configurable/textual_interaction/titles_icons/views/cart.dart';
+import '../components/card_cart_item.dart';
+import '../controller/cart_controller.dart';
 
 class CartPage extends StatelessWidget {
   final CartController _controller = Get.find();

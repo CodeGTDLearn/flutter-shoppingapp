@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../cart/service/i_cart_service.dart';
-import '../../managed_products/services/i_managed_products_service.dart';
-import '../../orders/service/i_orders_service.dart';
+import '../../modules/cart/service/i_cart_service.dart';
+import '../../modules/managed_products/service/i_managed_products_service.dart';
+import '../../modules/orders/service/i_orders_service.dart';
 import '../app_routes.dart';
 import '../configurable/app_properties.dart';
 import '../configurable/textual_interaction/messages/flush_notifier.dart';

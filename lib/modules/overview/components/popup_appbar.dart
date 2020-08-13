@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/app_routes.dart';
-import '../../core/configurable/textual_interaction/titles_icons/views/overview.dart';
-import '../overview_controller.dart';
+import '../../../core/app_routes.dart';
+import '../../../core/configurable/textual_interaction/titles_icons/views/overview.dart';
+import '../controller/overview_controller.dart';
 import 'popup_appbar_enum.dart';
 
 // ignore: must_be_immutable

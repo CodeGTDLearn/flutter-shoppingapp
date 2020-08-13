@@ -1,14 +1,13 @@
-import 'package:get/get.dart';
-
-import '../../core/configurable/app_properties.dart';
-import '../../core/connection/custom_dio.dart';
-import '../../core/entities/product.dart';
-import 'i_managed_products_repo.dart';
-import 'package:http/http.dart' as connect;
 import 'dart:convert';
 
+import 'package:http/http.dart' as connect;
+
+import '../../../core/configurable/app_properties.dart';
+import '../entities/product.dart';
+import 'i_managed_products_repo.dart';
+
 class ManagedProductsRepo implements IManagedProductsRepo {
-  List<Product> _products = [];
+  final List<Product> _products = [];
 
   @override
   List<Product> getAll() {
@@ -22,15 +21,17 @@ class ManagedProductsRepo implements IManagedProductsRepo {
   }
 
   @override
-  Future<void> add(Product productToAdd) {
-    connect.post(PRODUCTS_URL, body: productToAdd.to_Json())
+  Future<void> add(Product product) {
+    // @formatter:off
+    return connect
+        .post(PRODUCTS_URL, body: product.to_Json())
         .then((response) {
-      productToAdd.id = json.decode(response.body)['name'];
-      _products.add(productToAdd);
-    }).catchError((onError) {
-      print(onError);
-      throw onError;
-    });
+            product.id = json.decode(response.body)['name'];
+            _products.add(product);
+            return response.statusCode;
+        })
+        .catchError((onError) => throw onError);
+    // @formatter:on
   }
 
   @override

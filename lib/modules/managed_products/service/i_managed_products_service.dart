@@ -1,4 +1,4 @@
-import '../../core/entities/product.dart';
+import '../entities/product.dart';
 
 abstract class IManagedProductsService {
   List<Product> getAll();
@@ -7,7 +7,7 @@ abstract class IManagedProductsService {
 
   Product getById(String id);
 
-  Future<void> addProduct(Product product);
+  Future<void> add(Product product);
 
   void update(Product product);
 

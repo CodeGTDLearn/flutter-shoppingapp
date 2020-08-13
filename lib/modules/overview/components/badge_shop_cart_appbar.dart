@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../cart/cart_controller.dart';
-import '../../core/app_routes.dart';
-import '../../core/components/flush_notifier.dart';
-import '../../core/configurable/app_properties.dart';
-import '../../core/configurable/textual_interaction/messages/flush_notifier.dart';
-import '../../core/configurable/textual_interaction/titles_icons/app_core.dart';
-import '../../core/configurable/textual_interaction/titles_icons/views/overview.dart';
+import '../../../core/app_routes.dart';
+import '../../../core/components/flush_notifier.dart';
+import '../../../core/configurable/app_properties.dart';
+import '../../../core/configurable/textual_interaction/messages/flush_notifier.dart';
+import '../../../core/configurable/textual_interaction/titles_icons/app_core.dart';
+import '../../../core/configurable/textual_interaction/titles_icons/views/overview.dart';
+import '../../cart/controller/cart_controller.dart';
 
 
 class BadgeShopCartAppbar extends StatelessWidget {

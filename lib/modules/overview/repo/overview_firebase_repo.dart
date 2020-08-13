@@ -1,5 +1,5 @@
 import '../../../datasource/products_db.dart';
-import '../../core/entities/product.dart';
+import '../../managed_products/entities/product.dart';
 import 'i_overview_repo.dart';
 
 class OverviewFirebaseRepo implements IOverviewRepo {

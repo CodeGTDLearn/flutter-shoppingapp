@@ -1,4 +1,4 @@
-import '../../core/entities/product.dart';
+import '../../managed_products/entities/product.dart';
 
 abstract class IOverviewRepo {
   List<Product> getAll();

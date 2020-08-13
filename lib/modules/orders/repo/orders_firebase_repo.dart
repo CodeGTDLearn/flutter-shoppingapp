@@ -1,8 +1,6 @@
-import 'package:dio/dio.dart';
 
-import '../../core/configurable/app_properties.dart';
-import '../../core/connection/custom_dio.dart';
-import '../../core/entities/order.dart';
+import '../../../core/connection/custom_dio.dart';
+import '../entities/order.dart';
 import 'i_orders_repo.dart';
 
 class OrdersFirebaseRepo extends IOrdersRepo {

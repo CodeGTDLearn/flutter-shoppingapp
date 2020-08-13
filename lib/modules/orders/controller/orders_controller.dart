@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
 
-import '../core/entities/cart_item.dart';
-import '../core/entities/order.dart';
-import 'service/i_orders_service.dart';
+
+import '../service/i_orders_service.dart';
 
 class OrdersController {
   final IOrdersService _service = Get.find();

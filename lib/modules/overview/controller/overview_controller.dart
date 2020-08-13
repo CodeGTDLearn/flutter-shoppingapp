@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 
-import 'components/popup_appbar_enum.dart';
-import '../core/entities/product.dart';
-import 'service/i_overview_service.dart';
+import '../../managed_products/entities/product.dart';
+import '../components/popup_appbar_enum.dart';
+import '../service/i_overview_service.dart';
 
 class OverviewController {
     final IOverviewService _service = Get.find();

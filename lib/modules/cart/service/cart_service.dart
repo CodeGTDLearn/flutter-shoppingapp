@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-import '../../core/entities/cart_item.dart';
-import '../../core/entities/product.dart';
+import '../../managed_products/entities/product.dart';
+import '../entities/cart_item.dart';
 import '../repo/i_cart_repo.dart';
 import 'i_cart_service.dart';
 

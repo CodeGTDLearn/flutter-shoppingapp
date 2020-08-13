@@ -1,4 +1,4 @@
-import '../modules/core/entities/product.dart';
+import '../modules/managed_products/entities/product.dart';
 
 List<Product> productsDb = [
   Product(

@@ -18,6 +18,7 @@ dependencies:
   dio: 3.0.9
   lombok: ^0.0.5
   http: ^0.012.0+2
+  shadow: ^0.1.5
 
 dev_dependencies:
   flutter_test:

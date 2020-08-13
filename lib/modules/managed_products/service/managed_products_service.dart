@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/entities/product.dart';
+import '../entities/product.dart';
 import '../repo/i_managed_products_repo.dart';
 import 'i_managed_products_service.dart';
 
@@ -25,8 +23,12 @@ class ManagedProductsService implements IManagedProductsService {
   }
 
   @override
-  Future<void> addProduct(Product product) {
-    _repo.add(product);
+  Future<void> add(Product product) {
+    return _repo
+        .add(product)
+        .then((response) => response)
+        .catchError((onError) => throw onError);
+
   }
 
   @override

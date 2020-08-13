@@ -1,5 +1,8 @@
-import '../../core/entities/cart_item.dart';
-import '../../core/entities/order.dart';
+
+
+
+import '../../cart/entities/cart_item.dart';
+import '../entities/order.dart';
 
 abstract class IOrdersService {
   Future<List<Order>> getAllOrders();

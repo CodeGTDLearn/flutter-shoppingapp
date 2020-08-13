@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/configurable/textual_interaction/messages/db_empty.dart';
-import '../overview_controller.dart';
+import '../../../core/configurable/textual_interaction/messages/db_empty.dart';
+import '../controller/overview_controller.dart';
 import 'overview_item/overview_item.dart';
 
 // ignore: must_be_immutable

@@ -1,16 +1,16 @@
 import 'package:get/get.dart';
 
-import '../cart/cart_bindings.dart';
-import '../cart/cart_page.dart';
-import '../managed_products/managed_products_bindings.dart';
-import '../managed_products/pages/managed_product_edit_page.dart';
-import '../managed_products/pages/managed_products_page.dart';
-import '../orders/orders_bindings.dart';
-import '../orders/orders_page.dart';
-import '../overview/components/popup_appbar_enum.dart';
-import '../overview/overview_bindings.dart';
-import '../overview/pages/overview_item_details_page.dart';
-import '../overview/pages/overview_page.dart';
+import '../modules/cart/cart_bindings.dart';
+import '../modules/cart/page/cart_page.dart';
+import '../modules/managed_products/managed_products_bindings.dart';
+import '../modules/managed_products/pages/managed_product_edit_page.dart';
+import '../modules/managed_products/pages/managed_products_page.dart';
+import '../modules/orders/orders_bindings.dart';
+import '../modules/orders/pages/orders_page.dart';
+import '../modules/overview/components/popup_appbar_enum.dart';
+import '../modules/overview/overview_bindings.dart';
+import '../modules/overview/pages/overview_item_details_page.dart';
+import '../modules/overview/pages/overview_page.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class AppRoutes {

@@ -8,3 +8,5 @@ linter:
     avoid_positional_boolean_parameters: false
     prefer_mixin: false
     type_annotate_public_apis: false
+    lines_longer_than_80_chars: false
+

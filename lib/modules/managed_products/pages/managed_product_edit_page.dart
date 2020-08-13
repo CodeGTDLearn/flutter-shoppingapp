@@ -3,14 +3,15 @@ import 'package:get/get.dart';
 import 'package:string_validator/string_validator.dart';
 import 'package:wc_form_validators/wc_form_validators.dart';
 
-import '../../core/app_routes.dart';
-import '../../core/configurable/app_owasp_regex.dart';
-import '../../core/configurable/textual_interaction/messages/field_validation.dart';
-import '../../core/configurable/textual_interaction/messages/get_snackbar.dart';
-import '../../core/configurable/textual_interaction/titles_icons/app_core.dart';
-import '../../core/configurable/textual_interaction/titles_icons/views/managed_product_edit.dart';
-import '../../core/entities/product.dart';
-import '../managed_products_controller.dart';
+import '../../../core/app_routes.dart';
+import '../../../core/components/custom_snackbar.dart';
+import '../../../core/configurable/app_owasp_regex.dart';
+import '../../../core/configurable/textual_interaction/messages/field_validation.dart';
+import '../../../core/configurable/textual_interaction/messages/get_alertdialog.dart';
+import '../../../core/configurable/textual_interaction/titles_icons/app_core.dart';
+import '../../../core/configurable/textual_interaction/titles_icons/views/managed_product_edit.dart';
+import '../controller/managed_products_controller.dart';
+import '../entities/product.dart';
 
 class ManagedProductEditPage extends StatefulWidget {
   @override
@@ -66,18 +67,29 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
   }
 
   void _saveForm() {
+    // @formatter:off
     if (!_form.currentState.validate()) return;
     _form.currentState.save();
     _controller.toggleIsLoading();
     _product.id.isNull
-        ? _controller.add(_product).then((_) {
-            _controller.toggleIsLoading();
-            Get.offNamed(AppRoutes.MAN_PROD_ROUTE);
-          }).catchError((onError) {
-            Get.snackbar(MSG_ERROR_MANPRODUCT_ADDITION, OPS);
-          })
+        ? _controller
+        .add(_product)
+        .then((response) {
+              _controller.toggleIsLoading();
+              Get.offNamed(AppRoutes.MAN_PROD_ROUTE);
+              CustomSnackBar.simple(SUCESS, MSG_SUCESS_MANPRODUCT_ADDITION);
+        })
+        .catchError((onError){
+              Get.defaultDialog(
+                  title: OPS,
+                  middleText: MSG_ERROR_MANPRODUCT_ADDITION,
+                  textConfirm: OK,
+                  onConfirm: Get.back);
+              _controller.toggleIsLoading();
+        })
         : _controller.updatte(_product);
     Get.offNamed(AppRoutes.MAN_PROD_ROUTE);
+    // @formatter:on
   }
 
   @override
@@ -101,7 +113,7 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
               IconButton(
                   icon: MANAG_PROD_EDIT_ICO_SAVE_APPBAR, onPressed: _saveForm)
             ]),
-        body: Obx(() => _controller.isLoading.value
+        body: Obx(() => _controller.reloadView.value
             ? Center(child: CircularProgressIndicator())
             : Padding(
                 padding: EdgeInsets.all(16),
@@ -125,11 +137,12 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
                             Validators.minLength(5, MSG_VALID_MIN_SIZE_TIT)
                           ])),
                       TextFormField(
-                          initialValue: _product.price == null
-                              ? ZERO$AMOUNT
-                              : _product.price.toString(),
+//                          initialValue: _product.price != null
+//                              ? _product.price.toString()
+//                              : _product.price.toString(),
                           decoration: InputDecoration(
-                              labelText: MANAG_PROD_EDIT_FLD_PRICE),
+                              labelText: MANAG_PROD_EDIT_FLD_PRICE,
+                              hintText: ZERO$AMOUNT),
                           textInputAction: TextInputAction.next,
                           maxLength: 6,
                           keyboardType: TextInputType.number,

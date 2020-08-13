@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 
-import '../core/entities/cart_item.dart';
-import '../core/entities/product.dart';
-import '../orders/service/i_orders_service.dart';
-import 'service/i_cart_service.dart';
+import '../../managed_products/entities/product.dart';
+import '../../orders/service/i_orders_service.dart';
+import '../entities/cart_item.dart';
+import '../service/i_cart_service.dart';
 
 class CartController extends GetxController  {
 

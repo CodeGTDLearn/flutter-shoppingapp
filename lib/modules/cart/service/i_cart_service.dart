@@ -1,5 +1,7 @@
-import '../../core/entities/cart_item.dart';
-import '../../core/entities/product.dart';
+
+
+import '../../managed_products/entities/product.dart';
+import '../entities/cart_item.dart';
 
 abstract class ICartService {
   Map<String, CartItem> getAllCartItems();

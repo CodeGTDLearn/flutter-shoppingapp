@@ -1,4 +1,4 @@
-import '../../core/entities/product.dart';
+import '../entities/product.dart';
 
 abstract class IManagedProductsRepo {
   List<Product> getAll();

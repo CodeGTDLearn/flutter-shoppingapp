@@ -1,5 +1,7 @@
-import '../../core/entities/cart_item.dart';
-import '../../core/entities/product.dart';
+
+
+import '../../managed_products/entities/product.dart';
+import '../entities/cart_item.dart';
 import 'i_cart_repo.dart';
 
 class CartFirebaseRepo implements ICartRepo {

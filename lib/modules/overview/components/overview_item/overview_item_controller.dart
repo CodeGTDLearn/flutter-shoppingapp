@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../../../core/entities/product.dart';
+import '../../../managed_products/entities/product.dart';
 import '../../repo/i_overview_repo.dart';
 
 

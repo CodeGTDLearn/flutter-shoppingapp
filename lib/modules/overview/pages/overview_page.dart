@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/components/drawwer.dart';
-import '../../core/configurable/textual_interaction/titles_icons/views/overview.dart';
+import '../../../core/components/drawwer.dart';
+import '../../../core/configurable/textual_interaction/titles_icons/views/overview.dart';
 import '../components/badge_shop_cart_appbar.dart';
 import '../components/overview_grid.dart';
 import '../components/popup_appbar.dart';
 import '../components/popup_appbar_enum.dart';
-import '../overview_controller.dart';
+import '../controller/overview_controller.dart';
 
 class OverviewPage extends StatelessWidget {
   final Popup _enum;

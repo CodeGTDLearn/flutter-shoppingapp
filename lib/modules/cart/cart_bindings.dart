@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import 'cart_controller.dart';
+import 'controller/cart_controller.dart';
 import 'repo/cart_firebase_repo.dart';
 import 'repo/i_cart_repo.dart';
 import 'service/cart_service.dart';

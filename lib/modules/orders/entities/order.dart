@@ -1,11 +1,10 @@
 import 'package:lombok/lombok.dart';
 
-import 'cart_item.dart';
+import '../../cart/entities/cart_item.dart';
 
-part 'order.g.dart';
-
-@getter
-class Order with _$OrderLombok {
+//@getter
+//class Order with _$OrderLombok {
+class Order {
 
   String id;
   String amount;

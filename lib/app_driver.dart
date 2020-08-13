@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
 
-import 'modules/core/app_routes.dart';
-import 'modules/core/configurable/app_properties.dart';
-import 'modules/core/configurable/theme/app_theme.dart';
-import 'modules/core/configurable/theme/dark_theme_controller.dart';
-import 'modules/core/shared_preferences/i_shared_prefs_repo.dart';
-import 'modules/core/shared_preferences/shared_prefs_repo.dart';
+
+import 'core/app_routes.dart';
+import 'core/configurable/app_properties.dart';
+import 'core/configurable/theme/app_theme.dart';
+import 'core/configurable/theme/dark_theme_controller.dart';
+import 'core/shared_preferences/i_shared_prefs_repo.dart';
+import 'core/shared_preferences/shared_prefs_repo.dart';
 
 
 class AppDriver extends StatelessWidget {

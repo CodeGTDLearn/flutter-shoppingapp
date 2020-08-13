@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-import '../core/entities/product.dart';
-import 'services/i_managed_products_service.dart';
+import '../entities/product.dart';
+import '../service/i_managed_products_service.dart';
 
 class ManagedProductsController extends GetxController {
   final IManagedProductsService _service = Get.find();
@@ -9,7 +9,7 @@ class ManagedProductsController extends GetxController {
   // GERENCIA DE ESTADO REATIVA - COM O GET
   var managedProducts = <Product>[].obs;
 
-  var isLoading = false.obs;
+  var reloadView = false.obs;
 
   // GERENCIA DE ESTADO REATIVA ou SIMPLES - COM O GET
   @override
@@ -17,8 +17,8 @@ class ManagedProductsController extends GetxController {
     getAll();
   }
 
-  void toggleIsLoading(){
-    isLoading.value = !isLoading.value;
+  void toggleIsLoading() {
+    reloadView.value = !reloadView.value;
   }
 
   void getAll() {
@@ -43,7 +43,11 @@ class ManagedProductsController extends GetxController {
   }
 
   Future<void> add(Product product) {
-    _service.addProduct(product);
+    return _service
+        .add(product)
+        .then((response) => response)
+        .catchError((onError) => throw onError);
+    ;
   }
 
   void updatte(Product product) {

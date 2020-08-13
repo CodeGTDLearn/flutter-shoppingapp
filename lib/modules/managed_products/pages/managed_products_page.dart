@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/state_manager.dart';
 
-import '../../core/app_routes.dart';
-import '../../core/components/drawwer.dart';
-import '../../core/configurable/textual_interaction/messages/db_empty.dart';
-import '../../core/configurable/textual_interaction/titles_icons/views/managed_products.dart';
+import '../../../core/app_routes.dart';
+import '../../../core/components/drawwer.dart';
+import '../../../core/configurable/textual_interaction/messages/db_empty.dart';
+import '../../../core/configurable/textual_interaction/titles_icons/views/managed_products.dart';
 import '../components/managed_product_item.dart';
-import '../managed_products_controller.dart';
+import '../controller/managed_products_controller.dart';
 
 class ManagedProductsPage extends StatelessWidget {
   final ManagedProductsController controller = Get.find();
