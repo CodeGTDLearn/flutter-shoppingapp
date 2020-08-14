@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'app/core/properties/app_properties.dart';
+import 'app/core/properties/app_routes.dart';
+import 'app/core/properties/theme/app_theme.dart';
+import 'app/core/properties/theme/dark_theme_controller.dart';
+import 'app/core/shared_preferences/i_shared_prefs_repo.dart';
+import 'app/core/shared_preferences/shared_prefs_repo.dart';
 
-import 'core/app_routes.dart';
-import 'core/configurable/app_properties.dart';
-import 'core/configurable/theme/app_theme.dart';
-import 'core/configurable/theme/dark_theme_controller.dart';
-import 'core/shared_preferences/i_shared_prefs_repo.dart';
-import 'core/shared_preferences/shared_prefs_repo.dart';
 
 
 class AppDriver extends StatelessWidget {
@@ -17,11 +17,9 @@ class AppDriver extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _repo.get('isDarkOption').then(
-          (value) => value == null
-              ? _darkTheme.isDark.value = false
-              : _darkTheme.isDark.value = value,
-        );
+    _repo.get('isDarkOption').then((shared) => shared == null
+        ? _darkTheme.isDark.value = false
+        : _darkTheme.isDark.value = shared);
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: APP_DEBUG_CHECK,
