@@ -1,16 +1,16 @@
 import 'package:get/get.dart';
 
-import '../../pages/cart/core/cart_bindings.dart';
-import '../../pages/cart/page/cart_page.dart';
-import '../../pages/managed_products/core/managed_products_bindings.dart';
-import '../../pages/managed_products/pages/managed_product_edit_page.dart';
-import '../../pages/managed_products/pages/managed_products_page.dart';
-import '../../pages/orders/core/orders_bindings.dart';
-import '../../pages/orders/pages/orders_page.dart';
-import '../../pages/overview/components/popup_appbar_enum.dart';
-import '../../pages/overview/core/overview_bindings.dart';
-import '../../pages/overview/pages/overview_item_details_page.dart';
-import '../../pages/overview/pages/overview_page.dart';
+import '../../pages_modules/cart/core/cart_bindings.dart';
+import '../../pages_modules/cart/page/cart_page.dart';
+import '../../pages_modules/managed_products/core/managed_products_bindings.dart';
+import '../../pages_modules/managed_products/pages/managed_product_edit_page.dart';
+import '../../pages_modules/managed_products/pages/managed_products_page.dart';
+import '../../pages_modules/orders/core/orders_bindings.dart';
+import '../../pages_modules/orders/pages/orders_page.dart';
+import '../../pages_modules/overview/components/popup_appbar_enum.dart';
+import '../../pages_modules/overview/core/overview_bindings.dart';
+import '../../pages_modules/overview/pages/overview_item_details_page.dart';
+import '../../pages_modules/overview/pages/overview_page.dart';
 
 
 

@@ -1,0 +1,5 @@
+// ALERT DIALOGS + SNACKBAR DIALOG
+import '../../../../texts_icons_provider/messages/get_dialogs.dart';
+
+const ERROR_MAN_PROD_ADD = ERROR_MANAGED_PRODUCTS_ADDITION;
+const SUCES_MAN_PROD_ADD = SUCESS_MANAGED_PRODUCTS_ADDITION;

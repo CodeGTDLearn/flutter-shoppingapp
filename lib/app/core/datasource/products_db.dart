@@ -1,6 +1,6 @@
 
 
-import '../../pages/managed_products/entities/product.dart';
+import '../../pages_modules/managed_products/entities/product.dart';
 
 List<Product> productsDb = [
   Product(
