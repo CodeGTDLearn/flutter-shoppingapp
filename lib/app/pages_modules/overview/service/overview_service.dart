@@ -9,20 +9,29 @@ class OverviewService implements IOverviewService {
   final IOverviewRepo _repo = Get.find();
 
   @override
-  List<Product> getProductsFiltering(Popup filter) {
+  Future<List<Product>> getProducts() {
+    return _repo.getProducts();
+  }
+
+  @override
+  Future<List<Product>> getProductsByFilter(Popup filter) {
     if (filter == Popup.Fav) {
-      return _repo.getFavorites().length != 0 ? _repo.getFavorites() : [];
+      return _repo.getFavoritesQtde() != 0
+          ? _repo.getFavorites().then((response) => response)
+          : [];
     }
-    return _repo.getAll().length == 0 ? [] : _repo.getAll();
+    return _repo.getProductsQtde() == 0
+        ? []
+        : _repo.getProducts().then((response) => response);
   }
 
   @override
   int qtdeFavorites() {
-    return _repo.getFavorites().length;
+    return _repo.getFavoritesQtde();
   }
 
   @override
   int qtdeProducts() {
-    return _repo.getAll().length;
+    return _repo.getProductsQtde();
   }
 }

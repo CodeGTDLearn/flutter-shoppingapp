@@ -4,20 +4,30 @@ import '../../managed_products/entities/product.dart';
 import '../components/popup_appbar_enum.dart';
 import '../service/i_overview_service.dart';
 
-class OverviewController {
-    final IOverviewService _service = Get.find();
+class OverviewController extends GetxController {
+  final IOverviewService _service = Get.find();
 
-  List<Product> filteredProducts = [];
-
+  var filteredProducts = <Product>[].obs;
   bool hasFavorites;
 
-  void applyFilter(Popup filter) {
+  void filterProducts(Popup filter) {
     if (filter == Popup.Fav) {
-      filteredProducts = _service.getProductsFiltering(Popup.Fav);
+      _service
+          .getProductsByFilter(Popup.Fav)
+          .then((favoritesProductsListResponse) =>
+              filteredProducts.value = favoritesProductsListResponse)
+          .catchError((onError) => onError);
       hasFavorites = filteredProducts.length != 0 ? true : false;
     } else {
-      filteredProducts = _service.getProductsFiltering(Popup.All);
+      _service
+          .getProductsByFilter(Popup.All)
+          .then((allProductsListResponse) => filteredProducts.value = allProductsListResponse)
+          .catchError((onError) => onError);
     }
+  }
+
+  Future<List<Product>> getProducts() {
+    return _service.getProducts();
   }
 
   int qtdeFavorites() {

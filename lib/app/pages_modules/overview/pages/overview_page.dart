@@ -12,21 +12,17 @@ import '../core/overview_texts_icons_provided.dart';
 class OverviewPage extends StatelessWidget {
   final Popup _enum;
 
-  final OverviewController _controller = Get.find();
-
   OverviewPage(this._enum);
 
   Widget build(BuildContext context) {
-    _controller.applyFilter(_enum);
     return Scaffold(
       appBar: AppBar(
-        title: Text(_enum == Popup.All
-            ? OVERV_TIT_ALL_APPBAR
-            : OVERV_TIT_FAV_APPBAR),
+        title: Text(
+            _enum == Popup.All ? OVERV_TIT_ALL_APPBAR : OVERV_TIT_FAV_APPBAR),
         actions: [PopupAppbar(_enum), BadgeShopCartAppbar()],
       ),
       drawer: Drawwer(),
-      body: OverviewGrid(),
+      body: OverviewGrid(_enum)
     );
   }
 }

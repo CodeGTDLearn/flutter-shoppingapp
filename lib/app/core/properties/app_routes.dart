@@ -12,8 +12,6 @@ import '../../pages_modules/overview/core/overview_bindings.dart';
 import '../../pages_modules/overview/pages/overview_item_details_page.dart';
 import '../../pages_modules/overview/pages/overview_page.dart';
 
-
-
 // ignore: avoid_classes_with_only_static_members
 class AppRoutes {
   static const OVERVIEW_ALL_ROUTE = '/';

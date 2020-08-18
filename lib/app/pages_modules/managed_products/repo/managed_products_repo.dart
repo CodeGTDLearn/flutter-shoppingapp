@@ -10,8 +10,36 @@ class ManagedProductsRepo implements IManagedProductsRepo {
   final List<Product> _products = [];
 
   @override
-  List<Product> getAll() {
-    return _products;
+  Future<List<Product>> getAllManagedProducts() {
+    // @formatter:off
+    var _AllProducts = <Product>[];
+
+    return connect
+        .get(PRODUCTS_URL)
+        .then((jsonResponse) {
+            final MapDecodedFromJsonResponse =
+              json.decode(jsonResponse.body) as Map<String, dynamic>;
+
+      MapDecodedFromJsonResponse
+          .forEach((idMap, dataMap) {
+            //print(dataMap['title'].toString());
+            var productObjectCreatedFromDataMap = Product.fromJson(dataMap);
+
+            _AllProducts.add(productObjectCreatedFromDataMap);
+            //print(">>>>>>> ${productObjectCreatedFromDataMap.title}");
+      });
+      return _AllProducts;
+    }).catchError((onError) => throw onError);
+    // @formatter:on
+  }
+
+  @override
+  int getManagedProductsQtde() {
+    int productsQtde;
+    getAllManagedProducts().then((value) {
+      productsQtde = value.length;
+    });
+    return productsQtde;
   }
 
   @override
@@ -21,7 +49,7 @@ class ManagedProductsRepo implements IManagedProductsRepo {
   }
 
   @override
-  Future<void> add(Product product) {
+  Future<void> addProduct(Product product) {
     // @formatter:off
     return connect
         .post(PRODUCTS_URL, body: product.to_Json())

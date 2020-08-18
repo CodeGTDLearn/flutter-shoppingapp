@@ -1,9 +1,15 @@
 import '../../managed_products/entities/product.dart';
 
 abstract class IOverviewRepo {
-  List<Product> getAll();
+//  List<Product> getAll();
 
-  List<Product> getFavorites();
+  Future<List<Product>> getProducts();
+
+  int getProductsQtde();
+
+  int getFavoritesQtde();
+
+  Future<List<Product>> getFavorites();
 
   void toggleFavoriteStatus(String id);
 

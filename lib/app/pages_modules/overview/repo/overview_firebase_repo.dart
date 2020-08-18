@@ -1,4 +1,8 @@
-import '../../../core/datasource/products_db.dart';
+import 'dart:convert';
+
+import 'package:http/http.dart' as connect;
+
+import '../../../core/properties/app_properties.dart';
 import '../../managed_products/entities/product.dart';
 import 'i_overview_repo.dart';
 
@@ -6,20 +10,69 @@ class OverviewFirebaseRepo implements IOverviewRepo {
   List<Product> _products = [];
 
   @override
-  List<Product> getAll() {
-    if (productsDb.isNotEmpty &&
-        productsDb != null &&
-        productsDb.length != 0) {
-      return [..._products = productsDb];
-    }
-    return [..._products];
+  Future<List<Product>> getProducts() {
+    // @formatter:off
+    var _AllProducts = <Product>[];
+
+    return connect
+        .get(PRODUCTS_URL)
+        .then((jsonResponse) {
+            final MapDecodedFromJsonResponse =
+                json.decode(jsonResponse.body) as Map<String, dynamic>;
+
+            MapDecodedFromJsonResponse
+                .forEach((idMap, dataMap) {
+                  //print(dataMap['title'].toString());
+                  var productObjectCreatedFromDataMap = Product.fromJson(dataMap);
+
+                  _AllProducts.add(productObjectCreatedFromDataMap);
+                  //print(">>>>>>> ${productObjectCreatedFromDataMap.title}");
+               });
+      return _AllProducts;
+    }).catchError((onError) => throw onError);
+    // @formatter:on
   }
 
   @override
-  List<Product> getFavorites() {
-    return [
-      ..._products.where((item) => item.isFavorite == true).toList()
-    ];
+  int getProductsQtde() {
+    int productsQtde;
+    getProducts().then((value) {
+      productsQtde = value.length;
+    });
+    return productsQtde;
+  }
+
+  @override
+  int getFavoritesQtde() {
+    getFavorites().then((value) {
+      return value.length == null ? 0 : value.length;
+    });
+  }
+
+  @override
+  Future<List<Product>> getFavorites() {
+    // @formatter:off
+    var _favoriteProducts = <Product>[];
+
+    return connect
+        .get(PRODUCTS_URL)
+        .then((jsonResponse) {
+      final MapDecodedFromJsonResponse =
+          json.decode(jsonResponse.body) as Map<String, dynamic>;
+
+      MapDecodedFromJsonResponse
+          .forEach((idMap, dataMap) {
+            //print(dataMap['title'].toString());
+            var productObjectCreatedFromDataMap = Product.fromJson(dataMap);
+
+            if (productObjectCreatedFromDataMap.isFavorite) {
+              _favoriteProducts.add(productObjectCreatedFromDataMap);
+            }
+            //print(">>>>>>> ${productCreatedFromDataMap.title}");
+          });
+      return _favoriteProducts;
+    }).catchError((onError) => throw onError);
+    // @formatter:on
   }
 
   @override
@@ -34,26 +87,3 @@ class OverviewFirebaseRepo implements IOverviewRepo {
         .firstWhere((productToBeGoten) => productToBeGoten.id == id);
   }
 }
-
-//  @override
-//  bool add(Product product) {
-//    _products.add(product);
-//    return !_products
-//        .indexWhere((prod) => prod.id == product.id)
-//        .isNegative;
-//  }
-//
-//  @override
-//  bool update(Product product) {
-//    final _productFindIndex =
-//        _products.indexWhere((prod) => prod.id == product.id);
-//    if (_productFindIndex >= 0) _products[_productFindIndex] = product;
-//    return !_products
-//        .indexWhere((prod) => prod.id == product.id)
-//        .isNegative;
-//  }
-//
-//  @override
-//  void delete(String id) {
-//    _products.removeWhere((element) => element.id == id);
-//  }

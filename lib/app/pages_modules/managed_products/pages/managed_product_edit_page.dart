@@ -73,7 +73,7 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
     _controller.toggleIsLoading();
     _product.id.isNull
         ? _controller
-        .add(_product)
+        .addProduct(_product)
         .then((response) {
               _controller.toggleIsLoading();
               Get.offNamed(AppRoutes.MAN_PROD_ROUTE);

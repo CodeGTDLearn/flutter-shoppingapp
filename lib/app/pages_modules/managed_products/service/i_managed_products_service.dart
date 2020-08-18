@@ -1,13 +1,13 @@
 import '../entities/product.dart';
 
 abstract class IManagedProductsService {
-  List<Product> getAll();
+  Future<List<Product>> getAllManagedProducts();
 
   int managedProductsQtde();
 
   Product getById(String id);
 
-  Future<void> add(Product product);
+  Future<void> addProduct(Product product);
 
   void update(Product product);
 
