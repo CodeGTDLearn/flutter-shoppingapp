@@ -14,7 +14,6 @@ class ManagedProductsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(_controller.managedProducts.value.toString());
     return Scaffold(
       appBar: AppBar(title: Text(MAN_PROD_TIT_APPBAR), actions: <Widget>[
         IconButton(
@@ -25,23 +24,25 @@ class ManagedProductsPage extends StatelessWidget {
 
       //------
       // GERENCIA DE ESTADO REATIVA - COM O GET
-      body: _controller.managedProducts.length == 0
-          ? Center(
-              child: Text(MAN_PROD_NO_DATA, style: TextStyle(fontSize: 20)))
-          : RefreshIndicator(
-              onRefresh: _controller.getAllManagedProducts,
-              child: Obx(() => ListView.builder(
-                  itemCount: _controller.managedProducts.length,
-                  itemBuilder: (ctx, item) => Column(children: [
-                        ManagedProductItem(
-                          _controller.managedProducts[item].id,
-                          _controller.managedProducts[item].title,
-                          _controller.managedProducts[item].imageUrl,
+      body: Obx(
+        () => (_controller.managedProducts.length == 0
+            ? Center(
+                child: Text(MAN_PROD_NO_DATA, style: TextStyle(fontSize: 20)))
+            : RefreshIndicator(
+                onRefresh: _controller.getAllManagedProducts,
+                child: ListView.builder(
+                    itemCount: _controller.managedProducts.length,
+                    itemBuilder: (ctx, item) => Column(children: [
+                          ManagedProductItem(
+                            _controller.managedProducts[item].id,
+                            _controller.managedProducts[item].title,
+                            _controller.managedProducts[item].imageUrl,
 //                  controller.managedProducts[item].imageUrl,
-                        ),
-                        Divider()
-                      ]))),
-            ),
+                          ),
+                          Divider()
+                        ])),
+              )),
+      ),
 
       // GERENCIA DE ESTADO SIMPLES - COM O GET
 //      body: GetBuilder<ManagedProductsController>(

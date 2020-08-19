@@ -13,13 +13,7 @@ class ManagedProductsController extends GetxController {
   // GERENCIA DE ESTADO REATIVA ou SIMPLES - COM O GET
   @override
   void onInit() {
-    //<<<<<<<<<<<<<<<<<<problema qui, e assincrono, ate fazer o
-    // load da cloud, a tela e printada
-    getAllManagedProducts().then((response) {
-      print(response);//<<<<<<<<< os produtos estao aki, nao se sabe pq nao
-      // renderiza!!!!!!!!!!!!!!!!!
-      managedProducts.value = response;
-    }).catchError((onError) => throw onError);
+    getAllManagedProducts();
   }
 
   void toggleIsLoading() {
@@ -27,10 +21,9 @@ class ManagedProductsController extends GetxController {
   }
 
   Future<List<Product>> getAllManagedProducts() {
-    return _service
-        .getAllManagedProducts()
-        .then((response) => response)
-        .catchError((onError) => throw onError);
+    return _service.getAllManagedProducts().then((response) {
+      managedProducts.value = response;
+    }).catchError((onError) => throw onError);
   }
 
   int managedProductsQtde() {

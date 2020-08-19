@@ -76,6 +76,7 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
         .addProduct(_product)
         .then((response) {
               _controller.toggleIsLoading();
+              _controller.getAllManagedProducts();
               Get.offNamed(AppRoutes.MAN_PROD_ROUTE);
               CustomSnackBar.simple(SUCESS, SUCES_MAN_PROD_ADD);
         })
