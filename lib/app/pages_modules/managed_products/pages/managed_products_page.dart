@@ -24,27 +24,25 @@ class ManagedProductsPage extends StatelessWidget {
 
       //------
       // GERENCIA DE ESTADO REATIVA - COM O GET
-      body: Obx(
-        () => (_controller.managedProducts.length == 0
-            ? Center(
-                child: Text(MAN_PROD_NO_DATA, style: TextStyle(fontSize: 20)))
-            : RefreshIndicator(
-                onRefresh: _controller.getAllManagedProducts,
-                child: ListView.builder(
-                    itemCount: _controller.managedProducts.length,
-                    itemBuilder: (ctx, item) => Column(children: [
-                          ManagedProductItem(
+      body: Obx(() => (_controller.managedProducts.length == 0
+          ? Center(
+              child: Text(MAN_PROD_NO_DATA, style: TextStyle(fontSize: 20)))
+          : RefreshIndicator(
+              onRefresh: _controller.getAllManagedProducts,
+              child: ListView.builder(
+                  itemCount: _controller.managedProducts.length,
+                  itemBuilder: (ctx, item) => Column(children: [
+                        ManagedProductItem(
                             _controller.managedProducts[item].id,
                             _controller.managedProducts[item].title,
-                            _controller.managedProducts[item].imageUrl,
-//                  controller.managedProducts[item].imageUrl,
-                          ),
-                          Divider()
-                        ])),
-              )),
-      ),
-
-      // GERENCIA DE ESTADO SIMPLES - COM O GET
+                            _controller.managedProducts[item].imageUrl),
+                        Divider()
+                      ])),
+            ))),
+    );
+  }
+}
+// GERENCIA DE ESTADO SIMPLES - COM O GET
 //      body: GetBuilder<ManagedProductsController>(
 //          init: ManagedProductsController(),
 //          builder: (_) => ListView.builder(
@@ -58,7 +56,4 @@ class ManagedProductsPage extends StatelessWidget {
 //                    Divider()
 //                  ]))),
 
-      //----------
-    );
-  }
-}
+//----------

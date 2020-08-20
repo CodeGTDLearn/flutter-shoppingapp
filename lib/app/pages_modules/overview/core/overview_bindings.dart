@@ -7,7 +7,7 @@ import '../../cart/repo/i_cart_repo.dart';
 import '../../cart/service/cart_service.dart';
 import '../../cart/service/i_cart_service.dart';
 import '../../managed_products/repo/i_managed_products_repo.dart';
-import '../../managed_products/repo/managed_products_repo.dart';
+import '../../managed_products/repo/managed_products_firebase_repo.dart';
 import '../../managed_products/service/i_managed_products_service.dart';
 import '../../managed_products/service/managed_products_service.dart';
 import '../../orders/repo/i_orders_repo.dart';

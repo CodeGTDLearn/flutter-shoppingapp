@@ -30,7 +30,7 @@ class ManagedProductItem extends StatelessWidget {
                   color: Theme.of(context).errorColor),
               IconButton(
                   icon: MAN_PROD_ITEM_DELETE_ICO,
-                  onPressed: () => controller.delete(_id),
+                  onPressed: () => controller.deleteManagedProduct(_id),
                   color: Theme.of(context).errorColor),
             ])));
   }

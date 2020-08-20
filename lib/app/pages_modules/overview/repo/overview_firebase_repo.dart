@@ -62,13 +62,11 @@ class OverviewFirebaseRepo implements IOverviewRepo {
 
       MapDecodedFromJsonResponse
           .forEach((idMap, dataMap) {
-            //print(dataMap['title'].toString());
             var productObjectCreatedFromDataMap = Product.fromJson(dataMap);
 
             if (productObjectCreatedFromDataMap.isFavorite) {
               _favoriteProducts.add(productObjectCreatedFromDataMap);
             }
-            //print(">>>>>>> ${productCreatedFromDataMap.title}");
           });
       return _favoriteProducts;
     }).catchError((onError) => throw onError);
@@ -76,14 +74,15 @@ class OverviewFirebaseRepo implements IOverviewRepo {
   }
 
   @override
-  void toggleFavoriteStatus(String id) {
+  bool toggleFavoriteStatus(String id) {
     var productFound = getById(id);
     productFound.isFavorite = !productFound.isFavorite;
+    return productFound.isFavorite;
   }
 
   @override
   Product getById(String id) {
-    return _products
-        .firstWhere((productToBeGoten) => productToBeGoten.id == id);
+//    return _products
+//        .firstWhere((productToBeGoten) => productToBeGoten.id == id);
   }
 }

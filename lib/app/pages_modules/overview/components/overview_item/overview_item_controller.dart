@@ -9,9 +9,10 @@ import '../../repo/i_overview_repo.dart';
 
   var favoriteStatus = false.obs;
 
-  void toggleFavorite(String id) {
-    _repo.toggleFavoriteStatus(id);
-    favoriteStatus.value = _repo.getById(id).isFavorite;
+  void toggleFavoriteStatus(String id) {
+    favoriteStatus.value = _repo.toggleFavoriteStatus(id);
+//    _repo.toggleFavoriteStatus(id);
+//    favoriteStatus.value = _repo.getById(id).isFavorite;
   }
 
   Product getById(String id) {

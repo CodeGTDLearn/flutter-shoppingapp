@@ -5,11 +5,11 @@ abstract class IManagedProductsRepo {
 
   int getManagedProductsQtde();
 
-  Product getById(String id);
+  Future<Product> getManagedProductById(String id);
 
-  Future<void> addProduct(Product product);
+  Future<void> saveManagedProduct(Product product);
 
-  bool update(Product product);
+  Future<void> updateManagedProduct(Product product);
 
-  void delete(String id);
+  void deleteManagedProduct(String id);
 }

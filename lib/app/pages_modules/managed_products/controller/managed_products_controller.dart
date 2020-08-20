@@ -16,10 +16,6 @@ class ManagedProductsController extends GetxController {
     getAllManagedProducts();
   }
 
-  void toggleIsLoading() {
-    reloadView.value = !reloadView.value;
-  }
-
   Future<List<Product>> getAllManagedProducts() {
     return _service.getAllManagedProducts().then((response) {
       managedProducts.value = response;
@@ -30,9 +26,34 @@ class ManagedProductsController extends GetxController {
     return _service.managedProductsQtde();
   }
 
-  Product getById(String id) {
-    return _service.getById(id);
+  Future<Product> getByIdManagedProduct(String id) {
+    return _service.getByIdManagedProduct(id).then((value) => value);
   }
+
+  Future<void> saveManagedProduct(Product product) {
+    return _service
+        .saveManagedProduct(product)
+        .then((response) => response)
+        .catchError((onError) => throw onError);
+    ;
+  }
+
+  Future<void> updateManagedProduct(Product product) {
+    return _service
+        .updateManagedProduct(product)
+        .then((response) => response)
+        .catchError((onError) => throw onError);
+  }
+
+  void deleteManagedProduct(String id) {
+    _service.deleteManagedProduct(id);
+    getAllManagedProducts();
+  }
+
+  void toggleReloadView() {
+    reloadView.value = !reloadView.value;
+  }
+}
 
 // GERENCIA DE ESTADO SIMPLES - COM O GET
 //  var managedProducts = <Product>[];
@@ -41,22 +62,3 @@ class ManagedProductsController extends GetxController {
 //    managedProducts = _service.getAll();
 //    update();
 //  }
-
-  void delete(String id) {
-    _service.delete(id);
-    getAllManagedProducts();
-  }
-
-  Future<void> addProduct(Product product) {
-    return _service
-        .addProduct(product)
-        .then((response) => response)
-        .catchError((onError) => throw onError);
-    ;
-  }
-
-  void updatte(Product product) {
-    _service.update(product);
-    getAllManagedProducts();
-  }
-}

@@ -17,13 +17,14 @@ class OverviewItem extends StatelessWidget {
 
   OverviewItem(this._product);
 
-  final OverviewItemController _itemControl = OverviewItemController();
+  final OverviewItemController _overviewItemController =
+      OverviewItemController();
 
   final CartController _cartController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    _itemControl.favoriteStatus.value = _product.isFavorite;
+    _overviewItemController.favoriteStatus.value = _product.isFavorite;
     return Container(
         decoration: BoxDecoration(
           border: Border.all(color: Color.fromRGBO(220, 220, 220, 10)),
@@ -39,11 +40,11 @@ class OverviewItem extends StatelessWidget {
                 footer: GridTileBar(
                     leading: Obx(
                       () => IconButton(
-                          icon: _itemControl.favoriteStatus.value
+                          icon: _overviewItemController.favoriteStatus.value
                               ? OVERV_ICO_FAV
                               : OVERV_ICO_NOFAV,
-                          onPressed: () =>
-                              _itemControl.toggleFavorite(_product.id),
+                          onPressed: () => _overviewItemController
+                              .toggleFavoriteStatus(_product.id),
                           color: Theme.of(context).accentColor),
                     ),
                     title: Text(_product.title),
@@ -51,11 +52,8 @@ class OverviewItem extends StatelessWidget {
                         icon: OVERV_ICO_SHOP,
                         onPressed: () {
                           _cartController.addProductInTheCart(_product);
-                          FlushNotifier(
-                                  DONE,
-                                  _product.title + ITEMCART_ADDED,
-                                  INTERVAL,
-                                  context)
+                          FlushNotifier(DONE, _product.title + ITEMCART_ADDED,
+                                  INTERVAL, context)
                               .withButton(UNDO, () {
                             _cartController.undoAddProductInTheCart(_product);
                           });

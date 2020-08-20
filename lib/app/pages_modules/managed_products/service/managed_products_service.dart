@@ -7,8 +7,6 @@ import 'i_managed_products_service.dart';
 class ManagedProductsService implements IManagedProductsService {
   final IManagedProductsRepo _repo = Get.find();
 
-//  final ManagedProductsController _controller = Get.find();
-
   @override
   Future<List<Product>> getAllManagedProducts() {
     return _repo.getAllManagedProducts().then((response) => response);
@@ -20,25 +18,28 @@ class ManagedProductsService implements IManagedProductsService {
   }
 
   @override
-  Product getById(String id) {
-    return _repo.getById(id);
+  Future<Product> getByIdManagedProduct(String id) {
+    return _repo.getManagedProductById(id).then((value) => value);
   }
 
   @override
-  Future<void> addProduct(Product product) {
+  Future<void> saveManagedProduct(Product product) {
     return _repo
-        .addProduct(product)
+        .saveManagedProduct(product)
         .then((response) => response)
         .catchError((onError) => throw onError);
   }
 
   @override
-  void update(Product product) {
-    _repo.update(product);
+  Future<void> updateManagedProduct(Product product) {
+    return _repo
+        .updateManagedProduct(product)
+        .then((response) => response)
+        .catchError((onError) => throw onError);
   }
 
   @override
-  void delete(String id) {
-    _repo.delete(id);
+  void deleteManagedProduct(String id) {
+    _repo.deleteManagedProduct(id);
   }
 }
