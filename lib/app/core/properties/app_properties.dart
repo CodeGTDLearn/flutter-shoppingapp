@@ -11,7 +11,10 @@ const DATE_FORMAT = 'dd MMM yyyy - hh:mm';
 
 //API PARAMETERS
 const BASE_URL = "https://flutter-shoppingapp-86614.firebaseio.com";
-const PRODUCTS_URL = "$BASE_URL/products.json";
-const ORDERS_URL = "$BASE_URL/orders.json";
-const CART_ITEM_URL = "$BASE_URL/cart-items.json";
+const COLLECTION_PRODUCTS = "products";
+const COLLECTION_ORDERS = "orders";
+const COLLECTION_CART_ITEMS = "cart-items";
+const PRODUCTS_URL = "$BASE_URL/$COLLECTION_PRODUCTS.json";
+const ORDERS_URL = "$BASE_URL/$COLLECTION_ORDERS.json";
+const CART_ITEM_URL = "$BASE_URL/$COLLECTION_CART_ITEMS.json";
 const TIME_OUT = 5000;

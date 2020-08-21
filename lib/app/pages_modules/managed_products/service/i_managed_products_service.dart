@@ -3,6 +3,8 @@ import '../entities/product.dart';
 abstract class IManagedProductsService {
   Future<List<Product>> getAllManagedProducts();
 
+  List<Product> getAllManagedProductsOptmistic();
+
   int managedProductsQtde();
 
   Future<Product> getByIdManagedProduct(String id);

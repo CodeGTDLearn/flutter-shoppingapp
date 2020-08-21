@@ -27,13 +27,8 @@ class Drawwer extends StatelessWidget {
     return Drawer(
         child: Column(children: [
       AppBar(title: Text(DRW_TIT_APPBAR), automaticallyImplyLeading: false),
-      _drawerItem(
-          _manProd.managedProductsQtde(),
-          DRW_ICO_PROD,
-          DRW_LBL_PROD,
-          DRW_NO_DATA,
-          AppRoutes.OVERVIEW_ALL_ROUTE,
-          false),
+      _drawerItem(_manProd.managedProductsQtde(), DRW_ICO_PROD, DRW_LBL_PROD,
+          DRW_NO_DATA, AppRoutes.OVERVIEW_ALL_ROUTE, false),
 //      _drawerItem(
 //        _cart.cartItemsQtde().asStream().length,
 //        DRAWER_ICO_CART,
@@ -67,22 +62,25 @@ class Drawwer extends StatelessWidget {
   }
 
   ListTile _drawerItem(
-    int qtde,
+    int quantityItems,
     Icon leadIcon,
     String title,
     String message,
     String route,
-    bool noConditional,
+    bool isNotAllowedAccessTheRouteWithoutQtdeEvaluation,
   ) {
     return ListTile(
         leading: leadIcon,
         title: Text(title),
         onTap: () {
-          if (!noConditional && qtde == 0) {
+          if (quantityItems == 0 &&
+              isNotAllowedAccessTheRouteWithoutQtdeEvaluation) {
             FlushNotifier(OPS, message, INTERVAL, _context).simple();
-          } else if (!noConditional && qtde != 0) {
+          } else if (quantityItems != 0 &&
+              isNotAllowedAccessTheRouteWithoutQtdeEvaluation) {
             Get.toNamed(route);
-          } else if (noConditional) {
+//          } else if (isAllowedAccessTheRouteWithoutQtdeEvaluation) {
+          } else {
             Get.toNamed(route);
           }
         });

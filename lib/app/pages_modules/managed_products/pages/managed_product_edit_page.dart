@@ -70,27 +70,22 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
   }
 
   void _saveForm() {
-    // @formatter:off
     if (!_form.currentState.validate()) return;
     _form.currentState.save();
     _controller.toggleReloadView();
-    _product.id.isNull
-        ? _saveManagedProductMethod()
-        : _updateManagedProductMethod(_product);
+    _product.id.isNull ? _save(_product) : _update(_product);
     Get.offNamed(AppRoutes.MAN_PROD_ROUTE);
-    // @formatter:on
+    // @formatter:onY
   }
 
-  Future<dynamic> _saveManagedProductMethod() {
-    return _controller
-        .saveManagedProduct(_product)
-        .then((response) {
+  Future<dynamic> _save(Product product) {
+    return _controller.saveManagedProduct(product).then((response) {
       _controller.toggleReloadView();
       _controller.getAllManagedProducts();
+//      _controller.getAllManagedProductsOptmistic();
       Get.offNamed(AppRoutes.MAN_PROD_ROUTE);
-      CustomSnackBar.simple(SUCESS, SUCES_MAN_PROD_ADD);
-    })
-        .catchError((onError) {
+      CustomSnackBar.simple(SUCESS, SUCESS_MAN_PROD_ADD);
+    }).catchError((onError) {
       Get.defaultDialog(
           title: OPS,
           middleText: ERROR_MAN_PROD,
@@ -100,16 +95,14 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
     });
   }
 
-  Future<dynamic> _updateManagedProductMethod(Product _product) {
-    return _controller
-        .updateManagedProduct(_product)
-        .then((response) {
+  Future<dynamic> _update(Product product) {
+    return _controller.updateManagedProduct(product).then((response) {
       _controller.toggleReloadView();
       _controller.getAllManagedProducts();
+//      _controller.getAllManagedProductsOptmistic();
       Get.offNamed(AppRoutes.MAN_PROD_ROUTE);
-      CustomSnackBar.simple(SUCESS, SUCES_MAN_PROD_UPD);
-    })
-        .catchError((onError) {
+      CustomSnackBar.simple(SUCESS, SUCESS_MAN_PROD_UPDT);
+    }).catchError((onError) {
       Get.defaultDialog(
           title: OPS,
           middleText: ERROR_MAN_PROD,
@@ -134,21 +127,18 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: Text(MAN_PROD_EDIT_LBL_ADD_APPBAR),
-            actions: <Widget>[
-              IconButton(
-                  icon: MAN_PROD_EDIT_ICO_SAVE_APPBAR, onPressed: _saveForm)
-            ]),
-        body: Obx(() =>
-        _controller.reloadView.value
+        appBar:
+            AppBar(title: Text(MAN_PROD_EDIT_LBL_ADD_APPBAR), actions: <Widget>[
+          IconButton(icon: MAN_PROD_EDIT_ICO_SAVE_APPBAR, onPressed: _saveForm)
+        ]),
+        body: Obx(() => _controller.reloadView.value
             ? Center(child: CircularProgressIndicator())
             : Padding(
-            padding: EdgeInsets.all(16),
-            child: Form(
-                key: _form,
-                child: SingleChildScrollView(
-                    child: Column(children: <Widget>[
+                padding: EdgeInsets.all(16),
+                child: Form(
+                    key: _form,
+                    child: SingleChildScrollView(
+                        child: Column(children: <Widget>[
                       TextFormField(
                           initialValue: _product.title,
                           decoration: InputDecoration(
@@ -173,14 +163,12 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
                           maxLength: 6,
                           keyboardType: TextInputType.number,
                           onSaved: (value) =>
-                          _product.price = double.parse(value),
-                          onFieldSubmitted: (_) =>
-                              FocusScope.of(context)
-                                  .requestFocus(_focusDescript),
+                              _product.price = double.parse(value),
+                          onFieldSubmitted: (_) => FocusScope.of(context)
+                              .requestFocus(_focusDescript),
                           validator: Validators.compose([
                             Validators.required(EMPTY_FIELD),
-                            Validators.patternString(
-                                SAFE_NUMBER, VALID_NUMBER),
+                            Validators.patternString(SAFE_NUMBER, VALID_NUMBER),
                             Validators.min(0, VALID_PRICE)
                           ])),
                       TextFormField(
@@ -192,9 +180,8 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
                           keyboardType: TextInputType.multiline,
                           maxLines: 3,
                           onSaved: (value) => _product.description = value,
-                          onFieldSubmitted: (_) =>
-                              FocusScope.of(context)
-                                  .requestFocus(_focusImgUrlNode),
+                          onFieldSubmitted: (_) => FocusScope.of(context)
+                              .requestFocus(_focusImgUrlNode),
                           validator: Validators.compose([
                             Validators.required(EMPTY_FIELD),
                             Validators.patternString(SAFE_TEXT, VALID_TEXT),
@@ -213,18 +200,17 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
                                 child: Container(
                                     child: _imgUrlController.text.isEmpty
                                         ? Center(
-                                        child:
-                                        Text(MAN_PROD_EDIT_IMG_TIT))
+                                            child: Text(MAN_PROD_EDIT_IMG_TIT))
                                         : FittedBox(
-                                        child: Image.network(
-                                            _imgUrlController.text,
-                                            fit: BoxFit.cover)))),
+                                            child: Image.network(
+                                                _imgUrlController.text,
+                                                fit: BoxFit.cover)))),
                             Expanded(
                                 child: TextFormField(
-                                  // ignore: lines_longer_than_80_chars
-                                  //CONTROLLER e incompativel com INITIAL_VALUE
+                                    // ignore: lines_longer_than_80_chars
+                                    //CONTROLLER e incompativel com INITIAL_VALUE
 
-                                  //initialValue: _product.imageUrl.toString(),
+                                    //initialValue: _product.imageUrl.toString(),
                                     decoration: InputDecoration(
                                         labelText: MAN_PROD_EDIT_FLD_IMG_URL),
                                     textInputAction: TextInputAction.done,
@@ -234,7 +220,7 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
                                     //CONTROLLER e incompativel com INITIAL_VALUE
                                     controller: _imgUrlController,
                                     onSaved: (value) =>
-                                    _product.imageUrl = value,
+                                        _product.imageUrl = value,
                                     onFieldSubmitted: (_) => _saveForm(),
                                     validator: (value) {
                                       if (!isURL(value)) return VALID_URL;

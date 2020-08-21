@@ -7,7 +7,7 @@ class ManagedProductsController extends GetxController {
   final IManagedProductsService _service = Get.find();
 
   // GERENCIA DE ESTADO REATIVA - COM O GET
-  var managedProducts = <Product>[].obs;
+  var managedProductsObs = <Product>[].obs;
   var reloadView = false.obs;
 
   // GERENCIA DE ESTADO REATIVA ou SIMPLES - COM O GET
@@ -18,8 +18,13 @@ class ManagedProductsController extends GetxController {
 
   Future<List<Product>> getAllManagedProducts() {
     return _service.getAllManagedProducts().then((response) {
-      managedProducts.value = response;
+      managedProductsObs.value = response;
     }).catchError((onError) => throw onError);
+  }
+
+  void getAllManagedProductsOptmistic() {
+    managedProductsObs.value = _service.getAllManagedProductsOptmistic();
+
   }
 
   int managedProductsQtde() {

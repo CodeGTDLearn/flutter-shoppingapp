@@ -13,6 +13,11 @@ class ManagedProductsService implements IManagedProductsService {
   }
 
   @override
+  List<Product> getAllManagedProductsOptmistic() {
+    return _repo.getAllManagedProductsOptmistic();
+  }
+
+  @override
   int managedProductsQtde() {
     return _repo.getManagedProductsQtde();
   }

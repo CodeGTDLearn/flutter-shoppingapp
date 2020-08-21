@@ -6,7 +6,6 @@ import '../../../core/properties/app_routes.dart';
 import '../../pages_generic_components/drawwer.dart';
 import '../components/managed_product_item.dart';
 import '../controller/managed_products_controller.dart';
-import '../core/messages_provided/message_db_empty_provided.dart';
 import '../core/texts_icons_provided/managed_products_texts_icons_provided.dart';
 
 class ManagedProductsPage extends StatelessWidget {
@@ -24,18 +23,17 @@ class ManagedProductsPage extends StatelessWidget {
 
       //------
       // GERENCIA DE ESTADO REATIVA - COM O GET
-      body: Obx(() => (_controller.managedProducts.length == 0
-          ? Center(
-              child: Text(MAN_PROD_NO_DATA, style: TextStyle(fontSize: 20)))
+      body: Obx(() => (_controller.managedProductsObs.length == 0
+          ? Center(child: CircularProgressIndicator())
           : RefreshIndicator(
               onRefresh: _controller.getAllManagedProducts,
               child: ListView.builder(
-                  itemCount: _controller.managedProducts.length,
+                  itemCount: _controller.managedProductsObs.length,
                   itemBuilder: (ctx, item) => Column(children: [
                         ManagedProductItem(
-                            _controller.managedProducts[item].id,
-                            _controller.managedProducts[item].title,
-                            _controller.managedProducts[item].imageUrl),
+                            _controller.managedProductsObs[item].id,
+                            _controller.managedProductsObs[item].title,
+                            _controller.managedProductsObs[item].imageUrl),
                         Divider()
                       ])),
             ))),

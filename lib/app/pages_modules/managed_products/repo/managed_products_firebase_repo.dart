@@ -7,11 +7,11 @@ import '../entities/product.dart';
 import 'i_managed_products_repo.dart';
 
 class ManagedProductsRepo implements IManagedProductsRepo {
-  List<Product> _optmisticListProducts = [];
+  List<Product> _optmisticList = [];
 
   @override
   Future<List<Product>> getAllManagedProducts() {
-    _optmisticListProducts = [];
+    _optmisticList = [];
     // @formatter:off
     return http.get(PRODUCTS_URL)
         .then((jsonResponse) {
@@ -24,12 +24,17 @@ class ManagedProductsRepo implements IManagedProductsRepo {
             var productObjectCreatedFromDataMap = Product.fromJson(dataMap);
             productObjectCreatedFromDataMap.id = idMap.toString();
 
-            _optmisticListProducts.add(productObjectCreatedFromDataMap);
+            _optmisticList.add(productObjectCreatedFromDataMap);
             //print(">>>>>>> ${productObjectCreatedFromDataMap.title}");
       });
-      return _optmisticListProducts;
+      return _optmisticList;
     }).catchError((onError) => throw onError);
     // @formatter:on
+  }
+
+  @override
+  List<Product> getAllManagedProductsOptmistic() {
+    return _optmisticList;
   }
 
   @override
@@ -64,13 +69,13 @@ class ManagedProductsRepo implements IManagedProductsRepo {
   }
 
   @override
-  Future<void> saveManagedProduct(Product product) {
+  Future<void> saveManagedProduct(Product productSaved) {
     // @formatter:off
     return http
-        .post(PRODUCTS_URL, body: product.to_Json())
+        .post(PRODUCTS_URL, body: productSaved.to_Json())
         .then((response) {
-            product.id = json.decode(response.body)['name'];
-            _optmisticListProducts.add(product);
+            productSaved.id = json.decode(response.body)['name'];
+            _optmisticList.add(productSaved);
             return response.statusCode;
         })
         .catchError((onError) => throw onError);
@@ -78,34 +83,23 @@ class ManagedProductsRepo implements IManagedProductsRepo {
   }
 
   @override
-  Future<void> updateManagedProduct(Product product) {
+  Future<void> updateManagedProduct(Product productUpdated) {
     // @formatter:off
-    final _optmisticProductIndex =
-    _optmisticListProducts.indexWhere((indexProduct) => indexProduct.id == product.id);
+    final _index =
+    _optmisticList.indexWhere((item) => item.id == productUpdated.id);
+
     return http
-        .patch("$PRODUCTS_URL/${product.id}", body: product.to_Json())
+        .patch("$BASE_URL/$COLLECTION_PRODUCTS/${productUpdated.id}.json", body:
+    productUpdated.to_Json())
         .then((response) {
-            _optmisticListProducts[_optmisticProductIndex] = product;
-            return response.statusCode;
+      if (_index >= 0)_optmisticList[_index] = productUpdated;
     })
     .catchError((onError) => throw onError);
     // @formatter:on
-
-    //final _productFindIndex =
-    //    _products.indexWhere((prod) => prod.id == product.id);
-    //if (_productFindIndex >= 0) _products[_productFindIndex] = product;
-    //return !_products.indexWhere((prod) => prod.id == product.id).isNegative;
   }
 
   @override
   void deleteManagedProduct(String id) {
-    _optmisticListProducts.removeWhere((element) => element.id == id);
+    _optmisticList.removeWhere((element) => element.id == id);
   }
 }
-
-//bool updateManagedProduct(Product product) {
-//  final _productFindIndex =
-//  _products.indexWhere((prod) => prod.id == product.id);
-//  if (_productFindIndex >= 0) _products[_productFindIndex] = product;
-//  return !_products.indexWhere((prod) => prod.id == product.id).isNegative;
-//}
