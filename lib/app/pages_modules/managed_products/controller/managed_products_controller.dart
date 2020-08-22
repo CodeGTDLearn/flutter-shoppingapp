@@ -24,7 +24,6 @@ class ManagedProductsController extends GetxController {
 
   void getAllManagedProductsOptmistic() {
     managedProductsObs.value = _service.getAllManagedProductsOptmistic();
-
   }
 
   int managedProductsQtde() {
@@ -50,9 +49,13 @@ class ManagedProductsController extends GetxController {
         .catchError((onError) => throw onError);
   }
 
-  void deleteManagedProduct(String id) {
-    _service.deleteManagedProduct(id);
-    getAllManagedProducts();
+  Future<int> deleteManagedProduct(String id) {
+    return _service
+        .deleteManagedProduct(id)
+        .then((response) => response)
+        .catchError((onError) {
+      throw onError;
+    });
   }
 
   void toggleReloadView() {

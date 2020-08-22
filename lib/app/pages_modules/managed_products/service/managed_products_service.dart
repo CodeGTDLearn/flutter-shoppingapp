@@ -44,7 +44,10 @@ class ManagedProductsService implements IManagedProductsService {
   }
 
   @override
-  void deleteManagedProduct(String id) {
-    _repo.deleteManagedProduct(id);
+  Future<int> deleteManagedProduct(String id) {
+    return _repo
+        .deleteManagedProduct(id)
+        .then((response) => response)
+        .catchError((onError) => throw onError);
   }
 }

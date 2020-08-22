@@ -13,5 +13,5 @@ abstract class IManagedProductsRepo {
 
   Future<void> updateManagedProduct(Product product);
 
-  void deleteManagedProduct(String id);
+  Future<int> deleteManagedProduct(String id);
 }

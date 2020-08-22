@@ -7,7 +7,6 @@ import '../../managed_products/entities/product.dart';
 import 'i_overview_repo.dart';
 
 class OverviewFirebaseRepo implements IOverviewRepo {
-  List<Product> _products = [];
 
   @override
   Future<List<Product>> getProducts() {
