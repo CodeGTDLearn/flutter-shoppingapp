@@ -8,7 +8,7 @@ class ManagedProductsController extends GetxController {
 
   // GERENCIA DE ESTADO REATIVA - COM O GET
   var managedProductsObs = <Product>[].obs;
-  var reloadView = false.obs;
+  var reloadManagedProductsEditPage = false.obs;
 
   // GERENCIA DE ESTADO REATIVA ou SIMPLES - COM O GET
   @override
@@ -18,12 +18,8 @@ class ManagedProductsController extends GetxController {
 
   Future<List<Product>> getAllManagedProducts() {
     return _service.getAllManagedProducts().then((response) {
-      managedProductsObs.value = response;
+      managedProductsObs.value = response.isNull ? [] : response;
     }).catchError((onError) => throw onError);
-  }
-
-  void getAllManagedProductsOptmistic() {
-    managedProductsObs.value = _service.getAllManagedProductsOptmistic();
   }
 
   int managedProductsQtde() {
@@ -50,16 +46,28 @@ class ManagedProductsController extends GetxController {
   }
 
   Future<int> deleteManagedProduct(String id) {
+    // @formatter:off
+    var _index = managedProductsObs.value.indexWhere((item)=> item.id == id);
+    var rollbackProduct = managedProductsObs.value[_index];
+    managedProductsObs.value.removeAt(_index);
+    getAllManagedProducts();
+
     return _service
         .deleteManagedProduct(id)
-        .then((response) => response)
-        .catchError((onError) {
-      throw onError;
-    });
+        .then((response) {
+          if (response >= 400) {
+              managedProductsObs.value.add(rollbackProduct);
+//            throw HttpException("Something wronged happens");
+          }
+              rollbackProduct = null;
+              getAllManagedProducts();
+              return response;
+        });
+    // @formatter:on
   }
 
-  void toggleReloadView() {
-    reloadView.value = !reloadView.value;
+  void toggleReloadManagedProductsEditPage() {
+    reloadManagedProductsEditPage.value = !reloadManagedProductsEditPage.value;
   }
 }
 

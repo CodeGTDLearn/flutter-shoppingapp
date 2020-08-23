@@ -41,13 +41,13 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      _controller.toggleReloadView();
+      _controller.toggleReloadManagedProductsEditPage();
       Get.arguments.isNull
-          ? _controller.toggleReloadView()
+          ? _controller.toggleReloadManagedProductsEditPage()
           : _controller.getByIdManagedProduct(Get.arguments).then((response) {
               _imgUrlController.text = response.imageUrl;
               _product = response;
-              _controller.toggleReloadView();
+              _controller.toggleReloadManagedProductsEditPage();
             });
       _isInit = false;
     }
@@ -72,7 +72,7 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
   void _saveForm() {
     if (!_form.currentState.validate()) return;
     _form.currentState.save();
-    _controller.toggleReloadView();
+    _controller.toggleReloadManagedProductsEditPage();
     _product.id.isNull ? _save(_product) : _update(_product);
     Get.offNamed(AppRoutes.MAN_PROD_ROUTE);
     // @formatter:onY
@@ -80,7 +80,7 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
 
   Future<dynamic> _save(Product product) {
     return _controller.saveManagedProduct(product).then((response) {
-      _controller.toggleReloadView();
+      _controller.toggleReloadManagedProductsEditPage();
       _controller.getAllManagedProducts();
 //      _controller.getAllManagedProductsOptmistic();
       Get.offNamed(AppRoutes.MAN_PROD_ROUTE);
@@ -91,13 +91,13 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
           middleText: ERROR_MAN_PROD,
           textConfirm: OK,
           onConfirm: Get.back);
-      _controller.toggleReloadView();
+      _controller.toggleReloadManagedProductsEditPage();
     });
   }
 
   Future<dynamic> _update(Product product) {
     return _controller.updateManagedProduct(product).then((response) {
-      _controller.toggleReloadView();
+      _controller.toggleReloadManagedProductsEditPage();
       _controller.getAllManagedProducts();
 //      _controller.getAllManagedProductsOptmistic();
       Get.offNamed(AppRoutes.MAN_PROD_ROUTE);
@@ -108,7 +108,7 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
           middleText: ERROR_MAN_PROD,
           textConfirm: OK,
           onConfirm: Get.back);
-      _controller.toggleReloadView();
+      _controller.toggleReloadManagedProductsEditPage();
     });
   }
 
@@ -131,7 +131,7 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
             AppBar(title: Text(MAN_PROD_EDIT_LBL_ADD_APPBAR), actions: <Widget>[
           IconButton(icon: MAN_PROD_EDIT_ICO_SAVE_APPBAR, onPressed: _saveForm)
         ]),
-        body: Obx(() => _controller.reloadView.value
+        body: Obx(() => _controller.reloadManagedProductsEditPage.value
             ? Center(child: CircularProgressIndicator())
             : Padding(
                 padding: EdgeInsets.all(16),
@@ -155,7 +155,9 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
                             Validators.minLength(5, VALID_SIZE_TITLE)
                           ])),
                       TextFormField(
-                          initialValue: _product.price.toString(),
+                          initialValue: _product.price == null
+                              ? _product.price
+                              : _product.price.toString(),
                           decoration: InputDecoration(
                               labelText: MAN_PROD_EDIT_FLD_PRICE,
                               hintText: ZERO$AMOUNT),

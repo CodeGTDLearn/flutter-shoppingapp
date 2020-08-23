@@ -39,7 +39,6 @@ class ManagedProductItem extends StatelessWidget {
                           CustomSnackBar.simple(OPS, ERROR_MAN_PROD);
                         } else {
                           CustomSnackBar.simple(SUCESS, SUCESS_MAN_PROD_DEL);
-                          _controller.getAllManagedProducts();
                         }
                       }),
                   color: Theme.of(context).errorColor),

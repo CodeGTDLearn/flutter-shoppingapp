@@ -11,9 +11,9 @@ abstract class IOverviewRepo {
 
   Future<List<Product>> getFavorites();
 
-  bool toggleFavoriteStatus(String id);
+  Future<bool> toggleFavoriteStatus(String id);
 
-  Product getById(String id);
+  Future<Product> getById(String id);
 }
 
 //  bool add(Product product);

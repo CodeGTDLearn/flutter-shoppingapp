@@ -7,15 +7,17 @@ import 'i_managed_products_service.dart';
 class ManagedProductsService implements IManagedProductsService {
   final IManagedProductsRepo _repo = Get.find();
 
+//  var optimisticList = <Product>[];
+
   @override
   Future<List<Product>> getAllManagedProducts() {
     return _repo.getAllManagedProducts().then((response) => response);
   }
 
-  @override
-  List<Product> getAllManagedProductsOptmistic() {
-    return _repo.getAllManagedProductsOptmistic();
-  }
+//  @override
+//  List<Product> getAllOptimisticList() {
+//    return optimisticList;
+//  }
 
   @override
   int managedProductsQtde() {
