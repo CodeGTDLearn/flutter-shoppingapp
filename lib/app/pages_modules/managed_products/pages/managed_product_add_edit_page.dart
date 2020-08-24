@@ -13,12 +13,13 @@ import '../core/messages_provided/message_get_dialogs_provided.dart';
 import '../core/texts_icons_provided/managed_product_edit_texts_icons_provided.dart';
 import '../entities/product.dart';
 
-class ManagedProductEditPage extends StatefulWidget {
+class ManagedProductAddEditPage extends StatefulWidget {
   @override
-  _ManagedProductEditPageState createState() => _ManagedProductEditPageState();
+  _ManagedProductAddEditPageState createState() =>
+      _ManagedProductAddEditPageState();
 }
 
-class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
+class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
   bool _isInit = true;
 
   final _focusPrice = FocusNode();
@@ -42,13 +43,14 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
   void didChangeDependencies() {
     if (_isInit) {
       _controller.toggleReloadManagedProductsEditPage();
-      Get.arguments.isNull
-          ? _controller.toggleReloadManagedProductsEditPage()
-          : _controller.getByIdManagedProduct(Get.arguments).then((response) {
-              _imgUrlController.text = response.imageUrl;
-              _product = response;
-              _controller.toggleReloadManagedProductsEditPage();
-            });
+      if (Get.arguments.isNull) {
+        _controller.toggleReloadManagedProductsEditPage();
+      } else {
+        _product = _controller.getByIdManagedProduct(Get.arguments);
+        _imgUrlController.text = _product.imageUrl;
+        _controller.toggleReloadManagedProductsEditPage();
+      }
+
       _isInit = false;
     }
     super.didChangeDependencies();
@@ -232,3 +234,10 @@ class _ManagedProductEditPageState extends State<ManagedProductEditPage> {
                     ]))))));
   }
 }
+
+//      _controller.getByIdManagedProduct(Get.arguments);
+//            : _controller.getByIdManagedProduct(Get.arguments).then((response) {
+//              _imgUrlController.text = response.imageUrl;
+//              _product = response;
+//              _controller.toggleReloadManagedProductsEditPage();
+//            });

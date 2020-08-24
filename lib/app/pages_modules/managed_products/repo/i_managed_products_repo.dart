@@ -3,9 +3,10 @@ import '../entities/product.dart';
 abstract class IManagedProductsRepo {
   Future<List<Product>> getAllManagedProducts();
 
-  int getManagedProductsQtde();
+  List<Product> get localList;
 
-  Future<Product> getManagedProductById(String id);
+//  Future<Product> getManagedProductById(String id);
+  Product getManagedProductById(String id);
 
   Future<void> saveManagedProduct(Product product);
 

@@ -14,19 +14,15 @@ class ManagedProductsService implements IManagedProductsService {
     return _repo.getAllManagedProducts().then((response) => response);
   }
 
-//  @override
-//  List<Product> getAllOptimisticList() {
-//    return optimisticList;
-//  }
-
   @override
   int managedProductsQtde() {
-    return _repo.getManagedProductsQtde();
+    return _repo.localList.isNull ? 0 : _repo.localList.length;
   }
 
   @override
-  Future<Product> getByIdManagedProduct(String id) {
-    return _repo.getManagedProductById(id).then((value) => value);
+//  Future<Product> getByIdManagedProduct(String id) {
+  Product getByIdManagedProduct(String id) {
+    return _repo.getManagedProductById(id);
   }
 
   @override

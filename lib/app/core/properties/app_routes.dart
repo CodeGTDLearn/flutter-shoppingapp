@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../../pages_modules/cart/core/cart_bindings.dart';
 import '../../pages_modules/cart/page/cart_page.dart';
 import '../../pages_modules/managed_products/core/managed_products_bindings.dart';
-import '../../pages_modules/managed_products/pages/managed_product_edit_page.dart';
+import '../../pages_modules/managed_products/pages/managed_product_add_edit_page.dart';
 import '../../pages_modules/managed_products/pages/managed_products_page.dart';
 import '../../pages_modules/orders/core/orders_bindings.dart';
 import '../../pages_modules/orders/pages/orders_page.dart';
@@ -51,7 +51,7 @@ class AppRoutes {
     ),
     GetPage(
       name: MAN_PROD_ADD_EDIT_ROUTE,
-      page: () => ManagedProductEditPage(),
+      page: () => ManagedProductAddEditPage(),
     ),
   ];
 }

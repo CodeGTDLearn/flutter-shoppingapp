@@ -13,6 +13,7 @@ class ManagedProductsController extends GetxController {
   // GERENCIA DE ESTADO REATIVA ou SIMPLES - COM O GET
   @override
   void onInit() {
+    managedProductsObs.value = [];
     getAllManagedProducts();
   }
 
@@ -26,8 +27,9 @@ class ManagedProductsController extends GetxController {
     return _service.managedProductsQtde();
   }
 
-  Future<Product> getByIdManagedProduct(String id) {
-    return _service.getByIdManagedProduct(id).then((value) => value);
+//  Future<Product> getByIdManagedProduct(String id) {
+  Product getByIdManagedProduct(String id) {
+    return _service.getByIdManagedProduct(id);
   }
 
   Future<void> saveManagedProduct(Product product) {

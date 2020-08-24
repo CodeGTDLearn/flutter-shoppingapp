@@ -7,7 +7,7 @@ class OverviewItemController extends GetxController {
   final IOverviewRepo _repo = Get.find();
 
   var favoriteStatus = false.obs;
-//TODO: TRABALHANDO NO PROBLEMA DO FAVORITES
+//todo: TRABALHANDO NO PROBLEMA DO FAVORITES
   // FAZER O SERVICE DO OVERVIEW
   // FAZER A CONEXAO REPO -> SERVICE -> CONTROLLER
   /*

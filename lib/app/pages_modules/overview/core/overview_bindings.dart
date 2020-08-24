@@ -6,6 +6,7 @@ import '../../cart/repo/cart_firebase_repo.dart';
 import '../../cart/repo/i_cart_repo.dart';
 import '../../cart/service/cart_service.dart';
 import '../../cart/service/i_cart_service.dart';
+import '../../managed_products/controller/managed_products_controller.dart';
 import '../../managed_products/repo/i_managed_products_repo.dart';
 import '../../managed_products/repo/managed_products_firebase_repo.dart';
 import '../../managed_products/service/i_managed_products_service.dart';
@@ -39,5 +40,6 @@ class OverviewBindings  extends Bindings {
 
     Get.lazyPut<IManagedProductsRepo>(() => ManagedProductsRepo());
     Get.lazyPut<IManagedProductsService>(() => ManagedProductsService());
+    Get.lazyPut<ManagedProductsController>(() => ManagedProductsController());
   }
 }

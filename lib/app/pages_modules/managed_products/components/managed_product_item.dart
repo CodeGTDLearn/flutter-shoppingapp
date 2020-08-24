@@ -35,10 +35,10 @@ class ManagedProductItem extends StatelessWidget {
                   icon: MAN_PROD_ITEM_DELETE_ICO,
                   onPressed: () =>
                       _controller.deleteManagedProduct(_id).then((response) {
-                        if (response >= 400) {
-                          CustomSnackBar.simple(OPS, ERROR_MAN_PROD);
-                        } else {
+                        if (response >= 200 && response >= 299) {
                           CustomSnackBar.simple(SUCESS, SUCESS_MAN_PROD_DEL);
+                        } else if (response >= 400) {
+                          CustomSnackBar.simple(OPS, ERROR_MAN_PROD);
                         }
                       }),
                   color: Theme.of(context).errorColor),

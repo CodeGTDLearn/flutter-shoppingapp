@@ -7,7 +7,8 @@ abstract class IManagedProductsService {
 
 //  List<Product> getAllOptimisticList();
 
-  Future<Product> getByIdManagedProduct(String id);
+//  Future<Product> getByIdManagedProduct(String id);
+  Product getByIdManagedProduct(String id);
 
   Future<void> saveManagedProduct(Product product);
 

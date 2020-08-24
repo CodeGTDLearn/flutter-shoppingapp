@@ -7,12 +7,14 @@ import '../entities/product.dart';
 import 'i_managed_products_repo.dart';
 
 class ManagedProductsRepo implements IManagedProductsRepo {
-  List<Product> _managedProductsList = [];
+  List<Product> _dataSavingManagedProductsList = [];
+
+  List<Product> get localList => _dataSavingManagedProductsList;
 
   @override
   Future<List<Product>> getAllManagedProducts() {
-    var _rollbackList = _managedProductsList;
-    _managedProductsList = [];
+    var _rollbackList = _dataSavingManagedProductsList;
+    _dataSavingManagedProductsList = [];
 
     // @formatter:off
     return http.get(PRODUCTS_URL)
@@ -26,45 +28,22 @@ class ManagedProductsRepo implements IManagedProductsRepo {
             var productObjectCreatedFromDataMap = Product.fromJson(dataMap);
             productObjectCreatedFromDataMap.id = idMap.toString();
 
-            _managedProductsList.add(productObjectCreatedFromDataMap);
+            _dataSavingManagedProductsList.add(productObjectCreatedFromDataMap);
             //print(">>>>>>> ${productObjectCreatedFromDataMap.title}");
       });
-      return _managedProductsList;
+      return _dataSavingManagedProductsList;
     }).catchError((onError){
-      _managedProductsList = _rollbackList;
+      _dataSavingManagedProductsList = _rollbackList;
     });
     // @formatter:on
   }
 
   @override
-  int getManagedProductsQtde() {
-//    int productsQtde;
-    getAllManagedProducts().then((value) {
-      return value == null ? 0 : value.length;
-    });
-//    return productsQtde;
-  }
+  Product getManagedProductById(String id) {
+    var _index =
+        _dataSavingManagedProductsList.indexWhere((item) => item.id == id);
+    return _dataSavingManagedProductsList[_index];
 
-  @override
-  Future<Product> getManagedProductById(String id) {
-    // @formatter:off
-    Product productObjectCreatedFromDataMap;
-
-    return http.get(PRODUCTS_URL)
-        .then((jsonResponse) {
-          final MapDecodedFromJsonResponse =
-          json.decode(jsonResponse.body) as Map<String, dynamic>;
-
-          MapDecodedFromJsonResponse
-          .forEach((idMap, dataMap) {
-            if(idMap == id){
-              productObjectCreatedFromDataMap = Product.fromJson(dataMap);
-              productObjectCreatedFromDataMap.id = idMap;
-            }
-          });
-          return productObjectCreatedFromDataMap;
-        }).catchError((onError) => throw onError);
-    // @formatter:on
   }
 
   @override
@@ -74,7 +53,7 @@ class ManagedProductsRepo implements IManagedProductsRepo {
         .post(PRODUCTS_URL, body: productSaved.to_Json())
         .then((response) {
             productSaved.id = json.decode(response.body)['name'];
-            _managedProductsList.add(productSaved);
+            _dataSavingManagedProductsList.add(productSaved);
             return response.statusCode;
         })
         .catchError((onError) => throw onError);
@@ -85,37 +64,50 @@ class ManagedProductsRepo implements IManagedProductsRepo {
   Future<void> updateManagedProduct(Product productUpdated) {
     // @formatter:off
     final _index =
-    _managedProductsList.indexWhere((item) => item.id == productUpdated.id);
+    _dataSavingManagedProductsList.indexWhere((item) => item.id == productUpdated.id);
 
     return http
         .patch("$BASE_URL/$COLLECTION_PRODUCTS/${productUpdated.id}.json", body:
             productUpdated.to_Json())
         .then((response) {
-            if (_index >= 0)_managedProductsList[_index] = productUpdated;
-        })
-        .catchError((onError) => throw onError);
+            if (response.statusCode >= 200 && response.statusCode >= 299) {
+                  _dataSavingManagedProductsList[_index] = productUpdated;
+            }
+    }); //there is no catchError in delete and update;
     // @formatter:on
   }
 
   @override
   Future<int> deleteManagedProduct(String id) {
+    final _index = _dataSavingManagedProductsList.indexWhere((item) =>
+    item.id == id);
+
     return http
         .delete("$BASE_URL/$COLLECTION_PRODUCTS/$id.json")
-        .then((response) => response.statusCode)
-        .catchError((onError) => throw onError);
+        .then((response) {
+      if (response.statusCode >= 200 && response.statusCode >= 299) {
+        _dataSavingManagedProductsList.removeAt(_index);
+      }
+      return response.statusCode;
+    }); //there is no catchError in delete and update;
   }
 }
+//  Future<Product> getManagedProductById(String id) {
+    // @formatter:off
+//    Product productObjectCreatedFromDataMap;
 
-//todo: Tirar o retorno List<Product> deste metodo, e reparar todas as
-// ramificacaoes que dele dependem
-// Fazer esse metodo, simplesmente carregar a _optmisticList, e adaptar
-// nas ramificacoes que precisao deste metodo, uma abordagem que use
-// a _optmisticList instead of o retorno que aqui existia, que por sua
-// vez era List<Product>------ os metodos getAllManagedProducts so service
-// e do controller, deverao ser alimentados, e retornarao a _optmisticList
-// eles nao sera mais Futures, que retornam List<Product>. Assim a base
-// central do getAllManagedProducts serao , nao o retorno List<Product>
-// deste Future, mas sim a _optmisticList que alimentada por esse metodo
-// e seu verbo http, ela entao alimentara todo os sistema, portanto as
-//  renderizacoes da lista d eprosutos na tela centrla do
-//  Managed_Products serao baseadas em getAllManagedProducts/_optmisticList
+//    return http.get(PRODUCTS_URL)
+//        .then((jsonResponse) {
+//          final MapDecodedFromJsonResponse =
+//          json.decode(jsonResponse.body) as Map<String, dynamic>;
+//
+//          MapDecodedFromJsonResponse
+//          .forEach((idMap, dataMap) {
+//            if(idMap == id){
+//              productObjectCreatedFromDataMap = Product.fromJson(dataMap);
+//              productObjectCreatedFromDataMap.id = idMap;
+//            }
+//          });
+//          return productObjectCreatedFromDataMap;
+//        }).catchError((onError) => throw onError);
+    // @formatter:on

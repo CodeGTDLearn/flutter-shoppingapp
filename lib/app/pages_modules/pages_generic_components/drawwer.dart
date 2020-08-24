@@ -6,7 +6,7 @@ import '../../core/properties/app_routes.dart';
 import '../../core/properties/theme/dark_theme_controller.dart';
 import '../../texts_icons_provider/app_generic_words.dart';
 import '../cart/service/i_cart_service.dart';
-import '../managed_products/service/i_managed_products_service.dart';
+import '../managed_products/controller/managed_products_controller.dart';
 import '../orders/service/i_orders_service.dart';
 import 'core/message_db_empty_provided.dart';
 import 'core/texts_icons_provided/drawwer_texts_icons_provided.dart';
@@ -17,7 +17,7 @@ class Drawwer extends StatelessWidget {
   BuildContext _context;
   final ICartService _cart = Get.find();
   final IOrdersService _orders = Get.find();
-  final IManagedProductsService _manProd = Get.find();
+  final ManagedProductsController _managedProducts = Get.find();
   final DarkThemeController _darkThemeController = Get.find();
 
   @override
@@ -27,7 +27,7 @@ class Drawwer extends StatelessWidget {
     return Drawer(
         child: Column(children: [
       AppBar(title: Text(DRW_TIT_APPBAR), automaticallyImplyLeading: false),
-      _drawerItem(_manProd.managedProductsQtde(), DRW_ICO_PROD, DRW_LBL_PROD,
+      _drawerItem(_managedProducts.managedProductsQtde(), DRW_ICO_PROD, DRW_LBL_PROD,
           DRW_NO_DATA, AppRoutes.OVERVIEW_ALL_ROUTE, false),
 //      _drawerItem(
 //        _cart.cartItemsQtde().asStream().length,
@@ -46,7 +46,7 @@ class Drawwer extends StatelessWidget {
 //        false,
 //      ),
       _drawerItem(
-        _manProd.managedProductsQtde(),
+        _managedProducts.managedProductsQtde(),
         DRW_ICO_MAN_PROD,
         DRW_LBL_MAN_PROD,
         DRW_TXT_NO_MAN_PROD_YET,
