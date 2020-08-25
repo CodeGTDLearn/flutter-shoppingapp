@@ -9,7 +9,7 @@ import 'i_managed_products_repo.dart';
 class ManagedProductsRepo implements IManagedProductsRepo {
   List<Product> _dataSavingManagedProductsList = [];
 
-  List<Product> get localList => _dataSavingManagedProductsList;
+  List<Product> get dataSavingManagedProductsList => _dataSavingManagedProductsList;
 
   @override
   Future<List<Product>> getAllManagedProducts() {

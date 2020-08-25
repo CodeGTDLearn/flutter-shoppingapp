@@ -3,7 +3,7 @@ import '../entities/product.dart';
 abstract class IManagedProductsRepo {
   Future<List<Product>> getAllManagedProducts();
 
-  List<Product> get localList;
+  List<Product> get dataSavingManagedProductsList;
 
 //  Future<Product> getManagedProductById(String id);
   Product getManagedProductById(String id);

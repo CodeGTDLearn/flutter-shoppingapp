@@ -7,14 +7,14 @@ import 'popup_appbar_enum.dart';
 
 // ignore: must_be_immutable
 class OverviewGrid extends StatelessWidget {
-  final Popup _enum;
+  final Popup _enumFilter;
   final OverviewController _controller = Get.find();
 
-  OverviewGrid(this._enum);
+  OverviewGrid(this._enumFilter);
 
   @override
   Widget build(BuildContext context) {
-    _controller.filterProducts(_enum);
+    _controller.getProductsByFilter(_enumFilter);
     return Obx(
       () => _controller.filteredProducts.length == 0
           ? Center(child: CircularProgressIndicator())

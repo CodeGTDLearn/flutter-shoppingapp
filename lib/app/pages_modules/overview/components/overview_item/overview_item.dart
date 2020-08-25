@@ -44,7 +44,7 @@ class OverviewItem extends StatelessWidget {
                               ? OVERV_ICO_FAV
                               : OVERV_ICO_NOFAV,
                           onPressed: () => _overviewItemController
-                              .toggleFavoriteStatus(_product.id),
+                              .toggleOverviewProductFavoriteStatus(_product.id),
                           color: Theme.of(context).accentColor),
                     ),
                     title: Text(_product.title),

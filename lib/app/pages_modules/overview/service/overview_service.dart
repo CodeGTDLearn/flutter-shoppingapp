@@ -9,29 +9,44 @@ class OverviewService implements IOverviewService {
   final IOverviewRepo _repo = Get.find();
 
   @override
-  Future<List<Product>> getProducts() {
-    return _repo.getProducts();
+  Future<List<Product>> getOverviewProducts() {
+    return _repo.getOverviewProducts().then((response) {
+      return response;
+    });
   }
 
   @override
-  Future<List<Product>> getProductsByFilter(Popup filter) {
+  Future<bool> toggleOverviewProductFavoriteStatus(String id){
+    _repo.toggleOverviewProductFavoriteStatus(id).then((bool) => bool);
+  }
+
+  @override
+//  Future<List<Product>> getProductsByFilter(Popup filter) {
+  List<Product> getProductsByFilter(Popup filter) {
+    _repo.getOverviewProducts();
     if (filter == Popup.Fav) {
-      return _repo.getFavoritesQtde() != 0
-          ? _repo.getFavorites().then((response) => response)
-          : [];
+      return getOverviewFavoritesQtde() == 0
+          ? []
+          : _repo.dataSavingListOverviewFavoritesProducts;
+//          ? _repo.getOverviewFavoriteProducts().then((response) => response)
     }
-    return _repo.getProductsQtde() == 0
+    return getOverviewProductsQtde() == 0
         ? []
-        : _repo.getProducts().then((response) => response);
+        : _repo.dataSavingListOverviewProducts;
+//        : _repo.getOverviewProducts().then((response) => response);
   }
 
   @override
-  int qtdeFavorites() {
-    return _repo.getFavoritesQtde();
+  int getOverviewFavoritesQtde() {
+    return _repo.dataSavingListOverviewFavoritesProducts.length;
   }
 
   @override
-  int qtdeProducts() {
-    return _repo.getProductsQtde();
+  int getOverviewProductsQtde() {
+    return _repo.dataSavingListOverviewProducts.length;
+  }
+
+  Future<Product> getOverviewProductById(String id){
+    return _repo.getOverviewProductById(id).then((response) => response);
   }
 }

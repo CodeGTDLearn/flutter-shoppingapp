@@ -7,34 +7,53 @@ import '../service/i_overview_service.dart';
 class OverviewController extends GetxController {
   final IOverviewService _service = Get.find();
 
+  var favoriteStatus = false.obs;
   var filteredProducts = <Product>[].obs;
   bool hasFavorites;
 
-  void filterProducts(Popup filter) {
-    if (filter == Popup.Fav) {
-      _service
-          .getProductsByFilter(Popup.Fav)
-          .then((favoritesProductsListResponse) =>
-              filteredProducts.value = favoritesProductsListResponse)
-          .catchError((onError) => onError);
+  @override
+  void onInit() {
+    filteredProducts.value = [];
+    getOverviewProducts().then((value) => filteredProducts.value = value);
+  }
+
+  void getProductsByFilter(Popup enumFilter) {
+    if (enumFilter == Popup.Fav) {
+      filteredProducts.value = _service.getProductsByFilter(Popup.Fav);
       hasFavorites = filteredProducts.length != 0 ? true : false;
     } else {
-      _service
-          .getProductsByFilter(Popup.All)
-          .then((allProductsListResponse) => filteredProducts.value = allProductsListResponse)
-          .catchError((onError) => onError);
+      filteredProducts.value = _service.getProductsByFilter(Popup.All);
     }
   }
 
-  Future<List<Product>> getProducts() {
-    return _service.getProducts();
+  Future<List<Product>> getOverviewProducts() {
+    return _service.getOverviewProducts().then((response) {
+      return response;
+    });
   }
 
-  int qtdeFavorites() {
-    return _service.qtdeFavorites();
+  int getOverviewFavoritesQtde() {
+    return _service.getOverviewFavoritesQtde();
   }
 
-  int qtdeProducts() {
-    return _service.qtdeProducts();
+  int getOverviewProductsQtde() {
+    return _service.getOverviewProductsQtde();
   }
+
 }
+
+//void getProductsByFilter(Popup filter) {
+//  if (filter == Popup.Fav) {
+//    _service
+//        .getProductsByFilter(Popup.Fav)
+//        .then((response) => filteredProducts.value = response)
+//        .catchError((onError) => onError);
+//    hasFavorites = filteredProducts.length != 0 ? true : false;
+//  } else {
+//    _service
+//        .getProductsByFilter(Popup.All)
+//        .then((allProductsListResponse) =>
+//    filteredProducts.value = allProductsListResponse)
+//        .catchError((onError) => onError);
+//  }
+//}

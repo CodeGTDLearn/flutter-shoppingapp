@@ -16,7 +16,7 @@ class ManagedProductsService implements IManagedProductsService {
 
   @override
   int managedProductsQtde() {
-    return _repo.localList.isNull ? 0 : _repo.localList.length;
+    return _repo.dataSavingManagedProductsList.isNull ? 0 : _repo.dataSavingManagedProductsList.length;
   }
 
   @override

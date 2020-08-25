@@ -3,21 +3,20 @@ import '../../managed_products/entities/product.dart';
 abstract class IOverviewRepo {
 //  List<Product> getAll();
 
-  Future<List<Product>> getProducts();
+  Future<List<Product>> getOverviewProducts();
 
-  int getProductsQtde();
+  List<Product> get dataSavingListOverviewProducts;
 
-  int getFavoritesQtde();
+  List<Product> get dataSavingListOverviewFavoritesProducts;
 
-  Future<List<Product>> getFavorites();
+//  int getOverviewProductsQtde();
+//
+//  int getOverviewFavoritesQtde();
 
-  Future<bool> toggleFavoriteStatus(String id);
+//  Future<List<Product>> getOverviewFavoriteProducts();
 
-  Future<Product> getById(String id);
+  Future<void> toggleOverviewProductFavoriteStatus(String id);
+
+  Future<Product> getOverviewProductById(String id);
 }
 
-//  bool add(Product product);
-//
-//  bool update(Product product);
-//
-//  void delete(String id);

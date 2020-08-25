@@ -10,7 +10,7 @@ class OverviewItemDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _item = _controller.getById(_id);
+    var _item = _controller.getOverviewProductById(_id);
     return Scaffold(
         appBar: AppBar(title: Text(_item.title)),
         body: SingleChildScrollView(
