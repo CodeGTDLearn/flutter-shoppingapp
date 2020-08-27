@@ -16,24 +16,20 @@ class OverviewService implements IOverviewService {
   }
 
   @override
-  Future<bool> toggleOverviewProductFavoriteStatus(String id){
-    _repo.toggleOverviewProductFavoriteStatus(id).then((bool) => bool);
+  Future<bool> toggleFavoriteStatus(String id){
+    return _repo.toggleFavoriteStatus(id).then((bool) => bool);
   }
 
   @override
-//  Future<List<Product>> getProductsByFilter(Popup filter) {
   List<Product> getProductsByFilter(Popup filter) {
-    _repo.getOverviewProducts();
     if (filter == Popup.Fav) {
       return getOverviewFavoritesQtde() == 0
           ? []
           : _repo.dataSavingListOverviewFavoritesProducts;
-//          ? _repo.getOverviewFavoriteProducts().then((response) => response)
     }
     return getOverviewProductsQtde() == 0
         ? []
         : _repo.dataSavingListOverviewProducts;
-//        : _repo.getOverviewProducts().then((response) => response);
   }
 
   @override

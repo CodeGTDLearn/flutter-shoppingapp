@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../components/overview_item/overview_item_controller.dart';
+import '../controller/overview_controller.dart';
+
 
 class OverviewItemDetailsPage extends StatelessWidget {
   final String _id = Get.parameters['id'];
-  final OverviewItemController _controller = Get.find();
+  final OverviewController _controller = Get.find();
 
   @override
   Widget build(BuildContext context) {

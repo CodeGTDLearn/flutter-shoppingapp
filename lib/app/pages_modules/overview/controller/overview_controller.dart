@@ -9,21 +9,24 @@ class OverviewController extends GetxController {
 
   var favoriteStatus = false.obs;
   var filteredProducts = <Product>[].obs;
-  bool hasFavorites;
+//  bool hasFavorites;
 
   @override
   void onInit() {
     filteredProducts.value = [];
     getOverviewProducts().then((value) => filteredProducts.value = value);
+    print("ONINIT DO CONTROLLER");
   }
 
   void getProductsByFilter(Popup enumFilter) {
+    var tempListProducts = <Product>[];
     if (enumFilter == Popup.Fav) {
-      filteredProducts.value = _service.getProductsByFilter(Popup.Fav);
-      hasFavorites = filteredProducts.length != 0 ? true : false;
+      tempListProducts = _service.getProductsByFilter(Popup.Fav);
+//      hasFavorites = filteredProducts.length != 0 ? true : false;
     } else {
-      filteredProducts.value = _service.getProductsByFilter(Popup.All);
+      tempListProducts = _service.getProductsByFilter(Popup.All);
     }
+    filteredProducts.value = tempListProducts;
   }
 
   Future<List<Product>> getOverviewProducts() {
@@ -40,20 +43,11 @@ class OverviewController extends GetxController {
     return _service.getOverviewProductsQtde();
   }
 
-}
+  Product getOverviewProductById(String id) {
+    _service.getOverviewProductById(id).then((product) => product);
+  }
 
-//void getProductsByFilter(Popup filter) {
-//  if (filter == Popup.Fav) {
-//    _service
-//        .getProductsByFilter(Popup.Fav)
-//        .then((response) => filteredProducts.value = response)
-//        .catchError((onError) => onError);
-//    hasFavorites = filteredProducts.length != 0 ? true : false;
-//  } else {
-//    _service
-//        .getProductsByFilter(Popup.All)
-//        .then((allProductsListResponse) =>
-//    filteredProducts.value = allProductsListResponse)
-//        .catchError((onError) => onError);
-//  }
-//}
+  void toggleFavoriteStatus(String id) {
+    _service.toggleFavoriteStatus(id).then((bool) => favoriteStatus.value = bool);
+  }
+}

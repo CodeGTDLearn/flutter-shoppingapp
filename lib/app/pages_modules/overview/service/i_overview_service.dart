@@ -7,7 +7,7 @@ abstract class IOverviewService {
 //  Future<List<Product>> getProductsByFilter(Popup filter);
   List<Product> getProductsByFilter(Popup filter);
 
-  Future<bool> toggleOverviewProductFavoriteStatus(String id);
+  Future<bool> toggleFavoriteStatus(String id);
 
   int getOverviewFavoritesQtde();
 

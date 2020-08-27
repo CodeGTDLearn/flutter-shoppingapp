@@ -15,7 +15,6 @@ import '../../orders/repo/i_orders_repo.dart';
 import '../../orders/repo/orders_firebase_repo.dart';
 import '../../orders/service/i_orders_service.dart';
 import '../../orders/service/orders_service.dart';
-import '../components/overview_item/overview_item_controller.dart';
 import '../controller/overview_controller.dart';
 import '../repo/i_overview_repo.dart';
 import '../repo/overview_firebase_repo.dart';
@@ -29,7 +28,6 @@ class OverviewBindings  extends Bindings {
     Get.lazyPut<IOverviewRepo>(() => OverviewFirebaseRepo());
     Get.lazyPut<IOverviewService>(() => OverviewService());
     Get.lazyPut<OverviewController>(() => OverviewController());
-    Get.lazyPut<OverviewItemController>(() => OverviewItemController());
 
     Get.lazyPut<IOrdersRepo>(() => OrdersFirebaseRepo());
     Get.lazyPut<IOrdersService>(() => OrdersService());

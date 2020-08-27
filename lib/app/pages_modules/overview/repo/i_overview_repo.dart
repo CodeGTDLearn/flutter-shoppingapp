@@ -15,7 +15,7 @@ abstract class IOverviewRepo {
 
 //  Future<List<Product>> getOverviewFavoriteProducts();
 
-  Future<void> toggleOverviewProductFavoriteStatus(String id);
+  Future<bool> toggleFavoriteStatus(String id);
 
   Future<Product> getOverviewProductById(String id);
 }

@@ -15,7 +15,7 @@ class Product {
   String description;
   double price;
   String imageUrl;
-  bool isFavorite;
+  bool isFavorite = false;
 
   factory Product.from_Json(String str) => Product.fromJson(json.decode(str));
 
@@ -30,6 +30,7 @@ class Product {
         json["isFavorite"] == null ? null : json["isFavorite"],
       );
 
+
   Map<String, dynamic> toJson() => {
         "id": id == null ? null : id,
         "title": title == null ? null : title,
@@ -38,4 +39,12 @@ class Product {
         "imageUrl": imageUrl == null ? null : imageUrl,
         "isFavorite": isFavorite == null ? null : isFavorite,
       };
-}
+
+  factory Product.deepCopy(Product productToCopy) => Product(
+    productToCopy.id,
+    productToCopy.title,
+    productToCopy.description,
+    productToCopy.price,
+    productToCopy.imageUrl,
+    productToCopy.isFavorite,
+  );}

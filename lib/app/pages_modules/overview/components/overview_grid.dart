@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controller/overview_controller.dart';
-import 'overview_item/overview_item.dart';
+import 'overview_grid_item.dart';
 import 'popup_appbar_enum.dart';
 
 // ignore: must_be_immutable
@@ -22,7 +22,7 @@ class OverviewGrid extends StatelessWidget {
               padding: EdgeInsets.all(10),
               itemCount: _controller.filteredProducts.length,
               itemBuilder: (ctx, item) =>
-                  OverviewItem(_controller.filteredProducts[item]),
+                  OverviewGridItem(_controller.filteredProducts[item]),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 3 / 2,

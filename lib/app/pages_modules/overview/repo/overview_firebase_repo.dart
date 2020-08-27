@@ -7,22 +7,21 @@ import '../../managed_products/entities/product.dart';
 import 'i_overview_repo.dart';
 
 class OverviewFirebaseRepo implements IOverviewRepo {
-  List<Product> _dataSavingList_OverviewProducts = [];
-  List<Product> _dataSavingList_OverviewFavoritesProducts = [];
+  List<Product> _dataSavingListProducts = [];
+  List<Product> _dataSavingListFavoritesProducts = [];
 
-  List<Product> get dataSavingListOverviewProducts =>
-      _dataSavingList_OverviewProducts;
+  List<Product> get dataSavingListOverviewProducts => _dataSavingListProducts;
 
   List<Product> get dataSavingListOverviewFavoritesProducts =>
-      _dataSavingList_OverviewFavoritesProducts;
+      _dataSavingListFavoritesProducts;
 
   @override
   Future<List<Product>> getOverviewProducts() {
     // @formatter:off
-    var _gottenProducts = <Product>[];
     return http
         .get(PRODUCTS_URL)
         .then((jsonResponse) {
+            var _gottenProducts = <Product>[];
             final MapDecodedFromJsonResponse =
                 json.decode(jsonResponse.body) as Map<String, dynamic>;
 
@@ -31,20 +30,24 @@ class OverviewFirebaseRepo implements IOverviewRepo {
                 .forEach((idMap, dataMap) {
                   //print(dataMap['title'].toString());
                   var productObjectCreatedFromDataMap = Product.fromJson(dataMap);
-
+                  productObjectCreatedFromDataMap.id = idMap;
                   _gottenProducts.add(productObjectCreatedFromDataMap);
                   //print(">>>>>>> ${productObjectCreatedFromDataMap.title}");
                })
                 :_gottenProducts = [];
-            _dataSavingList_OverviewFavoritesProducts.clear();
-            _dataSavingList_OverviewProducts.clear();
 
-            _dataSavingList_OverviewProducts = _gottenProducts;
+            _dataSavingListFavoritesProducts = [];
+            _dataSavingListProducts = [];
 
+            _dataSavingListProducts = _gottenProducts;
             _gottenProducts.forEach((item) {
               if(item.isFavorite) {
-              _dataSavingList_OverviewFavoritesProducts.add(item);}
+              _dataSavingListFavoritesProducts.add(item);}
             });
+
+            _orderDataSavingLists();
+//            _dataSavingListProducts.toList().reversed;
+//            _dataSavingListFavoritesProducts.toList().reversed;
 
       return _gottenProducts;
     }).catchError((onError) => throw onError);
@@ -52,38 +55,38 @@ class OverviewFirebaseRepo implements IOverviewRepo {
   }
 
   @override
-  Future<bool> toggleOverviewProductFavoriteStatus(String id) {
-
+  Future<bool> toggleFavoriteStatus(String id) {
     // @formatter:off
-    final _indexAll =
-          _dataSavingList_OverviewProducts
-              .indexWhere((item) => item.id == id);
+    final _indexAll = _dataSavingListProducts.indexWhere((item) => item.id == id);
+    var _rollbackProduct = _dataSavingListProducts[_indexAll];
+    var _productToToggle = Product.deepCopy(_rollbackProduct);
 
-    final _indexFav =
-          _dataSavingList_OverviewFavoritesProducts
-              .indexWhere((item) => item.id == id);
+    _productToToggle.isFavorite = !_productToToggle.isFavorite;
 
-    getOverviewProductById(id)
-        .then((foundProduct) {
-          foundProduct.isFavorite = !foundProduct.isFavorite;
+    _dataSavingListProducts[_indexAll] = _productToToggle;
+    
+    _productToToggle.isFavorite
+        ? _dataSavingListFavoritesProducts.add(_productToToggle)
+        : _dataSavingListFavoritesProducts.removeAt(_indexAll);
 
-          http
-             .patch("$BASE_URL/$COLLECTION_PRODUCTS/${foundProduct.id}.json",
-             body: foundProduct.to_Json())
-                .then((response) {
-                  if (response.statusCode >= 200 && response.statusCode >= 299) {
-                    _dataSavingList_OverviewProducts[_indexAll] = foundProduct;
-                  }
-                  if ((response.statusCode >= 200 && response.statusCode >= 299)
-                      && foundProduct.isFavorite) {
-                    _dataSavingList_OverviewFavoritesProducts
-                          .add(foundProduct);
-                  }else{
-                    _dataSavingList_OverviewFavoritesProducts
-                          .removeAt(_indexFav);
-                  }
-                });
-        });
+    return http.patch("$BASE_URL/$COLLECTION_PRODUCTS/$id.json",
+         body: _productToToggle.to_Json())
+            .then((resp) {
+              var status = resp.statusCode >= 200 && resp.statusCode <= 299;
+              var futureBoolReturn;
+              if (status) futureBoolReturn = _productToToggle.isFavorite;
+              if (_productToToggle.isFavorite && !status){
+                  _dataSavingListFavoritesProducts.remove(_productToToggle);
+                  _dataSavingListProducts[_indexAll] = _rollbackProduct;
+                  futureBoolReturn = _rollbackProduct.isFavorite;
+              }
+              if (!_productToToggle.isFavorite && !status){
+                  _dataSavingListProducts[_indexAll] = _rollbackProduct;
+                  futureBoolReturn = _rollbackProduct.isFavorite;
+              }
+              _orderDataSavingLists();
+              return futureBoolReturn;
+            });
     // @formatter:on
   }
 
@@ -111,7 +114,13 @@ class OverviewFirebaseRepo implements IOverviewRepo {
 //    return _products
 //        .firstWhere((productToBeGoten) => productToBeGoten.id == id);
   }
+
+  void _orderDataSavingLists() {
+    _dataSavingListProducts.toList().reversed;
+    _dataSavingListFavoritesProducts.toList().reversed;
+  }
 }
+
 //  @override
 //  int getOverviewProductsQtde() {
 //    int productsQtde;
