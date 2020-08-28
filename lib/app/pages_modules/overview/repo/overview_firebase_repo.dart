@@ -7,16 +7,15 @@ import '../../managed_products/entities/product.dart';
 import 'i_overview_repo.dart';
 
 class OverviewFirebaseRepo implements IOverviewRepo {
-  List<Product> _dataSavingListProducts = [];
-  List<Product> _dataSavingListFavoritesProducts = [];
+  List<Product> _dataSavingAllProducts = [];
+  List<Product> _dataSavingFavoritesProducts = [];
 
-  List<Product> get dataSavingListOverviewProducts => _dataSavingListProducts;
+  List<Product> get dataSavingAllProducts => _dataSavingAllProducts;
 
-  List<Product> get dataSavingListOverviewFavoritesProducts =>
-      _dataSavingListFavoritesProducts;
+  List<Product> get dataSavingFavoritesProducts => _dataSavingFavoritesProducts;
 
   @override
-  Future<List<Product>> getOverviewProducts() {
+  Future<List<Product>> getProducts() {
     // @formatter:off
     return http
         .get(PRODUCTS_URL)
@@ -36,18 +35,15 @@ class OverviewFirebaseRepo implements IOverviewRepo {
                })
                 :_gottenProducts = [];
 
-            _dataSavingListFavoritesProducts = [];
-            _dataSavingListProducts = [];
+            clearDataSavingLists();
 
-            _dataSavingListProducts = _gottenProducts;
+            _dataSavingAllProducts = _gottenProducts;
             _gottenProducts.forEach((item) {
               if(item.isFavorite) {
-              _dataSavingListFavoritesProducts.add(item);}
+              _dataSavingFavoritesProducts.add(item);}
             });
 
             _orderDataSavingLists();
-//            _dataSavingListProducts.toList().reversed;
-//            _dataSavingListFavoritesProducts.toList().reversed;
 
       return _gottenProducts;
     }).catchError((onError) => throw onError);
@@ -57,116 +53,72 @@ class OverviewFirebaseRepo implements IOverviewRepo {
   @override
   Future<bool> toggleFavoriteStatus(String id) {
     // @formatter:off
-    final _indexAll = _dataSavingListProducts.indexWhere((item) => item.id == id);
-    var _rollbackProduct = _dataSavingListProducts[_indexAll];
-    var _productToToggle = Product.deepCopy(_rollbackProduct);
+    final _index = _dataSavingAllProducts.indexWhere((item) => item.id == id);
+    var _toggleProduct = _dataSavingAllProducts[_index];
+    var _rollbackProduct = Product.deepCopy(_toggleProduct);
 
-    _productToToggle.isFavorite = !_productToToggle.isFavorite;
-
-    _dataSavingListProducts[_indexAll] = _productToToggle;
-    
-    _productToToggle.isFavorite
-        ? _dataSavingListFavoritesProducts.add(_productToToggle)
-        : _dataSavingListFavoritesProducts.removeAt(_indexAll);
+    _toggleProduct.isFavorite = !_toggleProduct.isFavorite;
+    _toggleProduct.isFavorite
+        ? _dataSavingFavoritesProducts.add(_toggleProduct)
+        : _dataSavingFavoritesProducts.remove(_toggleProduct);
 
     return http.patch("$BASE_URL/$COLLECTION_PRODUCTS/$id.json",
-         body: _productToToggle.to_Json())
-            .then((resp) {
-              var status = resp.statusCode >= 200 && resp.statusCode <= 299;
-              var futureBoolReturn;
-              if (status) futureBoolReturn = _productToToggle.isFavorite;
-              if (_productToToggle.isFavorite && !status){
-                  _dataSavingListFavoritesProducts.remove(_productToToggle);
-                  _dataSavingListProducts[_indexAll] = _rollbackProduct;
-                  futureBoolReturn = _rollbackProduct.isFavorite;
+         body: _toggleProduct.to_Json())
+            .then((response) {
+              var favoriteStatus = _toggleProduct.isFavorite;
+              var badRequest = response.statusCode >= 400;
+              if (badRequest)favoriteStatus = _rollbackProduct.isFavorite;
+              if (badRequest)_dataSavingAllProducts[_index] = _rollbackProduct;
+              if (badRequest && _toggleProduct.isFavorite){
+                _dataSavingFavoritesProducts.remove(_toggleProduct);
               }
-              if (!_productToToggle.isFavorite && !status){
-                  _dataSavingListProducts[_indexAll] = _rollbackProduct;
-                  futureBoolReturn = _rollbackProduct.isFavorite;
+              if (badRequest && !_toggleProduct.isFavorite){
+                  _dataSavingFavoritesProducts.add(_rollbackProduct);
               }
               _orderDataSavingLists();
-              return futureBoolReturn;
+              return favoriteStatus;
             });
     // @formatter:on
   }
 
   @override
-  Future<Product> getOverviewProductById(String id) {
-    // @formatter:off
-    Product productObjectCreatedFromDataMap;
+  Product getProductById(String id) {
+    // return _dataSavingAllProducts.firstWhere((product) => product.id == id);
+    var _index = _dataSavingAllProducts.indexWhere((item) => item.id == id);
+    return _dataSavingAllProducts[_index];
+  }
 
-    return http.get(PRODUCTS_URL)
-        .then((jsonResponse) {
-      final MapDecodedFromJsonResponse =
-      json.decode(jsonResponse.body) as Map<String, dynamic>;
-
-      MapDecodedFromJsonResponse
-          .forEach((idMap, dataMap) {
-        if(idMap == id){
-          productObjectCreatedFromDataMap = Product.fromJson(dataMap);
-          productObjectCreatedFromDataMap.id = idMap;
-        }
-      });
-      return productObjectCreatedFromDataMap;
-    }).catchError((onError) => throw onError);
-    // @formatter:on
-
-//    return _products
-//        .firstWhere((productToBeGoten) => productToBeGoten.id == id);
+  @override
+  void clearDataSavingLists() {
+    _dataSavingFavoritesProducts = [];
+    _dataSavingAllProducts = [];
   }
 
   void _orderDataSavingLists() {
-    _dataSavingListProducts.toList().reversed;
-    _dataSavingListFavoritesProducts.toList().reversed;
+    _dataSavingAllProducts.toList().sort;
+    _dataSavingFavoritesProducts.toList().sort;
   }
 }
 
-//  @override
-//  int getOverviewProductsQtde() {
-//    int productsQtde;
-//    getOverviewProducts().then((value) {
-//      productsQtde = value.length;
-//    });
-//    return productsQtde;
-//  }
+// @override
+// Future<Product> getProductById(String id) {
 //
-//  @override
-//  int getOverviewFavoritesQtde() {
-//    int favoritesProductsQtde;
-//    getOverviewFavoriteProducts().then((value) {
-//      favoritesProductsQtde = value.length == null ? 0 : value.length;
-//    });
-//    return favoritesProductsQtde;
-//  }
-
-//    return http
-//        .patch("$BASE_URL/$COLLECTION_PRODUCTS/${productFound.id}.json",
-//            body: productFound.to_Json())
-//        .then((response) {})
-//        .catchError((onError) => throw onError);
-
-//    productFound.isFavorite = !productFound.isFavorite;
-//    return productFound.isFavorite;
-//  @override
-//  Future<List<Product>> getOverviewFavoriteProducts() {
-//    // @formatter:off
-//    var _favoriteProducts = <Product>[];
+//   @formatter:off
+//   Product productObjectCreatedFromDataMap;
 //
-//    return http
-//        .get(PRODUCTS_URL)
-//        .then((jsonResponse) {
-//      final MapDecodedFromJsonResponse =
-//          json.decode(jsonResponse.body) as Map<String, dynamic>;
+//   return http.get(PRODUCTS_URL)
+//       .then((jsonResponse) {
+//   final MapDecodedFromJsonResponse =
+//   json.decode(jsonResponse.body) as Map<String, dynamic>;
 //
-//      MapDecodedFromJsonResponse
-//          .forEach((idMap, dataMap) {
-//            var productObjectCreatedFromDataMap = Product.fromJson(dataMap);
-//
-//            if (productObjectCreatedFromDataMap.isFavorite) {
-//              _favoriteProducts.add(productObjectCreatedFromDataMap);
-//            }
-//          });
-//      return _favoriteProducts;
-//    }).catchError((onError) => throw onError);
-//    // @formatter:on
-//  }
+//   MapDecodedFromJsonResponse
+//       .forEach((idMap, dataMap) {
+//   if(idMap == id){
+//   productObjectCreatedFromDataMap = Product.fromJson(dataMap);
+//   productObjectCreatedFromDataMap.id = idMap;
+//   }
+//   });
+//   return productObjectCreatedFromDataMap;
+//   }).catchError((onError) => throw onError);
+//   @formatter:on
+// }

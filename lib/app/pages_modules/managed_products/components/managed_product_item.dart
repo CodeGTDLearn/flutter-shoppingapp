@@ -5,8 +5,8 @@ import '../../../core/properties/app_routes.dart';
 import '../../../texts_icons_provider/app_generic_words.dart';
 import '../../pages_generic_components/custom_snackbar.dart';
 import '../controller/managed_products_controller.dart';
-import '../core/messages_provided/message_get_dialogs_provided.dart';
-import '../core/texts_icons_provided/managed_product_item_texts_icons_provided.dart';
+import '../core/messages/messages_snackbars_provided.dart';
+import '../core/texts_icons/managed_product_item_texts_icons_provided.dart';
 
 class ManagedProductItem extends StatelessWidget {
   final String _id;
@@ -28,13 +28,13 @@ class ManagedProductItem extends StatelessWidget {
               IconButton(
                   icon: MAN_PROD_ITEM_EDIT_ICO,
                   onPressed: () => Get.toNamed(
-                      AppRoutes.MAN_PROD_ADD_EDIT_ROUTE,
+                      AppRoutes.MAN_PROD_ADD_EDIT,
                       arguments: _id),
                   color: Theme.of(context).errorColor),
               IconButton(
                   icon: MAN_PROD_ITEM_DELETE_ICO,
                   onPressed: () =>
-                      _controller.deleteManagedProduct(_id).then((response) {
+                      _controller.deleteProduct(_id).then((response) {
                         if (response >= 200 && response >= 299) {
                           CustomSnackBar.simple(SUCESS, SUCESS_MAN_PROD_DEL);
                         } else if (response >= 400) {

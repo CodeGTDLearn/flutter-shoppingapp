@@ -1,4 +1,0 @@
-enum Popup {
-  Fav,
-  All,
-}

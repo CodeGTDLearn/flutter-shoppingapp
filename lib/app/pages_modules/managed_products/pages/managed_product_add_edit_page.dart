@@ -8,9 +8,9 @@ import '../../../core/properties/app_routes.dart';
 import '../../../texts_icons_provider/app_generic_words.dart';
 import '../../pages_generic_components/custom_snackbar.dart';
 import '../controller/managed_products_controller.dart';
-import '../core/messages_provided/message_field_form_validation_provided.dart';
-import '../core/messages_provided/message_get_dialogs_provided.dart';
-import '../core/texts_icons_provided/managed_product_edit_texts_icons_provided.dart';
+import '../core/messages/field_form_validation_provided.dart';
+import '../core/messages/messages_snackbars_provided.dart';
+import '../core/texts_icons/managed_product_edit_texts_icons_provided.dart';
 import '../entities/product.dart';
 
 class ManagedProductAddEditPage extends StatefulWidget {
@@ -46,7 +46,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
       if (Get.arguments.isNull) {
         _controller.toggleReloadManagedProductsEditPage();
       } else {
-        _product = _controller.getByIdManagedProduct(Get.arguments);
+        _product = _controller.getProductById(Get.arguments);
         _imgUrlController.text = _product.imageUrl;
         _controller.toggleReloadManagedProductsEditPage();
       }
@@ -76,16 +76,16 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
     _form.currentState.save();
     _controller.toggleReloadManagedProductsEditPage();
     _product.id.isNull ? _save(_product) : _update(_product);
-    Get.offNamed(AppRoutes.MAN_PROD_ROUTE);
+    Get.offNamed(AppRoutes.MAN_PROD);
     // @formatter:onY
   }
 
   Future<dynamic> _save(Product product) {
-    return _controller.saveManagedProduct(product).then((response) {
+    return _controller.saveProduct(product).then((response) {
       _controller.toggleReloadManagedProductsEditPage();
-      _controller.getAllManagedProducts();
+      _controller.getProducts();
 //      _controller.getAllManagedProductsOptmistic();
-      Get.offNamed(AppRoutes.MAN_PROD_ROUTE);
+      Get.offNamed(AppRoutes.MAN_PROD);
       CustomSnackBar.simple(SUCESS, SUCESS_MAN_PROD_ADD);
     }).catchError((onError) {
       Get.defaultDialog(
@@ -98,11 +98,11 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
   }
 
   Future<dynamic> _update(Product product) {
-    return _controller.updateManagedProduct(product).then((response) {
+    return _controller.updateProduct(product).then((response) {
       _controller.toggleReloadManagedProductsEditPage();
-      _controller.getAllManagedProducts();
+      _controller.getProducts();
 //      _controller.getAllManagedProductsOptmistic();
-      Get.offNamed(AppRoutes.MAN_PROD_ROUTE);
+      Get.offNamed(AppRoutes.MAN_PROD);
       CustomSnackBar.simple(SUCESS, SUCESS_MAN_PROD_UPDT);
     }).catchError((onError) {
       Get.defaultDialog(

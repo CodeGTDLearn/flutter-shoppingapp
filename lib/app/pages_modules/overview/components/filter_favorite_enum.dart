@@ -1,0 +1,4 @@
+enum EnumFilter {
+  Fav,
+  All,
+}

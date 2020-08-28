@@ -9,7 +9,7 @@ import '../../cart/controller/cart_controller.dart';
 import '../../managed_products/entities/product.dart';
 import '../../pages_generic_components/custom_flush_notifier.dart';
 import '../controller/overview_controller.dart';
-import '../core/messages_provided/message_flush_notifier_provided.dart';
+import '../core/messages_snackbars_provided.dart';
 import '../core/overview_texts_icons_provided.dart';
 
 class OverviewGridItem extends StatelessWidget {
@@ -23,7 +23,7 @@ class OverviewGridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _controller.favoriteStatus.value = _product.isFavorite;
+    _controller.favoriteStatusObs.value = _product.isFavorite;
     return Container(
         decoration: BoxDecoration(
           border: Border.all(color: Color.fromRGBO(220, 220, 220, 10)),
@@ -34,12 +34,12 @@ class OverviewGridItem extends StatelessWidget {
             child: GridTile(
                 child: GestureDetector(
                     onTap: () => Get.toNamed(
-                        '$AppRoutes.OVERVIEW_DETAIL_ROUTE${_product.id}'),
+                        AppRoutes.OVERVIEW_DETAIL, arguments:_product.id ),
                     child: Image.network(_product.imageUrl, fit: BoxFit.cover)),
                 footer: GridTileBar(
                     leading: Obx(
                       () => IconButton(
-                          icon: _controller.favoriteStatus.value
+                          icon: _controller.favoriteStatusObs.value
                               ? OVERV_ICO_FAV
                               : OVERV_ICO_NOFAV,
                           onPressed: () =>

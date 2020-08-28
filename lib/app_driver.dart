@@ -29,7 +29,7 @@ class AppDriver extends StatelessWidget {
 //      initialBinding: CoreBinding(),
 //      smartManagement: SmartManagement.keepFactory,
 //      home: OverviewPage(Popup.All),
-      initialRoute: AppRoutes.OVERVIEW_ALL_ROUTE,
+      initialRoute: AppRoutes.OVERVIEW_ALL,
       getPages: AppRoutes.getAppRoutes,
     );
   }

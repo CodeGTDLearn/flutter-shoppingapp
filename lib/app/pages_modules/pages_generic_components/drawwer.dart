@@ -9,7 +9,7 @@ import '../cart/service/i_cart_service.dart';
 import '../managed_products/controller/managed_products_controller.dart';
 import '../orders/service/i_orders_service.dart';
 import 'core/message_db_empty_provided.dart';
-import 'core/texts_icons_provided/drawwer_texts_icons_provided.dart';
+import 'core/texts_icons/drawwer_texts_icons_provided.dart';
 import 'custom_flush_notifier.dart';
 
 // ignore: must_be_immutable
@@ -28,7 +28,7 @@ class Drawwer extends StatelessWidget {
         child: Column(children: [
       AppBar(title: Text(DRW_TIT_APPBAR), automaticallyImplyLeading: false),
       _drawerItem(_managedProducts.managedProductsQtde(), DRW_ICO_PROD, DRW_LBL_PROD,
-          DRW_NO_DATA, AppRoutes.OVERVIEW_ALL_ROUTE, false),
+          DRW_NO_DATA, AppRoutes.OVERVIEW_ALL, false),
 //      _drawerItem(
 //        _cart.cartItemsQtde().asStream().length,
 //        DRAWER_ICO_CART,
@@ -50,7 +50,7 @@ class Drawwer extends StatelessWidget {
         DRW_ICO_MAN_PROD,
         DRW_LBL_MAN_PROD,
         DRW_TXT_NO_MAN_PROD_YET,
-        AppRoutes.MAN_PROD_ROUTE,
+        AppRoutes.MAN_PROD,
         true,
       ),
       Obx(() => SwitchListTile(

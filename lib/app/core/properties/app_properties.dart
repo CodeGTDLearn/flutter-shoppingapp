@@ -2,7 +2,7 @@
 const APP_TITLE = "MyShopp";
 const APP_DEBUG_CHECK = false;
 
-//FLUSHBAR
+//FLUSHBAR + GETX-SNACKBAR
 const INTERVAL = 2000;
 
 //DATE-FORMATS

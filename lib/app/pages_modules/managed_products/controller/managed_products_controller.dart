@@ -14,11 +14,11 @@ class ManagedProductsController extends GetxController {
   @override
   void onInit() {
     managedProductsObs.value = [];
-    getAllManagedProducts();
+    getProducts();
   }
 
-  Future<List<Product>> getAllManagedProducts() {
-    return _service.getAllManagedProducts().then((response) {
+  Future<List<Product>> getProducts() {
+    return _service.getProducts().then((response) {
       managedProductsObs.value = response.isNull ? [] : response;
     }).catchError((onError) => throw onError);
   }
@@ -27,42 +27,41 @@ class ManagedProductsController extends GetxController {
     return _service.managedProductsQtde();
   }
 
-//  Future<Product> getByIdManagedProduct(String id) {
-  Product getByIdManagedProduct(String id) {
-    return _service.getByIdManagedProduct(id);
+  Product getProductById(String id) {
+    return _service.getProductById(id);
   }
 
-  Future<void> saveManagedProduct(Product product) {
+  Future<void> saveProduct(Product product) {
     return _service
-        .saveManagedProduct(product)
+        .saveProduct(product)
         .then((response) => response)
         .catchError((onError) => throw onError);
     ;
   }
 
-  Future<void> updateManagedProduct(Product product) {
+  Future<void> updateProduct(Product product) {
     return _service
-        .updateManagedProduct(product)
+        .updateProduct(product)
         .then((response) => response)
         .catchError((onError) => throw onError);
   }
 
-  Future<int> deleteManagedProduct(String id) {
+  Future<int> deleteProduct(String id) {
     // @formatter:off
     var _index = managedProductsObs.value.indexWhere((item)=> item.id == id);
     var rollbackProduct = managedProductsObs.value[_index];
     managedProductsObs.value.removeAt(_index);
-    getAllManagedProducts();
+    getProducts();
 
     return _service
-        .deleteManagedProduct(id)
+        .deleteProduct(id)
         .then((response) {
           if (response >= 400) {
               managedProductsObs.value.add(rollbackProduct);
 //            throw HttpException("Something wronged happens");
           }
               rollbackProduct = null;
-              getAllManagedProducts();
+              getProducts();
               return response;
         });
     // @formatter:on

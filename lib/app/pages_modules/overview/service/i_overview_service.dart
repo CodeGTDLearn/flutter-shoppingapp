@@ -1,17 +1,20 @@
 import '../../managed_products/entities/product.dart';
-import '../components/popup_appbar_enum.dart';
+import '../components/filter_favorite_enum.dart';
 
 abstract class IOverviewService {
-  Future<List<Product>> getOverviewProducts();
+  Future<List<Product>> getProducts();
 
 //  Future<List<Product>> getProductsByFilter(Popup filter);
-  List<Product> getProductsByFilter(Popup filter);
+  List<Product> getProductsByFilter(EnumFilter filter);
 
   Future<bool> toggleFavoriteStatus(String id);
 
-  int getOverviewFavoritesQtde();
+  int getFavoritesQtde();
 
-  int getOverviewProductsQtde();
+  int getProductsQtde();
 
-  Future<Product> getOverviewProductById(String id);
+  Product getProductById(String id);
+  // Future<Product> getProductById(String id);
+
+  void clearDataSavingLists();
 }

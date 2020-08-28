@@ -14,14 +14,20 @@
 </details>
 
 ## About The Project
-Shopping App n Flutter is a concept proof of a Shopping App in Flutter. The focus of this app is to apply fundamentals concepts from Flutter Architecture, such as state management, firebase authentication, serverless with firebase, dependency injection etc...
+Shopping App in Flutter is a concept proof of a Shopping App in Flutter. The focus of this app is
+ to apply fundamental concepts from Flutter Architecture, such as state management, firebase
+  authentication, firebase Realtime Database, dependency management, route management
+  , etc...
 
 
 ## Getting Started
-Flutter framework is a pretty new tool in the development world. Even though its has Google as its provider, this framework should be explored and tested before to be used in actual projects. Hence, the purpouse of this project is test, study, apply, explore Flutter as a definitive crossplatform development strategy.
+Flutter framework is a pretty new tool in the development world. Even though it has Google as its
+ provider, this framework should be explored and tested before to be used in actual projects
+ . Hence, the purpose of this project is test, study, apply, explore Flutter as a definitive
+  crossplatform and crossdevice development strategy.
 
 
-## Project Sectors
+## Initial Project Sectors
 1. Shop/Overview  
 2. Cart
 3. Orders

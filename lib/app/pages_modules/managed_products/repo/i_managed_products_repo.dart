@@ -1,16 +1,18 @@
 import '../entities/product.dart';
 
 abstract class IManagedProductsRepo {
-  Future<List<Product>> getAllManagedProducts();
+  Future<List<Product>> getProducts();
 
-  List<Product> get dataSavingManagedProductsList;
+  List<Product> get dataSavingProducts;
 
 //  Future<Product> getManagedProductById(String id);
-  Product getManagedProductById(String id);
+  Product getProductById(String id);
 
-  Future<void> saveManagedProduct(Product product);
+  Future<void> saveProduct(Product product);
 
-  Future<void> updateManagedProduct(Product product);
+  Future<void> updateProduct(Product product);
 
-  Future<int> deleteManagedProduct(String id);
+  Future<int> deleteProduct(String id);
+
+  void clearDataSavingLists();
 }

@@ -10,41 +10,41 @@ class ManagedProductsService implements IManagedProductsService {
 //  var optimisticList = <Product>[];
 
   @override
-  Future<List<Product>> getAllManagedProducts() {
-    return _repo.getAllManagedProducts().then((response) => response);
+  Future<List<Product>> getProducts() {
+    return _repo.getProducts().then((response) => response);
   }
 
   @override
   int managedProductsQtde() {
-    return _repo.dataSavingManagedProductsList.isNull ? 0 : _repo.dataSavingManagedProductsList.length;
+    return _repo.dataSavingProducts.isNull ? 0 : _repo.dataSavingProducts.length;
   }
 
   @override
 //  Future<Product> getByIdManagedProduct(String id) {
-  Product getByIdManagedProduct(String id) {
-    return _repo.getManagedProductById(id);
+  Product getProductById(String id) {
+    return _repo.getProductById(id);
   }
 
   @override
-  Future<void> saveManagedProduct(Product product) {
+  Future<void> saveProduct(Product product) {
     return _repo
-        .saveManagedProduct(product)
+        .saveProduct(product)
         .then((response) => response)
         .catchError((onError) => throw onError);
   }
 
   @override
-  Future<void> updateManagedProduct(Product product) {
+  Future<void> updateProduct(Product product) {
     return _repo
-        .updateManagedProduct(product)
+        .updateProduct(product)
         .then((response) => response)
         .catchError((onError) => throw onError);
   }
 
   @override
-  Future<int> deleteManagedProduct(String id) {
+  Future<int> deleteProduct(String id) {
     return _repo
-        .deleteManagedProduct(id)
+        .deleteProduct(id)
         .then((response) => response)
         .catchError((onError) => throw onError);
   }
