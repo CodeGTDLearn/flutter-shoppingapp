@@ -38,7 +38,7 @@ Flutter framework is a pretty new tool in the development world. Even though it 
 ## Built With
 1. [Get](https://pub.dev/packages/get) - GetX is an extra-light and powerful solution for Flutter. It combines high performance state management, intelligent dependency injection, and route management in a quick and practical way. GetX is "4 in 1" package, in other words, State simple/reactive management, Route management, Dependencies managements and utilities, everything ia one only place.
 2. [Firebase Authentication](https://firebase.google.com/docs/auth) - The Google Firebase Authentication
-3. [Firebase Cloud](https://firebase.google.com/products/functions) - The Firebase Cloud
+3. [Firebase Realtime Database](https://firebase.google.com/docs/database/) - The Firebase Realtime Database. For technical reasons for this project firestore was not the best choice.
 4. [S.O.L.I.D.](https://scotch.io/bar-talk/s-o-l-i-d-the-first-five-principles-of-object-oriented-design) - The First 5 Principles of Object Oriented Design
 
 Packages removed:

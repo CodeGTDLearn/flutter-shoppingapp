@@ -4,7 +4,10 @@ import '../components/filter_favorite_enum.dart';
 abstract class IOverviewService {
   Future<List<Product>> getProducts();
 
-//  Future<List<Product>> getProductsByFilter(Popup filter);
+  List<Product> get dataSavingAllProducts;
+
+  List<Product> get dataSavingFavoritesProducts;
+
   List<Product> getProductsByFilter(EnumFilter filter);
 
   Future<bool> toggleFavoriteStatus(String id);
@@ -14,7 +17,10 @@ abstract class IOverviewService {
   int getProductsQtde();
 
   Product getProductById(String id);
-  // Future<Product> getProductById(String id);
 
   void clearDataSavingLists();
+
+  void orderDataSavingLists();
 }
+//  Future<List<Product>> getProductsByFilter(Popup filter);
+// Future<Product> getProductById(String id);

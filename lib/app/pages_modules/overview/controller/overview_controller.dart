@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import 'package:shopingapp/app/pages_modules/overview/core/messages_snackbars_provided.dart';
+import 'package:shopingapp/app/pages_modules/pages_generic_components/custom_snackbar.dart';
+import 'package:shopingapp/app/texts_icons_provider/app_generic_words.dart';
 
 import '../../managed_products/entities/product.dart';
 import '../components/filter_favorite_enum.dart';
@@ -36,13 +39,20 @@ class OverviewController extends GetxController {
 
   Product getProductById(String id) {
     return _service.getProductById(id);
-    // _service.getProductById(id).then((product) => product);
   }
 
   void toggleFavoriteStatus(String id) {
-    _service
-        .toggleFavoriteStatus(id)
-        .then((favoriteStatus) => favoriteStatusObs.value = favoriteStatus);
+    var _previousFavoriteStatus = getProductById(id).isFavorite;
+    _service.toggleFavoriteStatus(id).then((favoriteStatus) {
+      favoriteStatusObs.value = favoriteStatus;
+      if (_previousFavoriteStatus == favoriteStatus) {
+        CustomSnackBar.simple(OPS, TOGGLE_STATUS_ERROR);
+      } else {
+        CustomSnackBar.simple(OPS, TOGGLE_STATUS_SUCESS);
+      }
+    });
+    favoriteStatusObs.value = getProductById(id).isFavorite;
   }
 }
 
+// _service.getProductById(id).then((product) => product);

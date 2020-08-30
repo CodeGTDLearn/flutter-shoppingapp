@@ -8,7 +8,7 @@ const NO_ORDERS_WERE_DONE_YET = "No orders were done, yet.";
 const NO_MANAGED_PRODUCTS_TO_BE_MANAGED_YET = "There is no products to be managed.";
 
 //Getx_Dialogs
-const ERROR_MANAGED_PRODUCTS = "Something was wronged. Try Again";
-const SUCESS_MANAGED_PRODUCTS_ADDITION = "The product was added successfuly.";
-const SUCESS_MANAGED_PRODUCTS_UPDATING = "The product was updated successfuly.";
-const SUCESS_MANAGED_PRODUCTS_DELETING = "The product was deleted successfuly.";
+const ERROR_TRY_AGAIN_LATER = "Something was wronged. Try Again later.";
+const SUCESS_PRODUCTS_ADDITION = "The product was added successfuly.";
+const SUCESS_PRODUCTS_UPDATING = "The product was updated successfuly.";
+const SUCESS_PRODUCTS_DELETING = "The product was deleted successfuly.";
