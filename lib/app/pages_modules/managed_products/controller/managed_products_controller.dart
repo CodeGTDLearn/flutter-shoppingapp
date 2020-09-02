@@ -39,31 +39,22 @@ class ManagedProductsController extends GetxController {
     ;
   }
 
-  Future<void> updateProduct(Product product) {
-    return _service
-        .updateProduct(product)
-        .then((response) => response)
-        .catchError((onError) => throw onError);
+  Future<int> updateProduct(Product product) {
+    return _service.updateProduct(product).then((statusCode) => statusCode);
   }
 
   Future<int> deleteProduct(String id) {
     // @formatter:off
-    var _index = managedProductsObs.value.indexWhere((item)=> item.id == id);
-    var rollbackProduct = managedProductsObs.value[_index];
-    managedProductsObs.value.removeAt(_index);
-    getProducts();
-
-    return _service
+    var responseFuture = _service
         .deleteProduct(id)
-        .then((response) {
-          if (response >= 400) {
-              managedProductsObs.value.add(rollbackProduct);
-//            throw HttpException("Something wronged happens");
+        .then((statusCode) {
+          if (statusCode >= 400) {
+          managedProductsObs.value = _service.dataSavingProducts;
           }
-              rollbackProduct = null;
-              getProducts();
-              return response;
+         return statusCode;
         });
+    managedProductsObs.value = _service.dataSavingProducts;
+    return responseFuture;
     // @formatter:on
   }
 

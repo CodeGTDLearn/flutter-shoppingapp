@@ -5,7 +5,7 @@ const SAFE_URL =
 
 const SAFE_TEXT = r"^[a-zA-Z0-9 !.-]+$";
 
-const SAFE_NUMBER = r"[0-9.]+$";
+const SAFE_NUMBER = r"[0-9. ]+$";
 
 //const URL_PATTERN =
 //    r"(https?|ftp)://([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?";

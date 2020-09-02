@@ -5,14 +5,17 @@ abstract class IManagedProductsService {
 
   int managedProductsQtde();
 
-//  List<Product> getAllOptimisticList();
+  List<Product> get dataSavingProducts;
 
-//  Future<Product> getByIdManagedProduct(String id);
   Product getProductById(String id);
 
   Future<void> saveProduct(Product product);
 
-  Future<void> updateProduct(Product product);
+  Future<int> updateProduct(Product product);
 
   Future<int> deleteProduct(String id);
+
+  void clearDataSavingLists();
+
+  void _orderDataSavingLists();
 }

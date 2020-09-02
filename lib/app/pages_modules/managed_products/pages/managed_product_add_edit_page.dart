@@ -50,7 +50,6 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
         _imgUrlController.text = _product.imageUrl;
         _controller.toggleReloadManagedProductsEditPage();
       }
-
       _isInit = false;
     }
     super.didChangeDependencies();
@@ -84,7 +83,6 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
     return _controller.saveProduct(product).then((response) {
       _controller.toggleReloadManagedProductsEditPage();
       _controller.getProducts();
-//      _controller.getAllManagedProductsOptmistic();
       Get.offNamed(AppRoutes.MAN_PROD);
       CustomSnackBar.simple(SUCESS, SUCESS_MAN_PROD_ADD);
     }).catchError((onError) {
@@ -97,21 +95,25 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
     });
   }
 
-  Future<dynamic> _update(Product product) {
-    return _controller.updateProduct(product).then((response) {
-      _controller.toggleReloadManagedProductsEditPage();
-      _controller.getProducts();
-//      _controller.getAllManagedProductsOptmistic();
-      Get.offNamed(AppRoutes.MAN_PROD);
-      CustomSnackBar.simple(SUCESS, SUCESS_MAN_PROD_UPDT);
-    }).catchError((onError) {
-      Get.defaultDialog(
-          title: OPS,
-          middleText: ERROR_MAN_PROD,
-          textConfirm: OK,
-          onConfirm: Get.back);
-      _controller.toggleReloadManagedProductsEditPage();
-    });
+  Future<void> _update(Product product) {
+    // @formatter:off
+    return _controller
+        .updateProduct(product)
+        .then((statusCode) {
+          _controller.toggleReloadManagedProductsEditPage();
+          _controller.getProducts();
+          Get.offNamed(AppRoutes.MAN_PROD);
+          if (statusCode >= 400) {
+            Get.defaultDialog(
+                title: OPS,
+                middleText: ERROR_MAN_PROD,
+                textConfirm: OK,
+                onConfirm: Get.back);
+          } else {
+            CustomSnackBar.simple(SUCESS, SUCESS_MAN_PROD_UPDT);
+          }
+        });
+    // @formatter:on
   }
 
   @override
@@ -167,7 +169,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                           maxLength: 6,
                           keyboardType: TextInputType.number,
                           onSaved: (value) =>
-                              _product.price = double.parse(value),
+                              _product.price = double.parse(value.trim()),
                           onFieldSubmitted: (_) => FocusScope.of(context)
                               .requestFocus(_focusDescript),
                           validator: Validators.compose([

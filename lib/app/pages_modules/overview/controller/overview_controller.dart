@@ -54,5 +54,3 @@ class OverviewController extends GetxController {
     favoriteStatusObs.value = getProductById(id).isFavorite;
   }
 }
-
-// _service.getProductById(id).then((product) => product);

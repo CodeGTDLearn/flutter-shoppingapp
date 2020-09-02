@@ -27,18 +27,17 @@ class ManagedProductItem extends StatelessWidget {
             child: Row(children: <Widget>[
               IconButton(
                   icon: MAN_PROD_ITEM_EDIT_ICO,
-                  onPressed: () => Get.toNamed(
-                      AppRoutes.MAN_PROD_ADD_EDIT,
-                      arguments: _id),
+                  onPressed: () =>
+                      Get.toNamed(AppRoutes.MAN_PROD_ADD_EDIT, arguments: _id),
                   color: Theme.of(context).errorColor),
               IconButton(
                   icon: MAN_PROD_ITEM_DELETE_ICO,
                   onPressed: () =>
                       _controller.deleteProduct(_id).then((response) {
-                        if (response >= 200 && response >= 299) {
-                          CustomSnackBar.simple(SUCESS, SUCESS_MAN_PROD_DEL);
-                        } else if (response >= 400) {
+                        if (response >= 400) {
                           CustomSnackBar.simple(OPS, ERROR_MAN_PROD);
+                        } else {
+                          CustomSnackBar.simple(SUCESS, SUCESS_MAN_PROD_DEL);
                         }
                       }),
                   color: Theme.of(context).errorColor),

@@ -7,45 +7,69 @@ import 'i_managed_products_service.dart';
 class ManagedProductsService implements IManagedProductsService {
   final IManagedProductsRepo _repo = Get.find();
 
-//  var optimisticList = <Product>[];
+  List<Product> _dataSavingProducts = [];
+
+  @override
+  List<Product> get dataSavingProducts => [..._dataSavingProducts];
 
   @override
   Future<List<Product>> getProducts() {
-    return _repo.getProducts().then((response) => response);
+    return _repo.getProducts().then((products) {
+      clearDataSavingLists();
+      _dataSavingProducts = products;
+      _orderDataSavingLists();
+      return products;
+    });
   }
 
   @override
   int managedProductsQtde() {
-    return _repo.dataSavingProducts.isNull ? 0 : _repo.dataSavingProducts.length;
+    return dataSavingProducts.length;
   }
 
   @override
-//  Future<Product> getByIdManagedProduct(String id) {
   Product getProductById(String id) {
-    return _repo.getProductById(id);
+    var _index = _dataSavingProducts.indexWhere((item) => item.id == id);
+    return _dataSavingProducts[_index];
   }
 
   @override
   Future<void> saveProduct(Product product) {
-    return _repo
-        .saveProduct(product)
-        .then((response) => response)
-        .catchError((onError) => throw onError);
+    return _repo.saveProduct(product).then((product) {
+      _dataSavingProducts.add(product);
+      return product;
+    }).catchError((onError) {
+      _dataSavingProducts.remove(product);
+      throw onError;
+    });
   }
 
   @override
-  Future<void> updateProduct(Product product) {
-    return _repo
-        .updateProduct(product)
-        .then((response) => response)
-        .catchError((onError) => throw onError);
+  Future<int> updateProduct(Product product) {
+    return _repo.updateProduct(product).then((statusCode) => statusCode);
   }
 
   @override
   Future<int> deleteProduct(String id) {
-    return _repo
-        .deleteProduct(id)
-        .then((response) => response)
-        .catchError((onError) => throw onError);
+    final _index = _dataSavingProducts.indexWhere((item) => item.id == id);
+    var _rollbackDataSavingProducts = [..._dataSavingProducts];
+    _dataSavingProducts.removeAt(_index);
+    _orderDataSavingLists();
+    return _repo.deleteProduct(id).then((statusCode) {
+      if (statusCode >= 400) {
+        _dataSavingProducts = _rollbackDataSavingProducts;
+        _orderDataSavingLists();
+      }
+      return statusCode;
+    });
+  }
+
+  @override
+  void clearDataSavingLists() {
+    _dataSavingProducts = [];
+  }
+
+  void _orderDataSavingLists() {
+    _dataSavingProducts.toList().reversed;
   }
 }
