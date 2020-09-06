@@ -19,8 +19,4 @@ abstract class IOverviewService {
   Product getProductById(String id);
 
   void clearDataSavingLists();
-
-  void _orderDataSavingLists();
 }
-//  Future<List<Product>> getProductsByFilter(Popup filter);
-// Future<Product> getProductById(String id);

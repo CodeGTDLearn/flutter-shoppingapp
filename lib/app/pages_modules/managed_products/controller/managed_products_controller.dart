@@ -36,7 +36,6 @@ class ManagedProductsController extends GetxController {
         .saveProduct(product)
         .then((response) => response)
         .catchError((onError) => throw onError);
-    ;
   }
 
   Future<int> updateProduct(Product product) {

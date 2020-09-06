@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../texts_icons_provider/app_generic_words.dart';
+import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../controller/cart_controller.dart';
 import '../core/cart_texts_icons_provided.dart';
 import '../entities/cart_item.dart';
@@ -37,11 +37,11 @@ class CardCartItem extends StatelessWidget {
                   leading: CircleAvatar(
                       child: Padding(
                           padding: EdgeInsets.all(5),
-                          child: FittedBox(
-                              child: Text('\$${_cartItem.price}')))),
+                          child:
+                              FittedBox(child: Text('\$${_cartItem.price}')))),
                   title: Text(_cartItem.title),
-                  subtitle: Text(
-                      'Total \$${(_cartItem.price).toStringAsFixed(2)}'),
+                  subtitle:
+                      Text('Total \$${(_cartItem.price).toStringAsFixed(2)}'),
                   trailing: Text('x${_cartItem.qtde}')),
             )),
         confirmDismiss: (direction) {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/properties/app_routes.dart';
-import '../../../texts_icons_provider/app_generic_words.dart';
+import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../pages_generic_components/custom_snackbar.dart';
 import '../controller/managed_products_controller.dart';
 import '../core/messages/messages_snackbars_provided.dart';

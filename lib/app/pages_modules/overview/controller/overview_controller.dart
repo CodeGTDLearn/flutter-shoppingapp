@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
-import 'package:shopingapp/app/pages_modules/overview/core/messages_snackbars_provided.dart';
-import 'package:shopingapp/app/pages_modules/pages_generic_components/custom_snackbar.dart';
-import 'package:shopingapp/app/texts_icons_provider/app_generic_words.dart';
 
+import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../managed_products/entities/product.dart';
+import '../../pages_generic_components/custom_snackbar.dart';
 import '../components/filter_favorite_enum.dart';
+import '../core/messages_snackbars_provided.dart';
 import '../service/i_overview_service.dart';
 
 class OverviewController extends GetxController {

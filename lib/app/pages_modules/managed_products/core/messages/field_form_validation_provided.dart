@@ -1,4 +1,5 @@
-import '../../../../texts_icons_provider/messages/field_form_validation.dart';
+
+import '../../../../core/texts_icons_provider/messages/field_form_validation.dart';
 
 const EMPTY_FIELD = VALIDATION_FIELD_SHOULD_BE_FILLED;
 

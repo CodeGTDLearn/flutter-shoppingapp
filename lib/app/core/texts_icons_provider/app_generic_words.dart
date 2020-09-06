@@ -9,4 +9,4 @@ const SORRY = "Sorry...";
 const DONE = "Done";
 const SUCESS = "Sucess";
 
-const ZERO$AMOUNT = "0.00";
+

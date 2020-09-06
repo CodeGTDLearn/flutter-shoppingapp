@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:string_validator/string_validator.dart';
-import 'package:wc_form_validators/wc_form_validators.dart';
 
 import '../../../core/properties/app_owasp_regex.dart';
 import '../../../core/properties/app_routes.dart';
-import '../../../texts_icons_provider/app_generic_words.dart';
+import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../pages_generic_components/custom_snackbar.dart';
+import '../components/custom_text_form_field/custom_text_form_field.dart';
 import '../controller/managed_products_controller.dart';
-import '../core/messages/field_form_validation_provided.dart';
 import '../core/messages/messages_snackbars_provided.dart';
 import '../core/texts_icons/managed_product_edit_texts_icons_provided.dart';
 import '../entities/product.dart';
@@ -23,10 +21,10 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
   bool _isInit = true;
 
   final _focusPrice = FocusNode();
-  final _focusDescript = FocusNode();
+  final _focusDescr = FocusNode();
+  final _focusUrlNode = FocusNode();
 
   final _imgUrlController = TextEditingController();
-  final _focusImgUrlNode = FocusNode();
 
   final _form = GlobalKey<FormState>();
   Product _product = Product();
@@ -35,7 +33,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
 
   @override
   void initState() {
-    _focusImgUrlNode.addListener(_previewImageUrl);
+    _focusUrlNode.addListener(_previewImageUrl);
     super.initState();
   }
 
@@ -43,6 +41,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
   void didChangeDependencies() {
     if (_isInit) {
       _controller.toggleReloadManagedProductsEditPage();
+
       if (Get.arguments.isNull) {
         _controller.toggleReloadManagedProductsEditPage();
       } else {
@@ -56,13 +55,10 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
   }
 
   void _previewImageUrl() {
-    var urlPattern =
-        r"(https?|ftp)://([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?";
-
-    var result = RegExp(urlPattern, caseSensitive: false)
+    var result = RegExp(SAFE_URL, caseSensitive: false)
         .firstMatch(_imgUrlController.text.trim());
 
-    if (!_focusImgUrlNode.hasFocus) {
+    if (!_focusUrlNode.hasFocus) {
       if (_imgUrlController.text == null || result == null) {
         return null;
       }
@@ -74,28 +70,33 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
     if (!_form.currentState.validate()) return;
     _form.currentState.save();
     _controller.toggleReloadManagedProductsEditPage();
-    _product.id.isNull ? _save(_product) : _update(_product);
+    _product.id.isNull ? _saveProduct(_product) : _updateProduct(_product);
     Get.offNamed(AppRoutes.MAN_PROD);
     // @formatter:onY
   }
 
-  Future<dynamic> _save(Product product) {
-    return _controller.saveProduct(product).then((response) {
-      _controller.toggleReloadManagedProductsEditPage();
-      _controller.getProducts();
-      Get.offNamed(AppRoutes.MAN_PROD);
-      CustomSnackBar.simple(SUCESS, SUCESS_MAN_PROD_ADD);
-    }).catchError((onError) {
-      Get.defaultDialog(
-          title: OPS,
-          middleText: ERROR_MAN_PROD,
-          textConfirm: OK,
-          onConfirm: Get.back);
-      _controller.toggleReloadManagedProductsEditPage();
-    });
+  Future<dynamic> _saveProduct(Product product) {
+    // @formatter:off
+    return _controller
+        .saveProduct(product)
+        .then((response) {
+          _controller.toggleReloadManagedProductsEditPage();
+          _controller.getProducts();
+          Get.offNamed(AppRoutes.MAN_PROD);
+          CustomSnackBar.simple(SUCESS, SUCESS_MAN_PROD_ADD);
+        })
+        .catchError((onError) {
+          Get.defaultDialog(
+            title: OPS,
+            middleText: ERROR_MAN_PROD,
+            textConfirm: OK,
+            onConfirm: Get.back);
+          _controller.toggleReloadManagedProductsEditPage();
+        });
+    // @formatter:on
   }
 
-  Future<void> _update(Product product) {
+  Future<void> _updateProduct(Product product) {
     // @formatter:off
     return _controller
         .updateProduct(product)
@@ -119,10 +120,10 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
   @override
   void dispose() {
     _focusPrice.dispose();
-    _focusDescript.dispose();
+    _focusDescr.dispose();
 
-    _focusImgUrlNode.removeListener(_previewImageUrl);
-    _focusImgUrlNode.dispose();
+    _focusUrlNode.removeListener(_previewImageUrl);
+    _focusUrlNode.dispose();
     _imgUrlController.dispose();
 
     super.dispose();
@@ -130,11 +131,18 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-        appBar:
-            AppBar(title: Text(MAN_PROD_EDIT_LBL_ADD_APPBAR), actions: <Widget>[
-          IconButton(icon: MAN_PROD_EDIT_ICO_SAVE_APPBAR, onPressed: _saveForm)
-        ]),
+        appBar: AppBar(
+            title: Text(Get.arguments.isNull
+                ? MAN_PROD_EDIT_LBL_ADD_APPBAR
+                : MAN_PROD_EDIT_LBL_EDT_APPBAR),
+            actions: [
+              IconButton(
+                icon: MAN_PROD_EDIT_ICO_SAVE_APPBAR,
+                onPressed: _saveForm,
+              )
+            ]),
         body: Obx(() => _controller.reloadManagedProductsEditPage.value
             ? Center(child: CircularProgressIndicator())
             : Padding(
@@ -142,60 +150,29 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                 child: Form(
                     key: _form,
                     child: SingleChildScrollView(
-                        child: Column(children: <Widget>[
-                      TextFormField(
-                          initialValue: _product.title,
-                          decoration: InputDecoration(
-                              labelText: MAN_PROD_EDIT_FLD_TITLE),
-                          textInputAction: TextInputAction.next,
-                          maxLength: 15,
-                          keyboardType: TextInputType.number,
-                          onSaved: (value) => _product.title = value,
-                          onFieldSubmitted: (value) =>
-                              FocusScope.of(context).requestFocus(_focusPrice),
-                          validator: Validators.compose([
-                            Validators.required(EMPTY_FIELD),
-                            Validators.patternString(SAFE_TEXT, VALID_TEXT),
-                            Validators.minLength(5, VALID_SIZE_TITLE)
-                          ])),
-                      TextFormField(
-                          initialValue: _product.price == null
-                              ? _product.price
-                              : _product.price.toString(),
-                          decoration: InputDecoration(
-                              labelText: MAN_PROD_EDIT_FLD_PRICE,
-                              hintText: ZERO$AMOUNT),
-                          textInputAction: TextInputAction.next,
-                          maxLength: 6,
-                          keyboardType: TextInputType.number,
-                          onSaved: (value) =>
-                              _product.price = double.parse(value.trim()),
-                          onFieldSubmitted: (_) => FocusScope.of(context)
-                              .requestFocus(_focusDescript),
-                          validator: Validators.compose([
-                            Validators.required(EMPTY_FIELD),
-                            Validators.patternString(SAFE_NUMBER, VALID_NUMBER),
-                            Validators.min(0, VALID_PRICE)
-                          ])),
-                      TextFormField(
-                          initialValue: _product.description,
-                          decoration: InputDecoration(
-                              labelText: MAN_PROD_EDIT_FLD_DESCR),
-                          textInputAction: TextInputAction.next,
-                          maxLength: 30,
-                          keyboardType: TextInputType.multiline,
-                          maxLines: 3,
-                          onSaved: (value) => _product.description = value,
-                          onFieldSubmitted: (_) => FocusScope.of(context)
-                              .requestFocus(_focusImgUrlNode),
-                          validator: Validators.compose([
-                            Validators.required(EMPTY_FIELD),
-                            Validators.patternString(SAFE_TEXT, VALID_TEXT),
-                            Validators.minLength(10, VALID_SIZE_DESCRIPT)
-                          ])),
+                        child: Column(children: [
+                      CustomFormTextField().create(
+                        _product,
+                        context,
+                        (_) => FocusScope.of(context).requestFocus(_focusPrice),
+                        "title",
+                      ),
+                      CustomFormTextField().create(
+                        _product,
+                        context,
+                        (_) => FocusScope.of(context).requestFocus(_focusDescr),
+                        "price",
+                      ),
+                      CustomFormTextField().create(
+                        _product,
+                        context,
+                        (_) =>
+                            FocusScope.of(context).requestFocus(_focusUrlNode),
+                        "description",
+                      ),
                       Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
+                          children: [
                             Container(
                                 width: 100,
                                 height: 100,
@@ -212,34 +189,91 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                                                 _imgUrlController.text,
                                                 fit: BoxFit.cover)))),
                             Expanded(
-                                child: TextFormField(
-                                    // ignore: lines_longer_than_80_chars
-                                    //CONTROLLER e incompativel com INITIAL_VALUE
-
-                                    //initialValue: _product.imageUrl.toString(),
-                                    decoration: InputDecoration(
-                                        labelText: MAN_PROD_EDIT_FLD_IMG_URL),
-                                    textInputAction: TextInputAction.done,
-                                    keyboardType: TextInputType.url,
-                                    focusNode: _focusImgUrlNode,
-
-                                    //CONTROLLER e incompativel com INITIAL_VALUE
-                                    controller: _imgUrlController,
-                                    onSaved: (value) =>
-                                        _product.imageUrl = value,
-                                    onFieldSubmitted: (_) => _saveForm(),
-                                    validator: (value) {
-                                      if (!isURL(value)) return VALID_URL;
-                                      return null;
-                                    }))
+                                child: CustomFormTextField().create(
+                                    _product,
+                                    context,
+                                    (_) => _saveForm(),
+                                    "url",
+                                    _focusUrlNode,
+                                    _imgUrlController))
                           ])
                     ]))))));
   }
 }
 
-//      _controller.getByIdManagedProduct(Get.arguments);
-//            : _controller.getByIdManagedProduct(Get.arguments).then((response) {
-//              _imgUrlController.text = response.imageUrl;
-//              _product = response;
-//              _controller.toggleReloadManagedProductsEditPage();
-//            });
+//-------------------------TITLE-----------------------------
+// TextFormField(
+//     initialValue: _product.title,
+//     decoration: InputDecoration(
+//         labelText: MAN_PROD_EDIT_FLD_TITLE,
+//         hintText: TITLE),
+//     textInputAction: TextInputAction.next,
+//     maxLength: 15,
+//     keyboardType: TextInputType.number,
+//     validator: Validators.compose([
+//       Validators.required(EMPTY_FIELD),
+//       Validators.patternString(SAFE_TEXT, VALID_TEXT),
+//       Validators.minLength(5, VALID_SIZE_TITLE)
+//     ])),
+//     onFieldSubmitted: (_) =>FocusScope.of(context).requestFocus(_focusPrice),
+//     onSaved: (value) => _product.title = value,
+
+//-------------------------URL-----------------------------
+// TextFormField(
+//     // ignore: lines_longer_than_80_chars
+//     //CONTROLLER e incompativel com INITIAL_VALUE
+//     //initialValue: _product.imageUrl.toString(),
+//     decoration: InputDecoration(
+//         labelText: MAN_PROD_EDIT_FLD_IMG_URL,
+//         hintText: URL),
+//     textInputAction: TextInputAction.done,
+//     maxLength: 130,
+//     keyboardType: TextInputType.url,
+//     validator: (value) {
+//       if (!isURL(value)) return VALID_URL;
+//       return null;
+//     }),
+//     onFieldSubmitted: (_) => _saveForm(),
+//     onSaved: (value) => _product.imageUrl = value,
+
+//     focusNode: _focusImgUrlNode,
+
+//     //CONTROLLER e incompativel com INITIAL_VALUE
+//     controller: _imgUrlController,
+
+//-------------------------DESCRIPT-----------------------------
+// TextFormField(
+//     initialValue: _product.description,
+//     decoration: InputDecoration(
+//         labelText: MAN_PROD_EDIT_FLD_DESCR,
+//         hintText: DESCRIPT),
+//     textInputAction: TextInputAction.next,
+//     maxLength: 30,
+//     maxLines: 3,
+//     keyboardType: TextInputType.multiline,
+//     validator: Validators.compose([
+//       Validators.required(EMPTY_FIELD),
+//       Validators.patternString(SAFE_TEXT, VALID_TEXT),
+//       Validators.minLength(10, VALID_SIZE_DESCRIPT)
+//     ])),
+//     onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(_focusImgUrlNode),
+//     onSaved: (value) => _product.description = value,
+
+//-------------------------PRICE-----------------------------
+// TextFormField(
+//     initialValue: _product.price == null
+//         ? _product.price
+//         : _product.price.toString(),
+////     decoration: InputDecoration(
+//         labelText: MAN_PROD_EDIT_FLD_PRICE,
+//         hintText: ZERO$AMOUNT),
+////     textInputAction: TextInputAction.next,
+//     maxLength: 6,
+//     keyboardType: TextInputType.number,
+//     validator: Validators.compose([
+//       Validators.required(EMPTY_FIELD),
+//       Validators.patternString(SAFE_NUMBER, VALID_NUMBER),
+//       Validators.min(0, VALID_PRICE)
+//     ])),
+//     onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(_focusDescript),
+//     onSaved: (value) =>_product.price = double.parse(value.trim()),

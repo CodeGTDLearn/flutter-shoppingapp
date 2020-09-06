@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../core/properties/app_properties.dart';
 import '../../core/properties/app_routes.dart';
 import '../../core/properties/theme/dark_theme_controller.dart';
-import '../../texts_icons_provider/app_generic_words.dart';
+import '../../core/texts_icons_provider/app_generic_words.dart';
 import '../cart/service/i_cart_service.dart';
 import '../managed_products/controller/managed_products_controller.dart';
 import '../orders/service/i_orders_service.dart';

@@ -1,5 +1,7 @@
-import '../../../texts_icons_provider/messages/db_empty.dart';
-import '../../../texts_icons_provider/messages/snackbars.dart';
+
+import '../../../core/texts_icons_provider/messages/db_empty.dart';
+
+import '../../../core/texts_icons_provider/messages/snackbars.dart';
 
 const ITEMCART_ADDED = ITEM_CART_ADDED_IN_SHOPCART;
 const ITEMCART_REMOVED = ITEM_CART_REMOVED_FROM_SHOPCART;

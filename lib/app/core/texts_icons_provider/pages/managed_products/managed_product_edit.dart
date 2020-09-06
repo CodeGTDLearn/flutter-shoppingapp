@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 const MANAGED_PRODUCTS_EDIT_ICO_SAVE_APPBAR = Icon(Icons.save);
 const MANAGED_PRODUCTS_EDIT_LABEL_ADD_APPBAR = "Add Product";
 
-const MANAGED_PRODUCTS_EDIT_LABEL_EDIT = "Edit Product";
+const MANAGED_PRODUCTS_EDIT_LABEL_EDIT_APPBAR = "Edit Product";
 const MANAGED_PRODUCTS_EDIT_FIELD_TITLE = "Title";
 const MANAGED_PRODUCTS_EDIT_FIELD_PRICE = "Price";
 const MANAGED_PRODUCTS_EDIT_FIELD_DESCRIPT = "Description";

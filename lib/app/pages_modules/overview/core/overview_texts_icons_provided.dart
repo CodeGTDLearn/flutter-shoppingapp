@@ -1,6 +1,7 @@
 
 
-import '../../../texts_icons_provider/pages/overview.dart';
+
+import '../../../core/texts_icons_provider/pages/overview.dart';
 
 const OVERV_TIT_ALL_APPBAR = OVERVIEW_TITLE_ALL_APPBAR;
 const OVERV_ICO_FAV = OVERVIEW_ICON_FAVORITES;

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/pages_modules/overview/core/messages_snackbars_provided.dart';
-import 'package:shopingapp/app/pages_modules/pages_generic_components/custom_snackbar.dart';
-import 'package:shopingapp/app/texts_icons_provider/app_generic_words.dart';
 
 import '../../../core/properties/app_routes.dart';
+import '../../../core/texts_icons_provider/app_generic_words.dart';
+import '../../pages_generic_components/custom_snackbar.dart';
 import '../controller/overview_controller.dart';
+import '../core/messages_snackbars_provided.dart';
 import '../core/overview_texts_icons_provided.dart';
 import 'filter_favorite_enum.dart';
 

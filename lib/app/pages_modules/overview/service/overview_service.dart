@@ -28,7 +28,7 @@ class OverviewService implements IOverviewService {
           _dataSavingFavoritesProducts.add(item);
         }
       });
-      _orderDataSavingLists();
+      _sortDataSavingLists();
       return products;
     });
   }
@@ -59,7 +59,7 @@ class OverviewService implements IOverviewService {
             if (badRequest && !_toggleProduct.isFavorite){
               _dataSavingFavoritesProducts.add(_rollbackProduct);
             }
-            _orderDataSavingLists();
+            _sortDataSavingLists();
             return _toggleProduct.isFavorite;
         });
     // @formatter:on
@@ -95,7 +95,7 @@ class OverviewService implements IOverviewService {
     _dataSavingAllProducts = [];
   }
 
-  void _orderDataSavingLists() {
+  void _sortDataSavingLists() {
     _dataSavingAllProducts.toList().sort;
     _dataSavingFavoritesProducts.toList().sort;
   }

@@ -10,4 +10,5 @@ linter:
     type_annotate_public_apis: false
     lines_longer_than_80_chars: false
     non_constant_identifier_names: false
+    one_member_abstracts: false
 

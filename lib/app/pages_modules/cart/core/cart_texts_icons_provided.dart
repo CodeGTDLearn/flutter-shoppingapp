@@ -1,4 +1,5 @@
-import '../../../texts_icons_provider/pages/cart.dart';
+
+import '../../../core/texts_icons_provider/pages/cart.dart';
 
 const CART_TIT_APPBAR = CART_TITLE_APPBAR;
 const CART_LBL_CARD = CART_LABEL_CARD;

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controller/overview_controller.dart';
-import '../core/messages_snackbars_provided.dart';
 import 'filter_favorite_enum.dart';
 import 'overview_grid_item.dart';
 

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../core/properties/app_properties.dart';
 import '../../../core/properties/app_routes.dart';
-import '../../../texts_icons_provider/app_generic_words.dart';
+import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../cart/controller/cart_controller.dart';
 import '../../pages_generic_components/custom_flush_notifier.dart';
 import '../core/messages_snackbars_provided.dart';
