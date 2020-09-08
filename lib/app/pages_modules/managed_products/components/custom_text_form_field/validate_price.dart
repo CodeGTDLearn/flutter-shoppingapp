@@ -9,8 +9,8 @@ class ValidatePrice extends ValidationAbstraction {
   validate() {
     return Validators.compose([
       Validators.required(EMPTY_FIELD),
-      Validators.patternString(SAFE_NUMBER, VALID_NUMBER),
-      Validators.min(0, VALID_PRICE)
+      Validators.patternString(SAFE_NUMBER, INVALID_NUMBER),
+      Validators.min(0, INVALID_PRICE)
     ]);
   }
 }

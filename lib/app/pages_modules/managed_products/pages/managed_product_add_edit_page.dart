@@ -131,7 +131,6 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         appBar: AppBar(
             title: Text(Get.arguments.isNull
@@ -152,24 +151,23 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                     child: SingleChildScrollView(
                         child: Column(children: [
                       CustomFormTextField().create(
-                        _product,
-                        context,
-                        (_) => FocusScope.of(context).requestFocus(_focusPrice),
-                        "title",
-                      ),
+                          _product,
+                          context,
+                          (_) =>
+                              FocusScope.of(context).requestFocus(_focusPrice),
+                          "title"),
                       CustomFormTextField().create(
-                        _product,
-                        context,
-                        (_) => FocusScope.of(context).requestFocus(_focusDescr),
-                        "price",
-                      ),
+                          _product,
+                          context,
+                          (_) =>
+                              FocusScope.of(context).requestFocus(_focusDescr),
+                          "price"),
                       CustomFormTextField().create(
-                        _product,
-                        context,
-                        (_) =>
-                            FocusScope.of(context).requestFocus(_focusUrlNode),
-                        "description",
-                      ),
+                          _product,
+                          context,
+                          (_) => FocusScope.of(context)
+                              .requestFocus(_focusUrlNode),
+                          "description"),
                       Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
@@ -190,12 +188,13 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                                                 fit: BoxFit.cover)))),
                             Expanded(
                                 child: CustomFormTextField().create(
-                                    _product,
-                                    context,
-                                    (_) => _saveForm(),
-                                    "url",
-                                    _focusUrlNode,
-                                    _imgUrlController))
+                              _product,
+                              context,
+                              (_) => _saveForm(),
+                              "url",
+                              node: _focusUrlNode,
+                              controller: _imgUrlController,
+                            ))
                           ])
                     ]))))));
   }
@@ -277,3 +276,10 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
 //     ])),
 //     onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(_focusDescript),
 //     onSaved: (value) =>_product.price = double.parse(value.trim()),
+
+
+// var urlPattern =
+//     r"(https?|ftp)://([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?";
+//
+// var result = RegExp(urlPattern, caseSensitive: false)
+//     .firstMatch(_imgUrlController.text.trim());

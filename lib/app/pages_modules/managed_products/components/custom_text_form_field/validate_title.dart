@@ -9,8 +9,8 @@ class ValidateTitle extends ValidationAbstraction {
   validate() {
     return Validators.compose([
       Validators.required(EMPTY_FIELD),
-      Validators.patternString(SAFE_TEXT, VALID_TEXT),
-      Validators.minLength(5, VALID_SIZE_TITLE)
+      Validators.patternString(SAFE_TEXT, INVALID_TEXT),
+      Validators.minLength(5, INVALID_SIZE_TITLE)
     ]);
   }
 }

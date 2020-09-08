@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:shopingapp/app/pages_modules/managed_products/core/messages/field_form_validation_provided.dart';
 import 'package:string_validator/string_validator.dart';
 
+import '../../core/messages/field_form_validation_provided.dart';
 import '../../core/texts_icons/custom_text_form_field_hints.dart';
 import '../../core/texts_icons/managed_product_edit_texts_icons_provided.dart';
 import '../../entities/product.dart';
 import 'validate_description.dart';
 import 'validate_price.dart';
 import 'validate_title.dart';
-import 'validate_url.dart';
 import 'validation_abstraction.dart';
 
 class CustomFormTextField {
   final ValidationAbstraction _title = ValidateTitle();
   final ValidationAbstraction _price = ValidatePrice();
   final ValidationAbstraction _descr = ValidateDescription();
-  final ValidationAbstraction _url = ValidateUrl();
+
+  // final ValidationAbstraction _url = ValidateUrl();
 
   String _hint;
   String _labelText;
@@ -25,34 +25,42 @@ class CustomFormTextField {
   int _maxLength;
   var _validatorCriteria;
 
-  TextFormField create(
-    Product product,
-    BuildContext context,
-    Function function,
-    String fieldName, [
-    FocusNode node,
-    TextEditingController controller,
-  ]) {
+  TextFormField create(Product product, BuildContext context, Function function,
+      String fieldName,
+      {FocusNode node, TextEditingController controller}) {
+    fieldName = fieldName.toLowerCase();
     loadTextFieldsParameteres(fieldName, product);
 
     return TextFormField(
-      initialValue: _initialValue,
+      //***************************************************
+      //****       !!!!!  INCOMPATIBILITY  !!!!!       ****
+      //***************************************************
+      //**  CONTROLLER e incompativel com INITIAL_VALUE  **
+      //***************************************************
+      initialValue: controller == null ? _initialValue : null,
+      controller: controller,
+      //***************************************************
       decoration: InputDecoration(labelText: _labelText, hintText: _hint),
       textInputAction: _textInputAction,
       maxLength: _maxLength,
       maxLines: fieldName == "description" ? 3 : 1,
       keyboardType: _textInputType,
-      validator: _validatorCriteria,
+      // validator: _validatorCriteria,
+      validator: fieldName.toLowerCase() == "url"
+          ? (value) {
+              if (!isURL(value)) return INVALID_URL;
+              return null;
+            }
+          : _validatorCriteria,
       onFieldSubmitted: function,
       onSaved: (fieldValue) =>
           _loadProductWithFieldValue(fieldName, product, fieldValue),
       focusNode: node,
-      controller: controller,
     );
   }
 
   void loadTextFieldsParameteres(String nameField, Product product) {
-    switch (nameField.toLowerCase()) {
+    switch (nameField) {
       case "title":
         {
           _initialValue = product.title;
@@ -94,22 +102,22 @@ class CustomFormTextField {
           _textInputAction = TextInputAction.done;
           _textInputType = TextInputType.url;
           _maxLength = 130;
-          _validatorCriteria = _url.validate();
+          // _validatorCriteria = _url.validate();
         }
         break;
     }
   }
 
   void _loadProductWithFieldValue(String field, Product product, var value) {
-    if (field.toLowerCase() == "title") product.title = value;
-    if (field.toLowerCase() == "url") product.imageUrl = value;
-    if (field.toLowerCase() == "description") product.description = value;
-    if (field.toLowerCase() == "price") product.price = double.parse(value);
+    if (field == "title") product.title = value;
+    if (field == "url") product.imageUrl = value;
+    if (field == "description") product.description = value;
+    if (field == "price") product.price = double.parse(value);
   }
 }
-      // validator: fieldName == "description"
-      //     ? (value) {
-      //         if (!isURL(value)) return VALID_URL;
-      //         return null;
-      //       }
-      //     : _validatorCriteria,
+// validator: fieldName == "description"
+//     ? (value) {
+//         if (!isURL(value)) return INVALID_URL;
+//         return null;
+//       }
+//     : _validatorCriteria,

@@ -10,8 +10,8 @@ class ValidateDescription extends ValidationAbstraction{
   validate() {
     return Validators.compose([
       Validators.required(EMPTY_FIELD),
-      Validators.patternString(SAFE_TEXT, VALID_TEXT),
-      Validators.minLength(10, VALID_SIZE_DESCRIPT)
+      Validators.patternString(SAFE_TEXT, INVALID_TEXT),
+      Validators.minLength(10, INVALID_SIZE_DESCR)
     ]);
   }
 

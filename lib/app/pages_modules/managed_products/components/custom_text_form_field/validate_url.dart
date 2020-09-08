@@ -7,11 +7,12 @@ import 'validation_abstraction.dart';
 class ValidateUrl extends ValidationAbstraction {
   @override
   validate() {
-    return Validators.compose([
+    return  Validators.compose([
       Validators.required(EMPTY_FIELD),
-      Validators.patternString(SAFE_URL, VALID_URL),
-      Validators.minLength(3, VALID_URL),
-      Validators.maxLength(135, VALID_URL),
+      Validators.patternString(SAFE_URL, INVALID_URL),
+      Validators.minLength(3, INVALID_URL),
+      Validators.maxLength(135, INVALID_URL),
     ]);
   }
 }
+
