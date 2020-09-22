@@ -17,9 +17,11 @@ class Product {
   String _imageUrl;
   bool _isFavorite = false;
 
-  factory Product.from_Json(String str) => Product.fromJson(json.decode(str));
+  factory Product.databuilder({String id}) {
+    return Product(id);
+  }
 
-  String to_Json() => json.encode(toJson());
+  factory Product.from_Json(String str) => Product.fromJson(json.decode(str));
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         json["id"] == null ? null : json["id"],
@@ -29,6 +31,8 @@ class Product {
         json["imageUrl"] == null ? null : json["imageUrl"],
         json["isFavorite"] == null ? null : json["isFavorite"],
       );
+
+  String to_Json() => json.encode(toJson());
 
   Map<String, dynamic> toJson() => {
         "id": id == null ? null : id,

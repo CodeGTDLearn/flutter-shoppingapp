@@ -40,6 +40,7 @@ class CustomFormTextField {
       initialValue: controller == null ? _initialValue : null,
       controller: controller,
       //***************************************************
+
       decoration: InputDecoration(labelText: _labelText, hintText: _hint),
       textInputAction: _textInputAction,
       maxLength: _maxLength,

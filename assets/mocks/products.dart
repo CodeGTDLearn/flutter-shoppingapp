@@ -1,8 +1,6 @@
+import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 
-
-import '../../pages_modules/managed_products/entities/product.dart';
-
-List<Product> productsDb = [
+List<Product> PRODUCTS = [
   Product(
     'p1',
     'Red Shirt',
