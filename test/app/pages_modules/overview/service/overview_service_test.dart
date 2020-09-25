@@ -7,11 +7,11 @@ import 'overview_service_mock.dart';
 
 void main() {
   IOverviewService _predMockService;
-  IOverviewService _customMockService;
+  IOverviewService _whenMockService;
 
   setUp(() {
     _predMockService = PredefinedMockService();
-    _customMockService = CustomMockService();
+    _whenMockService = CustomMockService();
   });
 
   group('Overview | Service | Sucessful', () {
@@ -27,12 +27,14 @@ void main() {
     });
 
     test('getFavoritesQtde', () {
-      expect(_customMockService.getFavoritesQtde(), 1);
+      expect(_predMockService.getFavoritesQtde(), 1);
     });
 
     test('getProductById', () {
       var list = _predMockService.dataSavingAllProducts;
-      expect(_customMockService.getProductById("p1"), list[0]);
+      expect(
+          _predMockService.getProductById("p1").description,
+          list[0].description);
     });
 
     test('getProducts = Elements', () {
@@ -43,14 +45,14 @@ void main() {
     });
 
     test('getProductsQtde', () {
-      expect(_customMockService.getProductsQtde(), 4);
+      expect(_predMockService.getProductsQtde(), 4);
     });
 
     test('toggleFavoriteStatus = p1', () {
-      when(_customMockService.toggleFavoriteStatus("p1"))
+      when(_whenMockService.toggleFavoriteStatus("p1"))
           .thenAnswer((_) async => true);
 
-      _customMockService
+      _whenMockService
           .toggleFavoriteStatus("p1")
           .then((value) => expect(value, true));
     });

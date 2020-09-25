@@ -6,22 +6,22 @@ import 'package:shopingapp/app/pages_modules/managed_products/entities/product.d
 import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
 
 /* **************************************************
-*   DEFINED_MOCK_REPO:
-*   Predefined Mock Repo(PredefinedMockRepo),
-*   does NOT ALLOW the "WHEN" clause
-*   Although, they extends Mockito (Mock)
+*   A) PREDEFINED MOCKS:
+*     Predefined Mocks does NOT ALLOW
+*     the "WHEN" clause (because they has predefined responses)
+*     Although, they extends Mockito (Mock)
 *
-*   Mocks Com Responses Predefinidas(PredefinedMockRepo)
-*   NAO PERMITEM a clausula "WHEN"
-*   Embora, eles extendam o Mockito("Mock)
-* 
-*   CUSTOM_MOCK_REPO:
-*   Custom Mocks Repos(CustomMockRepo)
-*   are "Plain Mocks"; thus, they ALLOW
-*   the "WHEN" clause
+*     Mocks com Responses Predefinidas(PredefinedMockRepo)
+*     NAO PERMITEM a clausula "WHEN" (pois possuem retorno predefinido)
+*     Embora, eles extendam o Mockito("Mock)
 *
-*   Mocks Repo customizados sao Mocks Zerados
-*   portanto, PERMITEM a clausula "WHEN"
+*   B) Custom MOCKS:
+*     Custom Mocks (CustomMockRepo)
+*     are "Plain Mocks" (because they has NOT predefined responses);
+*     thus, they ALLOW the "Custom" clause
+*
+*     Custom Mocks sao Mocks Zerados(sem qqer retorno predefinido)
+*     portanto, PERMITEM a clausula "Custom"
 *****************************************************/
 class PredefinedMockRepo extends Mock implements IOverviewRepo {
   @override

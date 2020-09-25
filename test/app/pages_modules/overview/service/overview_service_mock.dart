@@ -8,6 +8,24 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 
 class PredefinedMockService extends Mock implements IOverviewService {
 
+  /* **************************************************
+*   A) PREDEFINED MOCKS:
+*     Predefined Mocks does NOT ALLOW
+*     the "WHEN" clause (because they has predefined responses)
+*     Although, they extends Mockito (Mock)
+*
+*     Mocks com Responses Predefinidas(PredefinedMockRepo)
+*     NAO PERMITEM a clausula "WHEN" (pois possuem retorno predefinido)
+*     Embora, eles extendam o Mockito("Mock)
+*
+*   B) Custom MOCKS:
+*     Custom Mocks (CustomMockRepo)
+*     are "Plain Mocks" (because they has NOT predefined responses);
+*     thus, they ALLOW the "Custom" clause
+*
+*     Custom Mocks sao Mocks Zerados(sem qqer retorno predefinido)
+*     portanto, PERMITEM a clausula "Custom"
+*****************************************************/
   @override
   List<Product> get dataSavingAllProducts {
     return getProductsFromJsonFile();
@@ -46,7 +64,8 @@ class PredefinedMockService extends Mock implements IOverviewService {
 
   @override
   int getProductsQtde() {
-    return getProductsFromJsonFile().length;
+    var listProducts = getProductsFromJsonFile();
+    return listProducts.length;
   }
 
   @override
@@ -61,7 +80,7 @@ class PredefinedMockService extends Mock implements IOverviewService {
   List<Product> getProductsFromJsonFile() {
     final file = File('assets/mocks_returns/products.json');
     final json = jsonDecode(file.readAsStringSync());
-    var result = json.map<Product>((json) => Product.fromJson(json)).toList();
+    List<Product> result = json.map<Product>((json) => Product.fromJson(json)).toList();
     return result;
   }
 
