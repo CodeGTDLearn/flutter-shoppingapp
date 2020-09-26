@@ -1,13 +1,11 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/overview/components/filter_favorite_enum.dart';
 import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service.dart';
 
-class PredefinedMockService extends Mock implements IOverviewService {
+import '../utils/mock_data.dart';
 
+class PredefinedMockService extends Mock implements IOverviewService {
   /* **************************************************
 *   A) PREDEFINED MOCKS:
 *     Predefined Mocks does NOT ALLOW
@@ -28,72 +26,46 @@ class PredefinedMockService extends Mock implements IOverviewService {
 *****************************************************/
   @override
   List<Product> get dataSavingAllProducts {
-    return getProductsFromJsonFile();
+    return MockData().products();
   }
 
   @override
   List<Product> get dataSavingFavoritesProducts {
-    return getFavoritesFromJsonFile();
+    return MockData().favoritesProducts();
   }
 
   @override
   int getFavoritesQtde() {
-    return getFavoritesFromJsonFile().length;
+    return MockData().favoritesProducts().length;
   }
 
   @override
   Product getProductById(String id) {
-    final file = File('assets/mocks_returns/products.json');
-    final json = jsonDecode(file.readAsStringSync());
-    List<Product> list =
-    json.map<Product>((json) => Product.fromJson(json)).toList();
-    return list.firstWhere((element) => element.id == id);
+    return MockData().productById(id);
   }
 
   @override
   Future<List<Product>> getProducts() async {
-    return Future.value(getProductsFromJsonFile());
+    return Future.value(MockData().products());
   }
 
   @override
   List<Product> getProductsByFilter(EnumFilter filter) {
-    return filter == EnumFilter.All
-        ? getProductsFromJsonFile()
-        : getFavoritesFromJsonFile();
+    return MockData().productsByFilter(filter);
   }
 
   @override
   int getProductsQtde() {
-    var listProducts = getProductsFromJsonFile();
-    return listProducts.length;
+    return MockData().products().length;
   }
 
   @override
   Future<bool> toggleFavoriteStatus(String id) {
-    List<Product> result = getProductsFromJsonFile();
+    List<Product> result = MockData().products();
     result.forEach((element) {
       if (element.id == id) element.isFavorite = !element.isFavorite;
     });
     return Future.value(true);
-  }
-
-  List<Product> getProductsFromJsonFile() {
-    final file = File('assets/mocks_returns/products.json');
-    final json = jsonDecode(file.readAsStringSync());
-    List<Product> result = json.map<Product>((json) => Product.fromJson(json)).toList();
-    return result;
-  }
-
-  List<Product> getFavoritesFromJsonFile() {
-    final file = File('assets/mocks_returns/products.json');
-    final json = jsonDecode(file.readAsStringSync());
-    List<Product> list =
-        json.map<Product>((json) => Product.fromJson(json)).toList();
-    List<Product> listReturn = [];
-    list.forEach((item) {
-      if (item.isFavorite) listReturn.add(item);
-    });
-    return listReturn;
   }
 }
 

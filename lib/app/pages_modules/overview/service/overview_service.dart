@@ -8,7 +8,6 @@ import 'i_overview_service.dart';
 class OverviewService implements IOverviewService {
   List<Product> _dataSavingAllProducts = [];
   List<Product> _dataSavingFavoritesProducts = [];
-
   final IOverviewRepo _repo = Get.find();
 
   @override
@@ -96,7 +95,11 @@ class OverviewService implements IOverviewService {
   }
 
   void _sortDataSavingLists() {
-    _dataSavingAllProducts.toList().sort;
-    _dataSavingFavoritesProducts.toList().sort;
+    _dataSavingAllProducts
+        .toList()
+        .sort;
+    _dataSavingFavoritesProducts
+        .toList()
+        .sort;
   }
 }

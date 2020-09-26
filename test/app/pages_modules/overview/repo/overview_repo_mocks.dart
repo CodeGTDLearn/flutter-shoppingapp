@@ -1,9 +1,8 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
+
+import '../utils/mock_data.dart';
 
 /* **************************************************
 *   A) PREDEFINED MOCKS:
@@ -26,10 +25,7 @@ import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart'
 class PredefinedMockRepo extends Mock implements IOverviewRepo {
   @override
   Future<List<Product>> getProducts() async {
-    final file = File('assets/mocks_returns/products.json');
-    final json = jsonDecode(await file.readAsString());
-    var result = json.map<Product>((json) => Product.fromJson(json)).toList();
-    return Future.value(result);
+    return Future.value(MockData().products());
   }
 
   @override

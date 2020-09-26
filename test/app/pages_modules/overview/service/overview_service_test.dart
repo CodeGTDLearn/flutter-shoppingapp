@@ -1,27 +1,35 @@
+import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/overview/components/filter_favorite_enum.dart';
+import 'package:shopingapp/app/pages_modules/overview/core/overview_bindings.dart';
+import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
+import 'package:shopingapp/app/pages_modules/overview/repo/overview_firebase_repo.dart';
 import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service.dart';
+import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
-import 'overview_service_mock.dart';
+import 'overview_service_mocks.dart';
 
 void main() {
-  IOverviewService _predMockService;
-  IOverviewService _whenMockService;
+  IOverviewService _predMockService, _customMockService;
+
 
   setUp(() {
-    _predMockService = PredefinedMockService();
-    _whenMockService = CustomMockService();
+    OverviewBindings().dependencies();
+    _predMockService = OverviewService();
+    // _predMockService = PredefinedMockService();
+    _customMockService = CustomMockService();
   });
 
-  group('Overview | Service | Sucessful', () {
-    test('dataSavingAllProducts = Elements', () {
+  group('Overview | Service', () {
+
+    test('dataSavingAllProducts', () {
       var list = _predMockService.dataSavingAllProducts;
       expect(list[0].title, "Red Shirt");
       expect(list[3].description, 'Prepare any meal you want.');
     });
 
-    test('dataSavingFavoritesProducts = Elements', () {
+    test('dataSavingFavoritesProducts', () {
       var list = _predMockService.dataSavingFavoritesProducts;
       expect(list[0].isFavorite, true);
     });
@@ -32,12 +40,11 @@ void main() {
 
     test('getProductById', () {
       var list = _predMockService.dataSavingAllProducts;
-      expect(
-          _predMockService.getProductById("p1").description,
+      expect(_predMockService.getProductById("p1").description,
           list[0].description);
     });
 
-    test('getProducts = Elements', () {
+    test('getProducts', () {
       _predMockService.getProducts().then((value) {
         expect(value[0].title, "Red Shirt");
         expect(value[3].description, 'Prepare any meal you want.');
@@ -48,11 +55,11 @@ void main() {
       expect(_predMockService.getProductsQtde(), 4);
     });
 
-    test('toggleFavoriteStatus = p1', () {
-      when(_whenMockService.toggleFavoriteStatus("p1"))
+    test('toggleFavoriteStatus', () {
+      when(_customMockService.toggleFavoriteStatus("p1"))
           .thenAnswer((_) async => true);
 
-      _whenMockService
+      _customMockService
           .toggleFavoriteStatus("p1")
           .then((value) => expect(value, true));
     });
@@ -65,3 +72,19 @@ void main() {
     });
   });
 }
+    // test('Testind Bindings - DI', () {
+    //   expect(Get.isPrepared<IOverviewService>(), false);
+    //   expect(Get.isPrepared<IOverviewRepo>(), false);
+    //   binding.builder();
+    //
+    //   /// test you Binding class with BindingsBuilder
+    //
+    //   expect(Get.isPrepared<IOverviewService>(), true);
+    //   expect(Get.isPrepared<IOverviewRepo>(), true);
+    //   Get.reset();
+    // });
+
+  // final binding = BindingsBuilder(() {
+  //   Get.lazyPut<IOverviewRepo>(() => OverviewFirebaseRepo());
+  //   Get.lazyPut<IOverviewService>(() => OverviewService());
+  // });
