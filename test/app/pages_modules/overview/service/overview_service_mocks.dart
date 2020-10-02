@@ -1,8 +1,10 @@
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/overview/components/filter_favorite_enum.dart';
+import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service.dart';
 
+import '../repo/overview_repo_mocks.dart';
 import '../utils/mock_data.dart';
 
 class PredefinedMockService extends Mock implements IOverviewService {
@@ -24,6 +26,9 @@ class PredefinedMockService extends Mock implements IOverviewService {
 *     Custom Mocks sao Mocks Zerados(sem qqer retorno predefinido)
 *     portanto, PERMITEM a clausula "Custom"
 *****************************************************/
+  IOverviewRepo _predMockRepo = PredefinedMockRepo();
+  IOverviewRepo _customMockRepo  = CustomMockRepo();
+
   @override
   List<Product> get dataSavingAllProducts {
     return MockData().products();
