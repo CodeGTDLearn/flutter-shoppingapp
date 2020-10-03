@@ -2,30 +2,28 @@ import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
 
-import '../utils/mock_data.dart';
+import '../utils/mocked_data_source.dart';
 
 /* **************************************************
-*   A) PREDEFINED MOCKS:
-*     Predefined Mocks does NOT ALLOW
-*     the "WHEN" clause (because they has predefined responses)
-*     Although, they extends Mockito (Mock)
+*--> TIPOS DE MOCK
+*    A) DATA MOCKS:
+*      DATA Mocks does NOT ALLOW
+*      the "WHEN"
+*     because they has predefined responses)
 *
-*     Mocks com Responses Predefinidas(PredefinedMockRepo)
-*     NAO PERMITEM a clausula "WHEN" (pois possuem retorno predefinido)
-*     Embora, eles extendam o Mockito("Mock)
+*    B) MOCKS:
+*      They are "Plain Mocks"
+*      (because they has NOT predefined responses);
+*      thus, they ALLOW the "WHEN"
 *
-*   B) Custom MOCKS:
-*     Custom Mocks (CustomMockRepo)
-*     are "Plain Mocks" (because they has NOT predefined responses);
-*     thus, they ALLOW the "Custom" clause
-*
-*     Custom Mocks sao Mocks Zerados(sem qqer retorno predefinido)
-*     portanto, PERMITEM a clausula "Custom"
+*--> CONCEITO:
+*     They are clones/implementation of Real classes, and the
+*     TESTS ARE DONE ON THAT. "NOT" in the ACTUAL classes
 *****************************************************/
-class PredefinedMockRepo extends Mock implements IOverviewRepo {
+class DataMockRepo extends Mock implements IOverviewRepo {
   @override
   Future<List<Product>> getProducts() async {
-    return Future.value(MockData().products());
+    return Future.value(MockedDataSource().products());
   }
 
   @override
@@ -34,4 +32,4 @@ class PredefinedMockRepo extends Mock implements IOverviewRepo {
   }
 }
 
-class CustomMockRepo extends Mock implements IOverviewRepo {}
+class MockRepo extends Mock implements IOverviewRepo {}

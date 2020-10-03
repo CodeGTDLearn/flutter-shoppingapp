@@ -4,7 +4,7 @@ import 'package:shopingapp/app/pages_modules/overview/components/filter_favorite
 import 'package:shopingapp/app/pages_modules/overview/controller/i_overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service.dart';
 
-import '../utils/mock_data.dart';
+import '../utils/mocked_data_source.dart';
 
 class PredefinedMockController implements IOverviewController {
 
@@ -26,22 +26,22 @@ class PredefinedMockController implements IOverviewController {
 
   @override
   int getFavoritesQtde() {
-    return MockData().favoritesProducts().length;
+    return MockedDataSource().favoritesProducts().length;
   }
 
   @override
   Product getProductById(String id) {
-    return MockData().productById(id);
+    return MockedDataSource().productById(id);
   }
 
   @override
   Future<List<Product>> getProducts() {
-    return Future.value(MockData().products());
+    return Future.value(MockedDataSource().products());
   }
 
   @override
   int getProductsQtde() {
-    return MockData().products().length;
+    return MockedDataSource().products().length;
   }
 }
 

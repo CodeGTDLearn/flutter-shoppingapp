@@ -12,13 +12,13 @@ import '../repo/overview_repo_mocks.dart';
 import 'overview_service_mocks.dart';
 
 void main() {
-  IOverviewService _predMockService, _customMockService;
-  IOverviewRepo _predMockRepo;
+  IOverviewService _predMockService, _customMockService, _service;
+  IOverviewRepo _mockRepo;
 
   setUp(() {
     OverviewBindings().dependencies();
-    _predMockService = OverviewService();
-    _predMockRepo = PredefinedMockRepo();
+    _service = OverviewService();
+    _mockRepo = DataMockRepo();
     // _predMockService = PredefinedMockService();
     _customMockService = CustomMockService();
   });
@@ -46,25 +46,15 @@ void main() {
     });
 
     test('getProducts', () {
-      //A ideia e injetar o mock do repo, para ser a response
-      //do serviceMockado
-      //Copiando a linha do Spring, onde:
-      //Na classe testada, eu injeto o methodMock[onde configurei o resultado
-      // que quero]
-      //Esse methodMock injetado na classe testada, vai reproduzir o
-      //resultado que configurei, ao ser acionado pela classe testada
-      //-----------------------------------------------------------
+      // @formatter:off
+      when(_service.getProducts())
+          .thenAnswer((_) async => _mockRepo.getProducts());
 
-      //Entao voce no _predMockService.getProducts(), usando o thenAsnwer
-      //injeta o resultado do que quero configurar/reproduzir que e justamente
-      //o resultado forneceido pelo _predMockRepo.getProducts()
-      when(_predMockService.getProducts())
-          .thenAnswer((_) async => _predMockRepo.getProducts());
-
-      _predMockService.getProducts().then((value) {
+      _service.getProducts().then((value) {
         expect(value[0].title, "Red Shirt");
         expect(value[3].description, 'Prepare any meal you want.');
       });
+      // @formatter:on
     });
 
     test('getProductsQtde', () {

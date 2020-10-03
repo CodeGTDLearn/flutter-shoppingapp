@@ -5,7 +5,7 @@ import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart'
 import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service.dart';
 
 import '../repo/overview_repo_mocks.dart';
-import '../utils/mock_data.dart';
+import '../utils/mocked_data_source.dart';
 
 class PredefinedMockService extends Mock implements IOverviewService {
   /* **************************************************
@@ -26,47 +26,47 @@ class PredefinedMockService extends Mock implements IOverviewService {
 *     Custom Mocks sao Mocks Zerados(sem qqer retorno predefinido)
 *     portanto, PERMITEM a clausula "Custom"
 *****************************************************/
-  IOverviewRepo _predMockRepo = PredefinedMockRepo();
-  IOverviewRepo _customMockRepo  = CustomMockRepo();
+  IOverviewRepo _predMockRepo = DataMockRepo();
+  IOverviewRepo _customMockRepo  = MockRepo();
 
   @override
   List<Product> get dataSavingAllProducts {
-    return MockData().products();
+    return MockedDataSource().products();
   }
 
   @override
   List<Product> get dataSavingFavoritesProducts {
-    return MockData().favoritesProducts();
+    return MockedDataSource().favoritesProducts();
   }
 
   @override
   int getFavoritesQtde() {
-    return MockData().favoritesProducts().length;
+    return MockedDataSource().favoritesProducts().length;
   }
 
   @override
   Product getProductById(String id) {
-    return MockData().productById(id);
+    return MockedDataSource().productById(id);
   }
 
   @override
   Future<List<Product>> getProducts() async {
-    return Future.value(MockData().products());
+    return Future.value(MockedDataSource().products());
   }
 
   @override
   List<Product> getProductsByFilter(EnumFilter filter) {
-    return MockData().productsByFilter(filter);
+    return MockedDataSource().productsByFilter(filter);
   }
 
   @override
   int getProductsQtde() {
-    return MockData().products().length;
+    return MockedDataSource().products().length;
   }
 
   @override
   Future<bool> toggleFavoriteStatus(String id) {
-    List<Product> result = MockData().products();
+    List<Product> result = MockedDataSource().products();
     result.forEach((element) {
       if (element.id == id) element.isFavorite = !element.isFavorite;
     });

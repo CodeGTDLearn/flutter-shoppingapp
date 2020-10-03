@@ -10,7 +10,7 @@ import 'package:shopingapp/app/pages_modules/overview/service/overview_service.d
 import 'package:test/test.dart';
 
 import '../service/overview_service_mocks.dart';
-import '../utils/mock_data.dart';
+import '../utils/mocked_data_source.dart';
 import 'overview_controller_mocks.dart';
 
 void main() {
@@ -40,7 +40,7 @@ void main() {
   group('Overview | Controller | Sucessful', () {
     test('onInit = Initial Observable loading', () {
       expect(_controller.filteredProductsObs.length, 0);
-      _controller.filteredProductsObs.value = MockData().products();
+      _controller.filteredProductsObs.value = MockedDataSource().products();
       expect(_controller.filteredProductsObs.length, 4);
       expect(_controller.filteredProductsObs.value[0].title, "Red Shirt");
       expect(_controller.filteredProductsObs.value[3].description,

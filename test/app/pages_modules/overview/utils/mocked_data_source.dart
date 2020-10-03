@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/overview/components/filter_favorite_enum.dart';
 
-class MockData {
+class MockedDataSource {
 
   List<Product> products() {
     final file = File('assets/mocks_returns/products.json');
@@ -36,8 +36,8 @@ class MockData {
 
   List<Product> productsByFilter(EnumFilter filter) {
     return filter == EnumFilter.All
-        ? MockData().products()
-        : MockData().favoritesProducts();
+        ? MockedDataSource().products()
+        : MockedDataSource().favoritesProducts();
   }
 }
 
