@@ -26,8 +26,8 @@ void main() {
   var favoriteStatusObs = false;
 
   setUp(() {
-    _predMockService = PredefinedMockService();
-    _customMockService = CustomMockService();
+    _predMockService = DataMockService();
+    _customMockService = MockService();
     _predMockController = PredefinedMockController();
 
     _repo = OverviewFirebaseRepo();

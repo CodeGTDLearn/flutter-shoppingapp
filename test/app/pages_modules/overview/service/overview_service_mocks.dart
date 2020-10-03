@@ -7,27 +7,7 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 import '../repo/overview_repo_mocks.dart';
 import '../utils/mocked_data_source.dart';
 
-class PredefinedMockService extends Mock implements IOverviewService {
-  /* **************************************************
-*   A) PREDEFINED MOCKS:
-*     Predefined Mocks does NOT ALLOW
-*     the "WHEN" clause (because they has predefined responses)
-*     Although, they extends Mockito (Mock)
-*
-*     Mocks com Responses Predefinidas(PredefinedMockRepo)
-*     NAO PERMITEM a clausula "WHEN" (pois possuem retorno predefinido)
-*     Embora, eles extendam o Mockito("Mock)
-*
-*   B) Custom MOCKS:
-*     Custom Mocks (CustomMockRepo)
-*     are "Plain Mocks" (because they has NOT predefined responses);
-*     thus, they ALLOW the "Custom" clause
-*
-*     Custom Mocks sao Mocks Zerados(sem qqer retorno predefinido)
-*     portanto, PERMITEM a clausula "Custom"
-*****************************************************/
-  IOverviewRepo _predMockRepo = DataMockRepo();
-  IOverviewRepo _customMockRepo  = MockRepo();
+class DataMockService extends Mock implements IOverviewService {
 
   @override
   List<Product> get dataSavingAllProducts {
@@ -74,4 +54,4 @@ class PredefinedMockService extends Mock implements IOverviewService {
   }
 }
 
-class CustomMockService extends Mock implements IOverviewService {}
+class MockService extends Mock implements IOverviewService {}
