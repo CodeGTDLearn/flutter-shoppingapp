@@ -9,6 +9,25 @@ import '../utils/mocked_data_source.dart';
 
 class DataMockService extends Mock implements IOverviewService {
 
+/* **************************************************
+*--> TIPOS DE MOCK
+*    A) DATA MOCKS:
+*      DATA Mocks does NOT ALLOW
+*      the "WHEN"
+*     because they has predefined responses)
+*
+*    B) MOCKS:
+*      They are "Plain Mocks"
+*      (because they has NOT predefined responses);
+*      thus, they ALLOW the "WHEN"
+*
+*--> CONCEITO:
+*     They are clones/implementation of Real classes, and the
+*     TESTS ARE DONE ON THAT. "NOT" in the ACTUAL classes
+*
+*--> LINK: https://flutter.dev/docs/cookbook/testing/unit/mocking
+*****************************************************/
+
   @override
   List<Product> get dataSavingAllProducts {
     return MockedDataSource().products();
@@ -54,4 +73,4 @@ class DataMockService extends Mock implements IOverviewService {
   }
 }
 
-class MockService extends Mock implements IOverviewService {}
+class WhenMockService extends Mock implements IOverviewService {}

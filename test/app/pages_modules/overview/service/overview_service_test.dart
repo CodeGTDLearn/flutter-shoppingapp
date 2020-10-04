@@ -10,25 +10,23 @@ import 'package:shopingapp/app/pages_modules/overview/service/overview_service.d
 import 'package:test/test.dart';
 
 import '../repo/overview_repo_mocks.dart';
+import '../utils/mocked_data_source.dart';
 import 'overview_service_mocks.dart';
 
 void main() {
-  IOverviewService _dataMockService, _mockService;
-  IOverviewRepo _mockRepo;
+  IOverviewService _dataMockService, _whenMockService;
 
   setUp(() {
-    OverviewBindings().dependencies();
     _dataMockService = DataMockService();
-    _mockService = MockService();
+    _whenMockService = WhenMockService();
   });
 
-  group('Overview | Service', () {
-    test('checking Instantiations', () {
+  group('Overview | Service: DataMock', () {
+    test('Checking Instances', () {
       expect(_dataMockService, isA<DataMockService>());
-      expect(_mockService, isA<MockService>());
     });
 
-    test('checking Response Type', () {
+    test('Checking Response Type', () {
       _dataMockService.getProducts().then((value) {
         expect(value, isA<List<Product>>());
       });
@@ -55,29 +53,8 @@ void main() {
           list[0].description);
     });
 
-    test('getProducts', () {
-      // @formatter:off
-      when(_dataMockService.getProducts())
-          .thenAnswer((_) async => _dataMockService.getProducts());
-
-      _dataMockService.getProducts().then((value) {
-        expect(value[0].title, "Red Shirt");
-        expect(value[3].description, 'Prepare any meal you want.');
-      });
-      // @formatter:on
-    });
-
     test('getProductsQtde', () {
       expect(_dataMockService.getProductsQtde(), 4);
-    });
-
-    test('toggleFavoriteStatus', () {
-      when(_mockService.toggleFavoriteStatus("p1"))
-          .thenAnswer((_) async => true);
-
-      _mockService
-          .toggleFavoriteStatus("p1")
-          .then((value) => expect(value, true));
     });
 
     test('getProductsByFilter', () {
@@ -85,6 +62,33 @@ void main() {
       var listFav = _dataMockService.getProductsByFilter(EnumFilter.Fav);
       expect(listAll.length, 4);
       expect(listFav.length, 1);
+    });
+  });
+
+  group('Overview | Service: WhenMock', () {
+    test('Checking Instances', () {
+      expect(_whenMockService, isA<WhenMockService>());
+    });
+
+    test('getProducts', () {
+      // @formatter:off
+      when(_whenMockService.getProducts())
+          .thenAnswer((_) async => Future.value(MockedDataSource().products()));
+
+      _whenMockService.getProducts().then((value) {
+        expect(value[0].title, "Red Shirt");
+        expect(value[3].description, 'Prepare any meal you want.');
+      });
+      // @formatter:on
+    });
+
+    test('toggleFavoriteStatus', () {
+      when(_whenMockService.toggleFavoriteStatus("p1"))
+          .thenAnswer((_) async => true);
+
+      _whenMockService
+          .toggleFavoriteStatus("p1")
+          .then((value) => expect(value, true));
     });
   });
 }

@@ -6,8 +6,7 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 
 import '../utils/mocked_data_source.dart';
 
-class PredefinedMockController implements IOverviewController {
-
+class DataMockController implements IOverviewController {
 
   @override
   void onInit() {
@@ -45,5 +44,4 @@ class PredefinedMockController implements IOverviewController {
   }
 }
 
-
-class CustomMockController extends Mock implements IOverviewController {}
+class WhenMockController extends Mock implements IOverviewController {}

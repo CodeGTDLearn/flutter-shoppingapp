@@ -19,6 +19,8 @@ import '../utils/mocked_data_source.dart';
 *--> CONCEITO:
 *     They are clones/implementation of Real classes, and the
 *     TESTS ARE DONE ON THAT. "NOT" in the ACTUAL classes
+* *
+*--> LINK: https://flutter.dev/docs/cookbook/testing/unit/mocking
 *****************************************************/
 class DataMockRepo extends Mock implements IOverviewRepo {
   @override
@@ -32,4 +34,4 @@ class DataMockRepo extends Mock implements IOverviewRepo {
   }
 }
 
-class MockRepo extends Mock implements IOverviewRepo {}
+class WhenMockRepo extends Mock implements IOverviewRepo {}

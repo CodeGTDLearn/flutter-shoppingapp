@@ -28,6 +28,20 @@ class OverviewController extends GetxController implements IOverviewController {
   }
 
   @override
+  void toggleFavoriteStatus(String id) {
+    var _previousFavoriteStatus = getProductById(id).isFavorite;
+    service.toggleFavoriteStatus(id).then((favoriteStatus) {
+      favoriteStatusObs.value = favoriteStatus;
+      if (_previousFavoriteStatus == favoriteStatus) {
+        CustomSnackBar.simple(OPS, TOGGLE_STATUS_ERROR);
+      } else {
+        CustomSnackBar.simple(OPS, TOGGLE_STATUS_SUCESS);
+      }
+    });
+    favoriteStatusObs.value = getProductById(id).isFavorite;
+  }
+
+  @override
   Future<List<Product>> getProducts() {
     return service.getProducts().then((response) => response);
   }
@@ -45,19 +59,5 @@ class OverviewController extends GetxController implements IOverviewController {
   @override
   Product getProductById(String id) {
     return service.getProductById(id);
-  }
-
-  @override
-  void toggleFavoriteStatus(String id) {
-    var _previousFavoriteStatus = getProductById(id).isFavorite;
-    service.toggleFavoriteStatus(id).then((favoriteStatus) {
-      favoriteStatusObs.value = favoriteStatus;
-      if (_previousFavoriteStatus == favoriteStatus) {
-        CustomSnackBar.simple(OPS, TOGGLE_STATUS_ERROR);
-      } else {
-        CustomSnackBar.simple(OPS, TOGGLE_STATUS_SUCESS);
-      }
-    });
-    favoriteStatusObs.value = getProductById(id).isFavorite;
   }
 }

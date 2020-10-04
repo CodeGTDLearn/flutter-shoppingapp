@@ -1,16 +1,15 @@
 import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
-import 'package:shopingapp/app/pages_modules/overview/repo/overview_firebase_repo.dart';
-import 'package:test/test.dart';
-
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
-import '../utils/mocked_data_source.dart';
+import 'package:test/test.dart';
+import 'package:http/http.dart' as http;
+
 import 'overview_repo_mocks.dart';
 
 void main() {
   IOverviewRepo _dataMockRepo;
-  IOverviewRepo _mockRepo;
+  IOverviewRepo _whenMockRepo;
   var _productFail;
 
   setUpAll(() {
@@ -20,14 +19,12 @@ void main() {
 
   setUp(() {
     _dataMockRepo = DataMockRepo();
-    _mockRepo = MockRepo();
+    _whenMockRepo = WhenMockRepo();
   });
 
-  group('Overview | Repo', () {
-
+  group('Overview | Repo: DataMock', () {
     test('checking Instantiations', () {
       expect(_dataMockRepo, isA<DataMockRepo>());
-      expect(_mockRepo, isA<MockRepo>());
     });
 
     test('checking Response Type', () {
@@ -44,9 +41,9 @@ void main() {
 
     test('getProducts = Elements', () {
       _dataMockRepo.getProducts().then((value) {
-      print("${value.length}");
-      expect(value[0].title, "Red Shirt");
-      expect(value[3].description, 'Prepare any meal you want.');
+        print("${value.length}");
+        expect(value[0].title, "Red Shirt");
+        expect(value[3].description, 'Prepare any meal you want.');
       });
     });
 
@@ -55,25 +52,38 @@ void main() {
           .updateProduct(_productFail)
           .then((value) => expect(value, 200));
     });
+  });
+
+  group('Overview | Repo: WhenMock', () {
+    test('checking Instantiations', () {
+      expect(_whenMockRepo, isA<WhenMockRepo>());
+    });
 
     test('getProducts = Empty List', () {
-      when(_mockRepo.getProducts()).thenAnswer((_) async => []);
-      _mockRepo.getProducts().then((value) {
+      when(_whenMockRepo.getProducts()).thenAnswer((_) async => []);
+      _whenMockRepo.getProducts().then((value) {
         expect(value, isEmpty);
       });
     });
 
     test('updateProduct = 400', () {
-      when(_mockRepo.updateProduct(_productFail))
+      when(_whenMockRepo.updateProduct(_productFail))
           .thenAnswer((_) async => 404);
-      _mockRepo
+      _whenMockRepo
           .updateProduct(_productFail)
           .then((value) => {expect(value, 404)});
     });
 
+    // test('updateProduct = Exception + HttpResponse', () {
+    //   when(_whenMockRepo.updateProduct(_productFail))
+    //       .thenAnswer((_) async => http.Response('Not Found', 404));
+    //
+    //   expect(_whenMockRepo.updateProduct(_productFail), throwsException);
+    // });
+
     test('getProducts = null', () {
-      when(_mockRepo.getProducts()).thenAnswer((_) async => null);
-      _mockRepo.getProducts().then((value) => expect(value, isNull));
+      when(_whenMockRepo.getProducts()).thenAnswer((_) async => null);
+      _whenMockRepo.getProducts().then((value) => expect(value, isNull));
     });
   });
 }
