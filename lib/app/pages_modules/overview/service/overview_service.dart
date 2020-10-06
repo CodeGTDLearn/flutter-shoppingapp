@@ -6,9 +6,9 @@ import '../repo/i_overview_repo.dart';
 import 'i_overview_service.dart';
 
 class OverviewService implements IOverviewService {
+  IOverviewRepo _repo = Get.find();
   List<Product> _dataSavingAllProducts = [];
   List<Product> _dataSavingFavoritesProducts = [];
-  final IOverviewRepo _repo = Get.find();
 
   @override
   List<Product> get dataSavingAllProducts => [..._dataSavingAllProducts];

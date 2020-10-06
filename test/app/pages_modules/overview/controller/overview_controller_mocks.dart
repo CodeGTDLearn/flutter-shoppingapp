@@ -7,21 +7,32 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 import '../utils/mocked_data_source.dart';
 
 class DataMockController implements IOverviewController {
+  /* **************************************************
+  *--> TIPOS DE MOCK
+  *    A) DATA MOCKS:
+  *      DATA Mocks does NOT ALLOW
+  *      the "WHEN"
+  *     because they has predefined responses)
+  *
+  *    B) MOCKS:
+  *      They are "Plain Mocks"
+  *      (because they has NOT predefined responses);
+  *      thus, they ALLOW the "WHEN"
+  *
+  *--> CONCEITO:
+  *     Eles sao clones das Classes reais (replica de comportamento+retorno).
+  *     Testes sao realizados em Mocks, NUNCA em classes reais
+  *     FONTE: https://flutter.dev/docs/cookbook/testing/unit/mocking
+  *****************************************************/
 
   @override
-  void onInit() {
-    // TODO: implement onInit
-  }
+  void onInit() {}
 
   @override
-  void toggleFavoriteStatus(String id) {
-    // TODO: implement toggleFavoriteStatus
-  }
+  void toggleFavoriteStatus(String id) {}
 
   @override
-  void getProductsByFilter(EnumFilter filter) {
-    // estado
-  }
+  void getProductsByFilter(EnumFilter filter) {}
 
   @override
   int getFavoritesQtde() {
