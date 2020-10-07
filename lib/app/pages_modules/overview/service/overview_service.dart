@@ -6,9 +6,12 @@ import '../repo/i_overview_repo.dart';
 import 'i_overview_service.dart';
 
 class OverviewService implements IOverviewService {
-  IOverviewRepo _repo = Get.find();
+  // final IOverviewRepo _repo = Get.find();
+  final IOverviewRepo repo;
   List<Product> _dataSavingAllProducts = [];
   List<Product> _dataSavingFavoritesProducts = [];
+
+  OverviewService({this.repo});
 
   @override
   List<Product> get dataSavingAllProducts => [..._dataSavingAllProducts];
@@ -19,7 +22,7 @@ class OverviewService implements IOverviewService {
 
   @override
   Future<List<Product>> getProducts() {
-    return _repo.getProducts().then((products) {
+    return repo.getProducts().then((products) {
       clearDataSavingLists();
       _dataSavingAllProducts = products;
       products.forEach((item) {
@@ -44,7 +47,7 @@ class OverviewService implements IOverviewService {
         ? _dataSavingFavoritesProducts.add(_toggleProduct)
         : _dataSavingFavoritesProducts.remove(_toggleProduct);
 
-    return _repo
+    return repo
         .updateProduct(_toggleProduct)
         .then((statusCode) {
             var badRequest = statusCode >= 400;
@@ -66,6 +69,9 @@ class OverviewService implements IOverviewService {
 
   @override
   List<Product> getProductsByFilter(EnumFilter filter) {
+    // todo2: o add,remove and edit product, in the managedproducts, should
+    //  update the Overview controller filteredProductsObs and dataSavingFavoritesProducts
+    //it is not happening
     if (filter == EnumFilter.Fav) {
       return getFavoritesQtde() == 0 ? [] : dataSavingFavoritesProducts;
     }

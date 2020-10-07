@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:shopingapp/app/pages_modules/overview/controller/i_overview_controller.dart';
 
 import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../managed_products/entities/product.dart';
@@ -7,17 +6,21 @@ import '../../pages_generic_components/custom_snackbar.dart';
 import '../components/filter_favorite_enum.dart';
 import '../core/messages_snackbars_provided.dart';
 import '../service/i_overview_service.dart';
+import 'i_overview_controller.dart';
 
 class OverviewController extends GetxController implements IOverviewController {
-  final IOverviewService service = Get.find();
+  // final IOverviewService service = Get.find();
+  final IOverviewService service;
 
   var filteredProductsObs = <Product>[].obs;
   var favoriteStatusObs = false.obs;
 
+  OverviewController({this.service});
   @override
   void onInit() {
     service.clearDataSavingLists();
     getProducts().then((response) => filteredProductsObs.value = response);
+    super.onInit();
   }
 
   @override

@@ -14,6 +14,9 @@ class OverviewGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // todo1: esse getProductsByFilter deveria reabastecer o observable
+    //  do controller com os novos componentes atualizados, atuando
+    //  meio que em conjunto com o _TODO1
     _controller.getProductsByFilter(_filter);
     return Obx(
       () => _controller.filteredProductsObs.length == 0

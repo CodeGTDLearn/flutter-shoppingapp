@@ -1,10 +1,8 @@
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/overview/components/filter_favorite_enum.dart';
-import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service.dart';
 
-import '../repo/overview_repo_mocks.dart';
 import '../utils/mocked_data_source.dart';
 
 class DataMockService extends Mock implements IOverviewService {

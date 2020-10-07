@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/pages_modules/overview/controller/i_overview_controller.dart';
 
 import '../../../core/properties/app_properties.dart';
 import '../../../core/properties/app_routes.dart';
@@ -13,11 +14,15 @@ import '../core/messages_snackbars_provided.dart';
 import '../core/overview_texts_icons_provided.dart';
 
 class OverviewGridItem extends StatelessWidget {
+  // final OverviewController _controller = OverviewController();
   final Product _product;
 
   OverviewGridItem(this._product);
 
-  final OverviewController _controller = OverviewController();
+
+  final OverviewController _controller =
+  OverviewController(service: Get.find());
+
 
   final CartController _cartController = Get.find();
 
@@ -33,8 +38,8 @@ class OverviewGridItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.0),
             child: GridTile(
                 child: GestureDetector(
-                    onTap: () => Get.toNamed(
-                        AppRoutes.OVERVIEW_DETAIL, arguments:_product.id ),
+                    onTap: () => Get.toNamed(AppRoutes.OVERVIEW_DETAIL,
+                        arguments: _product.id),
                     child: Image.network(_product.imageUrl, fit: BoxFit.cover)),
                 footer: GridTileBar(
                     leading: Obx(
@@ -64,3 +69,15 @@ class OverviewGridItem extends StatelessWidget {
                     backgroundColor: Colors.black87))));
   }
 }
+
+  // @formatter:off
+  // final OverviewController _controller =
+  // Get.put(OverviewController(service: Get.find()));
+  // OverviewController(
+  //     OverviewService(
+  //         OverviewFirebaseRepo()));
+
+  // OverviewController(
+  //     Get.put(OverviewService(
+  //         Get.put(OverviewFirebaseRepo()))));
+  // @formatter:on

@@ -3,7 +3,6 @@ import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
 import 'package:test/test.dart';
-import 'package:http/http.dart' as http;
 
 import 'overview_repo_mocks.dart';
 

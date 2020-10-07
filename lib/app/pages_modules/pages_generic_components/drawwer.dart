@@ -51,7 +51,7 @@ class Drawwer extends StatelessWidget {
         DRW_LBL_MAN_PROD,
         DRW_TXT_NO_MAN_PROD_YET,
         AppRoutes.MAN_PROD,
-        true,
+        false,
       ),
       Obx(() => SwitchListTile(
           secondary: DRW_ICO_DARKTHM,

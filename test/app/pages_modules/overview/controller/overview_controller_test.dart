@@ -1,17 +1,7 @@
-import 'package:get/get.dart';
-import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/overview/controller/i_overview_controller.dart';
-import 'package:shopingapp/app/pages_modules/overview/controller/overview_controller.dart';
-import 'package:shopingapp/app/pages_modules/overview/core/overview_bindings.dart';
-import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
-import 'package:shopingapp/app/pages_modules/overview/repo/overview_firebase_repo.dart';
-import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service.dart';
-import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
-import '../repo/overview_repo_mocks.dart';
-import '../service/overview_service_mocks.dart';
 import '../utils/mocked_data_source.dart';
 import 'overview_controller_mocks.dart';
 

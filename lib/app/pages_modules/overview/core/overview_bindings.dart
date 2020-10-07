@@ -21,13 +21,14 @@ import '../repo/overview_firebase_repo.dart';
 import '../service/i_overview_service.dart';
 import '../service/overview_service.dart';
 
-class OverviewBindings  extends Bindings {
+class OverviewBindings extends Bindings {
   void dependencies() {
     Get.lazyPut<DarkThemeController>(() => DarkThemeController());
 
     Get.lazyPut<IOverviewRepo>(() => OverviewFirebaseRepo());
-    Get.lazyPut<IOverviewService>(() => OverviewService());
-    Get.lazyPut<OverviewController>(() => OverviewController());
+    Get.lazyPut<IOverviewService>(() => OverviewService(repo: Get.find()));
+    Get.lazyPut<OverviewController>(
+        () => OverviewController(service: Get.find()));
 
     Get.lazyPut<IOrdersRepo>(() => OrdersFirebaseRepo());
     Get.lazyPut<IOrdersService>(() => OrdersService());
