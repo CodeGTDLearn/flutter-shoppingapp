@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service.dart';
 
 import '../entities/product.dart';
 import '../repo/i_managed_products_repo.dart';
@@ -9,6 +10,7 @@ class ManagedProductsService implements IManagedProductsService {
 
   List<Product> _dataSavingProducts = [];
 
+
   @override
   List<Product> get dataSavingProducts => [..._dataSavingProducts];
 
@@ -18,7 +20,7 @@ class ManagedProductsService implements IManagedProductsService {
       clearDataSavingLists();
       _dataSavingProducts = products;
       _orderDataSavingLists();
-      return products;
+      return _dataSavingProducts;
     });
   }
 
@@ -46,6 +48,8 @@ class ManagedProductsService implements IManagedProductsService {
 
   @override
   Future<int> updateProduct(Product product) {
+//todo 4: Update AS WELL the _dataSavingProducts, not only REPO.updateProduct
+// (product). Use for that the  saveProduct(Product product)
     return _repo.updateProduct(product).then((statusCode) => statusCode);
   }
 

@@ -26,7 +26,10 @@ class OverviewBindings extends Bindings {
     Get.lazyPut<DarkThemeController>(() => DarkThemeController());
 
     Get.lazyPut<IOverviewRepo>(() => OverviewFirebaseRepo());
-    Get.lazyPut<IOverviewService>(() => OverviewService(repo: Get.find()));
+    Get.lazyPut<IOverviewService>(() => OverviewService(
+          overviewRepo: Get.find(),
+          managedProductsService: Get.find(),
+        ));
     Get.lazyPut<OverviewController>(
         () => OverviewController(service: Get.find()));
 

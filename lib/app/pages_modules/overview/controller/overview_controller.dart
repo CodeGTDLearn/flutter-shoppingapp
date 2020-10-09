@@ -11,11 +11,11 @@ import 'i_overview_controller.dart';
 class OverviewController extends GetxController implements IOverviewController {
   // final IOverviewService service = Get.find();
   final IOverviewService service;
-
   var filteredProductsObs = <Product>[].obs;
   var favoriteStatusObs = false.obs;
 
   OverviewController({this.service});
+
   @override
   void onInit() {
     service.clearDataSavingLists();

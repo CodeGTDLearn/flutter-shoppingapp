@@ -67,12 +67,19 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
   }
 
   void _saveForm() {
+    // @formatter:off
     if (!_form.currentState.validate()) return;
+
     _form.currentState.save();
+
     _controller.toggleReloadManagedProductsEditPage();
-    _product.id.isNull ? _saveProduct(_product) : _updateProduct(_product);
+
+    _product.id.isNull ?
+        _saveProduct(_product) :
+        _updateProduct(_product);
+
     Get.offNamed(AppRoutes.MAN_PROD);
-    // @formatter:onY
+    // @formatter:on
   }
 
   Future<dynamic> _saveProduct(Product product) {
@@ -81,6 +88,9 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
         .saveProduct(product)
         .then((response) {
           _controller.toggleReloadManagedProductsEditPage();
+//todo 2.1: Criar Get_dataSavingProducts no controller, getando
+// o_dataSavingProducts do service, e usa-lo aqui, AO INVES DE FAZER UM NOVA
+// REQUISICAO getProducts()
           _controller.getProducts();
           Get.offNamed(AppRoutes.MAN_PROD);
           CustomSnackBar.simple(SUCESS, SUCESS_MAN_PROD_ADD);
@@ -101,7 +111,11 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
     return _controller
         .updateProduct(product)
         .then((statusCode) {
+          //todo 03: insert the next 3 lines of code, inside Else/CustomSnackBar
           _controller.toggleReloadManagedProductsEditPage();
+//todo 2.2: Criar Get_dataSavingProducts no controller, getando
+// o_dataSavingProducts do service, e usa-lo aqui, AO INVES DE FAZER UM NOVA
+// REQUISICAO getProducts()
           _controller.getProducts();
           Get.offNamed(AppRoutes.MAN_PROD);
           if (statusCode >= 400) {

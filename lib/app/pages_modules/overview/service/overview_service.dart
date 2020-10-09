@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:shopingapp/app/pages_modules/managed_products/service/i_managed_products_service.dart';
 
 import '../../managed_products/entities/product.dart';
 import '../components/filter_favorite_enum.dart';
@@ -7,11 +8,12 @@ import 'i_overview_service.dart';
 
 class OverviewService implements IOverviewService {
   // final IOverviewRepo _repo = Get.find();
-  final IOverviewRepo repo;
+  final IOverviewRepo overviewRepo;
+  final IManagedProductsService managedProductsService;
   List<Product> _dataSavingAllProducts = [];
   List<Product> _dataSavingFavoritesProducts = [];
 
-  OverviewService({this.repo});
+  OverviewService({this.managedProductsService, this.overviewRepo});
 
   @override
   List<Product> get dataSavingAllProducts => [..._dataSavingAllProducts];
@@ -22,7 +24,7 @@ class OverviewService implements IOverviewService {
 
   @override
   Future<List<Product>> getProducts() {
-    return repo.getProducts().then((products) {
+    return overviewRepo.getProducts().then((products) {
       clearDataSavingLists();
       _dataSavingAllProducts = products;
       products.forEach((item) {
@@ -47,7 +49,7 @@ class OverviewService implements IOverviewService {
         ? _dataSavingFavoritesProducts.add(_toggleProduct)
         : _dataSavingFavoritesProducts.remove(_toggleProduct);
 
-    return repo
+    return overviewRepo
         .updateProduct(_toggleProduct)
         .then((statusCode) {
             var badRequest = statusCode >= 400;
@@ -69,9 +71,8 @@ class OverviewService implements IOverviewService {
 
   @override
   List<Product> getProductsByFilter(EnumFilter filter) {
-    // todo2: o add,remove and edit product, in the managedproducts, should
-    //  update the Overview controller filteredProductsObs and dataSavingFavoritesProducts
-    //it is not happening
+    _dataSavingAllProducts = managedProductsService.dataSavingProducts;
+    _reloadDataSavingFavoritesProducts();
     if (filter == EnumFilter.Fav) {
       return getFavoritesQtde() == 0 ? [] : dataSavingFavoritesProducts;
     }
@@ -100,12 +101,19 @@ class OverviewService implements IOverviewService {
     _dataSavingAllProducts = [];
   }
 
+  List<Product> _reloadDataSavingFavoritesProducts() {
+    _dataSavingFavoritesProducts = [];
+    _dataSavingAllProducts.forEach((item) {
+      if (item.isFavorite) {
+        _dataSavingFavoritesProducts.add(item);
+      }
+    });
+    _sortDataSavingLists();
+    return _dataSavingFavoritesProducts;
+  }
+
   void _sortDataSavingLists() {
-    _dataSavingAllProducts
-        .toList()
-        .sort;
-    _dataSavingFavoritesProducts
-        .toList()
-        .sort;
+    _dataSavingAllProducts.toList().sort;
+    _dataSavingFavoritesProducts.toList().sort;
   }
 }

@@ -57,6 +57,7 @@ class ManagedProductsController extends GetxController {
     // @formatter:on
   }
 
+  //todo 2: Refatorar this method para reloadManagedProducAddEditPage
   void toggleReloadManagedProductsEditPage() {
     reloadManagedProductsEditPage.value = !reloadManagedProductsEditPage.value;
   }

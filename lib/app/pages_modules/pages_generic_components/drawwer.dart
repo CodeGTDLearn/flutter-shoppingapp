@@ -27,32 +27,47 @@ class Drawwer extends StatelessWidget {
     return Drawer(
         child: Column(children: [
       AppBar(title: Text(DRW_TIT_APPBAR), automaticallyImplyLeading: false),
-      _drawerItem(_managedProducts.managedProductsQtde(), DRW_ICO_PROD, DRW_LBL_PROD,
-          DRW_NO_DATA, AppRoutes.OVERVIEW_ALL, false),
-//      _drawerItem(
-//        _cart.cartItemsQtde().asStream().length,
-//        DRAWER_ICO_CART,
-//        DRAWER_LBL_CART,
-//        FLUSHNOTIF_MSG_CART_EMPTY,
-//        AppRoutes.CART_ROUTE,
-//        false,
-//      ),
-//      _drawerItem(
-//        _orders.ordersQtde().asStream().length,
-//        DRAWER_ICO_ORDERS ,
-//        DRAWER_LBL_ORDERS ,
-//        FLUSHNOTIF_MSG_NOORDER,
-//        AppRoutes.ORDERS_ROUTE,
-//        false,
-//      ),
+
       _drawerItem(
-        _managedProducts.managedProductsQtde(),
-        DRW_ICO_MAN_PROD,
-        DRW_LBL_MAN_PROD,
-        DRW_TXT_NO_MAN_PROD_YET,
-        AppRoutes.MAN_PROD,
-        false,
+        quantityItems: _managedProducts.managedProductsQtde(),
+        leadIcon: DRW_ICO_PROD,
+        title: DRW_LBL_PROD,
+        message: DRW_NO_DATA,
+        route: AppRoutes.OVERVIEW_ALL,
+        notRoutingWithoutQtdeEvaluation: false,
+        // quitPopping: true,
       ),
+
+//      _drawerItem(
+//        quantityItems: _cart.cartItemsQtde().asStream().length,
+//        leadIcon: DRAWER_ICO_CART,
+//        title: DRAWER_LBL_CART,
+//        message: FLUSHNOTIF_MSG_CART_EMPTY,
+//        route: AppRoutes.CART_ROUTE,
+//        notRoutingWithoutQtdeEvaluation: false,
+//        quitPopping: false,
+//      ),
+
+//      _drawerItem(
+//        quantityItems: _orders.ordersQtde().asStream().length,
+//        leadIcon: DRAWER_ICO_ORDERS ,
+//        title: DRAWER_LBL_ORDERS ,
+//        message: FLUSHNOTIF_MSG_NOORDER,
+//        route: AppRoutes.ORDERS_ROUTE,
+//        notRoutingWithoutQtdeEvaluation: false,
+//        quitPopping: false,
+//      ),
+
+      _drawerItem(
+        quantityItems: _managedProducts.managedProductsQtde(),
+        leadIcon: DRW_ICO_MAN_PROD,
+        title: DRW_LBL_MAN_PROD,
+        message: DRW_TXT_NO_MAN_PROD_YET,
+        route: AppRoutes.MAN_PROD,
+        notRoutingWithoutQtdeEvaluation: false,
+        // quitPopping: false
+      ),
+
       Obx(() => SwitchListTile(
           secondary: DRW_ICO_DARKTHM,
           title: Text(DRW_LBL_DARKTHM),
@@ -62,26 +77,25 @@ class Drawwer extends StatelessWidget {
   }
 
   ListTile _drawerItem(
-    int quantityItems,
-    Icon leadIcon,
-    String title,
-    String message,
-    String route,
-    bool isNotAllowedAccessTheRouteWithoutQtdeEvaluation,
-  ) {
+      {int quantityItems,
+      Icon leadIcon,
+      String title,
+      String message,
+      String route,
+      bool notRoutingWithoutQtdeEvaluation}) {
+    // bool quitPopping}) {
     return ListTile(
         leading: leadIcon,
         title: Text(title),
         onTap: () {
-          if (quantityItems == 0 &&
-              isNotAllowedAccessTheRouteWithoutQtdeEvaluation) {
+          if (quantityItems == 0 && notRoutingWithoutQtdeEvaluation) {
             FlushNotifier(OPS, message, INTERVAL, _context).simple();
-          } else if (quantityItems != 0 &&
-              isNotAllowedAccessTheRouteWithoutQtdeEvaluation) {
+          } else if (quantityItems != 0 && notRoutingWithoutQtdeEvaluation) {
             Get.toNamed(route);
-//          } else if (isAllowedAccessTheRouteWithoutQtdeEvaluation) {
+            // quitPopping ? Get.offNamed(route) : Get.toNamed(route);
           } else {
             Get.toNamed(route);
+            // quitPopping ? Get.offNamed(route) : Get.toNamed(route);
           }
         });
   }
