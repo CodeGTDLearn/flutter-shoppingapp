@@ -16,6 +16,4 @@ abstract class IManagedProductsService {
   Future<int> deleteProduct(String id);
 
   void clearDataSavingLists();
-
-  void _orderDataSavingLists();
 }

@@ -38,25 +38,25 @@ class Drawwer extends StatelessWidget {
         // quitPopping: true,
       ),
 
-//      _drawerItem(
-//        quantityItems: _cart.cartItemsQtde().asStream().length,
-//        leadIcon: DRAWER_ICO_CART,
-//        title: DRAWER_LBL_CART,
-//        message: FLUSHNOTIF_MSG_CART_EMPTY,
-//        route: AppRoutes.CART_ROUTE,
-//        notRoutingWithoutQtdeEvaluation: false,
-//        quitPopping: false,
-//      ),
+     _drawerItem(
+       quantityItems: _cart.cartItemsQtde(),
+       leadIcon: DRW_ICO_CART,
+       title: DRW_LBL_CART,
+       message: DRW_TXT_CART,
+       route: AppRoutes.CART,
+       notRoutingWithoutQtdeEvaluation: false,
+       // quitPopping: false,
+     ),
 
-//      _drawerItem(
-//        quantityItems: _orders.ordersQtde().asStream().length,
-//        leadIcon: DRAWER_ICO_ORDERS ,
-//        title: DRAWER_LBL_ORDERS ,
-//        message: FLUSHNOTIF_MSG_NOORDER,
-//        route: AppRoutes.ORDERS_ROUTE,
-//        notRoutingWithoutQtdeEvaluation: false,
-//        quitPopping: false,
-//      ),
+     _drawerItem(
+       quantityItems: _orders.ordersQtde(),
+       leadIcon: DRW_ICO_ORD ,
+       title: DRW_LBL_ORD ,
+       message: DRW_TXT_ORD,
+       route: AppRoutes.ORDERS,
+       notRoutingWithoutQtdeEvaluation: false,
+       // quitPopping: false,
+     ),
 
       _drawerItem(
         quantityItems: _managedProducts.managedProductsQtde(),

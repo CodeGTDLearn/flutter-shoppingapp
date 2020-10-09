@@ -22,7 +22,7 @@ class ManagedProductsFirebaseRepo implements IManagedProductsRepo {
             var productObjectCreatedFromDataMap = Product.fromJson(dataMap);
             productObjectCreatedFromDataMap.id = idMap;
             _gottenProducts.add(productObjectCreatedFromDataMap);
-        })
+          })
             :_gottenProducts = [];
         return _gottenProducts;
     }).catchError((onError) => throw onError);

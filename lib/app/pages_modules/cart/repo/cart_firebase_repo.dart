@@ -57,7 +57,7 @@ class CartFirebaseRepo implements ICartRepo {
   }
 
   @override
-  void clearCartItems() {
+  void clearCart() {
     if (getAll().length != 0) _listCartItems.clear();
   }
 }

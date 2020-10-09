@@ -1,46 +1,44 @@
-import 'package:get/get.dart';
-
 import '../../cart/entities/cart_item.dart';
 import '../entities/order.dart';
 import '../repo/i_orders_repo.dart';
 import 'i_orders_service.dart';
 
 class OrdersService implements IOrdersService {
-  final IOrdersRepo _repo = Get.find();
+  final IOrdersRepo repo;
+
+  List<Order> _dataSavingOrders = [];
+
+  OrdersService({this.repo});
 
   @override
-  List<Order> getAllOrders() {
-     _repo.getAllOrders().then((response) {
-      return response;
-    });;
+  List<Order> getOrders() {
+    repo.getOrders().then((response) {
+      _dataSavingOrders = response;
+      // return response;
+    });
+    return _dataSavingOrders;
   }
 
   @override
   void clearOrders() {
-    _repo.clearOrdersList();
+    _dataSavingOrders = [];
+    repo.clearOrders();
   }
 
   @override
   void addOrder(List<CartItem> cartItemsList, double amount) {
-
     var newOrder = Order(
-        id: DateTime.now().toString(),
-        amount: amount.toString(),
-        cartItemsList: cartItemsList,
-        datetime: DateTime.now().toString());
-
-    _repo.addOrder(newOrder);
+      DateTime.now().toString(),
+      amount.toString(),
+      DateTime.now().toString(),
+      cartItemsList,
+    );
+    _dataSavingOrders.add(newOrder);
+    repo.saveOrder(newOrder);
   }
 
-//  @override
-//  Future<int> ordersQtde() async {
-//    return _repo.getAllOrders().asStream().length;
-//  }
+  @override
+  int ordersQtde() {
+    return _dataSavingOrders.length;
+  }
 }
-
-//    Order(
-//      DateTime.now().toString(),
-//      amount,
-//      cartItemsList,
-//      DateTime.now().toString(),
-//    )

@@ -12,6 +12,6 @@ abstract class ICartRepo {
 
   void removeCartItem(CartItem cartItem);
 
-  void clearCartItems();
+  void clearCart();
 }
 //  CartItem getById(String id);

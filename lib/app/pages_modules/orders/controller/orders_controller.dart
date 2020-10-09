@@ -4,16 +4,18 @@ import '../entities/order.dart';
 import '../service/i_orders_service.dart';
 
 class OrdersController {
-  final IOrdersService _service = Get.find();
+  final IOrdersService service;
 
   var qtdeOrders = 0.obs;
 
+  OrdersController({this.service});
+
   List<Order> getAllOrders() {
-    _service.getAllOrders();
+    return service.getOrders();
   }
 
   void clearOrders() {
-    _service.clearOrders();
+    service.clearOrders();
   }
 
 //  void addOrder(List<CartItem> cartItemsList, double amount) {

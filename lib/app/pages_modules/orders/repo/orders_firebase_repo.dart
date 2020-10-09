@@ -1,4 +1,8 @@
+import 'dart:convert';
 
+import 'package:http/http.dart' as http;
+
+import '../../../core/properties/app_properties.dart';
 import '../entities/order.dart';
 import 'i_orders_repo.dart';
 
@@ -6,31 +10,42 @@ class OrdersFirebaseRepo extends IOrdersRepo {
   final List<Order> _orders = [];
 
   @override
-  Future<int> addOrder(Order order) async {
-//    try {
-//      var response =
-//          await _connect.get_dio.call().post(ORDERS_URL, data: order.toJson());
-//      return response.statusCode;
-//    } on DioError catch (error) {
-//      throw (error.message);
-//    }
+  Future<Order> saveOrder(Order order) async {
+    // @formatter:off
+    return http
+        .post(ORDERS_URL, body: order.to_Json())
+        .then((response) {
+           order.id = json.decode(response.body)['name'];
+           return order;
+        })
+        .catchError((onError) => throw onError);
+    // @formatter:on
   }
 
   @override
-  Future<List<Order>> getAllOrders() async {
-//    try {
-//      var response = await _connect.get_dio().get(ORDERS_URL);
-//      return (response.data as List)
-//          .map((order) => Order.fromJson(order))
-//          .toList();
-//    } on DioError catch (error) {
-//      throw (error.message);
-//    }
+  Future<List<Order>> getOrders() async {
+    // @formatter:off
+    return http
+        .get(ORDERS_URL)
+        .then((jsonResponse) {
+        var _gottenOrders = <Order>[];
+        final MapDecodedFromJsonResponse =
+        json.decode(jsonResponse.body) as Map<String, dynamic>;
+        MapDecodedFromJsonResponse != null ?
+        MapDecodedFromJsonResponse
+          .forEach((idMap, dataMap) {
+            var orderObjectCreatedFromDataMap = Order.fromJson(dataMap);
+            orderObjectCreatedFromDataMap.id = idMap;
+            _gottenOrders.add(orderObjectCreatedFromDataMap);
+          })
+          :_gottenOrders = [];
+      return _gottenOrders;
+    }).catchError((onError) => throw onError);
+    // @formatter:on
   }
 
   @override
-  void clearOrdersList() {
+  void clearOrders() {
     _orders.clear();
   }
 }
-

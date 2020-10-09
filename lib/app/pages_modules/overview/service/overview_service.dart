@@ -6,12 +6,12 @@ import 'i_overview_service.dart';
 
 class OverviewService implements IOverviewService {
   // final IOverviewRepo _repo = Get.find();
-  final IOverviewRepo overviewRepo;
+  final IOverviewRepo repo;
   final IManagedProductsService managedProductsService;
   List<Product> _dataSavingAllProducts = [];
   List<Product> _dataSavingFavoritesProducts = [];
 
-  OverviewService({this.managedProductsService, this.overviewRepo});
+  OverviewService({this.managedProductsService, this.repo});
 
   @override
   List<Product> get dataSavingAllProducts => [..._dataSavingAllProducts];
@@ -22,7 +22,7 @@ class OverviewService implements IOverviewService {
 
   @override
   Future<List<Product>> getProducts() {
-    return overviewRepo.getProducts().then((products) {
+    return repo.getProducts().then((products) {
       clearDataSavingLists();
       _dataSavingAllProducts = products;
       products.forEach((item) {
@@ -47,7 +47,7 @@ class OverviewService implements IOverviewService {
         ? _dataSavingFavoritesProducts.add(_toggleProduct)
         : _dataSavingFavoritesProducts.remove(_toggleProduct);
 
-    return overviewRepo
+    return repo
         .updateProduct(_toggleProduct)
         .then((statusCode) {
             var badRequest = statusCode >= 400;
