@@ -63,7 +63,7 @@ class Drawwer extends StatelessWidget {
         leadIcon: DRW_ICO_MAN_PROD,
         title: DRW_LBL_MAN_PROD,
         message: DRW_TXT_NO_MAN_PROD_YET,
-        route: AppRoutes.MAN_PROD,
+        route: AppRoutes.MANAGED_PRODUCTS,
         notRoutingWithoutQtdeEvaluation: false,
         // quitPopping: false
       ),

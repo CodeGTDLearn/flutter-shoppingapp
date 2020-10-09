@@ -9,7 +9,10 @@ import '../controller/managed_products_controller.dart';
 import '../core/texts_icons/managed_products_texts_icons_provided.dart';
 
 class ManagedProductsPage extends StatelessWidget {
-  final ManagedProductsController _controller = Get.find();
+  // final ManagedProductsController _controller = Get.find();
+  final ManagedProductsController controller;
+
+  ManagedProductsPage({this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -17,23 +20,23 @@ class ManagedProductsPage extends StatelessWidget {
       appBar: AppBar(title: Text(MAN_PROD_TIT_APPBAR), actions: <Widget>[
         IconButton(
             icon: MAN_PROD_ICO_ADD_APPBAR,
-            onPressed: () => Get.toNamed(AppRoutes.MAN_PROD_ADD_EDIT))
+            onPressed: () => Get.toNamed(AppRoutes.MANAGED_PRODUCTS_ADD_EDIT))
       ]),
       drawer: Drawwer(),
 
       //------
       // GERENCIA DE ESTADO REATIVA - COM O GET
-      body: Obx(() => (_controller.managedProductsObs.length == 0
+      body: Obx(() => (controller.managedProductsObs.length == 0
           ? Center(child: CircularProgressIndicator())
           : RefreshIndicator(
-              onRefresh: _controller.getProducts,
+              onRefresh: controller.getProducts,
               child: ListView.builder(
-                  itemCount: _controller.managedProductsObs.length,
+                  itemCount: controller.managedProductsObs.length,
                   itemBuilder: (ctx, item) => Column(children: [
                         ManagedProductItem(
-                            _controller.managedProductsObs[item].id,
-                            _controller.managedProductsObs[item].title,
-                            _controller.managedProductsObs[item].imageUrl),
+                            controller.managedProductsObs[item].id,
+                            controller.managedProductsObs[item].title,
+                            controller.managedProductsObs[item].imageUrl),
                         Divider()
                       ])),
             ))),

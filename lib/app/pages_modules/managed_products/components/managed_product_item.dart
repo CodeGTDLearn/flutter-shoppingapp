@@ -28,7 +28,7 @@ class ManagedProductItem extends StatelessWidget {
               IconButton(
                   icon: MAN_PROD_ITEM_EDIT_ICO,
                   onPressed: () =>
-                      Get.toNamed(AppRoutes.MAN_PROD_ADD_EDIT, arguments: _id),
+                      Get.toNamed(AppRoutes.MANAGED_PRODUCTS_ADD_EDIT, arguments: _id),
                   color: Theme.of(context).errorColor),
               IconButton(
                   icon: MAN_PROD_ITEM_DELETE_ICO,

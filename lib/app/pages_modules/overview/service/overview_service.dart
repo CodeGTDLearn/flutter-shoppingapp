@@ -1,7 +1,5 @@
-import 'package:get/get.dart';
-import 'package:shopingapp/app/pages_modules/managed_products/service/i_managed_products_service.dart';
-
 import '../../managed_products/entities/product.dart';
+import '../../managed_products/service/i_managed_products_service.dart';
 import '../components/filter_favorite_enum.dart';
 import '../repo/i_overview_repo.dart';
 import 'i_overview_service.dart';

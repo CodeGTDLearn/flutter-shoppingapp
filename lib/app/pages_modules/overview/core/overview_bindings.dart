@@ -6,11 +6,7 @@ import '../../cart/repo/cart_firebase_repo.dart';
 import '../../cart/repo/i_cart_repo.dart';
 import '../../cart/service/cart_service.dart';
 import '../../cart/service/i_cart_service.dart';
-import '../../managed_products/controller/managed_products_controller.dart';
-import '../../managed_products/repo/i_managed_products_repo.dart';
-import '../../managed_products/repo/managed_products_firebase_repo.dart';
-import '../../managed_products/service/i_managed_products_service.dart';
-import '../../managed_products/service/managed_products_service.dart';
+import '../../managed_products/core/managed_products_bindings.dart';
 import '../../orders/repo/i_orders_repo.dart';
 import '../../orders/repo/orders_firebase_repo.dart';
 import '../../orders/service/i_orders_service.dart';
@@ -40,8 +36,6 @@ class OverviewBindings extends Bindings {
     Get.lazyPut<ICartService>(() => CartService());
     Get.lazyPut<CartController>(() => CartController());
 
-    Get.lazyPut<IManagedProductsRepo>(() => ManagedProductsRepo());
-    Get.lazyPut<IManagedProductsService>(() => ManagedProductsService());
-    Get.lazyPut<ManagedProductsController>(() => ManagedProductsController());
+    ManagedProductsBindings().dependencies();
   }
 }

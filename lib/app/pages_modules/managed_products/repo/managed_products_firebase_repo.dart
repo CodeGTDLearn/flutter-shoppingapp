@@ -6,7 +6,7 @@ import '../../../core/properties/app_properties.dart';
 import '../entities/product.dart';
 import 'i_managed_products_repo.dart';
 
-class ManagedProductsRepo implements IManagedProductsRepo {
+class ManagedProductsFirebaseRepo implements IManagedProductsRepo {
   @override
   Future<List<Product>> getProducts() {
     // @formatter:off

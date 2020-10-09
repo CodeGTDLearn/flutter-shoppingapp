@@ -4,11 +4,11 @@ import '../entities/product.dart';
 import '../service/i_managed_products_service.dart';
 
 class ManagedProductsController extends GetxController {
-  final IManagedProductsService _service = Get.find();
-
-  // GERENCIA DE ESTADO REATIVA - COM O GET
+  final IManagedProductsService service;
   var managedProductsObs = <Product>[].obs;
   var reloadManagedProductsEditPage = false.obs;
+
+  ManagedProductsController({this.service});
 
   // GERENCIA DE ESTADO REATIVA ou SIMPLES - COM O GET
   @override
@@ -18,49 +18,53 @@ class ManagedProductsController extends GetxController {
   }
 
   Future<List<Product>> getProducts() {
-    return _service.getProducts().then((response) {
+    return service.getProducts().then((response) {
       managedProductsObs.value = response.isNull ? [] : response;
     }).catchError((onError) => throw onError);
   }
 
   int managedProductsQtde() {
-    return _service.managedProductsQtde();
+    return service.managedProductsQtde();
   }
 
   Product getProductById(String id) {
-    return _service.getProductById(id);
+    return service.getProductById(id);
   }
 
   Future<void> saveProduct(Product product) {
-    return _service
+    return service
         .saveProduct(product)
         .then((response) => response)
         .catchError((onError) => throw onError);
   }
 
   Future<int> updateProduct(Product product) {
-    return _service.updateProduct(product).then((statusCode) => statusCode);
+    return service.updateProduct(product).then((statusCode) => statusCode);
   }
 
   Future<int> deleteProduct(String id) {
     // @formatter:off
-    var responseFuture = _service
+    var responseFuture = service
         .deleteProduct(id)
         .then((statusCode) {
           if (statusCode >= 400) {
-          managedProductsObs.value = _service.dataSavingProducts;
+          managedProductsObs.value = service.dataSavingProducts;
           }
          return statusCode;
         });
-    managedProductsObs.value = _service.dataSavingProducts;
+    managedProductsObs.value = service.dataSavingProducts;
     return responseFuture;
     // @formatter:on
   }
 
-  //todo 2: Refatorar this method para reloadManagedProducAddEditPage
-  void toggleReloadManagedProductsEditPage() {
+  void reloadManagedProductsAddEditPage() {
     reloadManagedProductsEditPage.value = !reloadManagedProductsEditPage.value;
   }
+
+  void reloadManagedProductsObs() {
+    managedProductsObs.value = service.dataSavingProducts;
+  }
+
 }
 
 // GERENCIA DE ESTADO SIMPLES - COM O GET

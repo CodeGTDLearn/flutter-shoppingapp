@@ -1,22 +1,19 @@
-import 'package:get/get.dart';
-import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service.dart';
-
 import '../entities/product.dart';
 import '../repo/i_managed_products_repo.dart';
 import 'i_managed_products_service.dart';
 
 class ManagedProductsService implements IManagedProductsService {
-  final IManagedProductsRepo _repo = Get.find();
-
+  final IManagedProductsRepo repo;
   List<Product> _dataSavingProducts = [];
 
+  ManagedProductsService({this.repo});
 
   @override
   List<Product> get dataSavingProducts => [..._dataSavingProducts];
 
   @override
   Future<List<Product>> getProducts() {
-    return _repo.getProducts().then((products) {
+    return repo.getProducts().then((products) {
       clearDataSavingLists();
       _dataSavingProducts = products;
       _orderDataSavingLists();
@@ -37,7 +34,7 @@ class ManagedProductsService implements IManagedProductsService {
 
   @override
   Future<void> saveProduct(Product product) {
-    return _repo.saveProduct(product).then((product) {
+    return repo.saveProduct(product).then((product) {
       _dataSavingProducts.add(product);
       return product;
     }).catchError((onError) {
@@ -48,9 +45,7 @@ class ManagedProductsService implements IManagedProductsService {
 
   @override
   Future<int> updateProduct(Product product) {
-//todo 4: Update AS WELL the _dataSavingProducts, not only REPO.updateProduct
-// (product). Use for that the  saveProduct(Product product)
-    return _repo.updateProduct(product).then((statusCode) => statusCode);
+    return repo.updateProduct(product).then((statusCode) => statusCode);
   }
 
   @override
@@ -59,7 +54,7 @@ class ManagedProductsService implements IManagedProductsService {
     var _rollbackDataSavingProducts = [..._dataSavingProducts];
     _dataSavingProducts.removeAt(_index);
     _orderDataSavingLists();
-    return _repo.deleteProduct(id).then((statusCode) {
+    return repo.deleteProduct(id).then((statusCode) {
       if (statusCode >= 400) {
         _dataSavingProducts = _rollbackDataSavingProducts;
         _orderDataSavingLists();
