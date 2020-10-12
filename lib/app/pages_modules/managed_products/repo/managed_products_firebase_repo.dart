@@ -45,7 +45,7 @@ class ManagedProductsFirebaseRepo implements IManagedProductsRepo {
   @override
   Future<int> updateProduct(Product product) {
     return http
-        .patch("$BASE_URL/$COLLECTION_PRODUCTS/${product.id}$COLLECTION_EXTENSION",
+        .patch("$BASE_URL/$COLLECTION_PRODUCTS/${product.id}$EXTENSION",
             body: product.to_Json())
         .then((response) => response.statusCode);
     //there is no catchError in delete
@@ -54,7 +54,7 @@ class ManagedProductsFirebaseRepo implements IManagedProductsRepo {
   @override
   Future<int> deleteProduct(String id) {
     return http
-        .delete("$BASE_URL/$COLLECTION_PRODUCTS/$id$COLLECTION_EXTENSION")
+        .delete("$BASE_URL/$COLLECTION_PRODUCTS/$id$EXTENSION")
         .then((response) => response.statusCode);
     //there is no catchError in delete and update;
   }

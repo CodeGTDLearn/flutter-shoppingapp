@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/properties/app_properties.dart';
+import '../../../core/texts_icons_provider/pages/orders.dart';
 import '../core/orders_texts_icons_provided.dart';
 import '../entities/order.dart';
 import 'order_collapse_tile_controller.dart';
@@ -25,7 +26,7 @@ class OrderCollapseTile extends StatelessWidget {
                 color: Colors.white, boxShadow: [_boxShadow(Colors.grey, 5.0)]),
             child: ListTile(
                 dense: true,
-                title: Text(_order.amount),
+                title: Text("$ORDERS_LABEL_CARD: ${_order.amount}"),
                 subtitle:
                     Text(DateFormat(DATE_FORMAT).format(DateTime.parse(_order.datetime))),
                 trailing: IconButton(
@@ -40,7 +41,7 @@ class OrderCollapseTile extends StatelessWidget {
             () => Visibility(
                 visible: _controller.isTileCollapsed.value,
                 child: Container(
-                    height: _order.cartItemsList.length * 48.0,
+                    height: _order.cartItems.length * 48.0,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(2.0),
                         color: Colors.white,
@@ -51,7 +52,7 @@ class OrderCollapseTile extends StatelessWidget {
                       return ListView(
                           padding: EdgeInsets.all(5),
                           children: _order
-                              .cartItemsList
+                              .cartItems
                               .map((item) => Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,

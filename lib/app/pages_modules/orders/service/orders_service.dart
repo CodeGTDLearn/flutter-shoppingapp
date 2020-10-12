@@ -6,39 +6,48 @@ import 'i_orders_service.dart';
 class OrdersService implements IOrdersService {
   final IOrdersRepo repo;
 
-  List<Order> _dataSavingOrders = [];
+  List<Order> _localDataOrders = [];
 
   OrdersService({this.repo});
 
   @override
-  List<Order> getOrders() {
-    repo.getOrders().then((response) {
-      _dataSavingOrders = response;
-      // return response;
-    });
-    return _dataSavingOrders;
+  Future<Order> addOrder(List<CartItem> cartItems, double amount) {
+    var orderTimeStamp = DateTime.now();
+
+    var order = Order(
+      amount.toStringAsFixed(2),
+      orderTimeStamp.toIso8601String(),
+      cartItems,
+    );
+
+    // @formatter:off
+    return repo
+            .addOrder(order)
+            .then((value) {
+                order.datetime = orderTimeStamp.toString();
+                _localDataOrders.add(order);
+                return value;})
+            .catchError((onError) => throw onError);
+    // @formatter:on
+  }
+
+  @override
+  Future<List<Order>> getOrders() {
+    return repo.getOrders().then((response) {
+      _localDataOrders = response;
+      return response;
+    })
+    .catchError((onError) => throw onError);
   }
 
   @override
   void clearOrders() {
-    _dataSavingOrders = [];
+    _localDataOrders = [];
     repo.clearOrders();
   }
 
   @override
-  void addOrder(List<CartItem> cartItemsList, double amount) {
-    var newOrder = Order(
-      DateTime.now().toString(),
-      amount.toString(),
-      DateTime.now().toString(),
-      cartItemsList,
-    );
-    _dataSavingOrders.add(newOrder);
-    repo.saveOrder(newOrder);
-  }
-
-  @override
   int ordersQtde() {
-    return _dataSavingOrders.length;
+    return _localDataOrders.length;
   }
 }

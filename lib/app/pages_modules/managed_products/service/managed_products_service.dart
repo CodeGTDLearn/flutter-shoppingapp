@@ -4,20 +4,20 @@ import 'i_managed_products_service.dart';
 
 class ManagedProductsService implements IManagedProductsService {
   final IManagedProductsRepo repo;
-  List<Product> _dataSavingProducts = [];
+  List<Product> _localDataProducts = [];
 
   ManagedProductsService({this.repo});
 
   @override
-  List<Product> get dataSavingProducts => [..._dataSavingProducts];
+  List<Product> get dataSavingProducts => [..._localDataProducts];
 
   @override
   Future<List<Product>> getProducts() {
     return repo.getProducts().then((products) {
       clearDataSavingLists();
-      _dataSavingProducts = products;
+      _localDataProducts = products;
       _orderDataSavingLists();
-      return _dataSavingProducts;
+      return _localDataProducts;
     });
   }
 
@@ -28,17 +28,17 @@ class ManagedProductsService implements IManagedProductsService {
 
   @override
   Product getProductById(String id) {
-    var _index = _dataSavingProducts.indexWhere((item) => item.id == id);
-    return _dataSavingProducts[_index];
+    var _index = _localDataProducts.indexWhere((item) => item.id == id);
+    return _localDataProducts[_index];
   }
 
   @override
   Future<void> saveProduct(Product product) {
     return repo.saveProduct(product).then((product) {
-      _dataSavingProducts.add(product);
+      _localDataProducts.add(product);
       return product;
     }).catchError((onError) {
-      _dataSavingProducts.remove(product);
+      _localDataProducts.remove(product);
       throw onError;
     });
   }
@@ -50,13 +50,13 @@ class ManagedProductsService implements IManagedProductsService {
 
   @override
   Future<int> deleteProduct(String id) {
-    final _index = _dataSavingProducts.indexWhere((item) => item.id == id);
-    var _rollbackDataSavingProducts = [..._dataSavingProducts];
-    _dataSavingProducts.removeAt(_index);
+    final _index = _localDataProducts.indexWhere((item) => item.id == id);
+    var _rollbackDataSavingProducts = [..._localDataProducts];
+    _localDataProducts.removeAt(_index);
     _orderDataSavingLists();
     return repo.deleteProduct(id).then((statusCode) {
       if (statusCode >= 400) {
-        _dataSavingProducts = _rollbackDataSavingProducts;
+        _localDataProducts = _rollbackDataSavingProducts;
         _orderDataSavingLists();
       }
       return statusCode;
@@ -65,10 +65,10 @@ class ManagedProductsService implements IManagedProductsService {
 
   @override
   void clearDataSavingLists() {
-    _dataSavingProducts = [];
+    _localDataProducts = [];
   }
 
   void _orderDataSavingLists() {
-    _dataSavingProducts.toList().reversed;
+    _localDataProducts.toList().reversed;
   }
 }

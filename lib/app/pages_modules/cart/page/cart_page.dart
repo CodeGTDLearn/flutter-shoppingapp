@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/texts_icons_provider/app_generic_words.dart';
+import '../../orders/core/messages_snackbars_provided.dart';
+import '../../pages_generic_components/custom_snackbar.dart';
 import '../components/card_cart_item.dart';
 import '../controller/cart_controller.dart';
 import '../core/cart_texts_icons_provided.dart';
@@ -32,26 +35,38 @@ class CartPage extends StatelessWidget {
                             style: TextStyle(color: Colors.white)),
                         backgroundColor: Theme.of(context).primaryColor),
                     FlatButton(
+                      // @formatter:off
                         onPressed: () {
-                          _controller.addOrder(
-                            _controller.getAll().values.toList(),
-                            _controller.amountCartItems.value,
-                          );
-                          _controller.clearCart();
-                          _controller.recalcQtdeAndAmountCart();
+                          _controller
+                              .addOrder(_controller.getAll().values.toList(),
+                                  _controller.amountCartItems.value)
+                              .then((value) {
+                                  _controller.clearCart();
+                                  _controller.recalcQtdeAndAmountCart();
+                                  CustomSnackBar.simple(OPS, SUCESS_ORDER_ADD);
+                          }).catchError((onError) =>
+                                  CustomSnackBar.simple(OPS, ERROR_ORDER));
                           Get.back();
                         },
+                        // @formatter:on
                         child: Text(CART_LBL_ORDER,
                             style: TextStyle(
-                                color: Theme.of(context).primaryColor)))
+                                color: Theme
+                                    .of(context)
+                                    .primaryColor)))
                   ]))),
           SizedBox(height: 10),
           Expanded(
               child: ListView.builder(
-                  itemCount: _controller.getAll().length,
+                  itemCount: _controller
+                      .getAll()
+                      .length,
                   itemBuilder: (ctx, item) {
                     return CardCartItem(
-                        _controller.getAll().values.elementAt(item));
+                        _controller
+                            .getAll()
+                            .values
+                            .elementAt(item));
                   }))
         ]));
   }

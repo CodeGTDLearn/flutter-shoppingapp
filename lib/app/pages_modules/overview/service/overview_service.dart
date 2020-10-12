@@ -8,26 +8,26 @@ class OverviewService implements IOverviewService {
   // final IOverviewRepo _repo = Get.find();
   final IOverviewRepo repo;
   final IManagedProductsService managedProductsService;
-  List<Product> _dataSavingAllProducts = [];
-  List<Product> _dataSavingFavoritesProducts = [];
+  List<Product> _localDataAllProducts = [];
+  List<Product> _localDataFavoritesProducts = [];
 
   OverviewService({this.managedProductsService, this.repo});
 
   @override
-  List<Product> get dataSavingAllProducts => [..._dataSavingAllProducts];
+  List<Product> get dataSavingAllProducts => [..._localDataAllProducts];
 
   @override
   List<Product> get dataSavingFavoritesProducts =>
-      [..._dataSavingFavoritesProducts];
+      [..._localDataFavoritesProducts];
 
   @override
   Future<List<Product>> getProducts() {
     return repo.getProducts().then((products) {
       clearDataSavingLists();
-      _dataSavingAllProducts = products;
+      _localDataAllProducts = products;
       products.forEach((item) {
         if (item.isFavorite) {
-          _dataSavingFavoritesProducts.add(item);
+          _localDataFavoritesProducts.add(item);
         }
       });
       _sortDataSavingLists();
@@ -38,14 +38,14 @@ class OverviewService implements IOverviewService {
   @override
   Future<bool> toggleFavoriteStatus(String id) {
     // @formatter:off
-    final _index = _dataSavingAllProducts.indexWhere((item) => item.id == id);
-    var _toggleProduct = _dataSavingAllProducts[_index];
+    final _index = _localDataAllProducts.indexWhere((item) => item.id == id);
+    var _toggleProduct = _localDataAllProducts[_index];
     var _rollbackProduct = Product.deepCopy(_toggleProduct);
 
     _toggleProduct.isFavorite = !_toggleProduct.isFavorite;
     _toggleProduct.isFavorite
-        ? _dataSavingFavoritesProducts.add(_toggleProduct)
-        : _dataSavingFavoritesProducts.remove(_toggleProduct);
+        ? _localDataFavoritesProducts.add(_toggleProduct)
+        : _localDataFavoritesProducts.remove(_toggleProduct);
 
     return repo
         .updateProduct(_toggleProduct)
@@ -53,13 +53,13 @@ class OverviewService implements IOverviewService {
             var badRequest = statusCode >= 400;
             if (badRequest) {
               _toggleProduct.isFavorite = _rollbackProduct.isFavorite;
-              _dataSavingAllProducts[_index] = _rollbackProduct;
+              _localDataAllProducts[_index] = _rollbackProduct;
             }
             if (badRequest && _toggleProduct.isFavorite){
-              _dataSavingFavoritesProducts.remove(_toggleProduct);
+              _localDataFavoritesProducts.remove(_toggleProduct);
             }
             if (badRequest && !_toggleProduct.isFavorite){
-              _dataSavingFavoritesProducts.add(_rollbackProduct);
+              _localDataFavoritesProducts.add(_rollbackProduct);
             }
             _sortDataSavingLists();
             return _toggleProduct.isFavorite;
@@ -69,7 +69,7 @@ class OverviewService implements IOverviewService {
 
   @override
   List<Product> getProductsByFilter(EnumFilter filter) {
-    _dataSavingAllProducts = managedProductsService.dataSavingProducts;
+    _localDataAllProducts = managedProductsService.dataSavingProducts;
     _reloadDataSavingFavoritesProducts();
     if (filter == EnumFilter.Fav) {
       return getFavoritesQtde() == 0 ? [] : dataSavingFavoritesProducts;
@@ -79,39 +79,39 @@ class OverviewService implements IOverviewService {
 
   @override
   int getFavoritesQtde() {
-    return _dataSavingFavoritesProducts.length;
+    return _localDataFavoritesProducts.length;
   }
 
   @override
   int getProductsQtde() {
-    return _dataSavingAllProducts.length;
+    return _localDataAllProducts.length;
   }
 
   @override
   Product getProductById(String id) {
-    var _index = _dataSavingAllProducts.indexWhere((item) => item.id == id);
-    return _dataSavingAllProducts[_index];
+    var _index = _localDataAllProducts.indexWhere((item) => item.id == id);
+    return _localDataAllProducts[_index];
   }
 
   @override
   void clearDataSavingLists() {
-    _dataSavingFavoritesProducts = [];
-    _dataSavingAllProducts = [];
+    _localDataFavoritesProducts = [];
+    _localDataAllProducts = [];
   }
 
   List<Product> _reloadDataSavingFavoritesProducts() {
-    _dataSavingFavoritesProducts = [];
-    _dataSavingAllProducts.forEach((item) {
+    _localDataFavoritesProducts = [];
+    _localDataAllProducts.forEach((item) {
       if (item.isFavorite) {
-        _dataSavingFavoritesProducts.add(item);
+        _localDataFavoritesProducts.add(item);
       }
     });
     _sortDataSavingLists();
-    return _dataSavingFavoritesProducts;
+    return _localDataFavoritesProducts;
   }
 
   void _sortDataSavingLists() {
-    _dataSavingAllProducts.toList().sort;
-    _dataSavingFavoritesProducts.toList().sort;
+    _localDataAllProducts.toList().sort;
+    _localDataFavoritesProducts.toList().sort;
   }
 }

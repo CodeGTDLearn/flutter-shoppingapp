@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 
 import '../../managed_products/entities/product.dart';
+import '../../orders/entities/order.dart';
 import '../../orders/service/i_orders_service.dart';
 import '../entities/cart_item.dart';
 import '../service/i_cart_service.dart';
 
-class CartController extends GetxController  {
-
+class CartController extends GetxController {
   final ICartService cartService;
   final IOrdersService ordersService;
 
@@ -49,8 +49,7 @@ class CartController extends GetxController  {
     recalcQtdeAndAmountCart();
   }
 
-
-  void addOrder(List<CartItem> cartItemsList, double amount) {
-    ordersService.addOrder(cartItemsList, amount);
+  Future<Order> addOrder(List<CartItem> cartItems, double amount) {
+    return ordersService.addOrder(cartItems, amount);
   }
 }

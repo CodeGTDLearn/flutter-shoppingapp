@@ -14,14 +14,17 @@ class OrdersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _orders = _controller.getAllOrders();
+    _orders = _controller.getOrders();
     return Scaffold(
       appBar: AppBar(title: Text(ORD_TIT_PAGE)),
-      drawer: null,
-      body: Container(
-          child: ListView.builder(
-              itemCount: _orders.length,
-              itemBuilder: (ctx, item) => OrderCollapseTile(_orders[item]))),
+      // drawer: null,
+      body: Obx(() => _controller.isLoading.value
+          ? Center(child: CircularProgressIndicator())
+          : Container(
+              child: ListView.builder(
+                  itemCount: _orders.length,
+                  itemBuilder: (ctx, item) =>
+                      OrderCollapseTile(_orders[item])))),
     );
   }
 }

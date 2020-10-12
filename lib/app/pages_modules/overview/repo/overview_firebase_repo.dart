@@ -33,7 +33,7 @@ class OverviewFirebaseRepo implements IOverviewRepo {
   @override
   Future<int> updateProduct(Product product) {
     return http
-        .patch("$BASE_URL/$COLLECTION_PRODUCTS/${product.id}$COLLECTION_EXTENSION",
+        .patch("$BASE_URL/$COLLECTION_PRODUCTS/${product.id}$EXTENSION",
             body: product.to_Json())
         .then((statuscode) => statuscode.statusCode);
   }

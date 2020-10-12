@@ -10,7 +10,7 @@ class OrdersFirebaseRepo extends IOrdersRepo {
   final List<Order> _orders = [];
 
   @override
-  Future<Order> saveOrder(Order order) async {
+  Future<Order> addOrder(Order order) async {
     // @formatter:off
     return http
         .post(ORDERS_URL, body: order.to_Json())
@@ -29,14 +29,19 @@ class OrdersFirebaseRepo extends IOrdersRepo {
         .get(ORDERS_URL)
         .then((jsonResponse) {
         var _gottenOrders = <Order>[];
-        final MapDecodedFromJsonResponse =
+        
+        final JsonResponseToMap =
         json.decode(jsonResponse.body) as Map<String, dynamic>;
-        MapDecodedFromJsonResponse != null ?
-        MapDecodedFromJsonResponse
+
+
+        JsonResponseToMap != null ?
+        JsonResponseToMap
           .forEach((idMap, dataMap) {
-            var orderObjectCreatedFromDataMap = Order.fromJson(dataMap);
-            orderObjectCreatedFromDataMap.id = idMap;
-            _gottenOrders.add(orderObjectCreatedFromDataMap);
+            var orderCreatedFromDataMap = Order.fromJson(dataMap);
+
+            orderCreatedFromDataMap.id = idMap;
+
+            _gottenOrders.add(orderCreatedFromDataMap);
           })
           :_gottenOrders = [];
       return _gottenOrders;
