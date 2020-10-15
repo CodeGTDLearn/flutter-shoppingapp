@@ -13,7 +13,6 @@ class OrdersService implements IOrdersService {
   @override
   Future<Order> addOrder(List<CartItem> cartItems, double amount) {
     var orderTimeStamp = DateTime.now();
-
     var order = Order(
       amount.toStringAsFixed(2),
       orderTimeStamp.toIso8601String(),
@@ -35,9 +34,8 @@ class OrdersService implements IOrdersService {
   Future<List<Order>> getOrders() {
     return repo.getOrders().then((response) {
       _localDataOrders = response;
-      return response;
-    })
-    .catchError((onError) => throw onError);
+       return response;
+    }).catchError((onError) => throw onError);
   }
 
   @override

@@ -10,21 +10,18 @@ import '../entities/order.dart';
 class OrdersPage extends StatelessWidget {
   final OrdersController _controller = Get.find();
 
-  List<Order> _orders;
-
   @override
   Widget build(BuildContext context) {
-    _orders = _controller.getOrders();
+    _controller.getOrders();
     return Scaffold(
       appBar: AppBar(title: Text(ORD_TIT_PAGE)),
-      // drawer: null,
-      body: Obx(() => _controller.isLoading.value
+      body: Obx(() => _controller.ordersObs.length == 0
           ? Center(child: CircularProgressIndicator())
           : Container(
               child: ListView.builder(
-                  itemCount: _orders.length,
+                  itemCount: _controller.ordersObs.length,
                   itemBuilder: (ctx, item) =>
-                      OrderCollapseTile(_orders[item])))),
+                      OrderCollapseTile(_controller.ordersObs.value[item])))),
     );
   }
 }

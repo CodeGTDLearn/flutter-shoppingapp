@@ -44,7 +44,7 @@ class Drawwer extends StatelessWidget {
        title: DRW_LBL_CART,
        message: DRW_TXT_CART,
        route: AppRoutes.CART,
-       notRoutingWithoutQtdeEvaluation: false,
+       notRoutingWithoutQtdeEvaluation: true,
        // quitPopping: false,
      ),
 

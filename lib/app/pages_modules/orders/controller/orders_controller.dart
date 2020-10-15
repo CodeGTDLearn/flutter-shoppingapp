@@ -7,27 +7,22 @@ class OrdersController {
   final IOrdersService service;
 
   var qtdeOrders = 0.obs;
-  var isLoading = false.obs;
+  var ordersObs = <Order>[].obs;
 
   OrdersController({this.service});
 
   List<Order> getOrders() {
-    var orders = <Order>[];
+    ordersObs.value = [];
     // @formatter:off
-    service
+     service
         .getOrders()
         .then((value) {
-            loadingPage();
-            return value;
+            ordersObs.value = value;
+            // return value;
         })
         .catchError((onError) => throw onError);
-        loadingPage();
-        return orders;
+        return ordersObs.value;
     // @formatter:on
-  }
-
-  void loadingPage() {
-    isLoading.value = !isLoading.value;
   }
 
   void clearOrders() {

@@ -33,7 +33,6 @@ class OrdersFirebaseRepo extends IOrdersRepo {
         final JsonResponseToMap =
         json.decode(jsonResponse.body) as Map<String, dynamic>;
 
-
         JsonResponseToMap != null ?
         JsonResponseToMap
           .forEach((idMap, dataMap) {
