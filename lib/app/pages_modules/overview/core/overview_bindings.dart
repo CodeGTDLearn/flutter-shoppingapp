@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:shopingapp/app/pages_modules/managed_products/service/i_managed_products_service.dart';
 
 import '../../../core/properties/theme/dark_theme_controller.dart';
 import '../../cart/core/cart_bindings.dart';
@@ -15,12 +16,14 @@ class OverviewBindings extends Bindings {
     Get.lazyPut<DarkThemeController>(() => DarkThemeController());
 
     Get.lazyPut<IOverviewRepo>(() => OverviewFirebaseRepo());
+
     Get.lazyPut<IOverviewService>(() => OverviewService(
-          repo: Get.find(),
-          managedProductsService: Get.find(),
+          Get.find<IManagedProductsService>(),
+          Get.find<IOverviewRepo>(),
         ));
+
     Get.lazyPut<OverviewController>(
-        () => OverviewController(service: Get.find()));
+        () => OverviewController(Get.find<IOverviewService>()));
 
     OrdersBindings().dependencies();
 

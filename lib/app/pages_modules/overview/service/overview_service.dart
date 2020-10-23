@@ -5,13 +5,13 @@ import '../repo/i_overview_repo.dart';
 import 'i_overview_service.dart';
 
 class OverviewService implements IOverviewService {
-  // final IOverviewRepo _repo = Get.find();
   final IOverviewRepo repo;
-  final IManagedProductsService managedProductsService;
+  final IManagedProductsService manProdService;
+
   List<Product> _localDataAllProducts = [];
   List<Product> _localDataFavoritesProducts = [];
 
-  OverviewService({this.managedProductsService, this.repo});
+  OverviewService(this.manProdService, this.repo);
 
   @override
   List<Product> get dataSavingAllProducts => [..._localDataAllProducts];
@@ -40,9 +40,11 @@ class OverviewService implements IOverviewService {
     // @formatter:off
     final _index = _localDataAllProducts.indexWhere((item) => item.id == id);
     var _toggleProduct = _localDataAllProducts[_index];
-    var _rollbackProduct = Product.deepCopy(_toggleProduct);
+    var _previousFavoriteStatus = _toggleProduct.isFavorite;
+    // var _rollbackProduct = Product.deepCopy(_toggleProduct);
 
     _toggleProduct.isFavorite = !_toggleProduct.isFavorite;
+
     _toggleProduct.isFavorite
         ? _localDataFavoritesProducts.add(_toggleProduct)
         : _localDataFavoritesProducts.remove(_toggleProduct);
@@ -51,15 +53,15 @@ class OverviewService implements IOverviewService {
         .updateProduct(_toggleProduct)
         .then((statusCode) {
             var badRequest = statusCode >= 400;
-            if (badRequest) {
-              _toggleProduct.isFavorite = _rollbackProduct.isFavorite;
-              _localDataAllProducts[_index] = _rollbackProduct;
-            }
             if (badRequest && _toggleProduct.isFavorite){
               _localDataFavoritesProducts.remove(_toggleProduct);
             }
             if (badRequest && !_toggleProduct.isFavorite){
-              _localDataFavoritesProducts.add(_rollbackProduct);
+              _localDataFavoritesProducts.add(_toggleProduct);
+            }
+            if (badRequest) {
+              _toggleProduct.isFavorite = _previousFavoriteStatus;
+              // _localDataAllProducts[_index] = _toggleProduct;
             }
             _sortDataSavingLists();
             return _toggleProduct.isFavorite;
@@ -69,7 +71,7 @@ class OverviewService implements IOverviewService {
 
   @override
   List<Product> getProductsByFilter(EnumFilter filter) {
-    _localDataAllProducts = managedProductsService.dataSavingProducts;
+    _localDataAllProducts = manProdService.dataSavingProducts;
     _reloadDataSavingFavoritesProducts();
     if (filter == EnumFilter.Fav) {
       return getFavoritesQtde() == 0 ? [] : dataSavingFavoritesProducts;

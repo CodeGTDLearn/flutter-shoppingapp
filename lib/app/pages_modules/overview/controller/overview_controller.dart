@@ -6,15 +6,13 @@ import '../../pages_generic_components/custom_snackbar.dart';
 import '../components/filter_favorite_enum.dart';
 import '../core/messages_snackbars_provided.dart';
 import '../service/i_overview_service.dart';
-import 'i_overview_controller.dart';
 
-class OverviewController extends GetxController implements IOverviewController {
-  // final IOverviewService service = Get.find();
-  final IOverviewService service;
+class OverviewController extends GetxController {
+  IOverviewService service;
   var filteredProductsObs = <Product>[].obs;
   var favoriteStatusObs = false.obs;
 
-  OverviewController({this.service});
+  OverviewController(this.service);
 
   @override
   void onInit() {
@@ -32,16 +30,25 @@ class OverviewController extends GetxController implements IOverviewController {
 
   @override
   void toggleFavoriteStatus(String id) {
+    // @formatter:off
     var _previousFavoriteStatus = getProductById(id).isFavorite;
-    service.toggleFavoriteStatus(id).then((favoriteStatus) {
-      favoriteStatusObs.value = favoriteStatus;
-      if (_previousFavoriteStatus == favoriteStatus) {
-        CustomSnackBar.simple(OPS, TOGGLE_STATUS_ERROR);
-      } else {
-        CustomSnackBar.simple(OPS, TOGGLE_STATUS_SUCESS);
-      }
-    });
-    favoriteStatusObs.value = getProductById(id).isFavorite;
+    service
+        .toggleFavoriteStatus(id)
+        .then((favoriteStatus) {
+            if (_previousFavoriteStatus == favoriteStatus) {
+              CustomSnackBar.simple(OPS, TOGGLE_STATUS_ERROR);
+            } else {
+              favoriteStatusObs.value = favoriteStatus;
+              CustomSnackBar.simple(SUCESS, TOGGLE_STATUS_SUCESS);
+            }
+        });
+    //favoriteStatusObs.value = getProductById(id).isFavorite;
+    // @formatter:on
+  }
+
+  @override
+  Product getProductById(String id) {
+    return service.getProductById(id);
   }
 
   @override
@@ -57,10 +64,5 @@ class OverviewController extends GetxController implements IOverviewController {
   @override
   int getProductsQtde() {
     return service.getProductsQtde();
-  }
-
-  @override
-  Product getProductById(String id) {
-    return service.getProductById(id);
   }
 }

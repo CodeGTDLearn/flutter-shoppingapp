@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../components/order_collapse_tile.dart';
 import '../controller/orders_controller.dart';
 import '../core/orders_texts_icons_provided.dart';
-import '../entities/order.dart';
 
 // ignore: must_be_immutable
 class OrdersPage extends StatelessWidget {

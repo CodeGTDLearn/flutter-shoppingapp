@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service.dart';
 
 import '../../../core/properties/app_properties.dart';
 import '../../../core/properties/app_routes.dart';
@@ -13,17 +14,11 @@ import '../core/messages_snackbars_provided.dart';
 import '../core/overview_texts_icons_provided.dart';
 
 class OverviewGridItem extends StatelessWidget {
-  // final OverviewController _controller = OverviewController();
   final Product _product;
+  final OverviewController _controller = OverviewController(Get.find());
+  final CartController _cartController = Get.find();
 
   OverviewGridItem(this._product);
-
-
-  final OverviewController _controller =
-  OverviewController(service: Get.find());
-
-
-  final CartController _cartController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -68,15 +63,3 @@ class OverviewGridItem extends StatelessWidget {
                     backgroundColor: Colors.black87))));
   }
 }
-
-  // @formatter:off
-  // final OverviewController _controller =
-  // Get.put(OverviewController(service: Get.find()));
-  // OverviewController(
-  //     OverviewService(
-  //         OverviewFirebaseRepo()));
-
-  // OverviewController(
-  //     Get.put(OverviewService(
-  //         Get.put(OverviewFirebaseRepo()))));
-  // @formatter:on

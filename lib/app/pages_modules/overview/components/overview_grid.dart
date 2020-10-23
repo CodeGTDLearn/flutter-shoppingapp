@@ -7,24 +7,24 @@ import 'overview_grid_item.dart';
 
 // ignore: must_be_immutable
 class OverviewGrid extends StatelessWidget {
-  final EnumFilter _filter;
-  final OverviewController _controller = Get.find();
+  final EnumFilter filter;
+  final OverviewController overviewController;
 
-  OverviewGrid(this._filter);
+  OverviewGrid(this.filter, this.overviewController);
 
   @override
   Widget build(BuildContext context) {
 
-    _controller.getProductsByFilter(_filter);
+    overviewController.getProductsByFilter(filter);
 
     return Obx(
-      () => _controller.filteredProductsObs.length == 0
+      () => overviewController.filteredProductsObs.length == 0
           ? Center(child: CircularProgressIndicator())
           : GridView.builder(
               padding: EdgeInsets.all(10),
-              itemCount: _controller.filteredProductsObs.length,
+              itemCount: overviewController.filteredProductsObs.length,
               itemBuilder: (ctx, item) =>
-                  OverviewGridItem(_controller.filteredProductsObs[item]),
+                  OverviewGridItem(overviewController.filteredProductsObs[item]),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 3 / 2,
