@@ -9,7 +9,9 @@ import '../service/orders_service.dart';
 class OrdersBindings extends Bindings {
   void dependencies() {
     Get.lazyPut<IOrdersRepo>(() => OrdersFirebaseRepo());
+
     Get.lazyPut<IOrdersService>(() => OrdersService(repo: Get.find()));
+
     Get.lazyPut<OrdersController>(() => OrdersController(service: Get.find()));
   }
 }

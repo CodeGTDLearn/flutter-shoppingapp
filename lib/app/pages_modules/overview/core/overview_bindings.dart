@@ -19,7 +19,7 @@ class OverviewBindings extends Bindings {
 
     Get.lazyPut<IOverviewService>(() => OverviewService(
           // Get.find<IManagedProductsService>(),
-          Get.find<IOverviewRepo>(),
+          repo: Get.find<IOverviewRepo>(),
         ));
 
     Get.lazyPut<OverviewController>(

@@ -9,16 +9,18 @@ import '../controller/cart_controller.dart';
 import '../core/cart_texts_icons_provided.dart';
 
 class CartPage extends StatelessWidget {
-  final CartController _controller = Get.find();
+  final CartController controller;
+
+  CartPage({this.controller});
 
   @override
   Widget build(BuildContext context) {
-    int currentQtdeCart = _controller.qtdeCartItems();
+    int currentQtdeCart = controller.qtdeCartItems();
     return Scaffold(
         appBar: AppBar(title: Text(CART_TIT_APPBAR), actions: <Widget>[
           IconButton(
               icon: CART_ICO_CLEAR,
-              onPressed: _controller.clearCart,
+              onPressed: controller.clearCart,
               tooltip: CART_ICO_CLEAR_TOOLTIP)
         ]),
         body: Column(children: [
@@ -28,7 +30,7 @@ class CartPage extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(children: <Widget>[
                     Expanded(
-                      flex:2,
+                      flex: 2,
                       child: Container(
                           child: Text(CART_LBL_CARD,
                               style: TextStyle(fontSize: 20))),
@@ -39,7 +41,7 @@ class CartPage extends StatelessWidget {
                       child: Container(
                         child: Chip(
                             label: Text(
-                                _controller.amountCartItems.value
+                                controller.amountCartItems.value
                                     .toStringAsFixed(2),
                                 style: TextStyle(color: Colors.white)),
                             backgroundColor: Theme.of(context).primaryColor),
@@ -50,18 +52,18 @@ class CartPage extends StatelessWidget {
                       flex: 4,
                       child: Container(
                         child: Obx(
-                          () => _controller.qtdeCartItems() != currentQtdeCart
+                          () => controller.qtdeCartItems() != currentQtdeCart
                               ? Center(child: CircularProgressIndicator())
                               : FlatButton(
                             // @formatter:off
                                  onPressed: () {
-                                  _controller
-                                      .addOrder(_controller.getAll().values.toList(),
-                                          _controller.amountCartItems.value)
+                                  controller
+                                      .addOrder(controller.getAll().values.toList(),
+                                          controller.amountCartItems.value)
                                       .then((value) {
                                           Get.back();
-                                          _controller.clearCart();
-                                          _controller.recalcQtdeAndAmountCart();
+                                          controller.clearCart();
+                                          controller.recalcQtdeAndAmountCart();
                                           CustomSnackBar.simple(OPS, SUCESS_ORDER_ADD);
                                       }).catchError((onError) =>
                                           CustomSnackBar.simple(OPS, ERROR_ORDER));
@@ -81,12 +83,12 @@ class CartPage extends StatelessWidget {
           SizedBox(height: 10),
           Expanded(
               child: ListView.builder(
-                  itemCount: _controller
+                  itemCount: controller
                       .getAll()
                       .length,
                   itemBuilder: (ctx, item) {
                     return CardCartItem(
-                        _controller
+                        controller
                             .getAll()
                             .values
                             .elementAt(item));

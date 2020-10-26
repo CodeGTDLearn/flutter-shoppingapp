@@ -6,13 +6,12 @@ import 'i_overview_service.dart';
 
 class OverviewService implements IOverviewService {
   final IOverviewRepo repo;
-  // final IManagedProductsService manProdService;
 
   List<Product> _localDataAllProducts = [];
   List<Product> _localDataFavoritesProducts = [];
 
   // OverviewService(this.manProdService, this.repo);
-  OverviewService(this.repo);
+  OverviewService({this.repo});
 
   @override
   List<Product> get localDataAllProducts => [..._localDataAllProducts];

@@ -31,15 +31,18 @@ class AppRoutes {
         name: OVERVIEW_FAV,
         page: () => OverviewPage(EnumFilter.Fav),
         binding: OverviewBindings()),
-    GetPage(name: ORDERS, page: () => OrdersPage(), binding: OrdersBindings()),
+    GetPage(
+        name: ORDERS,
+        page: () => OrdersPage(controller: Get.find()),
+        binding: OrdersBindings()),
     GetPage(
       // name: '$OVERVIEW_DETAIL_ROUTE:id',
       name: '$OVERVIEW_DETAIL',
-      page: () => OverviewItemDetailsPage(),
+      page: () => OverviewItemDetailsPage(controller: Get.find()),
     ),
     GetPage(
       name: CART,
-      page: () => CartPage(),
+      page: () => CartPage(controller: Get.find()),
       binding: CartBindings(),
     ),
     GetPage(
