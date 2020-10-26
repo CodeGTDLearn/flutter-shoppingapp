@@ -10,22 +10,22 @@ import '../controller/overview_controller.dart';
 import '../core/overview_texts_icons_provided.dart';
 
 class OverviewPage extends StatelessWidget {
-  final EnumFilter _enum;
+  final EnumFilter _enumFilter;
 
-  OverviewPage(this._enum);
+  OverviewPage(this._enumFilter);
 
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(_enum == EnumFilter.All
+          title: Text(_enumFilter == EnumFilter.All
               ? OVERV_TIT_ALL_APPBAR
               : OVERV_TIT_FAV_APPBAR),
-          actions: [FilterFavoriteAppbar(_enum), BadgeShopCartAppbar()],
+          actions: [FilterFavoriteAppbar(_enumFilter), BadgeShopCartAppbar()],
         ),
         drawer: Drawwer(),
-        //todo: e necessario uma insancia nova de overview controller,
+        //todo: e necessario uma instancia nova de overview controller,
         // getando os produtos novamente e detectando a alteracao de
         // togglefavorites
-        body: OverviewGrid(_enum, Get.find<OverviewController>()));
+        body: OverviewGrid(_enumFilter, Get.find<OverviewController>()));
   }
 }

@@ -7,15 +7,15 @@ import 'overview_grid_item.dart';
 
 // ignore: must_be_immutable
 class OverviewGrid extends StatelessWidget {
-  final EnumFilter filter;
+  final EnumFilter enumFilter;
   final OverviewController overviewController;
 
-  OverviewGrid(this.filter, this.overviewController);
+  OverviewGrid(this.enumFilter, this.overviewController);
 
   @override
   Widget build(BuildContext context) {
 
-    overviewController.getProductsByFilter(filter);
+    overviewController.getProductsByFilter(enumFilter);
 
     return Obx(
       () => overviewController.filteredProductsObs.length == 0

@@ -26,12 +26,12 @@ class DataMockService extends Mock implements IOverviewService {
   *****************************************************/
 
   @override
-  List<Product> get dataSavingAllProducts {
+  List<Product> get localDataAllProducts {
     return MockedDataSource().products();
   }
 
   @override
-  List<Product> get dataSavingFavoritesProducts {
+  List<Product> get localDataFavoritesProducts {
     return MockedDataSource().favoritesProducts();
   }
 

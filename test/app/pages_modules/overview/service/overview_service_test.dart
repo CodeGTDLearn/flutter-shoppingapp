@@ -27,13 +27,13 @@ void main() {
     });
 
     test('dataSavingAllProducts', () {
-      var list = _dataMockService.dataSavingAllProducts;
+      var list = _dataMockService.localDataAllProducts;
       expect(list[0].title, "Red Shirt");
       expect(list[3].description, 'Prepare any meal you want.');
     });
 
     test('dataSavingFavoritesProducts', () {
-      var list = _dataMockService.dataSavingFavoritesProducts;
+      var list = _dataMockService.localDataFavoritesProducts;
       expect(list[0].isFavorite, true);
     });
 
@@ -42,7 +42,7 @@ void main() {
     });
 
     test('getProductById', () {
-      var list = _dataMockService.dataSavingAllProducts;
+      var list = _dataMockService.localDataAllProducts;
       expect(_dataMockService.getProductById("p1").description,
           list[0].description);
     });

@@ -37,9 +37,3 @@ class FilterFavoriteAppbar extends StatelessWidget {
                 : AppRoutes.OVERVIEW_FAV));
   }
 }
-
-// onSelected: (value) => Get.toNamed(value == EnumFilter.All
-// ? _controller.getFavoritesQtde() != 0
-// ? AppRoutes.OVERVIEW_ALL_ROUTE
-//     : CustomSnackBar.simple(OPS, NO_FAVS_YET)
-// : AppRoutes.OVERVIEW_FAV_ROUTE));

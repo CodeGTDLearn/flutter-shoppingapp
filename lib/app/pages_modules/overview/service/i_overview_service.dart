@@ -4,9 +4,9 @@ import '../components/filter_favorite_enum.dart';
 abstract class IOverviewService {
   Future<List<Product>> getProducts();
 
-  List<Product> get dataSavingAllProducts;
+  List<Product> get localDataAllProducts;
 
-  List<Product> get dataSavingFavoritesProducts;
+  List<Product> get localDataFavoritesProducts;
 
   List<Product> getProductsByFilter(EnumFilter filter);
 

@@ -5,7 +5,7 @@ abstract class IManagedProductsService {
 
   int managedProductsQtde();
 
-  List<Product> get dataSavingProducts;
+  List<Product> get localDataManagedProducts;
 
   Product getProductById(String id);
 

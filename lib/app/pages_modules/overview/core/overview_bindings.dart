@@ -18,7 +18,7 @@ class OverviewBindings extends Bindings {
     Get.lazyPut<IOverviewRepo>(() => OverviewFirebaseRepo());
 
     Get.lazyPut<IOverviewService>(() => OverviewService(
-          Get.find<IManagedProductsService>(),
+          // Get.find<IManagedProductsService>(),
           Get.find<IOverviewRepo>(),
         ));
 

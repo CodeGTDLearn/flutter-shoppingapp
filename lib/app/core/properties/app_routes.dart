@@ -31,10 +31,7 @@ class AppRoutes {
         name: OVERVIEW_FAV,
         page: () => OverviewPage(EnumFilter.Fav),
         binding: OverviewBindings()),
-    GetPage(
-        name: ORDERS,
-        page: () => OrdersPage(),
-        binding: OrdersBindings()),
+    GetPage(name: ORDERS, page: () => OrdersPage(), binding: OrdersBindings()),
     GetPage(
       // name: '$OVERVIEW_DETAIL_ROUTE:id',
       name: '$OVERVIEW_DETAIL',

@@ -48,11 +48,11 @@ class ManagedProductsController extends GetxController {
         .deleteProduct(id)
         .then((statusCode) {
           if (statusCode >= 400) {
-          managedProductsObs.value = service.dataSavingProducts;
+          managedProductsObs.value = service.localDataManagedProducts;
           }
          return statusCode;
         });
-    managedProductsObs.value = service.dataSavingProducts;
+    managedProductsObs.value = service.localDataManagedProducts;
     return responseFuture;
     // @formatter:on
   }
@@ -62,7 +62,7 @@ class ManagedProductsController extends GetxController {
   }
 
   void reloadManagedProductsObs() {
-    managedProductsObs.value = service.dataSavingProducts;
+    managedProductsObs.value = service.localDataManagedProducts;
   }
 
 }

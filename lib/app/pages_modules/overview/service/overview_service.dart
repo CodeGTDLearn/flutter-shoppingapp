@@ -6,18 +6,19 @@ import 'i_overview_service.dart';
 
 class OverviewService implements IOverviewService {
   final IOverviewRepo repo;
-  final IManagedProductsService manProdService;
+  // final IManagedProductsService manProdService;
 
   List<Product> _localDataAllProducts = [];
   List<Product> _localDataFavoritesProducts = [];
 
-  OverviewService(this.manProdService, this.repo);
+  // OverviewService(this.manProdService, this.repo);
+  OverviewService(this.repo);
 
   @override
-  List<Product> get dataSavingAllProducts => [..._localDataAllProducts];
+  List<Product> get localDataAllProducts => [..._localDataAllProducts];
 
   @override
-  List<Product> get dataSavingFavoritesProducts =>
+  List<Product> get localDataFavoritesProducts =>
       [..._localDataFavoritesProducts];
 
   @override
@@ -71,12 +72,12 @@ class OverviewService implements IOverviewService {
 
   @override
   List<Product> getProductsByFilter(EnumFilter filter) {
-    _localDataAllProducts = manProdService.dataSavingProducts;
-    _reloadDataSavingFavoritesProducts();
+    //_localDataAllProducts = manProdService.localDataManagedProducts;
+    _reloadLocalDataFavoritesProducts();
     if (filter == EnumFilter.Fav) {
-      return getFavoritesQtde() == 0 ? [] : dataSavingFavoritesProducts;
+      return getFavoritesQtde() == 0 ? [] : localDataFavoritesProducts;
     }
-    return getProductsQtde() == 0 ? [] : dataSavingAllProducts;
+    return getProductsQtde() == 0 ? [] : localDataAllProducts;
   }
 
   @override
@@ -101,7 +102,7 @@ class OverviewService implements IOverviewService {
     _localDataAllProducts = [];
   }
 
-  List<Product> _reloadDataSavingFavoritesProducts() {
+  List<Product> _reloadLocalDataFavoritesProducts() {
     _localDataFavoritesProducts = [];
     _localDataAllProducts.forEach((item) {
       if (item.isFavorite) {
