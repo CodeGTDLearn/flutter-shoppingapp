@@ -5,81 +5,79 @@ import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart'
 import 'package:test/test.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../../data_builder/databuilder.dart';
 import 'overview_repo_mocks.dart';
 
 void main() {
-  IOverviewRepo _repoMock;
-  IOverviewRepo _repoMockWhen;
+  IOverviewRepo _dataMockRepo;
+  IOverviewRepo _injectableRepoMock;
   var _productFail;
 
   setUpAll(() {
-    _productFail =
-        Product.databuilder(id: Faker().randomGenerator.string(3, min: 2));
+    _productFail = DataBuilder().ProductId();
   });
 
   setUp(() {
-    _repoMock = DataMockRepo();
-    _repoMockWhen = WhenMockRepo();
+    _dataMockRepo = DataMockRepo();
+    _injectableRepoMock = WhenMockRepo();
   });
 
-  group('Overview | Repo: DataMock', () {
-    test('checking Instantiations', () {
-      expect(_repoMock, isA<DataMockRepo>());
+  group('Overview | Repo | Mocked-Repo', () {
+    test('Checking Instances to be tested: DataMockRepo', () {
+      expect(_dataMockRepo, isA<DataMockRepo>());
     });
 
-    test('checking Response Type', () {
-      _repoMock.getProducts().then((value) {
+    test('Checking Response Type in GetProducts', () {
+      _dataMockRepo.getProducts().then((value) {
         expect(value, isA<List<Product>>());
       });
     });
 
-    test('getProducts = Quantity', () {
-      _repoMock.getProducts().then((value) {
+    test('Getting the quantity of products', () {
+      _dataMockRepo.getProducts().then((value) {
         expect(value.length, 4);
       });
     });
 
-    test('getProducts = Elements', () {
-      _repoMock.getProducts().then((value) {
+    test('Getting products', () {
+      _dataMockRepo.getProducts().then((value) {
         print("${value.length}");
         expect(value[0].title, "Red Shirt");
         expect(value[3].description, 'Prepare any meal you want.');
       });
     });
 
-    test('updateProduct = 200', () {
-      _repoMock
-          .updateProduct(_productFail)
-          .then((value) => expect(value, 200));
+    test('Updating a Product - Response Status 200', () {
+      _dataMockRepo.updateProduct(_productFail).then((value) => expect(value, 200));
     });
   });
 
   group('Overview | Repo: WhenMock', () {
-    test('checking Instantiations', () {
-      expect(_repoMockWhen, isA<WhenMockRepo>());
+    test('Checking Instances to be tested: WhenMockRepo', () {
+      expect(_injectableRepoMock, isA<WhenMockRepo>());
     });
 
-    test('getProducts = Empty List', () {
-      when(_repoMockWhen.getProducts()).thenAnswer((_) async => []);
+    test('Getting products - Fail hence Empty', () {
+      when(_injectableRepoMock.getProducts()).thenAnswer((_) async => []);
 
-      _repoMockWhen.getProducts().then((value) {
+      _injectableRepoMock.getProducts().then((value) {
         expect(value, isEmpty);
       });
     });
 
-    test('updateProduct = 400', () {
-      when(_repoMockWhen.updateProduct(_productFail))
+    test('Updating a Product - Response Status 404', () {
+      when(_injectableRepoMock.updateProduct(_productFail))
           .thenAnswer((_) async => 404);
 
-      _repoMockWhen
+      _injectableRepoMock
           .updateProduct(_productFail)
           .then((value) => {expect(value, 404)});
     });
 
-    test('getProducts = null', () {
-      when(_repoMockWhen.getProducts()).thenAnswer((_) async => null);
+    test('Getting products - Fail hence Null response', () {
+      when(_injectableRepoMock.getProducts()).thenAnswer((_) async => null);
 
-      _repoMockWhen.getProducts().then((value) => expect(value, isNull));
+      _injectableRepoMock.getProducts().then((value) => expect(value, isNull));
     });
   });
 }

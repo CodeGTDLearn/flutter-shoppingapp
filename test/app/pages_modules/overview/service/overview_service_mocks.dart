@@ -70,4 +70,4 @@ class DataMockService extends Mock implements IOverviewService {
   }
 }
 
-class WhenMockService extends Mock implements IOverviewService {}
+class MockService extends Mock implements IOverviewService {}

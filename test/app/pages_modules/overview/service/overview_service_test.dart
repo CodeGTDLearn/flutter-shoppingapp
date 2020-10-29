@@ -6,32 +6,33 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
+import '../../../../data_builder/databuilder.dart';
 import '../../../../mock_data_source/mocked_data_source.dart';
 import '../repo/overview_repo_mocks.dart';
 import 'overview_service_mocks.dart';
 
 void main() {
-  IOverviewService _service, _serviceMockWhen;
-  IOverviewRepo _repo;
+  IOverviewService _service, _mockService;
+  IOverviewRepo _mockRepo;
 
   setUp(() {
-    _repo = DataMockRepo();
-    _service = OverviewService(repo: _repo);
-    _serviceMockWhen = WhenMockService();
+    _mockRepo = DataMockRepo();
+    _service = OverviewService(repo: _mockRepo);
+    _mockService = MockService();
   });
 
-  group('Overview | Service(DataMock)', () {
-    test('Checking Instances', () {
+  group('Overview | Service | Mocked-Repo', () {
+    test('Checking Instances to be tested: OverviewService', () {
       expect(_service, isA<OverviewService>());
     });
 
-    test('Checking Response Type', () {
+    test('Checking Response Type in GetProducts', () {
       _service.getProducts().then((value) {
         expect(value, isA<List<Product>>());
       });
     });
 
-    test('localDataAllProducts', () {
+    test('Checking localDataAllProducts loading', () {
       _service.getProducts().then((_) {
         var list = _service.localDataAllProducts;
         expect(list[0].title, "Red Shirt");
@@ -39,7 +40,7 @@ void main() {
       });
     });
 
-    test('localDataFavoritesProducts', () {
+    test('Checking localDataFavoritesProducts loading', () {
       _service.getProducts().then((_) {
         var list = _service.localDataFavoritesProducts;
         expect(list[0].isFavorite, true);
@@ -48,27 +49,45 @@ void main() {
       });
     });
 
-    test('getFavoritesQtde', () {
+    test('Getting products', () {
+      _service.getProducts().then((FetchedListd) {
+        // var list = _service.localDataAllProducts;
+        expect(FetchedListd[0].title, "Red Shirt");
+        expect(FetchedListd[3].description, 'Prepare any meal you want.');
+      });
+    });
+
+    test('Toggle FavoriteStatus in one product', () {
+      _service.getProducts().then((_) {
+        expect(_service.getProductById("p3").isFavorite, true);
+
+        _service.toggleFavoriteStatus("p3").then((toggleReturn) {
+          expect(toggleReturn, false);
+          expect(_service.getProductById("p3").isFavorite, false);
+        });
+      });
+    });
+
+    test('Getting the quantity of favorites', () {
       _service.getProducts().then((_) {
         expect(_service.getFavoritesQtde(), 1);
       });
     });
 
-    test('getProductById', () {
+    test('Getting a product using its ID', () {
       _service.getProducts().then((_) {
         var list = _service.localDataAllProducts;
-        expect(
-            _service.getProductById("p1").description, list[0].description);
+        expect(_service.getProductById("p1").description, list[0].description);
       });
     });
 
-    test('getProductsQtde', () {
+    test('Getting the quantity of products', () {
       _service.getProducts().then((_) {
         expect(_service.getProductsQtde(), 4);
       });
     });
 
-    test('getProductsByFilter', () {
+    test('Getting products by Filters', () {
       _service.getProducts().then((_) {
         var listAll = _service.getProductsByFilter(EnumFilter.All);
         var listFav = _service.getProductsByFilter(EnumFilter.Fav);
@@ -77,49 +96,64 @@ void main() {
       });
     });
 
-    test('getProducts', () {
-      _service.getProducts().then((FetchedListd) {
-        // var list = _service.localDataAllProducts;
-        expect(FetchedListd[0].title, "Red Shirt");
-        expect(FetchedListd[3].description, 'Prepare any meal you want.');
-      });
-    });
-
-    test('toggleFavoriteStatus', () {
+    test('Clearing DataSavingLists', () {
       _service.getProducts().then((_) {
-        expect(_service.getProductById("p3").isFavorite, true);
-
-        _service.toggleFavoriteStatus("p3").then((value) {
-          expect(value, false);
-        });
-
+        var listAll = _service.getProductsByFilter(EnumFilter.All);
+        var listFav = _service.getProductsByFilter(EnumFilter.Fav);
+        expect(listAll.length, 4);
+        expect(listFav.length, 1);
+        _service.clearDataSavingLists();
+        listAll = _service.getProductsByFilter(EnumFilter.All);
+        listFav = _service.getProductsByFilter(EnumFilter.Fav);
+        expect(listAll.length, 0);
+        expect(listFav.length, 0);
       });
     });
-
-    test('Checking Instances - When', () {
-      expect(_serviceMockWhen, isA<WhenMockService>());
+  });
+  group('Overview | Mocked-Service | Mocked-Repo', () {
+    test('Checking Instances to be tested: MockService', () {
+      expect(_mockService, isA<MockService>());
     });
 
-    test('getProducts - When', () {
+    test('Getting products - Fail hence Empty', () {
       // @formatter:off
-      when(_serviceMockWhen.getProducts())
-          .thenAnswer((_) async => Future.value(MockedDataSource().products()));
+      when(_mockService.getProducts())
+          .thenAnswer((_) async => Future
+          .value(MockedDataSource()
+          .productsEmpty()));
 
-      _serviceMockWhen.getProducts().then((value) {
-        expect(value[0].title, "Red Shirt");
-        expect(value[3].description, 'Prepare any meal you want.');
+      _mockService.getProducts().then((value) {
+        expect(value, List.empty());
       });
       // @formatter:on
     });
 
-    test('toggleFavoriteStatus - When', () {
-      when(_serviceMockWhen.toggleFavoriteStatus("p1"))
-          .thenAnswer((_) async => true);
+    test('Toggle FavoriteStatus in a product - Fail 404', () {
+      when(_mockService.getProductById("p3"))
+          .thenReturn(DataBuilder().ProductFull());
 
-      _serviceMockWhen
-          .toggleFavoriteStatus("p1")
-          .then((value) => expect(value, true));
+      when(_mockService.toggleFavoriteStatus("p3"))
+          .thenAnswer((_) async => Future.value(true));
+
+      var previousToggleStatus = _mockService
+          .getProductById("p3")
+          .isFavorite;
+
+      _mockService.toggleFavoriteStatus("p3")
+          .then((value) {
+        expect(true, previousToggleStatus);
+      });
+    });
+
+    test('Getting a product using unknow ID - Fail ', () {
+      _service.getProducts().then((_) {
+        expect(() => _service.getProductById("p10"),
+            throwsA(const TypeMatcher<RangeError>()));
+      });
+
     });
   });
 }
 
+        // expect(()=> throw new RangeError("out of range"),
+        //     throwsRangeError);

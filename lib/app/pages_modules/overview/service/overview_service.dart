@@ -41,7 +41,6 @@ class OverviewService implements IOverviewService {
     final _index = _localDataAllProducts.indexWhere((item) => item.id == id);
     var _toggleProduct = _localDataAllProducts[_index];
     var _previousFavoriteStatus = _toggleProduct.isFavorite;
-    // var _rollbackProduct = Product.deepCopy(_toggleProduct);
 
     _toggleProduct.isFavorite = !_toggleProduct.isFavorite;
 
@@ -61,7 +60,6 @@ class OverviewService implements IOverviewService {
             }
             if (badRequest) {
               _toggleProduct.isFavorite = _previousFavoriteStatus;
-              // _localDataAllProducts[_index] = _toggleProduct;
             }
             _sortDataSavingLists();
             return _toggleProduct.isFavorite;
@@ -71,7 +69,6 @@ class OverviewService implements IOverviewService {
 
   @override
   List<Product> getProductsByFilter(EnumFilter filter) {
-    //_localDataAllProducts = manProdService.localDataManagedProducts;
     _reloadLocalDataFavoritesProducts();
     if (filter == EnumFilter.Fav) {
       return getFavoritesQtde() == 0 ? [] : localDataFavoritesProducts;

@@ -1,5 +1,5 @@
 //GENERAL PROPERTIES
-const APP_TITLE = "MyShopp";
+const APP_TITLE = "My Shopp App";
 const APP_DEBUG_CHECK = false;
 
 //FLUSHBAR + GETX-SNACKBAR

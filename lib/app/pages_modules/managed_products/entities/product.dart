@@ -17,10 +17,6 @@ class Product {
   String _imageUrl;
   bool _isFavorite = false;
 
-  factory Product.databuilder({String id}) {
-    return Product(id);
-  }
-
   factory Product.from_Json(String str) => Product.fromJson(json.decode(str));
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(

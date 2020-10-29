@@ -44,4 +44,8 @@ class MockedDataSource {
         ? MockedDataSource().products()
         : MockedDataSource().favoritesProducts();
   }
+
+  List<Product> productsEmpty() {
+    return [];
+  }
 }
