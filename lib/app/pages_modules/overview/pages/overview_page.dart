@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/properties/app_widget_keys.dart';
 import '../../pages_generic_components/drawwer.dart';
 import '../components/badge_shop_cart_appbar.dart';
 import '../components/filter_favorite_appbar.dart';
@@ -17,15 +18,15 @@ class OverviewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(_enumFilter == EnumFilter.All
-              ? OVERV_TIT_ALL_APPBAR
-              : OVERV_TIT_FAV_APPBAR),
+          title: Text(
+            _enumFilter == EnumFilter.All
+                ? OVERV_TIT_ALL_APPBAR
+                : OVERV_TIT_FAV_APPBAR,
+            key: Key(OV005),
+          ),
           actions: [FilterFavoriteAppbar(_enumFilter), BadgeShopCartAppbar()],
         ),
         drawer: Drawwer(),
-        //todo: e necessario uma instancia nova de overview controller,
-        // getando os produtos novamente e detectando a alteracao de
-        // togglefavorites
         body: OverviewGrid(_enumFilter, Get.find<OverviewController>()));
   }
 }

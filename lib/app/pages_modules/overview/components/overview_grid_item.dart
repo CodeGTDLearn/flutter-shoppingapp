@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../core/properties/app_properties.dart';
 import '../../../core/properties/app_routes.dart';
+import '../../../core/properties/app_widget_keys.dart';
 import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../cart/controller/cart_controller.dart';
 import '../../managed_products/entities/product.dart';
@@ -18,8 +19,9 @@ class OverviewGridItem extends StatelessWidget {
   final OverviewController _controller =
       OverviewController(service: Get.find());
   final CartController _cartController = Get.find();
+  final String _index;
 
-  OverviewGridItem(this._product);
+  OverviewGridItem(this._product, this._index);
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +41,7 @@ class OverviewGridItem extends StatelessWidget {
                 footer: GridTileBar(
                     leading: Obx(
                       () => IconButton(
+                          key: Key("$OV001-$_index"),
                           icon: _controller.favoriteStatusObs.value
                               ? OVERV_ICO_FAV
                               : OVERV_ICO_NOFAV,
@@ -55,8 +58,12 @@ class OverviewGridItem extends StatelessWidget {
                               }),
                           color: Theme.of(context).accentColor),
                     ),
-                    title: Text(_product.title),
+                    title: Text(
+                      _product.title,
+                      key: Key("$OV003-$_index"),
+                    ),
                     trailing: IconButton(
+                        key: Key("$OV002-$_index"),
                         icon: OVERV_ICO_SHOP,
                         onPressed: () {
                           _cartController.addProductInTheCart(_product);
