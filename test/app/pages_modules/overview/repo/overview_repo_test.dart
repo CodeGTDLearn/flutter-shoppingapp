@@ -1,16 +1,13 @@
-import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
 import 'package:test/test.dart';
-import 'package:http/http.dart' as http;
 
 import '../../../../data_builder/databuilder.dart';
 import 'overview_repo_mocks.dart';
 
 void main() {
-  IOverviewRepo _dataMockRepo;
-  IOverviewRepo _injectableRepoMock;
+  IOverviewRepo _mockRepo, _injectableRepoMock;
   var _productFail;
 
   setUpAll(() {
@@ -18,29 +15,29 @@ void main() {
   });
 
   setUp(() {
-    _dataMockRepo = DataMockRepo();
-    _injectableRepoMock = WhenMockRepo();
+    _mockRepo = MockRepo();
+    _injectableRepoMock = InjectableMockRepo();
   });
 
   group('Overview | Repo | Mocked-Repo', () {
-    test('Checking Instances to be tested: DataMockRepo', () {
-      expect(_dataMockRepo, isA<DataMockRepo>());
+    test('Checking Instances to be used in the Test', () {
+      expect(_mockRepo, isA<MockRepo>());
     });
 
     test('Checking Response Type in GetProducts', () {
-      _dataMockRepo.getProducts().then((value) {
+      _mockRepo.getProducts().then((value) {
         expect(value, isA<List<Product>>());
       });
     });
 
     test('Getting the quantity of products', () {
-      _dataMockRepo.getProducts().then((value) {
+      _mockRepo.getProducts().then((value) {
         expect(value.length, 4);
       });
     });
 
     test('Getting products', () {
-      _dataMockRepo.getProducts().then((value) {
+      _mockRepo.getProducts().then((value) {
         print("${value.length}");
         expect(value[0].title, "Red Shirt");
         expect(value[3].description, 'Prepare any meal you want.');
@@ -48,13 +45,12 @@ void main() {
     });
 
     test('Updating a Product - Response Status 200', () {
-      _dataMockRepo.updateProduct(_productFail).then((value) => expect(value, 200));
+      _mockRepo.updateProduct(_productFail).then((value) => expect(value, 200));
     });
   });
-
-  group('Overview | Repo: WhenMock', () {
-    test('Checking Instances to be tested: WhenMockRepo', () {
-      expect(_injectableRepoMock, isA<WhenMockRepo>());
+  group('Overview | Injectable-Mocked-Repo', () {
+    test('Checking Instances to be used in the Test', () {
+      expect(_injectableRepoMock, isA<InjectableMockRepo>());
     });
 
     test('Getting products - Fail hence Empty', () {

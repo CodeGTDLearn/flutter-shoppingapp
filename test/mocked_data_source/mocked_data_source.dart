@@ -8,7 +8,7 @@ class MockedDataSource {
   String _pathJSONDataSource;
 
   MockedDataSource() {
-    _pathJSONDataSource = 'assets/mock_data_source/products_data_source.json';
+    _pathJSONDataSource = 'assets/mocked_data_sources/products.json';
   }
 
   List<Product> products() {

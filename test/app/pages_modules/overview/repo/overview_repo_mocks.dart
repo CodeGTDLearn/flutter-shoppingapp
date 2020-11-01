@@ -2,7 +2,8 @@ import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
 
-import '../../../../mock_data_source/mocked_data_source.dart';
+import '../../../../mocked_data_source/mocked_data_source.dart';
+
 
   /* **************************************************
   *--> TIPOS DE MOCK
@@ -11,9 +12,8 @@ import '../../../../mock_data_source/mocked_data_source.dart';
   *      the "WHEN"
   *     (because they has predefined responses)
   *
-  *    B) MOCKS:
-  *      They are "Plain Mocks"
-  *      (because they has NOT predefined responses);
+  *    B) "INJECTABLE" MOCKS:
+  *      They are "Plain Mocks" (NO predefined responses);
   *      thus, they ALLOW the "WHEN"
   *
   *--> CONCEITO:
@@ -26,7 +26,7 @@ import '../../../../mock_data_source/mocked_data_source.dart';
   *     - Testes mais rapidos, do que os feitos em WebService ou DB
   *     - Testes independemente de WebServide ou DB
   *****************************************************/
-class DataMockRepo extends Mock implements IOverviewRepo {
+class MockRepo extends Mock implements IOverviewRepo {
   @override
   Future<List<Product>> getProducts() async {
     return Future.value(MockedDataSource().products());
@@ -38,4 +38,4 @@ class DataMockRepo extends Mock implements IOverviewRepo {
   }
 }
 
-class WhenMockRepo extends Mock implements IOverviewRepo {}
+class InjectableMockRepo extends Mock implements IOverviewRepo {}

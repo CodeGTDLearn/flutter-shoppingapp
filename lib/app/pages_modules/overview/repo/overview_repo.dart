@@ -6,7 +6,8 @@ import '../../../core/properties/app_properties.dart';
 import '../../managed_products/entities/product.dart';
 import 'i_overview_repo.dart';
 
-class OverviewFirebaseRepo implements IOverviewRepo {
+class OverviewRepo implements IOverviewRepo {
+
   @override
   Future<List<Product>> getProducts() {
     // @formatter:off
@@ -35,6 +36,6 @@ class OverviewFirebaseRepo implements IOverviewRepo {
     return http
         .patch("$BASE_URL/$COLLECTION_PRODUCTS/${product.id}$EXTENSION",
             body: product.to_Json())
-        .then((statuscode) => statuscode.statusCode);
+        .then((response) => response.statusCode);
   }
 }

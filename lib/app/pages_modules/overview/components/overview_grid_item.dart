@@ -8,13 +8,15 @@ import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../cart/controller/cart_controller.dart';
 import '../../managed_products/entities/product.dart';
 import '../../pages_generic_components/custom_flush_notifier.dart';
+import '../../pages_generic_components/custom_snackbar.dart';
 import '../controller/overview_controller.dart';
 import '../core/messages_snackbars_provided.dart';
 import '../core/overview_texts_icons_provided.dart';
 
 class OverviewGridItem extends StatelessWidget {
   final Product _product;
-  final OverviewController _controller = OverviewController(Get.find());
+  final OverviewController _controller =
+      OverviewController(service: Get.find());
   final CartController _cartController = Get.find();
 
   OverviewGridItem(this._product);
@@ -40,8 +42,17 @@ class OverviewGridItem extends StatelessWidget {
                           icon: _controller.favoriteStatusObs.value
                               ? OVERV_ICO_FAV
                               : OVERV_ICO_NOFAV,
-                          onPressed: () =>
-                              _controller.toggleFavoriteStatus(_product.id),
+                          onPressed: () => _controller
+                                  .toggleFavoriteStatus(_product.id)
+                                  .then((returnedFavStatus) {
+                                if (returnedFavStatus) {
+                                  CustomSnackBar.simple(
+                                      SUCESS, TOGGLE_STATUS_SUCESS);
+                                } else {
+                                  CustomSnackBar.simple(
+                                      OPS, TOGGLE_STATUS_ERROR);
+                                }
+                              }),
                           color: Theme.of(context).accentColor),
                     ),
                     title: Text(_product.title),

@@ -7,23 +7,25 @@ import 'package:shopingapp/app/pages_modules/overview/service/overview_service.d
 import 'package:test/test.dart';
 
 import '../../../../data_builder/databuilder.dart';
-import '../../../../mock_data_source/mocked_data_source.dart';
+import '../../../../mocked_data_source/mocked_data_source.dart';
 import '../repo/overview_repo_mocks.dart';
 import 'overview_service_mocks.dart';
 
 void main() {
-  IOverviewService _service, _mockService;
+
+  IOverviewService _service, _injectableMockService;
   IOverviewRepo _mockRepo;
 
   setUp(() {
-    _mockRepo = DataMockRepo();
+    _mockRepo = MockRepo();
     _service = OverviewService(repo: _mockRepo);
-    _mockService = MockService();
+    _injectableMockService = InjectableMockService();
   });
 
   group('Overview | Service | Mocked-Repo', () {
-    test('Checking Instances to be tested: OverviewService', () {
+    test('Checking Instances to be used in the Test', () {
       expect(_service, isA<OverviewService>());
+      expect(_mockRepo, isA<MockRepo>());
     });
 
     test('Checking Response Type in GetProducts', () {
@@ -55,6 +57,14 @@ void main() {
         expect(FetchedListd[0].title, "Red Shirt");
         expect(FetchedListd[3].description, 'Prepare any meal you want.');
       });
+    });
+
+    test('Getting a product using unknown ID - Fail ', () {
+      _service.getProducts().then((_) {
+        expect(() => _service.getProductById("p10"),
+            throwsA(const TypeMatcher<RangeError>()));
+      });
+
     });
 
     test('Toggle FavoriteStatus in one product', () {
@@ -111,49 +121,40 @@ void main() {
     });
   });
   group('Overview | Mocked-Service | Mocked-Repo', () {
-    test('Checking Instances to be tested: MockService', () {
-      expect(_mockService, isA<MockService>());
+    test('Checking Instances to be used in the Test', () {
+      expect(_injectableMockService, isA<InjectableMockService>());
     });
 
     test('Getting products - Fail hence Empty', () {
       // @formatter:off
-      when(_mockService.getProducts())
+      when(_injectableMockService.getProducts())
           .thenAnswer((_) async => Future
           .value(MockedDataSource()
           .productsEmpty()));
 
-      _mockService.getProducts().then((value) {
+      _injectableMockService.getProducts().then((value) {
         expect(value, List.empty());
       });
       // @formatter:on
     });
 
     test('Toggle FavoriteStatus in a product - Fail 404', () {
-      when(_mockService.getProductById("p3"))
+      //INJECTABLE FOR SIMPLE-RETURNS
+      when(_injectableMockService.getProductById("p3"))
           .thenReturn(DataBuilder().ProductFull());
 
-      when(_mockService.toggleFavoriteStatus("p3"))
+      //INJECTABLE FOR FUTURES-RETURNS
+      when(_injectableMockService.toggleFavoriteStatus("p3"))
           .thenAnswer((_) async => Future.value(true));
 
-      var previousToggleStatus = _mockService
+      var previousToggleStatus = _injectableMockService
           .getProductById("p3")
           .isFavorite;
 
-      _mockService.toggleFavoriteStatus("p3")
+      _injectableMockService.toggleFavoriteStatus("p3")
           .then((value) {
         expect(true, previousToggleStatus);
       });
     });
-
-    test('Getting a product using unknow ID - Fail ', () {
-      _service.getProducts().then((_) {
-        expect(() => _service.getProductById("p10"),
-            throwsA(const TypeMatcher<RangeError>()));
-      });
-
-    });
   });
 }
-
-        // expect(()=> throw new RangeError("out of range"),
-        //     throwsRangeError);

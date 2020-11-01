@@ -1,18 +1,16 @@
 import 'package:get/get.dart';
 
-import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../managed_products/entities/product.dart';
-import '../../pages_generic_components/custom_snackbar.dart';
 import '../components/filter_favorite_enum.dart';
-import '../core/messages_snackbars_provided.dart';
 import '../service/i_overview_service.dart';
+import 'i_overview_controller.dart';
 
-class OverviewController extends GetxController {
+class OverviewController extends GetxController implements IOverviewController {
   IOverviewService service;
   var filteredProductsObs = <Product>[].obs;
   var favoriteStatusObs = false.obs;
 
-  OverviewController(this.service);
+  OverviewController({this.service});
 
   @override
   void onInit() {
@@ -29,20 +27,21 @@ class OverviewController extends GetxController {
   }
 
   @override
-  void toggleFavoriteStatus(String id) {
+  Future<bool> toggleFavoriteStatus(String id) {
     // @formatter:off
-    var _previousFavoriteStatus = getProductById(id).isFavorite;
-    service
+    var _previousFavStatus = getProductById(id).isFavorite;
+    var futureReturn = service
         .toggleFavoriteStatus(id)
-        .then((favoriteStatus) {
-            if (_previousFavoriteStatus == favoriteStatus) {
-              CustomSnackBar.simple(OPS, TOGGLE_STATUS_ERROR);
-            } else {
-              favoriteStatusObs.value = favoriteStatus;
-              CustomSnackBar.simple(SUCESS, TOGGLE_STATUS_SUCESS);
-            }
+        .then((returnedFavStatus) {
+                if (_previousFavStatus != returnedFavStatus){
+                  favoriteStatusObs.value = returnedFavStatus;
+                }else{
+                  return false;
+                }
+          return true;
         });
-    //favoriteStatusObs.value = getProductById(id).isFavorite;
+    favoriteStatusObs.value = getProductById(id).isFavorite;
+    return futureReturn;
     // @formatter:on
   }
 
@@ -64,5 +63,15 @@ class OverviewController extends GetxController {
   @override
   int getProductsQtde() {
     return service.getProductsQtde();
+  }
+
+  @override
+  bool getFavoriteStatusObs(){
+    return favoriteStatusObs.value;
+  }
+
+  @override
+  List<Product> getFilteredProductsObs (){
+    return filteredProductsObs.value.toList();
   }
 }
