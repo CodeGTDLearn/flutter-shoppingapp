@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/properties/app_widget_keys.dart';
+import '../core/overview_widget_keys.dart';
 import '../../pages_generic_components/drawwer.dart';
 import '../components/badge_shop_cart_appbar.dart';
 import '../components/filter_favorite_appbar.dart';

@@ -24,7 +24,7 @@ dependencies:
 dev_dependencies:
   flutter_driver:
     sdk: flutter
-  test:
+  test: any
   effective_dart: 1.2.3
 #  build_runner: 1.7.2
 

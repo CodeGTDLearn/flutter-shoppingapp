@@ -1,8 +1,9 @@
 import 'package:flutter_driver/flutter_driver.dart';
+import 'package:shopingapp/app/pages_modules/overview/core/overview_widget_keys.dart';
 import 'package:test/test.dart';
 
-void main() {
-  group('CI-CD-01: Integration Test - Overview Page', () {
+class OverviewPageModule {
+  static void integrationTest() {
     FlutterDriver driver;
     var delay = 2;
 
@@ -14,12 +15,12 @@ void main() {
       if (driver != null) driver.close();
     });
 
-    // SerializableFinder _find(String key) {
-    //   return find.byValueKey(key);
-    // }
+    SerializableFinder _find(String key) {
+      return find.byValueKey(key);
+    }
 
-    var key1 = find.byValueKey("ov01-0");
-    var key8 = find.byValueKey("fb01");
+    var key1 = _find(OV001);
+    var key8 = _find(FB001);
 
     test('OVERVIEW_GRID_ITEM: Triggering favorite button', () async {
       await driver.clearTimeline();
@@ -34,5 +35,5 @@ void main() {
       assert(key8 != null);
       // expect(await driver.getText(key8), TOGGLE_STATUS_SUCESS);
     });
-  });
+  }
 }

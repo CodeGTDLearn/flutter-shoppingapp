@@ -1,9 +1,9 @@
 import 'package:flutter_driver/driver_extension.dart';
-import 'package:shopingapp/main.dart' as mainApp;
+import 'package:shopingapp/main.dart' as app;
 
 void main() {
   enableFlutterDriverExtension();
-  mainApp.main();
+  app.main();
 }
 
 
