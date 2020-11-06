@@ -14,6 +14,7 @@ class FlushNotifier {
   FlushNotifier(this._title, this._message, this._duration, this._context);
 
   Future<Object> simple() {
+    // print(FB001);
     return Flushbar(
             key: Key(FB001),
             title: _title,

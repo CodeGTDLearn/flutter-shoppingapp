@@ -23,11 +23,11 @@ class FilterFavoriteAppbar extends StatelessWidget {
     return PopupMenuButton(
         itemBuilder: (_) => [
               PopupMenuItem(
-                  child: Text(OVERV_TXT_POPUP_FAV),
+                  child: Text(OV_TXT_POPUP_FAV),
                   value: EnumFilter.Fav,
                   enabled: _enum == EnumFilter.All),
               PopupMenuItem(
-                  child: Text(OVERV_TXT_POPUP_ALL),
+                  child: Text(OV_TXT_POPUP_ALL),
                   value: EnumFilter.All,
                   enabled: _enum == EnumFilter.Fav)
             ],

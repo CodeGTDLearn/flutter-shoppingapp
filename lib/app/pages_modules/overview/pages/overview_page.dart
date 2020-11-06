@@ -20,8 +20,8 @@ class OverviewPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             _enumFilter == EnumFilter.All
-                ? OVERV_TIT_ALL_APPBAR
-                : OVERV_TIT_FAV_APPBAR,
+                ? OV_TIT_ALL_APPBAR
+                : OV_TIT_FAV_APPBAR,
             key: Key(OV005),
           ),
           actions: [FilterFavoriteAppbar(_enumFilter), BadgeShopCartAppbar()],

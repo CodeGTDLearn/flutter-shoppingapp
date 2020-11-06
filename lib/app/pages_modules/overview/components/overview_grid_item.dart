@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '../../../core/properties/app_properties.dart';
 import '../../../core/properties/app_routes.dart';
-import '../core/overview_widget_keys.dart';
 import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../cart/controller/cart_controller.dart';
 import '../../managed_products/entities/product.dart';
@@ -12,6 +11,7 @@ import '../../pages_generic_components/custom_snackbar.dart';
 import '../controller/overview_controller.dart';
 import '../core/messages_snackbars_provided.dart';
 import '../core/overview_texts_icons_provided.dart';
+import '../core/overview_widget_keys.dart';
 
 class OverviewGridItem extends StatelessWidget {
   final Product _product;
@@ -38,12 +38,13 @@ class OverviewGridItem extends StatelessWidget {
                         arguments: _product.id),
                     child: Image.network(_product.imageUrl, fit: BoxFit.cover)),
                 footer: GridTileBar(
+                    key: Key("cont\_$_index"),
                     leading: Obx(
                       () => IconButton(
-                          key: Key("$OV001-$_index"),
+                          key: Key("$OV001\_$_index"),
                           icon: _controller.favoriteStatusObs.value
-                              ? OVERV_ICO_FAV
-                              : OVERV_ICO_NOFAV,
+                              ? OV_ICO_FAV
+                              : OV_ICO_NOFAV,
                           onPressed: () => _controller
                                   .toggleFavoriteStatus(_product.id)
                                   .then((returnedFavStatus) {
@@ -59,11 +60,11 @@ class OverviewGridItem extends StatelessWidget {
                     ),
                     title: Text(
                       _product.title,
-                      key: Key("$OV003-$_index"),
+                      key: Key("$OV003\_$_index"),
                     ),
                     trailing: IconButton(
-                        key: Key("$OV002-$_index"),
-                        icon: OVERV_ICO_SHOP,
+                        key: Key("$OV002\_$_index"),
+                        icon: OV_ICO_SHOP,
                         onPressed: () {
                           _cartController.addProductInTheCart(_product);
                           FlushNotifier(

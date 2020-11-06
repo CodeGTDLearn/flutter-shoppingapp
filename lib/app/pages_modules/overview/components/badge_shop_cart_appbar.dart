@@ -23,7 +23,7 @@ class BadgeShopCartAppbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(alignment: Alignment.center, children: [
       IconButton(
-          icon: OVERV_ICO_SHOP,
+          icon: OV_ICO_SHOP,
           onPressed: () {
             if (_controller.getAll().length == 0) {
               FlushNotifier(OPS, NO_ITEMS_CART_YET, INTERVAL, context).simple();

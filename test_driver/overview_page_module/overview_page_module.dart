@@ -1,4 +1,5 @@
 import 'package:flutter_driver/flutter_driver.dart';
+import 'package:shopingapp/app/pages_modules/overview/core/messages_snackbars_provided.dart';
 import 'package:shopingapp/app/pages_modules/overview/core/overview_widget_keys.dart';
 import 'package:test/test.dart';
 
@@ -11,7 +12,7 @@ class OverviewPageModule {
       driver = await FlutterDriver.connect();
     });
 
-    tearDownAll(() {
+    tearDownAll(() async {
       if (driver != null) driver.close();
     });
 
@@ -33,7 +34,7 @@ class OverviewPageModule {
       await driver.waitUntilNoTransientCallbacks();
 
       assert(key8 != null);
-      // expect(await driver.getText(key8), TOGGLE_STATUS_SUCESS);
+      expect(await driver.getText(key8), TOGGLE_STATUS_SUCESS);
     });
   }
 }
