@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 
 import '../../../core/properties/app_properties.dart';
 import '../../../core/properties/app_routes.dart';
-import '../core/overview_widget_keys.dart';
 import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../cart/controller/cart_controller.dart';
-import '../../pages_generic_components/custom_flush_notifier.dart';
+import '../../pages_generic_components/custom_flushbar.dart';
 import '../core/messages_snackbars_provided.dart';
 import '../core/overview_texts_icons_provided.dart';
+import '../core/overview_widget_keys.dart';
 
 class BadgeShopCartAppbar extends StatelessWidget {
   final Widget child;
@@ -26,7 +26,8 @@ class BadgeShopCartAppbar extends StatelessWidget {
           icon: OV_ICO_SHOP,
           onPressed: () {
             if (_controller.getAll().length == 0) {
-              FlushNotifier(OPS, NO_ITEMS_CART_YET, INTERVAL, context).simple();
+              CustomFlushbar(OPS, NO_ITEMS_CART_YET, context, INTERVAL)
+                  .simple();
             } else {
               Get.toNamed(AppRoutes.CART);
             }

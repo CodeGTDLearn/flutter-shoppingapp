@@ -10,7 +10,7 @@ import '../managed_products/controller/managed_products_controller.dart';
 import '../orders/service/i_orders_service.dart';
 import 'core/message_db_empty_provided.dart';
 import 'core/texts_icons/drawwer_texts_icons_provided.dart';
-import 'custom_flush_notifier.dart';
+import 'custom_flushbar.dart';
 
 // ignore: must_be_immutable
 class Drawwer extends StatelessWidget {
@@ -89,7 +89,7 @@ class Drawwer extends StatelessWidget {
         title: Text(title),
         onTap: () {
           if (quantityItems == 0 && notRoutingWithoutQtdeEvaluation) {
-            FlushNotifier(OPS, message, INTERVAL, _context).simple();
+            CustomFlushbar(OPS, message, _context, INTERVAL).simple();
           } else if (quantityItems != 0 && notRoutingWithoutQtdeEvaluation) {
             Get.toNamed(route);
             // quitPopping ? Get.offNamed(route) : Get.toNamed(route);

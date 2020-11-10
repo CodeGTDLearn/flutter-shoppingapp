@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../../core/properties/app_owasp_regex.dart';
 import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/app_generic_words.dart';
-import '../../pages_generic_components/custom_snackbar.dart';
+import '../../pages_generic_components/custom_flushbar.dart';
 import '../components/custom_text_form_field/custom_text_form_field.dart';
 import '../controller/managed_products_controller.dart';
 import '../core/messages/messages_snackbars_provided.dart';
@@ -12,7 +12,6 @@ import '../core/texts_icons/managed_product_edit_texts_icons_provided.dart';
 import '../entities/product.dart';
 
 class ManagedProductAddEditPage extends StatefulWidget {
-
   @override
   _ManagedProductAddEditPageState createState() =>
       _ManagedProductAddEditPageState();
@@ -92,7 +91,12 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
           _controller.reloadManagedProductsObs();
           // controller.getProducts();
           Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
-          CustomSnackBar.simple(SUCESS, SUCESS_MAN_PROD_ADD);
+          // CustomSnackbar.simple(SUCESS, SUCESS_MAN_PROD_ADD);
+          CustomFlushbar(
+              SUCESS,
+              SUCESS_MAN_PROD_ADD,
+              context
+          ).simple();
         })
         .catchError((onError) {
           Get.defaultDialog(
@@ -121,7 +125,12 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
             _controller.reloadManagedProductsObs();
             // controller.getProducts();
             Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
-            CustomSnackBar.simple(SUCESS, SUCESS_MAN_PROD_UPDT);
+            // CustomSnackbar.simple(SUCESS, SUCESS_MAN_PROD_UPDT);
+            CustomFlushbar(
+                SUCESS,
+                SUCESS_MAN_PROD_UPDT,
+                context
+            ).simple();
           }
         });
     // @formatter:on
@@ -152,33 +161,31 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                 onPressed: _saveForm,
               )
             ]),
-        body: Obx(() =>
-        _controller.reloadManagedProductsEditPage.value
+        body: Obx(() => _controller.reloadManagedProductsEditPage.value
             ? Center(child: CircularProgressIndicator())
             : Padding(
-            padding: EdgeInsets.all(16),
-            child: Form(
-                key: _form,
-                child: SingleChildScrollView(
-                    child: Column(children: [
+                padding: EdgeInsets.all(16),
+                child: Form(
+                    key: _form,
+                    child: SingleChildScrollView(
+                        child: Column(children: [
                       CustomFormTextField().create(
                           _product,
                           context,
-                              (_) =>
+                          (_) =>
                               FocusScope.of(context).requestFocus(_focusPrice),
                           "title"),
                       CustomFormTextField().create(
                           _product,
                           context,
-                              (_) =>
+                          (_) =>
                               FocusScope.of(context).requestFocus(_focusDescr),
                           "price"),
                       CustomFormTextField().create(
                           _product,
                           context,
-                              (_) =>
-                              FocusScope.of(context)
-                                  .requestFocus(_focusUrlNode),
+                          (_) => FocusScope.of(context)
+                              .requestFocus(_focusUrlNode),
                           "description"),
                       Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -193,20 +200,20 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                                 child: Container(
                                     child: _imgUrlController.text.isEmpty
                                         ? Center(
-                                        child: Text(MAN_PROD_EDIT_IMG_TIT))
+                                            child: Text(MAN_PROD_EDIT_IMG_TIT))
                                         : FittedBox(
-                                        child: Image.network(
-                                            _imgUrlController.text,
-                                            fit: BoxFit.cover)))),
+                                            child: Image.network(
+                                                _imgUrlController.text,
+                                                fit: BoxFit.cover)))),
                             Expanded(
                                 child: CustomFormTextField().create(
-                                  _product,
-                                  context,
-                                      (_) => _saveForm(),
-                                  "url",
-                                  node: _focusUrlNode,
-                                  controller: _imgUrlController,
-                                ))
+                              _product,
+                              context,
+                              (_) => _saveForm(),
+                              "url",
+                              node: _focusUrlNode,
+                              controller: _imgUrlController,
+                            ))
                           ])
                     ]))))));
   }

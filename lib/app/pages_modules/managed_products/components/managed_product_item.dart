@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/app_generic_words.dart';
-import '../../pages_generic_components/custom_snackbar.dart';
+import '../../pages_generic_components/custom_flushbar.dart';
 import '../controller/managed_products_controller.dart';
 import '../core/messages/messages_snackbars_provided.dart';
 import '../core/texts_icons/managed_product_item_texts_icons_provided.dart';
@@ -27,17 +27,21 @@ class ManagedProductItem extends StatelessWidget {
             child: Row(children: <Widget>[
               IconButton(
                   icon: MAN_PROD_ITEM_EDIT_ICO,
-                  onPressed: () =>
-                      Get.toNamed(AppRoutes.MANAGED_PRODUCTS_ADD_EDIT, arguments: _id),
+                  onPressed: () => Get.toNamed(
+                      AppRoutes.MANAGED_PRODUCTS_ADD_EDIT,
+                      arguments: _id),
                   color: Theme.of(context).errorColor),
               IconButton(
                   icon: MAN_PROD_ITEM_DELETE_ICO,
                   onPressed: () =>
                       _controller.deleteProduct(_id).then((response) {
                         if (response >= 400) {
-                          CustomSnackBar.simple(OPS, ERROR_MAN_PROD);
+                          // CustomSnackbar.simple(OPS, ERROR_MAN_PROD);
+                          CustomFlushbar(OPS, ERROR_MAN_PROD, context).simple();
                         } else {
-                          CustomSnackBar.simple(SUCESS, SUCESS_MAN_PROD_DEL);
+                          // CustomSnackbar.simple(SUCESS, SUCESS_MAN_PROD_DEL);
+                          CustomFlushbar(SUCESS, SUCESS_MAN_PROD_DEL, context)
+                              .simple();
                         }
                       }),
                   color: Theme.of(context).errorColor),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../core/overview_widget_keys.dart';
 import '../../pages_generic_components/drawwer.dart';
 import '../components/badge_shop_cart_appbar.dart';
 import '../components/filter_favorite_appbar.dart';
@@ -9,6 +8,7 @@ import '../components/filter_favorite_enum.dart';
 import '../components/overview_grid.dart';
 import '../controller/overview_controller.dart';
 import '../core/overview_texts_icons_provided.dart';
+import '../core/overview_widget_keys.dart';
 
 class OverviewPage extends StatelessWidget {
   final EnumFilter _enumFilter;

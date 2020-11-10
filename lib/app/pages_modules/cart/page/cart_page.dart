@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../orders/core/messages_snackbars_provided.dart';
-import '../../pages_generic_components/custom_snackbar.dart';
+import '../../pages_generic_components/custom_flushbar.dart';
 import '../components/card_cart_item.dart';
 import '../controller/cart_controller.dart';
 import '../core/cart_texts_icons_provided.dart';
@@ -64,9 +64,20 @@ class CartPage extends StatelessWidget {
                                           Get.back();
                                           controller.clearCart();
                                           controller.recalcQtdeAndAmountCart();
-                                          CustomSnackBar.simple(OPS, SUCESS_ORDER_ADD);
+                                          // CustomSnackbar.simple(OPS, SUCESS_ORDER_ADD);
+                                          CustomFlushbar(
+                                              OPS,
+                                              SUCESS_ORDER_ADD,
+                                            context
+                                          ).simple();
                                       }).catchError((onError) =>
-                                          CustomSnackBar.simple(OPS, ERROR_ORDER));
+                                          // CustomSnackbar.simple(OPS, ERROR_ORDER));
+                                  CustomFlushbar(
+                                      OPS,
+                                      ERROR_ORDER,
+                                      context
+                                  ).simple());
+
                                   // Get.back();
                                 },
                                 // @formatter:on
