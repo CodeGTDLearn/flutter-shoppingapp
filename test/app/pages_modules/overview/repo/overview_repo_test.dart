@@ -21,7 +21,7 @@ class OverviewRepoTest {
       _injectableRepoMock = InjectableMockRepo();
     });
 
-    group(' Repo | Mocked-Repo', () {
+    group('Mocked-Repo', () {
       test('Checking Instances to be used in the Test', () {
         expect(_mockRepo, isA<MockRepo>());
       });
@@ -51,7 +51,7 @@ class OverviewRepoTest {
             .then((value) => expect(value, 200));
       });
     });
-    group(' Injectable-Mocked-Repo', () {
+    group('Injectable-Mocked-Repo', () {
       test('Checking Instances to be used in the Test', () {
         expect(_injectableRepoMock, isA<InjectableMockRepo>());
       });

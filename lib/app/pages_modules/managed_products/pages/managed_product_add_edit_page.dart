@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../../core/properties/app_owasp_regex.dart';
 import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/app_generic_words.dart';
-import '../../pages_generic_components/custom_flushbar.dart';
+import '../../pages_generic_components/custom_snackbar.dart';
 import '../components/custom_text_form_field/custom_text_form_field.dart';
 import '../controller/managed_products_controller.dart';
 import '../core/messages/messages_snackbars_provided.dart';
@@ -92,11 +92,14 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
           // controller.getProducts();
           Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
           // CustomSnackbar.simple(SUCESS, SUCESS_MAN_PROD_ADD);
-          CustomFlushbar(
-              SUCESS,
-              SUCESS_MAN_PROD_ADD,
-              context
-          ).simple();
+          // CustomFlushbar(
+          //     SUCESS,
+          //     SUCESS_MAN_PROD_ADD,
+          //     context
+          // ).simple();
+          CustomSnackbar.simple(
+              message: SUCESS_MAN_PROD_ADD,
+              context: context);
         })
         .catchError((onError) {
           Get.defaultDialog(
@@ -126,11 +129,14 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
             // controller.getProducts();
             Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
             // CustomSnackbar.simple(SUCESS, SUCESS_MAN_PROD_UPDT);
-            CustomFlushbar(
-                SUCESS,
-                SUCESS_MAN_PROD_UPDT,
-                context
-            ).simple();
+            // CustomFlushbar(
+            //     SUCESS,
+            //     SUCESS_MAN_PROD_UPDT,
+            //     context
+            // ).simple();
+            CustomSnackbar.simple(
+                message: SUCESS_MAN_PROD_UPDT,
+                context: context);
           }
         });
     // @formatter:on

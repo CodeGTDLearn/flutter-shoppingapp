@@ -23,7 +23,7 @@ class OverviewServiceTest {
       _injectableMockService = InjectableMockService();
     });
 
-    group('Overview | Service | Mocked-Repo', () {
+    group('Service | Mocked-Repo', () {
       test('Checking Instances to be used in the Test', () {
         expect(_service, isA<OverviewService>());
         expect(_mockRepo, isA<MockRepo>());
@@ -121,7 +121,7 @@ class OverviewServiceTest {
         });
       });
     });
-    group('Overview | Mocked-Service | Mocked-Repo', () {
+    group('Injectable-Mocked-Service', () {
       test('Checking Instances to be used in the Test', () {
         expect(_injectableMockService, isA<InjectableMockService>());
       });

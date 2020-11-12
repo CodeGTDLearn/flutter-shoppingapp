@@ -1,10 +1,10 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import '../../core/properties/app_properties.dart';
 
-import '../overview/core/overview_widget_keys.dart';
-import 'core/texts_icons/custom_flush_notifier_texts_icons_provided.dart';
+import '../core/properties/app_properties.dart';
+import '../pages_modules/pages_generic_components/core/texts_icons/custom_flush_notifier_texts_icons_provided.dart';
+import '../pages_modules/pages_generic_components/pages_generics_components_widgets_keys.dart';
 
 class CustomFlushbar {
   final String _title;
@@ -16,7 +16,7 @@ class CustomFlushbar {
 
   Future<Object> simple() {
     return Flushbar(
-            key: Key(FB001),
+            key: Key(FB01),
             title: _title,
             message: _message,
             duration: Duration(milliseconds: _duration ?? INTERVAL),
@@ -26,13 +26,13 @@ class CustomFlushbar {
 
   Future<Object> withButton(String labelButton, Function function) {
     return Flushbar(
-            key: Key(FB001),
+            key: Key(FB01),
             title: _title,
             message: _message,
             duration: Duration(milliseconds: _duration),
             icon: FLUSHNOT_ICO,
             mainButton: FlatButton(
-                key: Key(OV007),
+                key: Key(FB02),
                 onPressed: function,
                 child: Text(labelButton,
                     style: TextStyle(

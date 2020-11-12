@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../orders/core/messages_snackbars_provided.dart';
-import '../../pages_generic_components/custom_flushbar.dart';
+import '../../pages_generic_components/custom_snackbar.dart';
 import '../components/card_cart_item.dart';
 import '../controller/cart_controller.dart';
 import '../core/cart_texts_icons_provided.dart';
@@ -65,18 +64,24 @@ class CartPage extends StatelessWidget {
                                           controller.clearCart();
                                           controller.recalcQtdeAndAmountCart();
                                           // CustomSnackbar.simple(OPS, SUCESS_ORDER_ADD);
-                                          CustomFlushbar(
-                                              OPS,
-                                              SUCESS_ORDER_ADD,
-                                            context
-                                          ).simple();
+                                          // CustomFlushbar(
+                                          //     OPS,
+                                          //     SUCESS_ORDER_ADD,
+                                          //   context
+                                          // ).simple();
+                                          CustomSnackbar.simple(
+                                              message: SUCESS_ORDER_ADD,
+                                              context: context);
                                       }).catchError((onError) =>
                                           // CustomSnackbar.simple(OPS, ERROR_ORDER));
-                                  CustomFlushbar(
-                                      OPS,
-                                      ERROR_ORDER,
-                                      context
-                                  ).simple());
+                                  // CustomFlushbar(
+                                  //     OPS,
+                                  //     ERROR_ORDER,
+                                  //     context
+                                  // ).simple());
+                                  CustomSnackbar.simple(
+                                      message: ERROR_ORDER,
+                                      context: context));
 
                                   // Get.back();
                                 },

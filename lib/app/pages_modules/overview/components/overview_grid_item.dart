@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/pages_modules/pages_generic_components/custom_snackbar.dart';
 
 import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../cart/controller/cart_controller.dart';
 import '../../managed_products/entities/product.dart';
-import '../../pages_generic_components/custom_flushbar.dart';
+import '../../pages_generic_components/custom_snackbar.dart';
 import '../controller/overview_controller.dart';
 import '../core/messages_snackbars_provided.dart';
 import '../core/overview_texts_icons_provided.dart';
@@ -37,37 +36,32 @@ class OverviewGridItem extends StatelessWidget {
                         arguments: _product.id),
                     child: Image.network(_product.imageUrl, fit: BoxFit.cover)),
                 footer: GridTileBar(
-                    leading: Obx(
-                      () => IconButton(
-                          key: Key("$OV001$_index"),
-                          icon: _controller.favoriteStatusObs.value
-                              ? OV_ICO_FAV
-                              : OV_ICO_NOFAV,
-                          onPressed: () {
-                            _controller
-                                .toggleFavoriteStatus(_product.id)
-                                .then((returnedFavStatus) {
-                              if (returnedFavStatus) {
-                                CustomSnackbar.simple(
-                                  context: context,
-                                  message: TOGGLE_STATUS_SUCESS,
-                                );
-                              } else {
-                                CustomSnackbar.simple(
-                                  context: context,
-                                  message: TOGGLE_STATUS_ERROR,
-                                );
-                              }
-                            });
-                          },
-                          color: Theme.of(context).accentColor),
-                    ),
-                    title: Text(
-                      _product.title,
-                      key: Key("$OV003\_$_index"),
-                    ),
+                    leading: Obx(() => IconButton(
+                        key: Key("$OV01$_index"),
+                        icon: _controller.favoriteStatusObs.value
+                            ? OV_ICO_FAV
+                            : OV_ICO_NOFAV,
+                        onPressed: () {
+                          _controller
+                              .toggleFavoriteStatus(_product.id)
+                              .then((returnedFavStatus) {
+                            if (returnedFavStatus) {
+                              CustomSnackbar.simple(
+                                context: context,
+                                message: TOGGLE_STATUS_SUCESS,
+                              );
+                            } else {
+                              CustomSnackbar.simple(
+                                context: context,
+                                message: TOGGLE_STATUS_ERROR,
+                              );
+                            }
+                          });
+                        },
+                        color: Theme.of(context).accentColor)),
+                    title: Text(_product.title, key: Key("$OV03$_index")),
                     trailing: IconButton(
-                        key: Key("$OV002\_$_index"),
+                        key: Key("$OV02$_index"),
                         icon: OV_ICO_SHOP,
                         onPressed: () {
                           _cartController.addProductInTheCart(_product);
@@ -75,7 +69,7 @@ class OverviewGridItem extends StatelessWidget {
                               context: context,
                               title: DONE,
                               message: "${_product.title}$ITEMCART_ADDED",
-                              label: "Undo",
+                              labelButton: "Undo",
                               function: () => _cartController
                                   .undoAddProductInTheCart(_product));
                         },
@@ -83,10 +77,3 @@ class OverviewGridItem extends StatelessWidget {
                     backgroundColor: Colors.black87))));
   }
 }
-                          // CustomFlushbar(
-                          //   DONE,
-                          //   "${_product.title}$ITEMCART_ADDED",
-                          //   context,
-                          // ).withButton(UNDO, () {
-                          //   _cartController.undoAddProductInTheCart(_product);
-                          // });

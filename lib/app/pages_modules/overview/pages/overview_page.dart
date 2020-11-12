@@ -22,7 +22,7 @@ class OverviewPage extends StatelessWidget {
             _enumFilter == EnumFilter.All
                 ? OV_TIT_ALL_APPBAR
                 : OV_TIT_FAV_APPBAR,
-            key: Key(OV005),
+            key: Key(OV05),
           ),
           actions: [FilterFavoriteAppbar(_enumFilter), BadgeShopCartAppbar()],
         ),

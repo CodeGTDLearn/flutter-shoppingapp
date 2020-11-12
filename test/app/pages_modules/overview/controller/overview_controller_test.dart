@@ -91,7 +91,7 @@ class OverviewControllerTest {
       });
     });
 
-    group(' Injectable-Mocked-Controller | Injectable-Mocked-Repo', () {
+    group(' Injectable-Mocked-Controller', () {
       test('Checking Instances to be used in the Test', () {
         expect(_injectableMockController, isA<InjectableMockController>());
       });
@@ -103,9 +103,10 @@ class OverviewControllerTest {
           .value(MockedDataSource()
           .productsEmpty()));
 
-      _injectableMockController.getProducts().then((value) {
-        expect(value, List.empty());
-      });
+      _injectableMockController.getProducts()
+          .then((value) {
+            expect(value, List.empty());
+          });
       // @formatter:on
       });
 

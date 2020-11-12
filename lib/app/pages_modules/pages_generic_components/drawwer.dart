@@ -4,13 +4,12 @@ import 'package:get/get.dart';
 import '../../core/properties/app_properties.dart';
 import '../../core/properties/app_routes.dart';
 import '../../core/properties/theme/dark_theme_controller.dart';
-import '../../core/texts_icons_provider/app_generic_words.dart';
 import '../cart/service/i_cart_service.dart';
 import '../managed_products/controller/managed_products_controller.dart';
 import '../orders/service/i_orders_service.dart';
 import 'core/message_db_empty_provided.dart';
 import 'core/texts_icons/drawwer_texts_icons_provided.dart';
-import 'custom_flushbar.dart';
+import 'custom_snackbar.dart';
 
 // ignore: must_be_immutable
 class Drawwer extends StatelessWidget {
@@ -27,7 +26,6 @@ class Drawwer extends StatelessWidget {
     return Drawer(
         child: Column(children: [
       AppBar(title: Text(DRW_TIT_APPBAR), automaticallyImplyLeading: false),
-
       _drawerItem(
         quantityItems: _managedProducts.managedProductsQtde(),
         leadIcon: DRW_ICO_PROD,
@@ -37,27 +35,24 @@ class Drawwer extends StatelessWidget {
         notRoutingWithoutQtdeEvaluation: false,
         // quitPopping: true,
       ),
-
-     _drawerItem(
-       quantityItems: _cart.cartItemsQtde(),
-       leadIcon: DRW_ICO_CART,
-       title: DRW_LBL_CART,
-       message: DRW_TXT_CART,
-       route: AppRoutes.CART,
-       notRoutingWithoutQtdeEvaluation: true,
-       // quitPopping: false,
-     ),
-
-     _drawerItem(
-       quantityItems: _orders.ordersQtde(),
-       leadIcon: DRW_ICO_ORD ,
-       title: DRW_LBL_ORD ,
-       message: DRW_TXT_ORD,
-       route: AppRoutes.ORDERS,
-       notRoutingWithoutQtdeEvaluation: false,
-       // quitPopping: false,
-     ),
-
+      _drawerItem(
+        quantityItems: _cart.cartItemsQtde(),
+        leadIcon: DRW_ICO_CART,
+        title: DRW_LBL_CART,
+        message: DRW_TXT_CART,
+        route: AppRoutes.CART,
+        notRoutingWithoutQtdeEvaluation: true,
+        // quitPopping: false,
+      ),
+      _drawerItem(
+        quantityItems: _orders.ordersQtde(),
+        leadIcon: DRW_ICO_ORD,
+        title: DRW_LBL_ORD,
+        message: DRW_TXT_ORD,
+        route: AppRoutes.ORDERS,
+        notRoutingWithoutQtdeEvaluation: false,
+        // quitPopping: false,
+      ),
       _drawerItem(
         quantityItems: _managedProducts.managedProductsQtde(),
         leadIcon: DRW_ICO_MAN_PROD,
@@ -67,7 +62,6 @@ class Drawwer extends StatelessWidget {
         notRoutingWithoutQtdeEvaluation: false,
         // quitPopping: false
       ),
-
       Obx(() => SwitchListTile(
           secondary: DRW_ICO_DARKTHM,
           title: Text(DRW_LBL_DARKTHM),
@@ -89,7 +83,11 @@ class Drawwer extends StatelessWidget {
         title: Text(title),
         onTap: () {
           if (quantityItems == 0 && notRoutingWithoutQtdeEvaluation) {
-            CustomFlushbar(OPS, message, _context, INTERVAL).simple();
+            CustomSnackbar.simple(
+              message: message,
+              context: _context,
+              duration: INTERVAL,
+            );
           } else if (quantityItems != 0 && notRoutingWithoutQtdeEvaluation) {
             Get.toNamed(route);
             // quitPopping ? Get.offNamed(route) : Get.toNamed(route);
