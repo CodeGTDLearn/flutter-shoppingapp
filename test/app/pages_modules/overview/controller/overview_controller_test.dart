@@ -14,13 +14,13 @@ import 'overview_controller_mocks.dart';
 
 // void main() {
 class OverviewControllerTest {
-  static void IntegrationTests() {
+  static void integrationTests() {
     IOverviewController _controller, _injectableMockController;
     IOverviewService _service;
     IOverviewRepo _mockRepo;
 
     setUp(() {
-      _mockRepo = MockRepo();
+      _mockRepo = OverviewMockRepo();
       _service = OverviewService(repo: _mockRepo);
       _controller = OverviewController(service: _service);
       _injectableMockController = InjectableMockController();

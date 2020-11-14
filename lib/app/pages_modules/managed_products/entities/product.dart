@@ -1,6 +1,14 @@
 import 'dart:convert';
 
 class Product {
+
+  String _id;
+  String _title;
+  String _description;
+  double _price;
+  String _imageUrl;
+  bool _isFavorite = false;
+
   Product([
     this._id,
     this._title,
@@ -9,13 +17,6 @@ class Product {
     this._imageUrl,
     this._isFavorite = false,
   ]);
-
-  String _id;
-  String _title;
-  String _description;
-  double _price;
-  String _imageUrl;
-  bool _isFavorite = false;
 
   factory Product.from_Json(String str) => Product.fromJson(json.decode(str));
 

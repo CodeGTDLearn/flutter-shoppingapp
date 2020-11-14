@@ -22,10 +22,10 @@ import 'repo/overview_repo_mocks.dart';
 
 // void main() {
 class OverviewPageTest {
-  static void WidgetIntegrationTests() {
+  static void widgetTests() {
     final binding = BindingsBuilder(() {
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
-      Get.lazyPut<IOverviewRepo>(() => MockRepo());
+      Get.lazyPut<IOverviewRepo>(() => OverviewMockRepo());
       Get.lazyPut<IOverviewService>(
           () => OverviewService(repo: Get.find<IOverviewRepo>()));
       Get.lazyPut<OverviewController>(

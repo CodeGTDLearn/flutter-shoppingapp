@@ -3,27 +3,28 @@ import 'package:shopingapp/app/pages_modules/managed_products/entities/product.d
 import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
 import 'package:test/test.dart';
 
-import '../../../../data_builder/databuilder.dart';
+import '../../../../data_builders/product_databuilder.dart';
 import 'overview_repo_mocks.dart';
 
 // void main() {
 class OverviewRepoTest {
-  static void MockTests() {
+  static void unitTests() {
     IOverviewRepo _mockRepo, _injectableRepoMock;
     var _productFail;
 
     setUpAll(() {
-      _productFail = DataBuilder().ProductId();
+      _productFail = ProductDataBuilder().ProductId();
     });
 
     setUp(() {
-      _mockRepo = MockRepo();
-      _injectableRepoMock = InjectableMockRepo();
+      _mockRepo = OverviewMockRepo();
+      _injectableRepoMock = OverviewInjectableMockRepo();
     });
 
     group('Mocked-Repo', () {
       test('Checking Instances to be used in the Test', () {
-        expect(_mockRepo, isA<MockRepo>());
+        expect(_mockRepo, isA<OverviewMockRepo>());
+        expect(_productFail, isA<Product>());
       });
 
       test('Checking Response Type in GetProducts', () {
@@ -53,7 +54,7 @@ class OverviewRepoTest {
     });
     group('Injectable-Mocked-Repo', () {
       test('Checking Instances to be used in the Test', () {
-        expect(_injectableRepoMock, isA<InjectableMockRepo>());
+        expect(_injectableRepoMock, isA<OverviewInjectableMockRepo>());
       });
 
       test('Getting products - Fail hence Empty', () {

@@ -26,7 +26,7 @@ import '../../../../mocked_data_source/mocked_data_source.dart';
   *     - Testes mais rapidos, do que os feitos em WebService ou DB
   *     - Testes independemente de WebServide ou DB
   *****************************************************/
-class MockRepo extends Mock implements IOverviewRepo {
+class OverviewMockRepo extends Mock implements IOverviewRepo {
   @override
   Future<List<Product>> getProducts() async {
     return Future.value(MockedDataSource().products());
@@ -38,4 +38,4 @@ class MockRepo extends Mock implements IOverviewRepo {
   }
 }
 
-class InjectableMockRepo extends Mock implements IOverviewRepo {}
+class OverviewInjectableMockRepo extends Mock implements IOverviewRepo {}

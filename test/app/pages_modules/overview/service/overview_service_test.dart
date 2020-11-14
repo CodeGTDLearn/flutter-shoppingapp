@@ -6,19 +6,19 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
-import '../../../../data_builder/databuilder.dart';
+import '../../../../data_builders/product_databuilder.dart';
 import '../../../../mocked_data_source/mocked_data_source.dart';
 import '../repo/overview_repo_mocks.dart';
 import 'overview_service_mocks.dart';
 
 // void main() {
 class OverviewServiceTest {
-  static void IntegrationTests() {
+  static void unitTests() {
     IOverviewService _service, _injectableMockService;
     IOverviewRepo _mockRepo;
 
     setUp(() {
-      _mockRepo = MockRepo();
+      _mockRepo = OverviewMockRepo();
       _service = OverviewService(repo: _mockRepo);
       _injectableMockService = InjectableMockService();
     });
@@ -26,7 +26,7 @@ class OverviewServiceTest {
     group('Service | Mocked-Repo', () {
       test('Checking Instances to be used in the Test', () {
         expect(_service, isA<OverviewService>());
-        expect(_mockRepo, isA<MockRepo>());
+        expect(_mockRepo, isA<OverviewMockRepo>());
       });
 
       test('Checking Response Type in GetProducts', () {
@@ -142,7 +142,7 @@ class OverviewServiceTest {
       test('Toggle FavoriteStatus in a product - Fail 404', () {
         //INJECTABLE FOR SIMPLE-RETURNS
         when(_injectableMockService.getProductById("p3"))
-            .thenReturn(DataBuilder().ProductFull());
+            .thenReturn(ProductDataBuilder().ProductFull());
 
         //INJECTABLE FOR FUTURES-RETURNS
         when(_injectableMockService.toggleFavoriteStatus("p3"))
