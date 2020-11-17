@@ -5,8 +5,9 @@ import '../../orders/entities/order.dart';
 import '../../orders/service/i_orders_service.dart';
 import '../entities/cart_item.dart';
 import '../service/i_cart_service.dart';
+import 'i_cart_controller.dart';
 
-class CartController extends GetxController {
+class CartController extends GetxController implements ICartController {
   final ICartService cartService;
   final IOrdersService ordersService;
 
@@ -20,36 +21,54 @@ class CartController extends GetxController {
     recalcQtdeAndAmountCart();
   }
 
-  Map<String, CartItem> getAll() {
+  @override
+  Map<String, CartItem> getAllCartItems() {
     return cartService.getAllCartItems();
   }
 
-  void addProductInTheCart(Product product) {
+  @override
+  void addCartItem(Product product) {
     cartService.addCartItem(product);
     recalcQtdeAndAmountCart();
   }
 
-  void undoAddProductInTheCart(Product product) {
+  @override
+  void addCartItemUndo(Product product) {
     cartService.addCartItemUndo(product);
     recalcQtdeAndAmountCart();
   }
 
+  @override
   void recalcQtdeAndAmountCart() {
     qtdeCartItems.value = cartService.cartItemsQtde();
     amountCartItems.value = cartService.cartItemTotal$Amount();
   }
 
+  @override
   void removeCartItem(CartItem cartItem) {
     cartService.removeCartItem(cartItem);
     recalcQtdeAndAmountCart();
   }
 
+  @override
   void clearCart() {
     cartService.clearCart();
     recalcQtdeAndAmountCart();
   }
 
+  @override
   Future<Order> addOrder(List<CartItem> cartItems, double amount) {
     return ordersService.addOrder(cartItems, amount);
   }
+
+  @override
+  int getQtdeCartItemsObs(){
+    return qtdeCartItems.value;
+  }
+
+  @override
+  double getAmountCartItemsObs(){
+    return amountCartItems.value;
+  }
+
 }

@@ -64,14 +64,14 @@ class OverviewGridItem extends StatelessWidget {
                         key: Key("$OV02$_index"),
                         icon: OV_ICO_SHOP,
                         onPressed: () {
-                          _cartController.addProductInTheCart(_product);
+                          _cartController.addCartItem(_product);
                           CustomSnackbar.button(
                               context: context,
                               title: DONE,
                               message: "${_product.title}$ITEMCART_ADDED",
                               labelButton: "Undo",
                               function: () => _cartController
-                                  .undoAddProductInTheCart(_product));
+                                  .addCartItemUndo(_product));
                         },
                         color: Theme.of(context).accentColor),
                     backgroundColor: Colors.black87))));

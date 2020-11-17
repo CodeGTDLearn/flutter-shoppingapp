@@ -57,29 +57,17 @@ class CartPage extends StatelessWidget {
                             // @formatter:off
                                  onPressed: () {
                                   controller
-                                      .addOrder(controller.getAll().values.toList(),
+                                      .addOrder(controller.getAllCartItems().values.toList(),
                                           controller.amountCartItems.value)
                                       .then((value) {
                                           Get.back();
                                           controller.clearCart();
                                           controller.recalcQtdeAndAmountCart();
-                                          // CustomSnackbar.simple(OPS, SUCESS_ORDER_ADD);
-                                          // CustomFlushbar(
-                                          //     OPS,
-                                          //     SUCESS_ORDER_ADD,
-                                          //   context
-                                          // ).simple();
                                           CustomSnackbar.simple(
                                               message: SUCESS_ORDER_ADD,
                                               context: context);
                                       }).catchError((onError) =>
-                                          // CustomSnackbar.simple(OPS, ERROR_ORDER));
-                                  // CustomFlushbar(
-                                  //     OPS,
-                                  //     ERROR_ORDER,
-                                  //     context
-                                  // ).simple());
-                                  CustomSnackbar.simple(
+                                       CustomSnackbar.simple(
                                       message: ERROR_ORDER,
                                       context: context));
 
@@ -100,12 +88,12 @@ class CartPage extends StatelessWidget {
           Expanded(
               child: ListView.builder(
                   itemCount: controller
-                      .getAll()
+                      .getAllCartItems()
                       .length,
                   itemBuilder: (ctx, item) {
                     return CardCartItem(
                         controller
-                            .getAll()
+                            .getAllCartItems()
                             .values
                             .elementAt(item));
                   }))

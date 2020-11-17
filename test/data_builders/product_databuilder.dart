@@ -11,7 +11,7 @@ class ProductDataBuilder {
         Faker().randomGenerator.string(3, min: 2),
         Faker().food.dish(),
         Faker().food.cuisine(),
-        22.22,
+        Faker().randomGenerator.decimal(),
         "https://images.freeimages"
         ".com/images/large-previews/eae/clothes-3-1466560.jpg",
         true

@@ -10,18 +10,18 @@ class CartService implements ICartService {
 
   @override
   Map<String, CartItem> getAllCartItems() {
-    return repo.getAll();
+    return repo.getAllCartItems();
   }
 
   @override
   bool addCartItem(Product product) {
-    repo.addProductInTheCart(product);
+    repo.addCartItem(product);
     return true;
   }
 
   @override
   bool addCartItemUndo(Product product) {
-    repo.undoAddProductInTheCart(product);
+    repo.addCartItemUndo(product);
     return false;
   }
 

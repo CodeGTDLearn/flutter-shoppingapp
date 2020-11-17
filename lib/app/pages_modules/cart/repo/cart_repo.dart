@@ -6,12 +6,12 @@ class CartRepo implements ICartRepo {
   final Map<String, CartItem> _cartItems = {};
 
   @override
-  Map<String, CartItem> getAll() {
+  Map<String, CartItem> getAllCartItems() {
     return _cartItems;
   }
 
   @override
-  void addProductInTheCart(Product product) {
+  void addCartItem(Product product) {
     if (_cartItems.containsKey(product.id)) {
       _cartItems.update(product.id, (itemFound) {
         return CartItem(
@@ -28,7 +28,7 @@ class CartRepo implements ICartRepo {
   }
 
   @override
-  void undoAddProductInTheCart(Product product) {
+  void addCartItemUndo(Product product) {
     var qtde = 0;
     _cartItems.forEach((key, value) {
       if (key == product.id) qtde = value.qtde;
@@ -36,7 +36,7 @@ class CartRepo implements ICartRepo {
     if (qtde == 1) _cartItems.remove(product.id);
     if (qtde > 1) {
       _cartItems.update(product.id, (itemFound) {
-        if (itemFound.qtde == 1) _cartItems.remove(product.id);
+        if (itemFound.qtde == 1) return _cartItems.remove(product.id);
         return CartItem(
           itemFound.id,
           itemFound.title,
@@ -54,6 +54,6 @@ class CartRepo implements ICartRepo {
 
   @override
   void clearCart() {
-    if (getAll().length != 0) _cartItems.clear();
+    if (getAllCartItems().length != 0) _cartItems.clear();
   }
 }
