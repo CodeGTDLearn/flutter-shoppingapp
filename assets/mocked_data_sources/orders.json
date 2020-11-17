@@ -1,0 +1,40 @@
+[
+  {
+    "id": "p1",
+    "amount": "Red Shirt",
+    "datetime": "A red shirt - it is pretty red!",
+    "cartItems": [
+      {
+        "id": "p1",
+        "title": "Red Shirt",
+        "qtde": 1,
+        "price": 19.99
+      },
+      {
+        "id": "p2",
+        "title": "Trousers",
+        "qtde": 1,
+        "price": 29.99
+      }
+    ]
+  },
+  {
+    "id": "p2",
+    "amount": "Trousers",
+    "datetime": "A nice pair of trousers.",
+    "cartItems": [
+      {
+        "id": "p3",
+        "title": "Yellow Scarf",
+        "qtde": 1,
+        "price": 39.99
+      },
+      {
+        "id": "p4",
+        "title": "A Pan",
+        "qtde": 1,
+        "price": 49.99
+      }
+    ]
+  }
+]

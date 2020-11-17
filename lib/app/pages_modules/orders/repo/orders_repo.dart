@@ -6,7 +6,7 @@ import '../../../core/properties/app_properties.dart';
 import '../entities/order.dart';
 import 'i_orders_repo.dart';
 
-class OrdersFirebaseRepo extends IOrdersRepo {
+class OrdersRepo extends IOrdersRepo {
   final List<Order> _orders = [];
 
   @override
