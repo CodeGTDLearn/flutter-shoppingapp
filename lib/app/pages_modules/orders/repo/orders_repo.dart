@@ -33,7 +33,7 @@ class OrdersRepo extends IOrdersRepo {
         final JsonResponseToMap =
         json.decode(jsonResponse.body) as Map<String, dynamic>;
 
-        JsonResponseToMap != null ?
+        JsonResponseToMap != null || jsonResponse.statusCode >= 400 ?
         JsonResponseToMap
           .forEach((idMap, dataMap) {
             var orderCreatedFromDataMap = Order.fromJson(dataMap);

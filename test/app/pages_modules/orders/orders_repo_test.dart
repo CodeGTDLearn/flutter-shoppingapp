@@ -1,29 +1,29 @@
+import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/orders/entities/order.dart';
 import 'package:shopingapp/app/pages_modules/orders/repo/i_orders_repo.dart';
 import 'package:test/test.dart';
 
+import '../../../data_builders/order_databuilder.dart';
+import '../../../data_builders/product_databuilder.dart';
 import 'orders_repo_mocks.dart';
 
 class OrdersRepoTest {
   static void unitTests() {
     IOrdersRepo _mockRepo, _injectableMock;
-    var _productFail;
-
-    // setUpAll(() {
-    //   _productFail = ProductDataBuilder().ProductId();
-    // });
+    var _orderWithoutId;
 
     setUp(() {
       _mockRepo = OrdersMockRepo();
       _injectableMock = OrdersInjectableMockRepo();
+      _orderWithoutId = OrderDatabuilder.OrderFull();
     });
 
       test('Checking Instances to be used in the Test', () {
         expect(_mockRepo, isA<OrdersMockRepo>());
         expect(_injectableMock, isA<OrdersInjectableMockRepo>());
-        // expect(_productFail, isA<Product>());
+        expect(_orderWithoutId, isA<Order>());
       });
 
       test('Checking Response Type in getOrders', () {
@@ -33,31 +33,41 @@ class OrdersRepoTest {
       });
 
     test('Getting Orders', () {
-      _mockRepo.getOrders().then((value) {
-        expect(value[0].id, "-MLszdOBBsXxJaPuwZqE");
-        expect(value[0].cartItems[0].id, "-MJ45uFapLqamB92wOYe");
-        expect(value[0].cartItems[1].id, "-MJDo1SL6ywrEs6AGrxB");
-        expect(value[1].id, '-MKaVMmT4Z7SYHhg-S27');
-        expect(value[1].cartItems[0].id, "-MKML9enBe3N13QRQKPF");
-        expect(value[1].cartItems[1].id, "-MKML9enBe3N13QRQWSV");
+      _mockRepo.getOrders().then((response) {
+        expect(response[0].id, "-MLszdOBBsXxJaPuwZqE");
+        expect(response[0].cartItems[0].id, "-MJ45uFapLqamB92wOYe");
+        expect(response[0].cartItems[1].id, "-MJDo1SL6ywrEs6AGrxB");
+        expect(response[1].id, '-MKaVMmT4Z7SYHhg-S27');
+        expect(response[1].cartItems[0].id, "-MKML9enBe3N13QRQKPF");
+        expect(response[1].cartItems[1].id, "-MKML9enBe3N13QRQWSV");
+      });
+    });
+
+    test('Adding Orders', () {
+      var id = Faker().randomGenerator.string(20, min: 20);
+      _mockRepo.addOrder(_orderWithoutId).then((response) {
+        response = _orderWithoutId;
+        response.id = id;
+        expect(response.id, id);
+      });
+    });
+
+    //<<<<<<<< creating test for erros and exceptions
+    test('Adding Orders - Erro statusCode >= 400', () {
+      when(_injectableMock.getOrders()).thenAnswer((_)
+      async => Future.error("error"));
+
+      _injectableMock.getOrders().then((value) {
+        expect(value, isException);
       });
     });
 
     test('Getting Orders - Fail hence Empty', () {
       when(_injectableMock.getOrders()).thenAnswer((_) async => []);
-
       _injectableMock.getOrders().then((value) {
         expect(value, isEmpty);
       });
     });
-    //
-      // test('Updating a Product - Response Status 404', () {
-      //   when(_injectableMock.updateProduct(_productFail))
-      //       .thenAnswer((_) async => 404);
-      //
-      //   _injectableMock
-      //       .updateProduct(_productFail)
-      //       .then((value) => {expect(value, 404)});
-      // });
+
   }
 }

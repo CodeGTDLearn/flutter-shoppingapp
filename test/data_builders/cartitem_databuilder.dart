@@ -11,7 +11,7 @@ class CartItemDatabuilder {
         22.22);
   }
 
-  static CartItem CartItemFull(Product product) {
+  static CartItem CartItemFull() {
     return CartItem(
         Faker().randomGenerator.string(3, min: 2),
         Faker().lorem.word(),
