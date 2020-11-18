@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'pages_generics_components_widgets_keys.dart';
+import 'core/pages_generics_comp_widgets_keys.dart';
 
 class CustomSnackbar {
   static simple({String message, BuildContext context, int duration}) {

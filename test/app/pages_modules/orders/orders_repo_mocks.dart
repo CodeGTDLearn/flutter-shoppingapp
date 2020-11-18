@@ -1,10 +1,7 @@
 import 'package:mockito/mockito.dart';
-import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/orders/entities/order.dart';
 import 'package:shopingapp/app/pages_modules/orders/repo/i_orders_repo.dart';
-import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
 
-import '../../../../mocked_data_source/mocked_data_source.dart';
 import '../../../mocked_data_source/mocked_data_source.dart';
 
 

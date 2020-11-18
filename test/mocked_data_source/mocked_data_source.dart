@@ -9,7 +9,8 @@ class MockedDataSource {
   String _pathAssetsJSONDataSourceProducts, _pathAssetsJSONDataSourceOrders;
 
   MockedDataSource() {
-    _pathAssetsJSONDataSourceProducts = 'assets/mocked_data_sources/products.json';
+    _pathAssetsJSONDataSourceProducts =
+        'assets/mocked_data_sources/products.json';
     _pathAssetsJSONDataSourceOrders = 'assets/mocked_data_sources/orders.json';
   }
 
@@ -55,16 +56,15 @@ class MockedDataSource {
     final file = File(_pathAssetsJSONDataSourceOrders);
     final json = jsonDecode(file.readAsStringSync());
     List<Order> result =
-    json.map<Order>((json) => Order.fromJson(json)).toList();
+        json.map<Order>((json) => Order.fromJson(json)).toList();
     return result;
   }
 
   Order order() {
-    order() {
     final file = File(_pathAssetsJSONDataSourceOrders);
     final json = jsonDecode(file.readAsStringSync());
     List<Order> result =
-    json.map<Order>((json) => Order.fromJson(json)).toList();
+        json.map<Order>((json) => Order.fromJson(json)).toList();
     return result.elementAt(0);
   }
 }

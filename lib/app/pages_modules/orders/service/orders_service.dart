@@ -41,7 +41,7 @@ class OrdersService implements IOrdersService {
   @override
   void clearOrders() {
     _localDataOrders = [];
-    repo.clearOrders();
+    // repo.clearOrders();
   }
 
   @override

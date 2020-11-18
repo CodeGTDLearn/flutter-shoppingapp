@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../pages_generic_components/app_messages_provided.dart';
+import '../../pages_generic_components/custom_circ_progres_indicator.dart';
 import '../controller/overview_controller.dart';
 import 'filter_favorite_enum.dart';
 import 'overview_grid_item.dart';
@@ -18,7 +20,7 @@ class OverviewGrid extends StatelessWidget {
 
     return Obx(
       () => controller.filteredProductsObs.length == 0
-          ? Center(child: CircularProgressIndicator())
+          ? CustomCircProgresIndicator(message: NO_PROD)
           : GridView.builder(
               padding: EdgeInsets.all(10),
               itemCount: controller.filteredProductsObs.length,

@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 
 import '../../../core/properties/app_routes.dart';
-import '../../pages_generic_components/drawwer.dart';
+import '../../pages_generic_components/app_messages_provided.dart';
+import '../../pages_generic_components/custom_circ_progres_indicator.dart';
+import '../../pages_generic_components/custom_drawer.dart';
 import '../components/managed_product_item.dart';
 import '../controller/managed_products_controller.dart';
 import '../core/texts_icons/managed_products_texts_icons_provided.dart';
@@ -22,12 +24,12 @@ class ManagedProductsPage extends StatelessWidget {
             icon: MAN_PROD_ICO_ADD_APPBAR,
             onPressed: () => Get.toNamed(AppRoutes.MANAGED_PRODUCTS_ADD_EDIT))
       ]),
-      drawer: Drawwer(),
+      drawer: CustomDrawer(),
 
       //------
       // GERENCIA DE ESTADO REATIVA - COM O GET
       body: Obx(() => (controller.managedProductsObs.length == 0
-          ? Center(child: CircularProgressIndicator())
+          ? CustomCircProgresIndicator(message: NO_MAN_PROD)
           : RefreshIndicator(
               onRefresh: controller.getProducts,
               child: ListView.builder(

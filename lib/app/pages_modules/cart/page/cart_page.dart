@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../orders/core/messages_snackbars_provided.dart';
+import '../../pages_generic_components/app_messages_provided.dart';
+import '../../pages_generic_components/custom_circ_progres_indicator.dart';
 import '../../pages_generic_components/custom_snackbar.dart';
 import '../components/card_cart_item.dart';
 import '../controller/cart_controller.dart';
@@ -16,11 +18,11 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     int currentQtdeCart = controller.qtdeCartItems();
     return Scaffold(
-        appBar: AppBar(title: Text(CART_TIT_APPBAR), actions: <Widget>[
+        appBar: AppBar(title: Text(CRT_TIT_APPBAR), actions: <Widget>[
           IconButton(
-              icon: CART_ICO_CLEAR,
+              icon: CRT_ICO_CLEAR,
               onPressed: controller.clearCart,
-              tooltip: CART_ICO_CLEAR_TOOLTIP)
+              tooltip: CRT_ICO_CLEAR_TOOLT)
         ]),
         body: Column(children: [
           Card(
@@ -31,7 +33,7 @@ class CartPage extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: Container(
-                          child: Text(CART_LBL_CARD,
+                          child: Text(CRT_LBL_CARD,
                               style: TextStyle(fontSize: 20))),
                     ),
                     // Spacer(),
@@ -52,7 +54,7 @@ class CartPage extends StatelessWidget {
                       child: Container(
                         child: Obx(
                           () => controller.qtdeCartItems() != currentQtdeCart
-                              ? Center(child: CircularProgressIndicator())
+                              ? CustomCircProgresIndicator(message: NO_CRTITEM)
                               : FlatButton(
                             // @formatter:off
                                  onPressed: () {
@@ -74,7 +76,7 @@ class CartPage extends StatelessWidget {
                                   // Get.back();
                                 },
                                 // @formatter:on
-                              child: Text(CART_LBL_ORDER,
+                              child: Text(CRT_LBL_ORDER,
                                   style: TextStyle(
                                       color: Theme
                                           .of(context)

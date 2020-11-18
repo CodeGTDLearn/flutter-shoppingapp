@@ -17,7 +17,7 @@ class CardCartItem extends StatelessWidget {
     return Dismissible(
         key: ValueKey(_cartItem.id),
         background: Container(
-            child: CART_ICO_DISMIS,
+            child: CRT_ICO_DISM,
             alignment: Alignment.centerRight,
             padding: EdgeInsets.only(right: 20),
             margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
@@ -48,8 +48,8 @@ class CardCartItem extends StatelessWidget {
           return showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                      title: Text(CART_LBL_CONFIRM_DISMIS),
-                      content: Text(CART_MSG_CONFIRM_DISMIS),
+                      title: Text(CRT_LBL_CONF_DISM),
+                      content: Text(CRT_MSG_CONF_DISM),
                       actions: <Widget>[
                         _flattButton(YES, true),
                         _flattButton(NO, false)

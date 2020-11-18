@@ -7,12 +7,12 @@ import '../../core/properties/theme/dark_theme_controller.dart';
 import '../cart/service/i_cart_service.dart';
 import '../managed_products/controller/managed_products_controller.dart';
 import '../orders/service/i_orders_service.dart';
-import 'core/message_db_empty_provided.dart';
+import 'app_messages_provided.dart';
 import 'core/texts_icons/drawwer_texts_icons_provided.dart';
 import 'custom_snackbar.dart';
 
 // ignore: must_be_immutable
-class Drawwer extends StatelessWidget {
+class CustomDrawer extends StatelessWidget {
   BuildContext _context;
   final ICartService _cart = Get.find();
   final IOrdersService _orders = Get.find();

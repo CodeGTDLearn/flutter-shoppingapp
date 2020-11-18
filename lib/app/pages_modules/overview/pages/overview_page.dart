@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../pages_generic_components/drawwer.dart';
+import '../../pages_generic_components/custom_drawer.dart';
 import '../components/badge_shop_cart_appbar.dart';
 import '../components/filter_favorite_appbar.dart';
 import '../components/filter_favorite_enum.dart';
@@ -26,7 +26,7 @@ class OverviewPage extends StatelessWidget {
           ),
           actions: [FilterFavoriteAppbar(_enumFilter), BadgeShopCartAppbar()],
         ),
-        drawer: Drawwer(),
+        drawer: CustomDrawer(),
         body: OverviewGrid(_enumFilter, Get.find<OverviewController>()));
   }
 }

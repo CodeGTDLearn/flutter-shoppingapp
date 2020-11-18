@@ -15,7 +15,7 @@ import 'package:shopingapp/app/pages_modules/overview/core/overview_widget_keys.
 import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
-import 'package:shopingapp/app/pages_modules/pages_generic_components/pages_generics_components_widgets_keys.dart';
+import 'file:///C:/Users/SERVIDOR/Projects/flutter-shoppingapp/lib/app/pages_modules/pages_generic_components/core/pages_generics_comp_widgets_keys.dart';
 import 'package:shopingapp/app_driver.dart';
 
 import 'repo/overview_repo_mocks.dart';

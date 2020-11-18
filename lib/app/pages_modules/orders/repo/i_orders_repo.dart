@@ -6,5 +6,5 @@ abstract class IOrdersRepo {
 
   Future<List<Order>> getOrders();
 
-  void clearOrders();
+  // void clearOrders();
 }
