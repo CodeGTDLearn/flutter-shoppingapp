@@ -20,7 +20,7 @@ class OverviewGrid extends StatelessWidget {
 
     return Obx(
       () => controller.filteredProductsObs.length == 0
-          ? CustomCircProgresIndicator(message: NO_PROD)
+          ? CustomCircularProgressIndicator(NO_PROD)
           : GridView.builder(
               padding: EdgeInsets.all(10),
               itemCount: controller.filteredProductsObs.length,

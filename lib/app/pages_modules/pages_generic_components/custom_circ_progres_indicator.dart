@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class CustomCircProgresIndicator extends StatelessWidget {
+class CustomCircularProgressIndicator extends StatelessWidget {
   final String message;
 
-  CustomCircProgresIndicator({this.message});
+  CustomCircularProgressIndicator([this.message]);
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +15,11 @@ class CustomCircProgresIndicator extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                //todo: id not message show only the circular progress indicator
-                Center(
-                    child: Text(message,
-                        style: TextStyle(fontSize: cons.maxWidth * 0.07))),
+                message == null
+                    ? CircularProgressIndicator()
+                    : Center(
+                        child: Text(message,
+                            style: TextStyle(fontSize: cons.maxWidth * 0.07))),
                 SizedBox(height: cons.maxWidth * 0.05),
                 Center(child: CircularProgressIndicator()),
               ]));

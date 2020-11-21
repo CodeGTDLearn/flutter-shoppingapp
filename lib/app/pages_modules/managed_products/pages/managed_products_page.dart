@@ -29,7 +29,7 @@ class ManagedProductsPage extends StatelessWidget {
       //------
       // GERENCIA DE ESTADO REATIVA - COM O GET
       body: Obx(() => (controller.managedProductsObs.length == 0
-          ? CustomCircProgresIndicator(message: NO_MAN_PROD)
+          ? CustomCircularProgressIndicator(NO_MAN_PROD)
           : RefreshIndicator(
               onRefresh: controller.getProducts,
               child: ListView.builder(

@@ -33,7 +33,6 @@ class CartPage extends StatelessWidget {
               var lbw = constraint.maxWidth;
               return Column(children: [
                 Card(
-                    // color: Colors.red,
                     margin: EdgeInsets.all(lbw * 0.04),
                     child: Padding(
                         padding: EdgeInsets.all(lbw * 0.02),
@@ -60,7 +59,7 @@ class CartPage extends StatelessWidget {
                                   height: lbh * 0.1,
                                   child: Obx(() => controller.qtdeCartItems() !=
                                           currentQtdeCart
-                                      ? CustomCircProgresIndicator()
+                                      ? CustomCircularProgressIndicator()
                                       : FlatButton(
                                           color: Colors.red,
                                       // @formatter:off
@@ -73,12 +72,10 @@ class CartPage extends StatelessWidget {
                                             Get.back();
                                             controller.clearCart();
                                             controller.recalcQtdeAndAmountCart();
-                                            // CustomSnackbar2.simple(SUCES_ORD_ADD);
                                             CustomSnackbar.simple(
                                                 message: SUCESS_ORDER_ADD,
                                                 context: context);
                                         }).catchError((onError) =>
-                                            // CustomSnackbar2.simple(ERROR_ORD));
                                         CustomSnackbar.simple(
                                             message: ERROR_ORDER,
                                             context: context));

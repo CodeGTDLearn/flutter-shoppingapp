@@ -155,7 +155,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
               )
             ]),
         body: Obx(() => _controller.reloadManagedProductsEditPage.value
-            ? CustomCircProgresIndicator()
+            ? CustomCircularProgressIndicator()
             : Padding(
                 padding: EdgeInsets.all(16),
                 child: Form(

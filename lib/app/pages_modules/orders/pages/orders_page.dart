@@ -19,7 +19,7 @@ class OrdersPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(ORD_TIT_PAGE)),
       body: Obx(() => controller.ordersObs.length == 0
-          ? CustomCircProgresIndicator(message: NO_ORD)
+          ? CustomCircularProgressIndicator(NO_ORD)
           : Container(
               child: ListView.builder(
                   itemCount: controller.ordersObs.length,
