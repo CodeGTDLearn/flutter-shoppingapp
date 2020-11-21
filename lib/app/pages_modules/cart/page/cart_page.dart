@@ -24,6 +24,7 @@ class CartPage extends StatelessWidget {
               onPressed: controller.clearCart,
               tooltip: CRT_ICO_CLEAR_TOOLT)
         ]),
+        //todo: delete the expandeds and change for layoutbuilder
         body: Column(children: [
           Card(
               margin: EdgeInsets.all(15),

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import '../../../core/properties/app_urls.dart';
 
-import '../../../core/properties/app_properties.dart';
 import '../../managed_products/entities/product.dart';
 import 'i_overview_repo.dart';
 

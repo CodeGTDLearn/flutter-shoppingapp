@@ -15,6 +15,7 @@ class CustomCircProgresIndicator extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                //todo: id not message show only the circular progress indicator
                 Center(
                     child: Text(message,
                         style: TextStyle(fontSize: cons.maxWidth * 0.07))),

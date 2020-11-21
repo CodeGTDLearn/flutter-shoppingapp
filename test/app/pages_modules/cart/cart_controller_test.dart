@@ -1,4 +1,3 @@
-import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/i_cart_controller.dart';
 import 'package:shopingapp/app/pages_modules/cart/repo/cart_repo.dart';
@@ -10,14 +9,10 @@ import 'package:shopingapp/app/pages_modules/orders/repo/i_orders_repo.dart';
 import 'package:shopingapp/app/pages_modules/orders/repo/orders_repo.dart';
 import 'package:shopingapp/app/pages_modules/orders/service/i_orders_service.dart';
 import 'package:shopingapp/app/pages_modules/orders/service/orders_service.dart';
-import 'package:shopingapp/app/pages_modules/overview/components/filter_favorite_enum.dart';
-import 'package:shopingapp/app/pages_modules/overview/controller/overview_controller.dart';
-import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
 import '../../../data_builders/cartitem_databuilder.dart';
 import '../../../data_builders/product_databuilder.dart';
-import '../../../mocked_data_source/mocked_data_source.dart';
 
 class CartControllerTest {
   static void integrationTests() {
