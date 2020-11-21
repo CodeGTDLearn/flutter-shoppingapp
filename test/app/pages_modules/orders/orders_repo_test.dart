@@ -1,12 +1,10 @@
 import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
-import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/orders/entities/order.dart';
 import 'package:shopingapp/app/pages_modules/orders/repo/i_orders_repo.dart';
 import 'package:test/test.dart';
 
 import '../../../data_builders/order_databuilder.dart';
-import '../../../data_builders/product_databuilder.dart';
 import 'orders_repo_mocks.dart';
 
 class OrdersRepoTest {
@@ -20,17 +18,17 @@ class OrdersRepoTest {
       _orderWithoutId = OrderDatabuilder.OrderFull();
     });
 
-      test('Checking Instances to be used in the Test', () {
-        expect(_mockRepo, isA<OrdersMockRepo>());
-        expect(_injectableMock, isA<OrdersInjectableMockRepo>());
-        expect(_orderWithoutId, isA<Order>());
-      });
+    test('Checking Instances to be used in the Test', () {
+      expect(_mockRepo, isA<OrdersMockRepo>());
+      expect(_injectableMock, isA<OrdersInjectableMockRepo>());
+      expect(_orderWithoutId, isA<Order>());
+    });
 
-      test('Checking Response Type in getOrders', () {
-        _mockRepo.getOrders().then((value) {
-          expect(value, isA<List<Order>>());
-        });
+    test('Checking Response Type in getOrders', () {
+      _mockRepo.getOrders().then((value) {
+        expect(value, isA<List<Order>>());
       });
+    });
 
     test('Getting Orders', () {
       _mockRepo.getOrders().then((response) {
@@ -52,22 +50,27 @@ class OrdersRepoTest {
       });
     });
 
-    //<<<<<<<< creating test for erros and exceptions
     test('Adding Orders - Erro statusCode >= 400', () {
-      when(_injectableMock.getOrders()).thenAnswer((_)
-      async => Future.error("error"));
-
+      when(_injectableMock.addOrder(_orderWithoutId))
+          .thenAnswer((_) async => Future.error("error"));
       _injectableMock.getOrders().then((value) {
         expect(value, isException);
       });
     });
 
-    test('Getting Orders - Fail hence Empty', () {
+
+    test('Getting Orders - No response Content (null)', () {
       when(_injectableMock.getOrders()).thenAnswer((_) async => []);
       _injectableMock.getOrders().then((value) {
         expect(value, isEmpty);
       });
     });
 
+    test('Getting Orders - No response Content (empty)', () {
+      when(_injectableMock.getOrders()).thenAnswer((_) async => null);
+      _injectableMock.getOrders().then((value) {
+        expect(value, isNull);
+      });
+    });
   }
 }

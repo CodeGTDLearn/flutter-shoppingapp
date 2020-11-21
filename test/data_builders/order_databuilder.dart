@@ -1,6 +1,5 @@
 import 'package:faker/faker.dart';
 import 'package:shopingapp/app/pages_modules/cart/entities/cart_item.dart';
-import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/orders/entities/order.dart';
 
 import 'cartitem_databuilder.dart';

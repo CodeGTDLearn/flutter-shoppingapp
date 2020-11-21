@@ -27,7 +27,7 @@ class BadgeShopCartAppbar extends StatelessWidget {
               CustomSnackbar.simple(
                   message: NO_ITEMS_CART_YET,
                   context: context,
-                  duration: INTERVAL);
+                  duration: DURATION_SNACKBARS);
             } else {
               Get.toNamed(AppRoutes.CART);
             }

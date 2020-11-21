@@ -86,7 +86,7 @@ class CustomDrawer extends StatelessWidget {
             CustomSnackbar.simple(
               message: message,
               context: _context,
-              duration: INTERVAL,
+              duration: DURATION_SNACKBARS,
             );
           } else if (quantityItems != 0 && notRoutingWithoutQtdeEvaluation) {
             Get.toNamed(route);

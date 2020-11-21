@@ -1,14 +1,8 @@
-import 'package:faker/faker.dart';
-import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/cart/repo/cart_repo.dart';
 import 'package:shopingapp/app/pages_modules/cart/repo/i_cart_repo.dart';
 import 'package:shopingapp/app/pages_modules/cart/service/cart_service.dart';
 import 'package:shopingapp/app/pages_modules/cart/service/i_cart_service.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
-import 'package:shopingapp/app/pages_modules/overview/components/filter_favorite_enum.dart';
-import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
-import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service.dart';
-import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
 import '../../../data_builders/cartitem_databuilder.dart';
