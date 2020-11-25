@@ -29,22 +29,22 @@ class CartPage extends StatelessWidget {
             width: fullSizeLessAppbar.width,
             height: fullSizeLessAppbar.height,
             child: LayoutBuilder(builder: (_, constraint) {
-              var lbh = constraint.maxHeight;
-              var lbw = constraint.maxWidth;
+              var constHeight = constraint.maxHeight;
+              var constWidth = constraint.maxWidth;
               return Column(children: [
                 Card(
-                    margin: EdgeInsets.all(lbw * 0.04),
+                    margin: EdgeInsets.all(constWidth * 0.04),
                     child: Padding(
-                        padding: EdgeInsets.all(lbw * 0.02),
+                        padding: EdgeInsets.all(constWidth * 0.02),
                         child: Container(
-                            height: lbh * 0.1,
+                            height: constHeight * 0.1,
                             child: Row(children: [
                               Container(
-                                  width: lbw * 0.15,
+                                  width: constWidth * 0.15,
                                   child: Text(CRT_LBL_CARD,
                                       style: TextStyle(fontSize: 20))),
                               Container(
-                                  width: lbw * 0.25,
+                                  width: constWidth * 0.25,
                                   child: Chip(
                                       label: Text(
                                           controller.amountCartItems.value
@@ -53,58 +53,50 @@ class CartPage extends StatelessWidget {
                                               TextStyle(color: Colors.white)),
                                       backgroundColor:
                                           Theme.of(context).primaryColor)),
-                              SizedBox(width: lbw * 0.18),
+                              SizedBox(width: constWidth * 0.18),
                               Container(
-                                  width: lbw * 0.3,
-                                  height: lbh * 0.1,
+                                  // width: constWidth * 0.3,
+                                  // height: constHeight * 0.08,
                                   child: Obx(() => controller.qtdeCartItems() !=
                                           currentQtdeCart
-                                      ? CustomCircularProgressIndicator()
-                                      : FlatButton(
-                                          color: Colors.red,
-                                      // @formatter:off
-                                       onPressed: () {
-                                        controller
-                                        .addOrder(
-                                            controller.getAllCartItems().values.toList(),
-                                            controller.amountCartItems.value)
-                                        .then((_) {
-                                            Get.back();
-                                            controller.clearCart();
-                                            controller.recalcQtdeAndAmountCart();
-                                            CustomSnackbar.simple(
-                                                message: SUCESS_ORDER_ADD,
-                                                context: context);
-                                        }).catchError((onError) =>
-                                        CustomSnackbar.simple(
-                                            message: ERROR_ORDER,
-                                            context: context));
-                                       },
-                                      // @formatter:on
-                                      child: Text(CRT_LBL_ORDER,
-                                          style: TextStyle(
-                                              color: Theme
-                                                  .of(context)
-                                                  .primaryColor)))
-                                  )
-                              )
-                            ])
-                        ))),
-                SizedBox(height: lbh * 0.01),
+                                      ? CustomCircularProgressIndicator.radius(
+                                          constHeight * 0.1)
+                                      : _addOrderButton()))
+                            ])))),
+                SizedBox(height: constHeight * 0.01),
                 Expanded(
                     child: ListView.builder(
-                        itemCount: controller
-                            .getAllCartItems()
-                            .length,
+                        itemCount: controller.getAllCartItems().length,
                         itemBuilder: (ctx, item) {
-                          return CardCartItem(
-                              controller
-                                  .getAllCartItems()
-                                  .values
-                                  .elementAt(item));
+                          return CardCartItem(controller
+                              .getAllCartItems()
+                              .values
+                              .elementAt(item));
                         }))
               ]);
+            })));
+  }
+
+  Builder _addOrderButton() {
+    return Builder(builder: (builderContext) {
+      return FlatButton(
+          child: Text(CRT_LBL_ORDER,
+              style: TextStyle(color: Theme.of(builderContext).primaryColor)),
+          onPressed: () {
+            controller
+                .addOrder(controller.getAllCartItems().values.toList(),
+                    controller.amountCartItems.value)
+                .then((_) {
+              CustomSnackbar.simple(
+                  message: SUCESS_ORDER_ADD, context: builderContext);
+              controller.clearCart();
+              controller.recalcQtdeAndAmountCart();
             })
-        ));
+                // .whenComplete(() => Future.delayed(Duration(seconds: 1))
+                //     .then((value) => Get.back()))
+                .catchError((onError) => CustomSnackbar.simple(
+                    message: ERROR_ORDER, context: builderContext));
+          });
+    });
   }
 }
