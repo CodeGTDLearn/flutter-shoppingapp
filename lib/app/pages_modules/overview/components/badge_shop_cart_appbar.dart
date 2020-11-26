@@ -24,10 +24,11 @@ class BadgeShopCartAppbar extends StatelessWidget {
           icon: OV_ICO_SHOP,
           onPressed: () {
             if (_controller.getAllCartItems().length == 0) {
-              CustomSnackbar.simple(
-                  message: NO_ITEMS_CART_YET,
-                  context: context,
-                  duration: DURATION_SNACKBARS);
+              // CustomSnackbar.simple(
+              //     message: NO_ITEMS_CART_YET,
+              //     context: context,
+              //     duration: DURATION);
+              SimpleSnackbar(NO_ITEMS_CART_YET, context,DURATION).show();
             } else {
               Get.toNamed(AppRoutes.CART);
             }

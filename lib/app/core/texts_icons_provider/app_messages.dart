@@ -12,7 +12,7 @@ const ERROR_TRY_AGAIN_LATER = "Something wronged happens. Please, Try Again.";
 const SUCESS_PRODUCTS_ADDITION = "The product was added successfuly.";
 const SUCESS_PRODUCTS_UPDATING = "The product was updated successfuly.";
 const SUCESS_PRODUCTS_DELETING = "The product was deleted successfuly.";
-const SUCESS_ORDER_ADDITION = "The order was added successfuly.";
+const ORDER_ADDITION_DONE_SUCESSFULLY = "The order was added successfuly.";
 
 //Database Empty
 const DATABASE_EMPTY_NO_DATA_YET = 'There is no products to display.';

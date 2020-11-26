@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/properties/app_properties.dart';
 import '../../orders/core/messages_snackbars_provided.dart';
 import '../../pages_generic_components/custom_circ_progres_indicator.dart';
 import '../../pages_generic_components/custom_snackbar.dart';
@@ -28,23 +29,23 @@ class CartPage extends StatelessWidget {
         body: Container(
             width: fullSizeLessAppbar.width,
             height: fullSizeLessAppbar.height,
-            child: LayoutBuilder(builder: (_, constraint) {
-              var constHeight = constraint.maxHeight;
-              var constWidth = constraint.maxWidth;
+            child: LayoutBuilder(builder: (_, cons) {
+              var consHeight = cons.maxHeight;
+              var consWidth = cons.maxWidth;
               return Column(children: [
                 Card(
-                    margin: EdgeInsets.all(constWidth * 0.04),
+                    margin: EdgeInsets.all(consWidth * 0.04),
                     child: Padding(
-                        padding: EdgeInsets.all(constWidth * 0.02),
+                        padding: EdgeInsets.all(consWidth * 0.02),
                         child: Container(
-                            height: constHeight * 0.1,
+                            height: consHeight * 0.1,
                             child: Row(children: [
                               Container(
-                                  width: constWidth * 0.15,
+                                  width: consWidth * 0.15,
                                   child: Text(CRT_LBL_CARD,
                                       style: TextStyle(fontSize: 20))),
                               Container(
-                                  width: constWidth * 0.25,
+                                  width: consWidth * 0.25,
                                   child: Chip(
                                       label: Text(
                                           controller.amountCartItems.value
@@ -53,17 +54,17 @@ class CartPage extends StatelessWidget {
                                               TextStyle(color: Colors.white)),
                                       backgroundColor:
                                           Theme.of(context).primaryColor)),
-                              SizedBox(width: constWidth * 0.18),
+                              SizedBox(width: consWidth * 0.18),
                               Container(
-                                  // width: constWidth * 0.3,
-                                  // height: constHeight * 0.08,
+                                  width: consWidth * 0.3,
+                                  height: consHeight * 0.08,
                                   child: Obx(() => controller.qtdeCartItems() !=
                                           currentQtdeCart
                                       ? CustomCircularProgressIndicator.radius(
-                                          constHeight * 0.1)
+                                          consWidth * 0.3)
                                       : _addOrderButton()))
                             ])))),
-                SizedBox(height: constHeight * 0.01),
+                SizedBox(height: consHeight * 0.01),
                 Expanded(
                     child: ListView.builder(
                         itemCount: controller.getAllCartItems().length,
@@ -78,24 +79,24 @@ class CartPage extends StatelessWidget {
   }
 
   Builder _addOrderButton() {
-    return Builder(builder: (builderContext) {
+    return Builder(builder: (_context) {
       return FlatButton(
-          child: Text(CRT_LBL_ORDER,
-              style: TextStyle(color: Theme.of(builderContext).primaryColor)),
+          child: Text(CRT_LBL_ORD,
+              style: TextStyle(color: Theme.of(_context).primaryColor)),
           onPressed: () {
             controller
                 .addOrder(controller.getAllCartItems().values.toList(),
                     controller.amountCartItems.value)
                 .then((_) {
-              CustomSnackbar.simple(
-                  message: SUCESS_ORDER_ADD, context: builderContext);
-              controller.clearCart();
-              controller.recalcQtdeAndAmountCart();
-            })
-                // .whenComplete(() => Future.delayed(Duration(seconds: 1))
-                //     .then((value) => Get.back()))
-                .catchError((onError) => CustomSnackbar.simple(
-                    message: ERROR_ORDER, context: builderContext));
+                  controller.clearCart();
+                  controller.recalcQtdeAndAmountCart();
+                  SimpleSnackbar(SUCES_ORD_ADD, _context).show();
+                })
+                .whenComplete(() =>
+                    Future.delayed(Duration(milliseconds: DURATION))
+                        .then((value) => Get.back()))
+                .catchError(
+                    (onError) => SimpleSnackbar(ERROR_ORD, _context).show());
           });
     });
   }

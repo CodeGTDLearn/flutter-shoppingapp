@@ -35,16 +35,13 @@ class ManagedProductItem extends StatelessWidget {
                   onPressed: () =>
                       _controller.deleteProduct(_id).then((response) {
                         if (response >= 400) {
-                          // CustomSnackbar.simple(OPS, ERROR_MAN_PROD);
-                          // CustomFlushbar(OPS, ERROR_MAN_PROD, context).simple();
-                          CustomSnackbar.simple(
-                              message: ERROR_MAN_PROD, context: context);
+                          // CustomSnackbar.simple(
+                          //     message: ERROR_MAN_PROD, context: context);
+                          SimpleSnackbar(ERROR_MAN_PROD, context).show();
                         } else {
-                          // CustomSnackbar.simple(SUCESS, SUCESS_MAN_PROD_DEL);
-                          // CustomFlushbar(SUCESS, SUCESS_MAN_PROD_DEL, context)
-                          //     .simple();
-                          CustomSnackbar.simple(
-                              message: SUCESS_MAN_PROD_DEL, context: context);
+                          // CustomSnackbar.simple(
+                          //     message: SUCESS_MAN_PROD_DEL, context: context);
+                          SimpleSnackbar(SUCESS_MAN_PROD_DEL, context).show();
                         }
                       }),
                   color: Theme.of(context).errorColor),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../pages_generic_components/app_messages_provided.dart';
-import '../../pages_generic_components/custom_circ_progres_indicator.dart';
 import '../controller/overview_controller.dart';
 import 'filter_favorite_enum.dart';
 import 'overview_grid_item.dart';
@@ -18,22 +16,26 @@ class OverviewGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     controller.getProductsByFilter(enumFilter);
 
-    return Obx(
-      () => controller.filteredProductsObs.length == 0
-          ? CustomCircularProgressIndicator(NO_PROD)
-          : GridView.builder(
-              padding: EdgeInsets.all(10),
-              itemCount: controller.filteredProductsObs.length,
-              itemBuilder: (ctx, item) => OverviewGridItem(
-                controller.filteredProductsObs[item],
-                item.toString(),
-              ),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 3 / 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10),
-            ),
-    );
+    return Obx(() => controller.filteredProductsObs.length == 0
+        // ? CustomCircularProgressIndicator(NO_PROD)
+        ? Center(
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            // Text(NO_PROD, style: TextStyle(fontSize: 23)),
+            // SizedBox(height: 20),
+            CircularProgressIndicator()
+          ]))
+        : GridView.builder(
+            padding: EdgeInsets.all(10),
+            itemCount: controller.filteredProductsObs.length,
+            itemBuilder: (ctx, item) => OverviewGridItem(
+                  controller.filteredProductsObs[item],
+                  item.toString(),
+                ),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 3 / 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10)));
   }
 }

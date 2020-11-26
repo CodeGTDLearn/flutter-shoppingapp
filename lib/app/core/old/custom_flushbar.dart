@@ -19,7 +19,7 @@ class CustomFlushbar {
             key: Key(FB01),
             title: _title,
             message: _message,
-            duration: Duration(milliseconds: _duration ?? DURATION_SNACKBARS),
+            duration: Duration(milliseconds: _duration ?? DURATION),
             icon: FLUSHNOT_ICO)
         .show(_context);
   }

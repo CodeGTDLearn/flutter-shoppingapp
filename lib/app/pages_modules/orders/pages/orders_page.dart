@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../pages_generic_components/app_messages_provided.dart';
 import '../../pages_generic_components/custom_circ_progres_indicator.dart';
 import '../components/order_collapse_tile.dart';
 import '../controller/orders_controller.dart';
@@ -19,7 +18,8 @@ class OrdersPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(ORD_TIT_PAGE)),
       body: Obx(() => controller.ordersObs.length == 0
-          ? CustomCircularProgressIndicator(NO_ORD)
+          // ? CustomCircularProgressIndicator(NO_ORD)
+          ? CustomCircularProgressIndicator()
           : Container(
               child: ListView.builder(
                   itemCount: controller.ordersObs.length,

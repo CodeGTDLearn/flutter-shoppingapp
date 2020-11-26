@@ -83,11 +83,13 @@ class CustomDrawer extends StatelessWidget {
         title: Text(title),
         onTap: () {
           if (quantityItems == 0 && notRoutingWithoutQtdeEvaluation) {
-            CustomSnackbar.simple(
-              message: message,
-              context: _context,
-              duration: DURATION_SNACKBARS,
-            );
+            // CustomSnackbar.simple(
+            //   message: message,
+            //   context: _context,
+            //   duration: DURATION,
+            // );
+            SimpleSnackbar(message, _context,DURATION).show();
+
           } else if (quantityItems != 0 && notRoutingWithoutQtdeEvaluation) {
             Get.toNamed(route);
             // quitPopping ? Get.offNamed(route) : Get.toNamed(route);

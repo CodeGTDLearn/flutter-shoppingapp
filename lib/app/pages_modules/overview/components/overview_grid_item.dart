@@ -46,15 +46,17 @@ class OverviewGridItem extends StatelessWidget {
                               .toggleFavoriteStatus(_product.id)
                               .then((returnedFavStatus) {
                             if (returnedFavStatus) {
-                              CustomSnackbar.simple(
-                                context: context,
-                                message: TOGGLE_STATUS_SUCESS,
-                              );
+                              // CustomSnackbar.simple(
+                              //     context: context,
+                              //     message: TOGGLE_STATUS_SUCESS);
+                              SimpleSnackbar(TOGGLE_STATUS_SUCESS, context)
+                                  .show();
                             } else {
-                              CustomSnackbar.simple(
-                                context: context,
-                                message: TOGGLE_STATUS_ERROR,
-                              );
+                              // CustomSnackbar.simple(
+                              //     context: context,
+                              //     message: TOGGLE_STATUS_ERROR);
+                              SimpleSnackbar(TOGGLE_STATUS_ERROR, context)
+                                  .show();
                             }
                           });
                         },
@@ -65,13 +67,21 @@ class OverviewGridItem extends StatelessWidget {
                         icon: OV_ICO_SHOP,
                         onPressed: () {
                           _cartController.addCartItem(_product);
-                          CustomSnackbar.button(
-                              context: context,
-                              title: DONE,
-                              message: "${_product.title}$ITEMCART_ADDED",
-                              labelButton: "Undo",
-                              function: () => _cartController
-                                  .addCartItemUndo(_product));
+                          // CustomSnackbar.button(
+                          //     context: context,
+                          //     title: DONE,
+                          //     message: "${_product.title}$ITEMCART_ADDED",
+                          //     labelButton: "Undo",
+                          //     function: () =>
+                          //         _cartController.addCartItemUndo(_product));
+                          ButtonSnackbar(
+                            context: context,
+                            title: DONE,
+                            message: "${_product.title}$ITEMCART_ADDED",
+                            labelButton: UNDO,
+                            function: () =>
+                                _cartController.addCartItemUndo(_product),
+                          ).show();
                         },
                         color: Theme.of(context).accentColor),
                     backgroundColor: Colors.black87))));

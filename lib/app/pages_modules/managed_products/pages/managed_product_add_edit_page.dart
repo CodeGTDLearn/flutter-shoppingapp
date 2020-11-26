@@ -91,9 +91,10 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
           _controller.reloadManagedProductsAddEditPage();
           _controller.reloadManagedProductsObs();
           Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
-          CustomSnackbar.simple(
-              message: SUCESS_MAN_PROD_ADD,
-              context: context);
+          // CustomSnackbar.simple(
+          //     message: SUCESS_MAN_PROD_ADD,
+          //     context: context);
+          SimpleSnackbar(SUCESS_MAN_PROD_ADD, context).show();
         })
         .catchError((onError) {
           Get.defaultDialog(
@@ -121,9 +122,10 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
             _controller.reloadManagedProductsAddEditPage();
             _controller.reloadManagedProductsObs();
             Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
-            CustomSnackbar.simple(
-                message: SUCESS_MAN_PROD_UPDT,
-                context: context);
+            // CustomSnackbar.simple(
+            //     message: SUCESS_MAN_PROD_UPDT,
+            //     context: context);
+            SimpleSnackbar(SUCESS_MAN_PROD_UPDT, context).show();
           }
         });
     // @formatter:on
