@@ -32,6 +32,7 @@ class OverviewGridItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.0),
             child: GridTile(
                 child: GestureDetector(
+                    key: Key("$OV10$_index"),
                     onTap: () => Get.toNamed(AppRoutes.OVERVIEW_DETAIL,
                         arguments: _product.id),
                     child: Image.network(_product.imageUrl, fit: BoxFit.cover)),
@@ -67,13 +68,6 @@ class OverviewGridItem extends StatelessWidget {
                         icon: OV_ICO_SHOP,
                         onPressed: () {
                           _cartController.addCartItem(_product);
-                          // CustomSnackbar.button(
-                          //     context: context,
-                          //     title: DONE,
-                          //     message: "${_product.title}$ITEMCART_ADDED",
-                          //     labelButton: "Undo",
-                          //     function: () =>
-                          //         _cartController.addCartItemUndo(_product));
                           ButtonSnackbar(
                             context: context,
                             title: DONE,
@@ -87,3 +81,10 @@ class OverviewGridItem extends StatelessWidget {
                     backgroundColor: Colors.black87))));
   }
 }
+// CustomSnackbar.button(
+//     context: context,
+//     title: DONE,
+//     message: "${_product.title}$ITEMCART_ADDED",
+//     labelButton: "Undo",
+//     function: () =>
+//         _cartController.addCartItemUndo(_product));

@@ -5,7 +5,8 @@ import 'app/pages_modules/cart/cart_repo_test.dart';
 import 'app/pages_modules/cart/cart_service_test.dart';
 import 'app/pages_modules/orders/orders_repo_test.dart';
 import 'app/pages_modules/overview/controller/overview_controller_test.dart';
-import 'app/pages_modules/overview/overview_page_test.dart';
+import 'app/pages_modules/overview/pages/overview_item_details_page_test.dart';
+import 'app/pages_modules/overview/pages/overview_page_test.dart';
 import 'app/pages_modules/overview/repo/overview_repo_test.dart';
 import 'app/pages_modules/overview/service/overview_service_test.dart';
 
@@ -24,9 +25,14 @@ void main() {
     OverviewControllerTest.integrationTests,
   );
   group(
-    "$OVERVIEW_MODULE_PAGE\UI(WidgetTests): Integr",
+    "$OVERVIEW_MODULE_PAGE\Main Page: Integr/Functional",
     OverviewPageTest.widgetTests,
   );
+  group(
+    "$OVERVIEW_MODULE_PAGE\Details Product Page: Integr/Functional",
+    OverviewItemDetailsPageTest.widgetTests,
+  );
+
 //***********
   const CART_MODULE_PAGE = 'Cart Page|';
   group("$CART_MODULE_PAGE\Repo: Unit", CartRepoTest.unitTests);

@@ -6,7 +6,7 @@ import '../service/i_overview_service.dart';
 import 'i_overview_controller.dart';
 
 class OverviewController extends GetxController implements IOverviewController {
-  IOverviewService service;
+  final IOverviewService service;
   var filteredProductsObs = <Product>[].obs;
   var favoriteStatusObs = false.obs;
 

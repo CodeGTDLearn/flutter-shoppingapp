@@ -26,7 +26,7 @@ dev_dependencies:
     sdk: flutter
   test: any
   effective_dart: 1.2.3
-#  build_runner: 1.7.2
+  image_test_utils: ^1.0.0
 
 flutter:
   uses-material-design: true

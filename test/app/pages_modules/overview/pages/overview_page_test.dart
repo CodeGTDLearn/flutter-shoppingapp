@@ -18,7 +18,7 @@ import 'package:shopingapp/app/pages_modules/overview/service/overview_service.d
 import 'file:///C:/Users/SERVIDOR/Projects/flutter-shoppingapp/lib/app/pages_modules/pages_generic_components/core/pages_generics_comp_widgets_keys.dart';
 import 'package:shopingapp/app_driver.dart';
 
-import 'repo/overview_repo_mocks.dart';
+import '../repo/overview_repo_mocks.dart';
 
 // void main() {
 class OverviewPageTest {
@@ -82,7 +82,7 @@ class OverviewPageTest {
       return Get.find<IOverviewService>().localDataAllProducts;
     }
 
-    testWidgets('Checking Page Elements', (tester) async {
+    testWidgets('Checking OverviewPage Elements displayed', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
@@ -103,7 +103,7 @@ class OverviewPageTest {
       expect(_icon(Icons.more_vert), findsOneWidget);
     });
 
-    testWidgets('Toggling favorites status', (tester) async {
+    testWidgets('Toggling favorites in Product0', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
@@ -121,7 +121,8 @@ class OverviewPageTest {
       // @formatter:on
     });
 
-    testWidgets('Toggling favorites - Notification', (tester) async {
+    testWidgets(
+        'Toggling favorites in Product0 - Notification', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
@@ -134,7 +135,7 @@ class OverviewPageTest {
       expect(_text(TOGGLE_STATUS_SUCESS), findsOneWidget);
     });
 
-    testWidgets('Adding product in the Cart', (tester) async {
+    testWidgets('Adding products in the Cart', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
@@ -153,7 +154,7 @@ class OverviewPageTest {
       expect(snackbartext1, findsOneWidget);
     });
 
-    testWidgets('Adding+Remove(Undo) product in the Cart', (tester) async {
+    testWidgets('Adding+Remove(Undo) a product in the Cart', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
@@ -174,7 +175,7 @@ class OverviewPageTest {
     });
 
 
-    testWidgets('Adding ALL product in the Cart', (tester) async {
+    testWidgets('Adding All displayed products in the Cart', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
@@ -208,7 +209,7 @@ class OverviewPageTest {
       expect(snackbar_title4, findsOneWidget);
     });
 
-    testWidgets('Tapping AppBar Popup_Favorite_Filter (No favorites)', (
+    testWidgets('Tapping AppBar Popup_Favorite_Filter (No favorites found)', (
         tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
@@ -266,8 +267,7 @@ class OverviewPageTest {
     });
 
     testWidgets(
-        'Closing Popup_Favorite_Filter (tapping OUTSIDE that)', (
-        tester) async {
+        'Closing Popup_Favorite_Filter (tapping OUTSIDE it)', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();

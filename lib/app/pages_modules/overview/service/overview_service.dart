@@ -9,7 +9,6 @@ class OverviewService implements IOverviewService {
   List<Product> _localDataAllProducts = [];
   List<Product> _localDataFavoritesProducts = [];
 
-  // OverviewService(this.manProdService, this.repo);
   OverviewService({this.repo});
 
   @override

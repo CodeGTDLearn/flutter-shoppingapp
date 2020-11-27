@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/pages_modules/overview/core/overview_widget_keys.dart';
 
 import '../controller/overview_controller.dart';
 
-
 class OverviewItemDetailsPage extends StatelessWidget {
   final String _id = Get.arguments;
-  // final OverviewController _controller = Get.find();
   final OverviewController controller;
 
   OverviewItemDetailsPage({this.controller});
@@ -21,7 +20,11 @@ class OverviewItemDetailsPage extends StatelessWidget {
           Container(
               height: 300,
               width: double.infinity,
-              child: Image.network(_item.imageUrl, fit: BoxFit.cover)),
+              child: Image.network(
+                _item.imageUrl,
+                fit: BoxFit.cover,
+                key: Key(OV11),
+              )),
           SizedBox(height: 10),
           Text('\$${_item.price}'),
           SizedBox(height: 10),
