@@ -9,4 +9,7 @@ abstract class IOrdersService {
   void clearOrders();
 
   Future<Order> addOrder(List<CartItem> cartItemsList, double amount);
+
+  List<Order> getLocalDataOrders();
+
 }

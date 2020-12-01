@@ -18,7 +18,7 @@ class OrdersRepo extends IOrdersRepo {
            order.id = json.decode(response.body)['name'];
            return order;
         })
-        .catchError((onError) => throw onError);
+        .catchError((onError)=> throw onError);
     // @formatter:on
   }
 
@@ -48,8 +48,8 @@ class OrdersRepo extends IOrdersRepo {
     // @formatter:on
   }
 
-  // @override
-  // void clearOrders() {
-  //   _orders.clear();
-  // }
+// @override
+// void clearOrders() {
+//   _orders.clear();
+// }
 }

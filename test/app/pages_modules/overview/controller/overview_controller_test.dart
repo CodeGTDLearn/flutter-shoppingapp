@@ -27,7 +27,7 @@ class OverviewControllerTest {
     });
 
     // group(' Controller | Service | Mocked-Repo', () {
-      test('Checking Instances to be used in the Test', () {
+      test('Checking Instances to be used in the Tests', () {
         expect(_service, isA<OverviewService>());
         expect(_controller, isA<OverviewController>());
       });
@@ -92,7 +92,7 @@ class OverviewControllerTest {
     // });
 
     // group(' Injectable-Mocked-Controller', () {
-      test('Checking Instances to be used in the Test', () {
+      test('Checking Instances to be used in the Tests', () {
         expect(_injectableMockController, isA<InjectableMockController>());
       });
 

@@ -24,7 +24,7 @@ class CartRepoTest {
     });
 
     // group('Repo', () {
-      test('Checking Instances to be used in the Test', () {
+      test('Checking Instances to be used in the Tests', () {
         expect(_repo, isA<CartRepo>());
         expect(_product1, isA<Product>());
         expect(_product2, isA<Product>());

@@ -34,7 +34,7 @@ class OrdersService implements IOrdersService {
   Future<List<Order>> getOrders() {
     return repo.getOrders().then((response) {
       _localDataOrders = response;
-       return response;
+      return response;
     }).catchError((onError) => throw onError);
   }
 
@@ -47,5 +47,10 @@ class OrdersService implements IOrdersService {
   @override
   int ordersQtde() {
     return _localDataOrders.length;
+  }
+
+  @override
+  List<Order> getLocalDataOrders() {
+    return _localDataOrders;
   }
 }

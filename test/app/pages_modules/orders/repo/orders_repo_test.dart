@@ -1,10 +1,12 @@
+import 'dart:async';
+
 import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/orders/entities/order.dart';
 import 'package:shopingapp/app/pages_modules/orders/repo/i_orders_repo.dart';
 import 'package:test/test.dart';
 
-import '../../../data_builders/order_databuilder.dart';
+import '../../../../data_builders/order_databuilder.dart';
 import 'orders_repo_mocks.dart';
 
 class OrdersRepoTest {
@@ -18,7 +20,7 @@ class OrdersRepoTest {
       _orderWithoutId = OrderDatabuilder.OrderFull();
     });
 
-    test('Checking Instances to be used in the Test', () {
+    test('Checking Instances to be used in the Tests', () {
       expect(_mockRepo, isA<OrdersMockRepo>());
       expect(_injectableMock, isA<OrdersInjectableMockRepo>());
       expect(_orderWithoutId, isA<Order>());
@@ -49,15 +51,6 @@ class OrdersRepoTest {
         expect(response.id, id);
       });
     });
-
-    test('Adding Orders - Erro statusCode >= 400', () {
-      when(_injectableMock.addOrder(_orderWithoutId))
-          .thenAnswer((_) async => Future.error("error"));
-      _injectableMock.getOrders().then((value) {
-        expect(value, isException);
-      });
-    });
-
 
     test('Getting Orders - No response Content (null)', () {
       when(_injectableMock.getOrders()).thenAnswer((_) async => []);

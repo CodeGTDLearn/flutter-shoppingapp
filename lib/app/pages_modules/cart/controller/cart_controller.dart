@@ -58,6 +58,7 @@ class CartController extends GetxController implements ICartController {
 
   @override
   Future<Order> addOrder(List<CartItem> cartItems, double amount) {
+
     return ordersService.addOrder(cartItems, amount);
   }
 

@@ -20,7 +20,7 @@ class OrdersController {
             ordersObs.value = value;
             // return value;
         })
-        .catchError((onError) => throw onError);
+        .catchError((onError)=> throw onError);
         return ordersObs.value;
     // @formatter:on
   }

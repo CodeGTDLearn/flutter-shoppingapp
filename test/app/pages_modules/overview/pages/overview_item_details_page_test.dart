@@ -102,8 +102,8 @@ class OverviewItemDetailsPageTest {
       expect(_icon(Icons.more_vert), findsOneWidget);
     });
 
-    testWidgets('Clicking Product 01 + Show Details(texts) Page', (tester)
-    async {
+    testWidgets('Clicking Product 01 + Show Details(texts) Page',
+        (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
@@ -122,8 +122,8 @@ class OverviewItemDetailsPageTest {
       // @formatter:on
     });
 
-    testWidgets('Clicking Product 01 + Show Details(image) Page', (tester)
-    async {
+    testWidgets(
+        'Clicking Product 01 + Show Details(image) Page', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
