@@ -17,7 +17,7 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var fullSizeLessAppbar = MediaQuery.of(context).size;
-    int currentQtdeCart = controller.qtdeCartItems();
+    int currentQtdeCart = controller.qtdeCartItemsObs();
 
     return Scaffold(
         appBar: AppBar(title: Text(CRT_TIT_APPBAR), actions: [
@@ -48,7 +48,7 @@ class CartPage extends StatelessWidget {
                                   width: consWidth * 0.25,
                                   child: Chip(
                                       label: Text(
-                                          controller.amountCartItems.value
+                                          controller.amountCartItemsObs.value
                                               .toStringAsFixed(2),
                                           style:
                                               TextStyle(color: Colors.white)),
@@ -58,7 +58,7 @@ class CartPage extends StatelessWidget {
                               Container(
                                   width: consWidth * 0.3,
                                   height: consHeight * 0.08,
-                                  child: Obx(() => controller.qtdeCartItems() !=
+                                  child: Obx(() => controller.qtdeCartItemsObs() !=
                                           currentQtdeCart
                                       ? CustomCircularProgressIndicator.radius(
                                           consWidth * 0.3)
@@ -86,7 +86,7 @@ class CartPage extends StatelessWidget {
           onPressed: () {
             controller
                 .addOrder(controller.getAllCartItems().values.toList(),
-                    controller.amountCartItems.value)
+                    controller.amountCartItemsObs.value)
                 .then((_) {
                   controller.clearCart();
                   controller.recalcQtdeAndAmountCart();

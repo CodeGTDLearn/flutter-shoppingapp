@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/orders/entities/order.dart';
@@ -16,13 +14,13 @@ class OrdersRepoTest {
 
     setUp(() {
       _mockRepo = OrdersMockRepo();
-      _injectableMock = OrdersInjectableMockRepo();
+      _injectableMock = OrdersInjectMockRepo();
       _orderWithoutId = OrderDatabuilder.OrderFull();
     });
 
     test('Checking Instances to be used in the Tests', () {
       expect(_mockRepo, isA<OrdersMockRepo>());
-      expect(_injectableMock, isA<OrdersInjectableMockRepo>());
+      expect(_injectableMock, isA<OrdersInjectMockRepo>());
       expect(_orderWithoutId, isA<Order>());
     });
 
@@ -52,14 +50,14 @@ class OrdersRepoTest {
       });
     });
 
-    test('Getting Orders - No response Content (null)', () {
+    test('Getting Orders - No response Content (Empty)', () {
       when(_injectableMock.getOrders()).thenAnswer((_) async => []);
       _injectableMock.getOrders().then((value) {
         expect(value, isEmpty);
       });
     });
 
-    test('Getting Orders - No response Content (empty)', () {
+    test('Getting Orders - Null as response', () {
       when(_injectableMock.getOrders()).thenAnswer((_) async => null);
       _injectableMock.getOrders().then((value) {
         expect(value, isNull);

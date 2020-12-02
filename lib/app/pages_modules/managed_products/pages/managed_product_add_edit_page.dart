@@ -86,7 +86,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
   Future<dynamic> _saveProduct(Product product) {
     // @formatter:off
     return _controller
-        .saveProduct(product)
+        .addProduct(product)
         .then((response) {
           _controller.reloadManagedProductsAddEditPage();
           _controller.reloadManagedProductsObs();

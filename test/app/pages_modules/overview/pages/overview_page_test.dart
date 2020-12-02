@@ -34,15 +34,15 @@ class OverviewPageTest {
     });
 
     setUp(() {
-      expect(Get.isPrepared<IOverviewRepo>(), false);
-      expect(Get.isPrepared<IOverviewService>(), false);
-      expect(Get.isPrepared<OverviewController>(), false);
-      expect(Get.isPrepared<CartController>(), false);
+      expect(Get.isPrepared<IOverviewRepo>(), isFalse);
+      expect(Get.isPrepared<IOverviewService>(), isFalse);
+      expect(Get.isPrepared<OverviewController>(), isFalse);
+      expect(Get.isPrepared<CartController>(), isFalse);
       binding.builder();
-      expect(Get.isPrepared<IOverviewRepo>(), true);
-      expect(Get.isPrepared<IOverviewService>(), true);
-      expect(Get.isPrepared<OverviewController>(), true);
-      expect(Get.isPrepared<CartController>(), true);
+      expect(Get.isPrepared<IOverviewRepo>(), isTrue);
+      expect(Get.isPrepared<IOverviewService>(), isTrue);
+      expect(Get.isPrepared<OverviewController>(), isTrue);
+      expect(Get.isPrepared<CartController>(), isTrue);
 
       HttpOverrides.global = null;
     });
@@ -52,10 +52,10 @@ class OverviewPageTest {
     });
 
     void _isInstancesRegistred() {
-      expect(Get.isRegistered<IOverviewRepo>(), true);
-      expect(Get.isRegistered<IOverviewService>(), true);
-      expect(Get.isRegistered<OverviewController>(), true);
-      expect(Get.isRegistered<CartController>(), true);
+      expect(Get.isRegistered<IOverviewRepo>(), isTrue);
+      expect(Get.isRegistered<IOverviewService>(), isTrue);
+      expect(Get.isRegistered<OverviewController>(), isTrue);
+      expect(Get.isRegistered<CartController>(), isTrue);
     }
 
     Finder _key(String key) {

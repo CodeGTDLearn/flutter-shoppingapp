@@ -43,7 +43,7 @@ class BadgeShopCartAppbar extends StatelessWidget {
                   color: color != null ? color : Theme.of(context).accentColor),
               constraints: BoxConstraints(minWidth: 16, minHeight: 16),
               child: Obx(
-                () => Text(_controller.qtdeCartItems.value.toString(),
+                () => Text(_controller.qtdeCartItemsObs.value.toString(),
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 10)),
               )))

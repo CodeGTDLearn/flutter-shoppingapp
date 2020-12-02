@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/pages_modules/overview/core/overview_widget_keys.dart';
 
 import '../controller/overview_controller.dart';
+import '../core/overview_widget_keys.dart';
 
 class OverviewItemDetailsPage extends StatelessWidget {
   final String _id = Get.arguments;

@@ -57,4 +57,4 @@
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/overview/controller/i_overview_controller.dart';
 
-class InjectableMockController extends Mock implements IOverviewController {}
+class OverviewInjectMockController extends Mock implements IOverviewController {}

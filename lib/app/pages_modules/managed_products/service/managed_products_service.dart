@@ -33,8 +33,8 @@ class ManagedProductsService implements IManagedProductsService {
   }
 
   @override
-  Future<void> saveProduct(Product product) {
-    return repo.saveProduct(product).then((product) {
+  Future<void> addProduct(Product product) {
+    return repo.addProduct(product).then((product) {
       _localDataManagedProducts.add(product);
       return product;
     }).catchError((onError) {

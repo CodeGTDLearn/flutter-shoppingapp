@@ -2,8 +2,10 @@ import 'package:get/get.dart';
 
 import '../entities/product.dart';
 import '../service/i_managed_products_service.dart';
+import 'i_managed_products_controller.dart';
 
-class ManagedProductsController extends GetxController {
+class ManagedProductsController extends GetxController
+    implements IManagedProductsController {
   final IManagedProductsService service;
   var managedProductsObs = <Product>[].obs;
   var reloadManagedProductsEditPage = false.obs;
@@ -17,31 +19,37 @@ class ManagedProductsController extends GetxController {
     getProducts();
   }
 
+  @override
   Future<List<Product>> getProducts() {
     return service.getProducts().then((response) {
       managedProductsObs.value = response.isNull ? [] : response;
     }).catchError((onError) => throw onError);
   }
 
+  @override
   int managedProductsQtde() {
     return service.managedProductsQtde();
   }
 
+  @override
   Product getProductById(String id) {
     return service.getProductById(id);
   }
 
-  Future<void> saveProduct(Product product) {
+  @override
+  Future<void> addProduct(Product product) {
     return service
-        .saveProduct(product)
+        .addProduct(product)
         .then((response) => response)
         .catchError((onError) => throw onError);
   }
 
+  @override
   Future<int> updateProduct(Product product) {
     return service.updateProduct(product).then((statusCode) => statusCode);
   }
 
+  @override
   Future<int> deleteProduct(String id) {
     // @formatter:off
     var responseFuture = service
@@ -57,20 +65,13 @@ class ManagedProductsController extends GetxController {
     // @formatter:on
   }
 
+  @override
   void reloadManagedProductsAddEditPage() {
     reloadManagedProductsEditPage.value = !reloadManagedProductsEditPage.value;
   }
 
+  @override
   void reloadManagedProductsObs() {
     managedProductsObs.value = service.localDataManagedProducts;
   }
-
 }
-
-// GERENCIA DE ESTADO SIMPLES - COM O GET
-//  var managedProducts = <Product>[];
-//
-//  void getAll() {
-//    managedProducts = _service.getAll();
-//    update();
-//  }

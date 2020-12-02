@@ -6,7 +6,7 @@ import '../../../core/properties/app_urls.dart';
 import '../entities/product.dart';
 import 'i_managed_products_repo.dart';
 
-class ManagedProductsFirebaseRepo implements IManagedProductsRepo {
+class ManagedProductsRepo implements IManagedProductsRepo {
   @override
   Future<List<Product>> getProducts() {
     // @formatter:off
@@ -30,7 +30,7 @@ class ManagedProductsFirebaseRepo implements IManagedProductsRepo {
   }
 
   @override
-  Future<Product> saveProduct(Product product) {
+  Future<Product> addProduct(Product product) {
     // @formatter:off
     return http
         .post(PRODUCTS_URL, body: product.to_Json())

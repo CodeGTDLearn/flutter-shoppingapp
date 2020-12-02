@@ -10,13 +10,10 @@ import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dar
 import 'package:shopingapp/app/pages_modules/cart/core/cart_bindings.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/overview/controller/overview_controller.dart';
-import 'package:shopingapp/app/pages_modules/overview/core/messages_snackbars_provided.dart';
-import 'package:shopingapp/app/pages_modules/overview/core/overview_texts_icons_provided.dart';
 import 'package:shopingapp/app/pages_modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
-import 'file:///C:/Users/SERVIDOR/Projects/flutter-shoppingapp/lib/app/pages_modules/pages_generic_components/core/pages_generics_comp_widgets_keys.dart';
 import 'package:shopingapp/app_driver.dart';
 
 import '../repo/overview_repo_mocks.dart';
@@ -34,15 +31,15 @@ class OverviewItemDetailsPageTest {
     });
 
     setUp(() {
-      expect(Get.isPrepared<IOverviewRepo>(), false);
-      expect(Get.isPrepared<IOverviewService>(), false);
-      expect(Get.isPrepared<OverviewController>(), false);
-      expect(Get.isPrepared<CartController>(), false);
+      expect(Get.isPrepared<IOverviewRepo>(), isFalse);
+      expect(Get.isPrepared<IOverviewService>(), isFalse);
+      expect(Get.isPrepared<OverviewController>(), isFalse);
+      expect(Get.isPrepared<CartController>(), isFalse);
       binding.builder();
-      expect(Get.isPrepared<IOverviewRepo>(), true);
-      expect(Get.isPrepared<IOverviewService>(), true);
-      expect(Get.isPrepared<OverviewController>(), true);
-      expect(Get.isPrepared<CartController>(), true);
+      expect(Get.isPrepared<IOverviewRepo>(), isTrue);
+      expect(Get.isPrepared<IOverviewService>(), isTrue);
+      expect(Get.isPrepared<OverviewController>(), isTrue);
+      expect(Get.isPrepared<CartController>(), isTrue);
       HttpOverrides.global = null;
     });
 
@@ -51,10 +48,10 @@ class OverviewItemDetailsPageTest {
     });
 
     void _isInstancesRegistred() {
-      expect(Get.isRegistered<IOverviewRepo>(), true);
-      expect(Get.isRegistered<IOverviewService>(), true);
-      expect(Get.isRegistered<OverviewController>(), true);
-      expect(Get.isRegistered<CartController>(), true);
+      expect(Get.isRegistered<IOverviewRepo>(), isTrue);
+      expect(Get.isRegistered<IOverviewService>(), isTrue);
+      expect(Get.isRegistered<OverviewController>(), isTrue);
+      expect(Get.isRegistered<CartController>(), isTrue);
     }
 
     Finder _key(String key) {
@@ -110,7 +107,7 @@ class OverviewItemDetailsPageTest {
 
       var keyProduct1 = _key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
 
-      // @formatter:off
+          // @formatter:off
       tester
           .tap(keyProduct1)
           .then((value) => tester.pumpAndSettle(_delay(1)))
@@ -120,7 +117,7 @@ class OverviewItemDetailsPageTest {
               expect(_text(_products()[0].description.toString()), findsOneWidget);
           });
       // @formatter:on
-    });
+        });
 
     testWidgets(
         'Clicking Product 01 + Show Details(image) Page', (tester) async {

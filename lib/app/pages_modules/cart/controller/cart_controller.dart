@@ -11,8 +11,8 @@ class CartController extends GetxController implements ICartController {
   final ICartService cartService;
   final IOrdersService ordersService;
 
-  var qtdeCartItems = 0.obs;
-  var amountCartItems = 0.0.obs;
+  var qtdeCartItemsObs = 0.obs;
+  var amountCartItemsObs = 0.0.obs;
 
   CartController({this.cartService, this.ordersService});
 
@@ -40,8 +40,8 @@ class CartController extends GetxController implements ICartController {
 
   @override
   void recalcQtdeAndAmountCart() {
-    qtdeCartItems.value = cartService.cartItemsQtde();
-    amountCartItems.value = cartService.cartItemTotal$Amount();
+    qtdeCartItemsObs.value = cartService.cartItemsQtde();
+    amountCartItemsObs.value = cartService.cartItemTotal$Amount();
   }
 
   @override
@@ -58,18 +58,17 @@ class CartController extends GetxController implements ICartController {
 
   @override
   Future<Order> addOrder(List<CartItem> cartItems, double amount) {
-
     return ordersService.addOrder(cartItems, amount);
   }
 
   @override
   int getQtdeCartItemsObs(){
-    return qtdeCartItems.value;
+    return qtdeCartItemsObs.value;
   }
 
   @override
   double getAmountCartItemsObs(){
-    return amountCartItems.value;
+    return amountCartItemsObs.value;
   }
 
 }

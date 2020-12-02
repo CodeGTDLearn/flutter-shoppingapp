@@ -1,6 +1,5 @@
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/orders/service/i_orders_service.dart';
-import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service.dart';
 
 //   /* **************************************************
 //   *
@@ -21,4 +20,4 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 //   *
 //   * *****************************************************/
 
-class InjectOrdersMockService extends Mock implements IOrdersService {}
+class OrdersInjectMockService extends Mock implements IOrdersService {}

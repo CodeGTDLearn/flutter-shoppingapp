@@ -18,7 +18,7 @@ class OverviewRepoTest {
 
     setUp(() {
       _mockRepo = OverviewMockRepo();
-      _injectableRepoMock = OverviewInjectableMockRepo();
+      _injectableRepoMock = OverviewInjectMockRepo();
     });
 
     // group('Mocked-Repo', () {
@@ -51,7 +51,7 @@ class OverviewRepoTest {
     });
 
     test('Checking Instances to be used in the Tests', () {
-      expect(_injectableRepoMock, isA<OverviewInjectableMockRepo>());
+      expect(_injectableRepoMock, isA<OverviewInjectMockRepo>());
     });
 
     test('Getting products - Fail hence Empty', () {
@@ -71,7 +71,7 @@ class OverviewRepoTest {
           .then((value) => {expect(value, 404)});
     });
 
-    test('Getting products - Fail hence Null response', () {
+    test('Getting products - Null as response', () {
       when(_injectableRepoMock.getProducts()).thenAnswer((_) async => null);
 
       _injectableRepoMock.getProducts().then((value) => expect(value, isNull));

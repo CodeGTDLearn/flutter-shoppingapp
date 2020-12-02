@@ -1,6 +1,6 @@
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
-import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
+import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_products_repo.dart';
 
 import '../../../../mocked_data_source/products_mocked_data.dart';
 
@@ -23,12 +23,22 @@ import '../../../../mocked_data_source/products_mocked_data.dart';
   *--> VISAO PRATICA:
   *     Mocks permitem:
   *     - Testes mais rapidos, do que os feitos em WebService ou DB
-  *     - Testes independemente de WebServide ou DB
+  *     - Testes independemente de WebService ou DB
   *****************************************************/
-class OverviewMockRepo extends Mock implements IOverviewRepo {
+class ManagedProductsMockRepo extends Mock implements IManagedProductsRepo {
   @override
-  Future<List<Product>> getProducts() async {
+  Future<int> deleteProduct(String id) {
+    return Future.value(200);
+  }
+
+  @override
+  Future<List<Product>> getProducts() {
     return Future.value(ProductsMockedData().products());
+  }
+
+  @override
+  Future<Product> addProduct(Product product) {
+    return Future.value(ProductsMockedData().product());
   }
 
   @override
@@ -37,4 +47,5 @@ class OverviewMockRepo extends Mock implements IOverviewRepo {
   }
 }
 
-class OverviewInjectMockRepo extends Mock implements IOverviewRepo {}
+class ManagedProductsInjectMockRepo extends Mock
+    implements IManagedProductsRepo {}

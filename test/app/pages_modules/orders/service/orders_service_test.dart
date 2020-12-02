@@ -21,14 +21,14 @@ class OrdersServiceTest {
     setUp(() {
       _mockRepo = OrdersMockRepo();
       _service = OrdersService(repo: _mockRepo);
-      _injectableMockService = InjectOrdersMockService();
+      _injectableMockService = OrdersInjectMockService();
       _cartItems = CartItemDatabuilder.cartItems();
     });
 
     test('Checking Instances to be used in the Tests', () {
       expect(_service, isA<OrdersService>());
       expect(_mockRepo, isA<OrdersMockRepo>());
-      expect(_injectableMockService, isA<InjectOrdersMockService>());
+      expect(_injectableMockService, isA<OrdersInjectMockService>());
       expect(_cartItems, isA<List<CartItem>>());
     });
 
@@ -78,18 +78,18 @@ class OrdersServiceTest {
 
     test('Adding Orders', () {
       var _id = "-${Faker().randomGenerator.string(21, min: 20)}";
-      var _price =
-      double.parse(Faker().randomGenerator.decimal(min: 22.0).toStringAsFixed(2));
+      var _amountOrder = double.parse(
+          Faker().randomGenerator.decimal(min: 22.0).toStringAsFixed(2));
 
       // @formatter:off
       when(
           _injectableMockService
-          .addOrder(_cartItems, _price))
+          .addOrder(_cartItems, _amountOrder))
           .thenAnswer((_) async =>
            OrderDatabuilder.OrderParam(_cartItems, _id));
 
           _injectableMockService
-          .addOrder(_cartItems, _price)
+          .addOrder(_cartItems, _amountOrder)
           .then((orderReturned) {
             expect(orderReturned.id, _id);
             expect(orderReturned.cartItems[0].id, _cartItems[0].id);

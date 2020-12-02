@@ -1,11 +1,13 @@
-import '../entities/product.dart';
+import 'package:get/get.dart';
 
-abstract class IManagedProductsService {
+import '../entities/product.dart';
+import '../service/i_managed_products_service.dart';
+
+abstract class IManagedProductsController  {
+
   Future<List<Product>> getProducts();
 
   int managedProductsQtde();
-
-  List<Product> get localDataManagedProducts;
 
   Product getProductById(String id);
 
@@ -15,5 +17,8 @@ abstract class IManagedProductsService {
 
   Future<int> deleteProduct(String id);
 
-  void clearDataSavingLists();
+  void reloadManagedProductsAddEditPage();
+
+  void reloadManagedProductsObs();
 }
+
