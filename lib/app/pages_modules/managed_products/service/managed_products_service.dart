@@ -9,7 +9,9 @@ class ManagedProductsService implements IManagedProductsService {
   ManagedProductsService({this.repo});
 
   @override
-  List<Product> get localDataManagedProducts => [..._localDataManagedProducts];
+  List<Product> getLocalDataManagedProducts() {
+    return [..._localDataManagedProducts];
+  }
 
   @override
   Future<List<Product>> getProducts() {
@@ -23,7 +25,7 @@ class ManagedProductsService implements IManagedProductsService {
 
   @override
   int managedProductsQtde() {
-    return localDataManagedProducts.length;
+    return getLocalDataManagedProducts().length;
   }
 
   @override
@@ -33,7 +35,7 @@ class ManagedProductsService implements IManagedProductsService {
   }
 
   @override
-  Future<void> addProduct(Product product) {
+  Future<Product> addProduct(Product product) {
     return repo.addProduct(product).then((product) {
       _localDataManagedProducts.add(product);
       return product;

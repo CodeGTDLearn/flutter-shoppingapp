@@ -38,7 +38,7 @@ class ManagedProductsMockRepo extends Mock implements IManagedProductsRepo {
 
   @override
   Future<Product> addProduct(Product product) {
-    return Future.value(ProductsMockedData().product());
+    return Future.value(product);
   }
 
   @override

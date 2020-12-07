@@ -9,18 +9,18 @@ import 'orders_repo_mocks.dart';
 
 class OrdersRepoTest {
   static void unitTests() {
-    IOrdersRepo _mockRepo, _injectableMock;
+    IOrdersRepo _mockRepo, _injectMockRepo;
     var _orderWithoutId;
 
     setUp(() {
       _mockRepo = OrdersMockRepo();
-      _injectableMock = OrdersInjectMockRepo();
+      _injectMockRepo = OrdersInjectMockRepo();
       _orderWithoutId = OrderDatabuilder.OrderFull();
     });
 
     test('Checking Instances to be used in the Tests', () {
       expect(_mockRepo, isA<OrdersMockRepo>());
-      expect(_injectableMock, isA<OrdersInjectMockRepo>());
+      expect(_injectMockRepo, isA<OrdersInjectMockRepo>());
       expect(_orderWithoutId, isA<Order>());
     });
 
@@ -51,15 +51,15 @@ class OrdersRepoTest {
     });
 
     test('Getting Orders - No response Content (Empty)', () {
-      when(_injectableMock.getOrders()).thenAnswer((_) async => []);
-      _injectableMock.getOrders().then((value) {
+      when(_injectMockRepo.getOrders()).thenAnswer((_) async => []);
+      _injectMockRepo.getOrders().then((value) {
         expect(value, isEmpty);
       });
     });
 
     test('Getting Orders - Null as response', () {
-      when(_injectableMock.getOrders()).thenAnswer((_) async => null);
-      _injectableMock.getOrders().then((value) {
+      when(_injectMockRepo.getOrders()).thenAnswer((_) async => null);
+      _injectMockRepo.getOrders().then((value) {
         expect(value, isNull);
       });
     });

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/core/properties/app_properties.dart';
 
 import '../../../core/properties/app_owasp_regex.dart';
 import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/app_generic_words.dart';
-import '../../pages_generic_components/custom_circ_progres_indicator.dart';
+import '../../pages_generic_components/custom_circular_progress_indicator.dart';
 import '../../pages_generic_components/custom_snackbar.dart';
 import '../components/custom_text_form_field/custom_text_form_field.dart';
 import '../controller/managed_products_controller.dart';
@@ -67,7 +68,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
     }
   }
 
-  void _saveForm() {
+  void _saveForm(BuildContext _context) {
     // @formatter:off
     if (!_form.currentState.validate()) return;
 
@@ -76,26 +77,27 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
     _controller.reloadManagedProductsAddEditPage();
 
     _product.id.isNull ?
-        _saveProduct(_product) :
-        _updateProduct(_product);
+        _saveProduct(_product, _context) :
+        _updateProduct(_product, _context);
 
-    Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
+    // Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
     // @formatter:on
   }
 
-  Future<dynamic> _saveProduct(Product product) {
+  Future<dynamic> _saveProduct(Product product, BuildContext _context) {
     // @formatter:off
     return _controller
         .addProduct(product)
         .then((response) {
+          SimpleSnackbar(SUCESS_MAN_PROD_ADD, _context).show();
           _controller.reloadManagedProductsAddEditPage();
           _controller.reloadManagedProductsObs();
-          Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
-          // CustomSnackbar.simple(
-          //     message: SUCESS_MAN_PROD_ADD,
-          //     context: context);
-          SimpleSnackbar(SUCESS_MAN_PROD_ADD, context).show();
         })
+        .whenComplete(() =>
+          Future.delayed(Duration(milliseconds: DURATION))
+          .then((value) => {
+            Get.offNamed(AppRoutes.MANAGED_PRODUCTS)
+          }))
         .catchError((onError) {
           Get.defaultDialog(
             title: OPS,
@@ -107,7 +109,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
     // @formatter:on
   }
 
-  Future<void> _updateProduct(Product product) {
+  Future<void> _updateProduct(Product product, BuildContext _context) {
     // @formatter:off
     return _controller
         .updateProduct(product)
@@ -122,10 +124,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
             _controller.reloadManagedProductsAddEditPage();
             _controller.reloadManagedProductsObs();
             Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
-            // CustomSnackbar.simple(
-            //     message: SUCESS_MAN_PROD_UPDT,
-            //     context: context);
-            SimpleSnackbar(SUCESS_MAN_PROD_UPDT, context).show();
+            SimpleSnackbar(SUCESS_MAN_PROD_UPDT, _context).show();
           }
         });
     // @formatter:on
@@ -152,9 +151,8 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                 : MAN_PROD_EDIT_LBL_EDT_APPBAR),
             actions: [
               IconButton(
-                icon: MAN_PROD_EDIT_ICO_SAVE_APPBAR,
-                onPressed: _saveForm,
-              )
+                  icon: MAN_PROD_EDIT_ICO_SAVE_APPBAR,
+                  onPressed: () => _saveForm(context))
             ]),
         body: Obx(() => _controller.reloadManagedProductsEditPage.value
             ? CustomCircularProgressIndicator()
@@ -204,7 +202,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                                 child: CustomFormTextField().create(
                               _product,
                               context,
-                              (_) => _saveForm(),
+                              (_) => _saveForm(context),
                               "url",
                               node: _focusUrlNode,
                               controller: _imgUrlController,
@@ -219,3 +217,10 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
 //
 // var result = RegExp(urlPattern, caseSensitive: false)
 //     .firstMatch(_imgUrlController.text.trim());
+
+// CustomSnackbar.simple(
+//     message: SUCESS_MAN_PROD_UPDT,
+//     context: context);
+// CustomSnackbar.simple(
+//     message: SUCESS_MAN_PROD_ADD,
+//     context: context);

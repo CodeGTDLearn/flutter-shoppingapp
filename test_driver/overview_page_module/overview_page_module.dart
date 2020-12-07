@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 class OverviewPageModule {
   static void integrationTest() {
     FlutterDriver driver;
-    var delay = 2;
+    // var delay = 2;
 
     setUpAll(() async {
       driver = await FlutterDriver.connect();
@@ -14,9 +14,9 @@ class OverviewPageModule {
       if (driver != null) driver.close();
     });
 
-    SerializableFinder _find(String key) {
-      return find.byValueKey(key);
-    }
+    // SerializableFinder _find(String key) {
+    //   return find.byValueKey(key);
+    // }
 
     // var key1 = _find(OV001);
     // var key8 = _find(FB001);

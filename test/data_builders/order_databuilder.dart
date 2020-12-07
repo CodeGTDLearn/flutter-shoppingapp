@@ -6,7 +6,7 @@ import 'cartitem_databuilder.dart';
 
 class OrderDatabuilder {
   static Order OrderFull() {
-    List<CartItem> ListCartItemsFake = [];
+    var ListCartItemsFake = <CartItem>[];
 
     var carItem1 = CartItemDatabuilder.CartItemFull();
     var carItem2 = CartItemDatabuilder.CartItemFull();

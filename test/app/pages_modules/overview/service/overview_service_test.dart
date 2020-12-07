@@ -14,13 +14,13 @@ import 'overview_service_mocks.dart';
 // void main() {
 class OverviewServiceTest {
   static void unitTests() {
-    IOverviewService _service, _injectableMockService;
+    IOverviewService _service, _injectMockService;
     IOverviewRepo _mockRepo;
 
     setUp(() {
       _mockRepo = OverviewMockRepo();
       _service = OverviewService(repo: _mockRepo);
-      _injectableMockService = OverviewInjectMockService();
+      _injectMockService = OverviewInjectMockService();
     });
 
     // group('Service | Mocked-Repo', () {
@@ -122,17 +122,17 @@ class OverviewServiceTest {
     // });
     // group('Injectable-Mocked-Service', () {
     test('Checking Instances to be used in the Tests', () {
-      expect(_injectableMockService, isA<OverviewInjectMockService>());
+      expect(_injectMockService, isA<OverviewInjectMockService>());
     });
 
     test('Getting products - Fail hence Empty', () {
       // @formatter:off
-      when(_injectableMockService.getProducts())
+      when(_injectMockService.getProducts())
           .thenAnswer((_) async => Future
           .value(ProductsMockedData()
           .productsEmpty()));
 
-      _injectableMockService.getProducts().then((value) {
+      _injectMockService.getProducts().then((value) {
         expect(value, List.empty());
       });
       // @formatter:on
@@ -140,18 +140,18 @@ class OverviewServiceTest {
 
     test('Toggle FavoriteStatus in a product - Fail 404', () {
       //INJECTABLE FOR SIMPLE-RETURNS
-      when(_injectableMockService.getProductById("p3"))
+      when(_injectMockService.getProductById("p3"))
           .thenReturn(ProductDataBuilder().ProductFull());
 
       //INJECTABLE FOR FUTURES-RETURNS
-      when(_injectableMockService.toggleFavoriteStatus("p3"))
+      when(_injectMockService.toggleFavoriteStatus("p3"))
           .thenAnswer((_) async => Future.value(true));
 
-      var previousToggleStatus = _injectableMockService
+      var previousToggleStatus = _injectMockService
           .getProductById("p3")
           .isFavorite;
 
-      _injectableMockService.toggleFavoriteStatus("p3")
+      _injectMockService.toggleFavoriteStatus("p3")
           .then((value) {
         expect(true, previousToggleStatus);
       });

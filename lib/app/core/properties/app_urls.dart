@@ -1,4 +1,4 @@
-const BASE_URL = "https://flutter-shoppingapp-86614.firebaseio.com";
+const BASE_URL = "https://my-first-shop-app-1db95-default-rtdb.firebaseio.com";
 
 const COLLECTION_PRODUCTS = "products";
 const COLLECTION_ORDERS = "orders";

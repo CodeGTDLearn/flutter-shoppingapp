@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class CustomCircularProgressIndicator extends StatelessWidget {
   double radius;
 
@@ -16,8 +17,3 @@ class CustomCircularProgressIndicator extends StatelessWidget {
     );
   }
 }
-    // var _width =
-    //     radius == null ? MediaQuery.of(context).size.width :
-    //     CIRC_PROG_IND_RAD;
-    // var _height =
-    //     radius == null ? MediaQuery.of(context).size.height : CIRC_PROG_IND_RAD;

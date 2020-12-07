@@ -1,10 +1,10 @@
 import 'package:test/test.dart';
 
-import '../app/pages_modules/overview/controller/overview_controller_test.dart';
-import '../app/pages_modules/overview/pages/overview_item_details_page_test.dart';
-import '../app/pages_modules/overview/pages/overview_page_test.dart';
-import '../app/pages_modules/overview/repo/overview_repo_test.dart';
-import '../app/pages_modules/overview/service/overview_service_test.dart';
+import 'controller/overview_controller_test.dart';
+import 'pages/overview_item_details_page_test.dart';
+import 'pages/overview_page_test.dart';
+import 'repo/overview_repo_test.dart';
+import 'service/overview_service_test.dart';
 
 class OverviewModule{
 

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../core/properties/app_properties.dart';
 import '../../orders/core/messages_snackbars_provided.dart';
-import '../../pages_generic_components/custom_circ_progres_indicator.dart';
+import '../../pages_generic_components/custom_circular_progress_indicator.dart';
 import '../../pages_generic_components/custom_snackbar.dart';
 import '../components/card_cart_item.dart';
 import '../controller/cart_controller.dart';

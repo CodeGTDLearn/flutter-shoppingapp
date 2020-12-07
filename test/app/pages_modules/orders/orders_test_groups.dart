@@ -1,8 +1,8 @@
 import 'package:test/test.dart';
 
-import '../app/pages_modules/orders/orders_controller_test.dart';
-import '../app/pages_modules/orders/repo/orders_repo_test.dart';
-import '../app/pages_modules/orders/service/orders_service_test.dart';
+import 'orders_controller_test.dart';
+import 'repo/orders_repo_test.dart';
+import 'service/orders_service_test.dart';
 
 class OrdersModuleTestGroups {
   static void groups() {

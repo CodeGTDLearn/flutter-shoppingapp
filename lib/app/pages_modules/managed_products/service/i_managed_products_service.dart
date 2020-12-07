@@ -5,11 +5,11 @@ abstract class IManagedProductsService {
 
   int managedProductsQtde();
 
-  List<Product> get localDataManagedProducts;
+  List<Product> getLocalDataManagedProducts();
 
   Product getProductById(String id);
 
-  Future<void> addProduct(Product product);
+  Future<Product> addProduct(Product product);
 
   Future<int> updateProduct(Product product);
 

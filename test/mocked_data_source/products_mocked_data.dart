@@ -25,9 +25,12 @@ class ProductsMockedData {
     List<Product> list =
         json.map<Product>((json) => Product.fromJson(json)).toList();
     var listReturn = <Product>[];
-    list.forEach((item) {
+    for (var item in list) {
       if (item.isFavorite) listReturn.add(item);
-    });
+    }
+    // list.forEach((item) {
+    //   if (item.isFavorite) listReturn.add(item);
+    // });
     return listReturn;
   }
 
@@ -43,7 +46,7 @@ class ProductsMockedData {
     final file = File(_pathAssetsJsonMockedData);
     final json = jsonDecode(file.readAsStringSync());
     List<Product> result =
-    json.map<Product>((json) => Product.fromJson(json)).toList();
+        json.map<Product>((json) => Product.fromJson(json)).toList();
     return result.elementAt(0);
   }
 

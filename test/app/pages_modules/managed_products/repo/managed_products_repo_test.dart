@@ -9,18 +9,18 @@ import 'managed_products_repo_mocks.dart';
 
 class ManagedProductsRepoTest {
   static void unitTests() {
-    IManagedProductsRepo _mockRepo, _injectableMock;
+    IManagedProductsRepo _mockRepo, _injectMockRepo;
     var _product0 = ProductsMockedData().products().elementAt(0);
     var _product1 = ProductsMockedData().products().elementAt(1);
 
     setUp(() {
       _mockRepo = ManagedProductsMockRepo();
-      _injectableMock = ManagedProductsInjectMockRepo();
+      _injectMockRepo = ManagedProductsInjectMockRepo();
     });
 
     test('Checking Instances to be used in the Tests', () {
       expect(_mockRepo, isA<ManagedProductsMockRepo>());
-      expect(_injectableMock, isA<ManagedProductsInjectMockRepo>());
+      expect(_injectMockRepo, isA<ManagedProductsInjectMockRepo>());
       expect(_product0, isA<Product>());
       expect(_product1, isA<Product>());
     });
@@ -42,15 +42,15 @@ class ManagedProductsRepoTest {
     });
 
     test('Adding Managed Product - No response Content (Empty)', () {
-      when(_injectableMock.getProducts()).thenAnswer((_) async => []);
-      _injectableMock.getProducts().then((value) {
+      when(_injectMockRepo.getProducts()).thenAnswer((_) async => []);
+      _injectMockRepo.getProducts().then((value) {
         expect(value, isEmpty);
       });
     });
 
     test('Adding Managed Product - Null as response', () {
-      when(_injectableMock.getProducts()).thenAnswer((_) async => null);
-      _injectableMock.getProducts().then((value) {
+      when(_injectMockRepo.getProducts()).thenAnswer((_) async => null);
+      _injectMockRepo.getProducts().then((value) {
         expect(value, isNull);
       });
     });
@@ -66,10 +66,10 @@ class ManagedProductsRepoTest {
     });
 
     test('Updating a Product - Response Status 404', () {
-      when(_injectableMock.updateProduct(_product0))
+      when(_injectMockRepo.updateProduct(_product0))
           .thenAnswer((_) async => 404);
 
-      _injectableMock
+      _injectMockRepo
           .updateProduct(_product0)
           .then((value) => {expect(value, 404)});
     });
@@ -88,10 +88,10 @@ class ManagedProductsRepoTest {
     });
 
     test('Deleting a Product - Response Status 404', () {
-      when(_injectableMock.deleteProduct(_product0.id))
+      when(_injectMockRepo.deleteProduct(_product0.id))
           .thenAnswer((_) async => 404);
 
-      _injectableMock
+      _injectMockRepo
           .deleteProduct(_product0.id)
           .then((value) => {expect(value, 404)});
     });

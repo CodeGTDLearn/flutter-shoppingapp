@@ -9,7 +9,7 @@ import 'overview_repo_mocks.dart';
 // void main() {
 class OverviewRepoTest {
   static void unitTests() {
-    IOverviewRepo _mockRepo, _injectableRepoMock;
+    IOverviewRepo _mockRepo, _injectMockRepo;
     var _productFail;
 
     setUpAll(() {
@@ -18,7 +18,7 @@ class OverviewRepoTest {
 
     setUp(() {
       _mockRepo = OverviewMockRepo();
-      _injectableRepoMock = OverviewInjectMockRepo();
+      _injectMockRepo = OverviewInjectMockRepo();
     });
 
     // group('Mocked-Repo', () {
@@ -51,30 +51,30 @@ class OverviewRepoTest {
     });
 
     test('Checking Instances to be used in the Tests', () {
-      expect(_injectableRepoMock, isA<OverviewInjectMockRepo>());
+      expect(_injectMockRepo, isA<OverviewInjectMockRepo>());
     });
 
     test('Getting products - Fail hence Empty', () {
-      when(_injectableRepoMock.getProducts()).thenAnswer((_) async => []);
+      when(_injectMockRepo.getProducts()).thenAnswer((_) async => []);
 
-      _injectableRepoMock.getProducts().then((value) {
+      _injectMockRepo.getProducts().then((value) {
         expect(value, isEmpty);
       });
     });
 
     test('Updating a Product - Response Status 404', () {
-      when(_injectableRepoMock.updateProduct(_productFail))
+      when(_injectMockRepo.updateProduct(_productFail))
           .thenAnswer((_) async => 404);
 
-      _injectableRepoMock
+      _injectMockRepo
           .updateProduct(_productFail)
           .then((value) => {expect(value, 404)});
     });
 
     test('Getting products - Null as response', () {
-      when(_injectableRepoMock.getProducts()).thenAnswer((_) async => null);
+      when(_injectMockRepo.getProducts()).thenAnswer((_) async => null);
 
-      _injectableRepoMock.getProducts().then((value) => expect(value, isNull));
+      _injectMockRepo.getProducts().then((value) => expect(value, isNull));
     });
   }
 }

@@ -15,7 +15,7 @@ import 'overview_controller_mocks.dart';
 // void main() {
 class OverviewControllerTest {
   static void integrationTests() {
-    IOverviewController _controller, _injectableMockController;
+    IOverviewController _controller, _injectMockController;
     IOverviewService _service;
     IOverviewRepo _mockRepo;
 
@@ -23,7 +23,7 @@ class OverviewControllerTest {
       _mockRepo = OverviewMockRepo();
       _service = OverviewService(repo: _mockRepo);
       _controller = OverviewController(service: _service);
-      _injectableMockController = OverviewInjectMockController();
+      _injectMockController = OverviewInjectMockController();
     });
 
     // group(' Controller | Service | Mocked-Repo', () {
@@ -91,17 +91,17 @@ class OverviewControllerTest {
     });
 
     test('Checking Instances to be used in the Tests', () {
-      expect(_injectableMockController, isA<OverviewInjectMockController>());
+      expect(_injectMockController, isA<OverviewInjectMockController>());
     });
 
     test('Getting products - Fail hence Empty', () {
       // @formatter:off
-      when(_injectableMockController.getProducts())
+      when(_injectMockController.getProducts())
           .thenAnswer((_) async => Future
           .value(ProductsMockedData()
           .productsEmpty()));
 
-      _injectableMockController.getProducts()
+      _injectMockController.getProducts()
           .then((value) {
             expect(value, List.empty());
           });
@@ -110,10 +110,10 @@ class OverviewControllerTest {
 
     test('Toggle FavoriteStatus in a product - Fail 404', () {
       //INJECTABLE FOR FUTURES-RETURNS
-      when(_injectableMockController.toggleFavoriteStatus("p3"))
+      when(_injectMockController.toggleFavoriteStatus("p3"))
           .thenAnswer((_) async => Future.value(false));
 
-      _injectableMockController.toggleFavoriteStatus("p3")
+      _injectMockController.toggleFavoriteStatus("p3")
           .then((sucessOperation) {
         expect(sucessOperation, isFalse);
       });

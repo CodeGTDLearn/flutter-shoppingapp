@@ -7,6 +7,7 @@ import 'i_managed_products_controller.dart';
 class ManagedProductsController extends GetxController
     implements IManagedProductsController {
   final IManagedProductsService service;
+
   var managedProductsObs = <Product>[].obs;
   var reloadManagedProductsEditPage = false.obs;
 
@@ -22,7 +23,7 @@ class ManagedProductsController extends GetxController
   @override
   Future<List<Product>> getProducts() {
     return service.getProducts().then((response) {
-      managedProductsObs.value = response.isNull ? [] : response;
+      return managedProductsObs.value = response.isNull ? [] : response;
     }).catchError((onError) => throw onError);
   }
 
@@ -37,11 +38,10 @@ class ManagedProductsController extends GetxController
   }
 
   @override
-  Future<void> addProduct(Product product) {
-    return service
-        .addProduct(product)
-        .then((response) => response)
-        .catchError((onError) => throw onError);
+  Future<Product> addProduct(Product product) {
+    return service.addProduct(product).then((response) {
+      return response;
+    }).catchError((onError) => throw onError);
   }
 
   @override
@@ -56,11 +56,11 @@ class ManagedProductsController extends GetxController
         .deleteProduct(id)
         .then((statusCode) {
           if (statusCode >= 400) {
-          managedProductsObs.value = service.localDataManagedProducts;
+          managedProductsObs.value = service.getLocalDataManagedProducts();
           }
          return statusCode;
         });
-    managedProductsObs.value = service.localDataManagedProducts;
+    managedProductsObs.value = service.getLocalDataManagedProducts();
     return responseFuture;
     // @formatter:on
   }
@@ -72,6 +72,16 @@ class ManagedProductsController extends GetxController
 
   @override
   void reloadManagedProductsObs() {
-    managedProductsObs.value = service.localDataManagedProducts;
+    managedProductsObs.value = service.getLocalDataManagedProducts();
+  }
+
+  @override
+  List<Product> getManagedProductsObs() {
+    return managedProductsObs.value;
+  }
+
+  @override
+  bool getReloadManagedProductsEditPage() {
+    return reloadManagedProductsEditPage.value;
   }
 }

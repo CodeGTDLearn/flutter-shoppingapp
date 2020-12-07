@@ -1,8 +1,8 @@
 import 'package:test/test.dart';
 
-import '../app/pages_modules/cart/cart_controller_test.dart';
-import '../app/pages_modules/cart/cart_repo_test.dart';
-import '../app/pages_modules/cart/cart_service_test.dart';
+import 'cart_controller_test.dart';
+import 'cart_repo_test.dart';
+import 'cart_service_test.dart';
 
 class CartModuleTestGroups{
   static void groups() {

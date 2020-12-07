@@ -1,17 +1,13 @@
-import 'package:get/get.dart';
-
 import '../entities/product.dart';
-import '../service/i_managed_products_service.dart';
 
-abstract class IManagedProductsController  {
-
+abstract class IManagedProductsController {
   Future<List<Product>> getProducts();
 
   int managedProductsQtde();
 
   Product getProductById(String id);
 
-  Future<void> addProduct(Product product);
+  Future<Product> addProduct(Product product);
 
   Future<int> updateProduct(Product product);
 
@@ -20,5 +16,8 @@ abstract class IManagedProductsController  {
   void reloadManagedProductsAddEditPage();
 
   void reloadManagedProductsObs();
-}
 
+  List<Product> getManagedProductsObs();
+
+  bool getReloadManagedProductsEditPage();
+}

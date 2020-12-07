@@ -23,11 +23,16 @@ class OverviewService implements IOverviewService {
     return repo.getProducts().then((products) {
       clearDataSavingLists();
       _localDataAllProducts = products;
-      products.forEach((item) {
+      for (var item in products) {
         if (item.isFavorite) {
           _localDataFavoritesProducts.add(item);
         }
-      });
+      }
+      // products.forEach((item) {
+      //   if (item.isFavorite) {
+      //     _localDataFavoritesProducts.add(item);
+      //   }
+      // });
       _sortDataSavingLists();
       return products;
     });
@@ -98,11 +103,17 @@ class OverviewService implements IOverviewService {
 
   List<Product> _reloadLocalDataFavoritesProducts() {
     _localDataFavoritesProducts = [];
-    _localDataAllProducts.forEach((item) {
+
+    for (var item in _localDataAllProducts) {
       if (item.isFavorite) {
         _localDataFavoritesProducts.add(item);
       }
-    });
+    }
+    // _localDataAllProducts.forEach((item) {
+    //   if (item.isFavorite) {
+    //     _localDataFavoritesProducts.add(item);
+    //   }
+    // });
     _sortDataSavingLists();
     return _localDataFavoritesProducts;
   }
