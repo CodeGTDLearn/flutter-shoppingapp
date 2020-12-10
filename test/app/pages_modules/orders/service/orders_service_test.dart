@@ -13,7 +13,7 @@ import '../repo/orders_repo_mocks.dart';
 import 'orders_service_mock.dart';
 
 class OrdersServiceTest {
-  static void unitTests() {
+  static void unit() {
     IOrdersService _service, _injectMockService;
     IOrdersRepo _mockRepo;
     var _cartItems;

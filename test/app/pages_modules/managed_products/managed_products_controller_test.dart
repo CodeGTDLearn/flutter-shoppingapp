@@ -12,7 +12,7 @@ import '../../../mocked_data_source/products_mocked_data.dart';
 import 'repo/managed_products_repo_mocks.dart';
 
 class ManagedProductsControllerTest {
-  static void integrationTests() {
+  static void integration() {
     IManagedProductsController _controller;
     IManagedProductsService _service;
     IManagedProductsRepo _mockRepo;

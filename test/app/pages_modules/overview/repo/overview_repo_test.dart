@@ -8,7 +8,7 @@ import 'overview_repo_mocks.dart';
 
 // void main() {
 class OverviewRepoTest {
-  static void unitTests() {
+  static void unit() {
     IOverviewRepo _mockRepo, _injectMockRepo;
     var _productFail;
 

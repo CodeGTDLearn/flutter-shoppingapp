@@ -8,7 +8,7 @@ import '../../../../mocked_data_source/products_mocked_data.dart';
 import 'managed_products_repo_mocks.dart';
 
 class ManagedProductsRepoTest {
-  static void unitTests() {
+  static void unit() {
     IManagedProductsRepo _mockRepo, _injectMockRepo;
     var _product0 = ProductsMockedData().products().elementAt(0);
     var _product1 = ProductsMockedData().products().elementAt(1);

@@ -16,9 +16,9 @@ class OverviewGridItem extends StatelessWidget {
   final OverviewController _controller =
       OverviewController(service: Get.find());
   final CartController _cartController = Get.find();
-  final String _index;
+  final String index;
 
-  OverviewGridItem(this._product, this._index);
+  OverviewGridItem(this._product, this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +32,13 @@ class OverviewGridItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.0),
             child: GridTile(
                 child: GestureDetector(
-                    key: Key("$OV10$_index"),
+                    key: Key("$OV10$index"),
                     onTap: () => Get.toNamed(AppRoutes.OVERVIEW_DETAIL,
                         arguments: _product.id),
                     child: Image.network(_product.imageUrl, fit: BoxFit.cover)),
                 footer: GridTileBar(
                     leading: Obx(() => IconButton(
-                        key: Key("$OV01$_index"),
+                        key: Key("$OV01$index"),
                         icon: _controller.favoriteStatusObs.value
                             ? OV_ICO_FAV
                             : OV_ICO_NOFAV,
@@ -47,24 +47,18 @@ class OverviewGridItem extends StatelessWidget {
                               .toggleFavoriteStatus(_product.id)
                               .then((returnedFavStatus) {
                             if (returnedFavStatus) {
-                              // CustomSnackbar.simple(
-                              //     context: context,
-                              //     message: TOGGLE_STATUS_SUCESS);
                               SimpleSnackbar(TOGGLE_STATUS_SUCESS, context)
                                   .show();
                             } else {
-                              // CustomSnackbar.simple(
-                              //     context: context,
-                              //     message: TOGGLE_STATUS_ERROR);
                               SimpleSnackbar(TOGGLE_STATUS_ERROR, context)
                                   .show();
                             }
                           });
                         },
                         color: Theme.of(context).accentColor)),
-                    title: Text(_product.title, key: Key("$OV03$_index")),
+                    title: Text(_product.title, key: Key("$OV03$index")),
                     trailing: IconButton(
-                        key: Key("$OV02$_index"),
+                        key: Key("$OV02$index"),
                         icon: OV_ICO_SHOP,
                         onPressed: () {
                           _cartController.addCartItem(_product);
@@ -81,10 +75,3 @@ class OverviewGridItem extends StatelessWidget {
                     backgroundColor: Colors.black87))));
   }
 }
-// CustomSnackbar.button(
-//     context: context,
-//     title: DONE,
-//     message: "${_product.title}$ITEMCART_ADDED",
-//     labelButton: "Undo",
-//     function: () =>
-//         _cartController.addCartItemUndo(_product));

@@ -8,7 +8,7 @@ import '../../../../data_builders/order_databuilder.dart';
 import 'orders_repo_mocks.dart';
 
 class OrdersRepoTest {
-  static void unitTests() {
+  static void unit() {
     IOrdersRepo _mockRepo, _injectMockRepo;
     var _orderWithoutId;
 

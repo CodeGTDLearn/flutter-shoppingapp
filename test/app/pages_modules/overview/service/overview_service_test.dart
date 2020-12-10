@@ -13,7 +13,7 @@ import 'overview_service_mocks.dart';
 
 // void main() {
 class OverviewServiceTest {
-  static void unitTests() {
+  static void unit() {
     IOverviewService _service, _injectMockService;
     IOverviewRepo _mockRepo;
 

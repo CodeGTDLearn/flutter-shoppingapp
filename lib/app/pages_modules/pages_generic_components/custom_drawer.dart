@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/pages_modules/managed_products/core/managed_products_widget_keys.dart';
 
 import '../../core/properties/app_properties.dart';
 import '../../core/properties/app_routes.dart';
@@ -83,19 +84,11 @@ class CustomDrawer extends StatelessWidget {
         title: Text(title),
         onTap: () {
           if (quantityItems == 0 && notRoutingWithoutQtdeEvaluation) {
-            // CustomSnackbar.simple(
-            //   message: message,
-            //   context: _context,
-            //   duration: DURATION,
-            // );
-            SimpleSnackbar(message, _context,DURATION).show();
-
+            SimpleSnackbar(message, _context, DURATION).show();
           } else if (quantityItems != 0 && notRoutingWithoutQtdeEvaluation) {
             Get.toNamed(route);
-            // quitPopping ? Get.offNamed(route) : Get.toNamed(route);
           } else {
             Get.toNamed(route);
-            // quitPopping ? Get.offNamed(route) : Get.toNamed(route);
           }
         });
   }

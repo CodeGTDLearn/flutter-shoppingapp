@@ -18,7 +18,7 @@ import '../../../mocked_data_source/orders_mocked_data.dart';
 import '../orders/repo/orders_repo_mocks.dart';
 
 class CartControllerTest {
-  static void integrationTests() {
+  static void integration() {
     ICartController _controller;
     ICartService _cartService;
     ICartRepo _repo;

@@ -11,7 +11,7 @@ import '../repo/managed_products_repo_mocks.dart';
 import 'managed_products_service_mock.dart';
 
 class ManagedProductsServiceTest {
-  static void unitTests() {
+  static void unit() {
     IManagedProductsService _service, _injectMockService;
     IManagedProductsRepo _mockRepo;
     var _product0 = ProductsMockedData().products().elementAt(0);

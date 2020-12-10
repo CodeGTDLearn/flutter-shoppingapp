@@ -9,7 +9,7 @@ import '../../../data_builders/cartitem_databuilder.dart';
 import '../../../data_builders/product_databuilder.dart';
 
 class CartServiceTest {
-  static void unitTests() {
+  static void unit() {
     ICartService _service;
     ICartRepo _repo;
     Product _product1, _product2;

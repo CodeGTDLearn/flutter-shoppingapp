@@ -6,29 +6,29 @@ import 'pages/overview_page_test.dart';
 import 'repo/overview_repo_test.dart';
 import 'service/overview_service_test.dart';
 
-class OverviewModule{
+class OverviewModuleTest{
 
   static void groups() {
     const OVERVIEW_MODULE_PAGE = 'Overview|';
     group(
       "$OVERVIEW_MODULE_PAGE\MockedRepo: Unit",
-      OverviewRepoTest.unitTests,
+      OverviewRepoTest.unit,
     );
     group(
       "$OVERVIEW_MODULE_PAGE\Service|MockedRepo: Unit",
-      OverviewServiceTest.unitTests,
+      OverviewServiceTest.unit,
     );
     group(
       "$OVERVIEW_MODULE_PAGE\Controller|Service|MockedRepo: Integr",
-      OverviewControllerTest.integrationTests,
+      OverviewControllerTest.integration,
     );
     group(
-      "$OVERVIEW_MODULE_PAGE\Main Page: Integr/Functional",
-      OverviewPageTest.widgetTests,
+      "$OVERVIEW_MODULE_PAGE\View|Main Page: Functional",
+      OverviewPageTest.functional,
     );
     group(
-      "$OVERVIEW_MODULE_PAGE\Details Product Page: Integr/Functional",
-      OverviewItemDetailsPageTest.widgetTests,
+      "$OVERVIEW_MODULE_PAGE\View|Details Product Page: Functional",
+      OverviewItemDetailsPageTest.functional,
     );
   }
 }

@@ -17,9 +17,10 @@ import 'package:shopingapp/app/pages_modules/overview/service/overview_service.d
 import 'package:shopingapp/app_driver.dart';
 
 import '../../../../test_utils/test_utils.dart';
-import '../repo/overview_repo_mocks.dart';
+import '../../overview/repo/overview_repo_mocks.dart';
 
-class OverviewItemDetailsPageTest {
+
+class ManagedProductsAddEditPageTest {
   static void functional() {
     final binding = BindingsBuilder(() {
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
@@ -55,7 +56,6 @@ class OverviewItemDetailsPageTest {
       expect(Get.isRegistered<CartController>(), isTrue);
     }
 
-
     List<Product> _products() {
       return Get.find<IOverviewService>().localDataAllProducts;
     }
@@ -81,25 +81,24 @@ class OverviewItemDetailsPageTest {
       expect(TestUtils.icon(Icons.more_vert), findsOneWidget);
     });
 
-    testWidgets('Clicking Product 01 + Show Details(texts) Page',
+    testWidgets('Clicking Drawer Page',
         (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
 
       var keyProduct1 = TestUtils.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
+      var keyDrawer = TestUtils.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY"
+          "\0");
 
           // @formatter:off
       tester
           .tap(keyProduct1)
           .then((value) => tester.pumpAndSettle(TestUtils.delay(1)))
           .then((value) {
-              expect(TestUtils.text(_products()[0].title.toString()),
-                  findsOneWidget);
-              expect(TestUtils.text('\$${_products()[0].price}'),
-                  findsOneWidget);
-              expect(TestUtils.text(_products()[0].description.toString()),
-                  findsOneWidget);
+              expect(TestUtils.text(_products()[0].title.toString()), findsOneWidget);
+              expect(TestUtils.text('\$${_products()[0].price}'),findsOneWidget);
+              expect(TestUtils.text(_products()[0].description.toString()), findsOneWidget);
           });
       // @formatter:on
         });
@@ -113,32 +112,13 @@ class OverviewItemDetailsPageTest {
       var keyProduct1 = TestUtils.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
 
       await tester.tap(keyProduct1);
-      await tester.pumpAndSettle(TestUtils.delay(1)); // check if the page has changed
+      await tester.pumpAndSettle(TestUtils.delay(1)); // check if the page has
+      // changed
       expect(TestUtils.text(_products()[0].title.toString()), findsOneWidget);
       provideMockedNetworkImages(() async {
-        // expect(find.byType(Image), findsNothing);
         expect(find.byType(Image), findsOneWidget);
       });
     });
   }
 }
 
-    // Finder _key(String key) {
-    //   return find.byKey(ValueKey(key));
-    // }
-    //
-    // Finder _text(String text) {
-    //   return find.text(text);
-    // }
-    //
-    // Finder _type(Type button, IconData icon) {
-    //   return find.widgetWithIcon(button, icon);
-    // }
-    //
-    // Finder _icon(IconData icon) {
-    //   return find.byIcon(icon);
-    // }
-    //
-    // Duration _delay(int seconds) {
-    //   return Duration(seconds: seconds);
-    // }

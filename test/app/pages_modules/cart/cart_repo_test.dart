@@ -13,7 +13,7 @@ BECAUSE THERE IS NO 'CALLBACKS' FROM, WETHER DATABSE OR HTTP-CALLS
 POIS NAO EXISTEM 'CALLBACKS' DE DATABASE OU CHAMADAS-HTTP)
  */
 class CartRepoTest {
-  static void unitTests()  {
+  static void unit()  {
     ICartRepo _repo;
     Product _product1, _product2;
 

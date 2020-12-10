@@ -9,7 +9,7 @@ import '../../../mocked_data_source/orders_mocked_data.dart';
 import '../orders/repo/orders_repo_mocks.dart';
 
 class OrdersControllerTest {
-  static void integrationTests() {
+  static void integration() {
     IOrdersRepo _mockedRepo;
     IOrdersService _service;
     IOrdersController _controller;

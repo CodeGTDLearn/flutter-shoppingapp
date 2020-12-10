@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/core/properties/app_properties.dart';
 
 import '../../../core/properties/app_owasp_regex.dart';
 import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../pages_generic_components/custom_circular_progress_indicator.dart';
 import '../../pages_generic_components/custom_snackbar.dart';
-import '../components/custom_text_form_field/custom_text_form_field.dart';
+import '../components/custom_text_form_field/custom_form_field.dart';
 import '../controller/managed_products_controller.dart';
 import '../core/messages/messages_snackbars_provided.dart';
 import '../core/texts_icons/managed_product_edit_texts_icons_provided.dart';
@@ -89,15 +88,14 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
     return _controller
         .addProduct(product)
         .then((response) {
-          SimpleSnackbar(SUCESS_MAN_PROD_ADD, _context).show();
           _controller.reloadManagedProductsAddEditPage();
           _controller.reloadManagedProductsObs();
         })
-        .whenComplete(() =>
-          Future.delayed(Duration(milliseconds: DURATION))
-          .then((value) => {
-            Get.offNamed(AppRoutes.MANAGED_PRODUCTS)
-          }))
+        .whenComplete((){
+            Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
+            Get.snackbar("title", "message");
+            // SimpleSnackbar(SUCESS_MAN_PROD_ADD,_context).show();
+        })
         .catchError((onError) {
           Get.defaultDialog(
             title: OPS,
@@ -128,6 +126,10 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
           }
         });
     // @formatter:on
+  }
+
+  void _requestfocus(FocusNode node, BuildContext _context) {
+    return FocusScope.of(_context).requestFocus(node);
   }
 
   @override
@@ -162,23 +164,14 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                     key: _form,
                     child: SingleChildScrollView(
                         child: Column(children: [
-                      CustomFormTextField().create(
+                      CustomFormField().create(_product, context,
+                          (_) => _requestfocus(_focusPrice, context), "title"),
+                      CustomFormField().create(_product, context,
+                          (_) => _requestfocus(_focusDescr, context), "price"),
+                      CustomFormField().create(
                           _product,
                           context,
-                          (_) =>
-                              FocusScope.of(context).requestFocus(_focusPrice),
-                          "title"),
-                      CustomFormTextField().create(
-                          _product,
-                          context,
-                          (_) =>
-                              FocusScope.of(context).requestFocus(_focusDescr),
-                          "price"),
-                      CustomFormTextField().create(
-                          _product,
-                          context,
-                          (_) => FocusScope.of(context)
-                              .requestFocus(_focusUrlNode),
+                          (_) => _requestfocus(_focusUrlNode, context),
                           "description"),
                       Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -199,7 +192,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                                                 _imgUrlController.text,
                                                 fit: BoxFit.cover)))),
                             Expanded(
-                                child: CustomFormTextField().create(
+                                child: CustomFormField().create(
                               _product,
                               context,
                               (_) => _saveForm(context),

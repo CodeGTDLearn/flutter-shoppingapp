@@ -10,7 +10,7 @@ import 'validate_price.dart';
 import 'validate_title.dart';
 import 'validation_abstraction.dart';
 
-class CustomFormTextField {
+class CustomFormField {
   final ValidationAbstraction _title = ValidateTitle();
   final ValidationAbstraction _price = ValidatePrice();
   final ValidationAbstraction _descr = ValidateDescription();

@@ -4,8 +4,8 @@ import 'app/pages_modules/orders/orders_test_groups.dart';
 import 'app/pages_modules/overview/overview_test_groups.dart';
 
 void main() {
-  OverviewModule.groups();
-  CartModuleTestGroups.groups();
-  OrdersModuleTestGroups.groups();
-  ManagedProductsModuleTestGroups.groups();
+  OverviewModuleTest.groups();
+  // CartModuleTest.groups();
+  // OrdersModuleTest.groups();
+  // ManagedProductsModuleTest.groups();
 }
