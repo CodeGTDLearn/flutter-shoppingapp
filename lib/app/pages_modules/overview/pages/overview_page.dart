@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'file:///C:/Users/SERVIDOR/Projects/flutter-shoppingapp/lib/app/pages_modules/pages_generic_components/custom_app_bar.dart';
 
+import '../../pages_generic_components/custom_app_bar.dart';
 import '../../pages_generic_components/custom_drawer.dart';
 import '../components/filter_favorite_enum.dart';
 import '../components/overview_grid.dart';
 import '../controller/overview_controller.dart';
+import '../core/overview_widget_keys.dart';
 
-class OverviewPage extends StatelessWidget  {
+class OverviewPage extends StatelessWidget {
   final EnumFilter _enumFilter;
+  final GlobalKey<ScaffoldState> scaffoldKey;
 
-  OverviewPage(this._enumFilter);
+  OverviewPage(this._enumFilter,[this.scaffoldKey]);
 
   Widget build(BuildContext context) {
     return Scaffold(
+        key: K_SCFLD,
         appBar: CustomAppBar(enumFilter: _enumFilter),
         drawer: CustomDrawer(),
         body: OverviewGrid(_enumFilter, Get.find<OverviewController>()));

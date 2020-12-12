@@ -3,23 +3,23 @@ import 'package:flutter_test/flutter_test.dart';
 
 class TestUtils {
 
-  static Finder key(String key) {
-    return find.byKey(ValueKey(key));
+  Finder key(String key) {
+    return find.byKey(Key(key));
   }
 
-  static Finder text(String text) {
+  Finder text(String text) {
     return find.text(text);
   }
 
-  static Finder type(Type button, IconData icon) {
+  Finder type(Type button, IconData icon) {
     return find.widgetWithIcon(button, icon);
   }
 
-  static Finder icon(IconData icon) {
+  Finder icon(IconData icon) {
     return find.byIcon(icon);
   }
 
-  static Duration delay(int seconds) {
+  Duration delay(int seconds) {
     return Duration(seconds: seconds);
   }
 }

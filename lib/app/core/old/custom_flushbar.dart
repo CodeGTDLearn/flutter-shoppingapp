@@ -16,7 +16,7 @@ class CustomFlushbar {
 
   Future<Object> simple() {
     return Flushbar(
-            key: Key(FB01),
+            key: Key(K_FB01),
             title: _title,
             message: _message,
             duration: Duration(milliseconds: _duration ?? DURATION),
@@ -26,13 +26,13 @@ class CustomFlushbar {
 
   Future<Object> withButton(String labelButton, Function function) {
     return Flushbar(
-            key: Key(FB01),
+            key: Key(K_FB01),
             title: _title,
             message: _message,
             duration: Duration(milliseconds: _duration),
             icon: FLUSHNOT_ICO,
             mainButton: FlatButton(
-                key: Key(FB02),
+                key: Key(K_FB02),
                 onPressed: function,
                 child: Text(labelButton,
                     style: TextStyle(

@@ -1,4 +1,3 @@
-import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_products_repo.dart';

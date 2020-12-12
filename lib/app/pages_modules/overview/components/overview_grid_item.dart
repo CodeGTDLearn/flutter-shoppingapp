@@ -32,33 +32,35 @@ class OverviewGridItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.0),
             child: GridTile(
                 child: GestureDetector(
-                    key: Key("$OV10$index"),
+                    key: Key("$K_OV10$index"),
                     onTap: () => Get.toNamed(AppRoutes.OVERVIEW_DETAIL,
                         arguments: _product.id),
                     child: Image.network(_product.imageUrl, fit: BoxFit.cover)),
                 footer: GridTileBar(
-                    leading: Obx(() => IconButton(
-                        key: Key("$OV01$index"),
-                        icon: _controller.favoriteStatusObs.value
-                            ? OV_ICO_FAV
-                            : OV_ICO_NOFAV,
-                        onPressed: () {
-                          _controller
-                              .toggleFavoriteStatus(_product.id)
-                              .then((returnedFavStatus) {
-                            if (returnedFavStatus) {
-                              SimpleSnackbar(TOGGLE_STATUS_SUCESS, context)
-                                  .show();
-                            } else {
-                              SimpleSnackbar(TOGGLE_STATUS_ERROR, context)
-                                  .show();
-                            }
-                          });
-                        },
-                        color: Theme.of(context).accentColor)),
-                    title: Text(_product.title, key: Key("$OV03$index")),
+                    leading: Obx(
+                      () => IconButton(
+                          key: Key("$K_OV01$index"),
+                          icon: _controller.favoriteStatusObs.value
+                              ? OV_ICO_FAV
+                              : OV_ICO_NOFAV,
+                          onPressed: () {
+                            _controller
+                                .toggleFavoriteStatus(_product.id)
+                                .then((returnedFavStatus) {
+                              if (returnedFavStatus) {
+                                SimpleSnackbar(TOGGLE_STATUS_SUCESS, context)
+                                    .show();
+                              } else {
+                                SimpleSnackbar(TOGGLE_STATUS_ERROR, context)
+                                    .show();
+                              }
+                            });
+                          },
+                          color: Theme.of(context).accentColor),
+                    ),
+                    title: Text(_product.title, key: Key("$K_OV03$index")),
                     trailing: IconButton(
-                        key: Key("$OV02$index"),
+                        key: Key("$K_OV02$index"),
                         icon: OV_ICO_SHOP,
                         onPressed: () {
                           _cartController.addCartItem(_product);

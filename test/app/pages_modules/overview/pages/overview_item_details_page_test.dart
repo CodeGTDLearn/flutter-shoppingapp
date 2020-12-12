@@ -21,6 +21,8 @@ import '../repo/overview_repo_mocks.dart';
 
 class OverviewItemDetailsPageTest {
   static void functional() {
+    TestUtils _test;
+
     final binding = BindingsBuilder(() {
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
       Get.lazyPut<IOverviewRepo>(() => OverviewMockRepo());
@@ -42,10 +44,12 @@ class OverviewItemDetailsPageTest {
       expect(Get.isPrepared<OverviewController>(), isTrue);
       expect(Get.isPrepared<CartController>(), isTrue);
       HttpOverrides.global = null;
+      _test = TestUtils();
     });
 
     tearDown(() {
       Get.reset;
+      _test = null;
     });
 
     void _isInstancesRegistred() {
@@ -68,17 +72,17 @@ class OverviewItemDetailsPageTest {
       var products = _products();
       await tester.pump();
 
-      expect(TestUtils.text(OVERVIEW_TITLE_ALL_APPBAR), findsOneWidget);
-      expect(TestUtils.text(_products()[0].title.toString()), findsOneWidget);
-      expect(TestUtils.text(_products()[1].title.toString()), findsOneWidget);
-      expect(TestUtils.text(_products()[2].title.toString()), findsOneWidget);
-      expect(TestUtils.text(_products()[3].title.toString()), findsOneWidget);
+      expect(_test.text(OVERVIEW_TITLE_ALL_APPBAR), findsOneWidget);
+      expect(_test.text(_products()[0].title.toString()), findsOneWidget);
+      expect(_test.text(_products()[1].title.toString()), findsOneWidget);
+      expect(_test.text(_products()[2].title.toString()), findsOneWidget);
+      expect(_test.text(_products()[3].title.toString()), findsOneWidget);
 
-      expect(TestUtils.type(IconButton, Icons.favorite), findsOneWidget);
-      expect(TestUtils.type(IconButton, Icons.favorite_border), findsNWidgets(3));
-      expect(TestUtils.type(IconButton, Icons.shopping_cart), findsNWidgets(5));
+      expect(_test.type(IconButton, Icons.favorite), findsOneWidget);
+      expect(_test.type(IconButton, Icons.favorite_border), findsNWidgets(3));
+      expect(_test.type(IconButton, Icons.shopping_cart), findsNWidgets(5));
 
-      expect(TestUtils.icon(Icons.more_vert), findsOneWidget);
+      expect(_test.icon(Icons.more_vert), findsOneWidget);
     });
 
     testWidgets('Clicking Product 01 + Show Details(texts) Page',
@@ -87,18 +91,18 @@ class OverviewItemDetailsPageTest {
       await tester.pump();
       _isInstancesRegistred();
 
-      var keyProduct1 = TestUtils.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
+      var keyProduct1 = _test.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
 
           // @formatter:off
       tester
           .tap(keyProduct1)
-          .then((value) => tester.pumpAndSettle(TestUtils.delay(1)))
+          .then((value) => tester.pumpAndSettle(_test.delay(1)))
           .then((value) {
-              expect(TestUtils.text(_products()[0].title.toString()),
+              expect(_test.text(_products()[0].title.toString()),
                   findsOneWidget);
-              expect(TestUtils.text('\$${_products()[0].price}'),
+              expect(_test.text('\$${_products()[0].price}'),
                   findsOneWidget);
-              expect(TestUtils.text(_products()[0].description.toString()),
+              expect(_test.text(_products()[0].description.toString()),
                   findsOneWidget);
           });
       // @formatter:on
@@ -110,11 +114,11 @@ class OverviewItemDetailsPageTest {
       await tester.pump();
       _isInstancesRegistred();
 
-      var keyProduct1 = TestUtils.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
+      var keyProduct1 = _test.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
 
       await tester.tap(keyProduct1);
-      await tester.pumpAndSettle(TestUtils.delay(1)); // check if the page has changed
-      expect(TestUtils.text(_products()[0].title.toString()), findsOneWidget);
+      await tester.pumpAndSettle(_test.delay(1)); // check if the page has changed
+      expect(_test.text(_products()[0].title.toString()), findsOneWidget);
       provideMockedNetworkImages(() async {
         // expect(find.byType(Image), findsNothing);
         expect(find.byType(Image), findsOneWidget);

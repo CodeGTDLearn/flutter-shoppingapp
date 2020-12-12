@@ -1,4 +1,3 @@
-import 'package:faker/faker.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/controller/i_managed_products_controller.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/controller/managed_products_controller.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';

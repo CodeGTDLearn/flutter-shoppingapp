@@ -20,14 +20,14 @@ class FilterFavoriteAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-        key: Key(OV06),
+        key: Key(K_OV06),
         itemBuilder: (_) => [
               PopupMenuItem(
-                  child: Text(OV_TXT_POPUP_FAV, key: Key(OV08)),
+                  child: Text(OV_TXT_POPUP_FAV, key: Key(K_OV08)),
                   value: EnumFilter.Fav,
                   enabled: _enum == EnumFilter.All),
               PopupMenuItem(
-                  child: Text(OV_TXT_POPUP_ALL, key: Key(OV09)),
+                  child: Text(OV_TXT_POPUP_ALL, key: Key(K_OV09)),
                   value: EnumFilter.All,
                   enabled: _enum == EnumFilter.Fav)
             ],

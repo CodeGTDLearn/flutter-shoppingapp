@@ -28,8 +28,8 @@ class OverviewGrid extends StatelessWidget {
         : GridView.builder(
             padding: EdgeInsets.all(10),
             itemCount: controller.filteredProductsObs.length,
-            itemBuilder: (ctx, item) => OverviewGridItem(
-                controller.filteredProductsObs[item], item.toString()),
+            itemBuilder: (ctx, index) => OverviewGridItem(
+                controller.filteredProductsObs[index], index.toString()),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 3 / 2,

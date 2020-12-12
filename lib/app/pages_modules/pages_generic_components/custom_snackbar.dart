@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/properties/app_properties.dart';
-import 'core/pages_generics_comp_widgets_keys.dart';
+import 'core/custom_snackbar_widgets_keys.dart';
 
 class CustomSnackbar {}
 
@@ -21,7 +21,7 @@ class SimpleSnackbar implements CustomAbstractSnackbar {
   Widget show() {
     var snackBarConfig = SnackBar(
         duration: Duration(milliseconds: duration ??= DURATION),
-        key: Key(CT_SNCK_01),
+        key: Key(K_SNCK),
         content: Text(message));
 
     Scaffold.of(context).removeCurrentSnackBar();
@@ -40,7 +40,7 @@ class SimpleSnackbarBuilder implements CustomAbstractSnackbar {
     return Builder(builder: (_context) {
       var snackBarConfig = SnackBar(
           duration: Duration(milliseconds: duration ??= DURATION),
-          key: Key(CT_SNCK_01),
+          key: Key(K_SNCK),
           content: Text(message));
 
       Scaffold.of(_context).removeCurrentSnackBar();
@@ -69,9 +69,7 @@ class ButtonSnackbar implements CustomAbstractSnackbar {
     var snackBarButtonConfig = SnackBar(
         duration: Duration(seconds: 1),
         action: SnackBarAction(
-            key: Key(CT_SNCK_01),
-            label: labelButton,
-            onPressed: () => function()),
+            key: Key(K_SNCK), label: labelButton, onPressed: () => function()),
         content: LayoutBuilder(builder: (_, cons) {
           return Container(
               width: MediaQuery.of(context).size.width,

@@ -6,8 +6,7 @@ import 'pages/overview_page_test.dart';
 import 'repo/overview_repo_test.dart';
 import 'service/overview_service_test.dart';
 
-class OverviewModuleTest{
-
+class OverviewModuleTest {
   static void groups() {
     const OVERVIEW_MODULE_PAGE = 'Overview|';
     group(
