@@ -2,8 +2,8 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
-import '../../pages_modules/pages_generic_components/core/pages_generics_comp_widgets_keys.dart';
-import '../../pages_modules/pages_generic_components/core/texts_icons/custom_flush_notifier_texts_icons_provided.dart';
+import '../../pages_modules/custom_widgets/core/pages_generics_comp_widgets_keys.dart';
+import '../../pages_modules/custom_widgets/core/texts_icons/custom_flush_notifier_texts_icons_provided.dart';
 import '../properties/app_properties.dart';
 
 class CustomFlushbar {

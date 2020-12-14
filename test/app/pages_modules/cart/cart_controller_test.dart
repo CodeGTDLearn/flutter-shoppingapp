@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/i_cart_controller.dart';
 import 'package:shopingapp/app/pages_modules/cart/entities/cart_item.dart';

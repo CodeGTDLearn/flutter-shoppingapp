@@ -22,7 +22,7 @@ import '../../overview/repo/overview_repo_mocks.dart';
 
 class ManagedProductsAddEditPageTest {
   static void functional() {
-    TestUtils _test;
+    TestUtils seek;
 
     final binding = BindingsBuilder(() {
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
@@ -45,12 +45,13 @@ class ManagedProductsAddEditPageTest {
       expect(Get.isPrepared<OverviewController>(), isTrue);
       expect(Get.isPrepared<CartController>(), isTrue);
       HttpOverrides.global = null;
-      _test = TestUtils();
+      seek = TestUtils();
     });
 
     tearDown(() {
-      Get.reset;
-      _test = null;
+      AppGlobalTestMethods.tearDown();
+      // Get.reset();
+      seek = null;
     });
 
     void _isInstancesRegistred() {
@@ -72,17 +73,17 @@ class ManagedProductsAddEditPageTest {
       var products = _products();
       await tester.pump();
 
-      expect(_test.text(OVERVIEW_TITLE_ALL_APPBAR), findsOneWidget);
-      expect(_test.text(_products()[0].title.toString()), findsOneWidget);
-      expect(_test.text(_products()[1].title.toString()), findsOneWidget);
-      expect(_test.text(_products()[2].title.toString()), findsOneWidget);
-      expect(_test.text(_products()[3].title.toString()), findsOneWidget);
+      expect(seek.text(OVERVIEW_TITLE_ALL_APPBAR), findsOneWidget);
+      expect(seek.text(_products()[0].title.toString()), findsOneWidget);
+      expect(seek.text(_products()[1].title.toString()), findsOneWidget);
+      expect(seek.text(_products()[2].title.toString()), findsOneWidget);
+      expect(seek.text(_products()[3].title.toString()), findsOneWidget);
 
-      expect(_test.type(IconButton, Icons.favorite), findsOneWidget);
-      expect(_test.type(IconButton, Icons.favorite_border), findsNWidgets(3));
-      expect(_test.type(IconButton, Icons.shopping_cart), findsNWidgets(5));
+      expect(seek.iconType(IconButton, Icons.favorite), findsOneWidget);
+      expect(seek.iconType(IconButton, Icons.favorite_border), findsNWidgets(3));
+      expect(seek.iconType(IconButton, Icons.shopping_cart), findsNWidgets(5));
 
-      expect(_test.icon(Icons.more_vert), findsOneWidget);
+      expect(seek.iconData(Icons.more_vert), findsOneWidget);
     });
 
     testWidgets('Clicking Drawer Page',
@@ -91,18 +92,17 @@ class ManagedProductsAddEditPageTest {
       await tester.pump();
       _isInstancesRegistred();
 
-      var keyProduct1 = _test.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
-      var keyDrawer = _test.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY"
-          "\0");
+      var keyProduct1 = seek.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
+      var keyDrawer = seek.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
 
           // @formatter:off
       tester
           .tap(keyProduct1)
-          .then((value) => tester.pumpAndSettle(_test.delay(1)))
+          .then((value) => tester.pumpAndSettle(seek.delay(1)))
           .then((value) {
-              expect(_test.text(_products()[0].title.toString()), findsOneWidget);
-              expect(_test.text('\$${_products()[0].price}'),findsOneWidget);
-              expect(_test.text(_products()[0].description.toString()), findsOneWidget);
+              expect(seek.text(_products()[0].title.toString()), findsOneWidget);
+              expect(seek.text('\$${_products()[0].price}'),findsOneWidget);
+              expect(seek.text(_products()[0].description.toString()), findsOneWidget);
           });
       // @formatter:on
         });
@@ -113,12 +113,12 @@ class ManagedProductsAddEditPageTest {
       await tester.pump();
       _isInstancesRegistred();
 
-      var keyProduct1 = _test.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
+      var keyProduct1 = seek.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
 
       await tester.tap(keyProduct1);
-      await tester.pumpAndSettle(_test.delay(1)); // check if the page has
+      await tester.pumpAndSettle(seek.delay(1)); // check if the page has
       // changed
-      expect(_test.text(_products()[0].title.toString()), findsOneWidget);
+      expect(seek.text(_products()[0].title.toString()), findsOneWidget);
       provideMockedNetworkImages(() async {
         expect(find.byType(Image), findsOneWidget);
       });

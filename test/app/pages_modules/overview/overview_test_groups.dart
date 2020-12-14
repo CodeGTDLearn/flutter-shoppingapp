@@ -9,25 +9,20 @@ import 'service/overview_service_test.dart';
 class OverviewModuleTest {
   static void groups() {
     const OVERVIEW_MODULE_PAGE = 'Overview|';
-    group(
-      "$OVERVIEW_MODULE_PAGE\MockedRepo: Unit",
-      OverviewRepoTest.unit,
-    );
-    group(
-      "$OVERVIEW_MODULE_PAGE\Service|MockedRepo: Unit",
-      OverviewServiceTest.unit,
-    );
-    group(
-      "$OVERVIEW_MODULE_PAGE\Controller|Service|MockedRepo: Integr",
-      OverviewControllerTest.integration,
-    );
-    group(
-      "$OVERVIEW_MODULE_PAGE\View|Main Page: Functional",
-      OverviewPageTest.functional,
-    );
-    group(
-      "$OVERVIEW_MODULE_PAGE\View|Details Product Page: Functional",
-      OverviewItemDetailsPageTest.functional,
-    );
+
+    group("$OVERVIEW_MODULE_PAGE\MockedRepo: Unit", OverviewRepoTest.unit);
+
+    group("$OVERVIEW_MODULE_PAGE\Service|MockedRepo: Unit",
+        OverviewServiceTest.unit);
+
+    group("$OVERVIEW_MODULE_PAGE\Controller|Service|MockedRepo: Integr",
+        OverviewControllerTest.integration);
+
+    group("$OVERVIEW_MODULE_PAGE\View|Main Page: Functional",
+        OverviewPageTest.functional);
+
+    group("$OVERVIEW_MODULE_PAGE\View|Details Product Page: Functional",
+        OverviewItemDetailsPageTest.functional);
+
   }
 }

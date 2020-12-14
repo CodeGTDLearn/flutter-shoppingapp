@@ -1,8 +1,10 @@
+import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_products_repo.dart';
 import 'package:test/test.dart';
 
+import '../../../../app_global_test_methods.dart';
 import '../../../../mocked_data_source/products_mocked_data.dart';
 import 'managed_products_repo_mocks.dart';
 
@@ -15,6 +17,11 @@ class ManagedProductsRepoTest {
     setUp(() {
       _mockRepo = ManagedProductsMockRepo();
       _injectMockRepo = ManagedProductsInjectMockRepo();
+    });
+
+    tearDown(() {
+      // Get.reset();
+      AppGlobalTestMethods.tearDown();
     });
 
     test('Checking Instances to be used in the Tests', () {

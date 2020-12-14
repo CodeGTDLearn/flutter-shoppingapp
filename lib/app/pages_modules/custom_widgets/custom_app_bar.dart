@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../managed_products/core/managed_products_widget_keys.dart';
 import '../overview/components/badge_shop_cart_appbar.dart';
 import '../overview/components/filter_favorite_appbar.dart';
 import '../overview/components/filter_favorite_enum.dart';

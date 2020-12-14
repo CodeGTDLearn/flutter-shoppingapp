@@ -6,12 +6,13 @@ import 'service/orders_service_test.dart';
 
 class OrdersModuleTest {
   static void groups() {
-    const ORDERS_MODULE_PAGE = 'Orders|';
-    group("$ORDERS_MODULE_PAGE\MockedRepo: Unit", OrdersRepoTest.unit);
-    group("$ORDERS_MODULE_PAGE\Service|MockedRepo: Unit", OrdersServiceTest.unit);
-    group(
-      "$ORDERS_MODULE_PAGE\Controller|Service|MockedRepo: Integr",
-      OrdersControllerTest.integration,
-    );
+    const MODULE = 'Orders|';
+
+    group("$MODULE\MockedRepo: Unit", OrdersRepoTest.unit);
+
+    group("$MODULE\Service|MockedRepo: Unit", OrdersServiceTest.unit);
+
+    group("$MODULE\Controller|Service|MockedRepo: Integr",
+        OrdersControllerTest.integration);
   }
 }

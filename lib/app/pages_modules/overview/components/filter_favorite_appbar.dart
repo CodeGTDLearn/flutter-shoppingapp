@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/properties/app_routes.dart';
-import '../../pages_generic_components/custom_snackbar.dart';
+import '../../custom_widgets/custom_snackbar.dart';
 import '../controller/overview_controller.dart';
 import '../core/messages_snackbars_provided.dart';
 import '../core/overview_texts_icons_provided.dart';
@@ -34,8 +34,8 @@ class FilterFavoriteAppbar extends StatelessWidget {
         onSelected: (value) {
           _controller.getFavoritesQtde() == 0
               ? SimpleSnackbar(NO_FAVS_YET, context).show()
-          // CustomSnackbar.simple(message: NO_FAVS_YET, context:
-          // context)
+              // CustomSnackbar.simple(message: NO_FAVS_YET, context:
+              // context)
               : Get.toNamed(value == EnumFilter.All
                   ? AppRoutes.OVERVIEW_ALL
                   : AppRoutes.OVERVIEW_FAV);

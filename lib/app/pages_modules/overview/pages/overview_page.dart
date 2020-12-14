@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../pages_generic_components/custom_app_bar.dart';
-import '../../pages_generic_components/custom_drawer.dart';
+import '../../custom_widgets/custom_app_bar.dart';
+import '../../custom_widgets/custom_drawer.dart';
 import '../components/filter_favorite_enum.dart';
 import '../components/overview_grid.dart';
 import '../controller/overview_controller.dart';
@@ -12,7 +12,7 @@ class OverviewPage extends StatelessWidget {
   final EnumFilter _enumFilter;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
-  OverviewPage(this._enumFilter,[this.scaffoldKey]);
+  OverviewPage(this._enumFilter, [this.scaffoldKey]);
 
   Widget build(BuildContext context) {
     return Scaffold(

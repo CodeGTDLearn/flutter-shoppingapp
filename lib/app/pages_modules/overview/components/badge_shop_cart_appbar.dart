@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../../core/properties/app_properties.dart';
 import '../../../core/properties/app_routes.dart';
 import '../../cart/controller/cart_controller.dart';
-import '../../pages_generic_components/custom_snackbar.dart';
+import '../../custom_widgets/custom_snackbar.dart';
 import '../core/messages_snackbars_provided.dart';
 import '../core/overview_texts_icons_provided.dart';
 
@@ -28,7 +28,7 @@ class BadgeShopCartAppbar extends StatelessWidget {
               //     message: NO_ITEMS_CART_YET,
               //     context: context,
               //     duration: DURATION);
-              SimpleSnackbar(NO_ITEMS_CART_YET, context,DURATION).show();
+              SimpleSnackbar(NO_ITEMS_CART_YET, context, DURATION).show();
             } else {
               Get.toNamed(AppRoutes.CART);
             }

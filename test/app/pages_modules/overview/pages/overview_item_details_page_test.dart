@@ -16,12 +16,13 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
+import '../../../../app_global_test_methods.dart';
 import '../../../../test_utils/test_utils.dart';
 import '../repo/overview_repo_mocks.dart';
 
 class OverviewItemDetailsPageTest {
   static void functional() {
-    TestUtils _test;
+    TestUtils seek;
 
     final binding = BindingsBuilder(() {
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
@@ -44,12 +45,13 @@ class OverviewItemDetailsPageTest {
       expect(Get.isPrepared<OverviewController>(), isTrue);
       expect(Get.isPrepared<CartController>(), isTrue);
       HttpOverrides.global = null;
-      _test = TestUtils();
+      seek = TestUtils();
     });
 
     tearDown(() {
-      Get.reset;
-      _test = null;
+      // Get.reset();
+      AppGlobalTestMethods.tearDown();
+      seek = null;
     });
 
     void _isInstancesRegistred() {
@@ -58,7 +60,6 @@ class OverviewItemDetailsPageTest {
       expect(Get.isRegistered<OverviewController>(), isTrue);
       expect(Get.isRegistered<CartController>(), isTrue);
     }
-
 
     List<Product> _products() {
       return Get.find<IOverviewService>().localDataAllProducts;
@@ -69,80 +70,66 @@ class OverviewItemDetailsPageTest {
       await tester.pump();
       _isInstancesRegistred();
 
-      var products = _products();
       await tester.pump();
 
-      expect(_test.text(OVERVIEW_TITLE_ALL_APPBAR), findsOneWidget);
-      expect(_test.text(_products()[0].title.toString()), findsOneWidget);
-      expect(_test.text(_products()[1].title.toString()), findsOneWidget);
-      expect(_test.text(_products()[2].title.toString()), findsOneWidget);
-      expect(_test.text(_products()[3].title.toString()), findsOneWidget);
+      expect(seek.text(OVERVIEW_TITLE_ALL_APPBAR), findsOneWidget);
+      expect(seek.text(_products()[0].title.toString()), findsOneWidget);
+      expect(seek.text(_products()[1].title.toString()), findsOneWidget);
+      expect(seek.text(_products()[2].title.toString()), findsOneWidget);
+      expect(seek.text(_products()[3].title.toString()), findsOneWidget);
 
-      expect(_test.type(IconButton, Icons.favorite), findsOneWidget);
-      expect(_test.type(IconButton, Icons.favorite_border), findsNWidgets(3));
-      expect(_test.type(IconButton, Icons.shopping_cart), findsNWidgets(5));
+      expect(seek.iconType(IconButton, Icons.favorite), findsOneWidget);
+      expect(
+          seek.iconType(IconButton, Icons.favorite_border), findsNWidgets(3));
+      expect(seek.iconType(IconButton, Icons.shopping_cart), findsNWidgets(5));
 
-      expect(_test.icon(Icons.more_vert), findsOneWidget);
+      expect(seek.iconData(Icons.more_vert), findsOneWidget);
+
+      provideMockedNetworkImages(() async {
+        expect(find.byType(Image), findsNWidgets(4));
+      });
     });
 
-    testWidgets('Clicking Product 01 + Show Details(texts) Page',
+    testWidgets('Clicking Product 01 + Show Details Page: Checking texts',
         (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
 
-      var keyProduct1 = _test.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
+      var keyProduct1 = seek.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
 
           // @formatter:off
       tester
           .tap(keyProduct1)
-          .then((value) => tester.pumpAndSettle(_test.delay(1)))
+          .then((value) => tester.pumpAndSettle(seek.delay(1)))
           .then((value) {
-              expect(_test.text(_products()[0].title.toString()),
+              expect(seek.text(_products()[0].title.toString()),
                   findsOneWidget);
-              expect(_test.text('\$${_products()[0].price}'),
+              expect(seek.text('\$${_products()[0].price}'),
                   findsOneWidget);
-              expect(_test.text(_products()[0].description.toString()),
+              expect(seek.text(_products()[0].description.toString()),
                   findsOneWidget);
           });
-      // @formatter:on
+        // @formatter:on
         });
 
     testWidgets(
-        'Clicking Product 01 + Show Details(image) Page', (tester) async {
+        'Clicking Product 01 + Show Details Page: Checking image', (
+        tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
 
-      var keyProduct1 = _test.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
+      var keyProduct1 = seek.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
 
       await tester.tap(keyProduct1);
-      await tester.pumpAndSettle(_test.delay(1)); // check if the page has changed
-      expect(_test.text(_products()[0].title.toString()), findsOneWidget);
-      provideMockedNetworkImages(() async {
-        // expect(find.byType(Image), findsNothing);
-        expect(find.byType(Image), findsOneWidget);
-      });
+
+      // check if the page has changed
+      await tester.pumpAndSettle(seek.delay(1));
+      expect(seek.text(_products()[0].title.toString()), findsOneWidget);
+
+      seek.imagesTotal(1);
     });
   }
 }
 
-    // Finder _key(String key) {
-    //   return find.byKey(ValueKey(key));
-    // }
-    //
-    // Finder _text(String text) {
-    //   return find.text(text);
-    // }
-    //
-    // Finder _type(Type button, IconData icon) {
-    //   return find.widgetWithIcon(button, icon);
-    // }
-    //
-    // Finder _icon(IconData icon) {
-    //   return find.byIcon(icon);
-    // }
-    //
-    // Duration _delay(int seconds) {
-    //   return Duration(seconds: seconds);
-    // }

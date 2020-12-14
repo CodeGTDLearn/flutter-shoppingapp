@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/properties/app_properties.dart';
+import '../../custom_widgets/custom_circular_progress_indicator.dart';
+import '../../custom_widgets/custom_snackbar.dart';
 import '../../orders/core/messages_snackbars_provided.dart';
-import '../../pages_generic_components/custom_circular_progress_indicator.dart';
-import '../../pages_generic_components/custom_snackbar.dart';
 import '../components/card_cart_item.dart';
 import '../controller/cart_controller.dart';
 import '../core/cart_texts_icons_provided.dart';
@@ -58,7 +58,8 @@ class CartPage extends StatelessWidget {
                               Container(
                                   width: consWidth * 0.3,
                                   height: consHeight * 0.08,
-                                  child: Obx(() => controller.qtdeCartItemsObs() !=
+                                  child: Obx(() => controller
+                                              .qtdeCartItemsObs() !=
                                           currentQtdeCart
                                       ? CustomCircularProgressIndicator.radius(
                                           consWidth * 0.3)

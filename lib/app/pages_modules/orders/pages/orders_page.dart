@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../pages_generic_components/custom_circular_progress_indicator.dart';
+import '../../custom_widgets/custom_circular_progress_indicator.dart';
 import '../components/order_collapse_tile.dart';
 import '../controller/orders_controller.dart';
 import '../core/orders_texts_icons_provided.dart';

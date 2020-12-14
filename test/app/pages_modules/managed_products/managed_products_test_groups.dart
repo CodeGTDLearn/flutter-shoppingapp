@@ -7,26 +7,19 @@ import 'service/managed_products_service_test.dart';
 
 class ManagedProductsModuleTest {
   static void groups() {
-    const MANAGED_PRODUCTS_MODULE_PAGE = 'Managed Products|';
-    // group(
-    //   "$MANAGED_PRODUCTS_MODULE_PAGE\MockedRepo: Unit",
-    //   ManagedProductsRepoTest.unit,
-    // );
-    // group(
-    //   "$MANAGED_PRODUCTS_MODULE_PAGE\Service|MockedRepo: Unit",
-    //   ManagedProductsServiceTest.unit,
-    // );
-    // group(
-    //   "$MANAGED_PRODUCTS_MODULE_PAGE\Controller|Service|MockedRepo: Integr",
-    //   ManagedProductsControllerTest.integration,
-    // );
-    group(
-      "$MANAGED_PRODUCTS_MODULE_PAGE\View|Managed Products Page: Functional",
-      ManagedProductsPageTest.functional,
-    );
-    // group(
-    //   "$MANAGED_PRODUCTS_MODULE_PAGE\View|Managed Products Add/Edit Page: Functional",
-    //   ManagedProductsAddEditPageTest.functional,
-    // );
+    const MODULE = 'Managed Products|';
+
+    group("$MODULE\MockedRepo: Unit", ManagedProductsRepoTest.unit);
+
+    group("$MODULE\Service|MockedRepo: Unit", ManagedProductsServiceTest.unit);
+
+    group("$MODULE\Controller|Service|MockedRepo: Integr",
+        ManagedProductsControllerTest.integration);
+
+    group("$MODULE\View|Managed Products Page: Functional",
+        ManagedProductsPageTest.functional);
+
+    // group("$MODULE\View|Managed Products Add/Edit Page: Functional",
+    //     ManagedProductsAddEditPageTest.functional);
   }
 }

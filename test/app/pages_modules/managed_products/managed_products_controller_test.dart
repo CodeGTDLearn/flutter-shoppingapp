@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/controller/i_managed_products_controller.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/controller/managed_products_controller.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
@@ -6,6 +7,7 @@ import 'package:shopingapp/app/pages_modules/managed_products/service/i_managed_
 import 'package:shopingapp/app/pages_modules/managed_products/service/managed_products_service.dart';
 import 'package:test/test.dart';
 
+import '../../../app_global_test_methods.dart';
 import '../../../data_builders/product_databuilder.dart';
 import '../../../mocked_data_source/products_mocked_data.dart';
 import 'repo/managed_products_repo_mocks.dart';
@@ -24,6 +26,11 @@ class ManagedProductsControllerTest {
       _mockRepo = ManagedProductsMockRepo();
       _service = ManagedProductsService(repo: _mockRepo);
       _controller = ManagedProductsController(service: _service);
+    });
+
+    tearDown(() {
+      // Get.reset();
+      AppGlobalTestMethods.tearDown();
     });
 
     test('Checking Instances to be used in the Tests', () {
