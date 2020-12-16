@@ -18,14 +18,14 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
-import '../../../../app_global_test_methods.dart';
-import '../../../../test_utils/test_utils.dart';
+import '../../../../test_utils/global_test_methods.dart';
+import '../../../../test_utils/utils.dart';
 import '../repo/overview_repo_mocks.dart';
 
 // void main() {
 class OverviewPageTest {
   static void functional() {
-    TestUtils seek;
+    Utils seek;
 
     final binding = BindingsBuilder(() {
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
@@ -51,12 +51,12 @@ class OverviewPageTest {
       expect(Get.isPrepared<CartController>(), isTrue);
 
       HttpOverrides.global = null;
-      seek = TestUtils();
+      seek = Utils();
     });
 
     tearDown(() {
       // Get.reset();
-      AppGlobalTestMethods.tearDown();
+      GlobalTestMethods.tearDown();
       seek = null;
     });
 

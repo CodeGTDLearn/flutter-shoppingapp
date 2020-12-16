@@ -1,6 +1,7 @@
 import 'package:test/test.dart';
 
 import 'managed_products_controller_test.dart';
+import 'pages/managed_product_add_edit_page.dart';
 import 'pages/managed_products_page_test.dart';
 import 'repo/managed_products_repo_test.dart';
 import 'service/managed_products_service_test.dart';
@@ -19,7 +20,7 @@ class ManagedProductsModuleTest {
     group("$MODULE\View|Managed Products Page: Functional",
         ManagedProductsPageTest.functional);
 
-    // group("$MODULE\View|Managed Products Add/Edit Page: Functional",
-    //     ManagedProductsAddEditPageTest.functional);
+    group("$MODULE\View| Add/Edit Page: Functional",
+        ManagedProductsAddEditPageTest.functional);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopingapp/app/pages_modules/managed_products/core/managed_products_widget_keys.dart';
 import 'package:string_validator/string_validator.dart';
 
 import '../../core/messages/field_form_validation_provided.dart';
@@ -15,21 +16,26 @@ class CustomFormField {
   final ValidationAbstraction _price = ValidatePrice();
   final ValidationAbstraction _descr = ValidateDescription();
 
-  // final ValidationAbstraction _url = ValidateUrl();
-
   String _hint;
   String _labelText;
   TextInputAction _textInputAction;
   TextInputType _textInputType;
   String _initialValue;
   int _maxLength;
+  String _keyField;
   var _validatorCriteria;
 
-  TextFormField create(Product product, BuildContext context, Function function,
-      String fieldName,
-      {FocusNode node, TextEditingController controller}) {
+  TextFormField create(
+    Product product,
+    BuildContext context,
+    Function function,
+    String fieldName, {
+    FocusNode node,
+    TextEditingController controller,
+  }) {
     fieldName = fieldName.toLowerCase();
-    loadTextFieldsParameteres(fieldName, product);
+
+    _loadTextFieldsParameteres(fieldName, product);
 
     return TextFormField(
       //***************************************************
@@ -40,11 +46,11 @@ class CustomFormField {
       initialValue: controller == null ? _initialValue : null,
       controller: controller,
       //***************************************************
-
+      key: Key(_keyField),
       decoration: InputDecoration(labelText: _labelText, hintText: _hint),
       textInputAction: _textInputAction,
       maxLength: _maxLength,
-      maxLines: fieldName == "description" ? 3 : 1,
+      maxLines: fieldName == MAN_PROD_EDIT_FLD_DESCR ? 3 : 1,
       keyboardType: _textInputType,
       // validator: _validatorCriteria,
       validator: fieldName.toLowerCase() == "url"
@@ -60,12 +66,13 @@ class CustomFormField {
     );
   }
 
-  void loadTextFieldsParameteres(String nameField, Product product) {
+  void _loadTextFieldsParameteres(String nameField, Product product) {
     switch (nameField) {
-      case "title":
+      case MAN_PROD_EDIT_FLD_TITLE:
         {
+          _keyField = K_MAN_PROD_FLD_TIT;
           _initialValue = product.title;
-          _hint = TITLE;
+          // _hint = TITLE;
           _labelText = MAN_PROD_EDIT_FLD_TITLE;
           _textInputAction = TextInputAction.next;
           _textInputType = TextInputType.text;
@@ -73,10 +80,11 @@ class CustomFormField {
           _validatorCriteria = _title.validate();
         }
         break;
-      case "price":
+      case MAN_PROD_EDIT_FLD_PRICE:
         {
-          _initialValue = product.price.toString();
-          _hint = AMOUNT;
+          _keyField = K_MAN_PROD_FLD_PRICE;
+          _initialValue = product.price == null ? "" : product.price.toString();
+          // _hint = "AMOUNT";
           _labelText = MAN_PROD_EDIT_FLD_PRICE;
           _textInputAction = TextInputAction.next;
           _textInputType = TextInputType.number;
@@ -84,10 +92,11 @@ class CustomFormField {
           _validatorCriteria = _price.validate();
         }
         break;
-      case "description":
+      case MAN_PROD_EDIT_FLD_DESCR:
         {
+          _keyField = K_MAN_PROD_FLD_DESC;
           _initialValue = product.description;
-          _hint = DESCRIPT;
+          // _hint = DESCRIPT;
           _labelText = MAN_PROD_EDIT_FLD_DESCR;
           _textInputAction = TextInputAction.next;
           _textInputType = TextInputType.multiline;
@@ -95,10 +104,11 @@ class CustomFormField {
           _validatorCriteria = _descr.validate();
         }
         break;
-      case "url":
+      case MAN_PROD_EDIT_FLD_IMG_URL:
         {
+          _keyField = K_MAN_PROD_FLD_URL;
           _initialValue = product.imageUrl;
-          _hint = URL;
+          // _hint = URL;
           _labelText = MAN_PROD_EDIT_FLD_IMG_URL;
           _textInputAction = TextInputAction.done;
           _textInputType = TextInputType.url;
@@ -116,9 +126,3 @@ class CustomFormField {
     if (field == "price") product.price = double.parse(value);
   }
 }
-// validator: fieldName == "description"
-//     ? (value) {
-//         if (!isURL(value)) return INVALID_URL;
-//         return null;
-//       }
-//     : _validatorCriteria,

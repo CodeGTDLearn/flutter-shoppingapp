@@ -1,4 +1,28 @@
-//OVERVIEW MAIN PAGE
+import 'package:flutter/material.dart';
 
+const MANAGED_PRODUCTS_APPBAR_ADD_BUTTON = 'managed_products_appbar_add_button';
+const K_MAN_PROD_ADD_BTN = MANAGED_PRODUCTS_APPBAR_ADD_BUTTON;
 
+const MANAGED_PRODUCTS_ADD_EDIT_APPBAR_SAVE_BUTTON =
+    'managed_products_add_edit_appbar_save_button';
+const K_MAN_PROD_SAVE_BTN = MANAGED_PRODUCTS_ADD_EDIT_APPBAR_SAVE_BUTTON;
 
+//MANAGED-PRODUCTS-ADD-EDIT-PAGE FORM
+final MANAGED_PRODUCTS_ADD_EDIT_FORM_GLOBAL_KEY = GlobalKey<FormState>();
+final K_FORM_GLOBAL_KEY = MANAGED_PRODUCTS_ADD_EDIT_FORM_GLOBAL_KEY;
+
+const MANAGED_PRODUCTS_ADD_EDIT_FIELD_TITLE =
+    'managed_products_add_edit_field_title';
+const K_MAN_PROD_FLD_TIT = MANAGED_PRODUCTS_ADD_EDIT_FIELD_TITLE;
+
+const MANAGED_PRODUCTS_ADD_EDIT_FIELD_PRICE =
+    'managed_products_add_edit_field_price';
+const K_MAN_PROD_FLD_PRICE = MANAGED_PRODUCTS_ADD_EDIT_FIELD_PRICE;
+
+const MANAGED_PRODUCTS_ADD_EDIT_FIELD_DESCRIPTION =
+    'managed_products_add_edit_field_description';
+const K_MAN_PROD_FLD_DESC = MANAGED_PRODUCTS_ADD_EDIT_FIELD_DESCRIPTION;
+
+const MANAGED_PRODUCTS_ADD_EDIT_FIELD_URL =
+    'managed_products_add_edit_field_url';
+const K_MAN_PROD_FLD_URL = MANAGED_PRODUCTS_ADD_EDIT_FIELD_URL;

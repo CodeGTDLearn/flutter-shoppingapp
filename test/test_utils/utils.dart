@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_test_utils/image_test_utils.dart';
 
-class TestUtils {
+class Utils {
   Finder key(String keyText) {
     return find.byKey(Key(keyText));
   }

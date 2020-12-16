@@ -8,6 +8,7 @@ import '../../custom_widgets/custom_circular_progress_indicator.dart';
 import '../../custom_widgets/custom_snackbar.dart';
 import '../components/custom_text_form_field/custom_form_field.dart';
 import '../controller/managed_products_controller.dart';
+import '../core/managed_products_widget_keys.dart';
 import '../core/messages/messages_snackbars_provided.dart';
 import '../core/texts_icons/managed_product_edit_texts_icons_provided.dart';
 import '../entities/product.dart';
@@ -27,7 +28,8 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
 
   final _imgUrlController = TextEditingController();
 
-  final _form = GlobalKey<FormState>();
+  // final _form = GlobalKey<FormState>();
+  final _form = K_FORM_GLOBAL_KEY;
   Product _product = Product();
 
   final ManagedProductsController _controller = Get.find();
@@ -43,7 +45,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
     if (_isInit) {
       _controller.reloadManagedProductsAddEditPage();
 
-      if (Get.arguments.isNull) {
+      if (Get.arguments == null) {
         _controller.reloadManagedProductsAddEditPage();
       } else {
         _product = _controller.getProductById(Get.arguments);
@@ -69,17 +71,15 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
 
   void _saveForm(BuildContext _context) {
     // @formatter:off
-    if (!_form.currentState.validate()) return;
+    if (!K_FORM_GLOBAL_KEY.currentState.validate()) return;
 
-    _form.currentState.save();
+    K_FORM_GLOBAL_KEY.currentState.save();
 
     _controller.reloadManagedProductsAddEditPage();
 
     _product.id.isNull ?
         _saveProduct(_product, _context) :
         _updateProduct(_product, _context);
-
-    // Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
     // @formatter:on
   }
 
@@ -148,11 +148,12 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text(Get.arguments.isNull
+            title: Text(Get.arguments == null
                 ? MAN_PROD_EDIT_LBL_ADD_APPBAR
                 : MAN_PROD_EDIT_LBL_EDT_APPBAR),
             actions: [
               IconButton(
+                  key: Key(K_MAN_PROD_SAVE_BTN),
                   icon: MAN_PROD_EDIT_ICO_SAVE_APPBAR,
                   onPressed: () => _saveForm(context))
             ]),
@@ -161,18 +162,27 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
             : Padding(
                 padding: EdgeInsets.all(16),
                 child: Form(
-                    key: _form,
+                    key: K_FORM_GLOBAL_KEY,
                     child: SingleChildScrollView(
                         child: Column(children: [
-                      CustomFormField().create(_product, context,
-                          (_) => _requestfocus(_focusPrice, context), "title"),
-                      CustomFormField().create(_product, context,
-                          (_) => _requestfocus(_focusDescr, context), "price"),
                       CustomFormField().create(
-                          _product,
-                          context,
-                          (_) => _requestfocus(_focusUrlNode, context),
-                          "description"),
+                        _product,
+                        context,
+                        (_) => _requestfocus(_focusPrice, context),
+                        MAN_PROD_EDIT_FLD_TITLE,
+                      ),
+                      CustomFormField().create(
+                        _product,
+                        context,
+                        (_) => _requestfocus(_focusDescr, context),
+                        MAN_PROD_EDIT_FLD_PRICE,
+                      ),
+                      CustomFormField().create(
+                        _product,
+                        context,
+                        (_) => _requestfocus(_focusUrlNode, context),
+                        MAN_PROD_EDIT_FLD_DESCR,
+                      ),
                       Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
@@ -196,7 +206,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                               _product,
                               context,
                               (_) => _saveForm(context),
-                              "url",
+                              MAN_PROD_EDIT_FLD_IMG_URL,
                               node: _focusUrlNode,
                               controller: _imgUrlController,
                             ))

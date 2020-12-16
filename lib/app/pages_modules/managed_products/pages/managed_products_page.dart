@@ -7,10 +7,10 @@ import '../../custom_widgets/custom_circular_progress_indicator.dart';
 import '../../custom_widgets/custom_drawer.dart';
 import '../components/managed_product_item.dart';
 import '../controller/managed_products_controller.dart';
+import '../core/managed_products_widget_keys.dart';
 import '../core/texts_icons/managed_products_texts_icons_provided.dart';
 
 class ManagedProductsPage extends StatelessWidget {
-  // final ManagedProductsController _controller = Get.find();
   final ManagedProductsController controller;
 
   ManagedProductsPage({this.controller});
@@ -20,6 +20,7 @@ class ManagedProductsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(MAN_PROD_TIT_APPBAR), actions: <Widget>[
         IconButton(
+            key: Key(K_MAN_PROD_ADD_BTN),
             icon: MAN_PROD_ICO_ADD_APPBAR,
             onPressed: () => Get.toNamed(AppRoutes.MANAGED_PRODUCTS_ADD_EDIT))
       ]),

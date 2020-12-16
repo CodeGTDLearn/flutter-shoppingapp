@@ -1,9 +1,15 @@
 import 'dart:io';
 
+import 'package:faker/faker.dart';
+import 'package:faker/faker.dart';
+import 'package:faker/faker.dart';
+import 'package:faker/faker.dart';
+import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/properties/theme/dark_theme_controller.dart';
+import 'package:shopingapp/app/core/texts_icons_provider/pages/managed_products/managed_product_edit.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/managed_products/managed_product_item.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/managed_products/managed_products.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/pages_generic_components/drawwer.dart';
@@ -11,6 +17,7 @@ import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dar
 import 'package:shopingapp/app/pages_modules/cart/core/cart_bindings.dart';
 import 'package:shopingapp/app/pages_modules/custom_widgets/core/custom_drawer_widgets_keys.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/controller/managed_products_controller.dart';
+import 'package:shopingapp/app/pages_modules/managed_products/core/managed_products_widget_keys.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_products_repo.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/service/i_managed_products_service.dart';
@@ -27,17 +34,16 @@ import '../../../../test_utils/utils.dart';
 import '../../overview/repo/overview_repo_mocks.dart';
 import '../repo/managed_products_repo_mocks.dart';
 
-class ManagedProductsPageTest {
+class ManagedProductsAddEditPageTest {
   static void functional() {
     Utils seek;
 
     final binding = BindingsBuilder(() {
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
 
-
       Get.lazyPut<IManagedProductsRepo>(() => ManagedProductsMockRepo());
       Get.lazyPut<IManagedProductsService>(
-              () => ManagedProductsService(repo: Get.find<IManagedProductsRepo>()));
+          () => ManagedProductsService(repo: Get.find<IManagedProductsRepo>()));
       Get.lazyPut<ManagedProductsController>(() => ManagedProductsController(
           service: Get.find<IManagedProductsService>()));
 
@@ -48,7 +54,6 @@ class ManagedProductsPageTest {
           () => OverviewController(service: Get.find<IOverviewService>()));
 
       CartBindings().dependencies();
-
     });
 
     setUp(() {
@@ -92,24 +97,32 @@ class ManagedProductsPageTest {
     }
 
     tearDown(() {
-      // Get.reset();
       GlobalTestMethods.tearDown();
       seek = null;
     });
 
     var scaffoldKey = OVERVIEW_PAGE_MAIN_SCAFFOLD_KEY;
     var titleDrawer = DRAWER_COMPONENT_TITLE_APPBAR;
-    var manProdPageTitle = MANAGED_PRODUCTS_TITLE_APPBAR;
-    var iconAddProduct = MANAGED_PRODUCTS_ICON_ADD_APPBAR;
-    var iconEditItem = MANAGED_PRODUCTS_ITEM_TILE_EDIT_ICON;
-    var iconDeleteItem = MANAGED_PRODUCTS_ITEM_TILE_DELETE_ICON;
     var drawerMenuOption = DRAWWER_MANAGED_PRODUCTS_MENU_OPTION;
+    var addButton = MANAGED_PRODUCTS_APPBAR_ADD_BUTTON;
+    var saveButton = MANAGED_PRODUCTS_ADD_EDIT_APPBAR_SAVE_BUTTON;
+    // var formKey = MANAGED_PRODUCTS_ADD_EDIT_FORM_GLOBAL_KEY;
+    var manProdPageTitle = MANAGED_PRODUCTS_TITLE_APPBAR;
+    var addEditPageTitle = MANAGED_PRODUCTS_EDIT_LABEL_ADD_APPBAR;
 
-    testWidgets('Checking List Products - Titles', (tester) async {
-      await tester.pumpWidget(AppDriver());
-      await tester.pump();
-      _isInstancesRegistred();
+    var fldTitle = MANAGED_PRODUCTS_EDIT_FIELD_TITLE;
+    var fldPrice = MANAGED_PRODUCTS_EDIT_FIELD_PRICE;
+    var fldDescr = MANAGED_PRODUCTS_EDIT_FIELD_DESCRIPT;
+    var fldImgUrl = MANAGED_PRODUCTS_EDIT_FIELD_IMAGE_URL;
+    var fldImgTitle = MANAGED_PRODUCTS_EDIT_IMAGE_TITLE;
 
+    var keyFldTitle = MANAGED_PRODUCTS_ADD_EDIT_FIELD_TITLE;
+    var keyFldPrice = MANAGED_PRODUCTS_ADD_EDIT_FIELD_PRICE;
+    var keyFldDescr = MANAGED_PRODUCTS_ADD_EDIT_FIELD_DESCRIPTION;
+    var keyFldImgUrl = MANAGED_PRODUCTS_ADD_EDIT_FIELD_URL;
+    var keyFldImgTitle = MANAGED_PRODUCTS_EDIT_IMAGE_TITLE;
+
+    Future _openDrawerAndManagedProductsAddEditPage(WidgetTester tester) async {
       expect(seek.text(titleDrawer), findsNothing);
       scaffoldKey.currentState.openDrawer();
       await tester.pump();
@@ -118,42 +131,57 @@ class ManagedProductsPageTest {
       await tester.pump();
       await tester.pump(seek.delay(1));
       expect(seek.text(manProdPageTitle), findsOneWidget);
-      expect(seek.text(_products()[0].title.toString()), findsOneWidget);
-      expect(seek.text(_products()[1].title.toString()), findsOneWidget);
-      expect(seek.text(_products()[2].title.toString()), findsOneWidget);
-      expect(seek.text(_products()[3].title.toString()), findsOneWidget);
-    });
+      await tester.tap(seek.key(addButton));
+      await tester.pump();
+      await tester.pump(seek.delay(1));
+      expect(seek.text(addEditPageTitle), findsOneWidget);
+    }
 
-    testWidgets('Checking List Products - Icons', (tester) async {
+    testWidgets('Checking ManagedProductPage elements', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
 
-      scaffoldKey.currentState.openDrawer();
-      await tester.pump();
-      await tester.pump(seek.delay(1));
-      await tester.tap(seek.key(drawerMenuOption));
-      await tester.pump();
-      await tester.pump(seek.delay(1));
+      await _openDrawerAndManagedProductsAddEditPage(tester);
 
-      expect(seek.icon(iconAddProduct), findsNWidgets(1));
-      expect(seek.icon(iconEditItem), findsNWidgets(4));
-      expect(seek.icon(iconDeleteItem), findsNWidgets(4));
+      expect(seek.text(fldTitle), findsOneWidget);
+      expect(seek.text(fldPrice), findsOneWidget);
+      expect(seek.text(fldDescr), findsOneWidget);
+      expect(seek.text(fldImgUrl), findsOneWidget);
+      expect(seek.text(fldImgTitle), findsOneWidget);
     });
 
-    testWidgets('Checking List Products - Avatars', (tester) async {
+    testWidgets('Adding a product', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
 
-      scaffoldKey.currentState.openDrawer();
-      await tester.pump();
-      await tester.pump(seek.delay(1));
-      await tester.tap(seek.key(drawerMenuOption));
-      await tester.pump();
-      await tester.pump(seek.delay(1));
+      var fakerFldTitle = Faker().food.dish();
+      var fakerFldPrice = Faker().randomGenerator.decimal().toString();
+      var fakerFldDescr = Faker().food.cuisine();
+      var fakerFldImgUrl = Faker().internet.httpUrl();
+      var fakerFldImgTitle = Faker().food.restaurant();
 
-      expect(seek.type(CircleAvatar), findsNWidgets(4));
+      await _openDrawerAndManagedProductsAddEditPage(tester);
+
+      expect(seek.key(keyFldTitle), isNull);
+      expect(seek.key(keyFldPrice), isNull);
+      expect(seek.key(keyFldDescr), isNull);
+      expect(seek.key(keyFldImgUrl), isNull);
+      // expect(seek.key(keyFldImgTitle), isNull);
+
+      await tester.enterText(seek.key(keyFldTitle), fakerFldTitle);
+      await tester.enterText(seek.key(keyFldPrice), fakerFldPrice);
+      await tester.enterText(seek.key(keyFldDescr), fakerFldDescr);
+      await tester.enterText(seek.key(keyFldImgUrl), fakerFldImgUrl);
+      // await tester.enterText(seek.key(keyFldImgTitle), fakerFldImgTitle);
+
+      // formKey.currentState.save();
+
+      await tester.tap(seek.key(saveButton));
+      await tester.pump();
+      await tester.pump(seek.delay(2));
+      expect(seek.text(manProdPageTitle), findsOneWidget);
     });
   }
 }

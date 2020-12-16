@@ -4,7 +4,7 @@ import 'package:shopingapp/app/pages_modules/managed_products/entities/product.d
 import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_products_repo.dart';
 import 'package:test/test.dart';
 
-import '../../../../app_global_test_methods.dart';
+import '../../../../test_utils/global_test_methods.dart';
 import '../../../../mocked_data_source/products_mocked_data.dart';
 import 'managed_products_repo_mocks.dart';
 
@@ -21,7 +21,7 @@ class ManagedProductsRepoTest {
 
     tearDown(() {
       // Get.reset();
-      AppGlobalTestMethods.tearDown();
+      GlobalTestMethods.tearDown();
     });
 
     test('Checking Instances to be used in the Tests', () {
