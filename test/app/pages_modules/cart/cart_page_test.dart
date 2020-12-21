@@ -3,11 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:image_test_utils/image_test_utils.dart';
 import 'package:shopingapp/app/core/properties/theme/dark_theme_controller.dart';
+import 'package:shopingapp/app/core/texts_icons_provider/pages/cart.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/pages_modules/cart/core/cart_bindings.dart';
+import 'package:shopingapp/app/pages_modules/cart/core/cart_widget_keys.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/core/overview_widget_keys.dart';
@@ -16,21 +17,23 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
-import '../../../../test_utils/global_test_methods.dart';
-import '../../../../test_utils/utils.dart';
-import '../repo/overview_repo_mocks.dart';
+import '../../../test_utils/global_test_methods.dart';
+import '../../../test_utils/utils.dart';
+import '../overview/repo/overview_repo_mocks.dart';
 
-class OverviewItemDetailsPageTest {
+class CartPageTest {
   static void functional() {
-    Utils seek;
+    Utils _seek;
 
     final binding = BindingsBuilder(() {
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
+
       Get.lazyPut<IOverviewRepo>(() => OverviewMockRepo());
       Get.lazyPut<IOverviewService>(
           () => OverviewService(repo: Get.find<IOverviewRepo>()));
       Get.lazyPut<OverviewController>(
           () => OverviewController(service: Get.find<IOverviewService>()));
+
       CartBindings().dependencies();
     });
 
@@ -44,14 +47,14 @@ class OverviewItemDetailsPageTest {
       expect(Get.isPrepared<IOverviewService>(), isTrue);
       expect(Get.isPrepared<OverviewController>(), isTrue);
       expect(Get.isPrepared<CartController>(), isTrue);
+
       HttpOverrides.global = null;
-      seek = Utils();
+      _seek = Utils();
     });
 
     tearDown(() {
-      // Get.reset();
       GlobalTestMethods.tearDown();
-      seek = null;
+      _seek = null;
     });
 
     void _isInstancesRegistred() {
@@ -65,71 +68,52 @@ class OverviewItemDetailsPageTest {
       return Get.find<IOverviewService>().localDataAllProducts;
     }
 
-    testWidgets('Checking OverviewPage Elements displayed', (tester) async {
-      await tester.pumpWidget(AppDriver());
-      await tester.pump();
-      _isInstancesRegistred();
-
-      await tester.pump();
-
-      expect(seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
-      expect(seek.text(_products()[0].title.toString()), findsOneWidget);
-      expect(seek.text(_products()[1].title.toString()), findsOneWidget);
-      expect(seek.text(_products()[2].title.toString()), findsOneWidget);
-      expect(seek.text(_products()[3].title.toString()), findsOneWidget);
-
-      expect(seek.iconType(IconButton, Icons.favorite), findsOneWidget);
-      expect(
-          seek.iconType(IconButton, Icons.favorite_border), findsNWidgets(3));
-      expect(seek.iconType(IconButton, Icons.shopping_cart), findsNWidgets(5));
-
-      expect(seek.iconData(Icons.more_vert), findsOneWidget);
-
-      provideMockedNetworkImages(() async {
-        expect(find.byType(Image), findsNWidgets(4));
-      });
-    });
-
-    testWidgets('Clicking Product 01 + Show Details Page: Checking texts',
+    testWidgets('Adding products + Checking Appbar CartIcon text/Snackbar text',
         (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
 
-      var keyProduct1 = seek.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
+      var CartIconKey = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
+      var snackbartext1 = _seek.text(_products()[1].title.toString());
 
-          // @formatter:off
-      tester
-          .tap(keyProduct1)
-          .then((value) => tester.pumpAndSettle(seek.delay(1)))
-          .then((value) {
-              expect(seek.text(_products()[0].title.toString()),
-                  findsOneWidget);
-              expect(seek.text('\$${_products()[0].price}'),
-                  findsOneWidget);
-              expect(seek.text(_products()[0].description.toString()),
-                  findsOneWidget);
-          });
-        // @formatter:on
-        });
+      expect(_seek.text("0"), findsOneWidget);
+      await tester.tap(CartIconKey);
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(_seek.text("1"), findsOneWidget);
+      expect(snackbartext1, findsOneWidget);
+      await tester.tap(CartIconKey);
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(_seek.text("2"), findsOneWidget);
+      expect(snackbartext1, findsOneWidget);
+    });
 
-    testWidgets(
-        'Clicking Product 01 + Show Details Page: Checking image', (
-        tester) async {
+    testWidgets('Acessing Cart Page',
+        (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
 
-      var keyProduct1 = seek.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
+      var CartIconKey = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
+      var snackbartext1 = _seek.text(_products()[1].title.toString());
+      var cartButton = _seek.key(SHOP_CART_APPBAR_BUTTON_KEY);
 
-      await tester.tap(keyProduct1);
+      expect(_seek.text("0"), findsOneWidget);
+      await tester.tap(CartIconKey);
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(_seek.text("1"), findsOneWidget);
+      expect(snackbartext1, findsOneWidget);
+      await tester.tap(cartButton);
+      await tester.tap(CartIconKey);
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(_seek.text(CART_TITLE_PAGE), findsOneWidget);
+      expect(_seek.text(_products()[0].title), findsOneWidget);
+      expect(_seek.text(_products()[0].description), findsOneWidget);
+      expect(_seek.text(_products()[0].price.toString()), findsOneWidget);
+      // expect(_seek.text('x${_cartItem.qtde}'), findsOneWidget);
 
-      // check if the page has changed
-      await tester.pumpAndSettle(seek.delay(1));
-      expect(seek.text(_products()[0].title.toString()), findsOneWidget);
 
-      seek.imagesTotal(1);
+
     });
   }
 }
-

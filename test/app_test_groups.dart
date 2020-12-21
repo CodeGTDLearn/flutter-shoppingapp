@@ -6,8 +6,8 @@ import 'app/pages_modules/overview/overview_test_groups.dart';
 
 void main() {
   // OverviewModuleTest.groups();
-  // CartModuleTest.groups();
+  CartModuleTest.groups();
   // OrdersModuleTest.groups();
   // CustomWidgetsModuleTest.groups();
-  ManagedProductsModuleTest.groups();
+  // ManagedProductsModuleTest.groups();
 }

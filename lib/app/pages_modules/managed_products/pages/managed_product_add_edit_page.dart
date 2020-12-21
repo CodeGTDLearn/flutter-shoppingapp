@@ -29,7 +29,8 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
   final _imgUrlController = TextEditingController();
 
   // final _form = GlobalKey<FormState>();
-  final _form = K_FORM_GLOBAL_KEY;
+  final _form = K_MAN_PROD_ADDEDIT_GLOBAL_KEY;
+
   Product _product = Product();
 
   final ManagedProductsController _controller = Get.find();
@@ -71,9 +72,9 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
 
   void _saveForm(BuildContext _context) {
     // @formatter:off
-    if (!K_FORM_GLOBAL_KEY.currentState.validate()) return;
+    if (!_form.currentState.validate()) return;
 
-    K_FORM_GLOBAL_KEY.currentState.save();
+    _form.currentState.save();
 
     _controller.reloadManagedProductsAddEditPage();
 
@@ -153,7 +154,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                 : MAN_PROD_EDIT_LBL_EDT_APPBAR),
             actions: [
               IconButton(
-                  key: Key(K_MAN_PROD_SAVE_BTN),
+                  key: Key(K_MAN_PROD_ADDEDIT_SAVE_BTN),
                   icon: MAN_PROD_EDIT_ICO_SAVE_APPBAR,
                   onPressed: () => _saveForm(context))
             ]),
@@ -162,27 +163,27 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
             : Padding(
                 padding: EdgeInsets.all(16),
                 child: Form(
-                    key: K_FORM_GLOBAL_KEY,
+                    key: _form,
                     child: SingleChildScrollView(
                         child: Column(children: [
                       CustomFormField().create(
-                        _product,
-                        context,
-                        (_) => _requestfocus(_focusPrice, context),
-                        MAN_PROD_EDIT_FLD_TITLE,
-                      ),
+                          _product,
+                          context,
+                          (_) => _requestfocus(_focusPrice, context),
+                          fieldName: MAN_PROD_EDIT_FLD_TITLE,
+                          key: K_MAN_PROD_ADDEDIT_FLD_TIT),
                       CustomFormField().create(
-                        _product,
-                        context,
-                        (_) => _requestfocus(_focusDescr, context),
-                        MAN_PROD_EDIT_FLD_PRICE,
-                      ),
+                          _product,
+                          context,
+                          (_) => _requestfocus(_focusDescr, context),
+                          fieldName: MAN_PROD_EDIT_FLD_PRICE,
+                          key: K_MAN_PROD_ADDEDIT_FLD_PRICE),
                       CustomFormField().create(
-                        _product,
-                        context,
-                        (_) => _requestfocus(_focusUrlNode, context),
-                        MAN_PROD_EDIT_FLD_DESCR,
-                      ),
+                          _product,
+                          context,
+                          (_) => _requestfocus(_focusUrlNode, context),
+                          fieldName: MAN_PROD_EDIT_FLD_DESCR,
+                          key: K_MAN_PROD_ADDEDIT_FLD_DESC),
                       Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
@@ -203,27 +204,14 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                                                 fit: BoxFit.cover)))),
                             Expanded(
                                 child: CustomFormField().create(
-                              _product,
-                              context,
-                              (_) => _saveForm(context),
-                              MAN_PROD_EDIT_FLD_IMG_URL,
-                              node: _focusUrlNode,
-                              controller: _imgUrlController,
-                            ))
+                                    _product,
+                                    context,
+                                    (_) => _saveForm(context),
+                                    fieldName: MAN_PROD_EDIT_FLD_IMG_URL,
+                                    node: _focusUrlNode,
+                                    controller: _imgUrlController,
+                                    key: K_MAN_PROD_ADDEDIT_FLD_URL))
                           ])
                     ]))))));
   }
 }
-
-// var urlPattern =
-//     r"(https?|ftp)://([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?";
-//
-// var result = RegExp(urlPattern, caseSensitive: false)
-//     .firstMatch(_imgUrlController.text.trim());
-
-// CustomSnackbar.simple(
-//     message: SUCESS_MAN_PROD_UPDT,
-//     context: context);
-// CustomSnackbar.simple(
-//     message: SUCESS_MAN_PROD_ADD,
-//     context: context);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/pages_modules/cart/core/cart_widget_keys.dart';
 
 import '../../../core/properties/app_properties.dart';
 import '../../../core/properties/app_routes.dart';
@@ -21,7 +22,8 @@ class BadgeShopCartAppbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(alignment: Alignment.center, children: [
       IconButton(
-          icon: OV_ICO_SHOP,
+          key: Key(K_SHP_CART_APPBAR_BTN),
+          icon: OV_ICO_SHOPCART,
           onPressed: () {
             if (_controller.getAllCartItems().length == 0) {
               // CustomSnackbar.simple(

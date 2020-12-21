@@ -20,7 +20,7 @@ class ManagedProductsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(MAN_PROD_TIT_APPBAR), actions: <Widget>[
         IconButton(
-            key: Key(K_MAN_PROD_ADD_BTN),
+            key: Key(K_MAN_PROD_ADDEDIT_ADD_BTN),
             icon: MAN_PROD_ICO_ADD_APPBAR,
             onPressed: () => Get.toNamed(AppRoutes.MANAGED_PRODUCTS_ADD_EDIT))
       ]),

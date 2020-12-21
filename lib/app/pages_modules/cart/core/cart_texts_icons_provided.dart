@@ -1,7 +1,7 @@
 
 import '../../../core/texts_icons_provider/pages/cart.dart';
 
-const CRT_TIT_APPBAR = CART_TITLE_APPBAR;
+const CRT_TIT_APPBAR = CART_TITLE_PAGE;
 const CRT_LBL_CARD = CART_LABEL_CARD;
 const CRT_LBL_ORD = CART_LABEL_ORDER;
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const CART_TITLE_APPBAR = "Your Cart";
+const CART_TITLE_PAGE = "Your Cart";
 const CART_LABEL_CARD = "Total";
 const CART_LABEL_ORDER = "Order Now";
 

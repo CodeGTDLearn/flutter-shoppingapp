@@ -74,7 +74,7 @@ class OverviewPageTest {
     void _testProductTitlesAndTotalIconsInTheScreen() {
       //TEST TITLES
       //A) PAGE TITLE
-      expect(seek.text(OVERVIEW_TITLE_ALL_APPBAR), findsOneWidget);
+      expect(seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
 
       //B) FOUR OVERVIEW-GRID-ITEMS(PRODUCTS) TITLES
       expect(seek.text(_products()[0].title.toString()), findsOneWidget);

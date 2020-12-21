@@ -26,6 +26,9 @@ import '../../../../mocked_data_source/products_mocked_data.dart';
   *     - Testes independemente de WebService ou DB
   *****************************************************/
 class ManagedProductsMockRepo extends Mock implements IManagedProductsRepo {
+
+
+
   @override
   Future<int> deleteProduct(String id) {
     return Future.value(200);

@@ -76,7 +76,7 @@ class CustomDrawerTest {
 
       await tester.pump();
 
-      expect(seek.text(OVERVIEW_TITLE_ALL_APPBAR), findsOneWidget);
+      expect(seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
       expect(seek.text(_products()[0].title.toString()), findsOneWidget);
       expect(seek.text(_products()[1].title.toString()), findsOneWidget);
       expect(seek.text(_products()[2].title.toString()), findsOneWidget);
@@ -142,7 +142,7 @@ class CustomDrawerTest {
       var scaffoldKey = OVERVIEW_PAGE_MAIN_SCAFFOLD_KEY;
       var menuOptionKey = seek.key(DRAWWER_MANAGED_PRODUCTS_MENU_OPTION);
       var titleDrawer = DRAWER_COMPONENT_TITLE_APPBAR;
-      var manProdPageTitle = MANAGED_PRODUCTS_TITLE_APPBAR;
+      var manProdPageTitle = MANAGED_PRODUCTS_PAGE_TITLE;
 
       expect(seek.text(titleDrawer), findsNothing);
       scaffoldKey.currentState.openDrawer();

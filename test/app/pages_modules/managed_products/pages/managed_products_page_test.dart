@@ -99,7 +99,7 @@ class ManagedProductsPageTest {
 
     var scaffoldKey = OVERVIEW_PAGE_MAIN_SCAFFOLD_KEY;
     var titleDrawer = DRAWER_COMPONENT_TITLE_APPBAR;
-    var manProdPageTitle = MANAGED_PRODUCTS_TITLE_APPBAR;
+    var manProdPageTitle = MANAGED_PRODUCTS_PAGE_TITLE;
     var iconAddProduct = MANAGED_PRODUCTS_ICON_ADD_APPBAR;
     var iconEditItem = MANAGED_PRODUCTS_ITEM_TILE_EDIT_ICON;
     var iconDeleteItem = MANAGED_PRODUCTS_ITEM_TILE_DELETE_ICON;

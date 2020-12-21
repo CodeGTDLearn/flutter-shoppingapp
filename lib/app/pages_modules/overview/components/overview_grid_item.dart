@@ -61,7 +61,7 @@ class OverviewGridItem extends StatelessWidget {
                     title: Text(_product.title, key: Key("$K_OV03$index")),
                     trailing: IconButton(
                         key: Key("$K_OV02$index"),
-                        icon: OV_ICO_SHOP,
+                        icon: OV_ICO_SHOPCART,
                         onPressed: () {
                           _cartController.addCartItem(_product);
                           ButtonSnackbar(

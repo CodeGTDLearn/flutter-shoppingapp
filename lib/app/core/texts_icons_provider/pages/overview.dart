@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-const OVERVIEW_TITLE_ALL_APPBAR = "Selling Items";
-const OVERVIEW_TITLE_FAVORITE_APPBAR = "Favorite Items";
+const OVERVIEW_TITLE_PAGE_ALL = "Selling Items";
+const OVERVIEW_TITLE_PAGE_FAVORITE = "Favorite Items";
 
 const OVERVIEW_ICON_SHOPPING_APPBAR = Icon(Icons.shopping_cart);
 const OVERVIEW_ICON_POPUP_APPBAR = Icon(Icons.more_vert);
