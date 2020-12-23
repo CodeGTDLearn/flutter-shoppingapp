@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/controller/i_managed_products_controller.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/controller/managed_products_controller.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
@@ -7,9 +6,9 @@ import 'package:shopingapp/app/pages_modules/managed_products/service/i_managed_
 import 'package:shopingapp/app/pages_modules/managed_products/service/managed_products_service.dart';
 import 'package:test/test.dart';
 
-import '../../../test_utils/global_test_methods.dart';
 import '../../../data_builders/product_databuilder.dart';
 import '../../../mocked_data_source/products_mocked_data.dart';
+import '../../../test_utils/global_methods.dart';
 import 'repo/managed_products_repo_mocks.dart';
 
 class ManagedProductsControllerTest {
@@ -30,7 +29,7 @@ class ManagedProductsControllerTest {
 
     tearDown(() {
       // Get.reset();
-      GlobalTestMethods.tearDown();
+      GlobalMethods.tearDown();
     });
 
     test('Checking Instances to be used in the Tests', () {
@@ -55,12 +54,11 @@ class ManagedProductsControllerTest {
       });
     });
 
-    test('Adding Product + Returning that', () {
+    test('Adding Product', () {
       _controller.getProducts().then((value) {
-        expect(_newProduct, isNot(isIn(_controller.getManagedProductsObs())));
-        _controller.addProduct(_newProduct).then((response) {
-          expect(response.id, _newProduct.id);
-          expect(response.title, _newProduct.title);
+        _controller.addProduct(_product0).then((response) {
+          expect(response.id, _product0.id);
+          expect(response.title, _product0.title);
           expect(response, isIn(_controller.getManagedProductsObs()));
         });
       });
@@ -78,14 +76,14 @@ class ManagedProductsControllerTest {
 
     test('Getting ProductById', () {
       _controller.getProducts().then((value) {
-        expect(_newProduct, isNot(isIn(_controller.getManagedProductsObs())));
-        _controller.addProduct(_newProduct).then((response) {
-          expect(response.id, _newProduct.id);
-          expect(response.title, _newProduct.title);
+        // expect(_newProduct, isNot(isIn(_controller.getManagedProductsObs())));
+        _controller.addProduct(_product0).then((response) {
+          expect(response.id, _product0.id);
+          expect(response.title, _product0.title);
           expect(response, isIn(_controller.getManagedProductsObs()));
-          expect(_controller.getProductById(_newProduct.id),
+          expect(_controller.getProductById(_product0.id),
               isIn(_controller.getManagedProductsObs()));
-          expect(_controller.getProductById(_newProduct.id).id, _newProduct.id);
+          expect(_controller.getProductById(_product0.id).id, _product0.id);
         });
       });
     });

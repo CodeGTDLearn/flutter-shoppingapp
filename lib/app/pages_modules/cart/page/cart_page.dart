@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/pages_modules/cart/core/cart_widget_keys.dart';
 
 import '../../../core/properties/app_properties.dart';
-import '../../custom_widgets/custom_circular_progress_indicator.dart';
+import '../../custom_widgets/custom_circ_progr_indicator.dart';
 import '../../custom_widgets/custom_snackbar.dart';
 import '../../orders/core/messages_snackbars_provided.dart';
 import '../components/card_cart_item.dart';
@@ -61,7 +62,7 @@ class CartPage extends StatelessWidget {
                                   child: Obx(() => controller
                                               .qtdeCartItemsObs() !=
                                           currentQtdeCart
-                                      ? CustomCircularProgressIndicator.radius(
+                                      ? CustomCircProgrIndicator.radius(
                                           consWidth * 0.3)
                                       : _addOrderButton()))
                             ])))),
@@ -82,6 +83,7 @@ class CartPage extends StatelessWidget {
   Builder _addOrderButton() {
     return Builder(builder: (_context) {
       return FlatButton(
+          key: Key(K_CRT_ORD_NOW_BTN),
           child: Text(CRT_LBL_ORD,
               style: TextStyle(color: Theme.of(_context).primaryColor)),
           onPressed: () {

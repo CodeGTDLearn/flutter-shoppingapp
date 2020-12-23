@@ -16,7 +16,7 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
-import '../../../../test_utils/global_test_methods.dart';
+import '../../../../test_utils/global_methods.dart';
 import '../../../../test_utils/utils.dart';
 import '../repo/overview_repo_mocks.dart';
 
@@ -50,7 +50,7 @@ class OverviewItemDetailsPageTest {
 
     tearDown(() {
       // Get.reset();
-      GlobalTestMethods.tearDown();
+      GlobalMethods.tearDown();
       seek = null;
     });
 

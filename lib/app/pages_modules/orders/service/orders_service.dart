@@ -22,10 +22,10 @@ class OrdersService implements IOrdersService {
     // @formatter:off
     return repo
             .addOrder(order)
-            .then((value) {
+            .then((orderAddedReturned) {
                 order.datetime = orderTimeStamp.toString();
                 _localDataOrders.add(order);
-                return value;})
+                return orderAddedReturned;})
             .catchError((onError) => throw onError);
     // @formatter:on
   }

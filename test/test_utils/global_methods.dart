@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 
-class GlobalTestMethods {
+class GlobalMethods {
   static void tearDown() {
-    print("tearDown global");
+    // print("tearDown global");
     Get.reset();
   }
 }

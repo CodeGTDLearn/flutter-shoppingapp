@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 
 import '../../../core/properties/app_routes.dart';
-import '../../custom_widgets/custom_circular_progress_indicator.dart';
+import '../../custom_widgets/custom_circ_progr_indicator.dart';
 import '../../custom_widgets/custom_drawer.dart';
 import '../components/managed_product_item.dart';
 import '../controller/managed_products_controller.dart';
@@ -29,18 +29,18 @@ class ManagedProductsPage extends StatelessWidget {
 
       //------
       // GERENCIA DE ESTADO REATIVA - COM O GET
-      body: Obx(() => (controller.managedProductsObs.length == 0
+      body: Obx(() => (controller.getManagedProductsObs().length == 0
           // ? CustomCircularProgressIndicator(NO_MAN_PROD)
-          ? CustomCircularProgressIndicator()
+          ? CustomCircProgrIndicator()
           : RefreshIndicator(
               onRefresh: controller.getProducts,
               child: ListView.builder(
-                  itemCount: controller.managedProductsObs.length,
+                  itemCount: controller.getManagedProductsObs().length,
                   itemBuilder: (ctx, item) => Column(children: [
                         ManagedProductItem(
-                            controller.managedProductsObs[item].id,
-                            controller.managedProductsObs[item].title,
-                            controller.managedProductsObs[item].imageUrl),
+                            controller.getManagedProductsObs()[item].id,
+                            controller.getManagedProductsObs()[item].title,
+                            controller.getManagedProductsObs()[item].imageUrl),
                         Divider()
                       ])),
             ))),

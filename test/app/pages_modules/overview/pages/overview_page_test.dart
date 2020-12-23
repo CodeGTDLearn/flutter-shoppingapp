@@ -7,7 +7,7 @@ import 'package:shopingapp/app/core/properties/theme/dark_theme_controller.dart'
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/pages_modules/cart/core/cart_bindings.dart';
-import 'package:shopingapp/app/pages_modules/custom_widgets/core/custom_snackbar_widgets_keys.dart';
+import 'file:///C:/Users/SERVIDOR/Projects/flutter-shoppingapp/lib/app/pages_modules/custom_widgets/core/keys/custom_snackbar_widgets_keys.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/core/messages_snackbars_provided.dart';
@@ -18,7 +18,7 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
-import '../../../../test_utils/global_test_methods.dart';
+import '../../../../test_utils/global_methods.dart';
 import '../../../../test_utils/utils.dart';
 import '../repo/overview_repo_mocks.dart';
 
@@ -56,7 +56,7 @@ class OverviewPageTest {
 
     tearDown(() {
       // Get.reset();
-      GlobalTestMethods.tearDown();
+      GlobalMethods.tearDown();
       seek = null;
     });
 

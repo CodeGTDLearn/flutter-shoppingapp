@@ -7,8 +7,8 @@ import '../../../data_builders/cartitem_databuilder.dart';
 import '../../../data_builders/product_databuilder.dart';
 
 /*
-THERE IN NO NECESSITY OF _injectableRepoMock
-BECAUSE THERE IS NO 'CALLBACKS' FROM, WETHER DATABSE OR HTTP-CALLS
+THERE IS NO NECESSITY OF _injectableRepoMock
+BECAUSE THERE IS NO 'CALLBACKS' FROM, WETHER DATABASE OR HTTP-CALLS
 (NAO EXISTE NECESSIDADE DE _injectableRepoMock
 POIS NAO EXISTEM 'CALLBACKS' DE DATABASE OU CHAMADAS-HTTP)
  */

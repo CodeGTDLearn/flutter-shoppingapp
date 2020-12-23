@@ -58,17 +58,18 @@ class CartController extends GetxController implements ICartController {
 
   @override
   Future<Order> addOrder(List<CartItem> cartItems, double amount) {
-    return ordersService.addOrder(cartItems, amount);
+    return ordersService
+        .addOrder(cartItems, amount)
+        .catchError((onError) => throw onError);
   }
 
   @override
-  int getQtdeCartItemsObs(){
+  int getQtdeCartItemsObs() {
     return qtdeCartItemsObs.value;
   }
 
   @override
-  double getAmountCartItemsObs(){
+  double getAmountCartItemsObs() {
     return amountCartItemsObs.value;
   }
-
 }

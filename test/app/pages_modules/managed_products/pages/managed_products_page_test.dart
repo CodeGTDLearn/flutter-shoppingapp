@@ -9,7 +9,8 @@ import 'package:shopingapp/app/core/texts_icons_provider/pages/managed_products/
 import 'package:shopingapp/app/core/texts_icons_provider/pages/pages_generic_components/drawwer.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/pages_modules/cart/core/cart_bindings.dart';
-import 'package:shopingapp/app/pages_modules/custom_widgets/core/custom_drawer_widgets_keys.dart';
+import 'package:shopingapp/app/pages_modules/managed_products/controller/i_managed_products_controller.dart';
+import 'file:///C:/Users/SERVIDOR/Projects/flutter-shoppingapp/lib/app/pages_modules/custom_widgets/core/keys/custom_drawer_widgets_keys.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/controller/managed_products_controller.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_products_repo.dart';
@@ -22,7 +23,7 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
-import '../../../../test_utils/global_test_methods.dart';
+import '../../../../test_utils/global_methods.dart';
 import '../../../../test_utils/utils.dart';
 import '../../overview/repo/overview_repo_mocks.dart';
 import '../repo/managed_products_repo_mocks.dart';
@@ -93,7 +94,7 @@ class ManagedProductsPageTest {
 
     tearDown(() {
       // Get.reset();
-      GlobalTestMethods.tearDown();
+      GlobalMethods.tearDown();
       seek = null;
     });
 

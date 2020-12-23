@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../../core/properties/app_owasp_regex.dart';
 import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/app_generic_words.dart';
-import '../../custom_widgets/custom_circular_progress_indicator.dart';
+import '../../custom_widgets/custom_circ_progr_indicator.dart';
 import '../../custom_widgets/custom_snackbar.dart';
 import '../components/custom_text_form_field/custom_form_field.dart';
 import '../controller/managed_products_controller.dart';
@@ -159,7 +159,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                   onPressed: () => _saveForm(context))
             ]),
         body: Obx(() => _controller.reloadManagedProductsEditPage.value
-            ? CustomCircularProgressIndicator()
+            ? CustomCircProgrIndicator()
             : Padding(
                 padding: EdgeInsets.all(16),
                 child: Form(

@@ -14,8 +14,8 @@ class OrdersRepo extends IOrdersRepo {
     // @formatter:off
     return http
         .post(ORDERS_URL, body: order.to_Json())
-        .then((response) {
-           order.id = json.decode(response.body)['name'];
+        .then((jsonReturnedOrder) {
+           order.id = json.decode(jsonReturnedOrder.body)['name'];
            return order;
         })
         .catchError((onError)=> throw onError);

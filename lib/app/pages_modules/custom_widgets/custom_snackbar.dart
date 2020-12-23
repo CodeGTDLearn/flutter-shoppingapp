@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/properties/app_properties.dart';
-import 'core/custom_snackbar_widgets_keys.dart';
+import 'core/keys/custom_snackbar_widgets_keys.dart';
 
 class CustomSnackbar {}
 

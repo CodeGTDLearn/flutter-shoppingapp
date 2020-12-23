@@ -5,12 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/properties/theme/dark_theme_controller.dart';
+import 'package:shopingapp/app/core/texts_icons_provider/app_messages.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/managed_products/managed_product_edit.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/managed_products/managed_products.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/pages_generic_components/drawwer.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/pages_modules/cart/core/cart_bindings.dart';
-import 'package:shopingapp/app/pages_modules/custom_widgets/core/custom_drawer_widgets_keys.dart';
+import 'package:shopingapp/app/pages_modules/custom_widgets/core/keys/custom_circ_progr_indicator_keys.dart';
+import 'package:shopingapp/app/pages_modules/custom_widgets/core/keys/custom_drawer_widgets_keys.dart';
+import 'package:shopingapp/app/pages_modules/managed_products/controller/i_managed_products_controller.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/controller/managed_products_controller.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/core/managed_products_widget_keys.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_products_repo.dart';
@@ -23,7 +26,7 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
-import '../../../../test_utils/global_test_methods.dart';
+import '../../../../test_utils/global_methods.dart';
 import '../../../../test_utils/utils.dart';
 import '../../overview/repo/overview_repo_mocks.dart';
 import '../repo/managed_products_repo_mocks.dart';
@@ -60,8 +63,10 @@ class ManagedProductsAddEditPageTest {
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
 
       Get.lazyPut<IManagedProductsRepo>(() => ManagedProductsMockRepo());
+
       Get.lazyPut<IManagedProductsService>(
           () => ManagedProductsService(repo: Get.find<IManagedProductsRepo>()));
+
       Get.lazyPut<ManagedProductsController>(() => ManagedProductsController(
           service: Get.find<IManagedProductsService>()));
 
@@ -111,7 +116,7 @@ class ManagedProductsAddEditPageTest {
     }
 
     tearDown(() {
-      GlobalTestMethods.tearDown();
+      GlobalMethods.tearDown();
       _seek = null;
     });
 
@@ -130,13 +135,50 @@ class ManagedProductsAddEditPageTest {
       expect(_seek.text(manProdAddEditPageTitle), findsOneWidget);
     }
 
-    void _loadFieldsVariablesTestingWithFakeData(){
-      fakerFldTitle = Faker().randomGenerator.string(15, min: 5);
-      fakerFldPrice = Faker().randomGenerator.decimal().toString();
-      fakerFldDescr = Faker().randomGenerator.string(30, min: 5);
+    void _loadFieldsVariablesTestingWithFakeData() {
+      fakerFldTitle = Faker().food.dish();
+      fakerFldPrice = Faker().randomGenerator
+          .decimal(min: 20).toPrecision(2).toString();
+      fakerFldDescr = Faker().food.dish();
       fakerFldImgUrl =
-      "https://images.freeimages.com/images/large-previews/eae/clothes-3-1466560.jpg";
+          "https://images.freeimages.com/images/large-previews/eae/clothes-3-1466560.jpg";
     }
+
+    testWidgets('Saving a product', (tester) async {
+      await tester.pumpWidget(AppDriver());
+      await tester.pump();
+      _isInstancesRegistred();
+
+      var customCircProgrIndic = _seek.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY);
+      var snackbartext1 = _seek.text("message");
+
+      _loadFieldsVariablesTestingWithFakeData();
+
+      expect(_seek.text(manProdAddEditPageTitle), findsNothing);
+      await _openDrawerAndManagedProductsAddEditPage(tester);
+
+      await tester.enterText(_seek.key(keyFldTitle), fakerFldTitle);
+      await tester.enterText(_seek.key(keyFldPrice), fakerFldPrice);
+      await tester.enterText(_seek.key(keyFldDescr), fakerFldDescr);
+      await tester.enterText(_seek.key(keyFldImgUrl), fakerFldImgUrl);
+
+      await tester.pump();
+      await tester.pump(_seek.delay(2));
+      expect(_seek.text(manProdAddEditPageTitle), findsOneWidget);
+
+      await tester.tap(_seek.key(saveButton));
+      await tester.pump();
+      await tester.pump(_seek.delay(1));
+
+      // expect(_seek.text(manProdAddEditPageTitle), findsOneWidget);
+      // expect(_seek.text(manProdPageTitle), findsOneWidget);
+      expect(_seek.text(ERROR_TRY_AGAIN_LATER), findsOneWidget);
+
+      // expect(customCircProgrIndic, findsOneWidget);
+      // await tester.pump();
+      // await tester.pump(_seek.delay(1));
+      // expect(snackbartext1, findsOneWidget);
+    });
 
     testWidgets('Open Page', (tester) async {
       await tester.pumpWidget(AppDriver());
@@ -152,7 +194,7 @@ class ManagedProductsAddEditPageTest {
       expect(_seek.text(fldImgTitle), findsOneWidget);
     });
 
-    testWidgets('Adding a content in the product fields + test previewImageUrl',
+    testWidgets('Fullfill fields + Check previewImageUrl',
         (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
@@ -177,8 +219,7 @@ class ManagedProductsAddEditPageTest {
       _seek.imagesTotal(1);
     });
 
-    testWidgets('Adding a product + Saving that + Go to the previous screen',
-        (tester) async {
+    testWidgets('Testing Page BackButton', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
@@ -187,16 +228,6 @@ class ManagedProductsAddEditPageTest {
 
       await _openDrawerAndManagedProductsAddEditPage(tester);
 
-      await tester.enterText(_seek.key(keyFldTitle), fakerFldTitle);
-      await tester.enterText(_seek.key(keyFldPrice), fakerFldPrice);
-      await tester.enterText(_seek.key(keyFldDescr), fakerFldDescr);
-      await tester.enterText(_seek.key(keyFldImgUrl), fakerFldImgUrl);
-
-      await tester.pump();
-      await tester.pump(_seek.delay(2));
-
-      await tester.tap(_seek.key(saveButton));
-      await tester.pump();
       expect(_seek.type(BackButton), findsOneWidget);
       await tester.pump();
       await tester.tap(_seek.type(BackButton));
@@ -204,5 +235,33 @@ class ManagedProductsAddEditPageTest {
       await tester.pump(_seek.delay(2));
       expect(_seek.text(manProdPageTitle), findsOneWidget);
     });
+
+    // testWidgets('Adding a product + Saving that + Go to the previous screen',
+    //     (tester) async {
+    //   await tester.pumpWidget(AppDriver());
+    //   await tester.pump();
+    //   _isInstancesRegistred();
+    //
+    //   _loadFieldsVariablesTestingWithFakeData();
+    //
+    //   await _openDrawerAndManagedProductsAddEditPage(tester);
+    //
+    //   await tester.enterText(_seek.key(keyFldTitle), fakerFldTitle);
+    //   await tester.enterText(_seek.key(keyFldPrice), fakerFldPrice);
+    //   await tester.enterText(_seek.key(keyFldDescr), fakerFldDescr);
+    //   await tester.enterText(_seek.key(keyFldImgUrl), fakerFldImgUrl);
+    //
+    //   await tester.pump();
+    //   await tester.pump(_seek.delay(2));
+    //
+    //   await tester.tap(_seek.key(saveButton));
+    //   await tester.pump();
+    //   expect(_seek.type(BackButton), findsOneWidget);
+    //   await tester.pump();
+    //   await tester.tap(_seek.type(BackButton));
+    //   await tester.pump();
+    //   await tester.pump(_seek.delay(2));
+    //   expect(_seek.text(manProdPageTitle), findsOneWidget);
+    // });
   }
 }

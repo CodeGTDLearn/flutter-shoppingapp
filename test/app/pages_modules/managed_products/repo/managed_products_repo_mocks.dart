@@ -27,8 +27,6 @@ import '../../../../mocked_data_source/products_mocked_data.dart';
   *****************************************************/
 class ManagedProductsMockRepo extends Mock implements IManagedProductsRepo {
 
-
-
   @override
   Future<int> deleteProduct(String id) {
     return Future.value(200);
@@ -41,7 +39,7 @@ class ManagedProductsMockRepo extends Mock implements IManagedProductsRepo {
 
   @override
   Future<Product> addProduct(Product product) {
-    return Future.value(product);
+    return Future.value(ProductsMockedData().product());
   }
 
   @override

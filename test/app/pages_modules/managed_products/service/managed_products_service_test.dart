@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_products_repo.dart';
@@ -6,9 +5,9 @@ import 'package:shopingapp/app/pages_modules/managed_products/service/i_managed_
 import 'package:shopingapp/app/pages_modules/managed_products/service/managed_products_service.dart';
 import 'package:test/test.dart';
 
-import '../../../../test_utils/global_test_methods.dart';
 import '../../../../data_builders/product_databuilder.dart';
 import '../../../../mocked_data_source/products_mocked_data.dart';
+import '../../../../test_utils/global_methods.dart';
 import '../repo/managed_products_repo_mocks.dart';
 import 'managed_products_service_mock.dart';
 
@@ -20,6 +19,7 @@ class ManagedProductsServiceTest {
     var _product1 = ProductsMockedData().products().elementAt(1);
     var _products = ProductsMockedData().products();
     var _newProduct = ProductDataBuilder().ProductFull();
+    var _productTest = ProductsMockedData().product();
 
     setUp(() {
       _mockRepo = ManagedProductsMockRepo();
@@ -29,7 +29,7 @@ class ManagedProductsServiceTest {
 
     tearDown(() {
       // Get.reset();
-      GlobalTestMethods.tearDown();
+      GlobalMethods.tearDown();
     });
 
     test('Checking Instances to be used in the Tests', () {
@@ -62,26 +62,17 @@ class ManagedProductsServiceTest {
     });
 
     test('Adding Product + Returning that', () {
-      expect(_newProduct, isNot(isIn(_service.getLocalDataManagedProducts())));
-      _service.addProduct(_newProduct).then((response) {
-        expect(response.id, _newProduct.id);
-        expect(response.title, _newProduct.title);
-        expect(_newProduct, isIn(_service.getLocalDataManagedProducts()));
+      // expect(_newProduct, isNot(isIn(_service.getLocalDataManagedProducts())));
+      _service.addProduct(_product0).then((response) {
+        expect(response.id, _product0.id);
+        expect(response.title, _product0.title);
+        expect(response, isIn(_service.getLocalDataManagedProducts()));
       });
     });
 
     test('Getting ProductsQtde', () {
-      expect(_newProduct, isNot(isIn(_service.getLocalDataManagedProducts())));
-      _service.addProduct(_newProduct).then((response) {
-        expect(response.id, _newProduct.id);
-        expect(response.title, _newProduct.title);
-        expect(_newProduct, isIn(_service.getLocalDataManagedProducts()));
-        expect(_service.managedProductsQtde(),
-            _service.getLocalDataManagedProducts().length);
-
-        _service.getProducts().then((response) {
-          expect(response.length, _service.managedProductsQtde());
-        });
+      _service.getProducts().then((response) {
+        expect(response.length, _service.managedProductsQtde());
       });
     });
 

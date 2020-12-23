@@ -9,7 +9,7 @@ import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/pages_generic_components/drawwer.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/pages_modules/cart/core/cart_bindings.dart';
-import 'package:shopingapp/app/pages_modules/custom_widgets/core/custom_drawer_widgets_keys.dart';
+import 'package:shopingapp/app/pages_modules/custom_widgets/core/keys/custom_drawer_widgets_keys.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/core/overview_widget_keys.dart';
@@ -18,7 +18,7 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
-import '../../../test_utils/global_test_methods.dart';
+import '../../../test_utils/global_methods.dart';
 import '../../../test_utils/utils.dart';
 import '../overview/repo/overview_repo_mocks.dart';
 
@@ -33,6 +33,9 @@ class CustomDrawerTest {
           () => OverviewService(repo: Get.find<IOverviewRepo>()));
       Get.lazyPut<OverviewController>(
           () => OverviewController(service: Get.find<IOverviewService>()));
+
+      // Get.lazyPut<ManagedProductsController>(() => ManagedProductsController());
+
       CartBindings().dependencies();
     });
 
@@ -54,7 +57,7 @@ class CustomDrawerTest {
     tearDown(() {
       seek = null;
       // Get.reset();
-      GlobalTestMethods.tearDown();
+      GlobalMethods.tearDown();
     });
 
     void _isInstancesRegistred() {
@@ -134,7 +137,7 @@ class CustomDrawerTest {
       expect(seek.text(titleDrawer), findsNothing);
     });
 
-    testWidgets('Tapping some menu "option" in Custom Drawer', (tester) async {
+    testWidgets('Tapping a menu "option" in Custom Drawer', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
