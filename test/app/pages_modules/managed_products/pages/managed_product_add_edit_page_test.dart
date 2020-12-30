@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/properties/theme/dark_theme_controller.dart';
-import 'package:shopingapp/app/core/texts_icons_provider/app_messages.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/managed_products/managed_product_edit.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/managed_products/managed_products.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/pages_generic_components/drawwer.dart';
@@ -13,9 +12,10 @@ import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dar
 import 'package:shopingapp/app/pages_modules/cart/core/cart_bindings.dart';
 import 'package:shopingapp/app/pages_modules/custom_widgets/core/keys/custom_circ_progr_indicator_keys.dart';
 import 'package:shopingapp/app/pages_modules/custom_widgets/core/keys/custom_drawer_widgets_keys.dart';
-import 'package:shopingapp/app/pages_modules/managed_products/controller/i_managed_products_controller.dart';
+import 'package:shopingapp/app/pages_modules/custom_widgets/core/keys/custom_snackbar_widgets_keys.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/controller/managed_products_controller.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/core/managed_products_widget_keys.dart';
+import 'package:shopingapp/app/pages_modules/managed_products/core/messages/field_form_validation_provided.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_products_repo.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/service/i_managed_products_service.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/service/managed_products_service.dart';
@@ -120,7 +120,7 @@ class ManagedProductsAddEditPageTest {
       _seek = null;
     });
 
-    Future _openDrawerAndManagedProductsAddEditPage(WidgetTester tester) async {
+    Future _openDrawerAndManagedProductsAddEditPage(tester) async {
       expect(_seek.text(titleDrawer), findsNothing);
       scaffoldKey.currentState.openDrawer();
       await tester.pump();
@@ -136,15 +136,16 @@ class ManagedProductsAddEditPageTest {
     }
 
     void _loadFieldsVariablesTestingWithFakeData() {
-      fakerFldTitle = Faker().food.dish();
-      fakerFldPrice = Faker().randomGenerator
-          .decimal(min: 20).toPrecision(2).toString();
-      fakerFldDescr = Faker().food.dish();
+      // fakerFldTitle = Faker().food.dish();
+      fakerFldTitle = Faker().randomGenerator.string(10, min: 5);
+      fakerFldPrice =
+          Faker().randomGenerator.decimal(min: 20).toPrecision(2).toString();
+      fakerFldDescr = Faker().randomGenerator.string(30, min: 10);
       fakerFldImgUrl =
           "https://images.freeimages.com/images/large-previews/eae/clothes-3-1466560.jpg";
     }
 
-    testWidgets('Saving a product', (tester) async {
+    testWidgets('Saving a product < XXXXXXXXXXXXX', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
@@ -170,12 +171,10 @@ class ManagedProductsAddEditPageTest {
       await tester.pump();
       await tester.pump(_seek.delay(1));
 
-      // expect(_seek.text(manProdAddEditPageTitle), findsOneWidget);
+      expect(_seek.text(manProdAddEditPageTitle), findsOneWidget);
+      expect(customCircProgrIndic, findsOneWidget);
       // expect(_seek.text(manProdPageTitle), findsOneWidget);
-      expect(_seek.text(ERROR_TRY_AGAIN_LATER), findsOneWidget);
-
-      // expect(customCircProgrIndic, findsOneWidget);
-      // await tester.pump();
+      // expect(_seek.text(ERROR_TRY_AGAIN_LATER), findsOneWidget);
       // await tester.pump(_seek.delay(1));
       // expect(snackbartext1, findsOneWidget);
     });
@@ -194,8 +193,31 @@ class ManagedProductsAddEditPageTest {
       expect(_seek.text(fldImgTitle), findsOneWidget);
     });
 
-    testWidgets('Fullfill fields + Check previewImageUrl',
-        (tester) async {
+    testWidgets('Open Page - Failing - No products registred',
+            (tester)
+    async {
+      await tester.pumpWidget(AppDriver());
+      await tester.pump();
+      _isInstancesRegistred();
+
+      var customCircProgrIndic = _seek.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY);
+
+      expect(_seek.text(titleDrawer), findsNothing);
+      scaffoldKey.currentState.openDrawer();
+      await tester.pump();
+      await tester.pump(_seek.delay(1));
+      await tester.tap(_seek.key(drawerMenuOption));
+      await tester.pump();
+      await tester.pump(_seek.delay(2));
+
+      //<<<<<<<<<existe produtos, pois o RepoMock esta carregando produtos
+      // mockados e criados no mock, tem-se que mockas novamente "sem
+      // produtos" par afuncionar
+      expect(_seek.text(manProdPageTitle), findsNothing);
+      // expect(customCircProgrIndic, findsOneWidget);
+    });
+
+    testWidgets('Fullfill fields + Check previewImageUrl', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
@@ -219,6 +241,39 @@ class ManagedProductsAddEditPageTest {
       _seek.imagesTotal(1);
     });
 
+    testWidgets('Test Fullfill Validation fields', (tester) async {
+      await tester.pumpWidget(AppDriver());
+      await tester.pump();
+      _isInstancesRegistred();
+
+      _loadFieldsVariablesTestingWithFakeData();
+
+      await _openDrawerAndManagedProductsAddEditPage(tester);
+
+      //minimal characters not allowed
+      await tester.enterText(_seek.key(keyFldTitle), "d");
+      await tester.enterText(_seek.key(keyFldPrice), "d");
+      await tester.enterText(_seek.key(keyFldDescr), "d");
+      await tester.enterText(_seek.key(keyFldImgUrl), "d");
+
+      await tester.tap(_seek.key(saveButton));
+      await tester.pump();
+      await tester.pump(_seek.delay(1));
+
+      expect(_seek.text(INVALID_TITLE_MSG), findsOneWidget);
+      expect(_seek.text(INVALID_PRICE_MSG), findsOneWidget);
+      expect(_seek.text(INVALID_DESCR_MSG), findsOneWidget);
+      expect(_seek.text(INVALID_URL_MSG), findsOneWidget);
+
+      await tester.enterText(_seek.key(keyFldTitle), fakerFldTitle);
+      await tester.enterText(_seek.key(keyFldPrice), fakerFldPrice);
+      await tester.enterText(_seek.key(keyFldDescr), fakerFldDescr);
+      await tester.enterText(_seek.key(keyFldImgUrl), fakerFldImgUrl);
+
+      await tester.tap(_seek.key(saveButton));
+      await tester.pump();
+    });
+
     testWidgets('Testing Page BackButton', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
@@ -235,33 +290,5 @@ class ManagedProductsAddEditPageTest {
       await tester.pump(_seek.delay(2));
       expect(_seek.text(manProdPageTitle), findsOneWidget);
     });
-
-    // testWidgets('Adding a product + Saving that + Go to the previous screen',
-    //     (tester) async {
-    //   await tester.pumpWidget(AppDriver());
-    //   await tester.pump();
-    //   _isInstancesRegistred();
-    //
-    //   _loadFieldsVariablesTestingWithFakeData();
-    //
-    //   await _openDrawerAndManagedProductsAddEditPage(tester);
-    //
-    //   await tester.enterText(_seek.key(keyFldTitle), fakerFldTitle);
-    //   await tester.enterText(_seek.key(keyFldPrice), fakerFldPrice);
-    //   await tester.enterText(_seek.key(keyFldDescr), fakerFldDescr);
-    //   await tester.enterText(_seek.key(keyFldImgUrl), fakerFldImgUrl);
-    //
-    //   await tester.pump();
-    //   await tester.pump(_seek.delay(2));
-    //
-    //   await tester.tap(_seek.key(saveButton));
-    //   await tester.pump();
-    //   expect(_seek.type(BackButton), findsOneWidget);
-    //   await tester.pump();
-    //   await tester.tap(_seek.type(BackButton));
-    //   await tester.pump();
-    //   await tester.pump(_seek.delay(2));
-    //   expect(_seek.text(manProdPageTitle), findsOneWidget);
-    // });
   }
 }

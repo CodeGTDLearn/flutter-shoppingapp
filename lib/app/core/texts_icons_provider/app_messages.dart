@@ -1,4 +1,6 @@
 //FlushBar Dialogs
+import 'package:shopingapp/app/pages_modules/managed_products/components/custom_text_form_field/validators/validation_config.dart';
+
 const ITEM_CART_ADDED_IN_SHOPCART = " Added in the cart.";
 const ITEM_CART_REMOVED_FROM_SHOPCART = "Item removed successfully.";
 const NO_ITEM_CART_IN_THE_SHOPCART_YET = "No items in the cart, yet.";
@@ -21,10 +23,11 @@ const DATABASE_EMPTY_NO_DATA_YET = 'There is no products to display.';
 const VALIDATION_FIELD_SHOULD_BE_FILLED = "Please, fullfill the field.";
 const VALIDATION_PROVIDE_THE_CORRECT_FORMAT_NUMBER = "Please, provide a proper value.";
 const VALIDATION_ONLY_TEXTS_AND_NUMBER = "Please, only text and number are allowed.";
-const VALIDATION_PROVIDE_THE_CORRECT_PRICE_FORMAT = "Please, only prices are allowed.";
+
+const VALIDATION_PROVIDE_THE_CORRECT_PRICE_FORMAT = "Please, proper price.";
 const VALIDATION_PROVIDE_THE_CORRECT_URL_FORMAT = "Please, provide proper URL.";
-const VALIDATION_PROVIDE_THE_TITLE_FIELD_MINIMAL_SIZE = "Please, provide at least 05 characters long.";
-const VALIDATION_PROVIDE_THE_DESCRIPTION_FIELD_MINIMAL_SIZE = "Please, provide at least 10 characters long.";
+const VALIDATION_PROVIDE_THE_TITLE_FIELD_MINIMAL_SIZE = "Allowed: 05 to 10 characters.";
+const VALIDATION_PROVIDE_THE_DESCRIPTION_FIELD_MINIMAL_SIZE = "Allowed: 10 to 30 characters.";
 
 //CUSTOM CIRCULAR PROGRESS INDICATOR
 const NO_ORDERS_FOUND_IN_YET = "There is no Orders, yet";

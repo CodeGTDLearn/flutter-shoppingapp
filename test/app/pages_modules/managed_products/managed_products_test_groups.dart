@@ -10,12 +10,12 @@ class ManagedProductsModuleTest {
   static void groups() {
     const MODULE = 'Managed Products|';
 
-    group("$MODULE\MockedRepo: Unit", ManagedProductsRepoTest.unit);
-
-    group("$MODULE\Service|MockedRepo: Unit", ManagedProductsServiceTest.unit);
-
-    group("$MODULE\Controller|Service|MockedRepo: Integr",
-        ManagedProductsControllerTest.integration);
+    // group("$MODULE\MockedRepo: Unit", ManagedProductsRepoTest.unit);
+    //
+    // group("$MODULE\Service|MockedRepo: Unit", ManagedProductsServiceTest.unit);
+    //
+    // group("$MODULE\Controller|Service|MockedRepo: Integr",
+    //     ManagedProductsControllerTest.integration);
 
     group("$MODULE\View|Managed Products Page: Functional",
         ManagedProductsPageTest.functional);

@@ -150,12 +150,12 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
     return Scaffold(
         appBar: AppBar(
             title: Text(Get.arguments == null
-                ? MAN_PROD_EDIT_LBL_ADD_APPBAR
-                : MAN_PROD_EDIT_LBL_EDT_APPBAR),
+                ? MAN_PROD_ADDEDIT_LBL_ADD_APPBAR
+                : MAN_PROD_ADDEDIT_LBL_EDT_APPBAR),
             actions: [
               IconButton(
                   key: Key(K_MAN_PROD_ADDEDIT_SAVE_BTN),
-                  icon: MAN_PROD_EDIT_ICO_SAVE_APPBAR,
+                  icon: MAN_PROD_ADDEDIT_ICO_SAVE_APPBAR,
                   onPressed: () => _saveForm(context))
             ]),
         body: Obx(() => _controller.reloadManagedProductsEditPage.value
@@ -167,23 +167,26 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                     child: SingleChildScrollView(
                         child: Column(children: [
                       CustomFormField().create(
-                          _product,
-                          context,
-                          (_) => _requestfocus(_focusPrice, context),
-                          fieldName: MAN_PROD_EDIT_FLD_TITLE,
-                          key: K_MAN_PROD_ADDEDIT_FLD_TIT),
+                        product: _product,
+                        context: context,
+                        function: (_) => _requestfocus(_focusPrice, context),
+                        fieldName: MAN_PROD_ADDEDIT_FLD_TITLE,
+                        key: K_MAN_PROD_ADDEDIT_FLD_TIT,
+                      ),
                       CustomFormField().create(
-                          _product,
-                          context,
-                          (_) => _requestfocus(_focusDescr, context),
-                          fieldName: MAN_PROD_EDIT_FLD_PRICE,
-                          key: K_MAN_PROD_ADDEDIT_FLD_PRICE),
+                        product: _product,
+                        context: context,
+                        function: (_) => _requestfocus(_focusDescr, context),
+                        fieldName: MAN_PROD_ADDEDIT_FLD_PRICE,
+                        key: K_MAN_PROD_ADDEDIT_FLD_PRICE,
+                      ),
                       CustomFormField().create(
-                          _product,
-                          context,
-                          (_) => _requestfocus(_focusUrlNode, context),
-                          fieldName: MAN_PROD_EDIT_FLD_DESCR,
-                          key: K_MAN_PROD_ADDEDIT_FLD_DESC),
+                        product: _product,
+                        context: context,
+                        function: (_) => _requestfocus(_focusUrlNode, context),
+                        fieldName: MAN_PROD_ADDEDIT_FLD_DESCR,
+                        key: K_MAN_PROD_ADDEDIT_FLD_DESC,
+                      ),
                       Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
@@ -197,20 +200,22 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                                 child: Container(
                                     child: _imgUrlController.text.isEmpty
                                         ? Center(
-                                            child: Text(MAN_PROD_EDIT_IMG_TIT))
+                                            child:
+                                                Text(MAN_PROD_ADDEDIT_IMG_TIT))
                                         : FittedBox(
                                             child: Image.network(
                                                 _imgUrlController.text,
                                                 fit: BoxFit.cover)))),
                             Expanded(
                                 child: CustomFormField().create(
-                                    _product,
-                                    context,
-                                    (_) => _saveForm(context),
-                                    fieldName: MAN_PROD_EDIT_FLD_IMG_URL,
-                                    node: _focusUrlNode,
-                                    controller: _imgUrlController,
-                                    key: K_MAN_PROD_ADDEDIT_FLD_URL))
+                              product: _product,
+                              context: context,
+                              function: (_) => _saveForm(context),
+                              fieldName: MAN_PROD_ADDEDIT_FLD_IMG_URL,
+                              key: K_MAN_PROD_ADDEDIT_FLD_URL,
+                              node: _focusUrlNode,
+                              controller: _imgUrlController,
+                            ))
                           ])
                     ]))))));
   }
