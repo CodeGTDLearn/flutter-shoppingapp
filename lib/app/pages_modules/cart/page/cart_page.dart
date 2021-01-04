@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/pages_modules/cart/core/cart_widget_keys.dart';
 
 import '../../../core/properties/app_properties.dart';
 import '../../custom_widgets/custom_circ_progr_indicator.dart';
@@ -9,6 +8,7 @@ import '../../orders/core/messages_snackbars_provided.dart';
 import '../components/card_cart_item.dart';
 import '../controller/cart_controller.dart';
 import '../core/cart_texts_icons_provided.dart';
+import '../core/cart_widget_keys.dart';
 
 class CartPage extends StatelessWidget {
   final CartController controller;
@@ -59,12 +59,12 @@ class CartPage extends StatelessWidget {
                               Container(
                                   width: consWidth * 0.3,
                                   height: consHeight * 0.08,
-                                  child: Obx(() => controller
-                                              .qtdeCartItemsObs() !=
-                                          currentQtdeCart
-                                      ? CustomCircProgrIndicator.radius(
-                                          consWidth * 0.3)
-                                      : _addOrderButton()))
+                                  child: Obx(() =>
+                                      controller.qtdeCartItemsObs() !=
+                                              currentQtdeCart
+                                          ? CustomCircProgrIndicator.radius(
+                                              consWidth * 0.3)
+                                          : _addOrderButton()))
                             ])))),
                 SizedBox(height: consHeight * 0.01),
                 Expanded(

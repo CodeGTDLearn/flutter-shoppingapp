@@ -15,12 +15,17 @@ class ManagedProductsService implements IManagedProductsService {
 
   @override
   Future<List<Product>> getProducts() {
-    return repo.getProducts().then((products) {
-      clearDataSavingLists();
-      _localDataManagedProducts = products;
-      _orderDataSavingLists();
-      return _localDataManagedProducts;
-    });
+    // @formatter:off
+    return repo
+        .getProducts()
+        .then((products) {
+          clearDataSavingLists();
+          _localDataManagedProducts = products;
+          _orderDataSavingLists();
+          // return _localDataManagedProducts;
+          return getLocalDataManagedProducts();
+        });
+    // @formatter:on
   }
 
   @override
@@ -35,14 +40,19 @@ class ManagedProductsService implements IManagedProductsService {
   }
 
   @override
-  Future<Product> addProduct(Product product) {
-    return repo.addProduct(product).then((product) {
-      _localDataManagedProducts.add(product);
-      return product;
-    }).catchError((onError) {
-      _localDataManagedProducts.remove(product);
-      throw onError;
-    });
+  Future<Product> addProduct(Product _product) {
+    // @formatter:off
+    return repo
+        .addProduct(_product)
+        .then((product) {
+          _localDataManagedProducts.add(product);
+          return product;
+        })
+        .catchError((onError) {
+          _localDataManagedProducts.remove(_product);
+          throw onError;
+        });
+    // @formatter:on
   }
 
   @override
@@ -52,7 +62,8 @@ class ManagedProductsService implements IManagedProductsService {
 
   @override
   Future<int> deleteProduct(String id) {
-    final _index = _localDataManagedProducts.indexWhere((item) => item.id == id);
+    final _index =
+        _localDataManagedProducts.indexWhere((item) => item.id == id);
     var _rollbackDataSavingProducts = [..._localDataManagedProducts];
     _localDataManagedProducts.removeAt(_index);
     _orderDataSavingLists();

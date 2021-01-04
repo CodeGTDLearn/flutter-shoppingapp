@@ -13,11 +13,11 @@ abstract class IManagedProductsController {
 
   Future<int> deleteProduct(String id);
 
-  void reloadManagedProductsAddEditPage();
+  void switchManagedProdAddEditFormAndCustomCircularProgrIndic();
 
   void reloadManagedProductsObs();
 
   List<Product> getManagedProductsObs();
 
-  bool getReloadManagedProductsEditPage();
+  bool getReloadManagedProductsEditPageObs();
 }

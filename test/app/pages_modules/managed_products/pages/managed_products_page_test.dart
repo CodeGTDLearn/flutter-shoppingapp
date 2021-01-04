@@ -9,8 +9,6 @@ import 'package:shopingapp/app/core/texts_icons_provider/pages/managed_products/
 import 'package:shopingapp/app/core/texts_icons_provider/pages/pages_generic_components/drawwer.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/pages_modules/cart/core/cart_bindings.dart';
-import 'package:shopingapp/app/pages_modules/managed_products/controller/i_managed_products_controller.dart';
-import 'file:///C:/Users/SERVIDOR/Projects/flutter-shoppingapp/lib/app/pages_modules/custom_widgets/core/keys/custom_drawer_widgets_keys.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/controller/managed_products_controller.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_products_repo.dart';
@@ -23,22 +21,23 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
-import '../../../../test_utils/global_methods.dart';
-import '../../../../test_utils/utils.dart';
+import 'file:///C:/Users/SERVIDOR/Projects/flutter-shoppingapp/lib/app/pages_modules/custom_widgets/core/keys/custom_drawer_widgets_keys.dart';
+
+import '../../../../test_utils/custom_test_methods.dart';
+import '../../../../test_utils/test_utils.dart';
 import '../../overview/repo/overview_repo_mocks.dart';
 import '../repo/managed_products_repo_mocks.dart';
 
 class ManagedProductsPageTest {
   static void functional() {
-    Utils seek;
+    TestUtils _seek;
 
     final binding = BindingsBuilder(() {
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
 
-
       Get.lazyPut<IManagedProductsRepo>(() => ManagedProductsMockRepo());
       Get.lazyPut<IManagedProductsService>(
-              () => ManagedProductsService(repo: Get.find<IManagedProductsRepo>()));
+          () => ManagedProductsService(repo: Get.find<IManagedProductsRepo>()));
       Get.lazyPut<ManagedProductsController>(() => ManagedProductsController(
           service: Get.find<IManagedProductsService>()));
 
@@ -49,7 +48,6 @@ class ManagedProductsPageTest {
           () => OverviewController(service: Get.find<IOverviewService>()));
 
       CartBindings().dependencies();
-
     });
 
     setUp(() {
@@ -74,7 +72,7 @@ class ManagedProductsPageTest {
       expect(Get.isPrepared<ManagedProductsController>(), isTrue);
 
       HttpOverrides.global = null;
-      seek = Utils();
+      _seek = TestUtils();
     });
 
     void _isInstancesRegistred() {
@@ -93,9 +91,8 @@ class ManagedProductsPageTest {
     }
 
     tearDown(() {
-      // Get.reset();
-      GlobalMethods.tearDown();
-      seek = null;
+      CustomTestMethods.globalTearDown();
+      _seek = null;
     });
 
     var scaffoldKey = OVERVIEW_PAGE_MAIN_SCAFFOLD_KEY;
@@ -111,18 +108,18 @@ class ManagedProductsPageTest {
       await tester.pump();
       _isInstancesRegistred();
 
-      expect(seek.text(titleDrawer), findsNothing);
+      expect(_seek.text(titleDrawer), findsNothing);
       scaffoldKey.currentState.openDrawer();
       await tester.pump();
-      await tester.pump(seek.delay(1));
-      await tester.tap(seek.key(drawerMenuOption));
+      await tester.pump(_seek.delay(1));
+      await tester.tap(_seek.key(drawerMenuOption));
       await tester.pump();
-      await tester.pump(seek.delay(1));
-      expect(seek.text(manProdPageTitle), findsOneWidget);
-      expect(seek.text(_products()[0].title.toString()), findsOneWidget);
-      expect(seek.text(_products()[1].title.toString()), findsOneWidget);
-      expect(seek.text(_products()[2].title.toString()), findsOneWidget);
-      expect(seek.text(_products()[3].title.toString()), findsOneWidget);
+      await tester.pump(_seek.delay(1));
+      expect(_seek.text(manProdPageTitle), findsOneWidget);
+      expect(_seek.text(_products()[0].title.toString()), findsOneWidget);
+      expect(_seek.text(_products()[1].title.toString()), findsOneWidget);
+      expect(_seek.text(_products()[2].title.toString()), findsOneWidget);
+      expect(_seek.text(_products()[3].title.toString()), findsOneWidget);
     });
 
     testWidgets('Checking List Products - Icons', (tester) async {
@@ -132,14 +129,14 @@ class ManagedProductsPageTest {
 
       scaffoldKey.currentState.openDrawer();
       await tester.pump();
-      await tester.pump(seek.delay(1));
-      await tester.tap(seek.key(drawerMenuOption));
+      await tester.pump(_seek.delay(1));
+      await tester.tap(_seek.key(drawerMenuOption));
       await tester.pump();
-      await tester.pump(seek.delay(1));
+      await tester.pump(_seek.delay(1));
 
-      expect(seek.icon(iconAddProduct), findsNWidgets(1));
-      expect(seek.icon(iconEditItem), findsNWidgets(4));
-      expect(seek.icon(iconDeleteItem), findsNWidgets(4));
+      expect(_seek.icon(iconAddProduct), findsNWidgets(1));
+      expect(_seek.icon(iconEditItem), findsNWidgets(4));
+      expect(_seek.icon(iconDeleteItem), findsNWidgets(4));
     });
 
     testWidgets('Checking List Products - Avatars', (tester) async {
@@ -149,12 +146,12 @@ class ManagedProductsPageTest {
 
       scaffoldKey.currentState.openDrawer();
       await tester.pump();
-      await tester.pump(seek.delay(1));
-      await tester.tap(seek.key(drawerMenuOption));
+      await tester.pump(_seek.delay(1));
+      await tester.tap(_seek.key(drawerMenuOption));
       await tester.pump();
-      await tester.pump(seek.delay(1));
+      await tester.pump(_seek.delay(1));
 
-      expect(seek.type(CircleAvatar), findsNWidgets(4));
+      expect(_seek.type(CircleAvatar), findsNWidgets(4));
     });
   }
 }

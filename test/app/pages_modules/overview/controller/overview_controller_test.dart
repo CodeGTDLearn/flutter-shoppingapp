@@ -8,7 +8,7 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
-import '../../../../mocked_data_source/products_mocked_data.dart';
+import '../../../../test_utils/mocked_data_source/products_mocked_data.dart';
 import '../repo/overview_repo_mocks.dart';
 import 'overview_controller_mocks.dart';
 

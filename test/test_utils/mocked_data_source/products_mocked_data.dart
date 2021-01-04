@@ -59,4 +59,8 @@ class ProductsMockedData {
   List<Product> productsEmpty() {
     return [];
   }
+
+  Product productEmpty() {
+    return null;
+  }
 }

@@ -18,13 +18,13 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
-import '../../../test_utils/global_methods.dart';
-import '../../../test_utils/utils.dart';
+import '../../../test_utils/custom_test_methods.dart';
+import '../../../test_utils/test_utils.dart';
 import '../overview/repo/overview_repo_mocks.dart';
 
 class CustomDrawerTest {
   static void functional() {
-    Utils seek;
+    TestUtils seek;
 
     final binding = BindingsBuilder(() {
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
@@ -51,13 +51,13 @@ class CustomDrawerTest {
       expect(Get.isPrepared<CartController>(), isTrue);
 
       HttpOverrides.global = null;
-      seek = Utils();
+      seek = TestUtils();
     });
 
     tearDown(() {
       seek = null;
-      // Get.reset();
-      GlobalMethods.tearDown();
+
+      CustomTestMethods.globalTearDown();
     });
 
     void _isInstancesRegistred() {
@@ -85,7 +85,8 @@ class CustomDrawerTest {
       expect(seek.text(_products()[2].title.toString()), findsOneWidget);
       expect(seek.text(_products()[3].title.toString()), findsOneWidget);
       expect(seek.iconType(IconButton, Icons.favorite), findsOneWidget);
-      expect(seek.iconType(IconButton, Icons.favorite_border), findsNWidgets(3));
+      expect(
+          seek.iconType(IconButton, Icons.favorite_border), findsNWidgets(3));
       expect(seek.iconType(IconButton, Icons.shopping_cart), findsNWidgets(5));
       expect(seek.iconData(Icons.more_vert), findsOneWidget);
       expect(seek.key(K_DRW), findsOneWidget);

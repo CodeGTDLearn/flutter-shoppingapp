@@ -2,7 +2,8 @@ import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_products_repo.dart';
 
-import '../../../../mocked_data_source/products_mocked_data.dart';
+import '../../../../test_utils/mocked_data_source/products_mocked_data.dart';
+
 
 /* **************************************************
   *--> TIPOS DE MOCK
@@ -26,7 +27,6 @@ import '../../../../mocked_data_source/products_mocked_data.dart';
   *     - Testes independemente de WebService ou DB
   *****************************************************/
 class ManagedProductsMockRepo extends Mock implements IManagedProductsRepo {
-
   @override
   Future<int> deleteProduct(String id) {
     return Future.value(200);
@@ -50,3 +50,25 @@ class ManagedProductsMockRepo extends Mock implements IManagedProductsRepo {
 
 class ManagedProductsInjectMockRepo extends Mock
     implements IManagedProductsRepo {}
+
+class ManagedProductsMockRepoFail extends Mock implements IManagedProductsRepo {
+  @override
+  Future<int> deleteProduct(String id) {
+    return Future.value(400);
+  }
+
+  @override
+  Future<List<Product>> getProducts() {
+    return Future.value(ProductsMockedData().productsEmpty());
+  }
+
+  @override
+  Future<Product> addProduct(Product product) {
+    return Future.value(ProductsMockedData().productEmpty());
+  }
+
+  @override
+  Future<int> updateProduct(Product product) {
+    return Future.value(400);
+  }
+}

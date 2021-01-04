@@ -44,14 +44,14 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      _controller.reloadManagedProductsAddEditPage();
+      _controller.switchManagedProdAddEditFormAndCustomCircularProgrIndic();
 
       if (Get.arguments == null) {
-        _controller.reloadManagedProductsAddEditPage();
+        _controller.switchManagedProdAddEditFormAndCustomCircularProgrIndic();
       } else {
         _product = _controller.getProductById(Get.arguments);
         _imgUrlController.text = _product.imageUrl;
-        _controller.reloadManagedProductsAddEditPage();
+        _controller.switchManagedProdAddEditFormAndCustomCircularProgrIndic();
       }
       _isInit = false;
     }
@@ -76,7 +76,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
 
     _form.currentState.save();
 
-    _controller.reloadManagedProductsAddEditPage();
+    _controller.switchManagedProdAddEditFormAndCustomCircularProgrIndic();
 
     _product.id.isNull ?
         _saveProduct(_product, _context) :
@@ -84,16 +84,16 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
     // @formatter:on
   }
 
-  Future<dynamic> _saveProduct(Product product, BuildContext _context) {
+  Future<dynamic> _saveProduct(Product _product, BuildContext _context) {
     // @formatter:off
     return _controller
-        .addProduct(product)
-        .then((response) {
-          _controller.reloadManagedProductsAddEditPage();
+        .addProduct(_product)
+        .then((product) {
+          _controller.switchManagedProdAddEditFormAndCustomCircularProgrIndic();
           _controller.reloadManagedProductsObs();
+          Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
         })
         .whenComplete((){
-            Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
             Get.snackbar("title", "message");
             // SimpleSnackbar(SUCESS_MAN_PROD_ADD,_context).show();
         })
@@ -103,7 +103,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
             middleText: ERROR_MAN_PROD,
             textConfirm: OK,
             onConfirm: Get.back);
-          _controller.reloadManagedProductsAddEditPage();
+          _controller.switchManagedProdAddEditFormAndCustomCircularProgrIndic();
         });
     // @formatter:on
   }
@@ -120,7 +120,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                 textConfirm: OK,
                 onConfirm: Get.back);
           } else {
-            _controller.reloadManagedProductsAddEditPage();
+            _controller.switchManagedProdAddEditFormAndCustomCircularProgrIndic();
             _controller.reloadManagedProductsObs();
             Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
             SimpleSnackbar(SUCESS_MAN_PROD_UPDT, _context).show();
@@ -158,7 +158,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                   icon: MAN_PROD_ADDEDIT_ICO_SAVE_APPBAR,
                   onPressed: () => _saveForm(context))
             ]),
-        body: Obx(() => _controller.reloadManagedProductsEditPage.value
+        body: Obx(() => _controller.reloadManagedProductsEditPageObs.value
             ? CustomCircProgrIndicator()
             : Padding(
                 padding: EdgeInsets.all(16),

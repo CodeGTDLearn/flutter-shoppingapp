@@ -1,5 +1,4 @@
 //FlushBar Dialogs
-import 'package:shopingapp/app/pages_modules/managed_products/components/custom_text_form_field/validators/validation_config.dart';
 
 const ITEM_CART_ADDED_IN_SHOPCART = " Added in the cart.";
 const ITEM_CART_REMOVED_FROM_SHOPCART = "Item removed successfully.";

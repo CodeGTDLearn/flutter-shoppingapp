@@ -6,9 +6,9 @@ import 'package:shopingapp/app/pages_modules/managed_products/service/i_managed_
 import 'package:shopingapp/app/pages_modules/managed_products/service/managed_products_service.dart';
 import 'package:test/test.dart';
 
-import '../../../data_builders/product_databuilder.dart';
-import '../../../mocked_data_source/products_mocked_data.dart';
-import '../../../test_utils/global_methods.dart';
+import '../../../test_utils/custom_test_methods.dart';
+import '../../../test_utils/data_builders/product_databuilder.dart';
+import '../../../test_utils/mocked_data_source/products_mocked_data.dart';
 import 'repo/managed_products_repo_mocks.dart';
 
 class ManagedProductsControllerTest {
@@ -27,10 +27,7 @@ class ManagedProductsControllerTest {
       _controller = ManagedProductsController(service: _service);
     });
 
-    tearDown(() {
-      // Get.reset();
-      GlobalMethods.tearDown();
-    });
+    tearDown(CustomTestMethods.globalTearDown);
 
     test('Checking Instances to be used in the Tests', () {
       expect(_mockRepo, isA<ManagedProductsMockRepo>());
@@ -59,7 +56,11 @@ class ManagedProductsControllerTest {
         _controller.addProduct(_product0).then((response) {
           expect(response.id, _product0.id);
           expect(response.title, _product0.title);
-          expect(response, isIn(_controller.getManagedProductsObs()));
+          var xx = _controller.getManagedProductsObs();
+          // expect(_product0, isIn(_controller.getManagedProductsObs()));
+          //todo: o objetos sao identicos mas o ISIN nao identifica o _product0
+          // dentro da lista XX
+          expect(_product0, isIn(xx));
         });
       });
     });
@@ -136,9 +137,9 @@ class ManagedProductsControllerTest {
 
     test('Testing getReloadManagedProductsEditPage()', () {
       _controller.getProducts().then((_) {
-        expect(_controller.getReloadManagedProductsEditPage(), isFalse);
-        _controller.reloadManagedProductsAddEditPage();
-        expect(_controller.getReloadManagedProductsEditPage(), isTrue);
+        expect(_controller.getReloadManagedProductsEditPageObs(), isFalse);
+        _controller.switchManagedProdAddEditFormAndCustomCircularProgrIndic();
+        expect(_controller.getReloadManagedProductsEditPageObs(), isTrue);
       });
     });
   }

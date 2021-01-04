@@ -16,13 +16,13 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
-import '../../../../test_utils/global_methods.dart';
-import '../../../../test_utils/utils.dart';
+import '../../../../test_utils/custom_test_methods.dart';
+import '../../../../test_utils/test_utils.dart';
 import '../repo/overview_repo_mocks.dart';
 
 class OverviewItemDetailsPageTest {
   static void functional() {
-    Utils seek;
+    TestUtils seek;
 
     final binding = BindingsBuilder(() {
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
@@ -45,12 +45,11 @@ class OverviewItemDetailsPageTest {
       expect(Get.isPrepared<OverviewController>(), isTrue);
       expect(Get.isPrepared<CartController>(), isTrue);
       HttpOverrides.global = null;
-      seek = Utils();
+      seek = TestUtils();
     });
 
     tearDown(() {
-      // Get.reset();
-      GlobalMethods.tearDown();
+      CustomTestMethods.globalTearDown();
       seek = null;
     });
 
@@ -110,12 +109,11 @@ class OverviewItemDetailsPageTest {
               expect(seek.text(_products()[0].description.toString()),
                   findsOneWidget);
           });
-        // @formatter:on
-        });
+      // @formatter:on
+    });
 
-    testWidgets(
-        'Clicking Product 01 + Show Details Page: Checking image', (
-        tester) async {
+    testWidgets('Clicking Product 01 + Show Details Page: Checking image',
+        (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
@@ -132,4 +130,3 @@ class OverviewItemDetailsPageTest {
     });
   }
 }
-

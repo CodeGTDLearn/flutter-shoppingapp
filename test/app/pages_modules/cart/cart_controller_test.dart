@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/i_cart_controller.dart';
 import 'package:shopingapp/app/pages_modules/cart/entities/cart_item.dart';
@@ -13,9 +12,9 @@ import 'package:shopingapp/app/pages_modules/orders/service/i_orders_service.dar
 import 'package:shopingapp/app/pages_modules/orders/service/orders_service.dart';
 import 'package:test/test.dart';
 
-import '../../../data_builders/cartitem_databuilder.dart';
-import '../../../data_builders/product_databuilder.dart';
-import '../../../mocked_data_source/orders_mocked_data.dart';
+import '../../../test_utils/data_builders/cartitem_databuilder.dart';
+import '../../../test_utils/data_builders/product_databuilder.dart';
+import '../../../test_utils/mocked_data_source/orders_mocked_data.dart';
 import '../orders/repo/orders_repo_mocks.dart';
 
 class CartControllerTest {

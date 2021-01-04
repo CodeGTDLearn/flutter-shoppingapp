@@ -2,9 +2,9 @@ import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/orders/entities/order.dart';
 import 'package:shopingapp/app/pages_modules/orders/repo/i_orders_repo.dart';
 
-import '../../../../mocked_data_source/orders_mocked_data.dart';
+import '../../../../test_utils/mocked_data_source/orders_mocked_data.dart';
 
-  /* **************************************************
+/* **************************************************
   *--> TIPOS DE MOCK
   *    A) DATA MOCKS:
   *      DATA Mocks does NOT ALLOW

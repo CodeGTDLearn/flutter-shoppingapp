@@ -9,7 +9,7 @@ class ManagedProductsController extends GetxController
   final IManagedProductsService service;
 
   var managedProductsObs = <Product>[].obs;
-  var reloadManagedProductsEditPage = false.obs;
+  var reloadManagedProductsEditPageObs = false.obs;
 
   ManagedProductsController({this.service});
 
@@ -38,10 +38,15 @@ class ManagedProductsController extends GetxController
   }
 
   @override
-  Future<Product> addProduct(Product product) {
-    return service.addProduct(product).then((response) {
-      return response;
-    }).catchError((onError) => throw onError);
+  Future<Product> addProduct(Product _product) {
+    // @formatter:off
+    return service
+        .addProduct(_product)
+        .then((product) {
+          return product;
+        })
+        .catchError((onError) => throw onError);
+    // @formatter:on
   }
 
   @override
@@ -66,8 +71,8 @@ class ManagedProductsController extends GetxController
   }
 
   @override
-  void reloadManagedProductsAddEditPage() {
-    reloadManagedProductsEditPage.value = !reloadManagedProductsEditPage.value;
+  void switchManagedProdAddEditFormAndCustomCircularProgrIndic() {
+    reloadManagedProductsEditPageObs.value = !reloadManagedProductsEditPageObs.value;
   }
 
   @override
@@ -81,7 +86,7 @@ class ManagedProductsController extends GetxController
   }
 
   @override
-  bool getReloadManagedProductsEditPage() {
-    return reloadManagedProductsEditPage.value;
+  bool getReloadManagedProductsEditPageObs() {
+    return reloadManagedProductsEditPageObs.value;
   }
 }

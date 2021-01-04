@@ -5,8 +5,8 @@ import 'package:shopingapp/app/pages_modules/cart/service/i_cart_service.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:test/test.dart';
 
-import '../../../data_builders/cartitem_databuilder.dart';
-import '../../../data_builders/product_databuilder.dart';
+import '../../../test_utils/data_builders/cartitem_databuilder.dart';
+import '../../../test_utils/data_builders/product_databuilder.dart';
 
 class CartServiceTest {
   static void unit() {

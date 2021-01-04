@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/properties/theme/dark_theme_controller.dart';
@@ -8,18 +7,14 @@ import 'package:shopingapp/app/core/texts_icons_provider/app_messages.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/cart.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dart';
-import 'package:shopingapp/app/pages_modules/cart/controller/i_cart_controller.dart';
-import 'package:shopingapp/app/pages_modules/cart/core/cart_bindings.dart';
 import 'package:shopingapp/app/pages_modules/cart/core/cart_widget_keys.dart';
 import 'package:shopingapp/app/pages_modules/cart/repo/cart_repo.dart';
 import 'package:shopingapp/app/pages_modules/cart/repo/i_cart_repo.dart';
 import 'package:shopingapp/app/pages_modules/cart/service/cart_service.dart';
 import 'package:shopingapp/app/pages_modules/cart/service/i_cart_service.dart';
 import 'package:shopingapp/app/pages_modules/custom_widgets/core/keys/custom_circ_progr_indicator_keys.dart';
-import 'package:shopingapp/app/pages_modules/custom_widgets/custom_circ_progr_indicator.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/orders/repo/i_orders_repo.dart';
-import 'package:shopingapp/app/pages_modules/orders/repo/orders_repo.dart';
 import 'package:shopingapp/app/pages_modules/orders/service/i_orders_service.dart';
 import 'package:shopingapp/app/pages_modules/orders/service/orders_service.dart';
 import 'package:shopingapp/app/pages_modules/overview/controller/overview_controller.dart';
@@ -29,14 +24,14 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
-import '../../../test_utils/global_methods.dart';
-import '../../../test_utils/utils.dart';
+import '../../../test_utils/custom_test_methods.dart';
+import '../../../test_utils/test_utils.dart';
 import '../orders/repo/orders_repo_mocks.dart';
 import '../overview/repo/overview_repo_mocks.dart';
 
 class CartPageTest {
   static void functional() {
-    Utils _seek;
+    TestUtils _seek;
 
     final binding = BindingsBuilder(() {
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
@@ -53,9 +48,9 @@ class CartPageTest {
       Get.lazyPut<ICartRepo>(() => CartRepo());
       Get.lazyPut<ICartService>(() => CartService(repo: Get.find()));
       Get.lazyPut<CartController>(() => CartController(
-        cartService: Get.find(),
-        ordersService: Get.find(),
-      ));
+            cartService: Get.find(),
+            ordersService: Get.find(),
+          ));
     });
 
     setUp(() {
@@ -70,11 +65,11 @@ class CartPageTest {
       expect(Get.isPrepared<CartController>(), isTrue);
 
       HttpOverrides.global = null;
-      _seek = Utils();
+      _seek = TestUtils();
     });
 
     tearDown(() {
-      GlobalMethods.tearDown();
+      CustomTestMethods.globalTearDown();
       _seek = null;
     });
 
@@ -270,7 +265,6 @@ class CartPageTest {
       await tester.pump();
       await tester.pump(_seek.delay(1));
       expect(_seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
-
     });
   }
 }

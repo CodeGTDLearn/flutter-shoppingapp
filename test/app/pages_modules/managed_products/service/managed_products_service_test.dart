@@ -5,9 +5,9 @@ import 'package:shopingapp/app/pages_modules/managed_products/service/i_managed_
 import 'package:shopingapp/app/pages_modules/managed_products/service/managed_products_service.dart';
 import 'package:test/test.dart';
 
-import '../../../../data_builders/product_databuilder.dart';
-import '../../../../mocked_data_source/products_mocked_data.dart';
-import '../../../../test_utils/global_methods.dart';
+import '../../../../test_utils/custom_test_methods.dart';
+import '../../../../test_utils/data_builders/product_databuilder.dart';
+import '../../../../test_utils/mocked_data_source/products_mocked_data.dart';
 import '../repo/managed_products_repo_mocks.dart';
 import 'managed_products_service_mock.dart';
 
@@ -19,7 +19,6 @@ class ManagedProductsServiceTest {
     var _product1 = ProductsMockedData().products().elementAt(1);
     var _products = ProductsMockedData().products();
     var _newProduct = ProductDataBuilder().ProductFull();
-    var _productTest = ProductsMockedData().product();
 
     setUp(() {
       _mockRepo = ManagedProductsMockRepo();
@@ -27,10 +26,7 @@ class ManagedProductsServiceTest {
       _injectMockService = ManagedProductsInjectMockService();
     });
 
-    tearDown(() {
-      // Get.reset();
-      GlobalMethods.tearDown();
-    });
+    tearDown(CustomTestMethods.globalTearDown);
 
     test('Checking Instances to be used in the Tests', () {
       expect(_mockRepo, isA<ManagedProductsMockRepo>());
