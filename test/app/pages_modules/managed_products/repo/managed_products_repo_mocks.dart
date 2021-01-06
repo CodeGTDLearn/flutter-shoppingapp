@@ -1,9 +1,9 @@
+import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_products_repo.dart';
 
 import '../../../../test_utils/mocked_data_source/products_mocked_data.dart';
-
 
 /* **************************************************
   *--> TIPOS DE MOCK
@@ -29,7 +29,16 @@ import '../../../../test_utils/mocked_data_source/products_mocked_data.dart';
 class ManagedProductsMockRepo extends Mock implements IManagedProductsRepo {
   @override
   Future<int> deleteProduct(String id) {
-    return Future.value(200);
+    // @formatter:off
+    final found = ProductsMockedData()
+        .products()
+        .firstWhere((item) => item.id == id,
+        orElse: () {
+          return null;
+        });
+    return found == null ? Future.value(400) : Future.value(200);
+    // @formatter:on
+    // return Future.value(200);
   }
 
   @override
@@ -39,12 +48,22 @@ class ManagedProductsMockRepo extends Mock implements IManagedProductsRepo {
 
   @override
   Future<Product> addProduct(Product product) {
-    return Future.value(ProductsMockedData().product());
+    var returnedMockedProduct = ProductsMockedData().product();
+    returnedMockedProduct.id = Faker().randomGenerator.string(7, min: 7);
+    return Future.value(returnedMockedProduct);
   }
 
   @override
   Future<int> updateProduct(Product product) {
-    return Future.value(200);
+    // @formatter:off
+    final found = ProductsMockedData()
+        .products()
+        .firstWhere((item) => item.id == product.id,
+          orElse: () {
+            return null;
+          });
+    return found == null ? Future.value(400) : Future.value(200);
+    // @formatter:on
   }
 }
 

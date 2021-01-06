@@ -29,7 +29,7 @@ class ManagedProductsControllerTest {
 
     tearDown(CustomTestMethods.globalTearDown);
 
-    test('Checking Instances to be used in the Tests', () {
+    test('Checking Test Instances', () {
       expect(_mockRepo, isA<ManagedProductsMockRepo>());
       expect(_service, isA<ManagedProductsService>());
       expect(_controller, isA<ManagedProductsController>());
@@ -37,13 +37,13 @@ class ManagedProductsControllerTest {
       expect(_product1, isA<Product>());
     });
 
-    test('Checking Response Type in GetProducts', () {
+    test('Getting Products - ResponseType', () {
       _controller.getProducts().then((value) {
         expect(value, isA<List<Product>>());
       });
     });
 
-    test('Checking getProducts + getManagedProductsObs loading', () {
+    test('Getting Products (getManagedProductsObs)', () {
       _controller.getProducts().then((_) {
         var list = _controller.getManagedProductsObs();
         expect(list[0].id, _products.elementAt(0).id);
@@ -51,21 +51,25 @@ class ManagedProductsControllerTest {
       });
     });
 
-    test('Adding Product', () {
+    test('Adding a Product', () {
+      // @formatter:off
       _controller.getProducts().then((value) {
-        _controller.addProduct(_product0).then((response) {
-          expect(response.id, _product0.id);
-          expect(response.title, _product0.title);
-          var xx = _controller.getManagedProductsObs();
-          // expect(_product0, isIn(_controller.getManagedProductsObs()));
-          //todo: o objetos sao identicos mas o ISIN nao identifica o _product0
-          // dentro da lista XX
-          expect(_product0, isIn(xx));
-        });
+        _controller
+            .addProduct(_product0)
+            .then((addedProduct) {
+                // In addProduct, never the 'product to be added' has 'id'
+                // expect(addedProduct.id, _product0.id);
+                expect(addedProduct.title, _product0.title);
+                expect(addedProduct.price, _product0.price);
+                expect(addedProduct.description, _product0.description);
+                expect(addedProduct.imageUrl, _product0.imageUrl);
+                expect(addedProduct.isFavorite, _product0.isFavorite);
+            });
       });
+      // @formatter:on
     });
 
-    test('Checking managedProductsQtde', () {
+    test('Getting ProductsQtde', () {
       _controller.getProducts().then((value) {
         expect(_newProduct, isNot(isIn(_controller.getManagedProductsObs())));
         expect(_controller.managedProductsQtde(), 4);
@@ -76,41 +80,50 @@ class ManagedProductsControllerTest {
     });
 
     test('Getting ProductById', () {
-      _controller.getProducts().then((value) {
-        // expect(_newProduct, isNot(isIn(_controller.getManagedProductsObs())));
-        _controller.addProduct(_product0).then((response) {
-          expect(response.id, _product0.id);
-          expect(response.title, _product0.title);
-          expect(response, isIn(_controller.getManagedProductsObs()));
-          expect(_controller.getProductById(_product0.id),
-              isIn(_controller.getManagedProductsObs()));
-          expect(_controller.getProductById(_product0.id).id, _product0.id);
-        });
-      });
+      // @formatter:off
+      _controller
+          .getProducts()
+          .then((products) {
+              var found = _controller.getProductById(products[0].id);
+              expect(found.id, _product0.id);
+              expect(found.title, _product0.title);
+              expect(found, isIn(_controller.getManagedProductsObs()));
+          });
+      // @formatter:on
     });
 
-    test('Getting ProductById - Fail', () {
+    test('Getting ProductById - Exception', () {
       _controller.getProducts().then((_) {
         expect(() => _controller.getProductById(_newProduct.id),
             throwsA(isA<RangeError>()));
       });
     });
 
-    test('Deleting Product', () {
+    test('Updating a Product - status 200', () {
       _controller.getProducts().then((_) {
         expect(_controller.getProductById(_product1.id),
             isIn(_controller.getManagedProductsObs()));
-        _controller.deleteProduct(_product1.id).then((response) {
+        _controller.updateProduct(_product1).then((response) {
           expect(response, 200);
         });
       });
     });
 
-    test('Updating Product', () {
+    test('Updating a Product - status 400', () {
+      _controller.getProducts().then((_) {
+        expect(
+            _newProduct.id, isNot(isIn(_controller.getManagedProductsObs())));
+        _controller.updateProduct(_newProduct).then((response) {
+          expect(response, 400);
+        });
+      });
+    });
+
+    test('Deleting Product - status 200', () {
       _controller.getProducts().then((_) {
         expect(_controller.getProductById(_product1.id),
             isIn(_controller.getManagedProductsObs()));
-        _controller.updateProduct(_product1).then((response) {
+        _controller.deleteProduct(_product1.id).then((response) {
           expect(response, 200);
         });
       });
@@ -126,7 +139,7 @@ class ManagedProductsControllerTest {
       });
     });
 
-    test('Deleting Product - Product not found - fail', () {
+    test('Deleting a Product - Not found - Exception', () {
       _controller.getProducts().then((_) {
         expect(_controller.getProductById(_product1.id),
             isIn(_controller.getManagedProductsObs()));
@@ -135,7 +148,7 @@ class ManagedProductsControllerTest {
       });
     });
 
-    test('Testing getReloadManagedProductsEditPage()', () {
+    test('Testing getReloadManagedProductsEditPage', () {
       _controller.getProducts().then((_) {
         expect(_controller.getReloadManagedProductsEditPageObs(), isFalse);
         _controller.switchManagedProdAddEditFormAndCustomCircularProgrIndic();

@@ -27,7 +27,10 @@ class OverviewRepo implements IOverviewRepo {
                })
                 :_products = [];
       return _products;
-    }).catchError((onError) => throw onError);
+    }).catchError((onError){
+      print(">>>>>>>Por exemplo de autneticacao do Firebase>>>>>>$onError");
+      throw onError;
+    });
     // @formatter:on
   }
 

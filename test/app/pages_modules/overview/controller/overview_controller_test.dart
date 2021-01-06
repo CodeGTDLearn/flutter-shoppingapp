@@ -40,7 +40,6 @@ class OverviewControllerTest {
 
     test('Getting products', () {
       _controller.getProducts().then((value) {
-        print("${value.length}");
         expect(value[0].title, "Red Shirt");
         expect(value[3].description, 'Prepare any meal you want.');
       });

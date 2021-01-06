@@ -145,7 +145,7 @@ class CartPageTest {
       expect(_seek.text('x1'), findsOneWidget);
     });
 
-    testWidgets('No products in the cart IMPEDE access Cart Page',
+    testWidgets('No products in the cart, IMPEDING access Cart Page',
         (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();

@@ -28,7 +28,7 @@ class ManagedProductsServiceTest {
 
     tearDown(CustomTestMethods.globalTearDown);
 
-    test('Checking Instances to be used in the Tests', () {
+    test('Checking Test Instances', () {
       expect(_mockRepo, isA<ManagedProductsMockRepo>());
       expect(_service, isA<ManagedProductsService>());
       expect(_injectMockService, isA<ManagedProductsInjectMockService>());
@@ -36,13 +36,13 @@ class ManagedProductsServiceTest {
       expect(_product1, isA<Product>());
     });
 
-    test('Checking Response Type in GetProducts', () {
+    test('Getting Products - ResponseType', () {
       _service.getProducts().then((value) {
         expect(value, isA<List<Product>>());
       });
     });
 
-    test('Checking getProducts loading', () {
+    test('Getting Products', () {
       _service.getProducts().then((productsReturned) {
         expect(productsReturned[0].id, _products.elementAt(0).id);
         expect(productsReturned[0].title, _products.elementAt(0).title);
@@ -57,12 +57,16 @@ class ManagedProductsServiceTest {
       });
     });
 
-    test('Adding Product + Returning that', () {
-      // expect(_newProduct, isNot(isIn(_service.getLocalDataManagedProducts())));
-      _service.addProduct(_product0).then((response) {
-        expect(response.id, _product0.id);
-        expect(response.title, _product0.title);
-        expect(response, isIn(_service.getLocalDataManagedProducts()));
+    test('Adding Product', () {
+      _service.addProduct(_product0).then((addedProduct) {
+        // In addProduct, never the 'product to be added' has 'id'
+        // expect(addedProduct.id, _product0.id);
+        expect(addedProduct.title, _product0.title);
+        expect(addedProduct.price, _product0.price);
+        expect(addedProduct.description, _product0.description);
+        expect(addedProduct.imageUrl, _product0.imageUrl);
+        expect(addedProduct.isFavorite, _product0.isFavorite);
+        expect(addedProduct, isIn(_service.getLocalDataManagedProducts()));
       });
     });
 
@@ -80,14 +84,14 @@ class ManagedProductsServiceTest {
       });
     });
 
-    test('Getting ProductById - Fail', () {
+    test('Getting ProductById - Exception', () {
       _service.getProducts().then((_) {
         expect(() => _service.getProductById(_newProduct.id),
             throwsA(isA<RangeError>()));
       });
     });
 
-    test('Deleting Product', () {
+    test('Deleting a Product', () {
       _service.getProducts().then((_) {
         expect(_service.getProductById(_product1.id),
             isIn(_service.getLocalDataManagedProducts()));
@@ -97,7 +101,7 @@ class ManagedProductsServiceTest {
       });
     });
 
-    test('Updating Product', () {
+    test('Updating a Product', () {
       _service.getProducts().then((_) {
         expect(_service.getProductById(_product1.id),
             isIn(_service.getLocalDataManagedProducts()));
@@ -108,7 +112,7 @@ class ManagedProductsServiceTest {
       });
     });
 
-    test('Deleting Product - Optimistic/Rollback', () {
+    test('Deleting a Product - Optimistic/Rollback', () {
       _service.getProducts().then((_) {
         expect(_service.getProductById(_product1.id),
             isIn(_service.getLocalDataManagedProducts()));
@@ -118,7 +122,7 @@ class ManagedProductsServiceTest {
       });
     });
 
-    test('Deleting Product - Optimistic (Mocked)', () {
+    test('Deleting a Product(Inject) - Optimistic (Mocked)', () {
       when(_injectMockService.deleteProduct(_newProduct.id))
           .thenAnswer((_) async => Future.value(404));
 
@@ -134,7 +138,7 @@ class ManagedProductsServiceTest {
       expect(_injectMockService.getLocalDataManagedProducts(), _products);
     });
 
-    test('Deleting Product - Product not found - fail', () {
+    test('Deleting a Product - Not found - Exception', () {
       _service.getProducts().then((_) {
         expect(_service.getProductById(_product1.id),
             isIn(_service.getLocalDataManagedProducts()));

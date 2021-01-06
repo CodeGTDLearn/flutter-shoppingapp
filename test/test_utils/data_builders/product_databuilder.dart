@@ -15,7 +15,6 @@ class ProductDataBuilder {
         "https://images.freeimages"
         ".com/images/large-previews/eae/clothes-3-1466560.jpg",
         true
-        // Faker().randomGenerator.boolean()
         );
   }
 }

@@ -19,6 +19,14 @@ class ProductsMockedData {
     return result;
   }
 
+  Product product() {
+    final file = File(_pathAssetsJsonMockedData);
+    final json = jsonDecode(file.readAsStringSync());
+    List<Product> result =
+        json.map<Product>((json) => Product.fromJson(json)).toList();
+    return result.elementAt(0);
+  }
+
   List<Product> favoritesProducts() {
     final file = File(_pathAssetsJsonMockedData);
     final json = jsonDecode(file.readAsStringSync());
@@ -28,9 +36,6 @@ class ProductsMockedData {
     for (var item in list) {
       if (item.isFavorite) listReturn.add(item);
     }
-    // list.forEach((item) {
-    //   if (item.isFavorite) listReturn.add(item);
-    // });
     return listReturn;
   }
 
@@ -40,14 +45,6 @@ class ProductsMockedData {
     List<Product> list =
         json.map<Product>((json) => Product.fromJson(json)).toList();
     return list.firstWhere((element) => element.id == id);
-  }
-
-  Product product() {
-    final file = File(_pathAssetsJsonMockedData);
-    final json = jsonDecode(file.readAsStringSync());
-    List<Product> result =
-        json.map<Product>((json) => Product.fromJson(json)).toList();
-    return result.elementAt(0);
   }
 
   List<Product> productsByFilter(EnumFilter filter) {

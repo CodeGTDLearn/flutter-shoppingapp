@@ -60,7 +60,7 @@ class OverviewServiceTest {
       });
     });
 
-    test('Getting a product using unknown ID - Fail ', () {
+    test('Getting a product (unknown ID) - Exception', () {
       _service.getProducts().then((_) {
         expect(() => _service.getProductById("p10"),
             throwsA(const TypeMatcher<RangeError>()));
