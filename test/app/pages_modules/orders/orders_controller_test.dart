@@ -20,13 +20,13 @@ class OrdersControllerTest {
       _controller = OrdersController(service: _service);
     });
 
-    test('Checking Instances to be used in the Tests', () {
+    test('Checking Tests Instances', () {
       expect(_mockedRepo, isA<OrdersMockRepo>());
       expect(_service, isA<OrdersService>());
       expect(_controller, isA<OrdersController>());
     });
 
-    test('Getting ALL Orders', () {
+    test('Getting Orders', () {
       expect(_controller.getQtdeOrdersObs(), isZero);
       expect(_controller.getOrdersObs().length, isZero);
 
@@ -37,7 +37,7 @@ class OrdersControllerTest {
       });
     });
 
-    test('Clearing Orders with clearOrders', () {
+    test('Clearing Orders', () {
       _controller.getOrders().forEach((value) {
         expect(_controller.getQtdeOrdersObs(), isZero);
         expect(_controller.getOrdersObs().length, isZero);

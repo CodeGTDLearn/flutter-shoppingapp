@@ -39,6 +39,15 @@ class ManagedProductsRepoTest {
       });
     });
 
+    //todo: erro authentication to be done
+    test('Getting products - Error authentication', () {
+      _mockRepo.getProducts().catchError((onError) {
+        if (onError.toString().isNotEmpty) {
+          fail("Error: Aut");
+        }
+      });
+    });
+
     test('Adding a Product', () {
       _mockRepo.addProduct(_product0).then((addedProduct) {
         // In addProduct, never the 'product to be added' has 'id'

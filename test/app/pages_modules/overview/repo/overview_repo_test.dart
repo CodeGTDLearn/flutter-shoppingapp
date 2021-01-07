@@ -46,6 +46,15 @@ class OverviewRepoTest {
       });
     });
 
+    //todo: erro authentication to be done
+    test('Getting products - Error authentication', () {
+      _mockRepo.getProducts().catchError((onError) {
+        if (onError.toString().isNotEmpty) {
+          fail("Error: Aut");
+        }
+      });
+    });
+
     test('Updating a Product - Response Status 200', () {
       _mockRepo.updateProduct(_productFail).then((value) => expect(value, 200));
     });

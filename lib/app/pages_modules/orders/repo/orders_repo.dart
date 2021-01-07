@@ -28,22 +28,23 @@ class OrdersRepo extends IOrdersRepo {
     return http
         .get(ORDERS_URL)
         .then((jsonResponse) {
-        var _gottenOrders = <Order>[];
+        var _orders = <Order>[];
         
-        final JsonResponseToMap =
+        final MapOrdersDecodedFromJsonResponse =
         json.decode(jsonResponse.body) as Map<String, dynamic>;
 
-        JsonResponseToMap != null || jsonResponse.statusCode >= 400 ?
-        JsonResponseToMap
+        MapOrdersDecodedFromJsonResponse != null ||
+            jsonResponse.statusCode >= 400 ?
+        MapOrdersDecodedFromJsonResponse
           .forEach((idMap, dataMap) {
             var orderCreatedFromDataMap = Order.fromJson(dataMap);
 
             orderCreatedFromDataMap.id = idMap;
 
-            _gottenOrders.add(orderCreatedFromDataMap);
+            _orders.add(orderCreatedFromDataMap);
           })
-          :_gottenOrders = [];
-      return _gottenOrders;
+          :_orders = [];
+      return _orders;
     }).catchError((onError) => throw onError);
     // @formatter:on
   }

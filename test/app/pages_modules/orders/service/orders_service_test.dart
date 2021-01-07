@@ -25,20 +25,20 @@ class OrdersServiceTest {
       _cartItems = CartItemDatabuilder.cartItems();
     });
 
-    test('Checking Instances to be used in the Tests', () {
+    test('Checking Tests Instances', () {
       expect(_service, isA<OrdersService>());
       expect(_mockRepo, isA<OrdersMockRepo>());
       expect(_injectMockService, isA<OrdersInjectMockService>());
       expect(_cartItems, isA<List<CartItem>>());
     });
 
-    test('Checking Response Type in GetProducts', () {
+    test('Getting Orders - ResponseType', () {
       _service.getOrders().then((value) {
         expect(value, isA<List<Order>>());
       });
     });
 
-    test('Checking getOrders loading', () {
+    test('Getting Orders', () {
       _service.getOrders().then((listReturn) {
         expect(listReturn[0].id, "-MLszdOBBsXxJaPuwZqE");
         expect(listReturn[0].datetime, "2020-10-12T16:37:06.983506");
@@ -48,7 +48,7 @@ class OrdersServiceTest {
       });
     });
 
-    test('Checking getLocalDataOrders loading', () {
+    test('Getting Orders (getLocalDataOrders)', () {
       _service.getOrders().then((_) {
         var list = _service.getLocalDataOrders();
         expect(list[0].id, "-MLszdOBBsXxJaPuwZqE");
@@ -59,7 +59,7 @@ class OrdersServiceTest {
       });
     });
 
-    test('Checking ordersQtde', () {
+    test('Getting the Orders Quantity', () {
       _service.getOrders().then((listReturned) {
         var listLocalData = _service.getLocalDataOrders();
         expect(listLocalData.length, _service.ordersQtde());
@@ -67,7 +67,7 @@ class OrdersServiceTest {
       });
     });
 
-    test('Checking clearOrders', () {
+    test('Clearing Orders', () {
       _service.getOrders().then((_) {
         var list = _service.getLocalDataOrders();
         expect(list.length, _service.ordersQtde());
@@ -76,7 +76,7 @@ class OrdersServiceTest {
       });
     });
 
-    test('Adding Orders', () {
+    test('Adding Order', () {
       var _id = "-${Faker().randomGenerator.string(21, min: 20)}";
       var _amountOrder = double.parse(
           Faker().randomGenerator.decimal(min: 22.0).toStringAsFixed(2));

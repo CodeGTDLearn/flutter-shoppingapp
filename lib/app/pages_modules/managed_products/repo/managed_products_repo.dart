@@ -13,18 +13,22 @@ class ManagedProductsRepo implements IManagedProductsRepo {
     return http
         .get(PRODUCTS_URL)
         .then((jsonResponse) {
-        var _gottenProducts = <Product>[];
-        final MapDecodedFromJsonResponse =
+        var _products = <Product>[];
+        final MapProductsDecodedFromJsonResponse =
         json.decode(jsonResponse.body) as Map<String, dynamic>;
-        MapDecodedFromJsonResponse != null ?
-        MapDecodedFromJsonResponse
+
+        //todo: erro authentication to be done
+        // MapOrdersDecodedFromJsonResponse != null ||
+        //     jsonResponse.statusCode >= 400 ?
+        MapProductsDecodedFromJsonResponse != null ?
+        MapProductsDecodedFromJsonResponse
           .forEach((idMap, dataMap) {
-            var productObjectCreatedFromDataMap = Product.fromJson(dataMap);
-            productObjectCreatedFromDataMap.id = idMap;
-            _gottenProducts.add(productObjectCreatedFromDataMap);
+            var productCreatedFromDataMap = Product.fromJson(dataMap);
+            productCreatedFromDataMap.id = idMap;
+            _products.add(productCreatedFromDataMap);
           })
-            :_gottenProducts = [];
-        return _gottenProducts;
+            :_products = [];
+        return _products;
     }).catchError((onError) => throw onError);
     // @formatter:on
   }

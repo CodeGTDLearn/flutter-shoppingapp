@@ -18,13 +18,13 @@ class OrdersRepoTest {
       _orderWithoutId = OrderDatabuilder.OrderFull();
     });
 
-    test('Checking Instances to be used in the Tests', () {
+    test('Checking Tests Instances', () {
       expect(_mockRepo, isA<OrdersMockRepo>());
       expect(_injectMockRepo, isA<OrdersInjectMockRepo>());
       expect(_orderWithoutId, isA<Order>());
     });
 
-    test('Checking Response Type in getOrders', () {
+    test('Getting Orders - ResponseType', () {
       _mockRepo.getOrders().then((value) {
         expect(value, isA<List<Order>>());
       });
@@ -41,14 +41,14 @@ class OrdersRepoTest {
       });
     });
 
-    test('Adding Orders', () {
-      var id = Faker().randomGenerator.string(20, min: 20);
-      _mockRepo.addOrder(_orderWithoutId).then((response) {
-        response = _orderWithoutId;
-        response.id = id;
-        expect(response.id, id);
-      });
-    });
+    //todo: erro authentication to be done
+    // test('Getting products - Error authentication', () {
+    //   _mockRepo.getProducts().catchError((onError) {
+    //     if (onError.toString().isNotEmpty) {
+    //       fail("Error: Aut");
+    //     }
+    //   });
+    // });
 
     test('Getting Orders - No response Content (Empty)', () {
       when(_injectMockRepo.getOrders()).thenAnswer((_) async => []);
@@ -61,6 +61,15 @@ class OrdersRepoTest {
       when(_injectMockRepo.getOrders()).thenAnswer((_) async => null);
       _injectMockRepo.getOrders().then((value) {
         expect(value, isNull);
+      });
+    });
+
+    test('Adding Order', () {
+      var id = Faker().randomGenerator.string(20, min: 20);
+      _mockRepo.addOrder(_orderWithoutId).then((response) {
+        response = _orderWithoutId;
+        response.id = id;
+        expect(response.id, id);
       });
     });
   }
