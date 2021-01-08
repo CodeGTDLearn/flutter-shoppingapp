@@ -9,12 +9,12 @@ class CartModuleTest {
   static void groups() {
     const MODULE = 'Cart|';
 
-    group("$MODULE\Repo: Unit", CartRepoTest.unit);
-
-    group("$MODULE\Service|Repo: Unit", CartServiceTest.unit);
-
-    group("$MODULE\Controller|Service|Repo: Integr",
-        CartControllerTest.integration);
+    // group("$MODULE\Repo: Unit", CartRepoTest.unit);
+    //
+    // group("$MODULE\Service|Repo: Unit", CartServiceTest.unit);
+    //
+    // group("$MODULE\Controller|Service|Repo: Integr",
+    //     CartControllerTest.integration);
 
     group("$MODULE\View: Functional",
         CartPageTest.functional);

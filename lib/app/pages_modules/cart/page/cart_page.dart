@@ -59,9 +59,10 @@ class CartPage extends StatelessWidget {
                               Container(
                                   width: consWidth * 0.3,
                                   height: consHeight * 0.08,
+                                  // child: Obx(() => currentQtdeCart !=
+                                  //         controller.qtdeCartItemsObs()
                                   child: Obx(() =>
-                                      controller.qtdeCartItemsObs() !=
-                                              currentQtdeCart
+                                      controller.qtdeCartItemsObs().isEqual(0)
                                           ? CustomCircProgrIndicator.radius(
                                               consWidth * 0.3)
                                           : _addOrderButton()))
@@ -88,8 +89,10 @@ class CartPage extends StatelessWidget {
               style: TextStyle(color: Theme.of(_context).primaryColor)),
           onPressed: () {
             controller
-                .addOrder(controller.getAllCartItems().values.toList(),
-                    controller.amountCartItemsObs.value)
+                .addOrder(
+                  controller.getAllCartItems().values.toList(),
+                  controller.amountCartItemsObs.value,
+                )
                 .then((_) {
                   controller.clearCart();
                   controller.recalcQtdeAndAmountCart();

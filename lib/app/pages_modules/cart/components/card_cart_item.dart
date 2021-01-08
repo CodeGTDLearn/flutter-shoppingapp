@@ -25,41 +25,42 @@ class CardCartItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(2),
                 color: Theme.of(context).errorColor)),
         direction: DismissDirection.endToStart,
-        onDismissed: (direction) {
-          _cartController.removeCartItem(_cartItem);
-        },
+        //
+        onDismissed: (direction) => _cartController.removeCartItem(_cartItem),
         //
         child: Card(
             margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
             child: Padding(
-              padding: EdgeInsets.all(8),
-              child: ListTile(
-                  leading: CircleAvatar(
-                      child: Padding(
-                          padding: EdgeInsets.all(5),
-                          child:
-                              FittedBox(child: Text('\$${_cartItem.price}')))),
-                  title: Text(_cartItem.title),
-                  subtitle:
-                      Text('Total \$${(_cartItem.price).toStringAsFixed(2)}'),
-                  trailing: Text('x${_cartItem.qtde}')),
-            )),
+                padding: EdgeInsets.all(8),
+                child: ListTile(
+                    leading: CircleAvatar(
+                        child: Padding(
+                            padding: EdgeInsets.all(5),
+                            child: FittedBox(
+                                child: Text('\$${_cartItem.price}')))),
+                    title: Text(_cartItem.title),
+                    subtitle:
+                        Text('Total \$${(_cartItem.price).toStringAsFixed(2)}'),
+                    trailing: Text('x${_cartItem.qtde}')))),
+        //
         confirmDismiss: (direction) {
-          return showDialog(
+          return showDialog<bool>(
               context: context,
               builder: (context) => AlertDialog(
                       title: Text(CRT_LBL_CONF_DISM),
-                      content: Text(CRT_MSG_CONF_DISM),
+                      content: Text('$CRT_MSG_CONF_DISM${_cartItem.title} '
+                          'from the cart?'),
                       actions: <Widget>[
-                        _flattButton(YES, true),
-                        _flattButton(NO, false)
+                        _flattButton(YES, true, context),
+                        _flattButton(NO, false, context)
                       ]));
         });
   }
 
-  FlatButton _flattButton(String label, bool remove) {
+  FlatButton _flattButton(String label, bool remove, BuildContext context) {
     return FlatButton(
-      onPressed: Get.back,
+      key: Key('btn${_cartItem.id}'),
+      onPressed: () => Navigator.of(context).pop(remove),
       child: Text(label),
     );
   }

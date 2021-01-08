@@ -5,9 +5,9 @@ import 'app/pages_modules/orders/orders_test_groups.dart';
 import 'app/pages_modules/overview/overview_test_groups.dart';
 
 void main() {
-  OverviewModuleTest.groups();
+  // OverviewModuleTest.groups();
   CartModuleTest.groups();
-  OrdersModuleTest.groups();
-  CustomWidgetsModuleTest.groups();
-  ManagedProductsModuleTest.groups();
+  // OrdersModuleTest.groups();
+  // CustomWidgetsModuleTest.groups();
+  // ManagedProductsModuleTest.groups();
 }

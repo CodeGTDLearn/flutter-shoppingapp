@@ -3,7 +3,7 @@ import '../../../core/texts_icons_provider/pages/cart.dart';
 
 const CRT_TIT_APPBAR = CART_TITLE_PAGE;
 const CRT_LBL_CARD = CART_LABEL_CARD;
-const CRT_LBL_ORD = CART_LABEL_ORDER;
+const CRT_LBL_ORD = CART_LABEL_ORDER_NOW;
 
 const CRT_ICO_CLEAR = CART_ICON_CLEAR_ALL;
 const CRT_ICO_CLEAR_TOOLT = CART_ICON_TOOLTIP_CLEAR_ALL;
