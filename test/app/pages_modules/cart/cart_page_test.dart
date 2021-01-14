@@ -10,7 +10,6 @@ import 'package:shopingapp/app/core/texts_icons_provider/pages/cart.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/pages_modules/cart/components/card_cart_item.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dart';
-import 'package:shopingapp/app/pages_modules/cart/core/cart_texts_icons_provided.dart';
 import 'package:shopingapp/app/pages_modules/cart/core/cart_widget_keys.dart';
 import 'package:shopingapp/app/pages_modules/cart/repo/cart_repo.dart';
 import 'package:shopingapp/app/pages_modules/cart/repo/i_cart_repo.dart';
@@ -84,7 +83,7 @@ class CartPageTest {
       expect(Get.isRegistered<CartController>(), isTrue);
     }
 
-    List<Product> _products() {
+    List<Product> _prods() {
       return Get.find<IOverviewService>().localDataAllProducts;
     }
 
@@ -128,7 +127,7 @@ class CartPageTest {
       _isInstancesRegistred();
 
       var CartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
-      var snackbartext1 = _seek.text(_products()[1].title.toString());
+      var snackbartext1 = _seek.text(_prods()[1].title.toString());
       var cartButtonPage = _seek.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
 
       //1) ADDING A PRODUCT IN THE CART
@@ -143,59 +142,122 @@ class CartPageTest {
       await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.text(CART_TITLE_PAGE), findsOneWidget);
-      expect(_seek.text(_products()[0].title), findsOneWidget);
-      expect(_seek.text(_products()[0].price.toString()), findsOneWidget);
+      expect(_seek.text(_prods()[0].title), findsOneWidget);
+      expect(_seek.text(_prods()[0].price.toString()), findsOneWidget);
       expect(_seek.text('x1'), findsOneWidget);
     });
 
-    testWidgets('Dismissing an added product', (tester) async {
+    testWidgets('Dismissing/Deleting "ONE" added product', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
 
-      var CartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
-      var CartIconProduct2 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\1");
-      var title1 = _seek.text(_products()[1].title.toString());
-      var title2 = _seek.text(_products()[2].title.toString());
-      var cartButtonPage = _seek.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
-      var crtl = Get.find<CartController>();
+      var cartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
+      var cartIconProduct2 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\1");
+      var cartItemTitleProduct1 = _seek.text(_prods()[0].title.toString());
+      var cartItemTitleProduct2 = _seek.text(_prods()[1].title.toString());
+      var keyCartItemProduct1 = _seek.key('${_prods()[0].id}');
+      var typeCardCartItem = _seek.type(CardCartItem);
+      var cartPageButton = _seek.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
+      var cartPageTitle = _seek.text(CART_TITLE_PAGE);
 
       //1) ADDING A PRODUCT IN THE CART
-      expect(_seek.text("0"), findsOneWidget);
-      await tester.tap(CartIconProduct1);
+      await tester.tap(cartIconProduct1);
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.text("1"), findsOneWidget);
-      expect(title1, findsOneWidget);
-      await tester.tap(CartIconProduct2);
+      expect(cartItemTitleProduct1, findsOneWidget);
+      await tester.tap(cartIconProduct2);
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.text("2"), findsOneWidget);
-      expect(title2, findsOneWidget);
+      expect(cartItemTitleProduct2, findsOneWidget);
 
-      //2) CLICKING CART-BUTTON AND CHECK THE CART
-      await tester.tap(cartButtonPage);
+      //2) CLICKING CART-PAGE-BUTTON AND CHECK THE CART
+      await tester.tap(cartPageButton);
       await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
-      expect(_seek.text(CART_TITLE_PAGE), findsOneWidget);
-      expect(_seek.type(CardCartItem), findsNWidgets(2));
+      expect(cartPageTitle, findsOneWidget);
+      expect(typeCardCartItem, findsNWidgets(2));
 
-      //The CardCartItem Demissable ValueKey ever will be the cartItem.id
-      await tester.drag(_seek.key(_products()[0].id), Offset(500.0, 0.0));
+      //3) DISMISSING(LEFT DRAGGING) THE PRODUCT 01
+      expect(cartItemTitleProduct1, findsOneWidget);
+      expect(cartItemTitleProduct2, findsOneWidget);
+      await tester.drag(keyCartItemProduct1, Offset(-500.0, 0.0));
       await tester.pump();
-      await tester.pumpAndSettle();
-      //todo: DISMISS PROBLEM *** o drag nao esta funcionando, pois ele esta
-      // sendo acionado eo titulo da cardcartitem ainda aparece - checar isso
-      expect(title1, findsOneWidget);//this text should not be be displayed
-      // if it was dismissbid
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(_seek.type(AlertDialog), findsOneWidget);
+      expect(_seek.text(CART_LABEL_ALERTDIALOG_DISMIS_CONFIRM), findsOneWidget);
+      await tester.tap(_seek.text(NO));
+      await tester.pump();
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(typeCardCartItem, findsNWidgets(2));
+      await tester.drag(keyCartItemProduct1, Offset(-500.0, 0.0));
+      await tester.pump();
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(_seek.type(AlertDialog), findsOneWidget);
+      expect(_seek.text(CART_LABEL_ALERTDIALOG_DISMIS_CONFIRM), findsOneWidget);
+      await tester.tap(_seek.text(YES));
+      await tester.pump();
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(typeCardCartItem, findsNWidgets(1));
+    });
 
-      // await tester.pumpAndSettle(_seek.delay(1));
-      //The CardCartItem Demissable AlertDialog NoButton ValueKey ever will be
-      // the 'btn${_cartItem.id}'
-      // var noButton = _seek.key('btn${_products()[0].id}');
-      // await tester.tap(noButton);
-      // await tester.pump();
-      // await tester.pumpAndSettle(_seek.delay(1));
-      // expect(_seek.type(CardCartItem), findsNWidgets(2));
+    testWidgets('Dismissing/Deleting "TWO" added product', (tester) async {
+      await tester.pumpWidget(AppDriver());
+      await tester.pump();
+      _isInstancesRegistred();
 
+      var cartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
+      var cartIconProduct2 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\1");
+      var cartItemTitleProduct1 = _seek.text(_prods()[0].title.toString());
+      var cartItemTitleProduct2 = _seek.text(_prods()[1].title.toString());
+      var keyCartItemProduct1 = _seek.key('${_prods()[0].id}');
+      var keyCartItemProduct2 = _seek.key('${_prods()[1].id}');
+      var typeCardCartItem = _seek.type(CardCartItem);
+      var cartPageButton = _seek.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
+      var cartPageTitle = _seek.text(CART_TITLE_PAGE);
+      var overviewPageTitle = _seek.text(OVERVIEW_TITLE_PAGE_ALL);
+
+      //1) ADDING A PRODUCT IN THE CART
+      expect(overviewPageTitle, findsOneWidget);
+      await tester.tap(cartIconProduct1);
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(_seek.text("1"), findsOneWidget);
+      expect(cartItemTitleProduct1, findsOneWidget);
+      await tester.tap(cartIconProduct2);
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(_seek.text("2"), findsOneWidget);
+      expect(cartItemTitleProduct2, findsOneWidget);
+
+      //2) CLICKING CART-PAGE-BUTTON AND CHECK THE CART
+      await tester.tap(cartPageButton);
+      await tester.pump();
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(cartPageTitle, findsOneWidget);
+      expect(typeCardCartItem, findsNWidgets(2));
+
+      //3) DISMISSING(LEFT DRAGGING) THE PRODUCT 01
+      await tester.drag(keyCartItemProduct1, Offset(-500.0, 0.0));
+      await tester.pump();
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(_seek.type(AlertDialog), findsOneWidget);
+      expect(_seek.text(CART_LABEL_ALERTDIALOG_DISMIS_CONFIRM), findsOneWidget);
+      await tester.tap(_seek.text(YES));
+      await tester.pump();
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(typeCardCartItem, findsNWidgets(1));
+      expect(cartItemTitleProduct2, findsOneWidget);
+
+      //4) DISMISSING(LEFT DRAGGING) THE PRODUCT 02
+      await tester.drag(keyCartItemProduct2, Offset(-500.0, 0.0));
+      await tester.pump();
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(_seek.type(AlertDialog), findsOneWidget);
+      expect(_seek.text(CART_LABEL_ALERTDIALOG_DISMIS_CONFIRM), findsOneWidget);
+      await tester.tap(_seek.text(YES));
+      await tester.pump();
+      // await tester.pumpAndSettle(_seek.delay(1));
+      expect(cartItemTitleProduct2, findsNothing);
+      expect(find.text(CART_NO_CARTITEMS_ANYMORE), findsOneWidget);
     });
 
     testWidgets('No products in the Cart, blocking access to Cart Page',
@@ -225,8 +287,8 @@ class CartPageTest {
 
       var CartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
       var CartIconProduct2 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\1");
-      var snackbartext1 = _seek.text(_products()[0].title.toString());
-      var snackbartext2 = _seek.text(_products()[1].title.toString());
+      var snackbartext1 = _seek.text(_prods()[0].title.toString());
+      var snackbartext2 = _seek.text(_prods()[1].title.toString());
       var cartButtonPage = _seek.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
 
       //1) ADDING TWO PRODUCT IN THE CART
@@ -247,21 +309,21 @@ class CartPageTest {
       await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.text(CART_TITLE_PAGE), findsOneWidget);
-      expect(_seek.text(_products()[0].title), findsOneWidget);
-      expect(_seek.text('\$${_products()[0].price}'), findsOneWidget);
-      expect(_seek.text(_products()[1].title), findsOneWidget);
-      expect(_seek.text('\$${_products()[1].price}'), findsOneWidget);
+      expect(_seek.text(_prods()[0].title), findsOneWidget);
+      expect(_seek.text('\$${_prods()[0].price}'), findsOneWidget);
+      expect(_seek.text(_prods()[1].title), findsOneWidget);
+      expect(_seek.text('\$${_prods()[1].price}'), findsOneWidget);
       expect(_seek.text('x2'), findsNWidgets(2));
     });
 
-    testWidgets('Testing Amount Cart', (tester) async {
+    testWidgets('checking Amount Cart', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
 
       var cartController = Get.find<CartController>();
       var CartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
-      var snackbartext1 = _seek.text(_products()[1].title.toString());
+      var snackbartext1 = _seek.text(_prods()[1].title.toString());
       var cartButtonPage = _seek.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
 
       //1) ADDING TWO PRODUCT IN THE CART
@@ -281,13 +343,13 @@ class CartPageTest {
           findsOneWidget);
     });
 
-    testWidgets('Testing "Order Now" button', (tester) async {
+    testWidgets('Ordering Cart Products - Order Now button', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
 
       var CartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
-      var snackbartext1 = _seek.text(_products()[1].title.toString());
+      var snackbartext1 = _seek.text(_prods()[1].title.toString());
       var snackbartext2 = _seek.text(ORDER_ADDITION_DONE_SUCESSFULLY);
       var cartButtonPage = _seek.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
       var orderNowButton = _seek.key(CART_PAGE_ORDERSNOW_BUTTON_KEY);
@@ -305,7 +367,7 @@ class CartPageTest {
       await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.text(CART_TITLE_PAGE), findsOneWidget);
-      expect(_seek.text(_products()[0].title), findsOneWidget);
+      expect(_seek.text(_prods()[0].title), findsOneWidget);
 
       //3) CLICKING ORDER-NOW-BUTTON AND GO BACK TO THE PREVIOUS PAGE
       expect(orderNowButton, findsOneWidget);

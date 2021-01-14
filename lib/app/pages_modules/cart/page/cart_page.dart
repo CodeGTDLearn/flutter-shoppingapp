@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../app/core/texts_icons_provider/pages/cart.dart';
 import '../../../core/properties/app_properties.dart';
 import '../../custom_widgets/custom_circ_progr_indicator.dart';
 import '../../custom_widgets/custom_snackbar.dart';
@@ -18,7 +19,7 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var fullSizeLessAppbar = MediaQuery.of(context).size;
-    var currentQtdeCart = controller.qtdeCartItemsObs();
+    // var currentQtdeCart = controller.qtdeCartItemsObs();
 
     return Scaffold(
         appBar: AppBar(title: Text(CRT_TIT_APPBAR), actions: [
@@ -72,10 +73,17 @@ class CartPage extends StatelessWidget {
                     child: ListView.builder(
                         itemCount: controller.getAllCartItems().length,
                         itemBuilder: (ctx, item) {
-                          return CardCartItem(controller
-                              .getAllCartItems()
-                              .values
-                              .elementAt(item));
+                          return
+                          // return Obx(() =>
+                          // controller
+                          //         .getQtdeCartItemsObs()
+                          //         .isLowerThan(1)
+                          //     ? Center(child: Text(CART_NO_CARTITEMS_ANYMORE))
+                          //     : CardCartItem(controller
+                              CardCartItem(controller
+                                  .getAllCartItems()
+                                  .values
+                                  .elementAt(item));
                         }))
               ]);
             })));

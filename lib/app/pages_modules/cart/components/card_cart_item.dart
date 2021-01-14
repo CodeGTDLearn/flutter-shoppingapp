@@ -15,7 +15,7 @@ class CardCartItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-        key: ValueKey(_cartItem.id),
+        key: Key(_cartItem.id),
         background: Container(
             child: CRT_ICO_DISM,
             alignment: Alignment.centerRight,
@@ -48,8 +48,8 @@ class CardCartItem extends StatelessWidget {
               context: context,
               builder: (context) => AlertDialog(
                       title: Text(CRT_LBL_CONF_DISM),
-                      content: Text('$CRT_MSG_CONF_DISM${_cartItem.title} '
-                          'from the cart?'),
+                      content: Text('$CRT_MSG_CONF_DISM${_cartItem.title}'
+                          ' from the cart?'),
                       actions: <Widget>[
                         _flattButton(YES, true, context),
                         _flattButton(NO, false, context)
@@ -58,6 +58,7 @@ class CardCartItem extends StatelessWidget {
   }
 
   FlatButton _flattButton(String label, bool remove, BuildContext context) {
+    var cartItemsTotal = _cartController.getQtdeCartItemsObs();
     return FlatButton(
       key: Key('btn${_cartItem.id}'),
       onPressed: () => Navigator.of(context).pop(remove),
