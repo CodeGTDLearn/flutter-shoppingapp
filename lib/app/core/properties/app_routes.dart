@@ -20,7 +20,7 @@ class AppRoutes {
   static const CART = '/cart';
   static const ORDERS = '/orders';
   static const MANAGED_PRODUCTS = '/managed-products';
-  static const MANAGED_PRODUCTS_ADD_EDIT = '/managed-product-add-edit';
+  static const MANAGED_PRODUCTS_ADDEDIT_PAGE = '/managed-product-add-edit';
 
   static List<GetPage> getAppRoutes = [
     GetPage(
@@ -51,7 +51,7 @@ class AppRoutes {
       binding: ManagedProductsBindings(),
     ),
     GetPage(
-      name: MANAGED_PRODUCTS_ADD_EDIT,
+      name: MANAGED_PRODUCTS_ADDEDIT_PAGE,
       page: () => ManagedProductAddEditPage(),
     ),
   ];

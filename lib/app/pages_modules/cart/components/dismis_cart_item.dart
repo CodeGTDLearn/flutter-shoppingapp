@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/core/properties/app_properties.dart';
+import 'package:shopingapp/app/pages_modules/custom_widgets/custom_snackbar.dart';
+import 'package:shopingapp/app/pages_modules/orders/core/messages_snackbars_provided.dart';
 
 import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../controller/cart_controller.dart';
 import '../core/cart_texts_icons_provided.dart';
 import '../entities/cart_item.dart';
 
-class CardCartItem extends StatelessWidget {
+class DismisCartItem extends StatelessWidget {
   final CartItem _cartItem;
-  final CartController _cartController = Get.find();
+  final CartController controller = Get.find();
 
-  CardCartItem(this._cartItem);
+  DismisCartItem.DimissCartItem(this._cartItem);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,14 @@ class CardCartItem extends StatelessWidget {
                 color: Theme.of(context).errorColor)),
         direction: DismissDirection.endToStart,
         //
-        onDismissed: (direction) => _cartController.removeCartItem(_cartItem),
+        onDismissed: (direction) {
+              controller.removeCartItem(_cartItem);
+              if (controller.getQtdeCartItemsObs().isEqual(0)){
+                SimpleSnackbar(QUIT_AFTER_DELS, context).show();
+                Future.delayed(Duration(milliseconds: DURATION))
+                    .then((value) => Get.back());
+              }
+        },
         //
         child: Card(
             margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
@@ -51,14 +61,13 @@ class CardCartItem extends StatelessWidget {
                       content: Text('$CRT_MSG_CONF_DISM${_cartItem.title}'
                           ' from the cart?'),
                       actions: <Widget>[
-                        _flattButton(YES, true, context),
-                        _flattButton(NO, false, context)
+                        _flatButton(YES, true, context),
+                        _flatButton(NO, false, context)
                       ]));
         });
   }
 
-  FlatButton _flattButton(String label, bool remove, BuildContext context) {
-    var cartItemsTotal = _cartController.getQtdeCartItemsObs();
+  FlatButton _flatButton(String label, bool remove, BuildContext context) {
     return FlatButton(
       key: Key('btn${_cartItem.id}'),
       onPressed: () => Navigator.of(context).pop(remove),

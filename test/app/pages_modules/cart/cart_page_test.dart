@@ -8,7 +8,7 @@ import 'package:shopingapp/app/core/texts_icons_provider/app_generic_words.dart'
 import 'package:shopingapp/app/core/texts_icons_provider/app_messages.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/cart.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
-import 'package:shopingapp/app/pages_modules/cart/components/card_cart_item.dart';
+import 'package:shopingapp/app/pages_modules/cart/components/dismis_cart_item.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/pages_modules/cart/core/cart_widget_keys.dart';
 import 'package:shopingapp/app/pages_modules/cart/repo/cart_repo.dart';
@@ -87,22 +87,9 @@ class CartPageTest {
       return Get.find<IOverviewService>().localDataAllProducts;
     }
 
-    testWidgets('Adding products + Checking Appbar CartIcon text Qtde',
-        (tester) async {
-      await tester.pumpWidget(AppDriver());
-      await tester.pump();
-      _isInstancesRegistred();
-
-      var CartIconKey = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
-
-      expect(_seek.text("0"), findsOneWidget);
-      await tester.tap(CartIconKey);
-      await tester.pumpAndSettle(_seek.delay(1));
-      expect(_seek.text("1"), findsOneWidget);
-      await tester.tap(CartIconKey);
-      await tester.pumpAndSettle(_seek.delay(1));
-      expect(_seek.text("2"), findsOneWidget);
-    });
+    double totalCart() {
+      return Get.find<CartController>().getAmountCartItemsObs();
+    }
 
     testWidgets('Adding products + Checking Appbar CartIcon text Qtde',
         (tester) async {
@@ -143,21 +130,18 @@ class CartPageTest {
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.text(CART_TITLE_PAGE), findsOneWidget);
       expect(_seek.text(_prods()[0].title), findsOneWidget);
-      expect(_seek.text(_prods()[0].price.toString()), findsOneWidget);
       expect(_seek.text('x1'), findsOneWidget);
     });
 
-    testWidgets('Dismissing/Deleting "ONE" added product', (tester) async {
+    testWidgets('Denying FIRST product Dismissing', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
 
       var cartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
-      var cartIconProduct2 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\1");
       var cartItemTitleProduct1 = _seek.text(_prods()[0].title.toString());
-      var cartItemTitleProduct2 = _seek.text(_prods()[1].title.toString());
       var keyCartItemProduct1 = _seek.key('${_prods()[0].id}');
-      var typeCardCartItem = _seek.type(CardCartItem);
+      var typeCardCartItem = _seek.type(DismisCartItem);
       var cartPageButton = _seek.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
       var cartPageTitle = _seek.text(CART_TITLE_PAGE);
 
@@ -166,21 +150,15 @@ class CartPageTest {
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.text("1"), findsOneWidget);
       expect(cartItemTitleProduct1, findsOneWidget);
-      await tester.tap(cartIconProduct2);
-      await tester.pumpAndSettle(_seek.delay(1));
-      expect(_seek.text("2"), findsOneWidget);
-      expect(cartItemTitleProduct2, findsOneWidget);
 
       //2) CLICKING CART-PAGE-BUTTON AND CHECK THE CART
       await tester.tap(cartPageButton);
       await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
       expect(cartPageTitle, findsOneWidget);
-      expect(typeCardCartItem, findsNWidgets(2));
+      expect(typeCardCartItem, findsNWidgets(1));
 
-      //3) DISMISSING(LEFT DRAGGING) THE PRODUCT 01
-      expect(cartItemTitleProduct1, findsOneWidget);
-      expect(cartItemTitleProduct2, findsOneWidget);
+      //3) DISMISSING(LEFT DRAGGING TO DELETE) THE PRODUCT 01
       await tester.drag(keyCartItemProduct1, Offset(-500.0, 0.0));
       await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
@@ -189,7 +167,35 @@ class CartPageTest {
       await tester.tap(_seek.text(NO));
       await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
-      expect(typeCardCartItem, findsNWidgets(2));
+      expect(typeCardCartItem, findsNWidgets(1));
+    });
+
+    testWidgets('Dismissing FIRST added product', (tester) async {
+      await tester.pumpWidget(AppDriver());
+      await tester.pump();
+      _isInstancesRegistred();
+
+      var cartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
+      var cartItemTitleProduct1 = _seek.text(_prods()[0].title.toString());
+      var keyCartItemProduct1 = _seek.key('${_prods()[0].id}');
+      var typeCardCartItem = _seek.type(DismisCartItem);
+      var cartPageButton = _seek.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
+      var cartPageTitle = _seek.text(CART_TITLE_PAGE);
+
+      //1) ADDING A PRODUCT IN THE CART
+      await tester.tap(cartIconProduct1);
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(_seek.text("1"), findsOneWidget);
+      expect(cartItemTitleProduct1, findsOneWidget);
+
+      //2) CLICKING CART-PAGE-BUTTON AND CHECK THE CART
+      await tester.tap(cartPageButton);
+      await tester.pump();
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(cartPageTitle, findsOneWidget);
+      expect(typeCardCartItem, findsNWidgets(1));
+
+      //3) DISMISSING(LEFT DRAGGING TO DELETE) THE PRODUCT 01
       await tester.drag(keyCartItemProduct1, Offset(-500.0, 0.0));
       await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
@@ -198,21 +204,23 @@ class CartPageTest {
       await tester.tap(_seek.text(YES));
       await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
-      expect(typeCardCartItem, findsNWidgets(1));
+      expect(typeCardCartItem, findsNWidgets(0));
     });
 
-    testWidgets('Dismissing/Deleting "TWO" added product', (tester) async {
+    testWidgets('Dismissing SECOND/LAST added product', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
 
       var cartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
       var cartIconProduct2 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\1");
-      var cartItemTitleProduct1 = _seek.text(_prods()[0].title.toString());
-      var cartItemTitleProduct2 = _seek.text(_prods()[1].title.toString());
+      var productTitle1 = _seek.text(_prods()[0].title.toString());
+      var productTitle2 = _seek.text(_prods()[1].title.toString());
+      var productPrice1 = _prods()[0].price;
+      var productPrice2 = _prods()[1].price;
       var keyCartItemProduct1 = _seek.key('${_prods()[0].id}');
       var keyCartItemProduct2 = _seek.key('${_prods()[1].id}');
-      var typeCardCartItem = _seek.type(CardCartItem);
+      var typeDismisCartItem = _seek.type(DismisCartItem);
       var cartPageButton = _seek.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
       var cartPageTitle = _seek.text(CART_TITLE_PAGE);
       var overviewPageTitle = _seek.text(OVERVIEW_TITLE_PAGE_ALL);
@@ -222,20 +230,21 @@ class CartPageTest {
       await tester.tap(cartIconProduct1);
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.text("1"), findsOneWidget);
-      expect(cartItemTitleProduct1, findsOneWidget);
+      expect(productTitle1, findsOneWidget);
       await tester.tap(cartIconProduct2);
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.text("2"), findsOneWidget);
-      expect(cartItemTitleProduct2, findsOneWidget);
+      expect(productTitle2, findsOneWidget);
 
-      //2) CLICKING CART-PAGE-BUTTON AND CHECK THE CART
+      //2) CLICKING CART-PAGE-BUTTON AND CHECK CART-AMOUNT + CART-ITEMS
       await tester.tap(cartPageButton);
       await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
       expect(cartPageTitle, findsOneWidget);
-      expect(typeCardCartItem, findsNWidgets(2));
+      expect(typeDismisCartItem, findsNWidgets(2));
+      expect(_seek.text((productPrice1 + productPrice2).toString()),findsOneWidget);
 
-      //3) DISMISSING(LEFT DRAGGING) THE PRODUCT 01
+      //3) DISMISSING(LEFT DRAGGING TO DELETE) THE PRODUCT 01
       await tester.drag(keyCartItemProduct1, Offset(-500.0, 0.0));
       await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
@@ -244,8 +253,9 @@ class CartPageTest {
       await tester.tap(_seek.text(YES));
       await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
-      expect(typeCardCartItem, findsNWidgets(1));
-      expect(cartItemTitleProduct2, findsOneWidget);
+
+      expect(typeDismisCartItem, findsNWidgets(1));
+      expect(_seek.text(productPrice2.toString()),findsOneWidget);
 
       //4) DISMISSING(LEFT DRAGGING) THE PRODUCT 02
       await tester.drag(keyCartItemProduct2, Offset(-500.0, 0.0));
@@ -255,9 +265,13 @@ class CartPageTest {
       expect(_seek.text(CART_LABEL_ALERTDIALOG_DISMIS_CONFIRM), findsOneWidget);
       await tester.tap(_seek.text(YES));
       await tester.pump();
-      // await tester.pumpAndSettle(_seek.delay(1));
-      expect(cartItemTitleProduct2, findsNothing);
-      expect(find.text(CART_NO_CARTITEMS_ANYMORE), findsOneWidget);
+      await tester.pumpAndSettle(_seek.delay(1));
+
+      expect(typeDismisCartItem, findsNWidgets(0));
+
+      //5) CHECKING 'NO ELEMENTS IN THE CART ANYMORE'
+      expect(cartPageTitle, findsNothing);
+      expect(overviewPageTitle, findsOneWidget);
     });
 
     testWidgets('No products in the Cart, blocking access to Cart Page',
@@ -316,7 +330,7 @@ class CartPageTest {
       expect(_seek.text('x2'), findsNWidgets(2));
     });
 
-    testWidgets('checking Amount Cart', (tester) async {
+    testWidgets('Checking Amount Cart', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();

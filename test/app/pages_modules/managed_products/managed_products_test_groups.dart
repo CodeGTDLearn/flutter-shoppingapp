@@ -17,8 +17,7 @@ class ManagedProductsModuleTest {
     group("$MODULE\Controller|Service|MockedRepo: Integr",
         ManagedProductsControllerTest.integration);
 
-    group("$MODULE\View|Managed Products Page: Functional",
-        ManagedProductsPageTest.functional);
+    group("$MODULE\View| Page: Functional", ManagedProductsPageTest.functional);
 
     group("$MODULE\View| Add/Edit Page: Functional",
         ManagedProductsAddEditPageTest.functional);

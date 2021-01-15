@@ -47,7 +47,7 @@ class ManagedProductsAddEditPageTest {
 
     var scaffoldKey = OVERVIEW_PAGE_MAIN_SCAFFOLD_KEY;
     var drwMenuOptionKey = _seek.key(DRAWWER_MANAGED_PRODUCTS_MENU_OPTION);
-    var addButtonKey = _seek.key(MANAGED_PRODUCTS_ADDEDIT_APPBAR_ADDBUTTON_KEY);
+    var addButtonKey = _seek.key(MANAGED_PRODUCTS_APPBAR_ADDBUTTON_KEY);
     var saveButtonKey =
         _seek.key(MANAGED_PRODUCTS_ADDEDIT_APPBAR_SAVEBUTTON_KEY);
     var fldTitleKey = _seek.key(MANAGED_PRODUCTS_ADDEDIT_FIELD_TITLE_KEY);
@@ -139,6 +139,7 @@ class ManagedProductsAddEditPageTest {
     }
 
     Future _openAndTestManagedProductsAddEditPage(tester) async {
+      //a) click in drawer + select managed product option
       expect(drawerTitle, findsNothing);
       scaffoldKey.currentState.openDrawer();
       await tester.pump();
@@ -148,6 +149,8 @@ class ManagedProductsAddEditPageTest {
       await tester.tap(drwMenuOptionKey);
       await tester.pump();
       await tester.pump(_seek.delay(1));
+
+      //b) In managed products -> Click AddButton -> Open ManProductsAddEditPage
       expect(drawerTitle, findsNothing);
       expect(manProdPageTitle, findsOneWidget);
       expect(_seek.type(ManagedProductItem), findsNWidgets(4));
@@ -212,7 +215,7 @@ class ManagedProductsAddEditPageTest {
       expect(_seek.type(ManagedProductItem), findsNWidgets(5));
     });
 
-    testWidgets('Open Page', (tester) async {
+    testWidgets('Open Managed Product AddEdit Page', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
