@@ -22,7 +22,8 @@ class ManagedProductsPage extends StatelessWidget {
         IconButton(
             key: Key(K_MAN_PROD_ADD_BTN),
             icon: MAN_PROD_ICO_ADD_APPBAR,
-            onPressed: () => Get.toNamed(AppRoutes.MANAGED_PRODUCTS_ADDEDIT_PAGE))
+            onPressed: () =>
+                Get.toNamed(AppRoutes.MANAGED_PRODUCTS_ADDEDIT_PAGE))
       ]),
 
       drawer: CustomDrawer(),
@@ -32,16 +33,17 @@ class ManagedProductsPage extends StatelessWidget {
           ? CustomCircProgrIndicator()
           : RefreshIndicator(
               onRefresh: controller.getProducts,
-              child: ListView.builder(
-                  itemCount: controller.getManagedProductsObs().length,
-                  itemBuilder: (ctx, item) => Column(children: [
-                        ManagedProductItem(
-                            controller.getManagedProductsObs()[item].id,
-                            controller.getManagedProductsObs()[item].title,
-                            controller.getManagedProductsObs()[item].imageUrl),
-                        Divider()
-                      ])),
-            ))),
+              child: controller.getManagedProductsObs().length == 0
+                  ? Center(child: Text('cccc'))
+                  : ListView.builder(
+                      itemCount: controller.getManagedProductsObs().length,
+                      itemBuilder: (ctx, i) => Column(children: [
+                            ManagedProductItem(
+                                controller.getManagedProductsObs()[i].id,
+                                controller.getManagedProductsObs()[i].title,
+                                controller.getManagedProductsObs()[i].imageUrl),
+                            Divider()
+                          ]))))),
     );
   }
 }

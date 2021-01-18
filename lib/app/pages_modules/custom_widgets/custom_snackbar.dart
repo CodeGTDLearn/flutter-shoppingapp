@@ -1,55 +1,55 @@
 import 'package:flutter/material.dart';
 
-import '../../core/properties/app_properties.dart';
 import 'core/keys/custom_snackbar_widgets_keys.dart';
 
-class CustomSnackbar {}
+// import '../../core/properties/app_properties.dart';
+// import 'core/keys/custom_snackbar_widgets_keys.dart';
+//
+// class CustomSnackbar {}
 
 abstract class CustomAbstractSnackbar {
-  // void show();
   Widget show();
 }
 
-class SimpleSnackbar implements CustomAbstractSnackbar {
-  String message;
-  BuildContext context;
-  int duration;
-
-  SimpleSnackbar([this.message, this.context, this.duration]);
-
-  // void show() {
-  Widget show() {
-    var snackBarConfig = SnackBar(
-        duration: Duration(milliseconds: duration ??= DURATION),
-        key: Key(K_SNCK),
-        content: Text(message));
-
-    Scaffold.of(context).removeCurrentSnackBar();
-    Scaffold.of(context).showSnackBar(snackBarConfig);
-  }
-}
-
-class SimpleSnackbarBuilder implements CustomAbstractSnackbar {
-  String message;
-  int duration;
-
-  SimpleSnackbarBuilder([this.message, this.duration]);
-
-  // void show() {
-  Widget show() {
-    return Builder(builder: (_context) {
-      var snackBarConfig = SnackBar(
-          duration: Duration(milliseconds: duration ??= DURATION),
-          key: Key(K_SNCK),
-          content: Text(message));
-
-      Scaffold.of(_context).removeCurrentSnackBar();
-      Scaffold.of(_context).showSnackBar(snackBarConfig);
-      return snackBarConfig;
-    });
-  }
-}
-
+//
+// class SimpleSnackbar implements CustomAbstractSnackbar {
+//   String message;
+//   BuildContext context;
+//   int duration;
+//
+//   SimpleSnackbar([this.message, this.context, this.duration]);
+//
+//   Widget show() {
+//     var snackBarConfig = SnackBar(
+//         duration: Duration(milliseconds: duration ??= DURATION),
+//         key: Key(K_SNCK),
+//         content: Text(message));
+//
+//     Scaffold.of(context).removeCurrentSnackBar();
+//     Scaffold.of(context).showSnackBar(snackBarConfig);
+//   }
+// }
+//
+// class SimpleSnackbarBuilder implements CustomAbstractSnackbar {
+//   String message;
+//   int duration;
+//
+//   SimpleSnackbarBuilder([this.message, this.duration]);
+//
+//   Widget show() {
+//     return Builder(builder: (_context) {
+//       var snackBarConfig = SnackBar(
+//           duration: Duration(milliseconds: duration ??= DURATION),
+//           key: Key(K_SNCK),
+//           content: Text(message));
+//
+//       Scaffold.of(_context).removeCurrentSnackBar();
+//       Scaffold.of(_context).showSnackBar(snackBarConfig);
+//       return snackBarConfig;
+//     });
+//   }
+// }
+//
 class ButtonSnackbar implements CustomAbstractSnackbar {
   String title;
   String message;
@@ -64,7 +64,6 @@ class ButtonSnackbar implements CustomAbstractSnackbar {
       this.context,
       this.function});
 
-  // void show() {
   Widget show() {
     var snackBarButtonConfig = SnackBar(
         duration: Duration(seconds: 1),
@@ -85,6 +84,7 @@ class ButtonSnackbar implements CustomAbstractSnackbar {
                     alignment: Alignment.centerLeft)
               ]));
         }));
+
     Scaffold.of(context).removeCurrentSnackBar();
     Scaffold.of(context).showSnackBar(snackBarButtonConfig);
   }

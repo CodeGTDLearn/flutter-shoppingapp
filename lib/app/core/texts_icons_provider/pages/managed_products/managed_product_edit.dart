@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 const MANAGED_PRODUCTS_ADDEDIT_ICO_SAVE_APPBAR = Icon(Icons.save);
 
-const MANAGED_PRODUCTS_ADDEDIT_PAGE_ADD = "Add Product";
-const MANAGED_PRODUCTS_ADDEDIT_PAGE_EDIT = "Edit Product";
+const MANAGED_PRODUCTS_ADDEDIT_TITLEPAGE_ADD = "Add Product";
+const MANAGED_PRODUCTS_ADDEDIT_TITLEPAGE_EDIT = "Edit Product";
 
 const MANAGED_PRODUCTS_ADDEDIT_FIELD_TITLE = "Title";
 const MANAGED_PRODUCTS_ADDEDIT_FIELD_PRICE = "Price";

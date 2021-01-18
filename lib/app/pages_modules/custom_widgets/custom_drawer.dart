@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/core/texts_icons_provider/app_generic_words.dart';
 
 import '../../core/properties/app_properties.dart';
 import '../../core/properties/app_routes.dart';
@@ -82,7 +83,8 @@ class CustomDrawer extends StatelessWidget {
         title: Text(title),
         onTap: () {
           if (quantityItems == 0 && notRoutingWithoutQtdeEvaluation) {
-            SimpleSnackbar(message, _context, DURATION).show();
+            // SimpleSnackbar(message, _context, DURATION).show();
+            Get.snackbar(SUCESS, message);
           } else if (quantityItems != 0 && notRoutingWithoutQtdeEvaluation) {
             Get.toNamed(route);
           } else {

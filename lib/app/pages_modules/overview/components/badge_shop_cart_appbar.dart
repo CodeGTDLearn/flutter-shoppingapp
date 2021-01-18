@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/core/texts_icons_provider/app_generic_words.dart';
 
 import '../../../core/properties/app_properties.dart';
 import '../../../core/properties/app_routes.dart';
@@ -26,11 +27,8 @@ class BadgeShopCartAppbar extends StatelessWidget {
           icon: OV_ICO_SHOPCART,
           onPressed: () {
             if (_controller.getAllCartItems().length == 0) {
-              // CustomSnackbar.simple(
-              //     message: NO_ITEMS_CART_YET,
-              //     context: context,
-              //     duration: DURATION);
-              SimpleSnackbar(NO_ITEMS_CART_YET, context, DURATION).show();
+              // SimpleSnackbar(NO_ITEMS_CART_YET, context, DURATION).show();
+              Get.snackbar(OPS, NO_ITEMS_CART_YET);
             } else {
               Get.toNamed(AppRoutes.CART);
             }

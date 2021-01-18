@@ -37,7 +37,7 @@ class ManagedProductsAddEditPageTest {
 
     var drawerTitle = _seek.text(DRAWER_COMPONENT_TITLE_APPBAR);
     var manProdPageTitle = _seek.text(MANAGED_PRODUCTS_PAGE_TITLE);
-    var manProdAddEditPageTitle = _seek.text(MANAGED_PRODUCTS_ADDEDIT_PAGE_ADD);
+    var manProdAddEditPageTitle = _seek.text(MANAGED_PRODUCTS_ADDEDIT_TITLEPAGE_ADD);
 
     var fldTitle = _seek.text(MANAGED_PRODUCTS_ADDEDIT_FIELD_TITLE);
     var fldPrice = _seek.text(MANAGED_PRODUCTS_ADDEDIT_FIELD_PRICE);
@@ -49,7 +49,7 @@ class ManagedProductsAddEditPageTest {
     var drwMenuOptionKey = _seek.key(DRAWWER_MANAGED_PRODUCTS_MENU_OPTION);
     var addButtonKey = _seek.key(MANAGED_PRODUCTS_APPBAR_ADDBUTTON_KEY);
     var saveButtonKey =
-        _seek.key(MANAGED_PRODUCTS_ADDEDIT_APPBAR_SAVEBUTTON_KEY);
+        _seek.key(MANAGED_PRODUCTS_ADDEDIT_SAVEBUTTON_KEY);
     var fldTitleKey = _seek.key(MANAGED_PRODUCTS_ADDEDIT_FIELD_TITLE_KEY);
     var fldPriceKey = _seek.key(MANAGED_PRODUCTS_ADDEDIT_FIELD_PRICE_KEY);
     var fldDescrKey = _seek.key(MANAGED_PRODUCTS_ADDEDIT_FIELD_DESCRIPT_KEY);

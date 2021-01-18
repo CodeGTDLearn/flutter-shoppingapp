@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/properties/app_properties.dart';
+import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../custom_widgets/custom_circ_progr_indicator.dart';
-import '../../custom_widgets/custom_snackbar.dart';
 import '../../orders/core/messages_snackbars_provided.dart';
 import '../components/dismis_cart_item.dart';
 import '../controller/cart_controller.dart';
@@ -94,13 +94,15 @@ class CartPage extends StatelessWidget {
                 .then((_) {
                   controller.clearCart();
                   controller.recalcQtdeAndAmountCart();
-                  SimpleSnackbar(SUCES_ORD_ADD, _context).show();
+                  // SimpleSnackbar(SUCES_ORD_ADD, _context).show();
+                  Get.snackbar(SUCESS, SUCES_ORD_ADD);
                 })
                 .whenComplete(() =>
                     Future.delayed(Duration(milliseconds: DURATION))
                         .then((value) => Get.back()))
                 .catchError(
-                    (onError) => SimpleSnackbar(ERROR_ORD, _context).show());
+                    // (onError) => SimpleSnackbar(ERROR_ORD, _context).show());
+                    (onError) => Get.snackbar(OPS, ERROR_ORD));
           });
     });
   }

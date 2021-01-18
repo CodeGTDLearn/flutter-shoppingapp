@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/core/texts_icons_provider/app_generic_words.dart';
 
 import '../../../core/properties/app_routes.dart';
 import '../../custom_widgets/custom_snackbar.dart';
@@ -19,8 +20,8 @@ class ManagedProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var test = '$K_MAN_PROD_DEL_BTN$_id';
     return ListTile(
+      key: Key('$K_MAN_PROD_ITEM_KEY$_id'),
         leading: CircleAvatar(backgroundImage: NetworkImage(_imageUrl)),
         title: Text(_title),
         trailing: Container(
@@ -39,13 +40,10 @@ class ManagedProductItem extends StatelessWidget {
                   onPressed: () =>
                       _controller.deleteProduct(_id).then((response) {
                         if (response >= 400) {
-                          // CustomSnackbar.simple(
-                          //     message: ERROR_MAN_PROD, context: context);
-                          SimpleSnackbar(ERROR_MAN_PROD, context).show();
+                          // SimpleSnackbar(ERROR_MAN_PROD, context).show();
+                          Get.snackbar(OPS, ERROR_MAN_PROD);
                         } else {
-                          // CustomSnackbar.simple(
-                          //     message: SUCESS_MAN_PROD_DEL, context: context);
-                          SimpleSnackbar(SUCESS_MAN_PROD_DEL, context).show();
+                          Get.snackbar(SUCESS, SUCESS_MAN_PROD_DEL);
                         }
                       }),
                   color: Theme.of(context).errorColor),

@@ -108,10 +108,10 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
     // @formatter:on
   }
 
-  Future<void> _updateProduct(Product product, BuildContext _context) {
+  Future<void> _updateProduct(Product _product, BuildContext _context) {
     // @formatter:off
     return _controller
-        .updateProduct(product)
+        .updateProduct(_product)
         .then((statusCode) {
           if (statusCode >= 400) {
             Get.defaultDialog(
@@ -123,7 +123,8 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
             _controller.switchManagedProdAddEditFormAndCustomCircularProgrIndic();
             _controller.reloadManagedProductsObs();
             Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
-            SimpleSnackbar(SUCESS_MAN_PROD_UPDT, _context).show();
+            Get.snackbar("title222", "message2222");
+            // SimpleSnackbar(SUCESS_MAN_PROD_UPDT, _context).show();
           }
         });
     // @formatter:on

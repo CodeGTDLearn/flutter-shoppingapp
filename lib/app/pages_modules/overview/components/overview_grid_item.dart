@@ -48,11 +48,11 @@ class OverviewGridItem extends StatelessWidget {
                                 .toggleFavoriteStatus(_product.id)
                                 .then((returnedFavStatus) {
                               if (returnedFavStatus) {
-                                SimpleSnackbar(TOGGLE_STATUS_SUCESS, context)
-                                    .show();
+                                // SimpleSnackbar(TOGGLE_STATUS_SUCESS, context).show();
+                                Get.snackbar(SUCESS, TOGGLE_STATUS_SUCESS);
                               } else {
-                                SimpleSnackbar(TOGGLE_STATUS_ERROR, context)
-                                    .show();
+                                // SimpleSnackbar(TOGGLE_STATUS_ERROR, context).show();
+                                Get.snackbar(OPS, TOGGLE_STATUS_ERROR);
                               }
                             });
                           },

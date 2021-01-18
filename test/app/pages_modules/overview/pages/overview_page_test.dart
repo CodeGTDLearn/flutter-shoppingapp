@@ -7,6 +7,7 @@ import 'package:shopingapp/app/core/properties/theme/dark_theme_controller.dart'
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/pages_modules/cart/core/cart_bindings.dart';
+import 'package:shopingapp/app/pages_modules/custom_widgets/core/keys/custom_snackbar_widgets_keys.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/core/messages_snackbars_provided.dart';
@@ -17,13 +18,10 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
-import 'file:///C:/Users/SERVIDOR/Projects/flutter-shoppingapp/lib/app/pages_modules/custom_widgets/core/keys/custom_snackbar_widgets_keys.dart';
-
 import '../../../../test_utils/custom_test_methods.dart';
 import '../../../../test_utils/test_utils.dart';
 import '../repo/overview_repo_mocks.dart';
 
-// void main() {
 class OverviewPageTest {
   static void functional() {
     TestUtils seek;
@@ -122,20 +120,6 @@ class OverviewPageTest {
               expect(seek.iconType(IconButton, Icons.favorite_border),  findsNWidgets(2));
           });
       // @formatter:on
-    });
-
-    testWidgets('Toggling Product0 Favorite + Checking Snackbar/Message',
-        (tester) async {
-      await tester.pumpWidget(AppDriver());
-      await tester.pump();
-      _isInstancesRegistred();
-
-      var key1 = seek.key("$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0");
-      expect(seek.text(TOGGLE_STATUS_SUCESS), findsNothing);
-      await tester.tap(key1);
-      expect(seek.text(TOGGLE_STATUS_SUCESS), findsNothing);
-      await tester.pump();
-      expect(seek.text(TOGGLE_STATUS_SUCESS), findsOneWidget);
     });
 
     testWidgets('Adding products + Checking Appbar CartIcon text/Snackbar text',
@@ -289,10 +273,9 @@ class OverviewPageTest {
       _isInstancesRegistred();
       _testProductTitlesAndTotalIconsInTheScreen();
 
-      /*
-          * The WidGet Testing in the keys 02 + key 03
+       /* * The WidGet Testing in the keys 02 + key 03
           *
-          * Are not being allowed by the TEstingApp System
+          * Are not being allowed by the TestingApp System
           * Only tests are done in the Key 00 + Key 01
           *
           * There is no apparent reason for that.
@@ -308,8 +291,7 @@ class OverviewPageTest {
           * As 4 keys possuem a mesma configuracao
           * entretando, o comando 'await tester.tap(key);'
           * somente e EXECUTADO com as keys 00/01
-          *
-           */
+          */
       var toggleFavProduct =
           seek.key("$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\1");
       var popup = seek.key(OVERVIEW_POPUP_FAV_ALL_APPBAR_BUTTON_KEY);
