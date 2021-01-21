@@ -48,11 +48,10 @@ class OverviewGridItem extends StatelessWidget {
                                 .toggleFavoriteStatus(_product.id)
                                 .then((returnedFavStatus) {
                               if (returnedFavStatus) {
-                                // SimpleSnackbar(TOGGLE_STATUS_SUCESS, context).show();
-                                Get.snackbar(SUCESS, TOGGLE_STATUS_SUCESS);
+                                SimpleSnackbar(SUCES, TOGGL_STATUS_SUCES)
+                                    .show();
                               } else {
-                                // SimpleSnackbar(TOGGLE_STATUS_ERROR, context).show();
-                                Get.snackbar(OPS, TOGGLE_STATUS_ERROR);
+                                SimpleSnackbar(OPS, TOGGL_STATUS_ERROR).show();
                               }
                             });
                           },
@@ -77,3 +76,12 @@ class OverviewGridItem extends StatelessWidget {
                     backgroundColor: Colors.black87))));
   }
 }
+
+// Get.snackbar(
+//   SUCESS,
+//   TOGGLE_STATUS_SUCESS,
+//   duration: Duration(milliseconds: 1000),
+//   snackPosition: SnackPosition.TOP,
+//   backgroundColor: Colors.black,
+//   colorText: Colors.white,
+// );

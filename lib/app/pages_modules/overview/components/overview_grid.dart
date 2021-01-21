@@ -17,14 +17,10 @@ class OverviewGrid extends StatelessWidget {
     controller.getProductsByFilter(enumFilter);
 
     return Obx(() => controller.filteredProductsObs.length == 0
-        // ? CustomCircularProgressIndicator(NO_PROD)
         ? Center(
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            // Text(NO_PROD, style: TextStyle(fontSize: 23)),
-            // SizedBox(height: 20),
-            CircularProgressIndicator()
-          ]))
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [CircularProgressIndicator()]))
         : GridView.builder(
             padding: EdgeInsets.all(10),
             itemCount: controller.filteredProductsObs.length,

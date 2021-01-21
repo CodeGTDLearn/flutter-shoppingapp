@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/core/texts_icons_provider/app_generic_words.dart';
 
 import '../../../core/properties/app_routes.dart';
+import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../custom_widgets/custom_snackbar.dart';
 import '../controller/managed_products_controller.dart';
 import '../core/managed_products_widget_keys.dart';
@@ -21,7 +21,7 @@ class ManagedProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      key: Key('$K_MAN_PROD_ITEM_KEY$_id'),
+        key: Key('$K_MAN_PROD_ITEM_KEY$_id'),
         leading: CircleAvatar(backgroundImage: NetworkImage(_imageUrl)),
         title: Text(_title),
         trailing: Container(
@@ -40,10 +40,11 @@ class ManagedProductItem extends StatelessWidget {
                   onPressed: () =>
                       _controller.deleteProduct(_id).then((response) {
                         if (response >= 400) {
-                          // SimpleSnackbar(ERROR_MAN_PROD, context).show();
-                          Get.snackbar(OPS, ERROR_MAN_PROD);
+                          SimpleSnackbar(OPS, ERROR_MAN_PROD).show();
+                          // Get.snackbar(OPS, ERROR_MAN_PROD);
                         } else {
-                          Get.snackbar(SUCESS, SUCESS_MAN_PROD_DEL);
+                          SimpleSnackbar(SUCES, SUCESS_MAN_PROD_DEL).show();
+                          // Get.snackbar(SUCES, SUCESS_MAN_PROD_DEL);
                         }
                       }),
                   color: Theme.of(context).errorColor),

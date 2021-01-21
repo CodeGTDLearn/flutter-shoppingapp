@@ -10,14 +10,14 @@ import '../../custom_widgets/custom_snackbar.dart';
 import '../core/messages_snackbars_provided.dart';
 import '../core/overview_texts_icons_provided.dart';
 
-class BadgeShopCartAppbar extends StatelessWidget {
+class BadgeShopCart extends StatelessWidget {
   final Widget child;
   final int value;
   final Color color;
 
   final CartController _controller = Get.find();
 
-  BadgeShopCartAppbar({this.child, this.value, this.color});
+  BadgeShopCart({this.child, this.value, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,8 @@ class BadgeShopCartAppbar extends StatelessWidget {
           icon: OV_ICO_SHOPCART,
           onPressed: () {
             if (_controller.getAllCartItems().length == 0) {
-              // SimpleSnackbar(NO_ITEMS_CART_YET, context, DURATION).show();
-              Get.snackbar(OPS, NO_ITEMS_CART_YET);
+              SimpleSnackbar(OPS, NO_ITEMS_CART_YET).show();
+              // Get.snackbar(OPS, NO_ITEMS_CART_YET);
             } else {
               Get.toNamed(AppRoutes.CART);
             }

@@ -94,8 +94,8 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
           Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
         })
         .whenComplete((){
-            Get.snackbar("title", "message");
-            // SimpleSnackbar(SUCESS_MAN_PROD_ADD,_context).show();
+            // Get.snackbar("title", "message");
+            SimpleSnackbar(SUCES,SUCESS_MAN_PROD_ADD).show();
         })
         .catchError((onError) {
           Get.defaultDialog(
@@ -123,8 +123,8 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
             _controller.switchManagedProdAddEditFormAndCustomCircularProgrIndic();
             _controller.reloadManagedProductsObs();
             Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
-            Get.snackbar("title222", "message2222");
-            // SimpleSnackbar(SUCESS_MAN_PROD_UPDT, _context).show();
+            // Get.snackbar("title222", "message2222");
+            SimpleSnackbar(SUCES,SUCESS_MAN_PROD_UPDT).show();
           }
         });
     // @formatter:on

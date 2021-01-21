@@ -11,12 +11,11 @@ import '../core/overview_widget_keys.dart';
 import 'filter_favorite_enum.dart';
 
 // ignore: must_be_immutable
-class FilterFavoriteAppbar extends StatelessWidget {
+class FavoritesFilterPopup extends StatelessWidget {
   final EnumFilter _enum;
-
-  FilterFavoriteAppbar(this._enum);
-
   final OverviewController _controller = Get.find();
+
+  FavoritesFilterPopup(this._enum);
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +33,7 @@ class FilterFavoriteAppbar extends StatelessWidget {
             ],
         onSelected: (value) {
           _controller.getFavoritesQtde() == 0
-              // ? SimpleSnackbar(NO_FAVS_YET, context).show()
-              ? Get.snackbar(OPS, NO_FAVS_YET)
+              ? SimpleSnackbar(OPS, NO_FAVS_YET).show()
               : Get.toNamed(value == EnumFilter.All
                   ? AppRoutes.OVERVIEW_ALL
                   : AppRoutes.OVERVIEW_FAV);

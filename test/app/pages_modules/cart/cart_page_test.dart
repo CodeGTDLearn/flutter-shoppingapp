@@ -274,23 +274,21 @@ class CartPageTest {
       expect(overviewPageTitle, findsOneWidget);
     });
 
-    testWidgets('No products in the Cart, blocking access to Cart Page',
+    testWidgets('No products in Cart, No access to Cart Page',
         (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
-
-      var cartButtonPage = _seek.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
 
       //1) ADDING A PRODUCT IN THE CART
       expect(_seek.text("0"), findsOneWidget);
       await tester.pumpAndSettle(_seek.delay(1));
 
       //2) CLICKING CART-BUTTON AND CHECK THE CART
-      await tester.tap(cartButtonPage);
+      await tester.tap(_seek.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
       await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
-      expect(_seek.text(NO_ITEM_CART_IN_THE_SHOPCART_YET), findsOneWidget);
+      expect(_seek.text(CART_TITLE_PAGE), findsNothing);
     });
 
     testWidgets('Acessing Cart Page + Testing two product added',
@@ -384,15 +382,16 @@ class CartPageTest {
       expect(_seek.text(_prods()[0].title), findsOneWidget);
 
       //3) CLICKING ORDER-NOW-BUTTON AND GO BACK TO THE PREVIOUS PAGE
+      expect(totalCart() > 0, isTrue);
       expect(orderNowButton, findsOneWidget);
       await tester.tap(orderNowButton);
       await tester.pump();
       await tester.pump(_seek.delay(1));
       expect(orderNowButton, findsNothing);
       expect(customCircProgrIndic, findsOneWidget);
-      expect(snackbartext2, findsOneWidget);
       await tester.pump();
-      await tester.pump(_seek.delay(1));
+      expect(totalCart() == 0, isTrue);
+      await tester.pump(_seek.delay(2));
       expect(_seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
     });
   }

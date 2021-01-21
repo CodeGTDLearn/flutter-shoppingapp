@@ -9,6 +9,7 @@ import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dar
 import 'package:shopingapp/app/pages_modules/cart/core/cart_bindings.dart';
 import 'package:shopingapp/app/pages_modules/custom_widgets/core/keys/custom_snackbar_widgets_keys.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
+import 'package:shopingapp/app/pages_modules/overview/components/favorites_filter_popup.dart';
 import 'package:shopingapp/app/pages_modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/core/messages_snackbars_provided.dart';
 import 'package:shopingapp/app/pages_modules/overview/core/overview_texts_icons_provided.dart';
@@ -93,8 +94,7 @@ class OverviewPageTest {
       expect(seek.iconData(Icons.more_vert), findsOneWidget);
     }
 
-    testWidgets('Checking Products titles + Icons quantity in screen',
-        (tester) async {
+    testWidgets('Checking Products in screen', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
@@ -103,17 +103,16 @@ class OverviewPageTest {
       _testProductTitlesAndTotalIconsInTheScreen();
     });
 
-    testWidgets('Toggling FavoritesIconButton + Count FavoritesIcons quantity',
-        (tester) async {
+    testWidgets('Toggling FavoritesIconButton in a product', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
 
-      var key1 = seek.key("$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0");
+      var favBtnProduct = seek.key("$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0");
 
-          // @formatter:off
+      // @formatter:off
       tester
-          .tap(key1)
+          .tap(favBtnProduct)
           .then((value) => tester.pumpAndSettle(seek.delay(1)))
           .then((value) {
               expect(seek.iconType(IconButton, Icons.favorite),  findsNWidgets(2));
@@ -122,8 +121,7 @@ class OverviewPageTest {
       // @formatter:on
     });
 
-    testWidgets('Adding products + Checking Appbar CartIcon text/Snackbar text',
-        (tester) async {
+    testWidgets('Adding products + Checking Snackbar text', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
@@ -142,9 +140,7 @@ class OverviewPageTest {
       expect(snackbartext1, findsOneWidget);
     });
 
-    testWidgets(
-        'Adding products + Clicking Snackbar Undo Button + Checking '
-        'Appbar CartIcon text/Snackbar text', (tester) async {
+    testWidgets('Adding products + Clicking Snackbar Undo', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
@@ -164,14 +160,12 @@ class OverviewPageTest {
       expect(snackbarText, findsOneWidget);
     });
 
-    testWidgets(
-        'Adding a product three times + Checking AppbarCartIcon text/Snackbar '
-        'text', (tester) async {
+    testWidgets('Adding a product 3x + Check ShopCartIcon', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
 
-      var key1 = seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
+      var favBtnProduct = seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
 
       var snackTitle1;
       snackTitle1 =
@@ -179,19 +173,17 @@ class OverviewPageTest {
 
       expect(seek.text("0"), findsOneWidget);
 
-      await tester.tap(key1);
+      await tester.tap(favBtnProduct);
       await tester.pump();
-      await tester.tap(key1);
+      await tester.tap(favBtnProduct);
       await tester.pump();
-      await tester.tap(key1);
+      await tester.tap(favBtnProduct);
       await tester.pump();
       expect(seek.text("3"), findsOneWidget);
       expect(snackTitle1, findsOneWidget);
     });
 
-    testWidgets(
-        'Adding products 1/2 + Checking AppbarCartIcon text/Snackbar text',
-        (tester) async {
+    testWidgets('Adding products 1/2 + Checking ShopCartIcon', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
@@ -203,7 +195,7 @@ class OverviewPageTest {
       snackTitle1 = seek.text("${_products()[1].title.toString()}$item");
 
       var key0 = seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
-      var key1 = seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\1");
+      var favBtnProduct = seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\1");
 
       await tester.pump();
       expect(seek.text("0"), findsOneWidget);
@@ -212,15 +204,13 @@ class OverviewPageTest {
       expect(seek.text("1"), findsOneWidget);
       expect(snackTitle0, findsOneWidget);
 
-      await tester.tap(key1);
+      await tester.tap(favBtnProduct);
       await tester.pumpAndSettle();
       expect(seek.text("2"), findsOneWidget);
       expect(snackTitle1, findsOneWidget);
     });
 
-    testWidgets(
-        'Adding products 3/4 + Checking AppbarCartIcon text/Snackbar text',
-        (tester) async {
+    testWidgets('Adding products 3/4 + Checking ShopCartIcon', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
@@ -266,68 +256,49 @@ class OverviewPageTest {
       // expect(snackTitle3, findsOneWidget);
     });
 
-    testWidgets('Tapping "AppBar PopupFavoriteFilter (favorites Not found)',
-        (tester) async {
+    testWidgets('Tapping FavoriteFilter - favorites Not found', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
-      _testProductTitlesAndTotalIconsInTheScreen();
 
-       /* * The WidGet Testing in the keys 02 + key 03
-          *
-          * Are not being allowed by the TestingApp System
-          * Only tests are done in the Key 00 + Key 01
-          *
-          * There is no apparent reason for that.
-          * The four keys have the same configuration
-          * however, the comand 'await tester.tap(key);'
-          * only run using the keys 00/01
-          *
-          * O sistema de testes nao esta sendo processado
-          * nas keys 02/03, somente os testes sao procedidos
-          * pelo sistema nas keys 00/01
-          *
-          * Nao existe razao a aparente para isso ocorrer
-          * As 4 keys possuem a mesma configuracao
-          * entretando, o comando 'await tester.tap(key);'
-          * somente e EXECUTADO com as keys 00/01
-          */
-      var toggleFavProduct =
-          seek.key("$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\1");
-      var popup = seek.key(OVERVIEW_POPUP_FAV_ALL_APPBAR_BUTTON_KEY);
-      var popupItemFav = seek.key(OVERVIEW_POPUPMENUITEM_FAVORITE_KEY);
+      var popup = seek.key(OVERVIEW_FAVORITE_FILTER_APPBAR_BUTTON_KEY);
+      var favBtnProduct = seek.key('$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\2');
 
+      // 1) CHECK ONLY ONE FAVORITE
       expect(seek.iconType(IconButton, Icons.favorite), findsNWidgets(1));
-      expect(
-          seek.iconType(IconButton, Icons.favorite_border), findsNWidgets(3));
-      await tester.tap(toggleFavProduct);
-      await tester.pump();
-      expect(seek.text(TOGGLE_STATUS_SUCESS), findsOneWidget);
-      expect(seek.iconType(IconButton, Icons.favorite), findsNWidgets(2));
-      expect(
-          seek.iconType(IconButton, Icons.favorite_border), findsNWidgets(2));
+
+      // 2) TAP TO UNFAVORITE THAT
+      await tester.tap(favBtnProduct);
+      await tester.pump(seek.delay(1));
+
+      // 3) CHECK NONE FAVORITE
+      expect(seek.iconType(IconButton, Icons.favorite), findsNWidgets(0));
+
+      // 4) TAP FAVORITE-FILTER IN APPBAR + CHECK ITS OPTIONS
       await tester.tap(popup);
-      await tester.pump();
+      await tester.pump(seek.delay(1));
       expect(seek.text(OV_TXT_POPUP_FAV), findsOneWidget);
       expect(seek.text(OV_TXT_POPUP_ALL), findsOneWidget);
-      await tester.tap(popupItemFav);
+      expect(seek.type(FavoritesFilterPopup), findsOneWidget);
+
+      // 5) TAP FAVORITE OPTION
+      // 5.1) CHECK SNACK-BAR(MESSAGE: NO FAVORITES YET)
+      // 5.2) PUMP_AND_SETTLE TO FINALIZE THE PROCESS
+      await tester.tap(seek.key(OVERVIEW_FAVORITE_FILTER_KEY));
       await tester.pump();
-      expect(seek.iconType(IconButton, Icons.favorite), findsNWidgets(2));
-      expect(
-          seek.iconType(IconButton, Icons.favorite_border), findsNWidgets(2));
+      await tester.pumpAndSettle(seek.delay(2));
+      expect(seek.text(OVERVIEW_TITLE_PAGE_FAVORITE), findsNothing);
     });
 
-    testWidgets(
-        'Tapping AppBar "Popup_Favorite_Filter + Checking '
-        'favorite-product title + icon quantity', (tester) async {
+    testWidgets('Tapping FavoriteFilter', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
 
       var titleProduct = seek.text(_products()[2].title.toString());
-      var popup = seek.key(OVERVIEW_POPUP_FAV_ALL_APPBAR_BUTTON_KEY);
-      var popupItemFav = seek.key(OVERVIEW_POPUPMENUITEM_FAVORITE_KEY);
-      var popupItemAll = seek.key(OVERVIEW_POPUPMENUITEM_ALL_KEY);
+      var popup = seek.key(OVERVIEW_FAVORITE_FILTER_APPBAR_BUTTON_KEY);
+      var popupItemFav = seek.key(OVERVIEW_FAVORITE_FILTER_KEY);
+      var popupItemAll = seek.key(OVERVIEW_FAVORITE_FILTER_ALL_KEY);
 
       expect(seek.iconType(IconButton, Icons.favorite), findsNWidgets(1));
       expect(
@@ -342,24 +313,25 @@ class OverviewPageTest {
       expect(seek.iconType(IconButton, Icons.favorite), findsNWidgets(1));
       await tester.tap(popup);
       await tester.pump();
+      await tester.pumpAndSettle(seek.delay(1));
       expect(seek.text(OV_TXT_POPUP_FAV), findsOneWidget);
       expect(seek.text(OV_TXT_POPUP_ALL), findsOneWidget);
       await tester.tap(popupItemAll);
       await tester.pump();
+      await tester.pumpAndSettle(seek.delay(1));
       expect(seek.iconType(IconButton, Icons.favorite), findsNWidgets(1));
       expect(
           seek.iconType(IconButton, Icons.favorite_border), findsNWidgets(3));
     });
 
-    testWidgets('Closing Popup_Favorite_Filter "tapping OUTSIDE it"',
-        (tester) async {
+    testWidgets('Closing Favorite_Filter (tap OUTSIDE)', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
 
-      var popup = seek.key(OVERVIEW_POPUP_FAV_ALL_APPBAR_BUTTON_KEY);
-      var popupItemFav = seek.key(OVERVIEW_POPUPMENUITEM_FAVORITE_KEY);
-      var popupItemAll = seek.key(OVERVIEW_POPUPMENUITEM_ALL_KEY);
+      var popup = seek.key(OVERVIEW_FAVORITE_FILTER_APPBAR_BUTTON_KEY);
+      var popupItemFav = seek.key(OVERVIEW_FAVORITE_FILTER_KEY);
+      var popupItemAll = seek.key(OVERVIEW_FAVORITE_FILTER_ALL_KEY);
 
       await tester.tap(popup);
       await tester.pumpAndSettle();
