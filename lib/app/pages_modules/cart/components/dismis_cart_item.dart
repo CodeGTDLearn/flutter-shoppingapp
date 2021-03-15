@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/core/properties/app_properties.dart';
-import 'package:shopingapp/app/pages_modules/custom_widgets/custom_snackbar.dart';
-import 'package:shopingapp/app/pages_modules/orders/core/messages_snackbars_provided.dart';
 
+import '../../../core/properties/app_properties.dart';
 import '../../../core/texts_icons_provider/app_generic_words.dart';
+import '../../custom_widgets/custom_snackbar.dart';
+import '../../orders/core/messages_snackbars_provided.dart';
 import '../controller/cart_controller.dart';
 import '../core/cart_texts_icons_provided.dart';
 import '../entities/cart_item.dart';

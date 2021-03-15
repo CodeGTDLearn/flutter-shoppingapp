@@ -24,6 +24,6 @@ class OrdersPage extends StatelessWidget {
                 child: ListView.builder(
                     itemCount: controller.ordersObs.length,
                     itemBuilder: (ctx, item) =>
-                        OrderCollapseTile(controller.ordersObs.value[item])))));
+                        OrderCollapseTile(controller.ordersObs.toList()[item])))));
   }
 }

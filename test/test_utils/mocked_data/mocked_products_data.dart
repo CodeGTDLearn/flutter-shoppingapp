@@ -4,15 +4,17 @@ import 'dart:io';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/overview/components/filter_favorite_enum.dart';
 
+import 'mocked_datasource_config.dart';
+
 class ProductsMockedData {
-  String _pathAssetsJsonMockedData;
+  String _MockedDatasource;
 
   ProductsMockedData() {
-    _pathAssetsJsonMockedData = 'assets/mocked_data_sources/products.json';
+    _MockedDatasource = MOCKED_DATASOURCE_PRODUCTS;
   }
 
   List<Product> products() {
-    final file = File(_pathAssetsJsonMockedData);
+    final file = File(_MockedDatasource);
     final json = jsonDecode(file.readAsStringSync());
     List<Product> result =
         json.map<Product>((json) => Product.fromJson(json)).toList();
@@ -20,7 +22,7 @@ class ProductsMockedData {
   }
 
   Product product() {
-    final file = File(_pathAssetsJsonMockedData);
+    final file = File(_MockedDatasource);
     final json = jsonDecode(file.readAsStringSync());
     List<Product> result =
         json.map<Product>((json) => Product.fromJson(json)).toList();
@@ -28,7 +30,7 @@ class ProductsMockedData {
   }
 
   List<Product> favoritesProducts() {
-    final file = File(_pathAssetsJsonMockedData);
+    final file = File(_MockedDatasource);
     final json = jsonDecode(file.readAsStringSync());
     List<Product> list =
         json.map<Product>((json) => Product.fromJson(json)).toList();
@@ -40,7 +42,7 @@ class ProductsMockedData {
   }
 
   Product productById(String id) {
-    final file = File(_pathAssetsJsonMockedData);
+    final file = File(_MockedDatasource);
     final json = jsonDecode(file.readAsStringSync());
     List<Product> list =
         json.map<Product>((json) => Product.fromJson(json)).toList();

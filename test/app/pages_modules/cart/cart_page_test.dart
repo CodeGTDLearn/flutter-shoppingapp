@@ -5,7 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/properties/theme/dark_theme_controller.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/app_generic_words.dart';
-import 'package:shopingapp/app/core/texts_icons_provider/app_messages.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/cart.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/pages_modules/cart/components/dismis_cart_item.dart';
@@ -362,7 +361,7 @@ class CartPageTest {
 
       var CartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
       var snackbartext1 = _seek.text(_prods()[1].title.toString());
-      var snackbartext2 = _seek.text(ORDER_ADDITION_DONE_SUCESSFULLY);
+      // var snackbartext2 = _seek.text(ORDER_ADDITION_DONE_SUCESSFULLY);
       var cartButtonPage = _seek.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
       var orderNowButton = _seek.key(CART_PAGE_ORDERSNOW_BUTTON_KEY);
       var customCircProgrIndic = _seek.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY);

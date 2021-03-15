@@ -6,7 +6,7 @@ abstract class IOrdersService {
 
   int ordersQtde();
 
-  void clearOrders();
+  void clearOrder();
 
   Future<Order> addOrder(List<CartItem> cartItemsList, double amount);
 

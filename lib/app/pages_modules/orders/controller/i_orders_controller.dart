@@ -3,7 +3,7 @@ import '../entities/order.dart';
 abstract class IOrdersController {
   List<Order> getOrders();
 
-  void clearOrders();
+  void clearOrder();
 
   List<Order> getOrdersObs();
 

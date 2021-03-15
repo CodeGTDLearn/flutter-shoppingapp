@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/core/texts_icons_provider/app_generic_words.dart';
 
-import '../../core/properties/app_properties.dart';
 import '../../core/properties/app_routes.dart';
 import '../../core/properties/theme/dark_theme_controller.dart';
+import '../../core/texts_icons_provider/app_generic_words.dart';
 import '../cart/service/i_cart_service.dart';
 import '../managed_products/controller/managed_products_controller.dart';
 import '../orders/service/i_orders_service.dart';
@@ -15,7 +14,7 @@ import 'custom_snackbar.dart';
 
 // ignore: must_be_immutable
 class CustomDrawer extends StatelessWidget {
-  BuildContext _context;
+  // BuildContext _context;
   final ICartService _cart = Get.find();
   final IOrdersService _orders = Get.find();
   final ManagedProductsController _managedProducts = Get.find();
@@ -23,7 +22,7 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _context = context;
+    // _context = context;
 
     return Drawer(
         child: Column(children: [

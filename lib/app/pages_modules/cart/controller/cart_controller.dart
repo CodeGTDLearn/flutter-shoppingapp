@@ -19,6 +19,7 @@ class CartController extends GetxController implements ICartController {
   @override
   void onInit() {
     recalcQtdeAndAmountCart();
+    super.onInit();
   }
 
   @override

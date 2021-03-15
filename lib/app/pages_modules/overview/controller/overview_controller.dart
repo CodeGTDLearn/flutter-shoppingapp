@@ -15,15 +15,15 @@ class OverviewController extends GetxController implements IOverviewController {
   @override
   void onInit() {
     service.clearDataSavingLists();
-    getProducts().then((response) => filteredProductsObs.value = response);
+    getProducts().then((response) => filteredProductsObs.assignAll(response));
     super.onInit();
   }
 
   @override
   void getProductsByFilter(EnumFilter filter) {
-    filteredProductsObs.value = (filter == EnumFilter.Fav)
+    filteredProductsObs.assignAll(filter == EnumFilter.Fav
         ? service.getProductsByFilter(EnumFilter.Fav)
-        : service.getProductsByFilter(EnumFilter.All);
+        : service.getProductsByFilter(EnumFilter.All));
   }
 
   @override
@@ -72,6 +72,6 @@ class OverviewController extends GetxController implements IOverviewController {
 
   @override
   List<Product> getFilteredProductsObs (){
-    return filteredProductsObs.value.toList();
+    return filteredProductsObs.toList();
   }
 }

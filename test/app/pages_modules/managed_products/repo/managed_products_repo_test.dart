@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 
 import '../../../../test_utils/custom_test_methods.dart';
 import '../../../../test_utils/data_builders/product_databuilder.dart';
-import '../../../../test_utils/mocked_data_source/products_mocked_data.dart';
+import '../../../../test_utils/mocked_data/mocked_products_data.dart';
 import 'managed_products_repo_mocks.dart';
 
 class ManagedProductsRepoTest {

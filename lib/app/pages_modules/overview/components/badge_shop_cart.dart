@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/core/texts_icons_provider/app_generic_words.dart';
 
-import '../../../core/properties/app_properties.dart';
 import '../../../core/properties/app_routes.dart';
+import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../cart/controller/cart_controller.dart';
 import '../../cart/core/cart_widget_keys.dart';
 import '../../custom_widgets/custom_snackbar.dart';

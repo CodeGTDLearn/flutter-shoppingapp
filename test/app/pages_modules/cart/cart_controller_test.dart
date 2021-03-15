@@ -14,7 +14,7 @@ import 'package:test/test.dart';
 
 import '../../../test_utils/data_builders/cartitem_databuilder.dart';
 import '../../../test_utils/data_builders/product_databuilder.dart';
-import '../../../test_utils/mocked_data_source/orders_mocked_data.dart';
+import '../../../test_utils/mocked_data/mocked_orders_data.dart';
 import '../orders/repo/orders_repo_mocks.dart';
 
 class CartControllerTest {

@@ -71,7 +71,7 @@ class OrdersServiceTest {
       _service.getOrders().then((_) {
         var list = _service.getLocalDataOrders();
         expect(list.length, _service.ordersQtde());
-        _service.clearOrders();
+        _service.clearOrder();
         expect(_service.ordersQtde(), 0);
       });
     });

@@ -216,10 +216,9 @@ class OverviewPageTest {
       _isInstancesRegistred();
       _testProductTitlesAndTotalIconsInTheScreen();
 
-      var snackTitle3, snackTitle2;
-      var item = ITEMCART_ADDED;
-      snackTitle2 = seek.text("${_products()[2].title.toString()}$item");
-      snackTitle3 = seek.text("${_products()[3].title.toString()}$item");
+      // var item = ITEMCART_ADDED;
+      // var snackTitle2 = seek.text("${_products()[2].title.toString()}$item");
+      // var snackTitle3 = seek.text("${_products()[3].title.toString()}$item");
       var key2 = seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\2");
       var key3 = seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\3");
       /*

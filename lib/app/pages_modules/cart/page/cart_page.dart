@@ -24,7 +24,12 @@ class CartPage extends StatelessWidget {
         appBar: AppBar(title: Text(CRT_TIT_APPBAR), actions: [
           IconButton(
               icon: CRT_ICO_CLEAR,
-              onPressed: controller.clearCart,
+              onPressed: () {
+                controller.clearCart;
+                SimpleSnackbar(SUCES, SUCES_ORD_ADD).show();
+                Future.delayed(Duration(milliseconds: DURATION))
+                    .then((value) => Get.back());
+              },
               tooltip: CRT_ICO_CLEAR_TOOLT)
         ]),
         body: Container(
@@ -94,16 +99,15 @@ class CartPage extends StatelessWidget {
                 )
                 .then((_) {
                   controller.clearCart();
-                  controller.recalcQtdeAndAmountCart();
+                  // controller.recalcQtdeAndAmountCart();
                   SimpleSnackbar(SUCES, SUCES_ORD_ADD).show();
                   // Get.snackbar(SUCES, SUCES_ORD_ADD);
                 })
                 .whenComplete(() =>
                     Future.delayed(Duration(milliseconds: DURATION))
                         .then((value) => Get.back()))
-                .catchError(
-                    (onError) => SimpleSnackbar(OPS, ERROR_ORD).show());
-                    // (onError) => Get.snackbar(OPS, ERROR_ORD));
+                .catchError((onError) => SimpleSnackbar(OPS, ERROR_ORD).show());
+            // (onError) => Get.snackbar(OPS, ERROR_ORD));
           });
     });
   }

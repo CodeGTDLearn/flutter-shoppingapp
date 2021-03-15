@@ -14,24 +14,24 @@ class OrdersController implements IOrdersController {
 
   @override
   List<Order> getOrders() {
-    ordersObs.value = [];
+    ordersObs.assignAll([]);
     // @formatter:off
     service
      .getOrders()
-     .then((value) {ordersObs.value = value;})
+     .then((value) {ordersObs.assignAll(value);})
      .catchError((onError)=> throw onError);
-     return ordersObs.value;
+     return ordersObs.toList();
     // @formatter:on
   }
 
   @override
-  void clearOrders() {
-    service.clearOrders();
+  void clearOrder() {
+    service.clearOrder();
   }
 
   @override
   List<Order> getOrdersObs() {
-    return ordersObs.value;
+    return ordersObs.toList();
   }
 
   @override

@@ -16,14 +16,20 @@ class ManagedProductsController extends GetxController
   // GERENCIA DE ESTADO REATIVA ou SIMPLES - COM O GET
   @override
   void onInit() {
-    managedProductsObs.value = [];
+    // managedProductsObs.value = [];
+    managedProductsObs.assignAll([]);
     getProducts();
+    super.onInit();
   }
 
   @override
   Future<List<Product>> getProducts() {
     return service.getProducts().then((response) {
-      return managedProductsObs.value = response.isNull ? [] : response;
+      // return managedProductsObs.value = response.isNull ? [] : response;
+      response.isNull
+          ? managedProductsObs.assignAll([])
+          : managedProductsObs.assignAll(response);
+      return managedProductsObs.toList();
     }).catchError((onError) => throw onError);
   }
 
@@ -61,28 +67,29 @@ class ManagedProductsController extends GetxController
         .deleteProduct(id)
         .then((statusCode) {
           if (statusCode >= 400) {
-          managedProductsObs.value = service.getLocalDataManagedProducts();
+          managedProductsObs.assignAll(service.getLocalDataManagedProducts());
           }
          return statusCode;
         });
-    managedProductsObs.value = service.getLocalDataManagedProducts();
+    managedProductsObs.assignAll(service.getLocalDataManagedProducts());
     return responseFuture;
     // @formatter:on
   }
 
   @override
   void switchManagedProdAddEditFormAndCustomCircularProgrIndic() {
-    reloadManagedProductsEditPageObs.value = !reloadManagedProductsEditPageObs.value;
+    reloadManagedProductsEditPageObs.value =
+        !reloadManagedProductsEditPageObs.value;
   }
 
   @override
   void reloadManagedProductsObs() {
-    managedProductsObs.value = service.getLocalDataManagedProducts();
+    managedProductsObs.assignAll(service.getLocalDataManagedProducts());
   }
 
   @override
   List<Product> getManagedProductsObs() {
-    return managedProductsObs.value;
+    return managedProductsObs.toList();
   }
 
   @override
