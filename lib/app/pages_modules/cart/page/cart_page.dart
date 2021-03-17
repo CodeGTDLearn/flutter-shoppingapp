@@ -21,17 +21,8 @@ class CartPage extends StatelessWidget {
     var fullSizeLessAppbar = MediaQuery.of(context).size;
 
     return Scaffold(
-        appBar: AppBar(title: Text(CRT_TIT_APPBAR), actions: [
-          IconButton(
-              icon: CRT_ICO_CLEAR,
-              onPressed: () {
-                controller.clearCart;
-                SimpleSnackbar(SUCES, SUCES_ORD_ADD).show();
-                Future.delayed(Duration(milliseconds: DURATION))
-                    .then((value) => Get.back());
-              },
-              tooltip: CRT_ICO_CLEAR_TOOLT)
-        ]),
+        appBar: AppBar(
+            title: Text(CRT_TIT_APPBAR), actions: [_clearCartIconButton()]),
         body: Container(
             width: fullSizeLessAppbar.width,
             height: fullSizeLessAppbar.height,
@@ -85,6 +76,19 @@ class CartPage extends StatelessWidget {
             })));
   }
 
+  IconButton _clearCartIconButton() {
+    return IconButton(
+      key: Key(K_CRT_CLR_CART_BTN),
+        icon: CRT_ICO_CLEAR,
+        onPressed: () {
+          controller.clearCart.call();
+          SimpleSnackbar(SUCES, SUCES_ORD_CLEAN).show();
+          Future.delayed(Duration(milliseconds: DURATION))
+              .whenComplete(Get.back);
+        },
+        tooltip: CRT_ICO_CLEAR_TOOLT);
+  }
+
   Builder _addOrderButton() {
     return Builder(builder: (_context) {
       return FlatButton(
@@ -99,15 +103,12 @@ class CartPage extends StatelessWidget {
                 )
                 .then((_) {
                   controller.clearCart();
-                  // controller.recalcQtdeAndAmountCart();
                   SimpleSnackbar(SUCES, SUCES_ORD_ADD).show();
-                  // Get.snackbar(SUCES, SUCES_ORD_ADD);
                 })
                 .whenComplete(() =>
                     Future.delayed(Duration(milliseconds: DURATION))
                         .then((value) => Get.back()))
                 .catchError((onError) => SimpleSnackbar(OPS, ERROR_ORD).show());
-            // (onError) => Get.snackbar(OPS, ERROR_ORD));
           });
     });
   }

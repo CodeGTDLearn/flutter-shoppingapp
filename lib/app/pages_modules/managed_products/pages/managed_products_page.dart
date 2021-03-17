@@ -11,6 +11,7 @@ import '../core/managed_products_widget_keys.dart';
 import '../core/texts_icons/managed_products_texts_icons_provided.dart';
 
 class ManagedProductsPage extends StatelessWidget {
+
   final ManagedProductsController controller;
 
   ManagedProductsPage({this.controller});

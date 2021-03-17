@@ -14,6 +14,7 @@ const SUCESS_PRODUCTS_ADDITION = "The product was added successfuly.";
 const SUCESS_PRODUCTS_UPDATING = "The product was updated successfuly.";
 const SUCESS_PRODUCTS_DELETING = "The product was deleted successfuly.";
 const ORDER_ADDITION_DONE_SUCESSFULLY = "The order was added successfuly.";
+const ORDER_CLEANING_DONE_SUCESSFULLY = "The order was cleaned successfuly.";
 const CART_QUIT_AFTER_ALL_DELETIONS = "There is no products in cart anymore.";
 
 //Database Empty

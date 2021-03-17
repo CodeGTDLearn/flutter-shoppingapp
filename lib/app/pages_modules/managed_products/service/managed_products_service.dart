@@ -1,17 +1,16 @@
+import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service.dart';
+
 import '../entities/product.dart';
 import '../repo/i_managed_products_repo.dart';
 import 'i_managed_products_service.dart';
 
 class ManagedProductsService implements IManagedProductsService {
   final IManagedProductsRepo repo;
+  IOverviewService _overviewService;
   List<Product> _localDataManagedProducts = [];
 
   ManagedProductsService({this.repo});
 
-  @override
-  List<Product> getLocalDataManagedProducts() {
-    return [..._localDataManagedProducts];
-  }
 
   @override
   Future<List<Product>> getProducts() {
@@ -40,18 +39,24 @@ class ManagedProductsService implements IManagedProductsService {
   }
 
   @override
+  List<Product> getLocalDataManagedProducts() {
+    return [..._localDataManagedProducts];
+  }
+
+  @override
   Future<Product> addProduct(Product _product) {
     // @formatter:off
     return repo
         .addProduct(_product)
         .then((product) {
           _localDataManagedProducts.add(product);
+          _overviewService.localDataAllProducts.add(product);
           return product;
         })
-        .catchError((onError) {
-          _localDataManagedProducts.remove(_product);
-          throw onError;
-        });
+        .catchError((onError) => throw onError);
+          // _localDataManagedProducts.remove(_product);
+          // throw onError;
+        // });
     // @formatter:on
   }
 

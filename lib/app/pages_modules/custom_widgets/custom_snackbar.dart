@@ -66,6 +66,8 @@ class ButtonSnackbar implements CustomAbstractSnackbar {
     Scaffold.of(context).showSnackBar(snackBarButtonConfig);
   }
 }
+
+
 //
 // class SimpleSnackbar implements CustomAbstractSnackbar {
 //   String message;
