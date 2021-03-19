@@ -5,7 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/properties/theme/dark_theme_controller.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/app_generic_words.dart';
-import 'package:shopingapp/app/core/texts_icons_provider/app_messages.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/cart.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/pages_modules/cart/components/dismis_cart_item.dart';
@@ -84,7 +83,7 @@ class CartPageTest {
     }
 
     List<Product> _prods() {
-      return Get.find<IOverviewService>().localDataAllProducts;
+      return Get.find<IOverviewService>().getLocalDataAllProducts;
     }
 
     double totalCart() {
@@ -242,7 +241,8 @@ class CartPageTest {
       await tester.pumpAndSettle(_seek.delay(1));
       expect(cartPageTitle, findsOneWidget);
       expect(typeDismisCartItem, findsNWidgets(2));
-      expect(_seek.text((productPrice1 + productPrice2).toString()),findsOneWidget);
+      expect(_seek.text((productPrice1 + productPrice2).toString()),
+          findsOneWidget);
 
       //3) DISMISSING(LEFT DRAGGING TO DELETE) THE PRODUCT 01
       await tester.drag(keyCartItemProduct1, Offset(-500.0, 0.0));
@@ -255,7 +255,7 @@ class CartPageTest {
       await tester.pumpAndSettle(_seek.delay(1));
 
       expect(typeDismisCartItem, findsNWidgets(1));
-      expect(_seek.text(productPrice2.toString()),findsOneWidget);
+      expect(_seek.text(productPrice2.toString()), findsOneWidget);
 
       //4) DISMISSING(LEFT DRAGGING) THE PRODUCT 02
       await tester.drag(keyCartItemProduct2, Offset(-500.0, 0.0));
@@ -274,8 +274,7 @@ class CartPageTest {
       expect(overviewPageTitle, findsOneWidget);
     });
 
-    testWidgets('No products in Cart, No access to Cart Page',
-        (tester) async {
+    testWidgets('No products in Cart, No access to Cart Page', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
@@ -394,8 +393,8 @@ class CartPageTest {
       expect(_seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
     });
 
-    testWidgets('Clearing Cart Products - ClearCart IconButton', (tester)
-    async {
+    testWidgets('Clearing Cart Products - ClearCart IconButton',
+        (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();

@@ -16,9 +16,10 @@ class OverviewPage extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        key: K_SCFLD,
-        appBar: CustomAppBar(enumFilter: _enumFilter),
-        drawer: CustomDrawer(),
-        body: OverviewGrid(_enumFilter, Get.find<OverviewController>()));
+      key: K_SCFLD,
+      appBar: CustomAppBar(enumFilter: _enumFilter),
+      drawer: CustomDrawer(),
+      body: OverviewGrid(_enumFilter, Get.find<OverviewController>()),
+    );
   }
 }

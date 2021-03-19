@@ -12,7 +12,6 @@ import '../../../../test_utils/mocked_data/mocked_products_data.dart';
 import '../repo/overview_repo_mocks.dart';
 import 'overview_controller_mocks.dart';
 
-// void main() {
 class OverviewControllerTest {
   static void integration() {
     IOverviewController _controller, _injectMockController;
@@ -26,7 +25,6 @@ class OverviewControllerTest {
       _injectMockController = OverviewInjectMockController();
     });
 
-    // group(' Controller | Service | Mocked-Repo', () {
     test('Checking Instances to be used in the Tests', () {
       expect(_service, isA<OverviewService>());
       expect(_controller, isA<OverviewController>());
@@ -42,6 +40,20 @@ class OverviewControllerTest {
       _controller.getProducts().then((value) {
         expect(value[0].title, "Red Shirt");
         expect(value[3].description, 'Prepare any meal you want.');
+      });
+    });
+
+    test('Updating FilteredProductsObs Observable', () {
+      _controller.getProducts().then((value) {
+        expect(_controller.getFilteredProductsObs().length, 0);
+
+        var productTest = ProductsMockedData().product();
+        expect(_service.getLocalDataAllProducts.length, 4);
+        _service.addProductInLocalDataAllProducts(productTest);
+        expect(_service.getLocalDataAllProducts.length, 5);
+
+        _controller.updateFilteredProductsObs();
+        expect(_controller.getFilteredProductsObs().length, 5);
       });
     });
 

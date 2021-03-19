@@ -13,37 +13,33 @@ class ManagedProductsRepo implements IManagedProductsRepo {
     return http
         .get(PRODUCTS_URL)
         .then((jsonResponse) {
-        var _products = <Product>[];
-        final MapProductsDecodedFromJsonResponse =
-        json.decode(jsonResponse.body) as Map<String, dynamic>;
+            var _products = <Product>[];
+            final MapProductsDecodedFromJsonResponse =
+            json.decode(jsonResponse.body) as Map<String, dynamic>;
 
         //todo: erro authentication to be done
         // MapOrdersDecodedFromJsonResponse != null ||
         //     jsonResponse.statusCode >= 400 ?
-        MapProductsDecodedFromJsonResponse != null ?
-        MapProductsDecodedFromJsonResponse
-          .forEach((idMap, dataMap) {
-            var productCreatedFromDataMap = Product.fromJson(dataMap);
-            productCreatedFromDataMap.id = idMap;
-            _products.add(productCreatedFromDataMap);
-          })
-            :_products = [];
-        return _products;
-    }).catchError((onError) => throw onError);
+            MapProductsDecodedFromJsonResponse != null ?
+            MapProductsDecodedFromJsonResponse
+            .forEach((idMap, dataMap) {
+                var productCreatedFromDataMap = Product.fromJson(dataMap);
+                productCreatedFromDataMap.id = idMap;
+                _products.add(productCreatedFromDataMap);
+              }):_products = [];
+              return _products;})
+        .catchError((onError) => throw onError);
     // @formatter:on
   }
 
   @override
   Future<Product> addProduct(Product product) {
-    // @formatter:off
-    return http
-        .post(PRODUCTS_URL, body: product.to_Json())
-        .then((response) {
-            product.id = json.decode(response.body)['name'];
-            return product;
-        })
-        .catchError((onError) => throw onError);
-    // @formatter:on
+    // @fmt:off
+    return http.post(PRODUCTS_URL, body: product.to_Json()).then((response) {
+      product.id = json.decode(response.body)['name'];
+      return product;
+    }).catchError((onError) => throw onError);
+    // @fmt:on
   }
 
   @override

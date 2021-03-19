@@ -18,6 +18,7 @@ import 'package:shopingapp/app/pages_modules/managed_products/entities/product.d
 import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_products_repo.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/service/i_managed_products_service.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/service/managed_products_service.dart';
+import 'package:shopingapp/app/pages_modules/overview/controller/i_overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
@@ -46,20 +47,28 @@ class ManagedProductsPageTest {
 
       Get.lazyPut<IManagedProductsRepo>(() => ManagedProductsMockRepo());
       Get.lazyPut<IManagedProductsService>(
-          () => ManagedProductsService(repo: Get.find<IManagedProductsRepo>()));
-      Get.lazyPut<ManagedProductsController>(() => ManagedProductsController(
-          service: Get.find<IManagedProductsService>()));
+        () => ManagedProductsService(
+            repo: Get.find<IManagedProductsRepo>(),
+            overviewService: Get.find<IOverviewService>()),
+      );
+      Get.lazyPut<ManagedProductsController>(
+        () => ManagedProductsController(
+            service: Get.find<IManagedProductsService>()),
+      );
 
       Get.lazyPut<IOverviewRepo>(() => OverviewMockRepo());
       Get.lazyPut<IOverviewService>(
-          () => OverviewService(repo: Get.find<IOverviewRepo>()));
+        () => OverviewService(repo: Get.find<IOverviewRepo>()),
+      );
       Get.lazyPut<OverviewController>(
-          () => OverviewController(service: Get.find<IOverviewService>()));
+        () => OverviewController(service: Get.find<IOverviewService>()),
+      );
 
       CartBindings().dependencies();
     });
 
     setUp(() {
+      expect(Get.isPrepared<DarkThemeController>(), isFalse);
       expect(Get.isPrepared<IOverviewRepo>(), isFalse);
       expect(Get.isPrepared<IOverviewService>(), isFalse);
       expect(Get.isPrepared<OverviewController>(), isFalse);
@@ -71,6 +80,7 @@ class ManagedProductsPageTest {
 
       binding.builder();
 
+      expect(Get.isPrepared<DarkThemeController>(), isTrue);
       expect(Get.isPrepared<IOverviewRepo>(), isTrue);
       expect(Get.isPrepared<IOverviewService>(), isTrue);
       expect(Get.isPrepared<OverviewController>(), isTrue);
@@ -96,7 +106,7 @@ class ManagedProductsPageTest {
     }
 
     List<Product> _prods() {
-      return Get.find<IOverviewService>().localDataAllProducts;
+      return Get.find<IOverviewService>().getLocalDataAllProducts;
     }
 
     tearDown(() {
@@ -226,7 +236,7 @@ class ManagedProductsPageTest {
       checkManagedProductsPageAndItsListedProducts();
 
       var dragInitialPointElement =
-      _seek.key('$MANAGED_PRODUCT_ITEM_KEY${_prods()[0].id}');
+          _seek.key('$MANAGED_PRODUCT_ITEM_KEY${_prods()[0].id}');
       await tester.drag(dragInitialPointElement, Offset(0.0, -50.0));
       await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));

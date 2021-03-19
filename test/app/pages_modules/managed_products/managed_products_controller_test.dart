@@ -4,6 +4,8 @@ import 'package:shopingapp/app/pages_modules/managed_products/entities/product.d
 import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_products_repo.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/service/i_managed_products_service.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/service/managed_products_service.dart';
+import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service.dart';
+import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
 import '../../../test_utils/custom_test_methods.dart';
@@ -15,6 +17,7 @@ class ManagedProductsControllerTest {
   static void integration() {
     IManagedProductsController _controller;
     IManagedProductsService _service;
+    IOverviewService _ovService;
     IManagedProductsRepo _mockRepo;
     var _product0 = ProductsMockedData().products().elementAt(0);
     var _product1 = ProductsMockedData().products().elementAt(1);
@@ -23,7 +26,11 @@ class ManagedProductsControllerTest {
 
     setUp(() {
       _mockRepo = ManagedProductsMockRepo();
-      _service = ManagedProductsService(repo: _mockRepo);
+      _ovService = OverviewService();
+      _service = ManagedProductsService(
+        repo: _mockRepo,
+        overviewService: _ovService,
+      );
       _controller = ManagedProductsController(service: _service);
     });
 
@@ -54,17 +61,15 @@ class ManagedProductsControllerTest {
     test('Adding a Product', () {
       // @formatter:off
       _controller.getProducts().then((value) {
-        _controller
-            .addProduct(_product0)
-            .then((addedProduct) {
-                // In addProduct, never the 'product to be added' has 'id'
-                // expect(addedProduct.id, _product0.id);
-                expect(addedProduct.title, _product0.title);
-                expect(addedProduct.price, _product0.price);
-                expect(addedProduct.description, _product0.description);
-                expect(addedProduct.imageUrl, _product0.imageUrl);
-                expect(addedProduct.isFavorite, _product0.isFavorite);
-            });
+        _controller.addProduct(_product0).then((addedProduct) {
+          // In addProduct, never the 'product to be added' has 'id'
+          // expect(addedProduct.id, _product0.id);
+          expect(addedProduct.title, _product0.title);
+          expect(addedProduct.price, _product0.price);
+          expect(addedProduct.description, _product0.description);
+          expect(addedProduct.imageUrl, _product0.imageUrl);
+          expect(addedProduct.isFavorite, _product0.isFavorite);
+        });
       });
       // @formatter:on
     });
@@ -81,14 +86,12 @@ class ManagedProductsControllerTest {
 
     test('Getting ProductById', () {
       // @formatter:off
-      _controller
-          .getProducts()
-          .then((products) {
-              var found = _controller.getProductById(products[0].id);
-              expect(found.id, _product0.id);
-              expect(found.title, _product0.title);
-              expect(found, isIn(_controller.getManagedProductsObs()));
-          });
+      _controller.getProducts().then((products) {
+        var found = _controller.getProductById(products[0].id);
+        expect(found.id, _product0.id);
+        expect(found.title, _product0.title);
+        expect(found, isIn(_controller.getManagedProductsObs()));
+      });
       // @formatter:on
     });
 
@@ -116,6 +119,21 @@ class ManagedProductsControllerTest {
         _controller.updateProduct(_newProduct).then((response) {
           expect(response, 400);
         });
+      });
+    });
+
+    test('Updating ManagedProductsObs Observable', () {
+        var productTest = ProductsMockedData().product();
+
+      _controller.getProducts().then((value) {
+
+        expect(_service.getLocalDataManagedProducts().length, 4);
+        _service.addLocalDataManagedProducts(productTest);
+        expect(_service.getLocalDataManagedProducts().length, 5);
+
+        expect(_controller.getManagedProductsObs().length, 4);
+        _controller.updateManagedProductsObs();
+        expect(_controller.getManagedProductsObs().length, 5);
       });
     });
 
@@ -151,7 +169,7 @@ class ManagedProductsControllerTest {
     test('Testing getReloadManagedProductsEditPage', () {
       _controller.getProducts().then((_) {
         expect(_controller.getReloadManagedProductsEditPageObs(), isFalse);
-        _controller.switchManagedProdAddEditFormAndCustomCircularProgrIndic();
+        _controller.switchManagedProdAddEditFormToCustomCircularProgrIndic();
         expect(_controller.getReloadManagedProductsEditPageObs(), isTrue);
       });
     });

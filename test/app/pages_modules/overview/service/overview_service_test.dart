@@ -11,7 +11,6 @@ import '../../../../test_utils/mocked_data/mocked_products_data.dart';
 import '../repo/overview_repo_mocks.dart';
 import 'overview_service_mocks.dart';
 
-// void main() {
 class OverviewServiceTest {
   static void unit() {
     IOverviewService _service, _injectMockService;
@@ -37,7 +36,7 @@ class OverviewServiceTest {
 
     test('Checking localDataAllProducts loading', () {
       _service.getProducts().then((_) {
-        var list = _service.localDataAllProducts;
+        var list = _service.getLocalDataAllProducts;
         expect(list[0].title, "Red Shirt");
         expect(list[3].description, 'Prepare any meal you want.');
       });
@@ -52,11 +51,23 @@ class OverviewServiceTest {
       });
     });
 
+    test('Adding Product in LocalDataAllProducts', () {
+        var productTest = ProductsMockedData().product();
+
+      _service.getProducts().then((_) {
+        expect(_service.getLocalDataAllProducts.length, 4);
+
+        _service.addProductInLocalDataAllProducts(productTest);
+        expect(_service.getLocalDataAllProducts.length, 5);
+        expect(_service.getLocalDataAllProducts[4].title, productTest.title);
+      });
+    });
+
     test('Getting products', () {
-      _service.getProducts().then((FetchedListd) {
+      _service.getProducts().then((FetchedList) {
         // var list = _service.localDataAllProducts;
-        expect(FetchedListd[0].title, "Red Shirt");
-        expect(FetchedListd[3].description, 'Prepare any meal you want.');
+        expect(FetchedList[0].title, "Red Shirt");
+        expect(FetchedList[3].description, 'Prepare any meal you want.');
       });
     });
 
@@ -86,7 +97,7 @@ class OverviewServiceTest {
 
     test('Getting a product using its ID', () {
       _service.getProducts().then((_) {
-        var list = _service.localDataAllProducts;
+        var list = _service.getLocalDataAllProducts;
         expect(_service.getProductById("p1").description, list[0].description);
       });
     });
@@ -147,12 +158,10 @@ class OverviewServiceTest {
       when(_injectMockService.toggleFavoriteStatus("p3"))
           .thenAnswer((_) async => Future.value(true));
 
-      var previousToggleStatus = _injectMockService
-          .getProductById("p3")
-          .isFavorite;
+      var previousToggleStatus =
+          _injectMockService.getProductById("p3").isFavorite;
 
-      _injectMockService.toggleFavoriteStatus("p3")
-          .then((value) {
+      _injectMockService.toggleFavoriteStatus("p3").then((value) {
         expect(true, previousToggleStatus);
       });
     });

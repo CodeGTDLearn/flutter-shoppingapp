@@ -20,6 +20,11 @@ class OverviewController extends GetxController implements IOverviewController {
   }
 
   @override
+  void updateFilteredProductsObs(){
+    filteredProductsObs.assignAll(service.getLocalDataAllProducts);
+  }
+
+  @override
   void getProductsByFilter(EnumFilter filter) {
     filteredProductsObs.assignAll(filter == EnumFilter.Fav
         ? service.getProductsByFilter(EnumFilter.Fav)

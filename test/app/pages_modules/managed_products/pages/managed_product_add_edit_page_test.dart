@@ -37,7 +37,8 @@ class ManagedProductsAddEditPageTest {
 
     var drawerTitle = _seek.text(DRAWER_COMPONENT_TITLE_APPBAR);
     var manProdPageTitle = _seek.text(MANAGED_PRODUCTS_PAGE_TITLE);
-    var manProdAddEditPageTitle = _seek.text(MANAGED_PRODUCTS_ADDEDIT_TITLEPAGE_ADD);
+    var manProdAddEditPageTitle =
+        _seek.text(MANAGED_PRODUCTS_ADDEDIT_TITLEPAGE_ADD);
 
     var fldTitle = _seek.text(MANAGED_PRODUCTS_ADDEDIT_FIELD_TITLE);
     var fldPrice = _seek.text(MANAGED_PRODUCTS_ADDEDIT_FIELD_PRICE);
@@ -48,8 +49,7 @@ class ManagedProductsAddEditPageTest {
     var scaffoldKey = OVERVIEW_PAGE_MAIN_SCAFFOLD_KEY;
     var drwMenuOptionKey = _seek.key(DRAWWER_MANAGED_PRODUCTS_MENU_OPTION);
     var addButtonKey = _seek.key(MANAGED_PRODUCTS_APPBAR_ADDBUTTON_KEY);
-    var saveButtonKey =
-        _seek.key(MANAGED_PRODUCTS_ADDEDIT_SAVEBUTTON_KEY);
+    var saveButtonKey = _seek.key(MANAGED_PRODUCTS_ADDEDIT_SAVEBUTTON_KEY);
     var fldTitleKey = _seek.key(MANAGED_PRODUCTS_ADDEDIT_FIELD_TITLE_KEY);
     var fldPriceKey = _seek.key(MANAGED_PRODUCTS_ADDEDIT_FIELD_PRICE_KEY);
     var fldDescrKey = _seek.key(MANAGED_PRODUCTS_ADDEDIT_FIELD_DESCRIPT_KEY);
@@ -72,17 +72,24 @@ class ManagedProductsAddEditPageTest {
         // Get.lazyPut<IManagedProductsRepo>(() => ManagedProductsMockRepo());
         Get.lazyPut<IManagedProductsRepo>(() => mock);
 
-        Get.lazyPut<IManagedProductsService>(() =>
-            ManagedProductsService(repo: Get.find<IManagedProductsRepo>()));
+        Get.lazyPut<IManagedProductsService>(
+          () => ManagedProductsService(
+              repo: Get.find<IManagedProductsRepo>(),
+              overviewService: Get.find<IOverviewService>()),
+        );
 
-        Get.lazyPut<ManagedProductsController>(() => ManagedProductsController(
-            service: Get.find<IManagedProductsService>()));
+        Get.lazyPut<ManagedProductsController>(
+          () => ManagedProductsController(
+              service: Get.find<IManagedProductsService>()),
+        );
 
         Get.lazyPut<IOverviewRepo>(() => OverviewMockRepo());
         Get.lazyPut<IOverviewService>(
-            () => OverviewService(repo: Get.find<IOverviewRepo>()));
+          () => OverviewService(repo: Get.find<IOverviewRepo>()),
+        );
         Get.lazyPut<OverviewController>(
-            () => OverviewController(service: Get.find<IOverviewService>()));
+          () => OverviewController(service: Get.find<IOverviewService>()),
+        );
 
         CartBindings().dependencies();
       });

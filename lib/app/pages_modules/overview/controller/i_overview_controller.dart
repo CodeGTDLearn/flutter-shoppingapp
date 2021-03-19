@@ -4,6 +4,8 @@ import '../components/filter_favorite_enum.dart';
 abstract class IOverviewController {
   void getProductsByFilter(EnumFilter filter);
 
+  void updateFilteredProductsObs();
+
   Future<bool> toggleFavoriteStatus(String id);
 
   Product getProductById(String id);

@@ -67,7 +67,7 @@ class OverviewPageTest {
     }
 
     List<Product> _products() {
-      return Get.find<IOverviewService>().localDataAllProducts;
+      return Get.find<IOverviewService>().getLocalDataAllProducts;
     }
 
     void _testProductTitlesAndTotalIconsInTheScreen() {

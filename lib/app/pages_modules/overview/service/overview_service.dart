@@ -12,7 +12,12 @@ class OverviewService implements IOverviewService {
   OverviewService({this.repo});
 
   @override
-  List<Product> get localDataAllProducts => [..._localDataAllProducts];
+  List<Product> get getLocalDataAllProducts => [..._localDataAllProducts];
+
+  @override
+  void addProductInLocalDataAllProducts(Product product) {
+    _localDataAllProducts.add(product);
+  }
 
   @override
   List<Product> get localDataFavoritesProducts =>
@@ -28,11 +33,6 @@ class OverviewService implements IOverviewService {
           _localDataFavoritesProducts.add(item);
         }
       }
-      // products.forEach((item) {
-      //   if (item.isFavorite) {
-      //     _localDataFavoritesProducts.add(item);
-      //   }
-      // });
       _sortDataSavingLists();
       return products;
     });
@@ -51,32 +51,30 @@ class OverviewService implements IOverviewService {
         ? _localDataFavoritesProducts.add(_toggleProduct)
         : _localDataFavoritesProducts.remove(_toggleProduct);
 
-    return repo
-        .updateProduct(_toggleProduct)
-        .then((statusCode) {
-            var badRequest = statusCode >= 400;
-            if (badRequest && _toggleProduct.isFavorite){
-              _localDataFavoritesProducts.remove(_toggleProduct);
-            }
-            if (badRequest && !_toggleProduct.isFavorite){
-              _localDataFavoritesProducts.add(_toggleProduct);
-            }
-            if (badRequest) {
-              _toggleProduct.isFavorite = _previousFavoriteStatus;
-            }
-            _sortDataSavingLists();
-            return _toggleProduct.isFavorite;
-        });
+    return repo.updateProduct(_toggleProduct).then((statusCode) {
+      var badRequest = statusCode >= 400;
+      if (badRequest && _toggleProduct.isFavorite) {
+        _localDataFavoritesProducts.remove(_toggleProduct);
+      }
+      if (badRequest && !_toggleProduct.isFavorite) {
+        _localDataFavoritesProducts.add(_toggleProduct);
+      }
+      if (badRequest) {
+        _toggleProduct.isFavorite = _previousFavoriteStatus;
+      }
+      _sortDataSavingLists();
+      return _toggleProduct.isFavorite;
+    });
     // @formatter:on
   }
 
   @override
   List<Product> getProductsByFilter(EnumFilter filter) {
-    _reloadLocalDataFavoritesProducts();
+    _updateLocalDataFavoritesProducts();
     if (filter == EnumFilter.Fav) {
       return getFavoritesQtde() == 0 ? [] : localDataFavoritesProducts;
     }
-    return getProductsQtde() == 0 ? [] : localDataAllProducts;
+    return getProductsQtde() == 0 ? [] : getLocalDataAllProducts;
   }
 
   @override
@@ -101,7 +99,7 @@ class OverviewService implements IOverviewService {
     _localDataAllProducts = [];
   }
 
-  List<Product> _reloadLocalDataFavoritesProducts() {
+  List<Product> _updateLocalDataFavoritesProducts() {
     _localDataFavoritesProducts = [];
 
     for (var item in _localDataAllProducts) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/pages_modules/overview/controller/overview_controller.dart';
 
 import '../../../core/properties/app_owasp_regex.dart';
 import '../../../core/properties/app_routes.dart';
@@ -33,7 +34,8 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
 
   Product _product = Product();
 
-  final ManagedProductsController _controller = Get.find();
+  final ManagedProductsController _manProdController = Get.find();
+  final OverviewController _ovViewController = Get.find();
 
   @override
   void initState() {
@@ -44,14 +46,17 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      _controller.switchManagedProdAddEditFormAndCustomCircularProgrIndic();
+      _manProdController
+          .switchManagedProdAddEditFormToCustomCircularProgrIndic();
 
       if (Get.arguments == null) {
-        _controller.switchManagedProdAddEditFormAndCustomCircularProgrIndic();
+        _manProdController
+            .switchManagedProdAddEditFormToCustomCircularProgrIndic();
       } else {
-        _product = _controller.getProductById(Get.arguments);
+        _product = _manProdController.getProductById(Get.arguments);
         _imgUrlController.text = _product.imageUrl;
-        _controller.switchManagedProdAddEditFormAndCustomCircularProgrIndic();
+        _manProdController
+            .switchManagedProdAddEditFormToCustomCircularProgrIndic();
       }
       _isInit = false;
     }
@@ -76,57 +81,55 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
 
     _form.currentState.save();
 
-    _controller.switchManagedProdAddEditFormAndCustomCircularProgrIndic();
+    _manProdController
+        .switchManagedProdAddEditFormToCustomCircularProgrIndic();
 
-    _product.id.isNull ?
-        _saveProduct(_product, _context) :
-        _updateProduct(_product, _context);
+    _product.id.isNull
+        ? _saveProduct(_product, _context)
+        : _updateProduct(_product, _context);
     // @formatter:on
   }
 
   Future<dynamic> _saveProduct(Product _product, BuildContext _context) {
     // @formatter:off
-    return _controller
+    return _manProdController
         .addProduct(_product)
         .then((product) {
-          _controller.switchManagedProdAddEditFormAndCustomCircularProgrIndic();
-          _controller.reloadManagedProductsObs();
-          Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
-        })
-        .whenComplete((){
-            // Get.snackbar("title", "message");
-            SimpleSnackbar(SUCES,SUCESS_MAN_PROD_ADD).show();
-        })
+            _manProdController
+              .switchManagedProdAddEditFormToCustomCircularProgrIndic();
+            _manProdController.updateManagedProductsObs();
+            _ovViewController.updateFilteredProductsObs(); //<<<< not updating
+            Get.offNamed(AppRoutes.MANAGED_PRODUCTS);})
+        .whenComplete(() {SimpleSnackbar(SUCES, SUCESS_MAN_PROD_ADD).show();})
         .catchError((onError) {
-          Get.defaultDialog(
+            Get.defaultDialog(
             title: OPS,
             middleText: ERROR_MAN_PROD,
             textConfirm: OK,
             onConfirm: Get.back);
-          _controller.switchManagedProdAddEditFormAndCustomCircularProgrIndic();
-        });
+            _manProdController
+              .switchManagedProdAddEditFormToCustomCircularProgrIndic();});
     // @formatter:on
   }
 
   Future<void> _updateProduct(Product _product, BuildContext _context) {
     // @formatter:off
-    return _controller
-        .updateProduct(_product)
-        .then((statusCode) {
-          if (statusCode >= 400) {
-            Get.defaultDialog(
-                title: OPS,
-                middleText: ERROR_MAN_PROD,
-                textConfirm: OK,
-                onConfirm: Get.back);
-          } else {
-            _controller.switchManagedProdAddEditFormAndCustomCircularProgrIndic();
-            _controller.reloadManagedProductsObs();
-            Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
-            // Get.snackbar("title222", "message2222");
-            SimpleSnackbar(SUCES,SUCESS_MAN_PROD_UPDT).show();
-          }
-        });
+    return _manProdController.updateProduct(_product).then((statusCode) {
+      if (statusCode >= 400) {
+        Get.defaultDialog(
+            title: OPS,
+            middleText: ERROR_MAN_PROD,
+            textConfirm: OK,
+            onConfirm: Get.back);
+      } else {
+        _manProdController
+            .switchManagedProdAddEditFormToCustomCircularProgrIndic();
+        _manProdController.updateManagedProductsObs();
+        Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
+        // Get.snackbar("title222", "message2222");
+        SimpleSnackbar(SUCES, SUCESS_MAN_PROD_UPDT).show();
+      }
+    });
     // @formatter:on
   }
 
@@ -159,7 +162,8 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                   icon: MAN_PROD_ADDEDIT_ICO_SAVE_APPBAR,
                   onPressed: () => _saveForm(context))
             ]),
-        body: Obx(() => _controller.reloadManagedProductsEditPageObs.value
+        body: Obx(() => _manProdController
+                .reloadManagedProductsEditPageObs.value
             ? CustomCircProgrIndicator()
             : Padding(
                 padding: EdgeInsets.all(16),

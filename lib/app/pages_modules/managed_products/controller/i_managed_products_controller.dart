@@ -13,9 +13,9 @@ abstract class IManagedProductsController {
 
   Future<int> deleteProduct(String id);
 
-  void switchManagedProdAddEditFormAndCustomCircularProgrIndic();
+  void switchManagedProdAddEditFormToCustomCircularProgrIndic();
 
-  void reloadManagedProductsObs();
+  void updateManagedProductsObs();
 
   List<Product> getManagedProductsObs();
 

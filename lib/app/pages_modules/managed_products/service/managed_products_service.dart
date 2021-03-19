@@ -6,24 +6,22 @@ import 'i_managed_products_service.dart';
 
 class ManagedProductsService implements IManagedProductsService {
   final IManagedProductsRepo repo;
-  IOverviewService _overviewService;
+  final IOverviewService overviewService;
+
   List<Product> _localDataManagedProducts = [];
 
-  ManagedProductsService({this.repo});
-
+  ManagedProductsService({this.repo, this.overviewService});
 
   @override
   Future<List<Product>> getProducts() {
     // @formatter:off
-    return repo
-        .getProducts()
-        .then((products) {
-          clearDataSavingLists();
-          _localDataManagedProducts = products;
-          _orderDataSavingLists();
-          // return _localDataManagedProducts;
-          return getLocalDataManagedProducts();
-        });
+    return repo.getProducts().then((products) {
+      clearDataSavingLists();
+      _localDataManagedProducts = products;
+      _orderDataSavingLists();
+      // return _localDataManagedProducts;
+      return getLocalDataManagedProducts();
+    });
     // @formatter:on
   }
 
@@ -48,16 +46,22 @@ class ManagedProductsService implements IManagedProductsService {
     // @formatter:off
     return repo
         .addProduct(_product)
-        .then((product) {
-          _localDataManagedProducts.add(product);
-          _overviewService.localDataAllProducts.add(product);
-          return product;
-        })
-        .catchError((onError) => throw onError);
-          // _localDataManagedProducts.remove(_product);
-          // throw onError;
+        .then((addedProduct) {
+            // _localDataManagedProducts.add(addedProduct);
+            addLocalDataManagedProducts(addedProduct);
+            overviewService.addProductInLocalDataAllProducts(addedProduct);
+            return addedProduct;})
+        .catchError((onError) => onError);
+        // .catchError((onError) {
+        //   _localDataManagedProducts.remove(_product);
+        //   throw onError;
         // });
     // @formatter:on
+  }
+
+  @override
+  void addLocalDataManagedProducts(Product product) {
+    _localDataManagedProducts.add(product);
   }
 
   @override

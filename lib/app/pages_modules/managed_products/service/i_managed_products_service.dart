@@ -11,6 +11,8 @@ abstract class IManagedProductsService {
 
   Future<Product> addProduct(Product product);
 
+  void addLocalDataManagedProducts(Product product);
+
   Future<int> updateProduct(Product product);
 
   Future<int> deleteProduct(String id);

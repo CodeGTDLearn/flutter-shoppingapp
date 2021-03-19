@@ -48,9 +48,7 @@ class ManagedProductsController extends GetxController
     // @formatter:off
     return service
         .addProduct(_product)
-        .then((product) {
-          return product;
-        })
+        .then((addedProduct) => addedProduct)
         .catchError((onError) => throw onError);
     // @formatter:on
   }
@@ -63,27 +61,25 @@ class ManagedProductsController extends GetxController
   @override
   Future<int> deleteProduct(String id) {
     // @formatter:off
-    var responseFuture = service
-        .deleteProduct(id)
-        .then((statusCode) {
-          if (statusCode >= 400) {
-          managedProductsObs.assignAll(service.getLocalDataManagedProducts());
-          }
-         return statusCode;
-        });
+    var responseFuture = service.deleteProduct(id).then((statusCode) {
+      if (statusCode >= 400) {
+        managedProductsObs.assignAll(service.getLocalDataManagedProducts());
+      }
+      return statusCode;
+    });
     managedProductsObs.assignAll(service.getLocalDataManagedProducts());
     return responseFuture;
     // @formatter:on
   }
 
   @override
-  void switchManagedProdAddEditFormAndCustomCircularProgrIndic() {
+  void switchManagedProdAddEditFormToCustomCircularProgrIndic() {
     reloadManagedProductsEditPageObs.value =
         !reloadManagedProductsEditPageObs.value;
   }
 
   @override
-  void reloadManagedProductsObs() {
+  void updateManagedProductsObs() {
     managedProductsObs.assignAll(service.getLocalDataManagedProducts());
   }
 
