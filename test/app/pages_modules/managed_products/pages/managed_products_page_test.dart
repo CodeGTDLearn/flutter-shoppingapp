@@ -18,7 +18,6 @@ import 'package:shopingapp/app/pages_modules/managed_products/entities/product.d
 import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_products_repo.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/service/i_managed_products_service.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/service/managed_products_service.dart';
-import 'package:shopingapp/app/pages_modules/overview/controller/i_overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';

@@ -34,12 +34,14 @@ class ManagedProductsRepo implements IManagedProductsRepo {
 
   @override
   Future<Product> addProduct(Product product) {
-    // @fmt:off
-    return http.post(PRODUCTS_URL, body: product.to_Json()).then((response) {
-      product.id = json.decode(response.body)['name'];
-      return product;
-    }).catchError((onError) => throw onError);
-    // @fmt:on
+    // @formatter:off
+    return http
+            .post(PRODUCTS_URL, body: product.to_Json())
+            .then((response) {
+                product.id = json.decode(response.body)['name'];
+                return product;})
+            .catchError((onError) => throw onError);
+    // @formatter:on
   }
 
   @override

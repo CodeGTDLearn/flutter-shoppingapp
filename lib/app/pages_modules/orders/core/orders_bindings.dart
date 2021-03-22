@@ -10,8 +10,12 @@ class OrdersBindings extends Bindings {
   void dependencies() {
     Get.lazyPut<IOrdersRepo>(() => OrdersRepo());
 
-    Get.lazyPut<IOrdersService>(() => OrdersService(repo: Get.find()));
+    Get.lazyPut<IOrdersService>(() => OrdersService(
+          repo: Get.find<IOrdersRepo>(),
+        ));
 
-    Get.lazyPut<OrdersController>(() => OrdersController(service: Get.find()));
+    Get.lazyPut<OrdersController>(() => OrdersController(
+          service: Get.find<IOrdersService>(),
+        ));
   }
 }

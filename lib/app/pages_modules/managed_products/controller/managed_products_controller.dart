@@ -48,7 +48,9 @@ class ManagedProductsController extends GetxController
     // @formatter:off
     return service
         .addProduct(_product)
-        .then((addedProduct) => addedProduct)
+        .then((addedProduct){
+            return addedProduct;
+        })
         .catchError((onError) => throw onError);
     // @formatter:on
   }
@@ -75,7 +77,7 @@ class ManagedProductsController extends GetxController
   @override
   void switchManagedProdAddEditFormToCustomCircularProgrIndic() {
     reloadManagedProductsEditPageObs.value =
-        !reloadManagedProductsEditPageObs.value;
+    !reloadManagedProductsEditPageObs.value;
   }
 
   @override

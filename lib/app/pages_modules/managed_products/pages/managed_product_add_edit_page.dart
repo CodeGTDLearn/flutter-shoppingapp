@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/pages_modules/overview/controller/overview_controller.dart';
 
 import '../../../core/properties/app_owasp_regex.dart';
 import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../custom_widgets/custom_circ_progr_indicator.dart';
 import '../../custom_widgets/custom_snackbar.dart';
+import '../../overview/controller/overview_controller.dart';
 import '../components/custom_text_form_field/custom_form_field.dart';
 import '../controller/managed_products_controller.dart';
 import '../core/managed_products_widget_keys.dart';
@@ -98,9 +98,9 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
             _manProdController
               .switchManagedProdAddEditFormToCustomCircularProgrIndic();
             _manProdController.updateManagedProductsObs();
-            _ovViewController.updateFilteredProductsObs(); //<<<< not updating
+            _ovViewController.updateFilteredProductsObs();
             Get.offNamed(AppRoutes.MANAGED_PRODUCTS);})
-        .whenComplete(() {SimpleSnackbar(SUCES, SUCESS_MAN_PROD_ADD).show();})
+        .whenComplete(() {SimpleSnackbar(SUCES, "SUCESS_MAN_PROD_ADD").show();})
         .catchError((onError) {
             Get.defaultDialog(
             title: OPS,

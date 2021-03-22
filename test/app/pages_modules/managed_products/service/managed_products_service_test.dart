@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_products_repo.dart';
@@ -86,8 +85,8 @@ class ManagedProductsServiceTest {
 
         _mPService.addLocalDataManagedProducts(productTest);
         expect(_mPService.getLocalDataManagedProducts().length, 5);
-        expect(_mPService.getLocalDataManagedProducts()[4].title, productTest
-            .title);
+        expect(_mPService.getLocalDataManagedProducts()[4].title,
+            productTest.title);
       });
     });
 

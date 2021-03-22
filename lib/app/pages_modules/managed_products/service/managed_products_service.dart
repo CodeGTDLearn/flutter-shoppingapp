@@ -1,5 +1,4 @@
-import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service.dart';
-
+import '../../overview/service/i_overview_service.dart';
 import '../entities/product.dart';
 import '../repo/i_managed_products_repo.dart';
 import 'i_managed_products_service.dart';
@@ -51,7 +50,7 @@ class ManagedProductsService implements IManagedProductsService {
             addLocalDataManagedProducts(addedProduct);
             overviewService.addProductInLocalDataAllProducts(addedProduct);
             return addedProduct;})
-        .catchError((onError) => onError);
+        .catchError((onError) => throw onError);
         // .catchError((onError) {
         //   _localDataManagedProducts.remove(_product);
         //   throw onError;
