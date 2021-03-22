@@ -14,7 +14,7 @@ import 'custom_snackbar.dart';
 
 // ignore: must_be_immutable
 class CustomDrawer extends StatelessWidget {
-  // BuildContext _context;
+  BuildContext _context;
   final ICartService _cart = Get.find();
   final IOrdersService _orders = Get.find();
   final ManagedProductsController _managedProducts = Get.find();
@@ -22,7 +22,7 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // _context = context;
+    _context = context;
 
     return Drawer(
         child: Column(children: [
@@ -81,9 +81,9 @@ class CustomDrawer extends StatelessWidget {
         leading: leadIcon,
         title: Text(title),
         onTap: () {
+          Navigator.pop(_context);
           if (quantityItems == 0 && notRoutingWithoutQtdeEvaluation) {
             SimpleSnackbar(SUCES, message).show();
-            // Get.snackbar(SUCES, message);
           } else if (quantityItems != 0 && notRoutingWithoutQtdeEvaluation) {
             Get.toNamed(route);
           } else {

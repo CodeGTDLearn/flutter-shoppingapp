@@ -23,11 +23,11 @@ class FavoritesFilterPopup extends StatelessWidget {
         key: Key(K_OV06),
         itemBuilder: (_) => [
               PopupMenuItem(
-                  child: Text(OV_TXT_POPUP_FAV, key: Key(K_OV08)),
+                  child: Text(OV_TXT_POPUP_FAV, key: Key(K_OV_FLT_FAV)),
                   value: EnumFilter.Fav,
                   enabled: _enum == EnumFilter.All),
               PopupMenuItem(
-                  child: Text(OV_TXT_POPUP_ALL, key: Key(K_OV09)),
+                  child: Text(OV_TXT_POPUP_ALL, key: Key(K_OV_FLT_ALL)),
                   value: EnumFilter.All,
                   enabled: _enum == EnumFilter.Fav)
             ],

@@ -260,7 +260,7 @@ class OverviewPageTest {
       await tester.pump();
       _isInstancesRegistred();
 
-      var popup = seek.key(OVERVIEW_FAVORITE_FILTER_APPBAR_BUTTON_KEY);
+      var popup = seek.key(K_OV_FLT_APPBAR_BTN);
       var favBtnProduct = seek.key('$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\2');
 
       // 1) CHECK ONLY ONE FAVORITE
@@ -295,7 +295,7 @@ class OverviewPageTest {
       _isInstancesRegistred();
 
       var titleProduct = seek.text(_products()[2].title.toString());
-      var popup = seek.key(OVERVIEW_FAVORITE_FILTER_APPBAR_BUTTON_KEY);
+      var popup = seek.key(K_OV_FLT_APPBAR_BTN);
       var popupItemFav = seek.key(OVERVIEW_FAVORITE_FILTER_KEY);
       var popupItemAll = seek.key(OVERVIEW_FAVORITE_FILTER_ALL_KEY);
 
@@ -328,7 +328,7 @@ class OverviewPageTest {
       await tester.pump();
       _isInstancesRegistred();
 
-      var popup = seek.key(OVERVIEW_FAVORITE_FILTER_APPBAR_BUTTON_KEY);
+      var popup = seek.key(K_OV_FLT_APPBAR_BTN);
       var popupItemFav = seek.key(OVERVIEW_FAVORITE_FILTER_KEY);
       var popupItemAll = seek.key(OVERVIEW_FAVORITE_FILTER_ALL_KEY);
 

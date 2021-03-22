@@ -14,10 +14,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        key: Key(K_DRW),
+        key: Key(K_DRW_APPBAR_BTN),
         title: Text(
           enumFilter == EnumFilter.All ? OV_TIT_ALL_APPBAR : OV_TIT_FAV_APPBAR,
-          key: Key(K_OV05),
+          key: Key(K_OV_TIT_APPBAR),
         ),
         actions: [FavoritesFilterPopup(enumFilter), BadgeShopCart()]);
   }

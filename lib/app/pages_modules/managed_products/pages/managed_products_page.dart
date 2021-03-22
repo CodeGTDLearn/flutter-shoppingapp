@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
+import 'package:shopingapp/app/pages_modules/overview/core/overview_widget_keys.dart';
 
 import '../../../core/properties/app_routes.dart';
 import '../../custom_widgets/custom_circ_progr_indicator.dart';
@@ -19,9 +20,11 @@ class ManagedProductsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // key: K_OV_SCFLD, //todo: GLOBAL KEY DUPLICATION!!!!
+      // key: K_MP_SCFLD_GKEY,
       appBar: AppBar(title: Text(MAN_PROD_TIT_APPBAR), actions: <Widget>[
         IconButton(
-            key: Key(K_MAN_PROD_ADD_BTN),
+            key: Key(K_MP_ADD_BTN),
             icon: MAN_PROD_ICO_ADD_APPBAR,
             onPressed: () =>
                 Get.toNamed(AppRoutes.MANAGED_PRODUCTS_ADDEDIT_PAGE))

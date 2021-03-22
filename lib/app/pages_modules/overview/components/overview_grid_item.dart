@@ -32,14 +32,14 @@ class OverviewGridItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.0),
             child: GridTile(
                 child: GestureDetector(
-                    key: Key("$K_OV10$index"),
+                    key: Key("$K_OV_ITM_DET_PAGE$index"),
                     onTap: () => Get.toNamed(AppRoutes.OVERVIEW_DETAIL,
                         arguments: _product.id),
                     child: Image.network(_product.imageUrl, fit: BoxFit.cover)),
                 footer: GridTileBar(
                     leading: Obx(
                       () => IconButton(
-                          key: Key("$K_OV01$index"),
+                          key: Key("$K_OV_GRD_FAV_BTN$index"),
                           icon: _controller.favoriteStatusObs.value
                               ? OV_ICO_FAV
                               : OV_ICO_NOFAV,
@@ -57,9 +57,9 @@ class OverviewGridItem extends StatelessWidget {
                           },
                           color: Theme.of(context).accentColor),
                     ),
-                    title: Text(_product.title, key: Key("$K_OV03$index")),
+                    title: Text(_product.title, key: Key("$K_OV_GRD_PRD_TIT$index")),
                     trailing: IconButton(
-                        key: Key("$K_OV02$index"),
+                        key: Key("$K_OV_GRD_CRT_BTN$index"),
                         icon: OV_ICO_SHOPCART,
                         onPressed: () {
                           _cartController.addCartItem(_product);

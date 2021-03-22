@@ -89,7 +89,7 @@ class CustomDrawerTest {
           seek.iconType(IconButton, Icons.favorite_border), findsNWidgets(3));
       expect(seek.iconType(IconButton, Icons.shopping_cart), findsNWidgets(5));
       expect(seek.iconData(Icons.more_vert), findsOneWidget);
-      expect(seek.key(K_DRW), findsOneWidget);
+      expect(seek.key(K_DRW_APPBAR_BTN), findsOneWidget);
     });
 
     testWidgets('Testing "Custom Drawer" control, in Appbar', (tester) async {
@@ -97,7 +97,7 @@ class CustomDrawerTest {
       await tester.pump();
       _isInstancesRegistred();
 
-      var scaffoldKey = OVERVIEW_PAGE_MAIN_SCAFFOLD_KEY;
+      var scaffoldKey = OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY;
       var titleDrawer = DRAWER_COMPONENT_TITLE_APPBAR;
 
       await tester.pump(); // no effect
@@ -124,7 +124,7 @@ class CustomDrawerTest {
       await tester.pump();
       _isInstancesRegistred();
 
-      var scaffoldKey = OVERVIEW_PAGE_MAIN_SCAFFOLD_KEY;
+      var scaffoldKey = OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY;
       var titleDrawer = DRAWER_COMPONENT_TITLE_APPBAR;
 
       expect(seek.text(titleDrawer), findsNothing);
@@ -143,7 +143,7 @@ class CustomDrawerTest {
       await tester.pump();
       _isInstancesRegistred();
 
-      var scaffoldKey = OVERVIEW_PAGE_MAIN_SCAFFOLD_KEY;
+      var scaffoldKey = OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY;
       var menuOptionKey = seek.key(DRAWWER_MANAGED_PRODUCTS_MENU_OPTION);
       var titleDrawer = DRAWER_COMPONENT_TITLE_APPBAR;
       var manProdPageTitle = MANAGED_PRODUCTS_PAGE_TITLE;

@@ -30,7 +30,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
   final _imgUrlController = TextEditingController();
 
   // final _form = GlobalKey<FormState>();
-  final _form = K_MAN_PROD_ADDEDIT_GLOBAL_KEY;
+  final _form = K_MP_FORM_GKEY;
 
   Product _product = Product();
 
@@ -100,7 +100,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
             _manProdController.updateManagedProductsObs();
             _ovViewController.updateFilteredProductsObs();
             Get.offNamed(AppRoutes.MANAGED_PRODUCTS);})
-        .whenComplete(() {SimpleSnackbar(SUCES, "SUCESS_MAN_PROD_ADD").show();})
+        .whenComplete(() {SimpleSnackbar(SUCES, SUCESS_MAN_PROD_ADD).show();})
         .catchError((onError) {
             Get.defaultDialog(
             title: OPS,
@@ -158,7 +158,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                 : MAN_PROD_ADDEDIT_LBL_EDT_APPBAR),
             actions: [
               IconButton(
-                  key: Key(K_MAN_PROD_ADDEDIT_SAVE_BTN),
+                  key: Key(K_MP_AD_ED_SAVE_BTN),
                   icon: MAN_PROD_ADDEDIT_ICO_SAVE_APPBAR,
                   onPressed: () => _saveForm(context))
             ]),
@@ -176,21 +176,21 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                         context: context,
                         function: (_) => _requestfocus(_focusPrice, context),
                         fieldName: MAN_PROD_ADDEDIT_FLD_TITLE,
-                        key: K_MAN_PROD_ADDEDIT_FLD_TIT,
+                        key: K_MP_ADED_FLD_TIT,
                       ),
                       CustomFormField().create(
                         product: _product,
                         context: context,
                         function: (_) => _requestfocus(_focusDescr, context),
                         fieldName: MAN_PROD_ADDEDIT_FLD_PRICE,
-                        key: K_MAN_PROD_ADDEDIT_FLD_PRICE,
+                        key: K_MP_ADED_FLD_PRICE,
                       ),
                       CustomFormField().create(
                         product: _product,
                         context: context,
                         function: (_) => _requestfocus(_focusUrlNode, context),
                         fieldName: MAN_PROD_ADDEDIT_FLD_DESCR,
-                        key: K_MAN_PROD_ADDEDIT_FLD_DESC,
+                        key: K_MP_ADED_FLD_DESC,
                       ),
                       Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -217,7 +217,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
                               context: context,
                               function: (_) => _saveForm(context),
                               fieldName: MAN_PROD_ADDEDIT_FLD_IMG_URL,
-                              key: K_MAN_PROD_ADDEDIT_FLD_URL,
+                              key: K_MP_ADED_FLD_URL,
                               node: _focusUrlNode,
                               controller: _imgUrlController,
                             ))

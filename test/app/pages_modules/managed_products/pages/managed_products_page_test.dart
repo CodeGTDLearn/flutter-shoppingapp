@@ -33,7 +33,7 @@ import '../repo/managed_products_repo_mocks.dart';
 class ManagedProductsPageTest {
   static void functional() {
     TestUtils _seek;
-    var scaffoldKey = OVERVIEW_PAGE_MAIN_SCAFFOLD_KEY;
+    var scaffoldKey = OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY;
     var titleDrawer = DRAWER_COMPONENT_TITLE_APPBAR;
     var manProdPageTitle = MANAGED_PRODUCTS_PAGE_TITLE;
     var iconAddProduct = MANAGED_PRODUCTS_ICON_ADD_APPBAR;

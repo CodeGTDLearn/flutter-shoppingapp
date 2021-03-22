@@ -23,7 +23,7 @@ class OverviewItemDetailsPage extends StatelessWidget {
               child: Image.network(
                 _item.imageUrl,
                 fit: BoxFit.cover,
-                key: Key(K_OV11),
+                key: Key(K_OV_ITM_DET_PAGE_IMG),
               )),
           SizedBox(height: 10),
           Text('\$${_item.price}'),

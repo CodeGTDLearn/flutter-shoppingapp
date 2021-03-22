@@ -21,21 +21,21 @@ class ManagedProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-        key: Key('$K_MAN_PROD_ITEM_KEY$_id'),
+        key: Key('$K_MP_ITEM_KEY$_id'),
         leading: CircleAvatar(backgroundImage: NetworkImage(_imageUrl)),
         title: Text(_title),
         trailing: Container(
             width: 100,
             child: Row(children: <Widget>[
               IconButton(
-                  key: Key('$K_MAN_PROD_UPD_BTN$_id'),
+                  key: Key('$K_MP_UPD_BTN$_id'),
                   icon: MAN_PROD_ITEM_UPD_ICO,
                   onPressed: () => Get.toNamed(
                       AppRoutes.MANAGED_PRODUCTS_ADDEDIT_PAGE,
                       arguments: _id),
                   color: Theme.of(context).errorColor),
               IconButton(
-                  key: Key('$K_MAN_PROD_DEL_BTN$_id'),
+                  key: Key('$K_MP_DEL_BTN$_id'),
                   icon: MAN_PROD_ITEM_DEL_ICO,
                   onPressed: () =>
                       _controller.deleteProduct(_id).then((response) {
