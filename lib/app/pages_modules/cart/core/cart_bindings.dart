@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:shopingapp/app/pages_modules/orders/service/i_orders_service.dart';
+import '../../orders/service/i_orders_service.dart';
 
 import '../controller/cart_controller.dart';
 import '../repo/cart_repo.dart';

@@ -16,9 +16,10 @@ class OverviewPage extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      key: K_OV_SCFLD,
-      appBar: CustomAppBar(enumFilter: _enumFilter),
+      key: K_OV_SCFLD_GLOB_KEY, //todo: GLOBAL KEY DUPLICATION!!!!
+      // OverviewPAge Scaffold GlobalKey
       drawer: CustomDrawer(),
+      appBar: CustomAppBar(enumFilter: _enumFilter),
       body: OverviewGrid(_enumFilter, Get.find<OverviewController>()),
     );
   }

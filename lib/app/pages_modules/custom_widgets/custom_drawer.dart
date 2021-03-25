@@ -34,7 +34,7 @@ class CustomDrawer extends StatelessWidget {
           message: DRW_NO_DATA,
           route: AppRoutes.OVERVIEW_ALL,
           notRoutingWithoutQtdeEvaluation: false,
-          key: K_DRW_ITM_1),
+          key: K_DRW_OV_OP1),
       _drawerItem(
           quantityItems: _cart.cartItemsQtde(),
           leadIcon: DRW_ICO_CART,
@@ -42,7 +42,7 @@ class CustomDrawer extends StatelessWidget {
           message: DRW_TXT_CART,
           route: AppRoutes.CART,
           notRoutingWithoutQtdeEvaluation: true,
-          key: K_DRW_ITM_2),
+          key: K_DRW_CRT_OP2),
       _drawerItem(
           quantityItems: _orders.ordersQtde(),
           leadIcon: DRW_ICO_ORD,
@@ -50,7 +50,7 @@ class CustomDrawer extends StatelessWidget {
           message: DRW_TXT_ORD,
           route: AppRoutes.ORDERS,
           notRoutingWithoutQtdeEvaluation: false,
-          key: K_DRW_ITM_3),
+          key: K_DRW_ORD_OP3),
       _drawerItem(
           quantityItems: _managedProducts.managedProductsQtde(),
           leadIcon: DRW_ICO_MAN_PROD,
@@ -58,9 +58,9 @@ class CustomDrawer extends StatelessWidget {
           message: DRW_TXT_NO_MAN_PROD_YET,
           route: AppRoutes.MANAGED_PRODUCTS,
           notRoutingWithoutQtdeEvaluation: false,
-          key: K_DRW_ITM_4),
+          key: K_DRW_MPROD_OP4),
       Obx(() => SwitchListTile(
-          key: Key(K_DRW_ITM_5),
+          key: Key(K_DRW_DARKM_OP5),
           secondary: DRW_ICO_DARKTHM,
           title: Text(DRW_LBL_DARKTHM),
           value: _darkThemeController.isDark.value,

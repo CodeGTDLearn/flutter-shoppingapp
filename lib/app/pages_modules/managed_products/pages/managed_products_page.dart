@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
-import 'package:shopingapp/app/pages_modules/overview/core/overview_widget_keys.dart';
 
 import '../../../core/properties/app_routes.dart';
 import '../../custom_widgets/custom_circ_progr_indicator.dart';
@@ -12,7 +11,6 @@ import '../core/managed_products_widget_keys.dart';
 import '../core/texts_icons/managed_products_texts_icons_provided.dart';
 
 class ManagedProductsPage extends StatelessWidget {
-
   final ManagedProductsController controller;
 
   ManagedProductsPage({this.controller});
@@ -21,7 +19,11 @@ class ManagedProductsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // key: K_OV_SCFLD, //todo: GLOBAL KEY DUPLICATION!!!!
-      // key: K_MP_SCFLD_GKEY,
+      // ManagedPRoductsPAge Scaffold GlobalKey
+      key: K_MP_SCFLD_GKEY,
+
+      drawer: CustomDrawer(),
+
       appBar: AppBar(title: Text(MAN_PROD_TIT_APPBAR), actions: <Widget>[
         IconButton(
             key: Key(K_MP_ADD_BTN),
@@ -29,8 +31,6 @@ class ManagedProductsPage extends StatelessWidget {
             onPressed: () =>
                 Get.toNamed(AppRoutes.MANAGED_PRODUCTS_ADDEDIT_PAGE))
       ]),
-
-      drawer: CustomDrawer(),
 
       // GERENCIA DE ESTADO REATIVA - COM O GET
       body: Obx(() => (controller.getManagedProductsObs().length == 0

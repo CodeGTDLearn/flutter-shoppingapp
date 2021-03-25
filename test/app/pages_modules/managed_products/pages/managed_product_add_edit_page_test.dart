@@ -12,6 +12,7 @@ import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dar
 import 'package:shopingapp/app/pages_modules/cart/core/cart_bindings.dart';
 import 'package:shopingapp/app/pages_modules/custom_widgets/core/keys/custom_circ_progr_indicator_keys.dart';
 import 'package:shopingapp/app/pages_modules/custom_widgets/core/keys/custom_drawer_widgets_keys.dart';
+import 'package:shopingapp/app/pages_modules/custom_widgets/core/texts_icons/drawwer_texts_icons_provided.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/components/managed_product_item.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/controller/managed_products_controller.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/core/managed_products_widget_keys.dart';
@@ -37,34 +38,31 @@ class ManagedProductsAddEditPageTest {
     var _seek = TestUtils();
 
     var drawerTitle = _seek.text(DRAWER_COMPONENT_TITLE_APPBAR);
+    var drawerManProdOption = _seek.key(DRAWWER_MANAGED_PRODUCTS_OPTION);
+    var drawerOvViewOption = _seek.key(DRAWWER_OVERVIEW_OPTION);
+
     var manProdPageTitle = _seek.text(MANAGED_PRODUCTS_PAGE_TITLE);
+
+    var ovViewScaffGlobalKey = OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY;
+    var manProdScaffGlobalKey = MANAGED_PRODUCTS_PAGE_SCAFFOLD_GLOBALKEY;
+
     var manProdAddEditPageTitle =
         _seek.text(MANAGED_PRODUCTS_ADDEDIT_TITLEPAGE_ADD);
-
     var fldTitle = _seek.text(MANAGED_PRODUCTS_ADDEDIT_FIELD_TITLE);
     var fldPrice = _seek.text(MANAGED_PRODUCTS_ADDEDIT_FIELD_PRICE);
     var fldDescr = _seek.text(MANAGED_PRODUCTS_ADDEDIT_FIELD_DESCRIPT);
     var fldImgUrl = _seek.text(MANAGED_PRODUCTS_ADDEDIT_FIELD_IMAGE_URL);
     var fldImgTitle = _seek.text(MANAGED_PRODUCTS_ADDEDIT_IMAGE_TITLE);
+    var manProdPageAddProductButton =
+        _seek.key(MANAGED_PRODUCTS_APPBAR_ADDBUTTON_KEY);
+    var saveProductButton = _seek.key(MANAGED_PRODUCTS_ADDEDIT_SAVEBUTTON_KEY);
+    var fieldFormTitle = _seek.key(MANAGED_PRODUCTS_ADDEDIT_FIELD_TITLE_KEY);
+    var fieldFormPrice = _seek.key(MANAGED_PRODUCTS_ADDEDIT_FIELD_PRICE_KEY);
+    var fieldFormDescr = _seek.key(MANAGED_PRODUCTS_ADDEDIT_FIELD_DESCRIPT_KEY);
+    var fieldFormImgUrl = _seek.key(MANAGED_PRODUCTS_ADDEDIT_FIELD_URL_KEY);
+    var customCircProgrIndic = _seek.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY);
 
-    var ovViewScaffoldKey = OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY;
-    var manProdScaffoldKey = MANAGED_PRODUCTS_PAGE_SCAFFOLD_GLOBALKEY;
-    var drwMenuOptionKey1 = _seek.key(DRAWWER_OVERVIEW_PRODUCTS_MENU_OPTION);
-    var drwMenuOptionKey2 = _seek.key(DRAWWER_MANAGED_PRODUCTS_MENU_OPTION);
-    var addButtonKey = _seek.key(MANAGED_PRODUCTS_APPBAR_ADDBUTTON_KEY);
-    var saveButtonKey = _seek.key(MANAGED_PRODUCTS_ADDEDIT_SAVEBUTTON_KEY);
-    var fldTitleKey = _seek.key(MANAGED_PRODUCTS_ADDEDIT_FIELD_TITLE_KEY);
-    var fldPriceKey = _seek.key(MANAGED_PRODUCTS_ADDEDIT_FIELD_PRICE_KEY);
-    var fldDescrKey = _seek.key(MANAGED_PRODUCTS_ADDEDIT_FIELD_DESCRIPT_KEY);
-    var fldImgUrlKey = _seek.key(MANAGED_PRODUCTS_ADDEDIT_FIELD_URL_KEY);
-    var customCircProgrIndicKey = _seek.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY);
-
-    var fakeTitle;
-    var fakePrice;
-    var fakeDesc;
-    var fakeImgUrl;
-    var invalidText;
-
+    var fakeTitle, fakePrice, fakeDesc, fakeImgUrl, invalidText;
     var _binding;
 
     void _getBinding(IManagedProductsRepo mock) {
@@ -149,39 +147,37 @@ class ManagedProductsAddEditPageTest {
     }
 
     Future _openAndTestManagedProductsAddEditPage(tester) async {
-      //a) Click in drawer
-      //   -> Check the Total of 04 OverviewGridItem in 'Overview Page'
-      //   -> Select Managed Product Option
-      //      -> Open Managed Products Page
+      //a) Click in OverviewPage Drawer
+      //   -> check  the 04 'OverviewGridItem'
+      //   -> Open Drawer
       expect(_seek.type(OverviewGridItem), findsNWidgets(4));
-      expect(ovViewScaffoldKey.currentState.isDrawerOpen, isFalse);
-      ovViewScaffoldKey.currentState.openDrawer();
+      ovViewScaffGlobalKey.currentState.openDrawer();
       await tester.pump();
       await tester.pump(_seek.delay(1));
-      expect(ovViewScaffoldKey.currentState.isDrawerOpen, isTrue);
-      expect(manProdPageTitle, findsNothing);
-      await tester.tap(drwMenuOptionKey1);
+      expect(ovViewScaffGlobalKey.currentState.isDrawerOpen, isTrue);
+
+      expect(_seek.text(DRAWER_COMPONENT_TITLE_APPBAR), findsOneWidget);
+
+      //b) In the Drawer
+      //   -> Click Managed Product Option
+      //      -> open 'Managed Products Page'
+      //      -> check  the 04 'ManagedProductItem'
+      await tester.tap(drawerManProdOption);
       await tester.pump();
       await tester.pump(_seek.delay(1));
-
-
-      //b) Managed Products Page:
-      //   -> Find 04 ManagedProductItem
-      //   -> Click AddButton (Add a New Product)
-      //      -> Open ManProductsAddEditPage (To enter New Product Features)
-      expect(ovViewScaffoldKey.currentState.isDrawerOpen, isFalse);
-      expect(drawerTitle, findsNothing);
-      expect(manProdPageTitle, findsOneWidget);
+      // expect(ovViewScaffGlobalKey.currentState.isDrawerOpen, isFalse);
       expect(_seek.type(ManagedProductItem), findsNWidgets(4));
-      expect(manProdAddEditPageTitle, findsNothing);
-      await tester.tap(addButtonKey);
+
+      //c) Managed Products Page:
+      //   -> Click AddProductButton
+      //      -> Open 'ManProductsAddEditPage' (To enter New Product Features)
+      await tester.tap(manProdPageAddProductButton);
       await tester.pump();
       await tester.pump(_seek.delay(1));
-      expect(manProdPageTitle, findsNothing);
       expect(manProdAddEditPageTitle, findsOneWidget);
     }
 
-    void _createFakeDataAndLoadThoseInTestsVariables() {
+    void _createFakeDataToTestTheManProdAddEditPAgeFormFields() {
       invalidText = "d";
       // fakeTitle = Faker().randomGenerator.string(10, min: 5);
       fakeTitle = "xxxxxx";
@@ -195,10 +191,13 @@ class ManagedProductsAddEditPageTest {
 
     Future _loadFormFields(WidgetTester tester, String title, String price,
         String descr, String imgUrl) async {
-      await tester.enterText(fldTitleKey, title);
-      await tester.enterText(fldPriceKey, price);
-      await tester.enterText(fldDescrKey, descr);
-      await tester.enterText(fldImgUrlKey, imgUrl);
+      await tester.enterText(fieldFormTitle, title);
+      await tester.enterText(fieldFormPrice, price);
+      await tester.enterText(fieldFormDescr, descr);
+      await tester.enterText(fieldFormImgUrl, imgUrl);
+
+      await tester.pump();
+      await tester.pump(_seek.delay(2));
     }
 
     void _expectTestingINValidationMessages(Matcher matcher) {
@@ -213,33 +212,32 @@ class ManagedProductsAddEditPageTest {
       await tester.pump();
       _isInstancesRegistred();
 
-      _createFakeDataAndLoadThoseInTestsVariables();
-
       await _openAndTestManagedProductsAddEditPage(tester);
-      await tester.pump();
-      await tester.pump(_seek.delay(1));
-      expect(manProdAddEditPageTitle, findsOneWidget);
-
+      _createFakeDataToTestTheManProdAddEditPAgeFormFields();
       await _loadFormFields(tester, fakeTitle, fakePrice, fakeDesc, fakeImgUrl);
-      await tester.pump();
-      await tester.pump(_seek.delay(2));
 
-      expect(manProdAddEditPageTitle, findsOneWidget);
-      await tester.tap(saveButtonKey);
+      await tester.tap(saveProductButton);
       await tester.pump();
       await tester.pump(_seek.delay(3));
-      expect(manProdAddEditPageTitle, findsNothing);
 
       expect(manProdPageTitle, findsOneWidget);
       expect(_seek.type(ManagedProductItem), findsNWidgets(5));
+      expect(ovViewScaffGlobalKey.currentState.isDrawerOpen, isFalse);
 
-      expect(ovViewScaffoldKey.currentState.isDrawerOpen, isFalse);
-      ovViewScaffoldKey.currentState.openDrawer();
+      /*MISTAKE:
+      Here, we have manProdScaffGlobalKey.GlobalKey.currentState.openDrawer()
+      so...
+      It is a mistake use ovViewScaffGlobalKey.currentState.openDrawer() when
+       you are testing..thats the why the problem is happen
+      * */
+      ovViewScaffGlobalKey.currentState.openDrawer();
+      expect(ovViewScaffGlobalKey.currentState.isDrawerOpen, isTrue);
       await tester.pump();
-      await tester.pump(_seek.delay(1));
-      expect(ovViewScaffoldKey.currentState.isDrawerOpen, isTrue);
-      //TODO: TESTE QUE DEVE SER INVESTIGADO - GLOBAL KEY DUPLICATION!!!!
-      // await tester.tap(drwMenuOptionKey2);
+      await tester.pump(_seek.delay(2));
+
+      // expect(_seek.text(DRAWER_COMPONENT_TITLE_APPBAR), findsOneWidget);
+
+      // await tester.tap(saveProductButton);
       // await tester.pump();
       // await tester.pump(_seek.delay(1));
       // expect(_seek.type(OverviewGridItem), findsNWidgets(5));
@@ -260,7 +258,7 @@ class ManagedProductsAddEditPageTest {
       await tester.pump();
       _isInstancesRegistred();
 
-      _createFakeDataAndLoadThoseInTestsVariables();
+      _createFakeDataToTestTheManProdAddEditPAgeFormFields();
 
       await _openAndTestManagedProductsAddEditPage(tester);
 
@@ -270,12 +268,12 @@ class ManagedProductsAddEditPageTest {
       await tester.pump(_seek.delay(2));
 
       _seek.imagesTotal(0);
-      await tester.tap(fldDescrKey);
+      await tester.tap(fieldFormDescr);
       await tester.pump();
       await tester.pump(_seek.delay(2));
       _seek.imagesTotal(1);
 
-      await tester.tap(saveButtonKey);
+      await tester.tap(saveProductButton);
       await tester.pump();
       await tester.pump(_seek.delay(3));
 
@@ -287,14 +285,14 @@ class ManagedProductsAddEditPageTest {
       await tester.pump();
       _isInstancesRegistred();
 
-      _createFakeDataAndLoadThoseInTestsVariables();
+      _createFakeDataToTestTheManProdAddEditPAgeFormFields();
 
       await _openAndTestManagedProductsAddEditPage(tester);
 
       await _loadFormFields(
           tester, invalidText, invalidText, invalidText, invalidText);
 
-      await tester.tap(saveButtonKey);
+      await tester.tap(saveProductButton);
       await tester.pump();
       await tester.pump(_seek.delay(1));
 
@@ -308,7 +306,7 @@ class ManagedProductsAddEditPageTest {
       await tester.pump();
       _isInstancesRegistred();
 
-      _createFakeDataAndLoadThoseInTestsVariables();
+      _createFakeDataToTestTheManProdAddEditPAgeFormFields();
 
       await _openAndTestManagedProductsAddEditPage(tester);
 
@@ -330,18 +328,18 @@ class ManagedProductsAddEditPageTest {
       _isInstancesRegistred();
 
       expect(drawerTitle, findsNothing);
-      ovViewScaffoldKey.currentState.openDrawer();
+      ovViewScaffGlobalKey.currentState.openDrawer();
       await tester.pump();
       await tester.pump(_seek.delay(1));
       expect(drawerTitle, findsOneWidget);
 
-      await tester.tap(drwMenuOptionKey1);
+      await tester.tap(drawerManProdOption);
       await tester.pump();
       await tester.pump(_seek.delay(1));
       expect(manProdPageTitle, findsOneWidget);
-      expect(customCircProgrIndicKey, findsOneWidget);
+      expect(customCircProgrIndic, findsOneWidget);
 
-      await tester.tap(addButtonKey);
+      await tester.tap(manProdPageAddProductButton);
       await tester.pump();
       await tester.pump(_seek.delay(1));
       expect(manProdAddEditPageTitle, findsOneWidget);

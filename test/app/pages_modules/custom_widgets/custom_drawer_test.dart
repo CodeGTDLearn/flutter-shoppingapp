@@ -71,8 +71,7 @@ class CustomDrawerTest {
       return Get.find<IOverviewService>().getLocalDataAllProducts;
     }
 
-    testWidgets('Checking OverviewPage BEFORE open "Custom Drawer"',
-        (tester) async {
+    testWidgets('Check Overview BEFORE open Drawer', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
@@ -92,7 +91,7 @@ class CustomDrawerTest {
       expect(seek.key(K_DRW_APPBAR_BTN), findsOneWidget);
     });
 
-    testWidgets('Testing "Custom Drawer" control, in Appbar', (tester) async {
+    testWidgets('Tapping Drawer', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
@@ -100,26 +99,24 @@ class CustomDrawerTest {
       var scaffoldKey = OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY;
       var titleDrawer = DRAWER_COMPONENT_TITLE_APPBAR;
 
-      await tester.pump(); // no effect
-      expect(seek.text(titleDrawer), findsNothing);
-      scaffoldKey.currentState.openDrawer();
-      await tester.pump(); // drawer should be starting to animate in
-      expect(seek.text(titleDrawer), findsOneWidget);
-      await tester.pump(seek.delay(1)); // animation done
-      expect(seek.text(titleDrawer), findsOneWidget);
-      await tester.tap(seek.text(titleDrawer));
-      await tester.pump(); // nothing should have happened
-      expect(seek.text(titleDrawer), findsOneWidget);
-      await tester.pump(seek.delay(1)); // ditto
-      expect(seek.text(titleDrawer), findsOneWidget);
-      await tester.tapAt(const Offset(750.0, 100.0)); // on the mask
-      await tester.pump();
-      expect(seek.text(titleDrawer), findsOneWidget);
-      await tester.pump(seek.delay(1)); // animation done
-      expect(seek.text(titleDrawer), findsNothing);
+      // Tapping three times
+      for (var counter = 0; counter <= 2; counter++) {
+        expect(seek.text(titleDrawer), findsNothing);
+        expect(scaffoldKey.currentState.isDrawerOpen, isFalse);
+        scaffoldKey.currentState.openDrawer();
+        await tester.pump();
+        await tester.pump(seek.delay(1));
+        expect(scaffoldKey.currentState.isDrawerOpen, isTrue);
+        expect(seek.text(titleDrawer), findsOneWidget);
+        await tester.tapAt(const Offset(750.0, 100.0)); // on the mask
+        await tester.pump();
+        await tester.pump(seek.delay(1)); // animation done
+        expect(seek.text(titleDrawer), findsNothing);
+        expect(scaffoldKey.currentState.isDrawerOpen, isFalse);
+      }
     });
 
-    testWidgets('Tapping "Custom Drawer", in Appbar', (tester) async {
+    testWidgets('Tapping Drawer, closing tapping outside', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
@@ -128,9 +125,11 @@ class CustomDrawerTest {
       var titleDrawer = DRAWER_COMPONENT_TITLE_APPBAR;
 
       expect(seek.text(titleDrawer), findsNothing);
+      expect(scaffoldKey.currentState.isDrawerOpen, isFalse);
       scaffoldKey.currentState.openDrawer();
       await tester.pump();
       await tester.pump(seek.delay(1));
+      expect(scaffoldKey.currentState.isDrawerOpen, isTrue);
       expect(seek.text(titleDrawer), findsOneWidget);
       await tester.tapAt(const Offset(750.0, 100.0)); // on the mask
       await tester.pump();
@@ -138,25 +137,34 @@ class CustomDrawerTest {
       expect(seek.text(titleDrawer), findsNothing);
     });
 
-    testWidgets('Tapping a menu "option" in Custom Drawer', (tester) async {
+    testWidgets('Tapping Two Drawer Options', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
 
       var scaffoldKey = OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY;
-      var menuOptionKey = seek.key(DRAWWER_MANAGED_PRODUCTS_MENU_OPTION);
       var titleDrawer = DRAWER_COMPONENT_TITLE_APPBAR;
+      var ovViewPageTitle = OVERVIEW_TITLE_PAGE_ALL;
       var manProdPageTitle = MANAGED_PRODUCTS_PAGE_TITLE;
+      var manProdDrawerOption = seek.key(DRAWWER_MANAGED_PRODUCTS_OPTION);
+      var ovViewDrawerOption = seek.key(DRAWWER_OVERVIEW_OPTION);
 
-      expect(seek.text(titleDrawer), findsNothing);
-      scaffoldKey.currentState.openDrawer();
-      await tester.pump();
-      await tester.pump(seek.delay(1));
-      expect(seek.text(titleDrawer), findsOneWidget);
-      await tester.tap(menuOptionKey);
-      await tester.pump();
-      await tester.pump(seek.delay(1));
-      expect(seek.text(manProdPageTitle), findsOneWidget);
+      for (var counter = 1; counter <= 2; counter++) {
+        expect(seek.text(titleDrawer), findsNothing);
+        scaffoldKey.currentState.openDrawer();
+        await tester.pump();
+        await tester.pump(seek.delay(1));
+        expect(seek.text(titleDrawer), findsOneWidget);
+        counter == 1
+            ? await tester.tap(ovViewDrawerOption)
+            : await tester.tap(manProdDrawerOption);
+        await tester.pump();
+        await tester.pump(seek.delay(1));
+        counter == 1
+            ? expect(seek.text(ovViewPageTitle), findsOneWidget)
+            : expect(seek.text(manProdPageTitle), findsOneWidget);
+
+      }
     });
   }
 }
