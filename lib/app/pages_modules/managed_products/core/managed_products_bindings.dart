@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../../custom_widgets/custom_drawer.dart';
 import '../../overview/service/i_overview_service.dart';
 import '../controller/managed_products_controller.dart';
 import '../repo/i_managed_products_repo.dart';
@@ -9,6 +10,8 @@ import '../service/managed_products_service.dart';
 
 class ManagedProductsBindings extends Bindings {
   void dependencies() {
+    Get.lazyPut<CustomDrawer>(() => Get.find<CustomDrawer>());
+
     Get.lazyPut<IManagedProductsRepo>(() => ManagedProductsRepo());
 
     Get.lazyPut<IManagedProductsService>(() => ManagedProductsService(

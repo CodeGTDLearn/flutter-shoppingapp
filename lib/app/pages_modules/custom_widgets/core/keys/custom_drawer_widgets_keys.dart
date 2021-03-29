@@ -1,3 +1,11 @@
+//DRAWWER PAGES KEYS:
+const DRAWWER_OVERVIEW_PAGE = "drawwer_overview_page";
+const K_DRW_OV_PG = DRAWWER_OVERVIEW_PAGE;
+
+const DRAWWER_MANAGED_PRODUCT_PAGE = "drawwer_managed_product_page";
+const K_DRW_MAN_PROD_PG = DRAWWER_MANAGED_PRODUCT_PAGE;
+
+//DRAWWER OPTIONS KEYS:
 const DRAWWER_OVERVIEW_OPTION = "drawwer_overview_option";
 const K_DRW_OV_OP1 = DRAWWER_OVERVIEW_OPTION;
 

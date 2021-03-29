@@ -12,7 +12,7 @@ import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dar
 import 'package:shopingapp/app/pages_modules/cart/core/cart_bindings.dart';
 import 'package:shopingapp/app/pages_modules/custom_widgets/core/keys/custom_circ_progr_indicator_keys.dart';
 import 'package:shopingapp/app/pages_modules/custom_widgets/core/keys/custom_drawer_widgets_keys.dart';
-import 'package:shopingapp/app/pages_modules/custom_widgets/core/texts_icons/drawwer_texts_icons_provided.dart';
+import 'package:shopingapp/app/pages_modules/custom_widgets/custom_drawer.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/components/managed_product_item.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/controller/managed_products_controller.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/core/managed_products_widget_keys.dart';
@@ -21,6 +21,7 @@ import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_pro
 import 'package:shopingapp/app/pages_modules/managed_products/service/i_managed_products_service.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/service/managed_products_service.dart';
 import 'package:shopingapp/app/pages_modules/overview/components/overview_grid_item.dart';
+import 'package:shopingapp/app/pages_modules/overview/controller/i_overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
@@ -42,12 +43,11 @@ class ManagedProductsAddEditPageTest {
     var drawerOvViewOption = _seek.key(DRAWWER_OVERVIEW_OPTION);
 
     var manProdPageTitle = _seek.text(MANAGED_PRODUCTS_PAGE_TITLE);
-
-    var ovViewScaffGlobalKey = OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY;
-    var manProdScaffGlobalKey = MANAGED_PRODUCTS_PAGE_SCAFFOLD_GLOBALKEY;
-
     var manProdAddEditPageTitle =
         _seek.text(MANAGED_PRODUCTS_ADDEDIT_TITLEPAGE_ADD);
+
+    var ovViewScaffGlobalKey = OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY;
+
     var fldTitle = _seek.text(MANAGED_PRODUCTS_ADDEDIT_FIELD_TITLE);
     var fldPrice = _seek.text(MANAGED_PRODUCTS_ADDEDIT_FIELD_PRICE);
     var fldDescr = _seek.text(MANAGED_PRODUCTS_ADDEDIT_FIELD_DESCRIPT);
@@ -70,6 +70,8 @@ class ManagedProductsAddEditPageTest {
       _binding = BindingsBuilder(() {
         Get.lazyPut<DarkThemeController>(() => DarkThemeController());
 
+        Get.lazyPut<CustomDrawer>(() => CustomDrawer());
+
         // Get.lazyPut<IManagedProductsRepo>(() => ManagedProductsMockRepo());
         Get.lazyPut<IManagedProductsRepo>(() => mock);
 
@@ -88,7 +90,7 @@ class ManagedProductsAddEditPageTest {
         Get.lazyPut<IOverviewService>(
           () => OverviewService(repo: Get.find<IOverviewRepo>()),
         );
-        Get.lazyPut<OverviewController>(
+        Get.lazyPut<IOverviewController>(
           () => OverviewController(service: Get.find<IOverviewService>()),
         );
 
@@ -99,7 +101,7 @@ class ManagedProductsAddEditPageTest {
     setUp(() {
       expect(Get.isPrepared<IOverviewRepo>(), isFalse);
       expect(Get.isPrepared<IOverviewService>(), isFalse);
-      expect(Get.isPrepared<OverviewController>(), isFalse);
+      expect(Get.isPrepared<IOverviewController>(), isFalse);
       expect(Get.isPrepared<CartController>(), isFalse);
 
       expect(Get.isPrepared<IManagedProductsRepo>(), isFalse);
@@ -111,7 +113,7 @@ class ManagedProductsAddEditPageTest {
 
       expect(Get.isPrepared<IOverviewRepo>(), isTrue);
       expect(Get.isPrepared<IOverviewService>(), isTrue);
-      expect(Get.isPrepared<OverviewController>(), isTrue);
+      expect(Get.isPrepared<IOverviewController>(), isTrue);
       expect(Get.isPrepared<CartController>(), isTrue);
 
       expect(Get.isPrepared<IManagedProductsRepo>(), isTrue);
@@ -130,7 +132,7 @@ class ManagedProductsAddEditPageTest {
     void _isInstancesRegistred() {
       expect(Get.isRegistered<IOverviewRepo>(), isTrue);
       expect(Get.isRegistered<IOverviewService>(), isTrue);
-      expect(Get.isRegistered<OverviewController>(), isTrue);
+      expect(Get.isRegistered<IOverviewController>(), isTrue);
       expect(Get.isRegistered<CartController>(), isTrue);
 
       expect(Get.isRegistered<IManagedProductsRepo>(), isTrue);
@@ -146,15 +148,20 @@ class ManagedProductsAddEditPageTest {
       expect(fldImgTitle, findsOneWidget);
     }
 
+    //teste falhando devido ao IOVerviewController /// OverviewController
+
     Future _openAndTestManagedProductsAddEditPage(tester) async {
       //a) Click in OverviewPage Drawer
       //   -> check  the 04 'OverviewGridItem'
       //   -> Open Drawer
-      expect(_seek.type(OverviewGridItem), findsNWidgets(4));
       ovViewScaffGlobalKey.currentState.openDrawer();
       await tester.pump();
-      await tester.pump(_seek.delay(1));
+      await tester.pump(_seek.delay(2));
       expect(ovViewScaffGlobalKey.currentState.isDrawerOpen, isTrue);
+      await tester.tap(drawerOvViewOption);
+      await tester.pump();
+      await tester.pump(_seek.delay(1));
+      expect(_seek.type(OverviewGridItem), findsNWidgets(4));
 
       expect(_seek.text(DRAWER_COMPONENT_TITLE_APPBAR), findsOneWidget);
 
@@ -177,7 +184,7 @@ class ManagedProductsAddEditPageTest {
       expect(manProdAddEditPageTitle, findsOneWidget);
     }
 
-    void _createFakeDataToTestTheManProdAddEditPAgeFormFields() {
+    void _createFakeDataToTestTheManProdAddEditPageFormFields() {
       invalidText = "d";
       // fakeTitle = Faker().randomGenerator.string(10, min: 5);
       fakeTitle = "xxxxxx";
@@ -213,23 +220,16 @@ class ManagedProductsAddEditPageTest {
       _isInstancesRegistred();
 
       await _openAndTestManagedProductsAddEditPage(tester);
-      _createFakeDataToTestTheManProdAddEditPAgeFormFields();
+      _createFakeDataToTestTheManProdAddEditPageFormFields();
       await _loadFormFields(tester, fakeTitle, fakePrice, fakeDesc, fakeImgUrl);
 
       await tester.tap(saveProductButton);
       await tester.pump();
-      await tester.pump(_seek.delay(3));
+      await tester.pump(_seek.delay(2));
 
       expect(manProdPageTitle, findsOneWidget);
       expect(_seek.type(ManagedProductItem), findsNWidgets(5));
-      expect(ovViewScaffGlobalKey.currentState.isDrawerOpen, isFalse);
 
-      /*MISTAKE:
-      Here, we have manProdScaffGlobalKey.GlobalKey.currentState.openDrawer()
-      so...
-      It is a mistake use ovViewScaffGlobalKey.currentState.openDrawer() when
-       you are testing..thats the why the problem is happen
-      * */
       ovViewScaffGlobalKey.currentState.openDrawer();
       expect(ovViewScaffGlobalKey.currentState.isDrawerOpen, isTrue);
       await tester.pump();
@@ -237,9 +237,9 @@ class ManagedProductsAddEditPageTest {
 
       // expect(_seek.text(DRAWER_COMPONENT_TITLE_APPBAR), findsOneWidget);
 
-      // await tester.tap(saveProductButton);
+      // await tester.tap(drawerOvViewOption);
       // await tester.pump();
-      // await tester.pump(_seek.delay(1));
+      // await tester.pump(_seek.delay(2));
       // expect(_seek.type(OverviewGridItem), findsNWidgets(5));
     });
 
@@ -258,7 +258,7 @@ class ManagedProductsAddEditPageTest {
       await tester.pump();
       _isInstancesRegistred();
 
-      _createFakeDataToTestTheManProdAddEditPAgeFormFields();
+      _createFakeDataToTestTheManProdAddEditPageFormFields();
 
       await _openAndTestManagedProductsAddEditPage(tester);
 
@@ -285,7 +285,7 @@ class ManagedProductsAddEditPageTest {
       await tester.pump();
       _isInstancesRegistred();
 
-      _createFakeDataToTestTheManProdAddEditPAgeFormFields();
+      _createFakeDataToTestTheManProdAddEditPageFormFields();
 
       await _openAndTestManagedProductsAddEditPage(tester);
 
@@ -306,8 +306,7 @@ class ManagedProductsAddEditPageTest {
       await tester.pump();
       _isInstancesRegistred();
 
-      _createFakeDataToTestTheManProdAddEditPAgeFormFields();
-
+      _createFakeDataToTestTheManProdAddEditPageFormFields();
       await _openAndTestManagedProductsAddEditPage(tester);
 
       expect(_seek.type(BackButton), findsOneWidget);

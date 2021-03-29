@@ -10,6 +10,8 @@ import 'package:shopingapp/app/pages_modules/cart/core/cart_bindings.dart';
 import 'package:shopingapp/app/pages_modules/custom_widgets/core/keys/custom_snackbar_widgets_keys.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/overview/components/favorites_filter_popup.dart';
+import 'package:shopingapp/app/pages_modules/overview/components/overview_grid_item.dart';
+import 'package:shopingapp/app/pages_modules/overview/controller/i_overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/core/messages_snackbars_provided.dart';
 import 'package:shopingapp/app/pages_modules/overview/core/overview_texts_icons_provided.dart';
@@ -31,10 +33,14 @@ class OverviewPageTest {
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
 
       Get.lazyPut<IOverviewRepo>(() => OverviewMockRepo());
+
       Get.lazyPut<IOverviewService>(
-          () => OverviewService(repo: Get.find<IOverviewRepo>()));
-      Get.lazyPut<OverviewController>(
-          () => OverviewController(service: Get.find<IOverviewService>()));
+        () => OverviewService(repo: Get.find<IOverviewRepo>()),
+      );
+
+      Get.lazyPut<IOverviewController>(
+        () => OverviewController(service: Get.find<IOverviewService>()),
+      );
 
       CartBindings().dependencies();
     });
@@ -42,12 +48,12 @@ class OverviewPageTest {
     setUp(() {
       expect(Get.isPrepared<IOverviewRepo>(), isFalse);
       expect(Get.isPrepared<IOverviewService>(), isFalse);
-      expect(Get.isPrepared<OverviewController>(), isFalse);
+      expect(Get.isPrepared<IOverviewController>(), isFalse);
       expect(Get.isPrepared<CartController>(), isFalse);
       binding.builder();
       expect(Get.isPrepared<IOverviewRepo>(), isTrue);
       expect(Get.isPrepared<IOverviewService>(), isTrue);
-      expect(Get.isPrepared<OverviewController>(), isTrue);
+      expect(Get.isPrepared<IOverviewController>(), isTrue);
       expect(Get.isPrepared<CartController>(), isTrue);
 
       HttpOverrides.global = null;
@@ -62,7 +68,7 @@ class OverviewPageTest {
     void _isInstancesRegistred() {
       expect(Get.isRegistered<IOverviewRepo>(), isTrue);
       expect(Get.isRegistered<IOverviewService>(), isTrue);
-      expect(Get.isRegistered<OverviewController>(), isTrue);
+      expect(Get.isRegistered<IOverviewController>(), isTrue);
       expect(Get.isRegistered<CartController>(), isTrue);
     }
 
@@ -101,6 +107,7 @@ class OverviewPageTest {
 
       await tester.pump();
       _testProductTitlesAndTotalIconsInTheScreen();
+      expect(seek.type(OverviewGridItem), findsNWidgets(4));
     });
 
     testWidgets('Toggling FavoritesIconButton in a product', (tester) async {

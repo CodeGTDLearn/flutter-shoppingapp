@@ -20,9 +20,10 @@ class ManagedProductsPage extends StatelessWidget {
     return Scaffold(
       // key: K_OV_SCFLD, //todo: GLOBAL KEY DUPLICATION!!!!
       // ManagedPRoductsPAge Scaffold GlobalKey
-      key: K_MP_SCFLD_GKEY,
+      // key: Key(K_MP_SCFLD_GKEY),
 
-      drawer: CustomDrawer(),
+      // drawer: CustomDrawer(),
+      drawer: Get.find<CustomDrawer>(),
 
       appBar: AppBar(title: Text(MAN_PROD_TIT_APPBAR), actions: <Widget>[
         IconButton(

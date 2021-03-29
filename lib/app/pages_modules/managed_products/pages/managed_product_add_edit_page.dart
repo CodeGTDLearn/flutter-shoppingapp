@@ -6,7 +6,7 @@ import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../custom_widgets/custom_circ_progr_indicator.dart';
 import '../../custom_widgets/custom_snackbar.dart';
-import '../../overview/controller/overview_controller.dart';
+import '../../overview/controller/i_overview_controller.dart';
 import '../components/custom_text_form_field/custom_form_field.dart';
 import '../controller/managed_products_controller.dart';
 import '../core/managed_products_widget_keys.dart';
@@ -35,7 +35,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
   Product _product = Product();
 
   final ManagedProductsController _manProdController = Get.find();
-  final OverviewController _ovViewController = Get.find();
+  final IOverviewController _ovViewController = Get.find();
 
   @override
   void initState() {

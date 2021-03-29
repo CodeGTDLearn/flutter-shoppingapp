@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:shopingapp/app/core/properties/theme/dark_theme_controller.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/managed_products/managed_product_edit.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/managed_products/managed_products.dart';
-import 'package:shopingapp/app/core/texts_icons_provider/pages/pages_generic_components/drawwer.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/pages_modules/cart/core/cart_bindings.dart';
 import 'package:shopingapp/app/pages_modules/custom_widgets/core/keys/custom_drawer_widgets_keys.dart';
@@ -19,6 +18,7 @@ import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_pro
 import 'package:shopingapp/app/pages_modules/managed_products/service/i_managed_products_service.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/service/managed_products_service.dart';
 import 'package:shopingapp/app/pages_modules/overview/components/overview_grid_item.dart';
+import 'package:shopingapp/app/pages_modules/overview/controller/i_overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
@@ -43,6 +43,7 @@ class ManagedProductsPageTest {
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
 
       Get.lazyPut<IManagedProductsRepo>(() => ManagedProductsMockRepo());
+
       Get.lazyPut<IManagedProductsService>(
         () => ManagedProductsService(
             repo: Get.find<IManagedProductsRepo>(),
@@ -57,7 +58,7 @@ class ManagedProductsPageTest {
       Get.lazyPut<IOverviewService>(
         () => OverviewService(repo: Get.find<IOverviewRepo>()),
       );
-      Get.lazyPut<OverviewController>(
+      Get.lazyPut<IOverviewController>(
         () => OverviewController(service: Get.find<IOverviewService>()),
       );
 
@@ -68,7 +69,7 @@ class ManagedProductsPageTest {
       expect(Get.isPrepared<DarkThemeController>(), isFalse);
       expect(Get.isPrepared<IOverviewRepo>(), isFalse);
       expect(Get.isPrepared<IOverviewService>(), isFalse);
-      expect(Get.isPrepared<OverviewController>(), isFalse);
+      expect(Get.isPrepared<IOverviewController>(), isFalse);
       expect(Get.isPrepared<CartController>(), isFalse);
 
       expect(Get.isPrepared<IManagedProductsRepo>(), isFalse);
@@ -80,7 +81,7 @@ class ManagedProductsPageTest {
       expect(Get.isPrepared<DarkThemeController>(), isTrue);
       expect(Get.isPrepared<IOverviewRepo>(), isTrue);
       expect(Get.isPrepared<IOverviewService>(), isTrue);
-      expect(Get.isPrepared<OverviewController>(), isTrue);
+      expect(Get.isPrepared<IOverviewController>(), isTrue);
       expect(Get.isPrepared<CartController>(), isTrue);
 
       expect(Get.isPrepared<IManagedProductsRepo>(), isTrue);
@@ -94,7 +95,7 @@ class ManagedProductsPageTest {
     void _checkRegistredInstances() {
       expect(Get.isRegistered<IOverviewRepo>(), isTrue);
       expect(Get.isRegistered<IOverviewService>(), isTrue);
-      expect(Get.isRegistered<OverviewController>(), isTrue);
+      expect(Get.isRegistered<IOverviewController>(), isTrue);
       expect(Get.isRegistered<CartController>(), isTrue);
 
       expect(Get.isRegistered<IManagedProductsRepo>(), isTrue);
