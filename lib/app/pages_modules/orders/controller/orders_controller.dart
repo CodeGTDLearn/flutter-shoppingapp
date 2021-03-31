@@ -2,9 +2,8 @@ import 'package:get/get.dart';
 
 import '../entities/order.dart';
 import '../service/i_orders_service.dart';
-import 'i_orders_controller.dart';
 
-class OrdersController implements IOrdersController {
+class OrdersController {
   final IOrdersService service;
 
   var qtdeOrdersObs = 0.obs;
@@ -12,7 +11,6 @@ class OrdersController implements IOrdersController {
 
   OrdersController({this.service});
 
-  @override
   List<Order> getOrders() {
     ordersObs.assignAll([]);
     // @formatter:off
@@ -24,17 +22,14 @@ class OrdersController implements IOrdersController {
     // @formatter:on
   }
 
-  @override
   void clearOrder() {
     service.clearOrder();
   }
 
-  @override
   List<Order> getOrdersObs() {
     return ordersObs.toList();
   }
 
-  @override
   int getQtdeOrdersObs() {
     return qtdeOrdersObs.value;
   }

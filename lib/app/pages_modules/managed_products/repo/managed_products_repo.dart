@@ -7,7 +7,7 @@ import '../entities/product.dart';
 import 'i_managed_products_repo.dart';
 
 class ManagedProductsRepo implements IManagedProductsRepo {
-  @override
+
   Future<List<Product>> getProducts() {
     // @formatter:off
     return http
@@ -32,7 +32,7 @@ class ManagedProductsRepo implements IManagedProductsRepo {
     // @formatter:on
   }
 
-  @override
+
   Future<Product> addProduct(Product product) {
     // @formatter:off
     return http
@@ -44,7 +44,7 @@ class ManagedProductsRepo implements IManagedProductsRepo {
     // @formatter:on
   }
 
-  @override
+
   Future<int> updateProduct(Product product) {
     return http
         .patch("$BASE_URL/$COLLECTION_PRODUCTS/${product.id}$EXTENSION",
@@ -53,7 +53,7 @@ class ManagedProductsRepo implements IManagedProductsRepo {
     //there is no catchError in delete
   }
 
-  @override
+
   Future<int> deleteProduct(String id) {
     return http
         .delete("$BASE_URL/$COLLECTION_PRODUCTS/$id$EXTENSION")

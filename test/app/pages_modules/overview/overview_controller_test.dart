@@ -1,20 +1,17 @@
-import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/overview/components/filter_favorite_enum.dart';
-import 'package:shopingapp/app/pages_modules/overview/controller/i_overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
-import '../../../../test_utils/mocked_data/mocked_products_data.dart';
-import '../repo/overview_repo_mocks.dart';
-import 'overview_controller_mocks.dart';
+import '../../../test_utils/mocked_data/mocked_products_data.dart';
+import 'repo/overview_repo_mocks.dart';
 
 class OverviewControllerTest {
   static void integration() {
-    IOverviewController _controller, _injectMockController;
+    OverviewController _controller;
     IOverviewService _service;
     IOverviewRepo _mockRepo;
 
@@ -22,7 +19,6 @@ class OverviewControllerTest {
       _mockRepo = OverviewMockRepo();
       _service = OverviewService(repo: _mockRepo);
       _controller = OverviewController(service: _service);
-      _injectMockController = OverviewInjectMockController();
     });
 
     test('Checking Instances to be used in the Tests', () {
@@ -100,35 +96,5 @@ class OverviewControllerTest {
         });
       });
     });
-
-    test('Checking Instances to be used in the Tests', () {
-      expect(_injectMockController, isA<OverviewInjectMockController>());
-    });
-
-    test('Getting products - Fail hence Empty', () {
-      // @formatter:off
-      when(_injectMockController.getProducts())
-          .thenAnswer((_) async => Future
-          .value(ProductsMockedData()
-          .productsEmpty()));
-
-      _injectMockController.getProducts()
-          .then((value) {
-            expect(value, List.empty());
-          });
-      // @formatter:on
-    });
-
-    test('Toggle FavoriteStatus in a product - Fail 404', () {
-      //INJECTABLE FOR FUTURES-RETURNS
-      when(_injectMockController.toggleFavoriteStatus("p3"))
-          .thenAnswer((_) async => Future.value(false));
-
-      _injectMockController.toggleFavoriteStatus("p3")
-          .then((sucessOperation) {
-        expect(sucessOperation, isFalse);
-      });
-    });
-    // });
   }
 }

@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
 
-import 'controller/overview_controller_test.dart';
+import 'overview_controller_test.dart';
 import 'pages/overview_item_details_page_test.dart';
 import 'pages/overview_page_test.dart';
 import 'repo/overview_repo_test.dart';

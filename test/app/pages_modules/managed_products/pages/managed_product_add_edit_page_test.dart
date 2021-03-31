@@ -4,13 +4,10 @@ import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/core/properties/theme/dark_theme_controller.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/managed_products/managed_product_edit.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/managed_products/managed_products.dart';
-import 'package:shopingapp/app/core/texts_icons_provider/pages/pages_generic_components/drawwer.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/pages_modules/cart/core/cart_bindings.dart';
-import 'package:shopingapp/app/pages_modules/custom_widgets/core/keys/custom_circ_progr_indicator_keys.dart';
 import 'package:shopingapp/app/pages_modules/custom_widgets/core/keys/custom_drawer_widgets_keys.dart';
 import 'package:shopingapp/app/pages_modules/custom_widgets/custom_drawer.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/components/managed_product_item.dart';
@@ -21,7 +18,6 @@ import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_pro
 import 'package:shopingapp/app/pages_modules/managed_products/service/i_managed_products_service.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/service/managed_products_service.dart';
 import 'package:shopingapp/app/pages_modules/overview/components/overview_grid_item.dart';
-import 'package:shopingapp/app/pages_modules/overview/controller/i_overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
@@ -38,7 +34,6 @@ class ManagedProductsAddEditPageTest {
   static void functional() {
     var _seek = TestUtils();
 
-    var drawerTitle = _seek.text(DRAWER_COMPONENT_TITLE_APPBAR);
     var drawerManProdOption = _seek.key(DRAWWER_MANAGED_PRODUCTS_OPTION);
     var drawerOvViewOption = _seek.key(DRAWWER_OVERVIEW_OPTION);
 
@@ -60,60 +55,60 @@ class ManagedProductsAddEditPageTest {
     var fieldFormPrice = _seek.key(MANAGED_PRODUCTS_ADDEDIT_FIELD_PRICE_KEY);
     var fieldFormDescr = _seek.key(MANAGED_PRODUCTS_ADDEDIT_FIELD_DESCRIPT_KEY);
     var fieldFormImgUrl = _seek.key(MANAGED_PRODUCTS_ADDEDIT_FIELD_URL_KEY);
-    var customCircProgrIndic = _seek.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY);
 
     var fakeTitle, fakePrice, fakeDesc, fakeImgUrl, invalidText;
     var _binding;
 
-    void _getBinding(IManagedProductsRepo mock) {
+    void _bindingBuilder(IManagedProductsRepo mock) {
       Get.reset();
-      _binding = BindingsBuilder(() {
-        Get.lazyPut<DarkThemeController>(() => DarkThemeController());
 
+      _binding = BindingsBuilder(() {
         Get.lazyPut<CustomDrawer>(() => CustomDrawer());
 
-        // Get.lazyPut<IManagedProductsRepo>(() => ManagedProductsMockRepo());
-        Get.lazyPut<IManagedProductsRepo>(() => mock);
+        Get.lazyPut<IOverviewRepo>(() => OverviewMockRepo());
+
+        Get.lazyPut<IOverviewService>(
+          () => OverviewService(repo: Get.find()),
+        );
+
+        Get.lazyPut<OverviewController>(
+          () => OverviewController(service: Get.find()),
+        );
+
+        Get.lazyPut<IManagedProductsRepo>(() => ManagedProductsMockRepo());
 
         Get.lazyPut<IManagedProductsService>(
           () => ManagedProductsService(
-              repo: Get.find<IManagedProductsRepo>(),
-              overviewService: Get.find<IOverviewService>()),
+              repo: Get.find(), overviewService: Get.find()),
         );
 
         Get.lazyPut<ManagedProductsController>(
-          () => ManagedProductsController(
-              service: Get.find<IManagedProductsService>()),
-        );
-
-        Get.lazyPut<IOverviewRepo>(() => OverviewMockRepo());
-        Get.lazyPut<IOverviewService>(
-          () => OverviewService(repo: Get.find<IOverviewRepo>()),
-        );
-        Get.lazyPut<IOverviewController>(
-          () => OverviewController(service: Get.find<IOverviewService>()),
+          () => ManagedProductsController(service: Get.find()),
         );
 
         CartBindings().dependencies();
       });
+
+      _binding.builder();
     }
 
     setUp(() {
+      expect(Get.isPrepared<CustomDrawer>(), isFalse);
       expect(Get.isPrepared<IOverviewRepo>(), isFalse);
       expect(Get.isPrepared<IOverviewService>(), isFalse);
-      expect(Get.isPrepared<IOverviewController>(), isFalse);
+      expect(Get.isPrepared<OverviewController>(), isFalse);
       expect(Get.isPrepared<CartController>(), isFalse);
 
       expect(Get.isPrepared<IManagedProductsRepo>(), isFalse);
       expect(Get.isPrepared<IManagedProductsService>(), isFalse);
       expect(Get.isPrepared<ManagedProductsController>(), isFalse);
 
-      _getBinding(ManagedProductsMockRepo());
-      _binding.builder();
+      _bindingBuilder(ManagedProductsMockRepo());
 
+      expect(Get.isPrepared<CustomDrawer>(), isTrue);
       expect(Get.isPrepared<IOverviewRepo>(), isTrue);
       expect(Get.isPrepared<IOverviewService>(), isTrue);
-      expect(Get.isPrepared<IOverviewController>(), isTrue);
+      expect(Get.isPrepared<OverviewController>(), isTrue);
       expect(Get.isPrepared<CartController>(), isTrue);
 
       expect(Get.isPrepared<IManagedProductsRepo>(), isTrue);
@@ -130,9 +125,10 @@ class ManagedProductsAddEditPageTest {
     });
 
     void _isInstancesRegistred() {
+      expect(Get.isRegistered<CustomDrawer>(), isTrue);
       expect(Get.isRegistered<IOverviewRepo>(), isTrue);
       expect(Get.isRegistered<IOverviewService>(), isTrue);
-      expect(Get.isRegistered<IOverviewController>(), isTrue);
+      expect(Get.isRegistered<OverviewController>(), isTrue);
       expect(Get.isRegistered<CartController>(), isTrue);
 
       expect(Get.isRegistered<IManagedProductsRepo>(), isTrue);
@@ -148,8 +144,6 @@ class ManagedProductsAddEditPageTest {
       expect(fldImgTitle, findsOneWidget);
     }
 
-    //teste falhando devido ao IOVerviewController /// OverviewController
-
     Future _openAndTestManagedProductsAddEditPage(tester) async {
       //a) Click in OverviewPage Drawer
       //   -> check  the 04 'OverviewGridItem'
@@ -160,19 +154,24 @@ class ManagedProductsAddEditPageTest {
       expect(ovViewScaffGlobalKey.currentState.isDrawerOpen, isTrue);
       await tester.tap(drawerOvViewOption);
       await tester.pump();
-      await tester.pump(_seek.delay(1));
+      await tester.pump(_seek.delay(2));
+      expect(ovViewScaffGlobalKey.currentState.isDrawerOpen, isFalse);
       expect(_seek.type(OverviewGridItem), findsNWidgets(4));
 
-      expect(_seek.text(DRAWER_COMPONENT_TITLE_APPBAR), findsOneWidget);
+      // expect(_seek.text(DRAWER_COMPONENT_TITLE_APPBAR), findsOneWidget);
 
       //b) In the Drawer
       //   -> Click Managed Product Option
       //      -> open 'Managed Products Page'
       //      -> check  the 04 'ManagedProductItem'
+      ovViewScaffGlobalKey.currentState.openDrawer();
+      await tester.pump();
+      await tester.pump(_seek.delay(2));
+      expect(ovViewScaffGlobalKey.currentState.isDrawerOpen, isTrue);
       await tester.tap(drawerManProdOption);
       await tester.pump();
       await tester.pump(_seek.delay(1));
-      // expect(ovViewScaffGlobalKey.currentState.isDrawerOpen, isFalse);
+      expect(ovViewScaffGlobalKey.currentState.isDrawerOpen, isFalse);
       expect(_seek.type(ManagedProductItem), findsNWidgets(4));
 
       //c) Managed Products Page:
@@ -235,7 +234,7 @@ class ManagedProductsAddEditPageTest {
       await tester.pump();
       await tester.pump(_seek.delay(2));
 
-      // expect(_seek.text(DRAWER_COMPONENT_TITLE_APPBAR), findsOneWidget);
+//----------------------------------------------------------
 
       // await tester.tap(drawerOvViewOption);
       // await tester.pump();
@@ -318,25 +317,23 @@ class ManagedProductsAddEditPageTest {
     });
 
     testWidgets('Open Page with NO products in DB', (tester) async {
-      _getBinding(ManagedProductsMockRepoFail());
-      _binding.builder();
+      _bindingBuilder(ManagedProductsMockRepoFail());
+      // _binding.builder();
 
       await tester.pumpWidget(AppDriver());
       await tester.pump();
 
       _isInstancesRegistred();
 
-      expect(drawerTitle, findsNothing);
       ovViewScaffGlobalKey.currentState.openDrawer();
       await tester.pump();
       await tester.pump(_seek.delay(1));
-      expect(drawerTitle, findsOneWidget);
+      expect(ovViewScaffGlobalKey.currentState.isDrawerOpen, isTrue);
 
       await tester.tap(drawerManProdOption);
       await tester.pump();
-      await tester.pump(_seek.delay(1));
+      await tester.pump(_seek.delay(2));
       expect(manProdPageTitle, findsOneWidget);
-      expect(customCircProgrIndic, findsOneWidget);
 
       await tester.tap(manProdPageAddProductButton);
       await tester.pump();
@@ -347,3 +344,39 @@ class ManagedProductsAddEditPageTest {
     });
   }
 }
+
+// void _getBinding(IManagedProductsRepo mock) {
+//
+//   Get.reset();
+//
+//   _binding = BindingsBuilder(() {
+//     // Get.lazyPut<DarkThemeController>(() => DarkThemeController());
+//
+//     Get.lazyPut<CustomDrawer>(() => CustomDrawer());
+//
+//     Get.lazyPut<IOverviewRepo>(() => OverviewMockRepo());
+//
+//     Get.lazyPut<IOverviewService>(
+//       () => OverviewService(repo: Get.find()),
+//     );
+//
+//     Get.lazyPut<OverviewController>(
+//       () => OverviewController(service: Get.find()),
+//     );
+//
+//     Get.lazyPut<IManagedProductsRepo>(() => mock);
+//
+//     Get.lazyPut<IManagedProductsService>(
+//       () => ManagedProductsService(
+//           repo: Get.find<IManagedProductsRepo>(),
+//           overviewService: Get.find()),
+//     );
+//
+//     Get.lazyPut<ManagedProductsController>(
+//       () => ManagedProductsController(
+//           service: Get.find()),
+//     );
+//
+//     CartBindings().dependencies();
+//   });
+// }

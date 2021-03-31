@@ -15,7 +15,7 @@ class DismisCartItem extends StatelessWidget {
 
   DismisCartItem.DimissCartItem(this._cartItem);
 
-  @override
+
   Widget build(BuildContext context) {
     return Dismissible(
         key: Key(_cartItem.id),

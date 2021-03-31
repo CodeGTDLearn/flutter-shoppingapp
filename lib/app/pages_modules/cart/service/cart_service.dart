@@ -8,34 +8,34 @@ class CartService implements ICartService {
 
   CartService({this.repo});
 
-  @override
+
   Map<String, CartItem> getAllCartItems() {
     return repo.getAllCartItems();
   }
 
-  @override
+
   bool addCartItem(Product product) {
     repo.addCartItem(product);
     return true;
   }
 
-  @override
+
   bool addCartItemUndo(Product product) {
     repo.addCartItemUndo(product);
     return false;
   }
 
-  @override
+
   void removeCartItem(CartItem cartItem) {
     repo.removeCartItem(cartItem);
   }
 
-  @override
+
   void clearCart() {
     repo.clearCart();
   }
 
-  @override
+
   double cartItemTotal$Amount() {
     var total = 0.0;
     getAllCartItems().forEach((key, cartItem) {
@@ -44,7 +44,7 @@ class CartService implements ICartService {
     return total;
   }
 
-  @override
+
   int cartItemsQtde() {
     var totalQtde = 0;
     getAllCartItems().forEach((x, item) => totalQtde += item.qtde);

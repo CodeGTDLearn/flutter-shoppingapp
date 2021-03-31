@@ -10,7 +10,7 @@ import '../service/managed_products_service.dart';
 
 class ManagedProductsBindings extends Bindings {
   void dependencies() {
-    Get.lazyPut<CustomDrawer>(() => Get.find<CustomDrawer>());
+    Get.lazyPut<CustomDrawer>(() => CustomDrawer());
 
     Get.lazyPut<IManagedProductsRepo>(() => ManagedProductsRepo());
 

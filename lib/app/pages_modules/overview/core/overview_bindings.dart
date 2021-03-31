@@ -5,7 +5,6 @@ import '../../cart/core/cart_bindings.dart';
 import '../../custom_widgets/custom_drawer.dart';
 import '../../managed_products/core/managed_products_bindings.dart';
 import '../../orders/core/orders_bindings.dart';
-import '../controller/i_overview_controller.dart';
 import '../controller/overview_controller.dart';
 import '../repo/i_overview_repo.dart';
 import '../repo/overview_repo.dart';
@@ -24,7 +23,7 @@ class OverviewBindings extends Bindings {
           repo: Get.find<IOverviewRepo>(),
         ));
 
-    Get.lazyPut<IOverviewController>(() => OverviewController(
+    Get.lazyPut<OverviewController>(() => OverviewController(
           service: Get.find<IOverviewService>(),
         ));
 

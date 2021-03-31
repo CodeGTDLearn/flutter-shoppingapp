@@ -9,7 +9,6 @@ import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/pages_modules/cart/core/cart_bindings.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
-import 'package:shopingapp/app/pages_modules/overview/controller/i_overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/pages_modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
@@ -34,7 +33,7 @@ class OverviewItemDetailsPageTest {
         () => OverviewService(repo: Get.find<IOverviewRepo>()),
       );
 
-      Get.lazyPut<IOverviewController>(
+      Get.lazyPut<OverviewController>(
         () => OverviewController(service: Get.find<IOverviewService>()),
       );
 
@@ -44,12 +43,12 @@ class OverviewItemDetailsPageTest {
     setUp(() {
       expect(Get.isPrepared<IOverviewRepo>(), isFalse);
       expect(Get.isPrepared<IOverviewService>(), isFalse);
-      expect(Get.isPrepared<IOverviewController>(), isFalse);
+      expect(Get.isPrepared<OverviewController>(), isFalse);
       expect(Get.isPrepared<CartController>(), isFalse);
       binding.builder();
       expect(Get.isPrepared<IOverviewRepo>(), isTrue);
       expect(Get.isPrepared<IOverviewService>(), isTrue);
-      expect(Get.isPrepared<IOverviewController>(), isTrue);
+      expect(Get.isPrepared<OverviewController>(), isTrue);
       expect(Get.isPrepared<CartController>(), isTrue);
       HttpOverrides.global = null;
       seek = TestUtils();
@@ -63,7 +62,7 @@ class OverviewItemDetailsPageTest {
     void _isInstancesRegistred() {
       expect(Get.isRegistered<IOverviewRepo>(), isTrue);
       expect(Get.isRegistered<IOverviewService>(), isTrue);
-      expect(Get.isRegistered<IOverviewController>(), isTrue);
+      expect(Get.isRegistered<OverviewController>(), isTrue);
       expect(Get.isRegistered<CartController>(), isTrue);
     }
 

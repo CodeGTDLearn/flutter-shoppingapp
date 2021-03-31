@@ -25,11 +25,11 @@ class AppRoutes {
   static List<GetPage> getAppRoutes = [
     GetPage(
         name: OVERVIEW_ALL,
-        page: () => OverviewPage(EnumFilter.All, Get.find()),
+        page: () => OverviewPage(enumFilter: EnumFilter.All),
         binding: OverviewBindings()),
     GetPage(
         name: OVERVIEW_FAV,
-        page: () => OverviewPage(EnumFilter.Fav, Get.find()),
+        page: () => OverviewPage(enumFilter: EnumFilter.Fav),
         binding: OverviewBindings()),
     GetPage(
         name: ORDERS,

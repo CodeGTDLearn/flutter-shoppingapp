@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../custom_widgets/custom_snackbar.dart';
-import '../controller/i_overview_controller.dart';
+import '../controller/overview_controller.dart';
 import '../core/messages_snackbars_provided.dart';
 import '../core/overview_texts_icons_provided.dart';
 import '../core/overview_widget_keys.dart';
@@ -13,7 +13,7 @@ import 'filter_favorite_enum.dart';
 // ignore: must_be_immutable
 class FavoritesFilterPopup extends StatelessWidget {
   final EnumFilter _enum;
-  final IOverviewController _controller = Get.find<IOverviewController>();
+  final OverviewController _controller = Get.find<OverviewController>();
 
   FavoritesFilterPopup(this._enum);
 

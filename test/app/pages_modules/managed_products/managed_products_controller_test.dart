@@ -1,4 +1,3 @@
-import 'package:shopingapp/app/pages_modules/managed_products/controller/i_managed_products_controller.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/controller/managed_products_controller.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_products_repo.dart';
@@ -15,7 +14,7 @@ import 'repo/managed_products_repo_mocks.dart';
 
 class ManagedProductsControllerTest {
   static void integration() {
-    IManagedProductsController _controller;
+    ManagedProductsController _controller;
     IManagedProductsService _service;
     IOverviewService _ovService;
     IManagedProductsRepo _mockRepo;

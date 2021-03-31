@@ -16,7 +16,7 @@ class CartPage extends StatelessWidget {
 
   CartPage({this.controller});
 
-  @override
+
   Widget build(BuildContext context) {
     var fullSizeLessAppbar = MediaQuery.of(context).size;
 

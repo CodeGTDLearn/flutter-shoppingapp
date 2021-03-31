@@ -1,4 +1,3 @@
-import 'package:shopingapp/app/pages_modules/orders/controller/i_orders_controller.dart';
 import 'package:shopingapp/app/pages_modules/orders/controller/orders_controller.dart';
 import 'package:shopingapp/app/pages_modules/orders/repo/i_orders_repo.dart';
 import 'package:shopingapp/app/pages_modules/orders/service/i_orders_service.dart';
@@ -12,7 +11,7 @@ class OrdersControllerTest {
   static void integration() {
     IOrdersRepo _mockedRepo;
     IOrdersService _service;
-    IOrdersController _controller;
+    OrdersController _controller;
 
     setUp(() {
       _mockedRepo = OrdersMockRepo();

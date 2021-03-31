@@ -11,7 +11,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   CustomAppBar({this.enumFilter});
 
-  @override
+
   Widget build(BuildContext context) {
     return AppBar(
         key: Key(K_DRW_APPBAR_BTN),
@@ -22,6 +22,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         actions: [FavoritesFilterPopup(enumFilter), BadgeShopCart()]);
   }
 
-  @override
+
   Size get preferredSize => const Size.fromHeight(55);
 }

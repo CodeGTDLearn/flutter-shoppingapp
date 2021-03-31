@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../cart/controller/cart_controller.dart';
-import '../../cart/controller/i_cart_controller.dart';
 import '../../cart/core/cart_widget_keys.dart';
 import '../../custom_widgets/custom_snackbar.dart';
 import '../core/messages_snackbars_provided.dart';
@@ -15,7 +14,7 @@ class BadgeShopCart extends StatelessWidget {
   final int value;
   final Color color;
 
-  final ICartController _controller = Get.find<CartController>();
+  final CartController _controller = Get.find<CartController>();
 
   BadgeShopCart({this.child, this.value, this.color});
 

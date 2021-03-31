@@ -1,5 +1,4 @@
 import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dart';
-import 'package:shopingapp/app/pages_modules/cart/controller/i_cart_controller.dart';
 import 'package:shopingapp/app/pages_modules/cart/entities/cart_item.dart';
 import 'package:shopingapp/app/pages_modules/cart/repo/cart_repo.dart';
 import 'package:shopingapp/app/pages_modules/cart/repo/i_cart_repo.dart';
@@ -19,7 +18,7 @@ import '../orders/repo/orders_repo_mocks.dart';
 
 class CartControllerTest {
   static void integration() {
-    ICartController _controller;
+    CartController _controller;
     ICartService _cartService;
     ICartRepo _repo;
     IOrdersRepo _repoMockOrders;
