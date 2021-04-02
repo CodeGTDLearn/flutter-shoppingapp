@@ -148,8 +148,6 @@ class CartPageTest {
 
       var snackbarInfo = '${_prods()[0].title}$ITEM_CART_ADDED_IN_THE_SHOPCART';
 
-      print(snackbarInfo);
-
       //1) ADDING A PRODUCT IN THE CART
       expect(_seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
       await tester.tap(CartIconProduct1);

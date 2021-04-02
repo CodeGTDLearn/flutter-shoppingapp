@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/managed_products/managed_product_edit.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/managed_products/managed_products.dart';
+import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/pages_modules/cart/core/cart_bindings.dart';
 import 'package:shopingapp/app/pages_modules/custom_widgets/core/keys/custom_drawer_widgets_keys.dart';
@@ -228,10 +229,15 @@ class ManagedProductsAddEditPageTest {
       expect(_seek.type(ManagedProductItem), findsNWidgets(5));
 
 //----------------------------------------------------------
-//       expect(_seek.type(BackButton), findsOneWidget);
-//       await tester.tap(_seek.type(BackButton));
-//       await tester.pumpAndSettle(_seek.delay(1));
-//       expect(_seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
+      expect(_seek.type(BackButton), findsOneWidget);
+      await tester.tap(_seek.type(BackButton));//<<<<<<<<<<<<<<< todo: pra
+      // voltar esta tendo que clicar 2x em BackButton
+      await tester.pumpAndSettle(_seek.delay(1));
+      await tester.tap(_seek.type(BackButton));//<<<<<<<<<<<<<<<< todo
+      // voltar esta tendo que clicar 2x em BackButton
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(_seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
+      expect(_seek.type(OverviewGridItem), findsNWidgets(5));
     });
 
     testWidgets('Open Managed Product AddEdit Page', (tester) async {
@@ -335,39 +341,3 @@ class ManagedProductsAddEditPageTest {
     });
   }
 }
-
-// void _getBinding(IManagedProductsRepo mock) {
-//
-//   Get.reset();
-//
-//   _binding = BindingsBuilder(() {
-//     // Get.lazyPut<DarkThemeController>(() => DarkThemeController());
-//
-//     Get.lazyPut<CustomDrawer>(() => CustomDrawer());
-//
-//     Get.lazyPut<IOverviewRepo>(() => OverviewMockRepo());
-//
-//     Get.lazyPut<IOverviewService>(
-//       () => OverviewService(repo: Get.find()),
-//     );
-//
-//     Get.lazyPut<OverviewController>(
-//       () => OverviewController(service: Get.find()),
-//     );
-//
-//     Get.lazyPut<IManagedProductsRepo>(() => mock);
-//
-//     Get.lazyPut<IManagedProductsService>(
-//       () => ManagedProductsService(
-//           repo: Get.find<IManagedProductsRepo>(),
-//           overviewService: Get.find()),
-//     );
-//
-//     Get.lazyPut<ManagedProductsController>(
-//       () => ManagedProductsController(
-//           service: Get.find()),
-//     );
-//
-//     CartBindings().dependencies();
-//   });
-// }
