@@ -236,10 +236,10 @@ class ManagedProductsAddEditPageTest {
 
 //----------------------------------------------------------
 
-      // await tester.tap(drawerOvViewOption);
-      // await tester.pump();
-      // await tester.pump(_seek.delay(2));
-      // expect(_seek.type(OverviewGridItem), findsNWidgets(5));
+      await tester.tap(drawerOvViewOption);
+      await tester.pump();
+      await tester.pump(_seek.delay(2));
+      expect(_seek.type(OverviewGridItem), findsNWidgets(5));
     });
 
     testWidgets('Open Managed Product AddEdit Page', (tester) async {

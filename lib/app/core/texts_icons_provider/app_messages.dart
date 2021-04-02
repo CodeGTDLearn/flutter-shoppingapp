@@ -1,7 +1,7 @@
 //FlushBar Dialogs
 
-const ITEM_CART_ADDED_IN_SHOPCART = " Added in the cart.";
-const ITEM_CART_REMOVED_FROM_SHOPCART = "Item removed successfully.";
+const ITEM_CART_ADDED_IN_THE_SHOPCART = " Added in the cart.";
+const ITEM_CART_REMOVED_FROM_THE_SHOPCART = "Item removed successfully.";
 const NO_ITEMS_IN_THE_SHOPCART_YET = "No items in the cart, yet.";
 const NO_ITEM_CART_IN_THE_DB_YET = "No items in the DB, yet.";
 const FAVORITES_NOT_FOUND_YET = "Favorites not found, yet.";

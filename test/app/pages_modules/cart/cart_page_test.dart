@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/properties/theme/dark_theme_controller.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/app_generic_words.dart';
+import 'package:shopingapp/app/core/texts_icons_provider/app_messages.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/cart.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/pages_modules/cart/components/dismis_cart_item.dart';
@@ -95,46 +96,78 @@ class CartPageTest {
       return Get.find<CartController>().getAmountCartItemsObs();
     }
 
-    testWidgets('Adding products + Checking Appbar CartIcon text Qtde',
-        (tester) async {
-      await tester.pumpWidget(AppDriver());
-      await tester.pump();
-      _isInstancesRegistred();
-
-      var CartIconKey = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
-
-      expect(_seek.text("0"), findsOneWidget);
-      await tester.tap(CartIconKey);
-      await tester.pumpAndSettle(_seek.delay(1));
-      expect(_seek.text("1"), findsOneWidget);
-      await tester.tap(CartIconKey);
-      await tester.pumpAndSettle(_seek.delay(1));
-      expect(_seek.text("2"), findsOneWidget);
-    });
-
-    testWidgets('Adding a product', (tester) async {
+    testWidgets('Adding products + Check Appbar CartIcon Qtde', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();
 
       var CartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
-      var snackbartext1 = _seek.text(_prods()[1].title.toString());
+
+      expect(_seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
+      expect(_seek.text("0"), findsOneWidget);
+
+      await tester.tap(CartIconProduct1);
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(_seek.text("1"), findsOneWidget);
+
+      await tester.tap(CartIconProduct1);
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(_seek.text("2"), findsOneWidget);
+    });
+
+    testWidgets('Adding a product + Check product in CartPage', (tester) async {
+      await tester.pumpWidget(AppDriver());
+      await tester.pump();
+      _isInstancesRegistred();
+
+      var CartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
       var cartButtonPage = _seek.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
 
       //1) ADDING A PRODUCT IN THE CART
+      expect(_seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
       expect(_seek.text("0"), findsOneWidget);
       await tester.tap(CartIconProduct1);
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.text("1"), findsOneWidget);
-      expect(snackbartext1, findsOneWidget);
 
-      //2) CLICKING CART-BUTTON AND CHECK THE CART
+      //2) CLICKING CART-BUTTON AND CHECK 'PRODUCT' THE CART-PAGE
       await tester.tap(cartButtonPage);
       await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.text(CART_TITLE_PAGE), findsOneWidget);
       expect(_seek.text(_prods()[0].title), findsOneWidget);
       expect(_seek.text('x1'), findsOneWidget);
+    });
+
+    testWidgets('Adding a product + Check Snackbar Info', (tester) async {
+      await tester.pumpWidget(AppDriver());
+      await tester.pump();
+      _isInstancesRegistred();
+
+      var CartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
+
+      var snackbarInfo = '${_prods()[0].title}$ITEM_CART_ADDED_IN_THE_SHOPCART';
+
+      print(snackbarInfo);
+
+      //1) ADDING A PRODUCT IN THE CART
+      expect(_seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
+      await tester.tap(CartIconProduct1);
+      await tester.pumpAndSettle(_seek.delay(2));
+      expect(_seek.type(SnackBar), findsOneWidget);
+      expect(_seek.text(snackbarInfo), findsOneWidget);
+
+      //2) CLICKING CART-BUTTON AND CHECK CART-PAGE
+      await tester.tap(_seek.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(_seek.text(CART_TITLE_PAGE), findsOneWidget);
+
+      //3) CLICKING BACKBUTTON
+      await tester.tap(_seek.type(BackButton));
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(_seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
+      expect(_seek.type(SnackBar), findsNothing);
+      expect(_seek.text(snackbarInfo), findsNothing);
     });
 
     testWidgets('Denying FIRST product Dismissing', (tester) async {
@@ -157,19 +190,16 @@ class CartPageTest {
 
       //2) CLICKING CART-PAGE-BUTTON AND CHECK THE CART
       await tester.tap(cartPageButton);
-      await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
       expect(cartPageTitle, findsOneWidget);
       expect(typeCardCartItem, findsNWidgets(1));
 
       //3) DISMISSING(LEFT DRAGGING TO DELETE) THE PRODUCT 01
       await tester.drag(keyCartItemProduct1, Offset(-500.0, 0.0));
-      await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.type(AlertDialog), findsOneWidget);
       expect(_seek.text(CART_LABEL_ALERTDIALOG_DISMIS_CONFIRM), findsOneWidget);
       await tester.tap(_seek.text(NO));
-      await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
       expect(typeCardCartItem, findsNWidgets(1));
     });
@@ -242,7 +272,6 @@ class CartPageTest {
 
       //2) CLICKING CART-PAGE-BUTTON AND CHECK CART-AMOUNT + CART-ITEMS
       await tester.tap(cartPageButton);
-      await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
       expect(cartPageTitle, findsOneWidget);
       expect(typeDismisCartItem, findsNWidgets(2));
@@ -251,12 +280,10 @@ class CartPageTest {
 
       //3) DISMISSING(LEFT DRAGGING TO DELETE) THE PRODUCT 01
       await tester.drag(keyCartItemProduct1, Offset(-500.0, 0.0));
-      await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.type(AlertDialog), findsOneWidget);
       expect(_seek.text(CART_LABEL_ALERTDIALOG_DISMIS_CONFIRM), findsOneWidget);
       await tester.tap(_seek.text(YES));
-      await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
 
       expect(typeDismisCartItem, findsNWidgets(1));
@@ -264,12 +291,10 @@ class CartPageTest {
 
       //4) DISMISSING(LEFT DRAGGING) THE PRODUCT 02
       await tester.drag(keyCartItemProduct2, Offset(-500.0, 0.0));
-      await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.type(AlertDialog), findsOneWidget);
       expect(_seek.text(CART_LABEL_ALERTDIALOG_DISMIS_CONFIRM), findsOneWidget);
       await tester.tap(_seek.text(YES));
-      await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
 
       expect(typeDismisCartItem, findsNWidgets(0));
@@ -288,7 +313,7 @@ class CartPageTest {
       expect(_seek.text("0"), findsOneWidget);
       await tester.pumpAndSettle(_seek.delay(1));
 
-      //2) CLICKING CART-BUTTON AND CHECK THE CART
+      //2) CLICKING CART-BUTTON AND CHECK THE CART-PAGE
       await tester.tap(_seek.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
       await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
@@ -320,9 +345,8 @@ class CartPageTest {
       expect(_seek.text("4"), findsOneWidget);
       expect(snackbartext2, findsOneWidget);
 
-      //2) CLICKING CART-BUTTON AND CHECK THE CART
+      //2) CLICKING CART-BUTTON AND CHECK THE CART-PAGE
       await tester.tap(cartButtonPage);
-      await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.text(CART_TITLE_PAGE), findsOneWidget);
       expect(_seek.text(_prods()[0].title), findsOneWidget);
@@ -352,7 +376,6 @@ class CartPageTest {
 
       //2) CLICKING CART-BUTTON AND CHECK THE AMOUNT CART
       await tester.tap(cartButtonPage);
-      await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.text(CART_TITLE_PAGE), findsOneWidget);
       expect(_seek.text(cartController.getAmountCartItemsObs().toString()),
@@ -379,7 +402,6 @@ class CartPageTest {
 
       //2) CLICKING CART-BUTTON-PAGE AND CHECK THE AMOUNT CART
       await tester.tap(cartButtonPage);
-      await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.text(CART_TITLE_PAGE), findsOneWidget);
       expect(_seek.text(_prods()[0].title), findsOneWidget);
@@ -388,11 +410,9 @@ class CartPageTest {
       expect(totalCart() > 0, isTrue);
       expect(orderNowButton, findsOneWidget);
       await tester.tap(orderNowButton);
-      await tester.pump();
       await tester.pump(_seek.delay(1));
       expect(orderNowButton, findsNothing);
       expect(customCircProgrIndic, findsOneWidget);
-      await tester.pump();
       expect(totalCart() == 0, isTrue);
       await tester.pump(_seek.delay(2));
       expect(_seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
@@ -419,7 +439,6 @@ class CartPageTest {
 
       //2) CLICKING CART-BUTTON-PAGE AND CHECK THE AMOUNT CART
       await tester.tap(cartButtonPage);
-      await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.text(CART_TITLE_PAGE), findsOneWidget);
       expect(_seek.text(_prods()[0].title), findsOneWidget);
@@ -428,13 +447,35 @@ class CartPageTest {
       expect(totalCart() > 0, isTrue);
       expect(clearCartButton, findsOneWidget);
       await tester.tap(clearCartButton);
-      await tester.pump();
       await tester.pump(_seek.delay(1));
       expect(customCircProgrIndic, findsOneWidget);
-      await tester.pump();
       await tester.pump(_seek.delay(1));
       expect(totalCart() == 0, isTrue);
       await tester.pump(_seek.delay(2));
+      expect(_seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
+    });
+
+    testWidgets('Testing Page BackButton', (tester) async {
+      await tester.pumpWidget(AppDriver());
+      await tester.pump();
+      _isInstancesRegistred();
+
+      var CartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
+      var cartButtonPage = _seek.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
+
+      //1) ADDING A PRODUCT IN THE CART
+      expect(_seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
+      await tester.tap(CartIconProduct1);
+      await tester.pumpAndSettle(_seek.delay(1));
+
+      //2) CLICKING CART-BUTTON AND CHECK THE CART-PAGE+BACKBUTTON
+      await tester.tap(cartButtonPage);
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(_seek.text(CART_TITLE_PAGE), findsOneWidget);
+
+      //3) CLICKING BACKBUTTON
+      await tester.tap(_seek.type(BackButton));
+      await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
     });
   }

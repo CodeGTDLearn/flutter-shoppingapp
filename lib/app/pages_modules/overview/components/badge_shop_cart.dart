@@ -27,8 +27,8 @@ class BadgeShopCart extends StatelessWidget {
           onPressed: () {
             if (_controller.getAllCartItems().length == 0) {
               SimpleSnackbar(OPS, NO_ITEMS_CART_YET).show();
-              // Get.snackbar(OPS, NO_ITEMS_CART_YET);
             } else {
+              Scaffold.of(context).removeCurrentSnackBar();
               Get.toNamed(AppRoutes.CART);
             }
           }),
