@@ -158,12 +158,10 @@ class ManagedProductsAddEditPageTest {
       expect(ovViewScaffGlobalKey.currentState.isDrawerOpen, isFalse);
       expect(_seek.type(OverviewGridItem), findsNWidgets(4));
 
-      // expect(_seek.text(DRAWER_COMPONENT_TITLE_APPBAR), findsOneWidget);
-
       //b) In the Drawer
       //   -> Click Managed Product Option
       //      -> open 'Managed Products Page'
-      //      -> check  the 04 'ManagedProductItem'
+      //          -> check  the 04 'ManagedProductItem'
       ovViewScaffGlobalKey.currentState.openDrawer();
       await tester.pump();
       await tester.pump(_seek.delay(2));
@@ -229,17 +227,11 @@ class ManagedProductsAddEditPageTest {
       expect(manProdPageTitle, findsOneWidget);
       expect(_seek.type(ManagedProductItem), findsNWidgets(5));
 
-      ovViewScaffGlobalKey.currentState.openDrawer();
-      expect(ovViewScaffGlobalKey.currentState.isDrawerOpen, isTrue);
-      await tester.pump();
-      await tester.pump(_seek.delay(2));
-
 //----------------------------------------------------------
-
-      await tester.tap(drawerOvViewOption);
-      await tester.pump();
-      await tester.pump(_seek.delay(2));
-      expect(_seek.type(OverviewGridItem), findsNWidgets(5));
+//       expect(_seek.type(BackButton), findsOneWidget);
+//       await tester.tap(_seek.type(BackButton));
+//       await tester.pumpAndSettle(_seek.delay(1));
+//       expect(_seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
     });
 
     testWidgets('Open Managed Product AddEdit Page', (tester) async {
@@ -305,7 +297,6 @@ class ManagedProductsAddEditPageTest {
       await tester.pump();
       _isInstancesRegistred();
 
-      _createFakeDataToTestTheManProdAddEditPageFormFields();
       await _openAndTestManagedProductsAddEditPage(tester);
 
       expect(_seek.type(BackButton), findsOneWidget);

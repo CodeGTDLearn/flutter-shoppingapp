@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:shopingapp/app/core/properties/theme/dark_theme_controller.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/managed_products/managed_product_edit.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/managed_products/managed_products.dart';
+import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/pages_modules/cart/core/cart_bindings.dart';
 import 'package:shopingapp/app/pages_modules/custom_widgets/core/keys/custom_drawer_widgets_keys.dart';
@@ -254,6 +255,20 @@ class ManagedProductsPageTest {
       await tester.pumpAndSettle(_seek.delay(1));
 
       expect(_seek.type(RefreshIndicator), findsNWidgets(1));
+    });
+
+    testWidgets('Testing Page BackButton', (tester) async {
+      await tester.pumpWidget(AppDriver());
+      await tester.pump();
+      _checkRegistredInstances();
+
+      await openManagedProductsPageFromOverviewPageDrawer(tester);
+      checkManagedProductsPageAndIts04ListedProducts();
+
+      expect(_seek.type(BackButton), findsOneWidget);
+      await tester.tap(_seek.type(BackButton));
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(_seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
     });
   }
 }

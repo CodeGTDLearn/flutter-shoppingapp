@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/pages_modules/overview/components/overview_grid.dart';
 
 import '../../custom_widgets/custom_app_bar.dart';
 import '../../custom_widgets/custom_drawer.dart';
 import '../components/filter_favorite_enum.dart';
-import '../components/overview_grid_item.dart';
+import '../components/overview_grid.dart';
 import '../controller/overview_controller.dart';
 import '../core/overview_widget_keys.dart';
 

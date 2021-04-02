@@ -4,7 +4,6 @@ import 'package:get/state_manager.dart';
 
 import '../../../core/properties/app_routes.dart';
 import '../../custom_widgets/custom_circ_progr_indicator.dart';
-import '../../custom_widgets/custom_drawer.dart';
 import '../components/managed_product_item.dart';
 import '../controller/managed_products_controller.dart';
 import '../core/managed_products_widget_keys.dart';
@@ -18,12 +17,7 @@ class ManagedProductsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // key: K_OV_SCFLD, //todo: GLOBAL KEY DUPLICATION!!!!
-      // ManagedPRoductsPAge Scaffold GlobalKey
-      // key: Key(K_MP_SCFLD_GKEY),
-
-      // drawer: CustomDrawer(),
-      drawer: Get.find<CustomDrawer>(),
+      // drawer: Get.find<CustomDrawer>(),
 
       appBar: AppBar(title: Text(MAN_PROD_TIT_APPBAR), actions: <Widget>[
         IconButton(

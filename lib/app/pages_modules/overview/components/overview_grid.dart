@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controller/overview_controller.dart';
 import 'filter_favorite_enum.dart';
 import 'overview_grid_item.dart';
-import '../controller/overview_controller.dart';
 
 // ignore: must_be_immutable
 class OverviewGrid extends StatelessWidget {
