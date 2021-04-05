@@ -14,6 +14,8 @@ abstract class IOverviewService {
 
   Future<bool> toggleFavoriteStatus(String id);
 
+  void updateProductInLocalDataLists(Product product);
+
   int getFavoritesQtde();
 
   int getProductsQtde();

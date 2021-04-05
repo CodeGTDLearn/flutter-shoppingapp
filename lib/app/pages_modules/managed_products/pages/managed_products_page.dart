@@ -37,10 +37,7 @@ class ManagedProductsPage extends StatelessWidget {
                   : ListView.builder(
                       itemCount: controller.getManagedProductsObs().length,
                       itemBuilder: (ctx, i) => Column(children: [
-                            ManagedProductItem(
-                                controller.getManagedProductsObs()[i].id,
-                                controller.getManagedProductsObs()[i].title,
-                                controller.getManagedProductsObs()[i].imageUrl),
+                            ManagedProductItem(controller.getManagedProductsObs()[i]),
                             Divider()
                           ]))))),
     );

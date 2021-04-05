@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/properties/app_owasp_regex.dart';
-import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/app_generic_words.dart';
 import '../../custom_widgets/custom_circ_progr_indicator.dart';
 import '../../custom_widgets/custom_snackbar.dart';
@@ -21,7 +20,6 @@ class ManagedProductAddEditPage extends StatefulWidget {
 }
 
 class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
-
   final ManagedProductsController _manProdController = Get.find();
   final OverviewController _ovViewController = Get.find();
 
@@ -88,20 +86,24 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
     _product.id.isNull
         ? _saveProduct(_product, _context)
         : _updateProduct(_product, _context);
+
+    Navigator.pop(_context);
     // @formatter:on
   }
 
-  Future<dynamic> _saveProduct(Product _product, BuildContext _context) {
+  void _saveProduct(Product _product, BuildContext _context) {
     // @formatter:off
-    return _manProdController
+     _manProdController
         .addProduct(_product)
         .then((product) {
             _manProdController
               .switchManagedProdAddEditFormToCustomCircularProgrIndic();
             _manProdController.updateManagedProductsObs();
             _ovViewController.updateFilteredProductsObs();
-            Get.offNamed(AppRoutes.MANAGED_PRODUCTS);})
-        .whenComplete(() {SimpleSnackbar(SUCES, SUCESS_MAN_PROD_ADD).show();})
+        })
+        .whenComplete(() {
+          SimpleSnackbar(SUCES, SUCESS_MAN_PROD_ADD).show();
+        })
         .catchError((onError) {
             Get.defaultDialog(
             title: OPS,
@@ -113,24 +115,26 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
     // @formatter:on
   }
 
-  Future<void> _updateProduct(Product _product, BuildContext _context) {
+  void _updateProduct(Product _product, BuildContext _context) {
     // @formatter:off
-    return _manProdController.updateProduct(_product).then((statusCode) {
-      if (statusCode >= 400) {
-        Get.defaultDialog(
-            title: OPS,
-            middleText: ERROR_MAN_PROD,
-            textConfirm: OK,
-            onConfirm: Get.back);
-      } else {
-        _manProdController
-            .switchManagedProdAddEditFormToCustomCircularProgrIndic();
-        _manProdController.updateManagedProductsObs();
-        Get.offNamed(AppRoutes.MANAGED_PRODUCTS);
-        // Get.snackbar("title222", "message2222");
-        SimpleSnackbar(SUCES, SUCESS_MAN_PROD_UPDT).show();
-      }
-    });
+    _manProdController
+        .updateProduct(_product)
+        .then((statusCode) {
+            if (statusCode >= 200 && statusCode < 400)  {
+              _manProdController
+                  .switchManagedProdAddEditFormToCustomCircularProgrIndic();
+              _manProdController.updateManagedProductsObs();
+              _ovViewController.updateFilteredProductsObs();
+              SimpleSnackbar(SUCES, SUCESS_MAN_PROD_UPDT).show();
+            }
+            if (statusCode >= 400) {
+              Get.defaultDialog(
+                  title: OPS,
+                  middleText: ERROR_MAN_PROD,
+                  textConfirm: OK,
+                  onConfirm: Get.back);
+            }
+        });
     // @formatter:on
   }
 

@@ -55,13 +55,18 @@ class ManagedProductsController extends GetxController {
 
   Future<int> deleteProduct(String id) {
     // @formatter:off
-    var responseFuture = service.deleteProduct(id).then((statusCode) {
-      if (statusCode >= 400) {
-        managedProductsObs.assignAll(service.getLocalDataManagedProducts());
-      }
-      return statusCode;
-    });
+    var responseFuture =
+    service
+        .deleteProduct(id)
+        .then((statusCode) {
+            if (statusCode >= 400) {
+              managedProductsObs.assignAll(service.getLocalDataManagedProducts());
+            }
+            return statusCode;
+        });
+
     managedProductsObs.assignAll(service.getLocalDataManagedProducts());
+
     return responseFuture;
     // @formatter:on
   }

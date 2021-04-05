@@ -46,15 +46,10 @@ class ManagedProductsService implements IManagedProductsService {
     return repo
         .addProduct(_product)
         .then((addedProduct) {
-            // _localDataManagedProducts.add(addedProduct);
             addLocalDataManagedProducts(addedProduct);
             overviewService.addProductInLocalDataAllProducts(addedProduct);
             return addedProduct;})
         .catchError((onError) => throw onError);
-        // .catchError((onError) {
-        //   _localDataManagedProducts.remove(_product);
-        //   throw onError;
-        // });
     // @formatter:on
   }
 
@@ -65,7 +60,19 @@ class ManagedProductsService implements IManagedProductsService {
 
   @override
   Future<int> updateProduct(Product product) {
-    return repo.updateProduct(product).then((statusCode) => statusCode);
+    // @formatter:off
+    final _index =
+          _localDataManagedProducts.indexWhere((item) => item.id == product.id);
+
+    return
+      repo.updateProduct(product)
+          .then((statusCode) {
+              if (statusCode >= 200 && statusCode < 400) {
+                _localDataManagedProducts[_index] = product;
+                overviewService.updateProductInLocalDataLists(product);}
+              return statusCode;
+          });
+    // @formatter:on
   }
 
   @override

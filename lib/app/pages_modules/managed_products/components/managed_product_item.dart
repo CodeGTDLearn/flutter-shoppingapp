@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
+import 'package:shopingapp/app/pages_modules/overview/controller/overview_controller.dart';
 
 import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/app_generic_words.dart';
@@ -10,16 +12,19 @@ import '../core/messages/messages_snackbars_provided.dart';
 import '../core/texts_icons/managed_product_item_icons_provided.dart';
 
 class ManagedProductItem extends StatelessWidget {
-  final String _id;
-  final String _title;
-  final String _imageUrl;
+  final Product product;
 
-  ManagedProductItem(this._id, this._title, this._imageUrl);
+  ManagedProductItem(this.product);
 
   final ManagedProductsController _controller = Get.find();
+  final OverviewController _ovViewController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    var _id = product.id;
+    var _title = product.title;
+    var _imageUrl = product.imageUrl;
+
     return ListTile(
         key: Key('$K_MP_ITEM_KEY$_id'),
         leading: CircleAvatar(backgroundImage: NetworkImage(_imageUrl)),
@@ -38,13 +43,14 @@ class ManagedProductItem extends StatelessWidget {
                   key: Key('$K_MP_DEL_BTN$_id'),
                   icon: MAN_PROD_ITEM_DEL_ICO,
                   onPressed: () =>
-                      _controller.deleteProduct(_id).then((response) {
-                        if (response >= 400) {
-                          SimpleSnackbar(OPS, ERROR_MAN_PROD).show();
-                          // Get.snackbar(OPS, ERROR_MAN_PROD);
-                        } else {
+                      _controller.deleteProduct(_id).then((statusCode) {
+                        if (statusCode >= 200 && statusCode < 400) {
+                          _controller.updateManagedProductsObs();
+                          _ovViewController.updateFilteredProductsObs();
                           SimpleSnackbar(SUCES, SUCESS_MAN_PROD_DEL).show();
-                          // Get.snackbar(SUCES, SUCESS_MAN_PROD_DEL);
+                        }
+                        if (statusCode >= 400) {
+                          SimpleSnackbar(OPS, ERROR_MAN_PROD).show();
                         }
                       }),
                   color: Theme.of(context).errorColor),

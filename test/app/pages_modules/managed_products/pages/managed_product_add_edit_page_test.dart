@@ -230,17 +230,15 @@ class ManagedProductsAddEditPageTest {
 
 //----------------------------------------------------------
       expect(_seek.type(BackButton), findsOneWidget);
-      await tester.tap(_seek.type(BackButton));//<<<<<<<<<<<<<<< todo: pra
-      // voltar esta tendo que clicar 2x em BackButton
+      await tester.tap(_seek.type(BackButton));
       await tester.pumpAndSettle(_seek.delay(1));
-      await tester.tap(_seek.type(BackButton));//<<<<<<<<<<<<<<<< todo
-      // voltar esta tendo que clicar 2x em BackButton
-      await tester.pumpAndSettle(_seek.delay(1));
+
       expect(_seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
       expect(_seek.type(OverviewGridItem), findsNWidgets(5));
     });
 
-    testWidgets('Open Managed Product AddEdit Page', (tester) async {
+    testWidgets('Open Managed Product AddEdit Page', (tester)
+    async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
       _isInstancesRegistred();

@@ -69,6 +69,20 @@ class OverviewService implements IOverviewService {
   }
 
   @override
+  void updateProductInLocalDataLists(Product product) {
+    // @formatter:off
+    final _indexLocalDataAllProducts =
+    _localDataAllProducts.indexWhere((item) => item.id == product.id);
+    _localDataAllProducts[_indexLocalDataAllProducts] = product;
+
+    final _indexLocalDataFavoritesProducts =
+      _localDataFavoritesProducts.indexWhere((item) => item.id == product.id);
+    if(_indexLocalDataFavoritesProducts > 0){
+      _localDataFavoritesProducts[_indexLocalDataFavoritesProducts] = product;}
+    // @formatter:on
+  }
+
+  @override
   List<Product> getProductsByFilter(EnumFilter filter) {
     _updateLocalDataFavoritesProducts();
     if (filter == EnumFilter.Fav) {
@@ -107,11 +121,6 @@ class OverviewService implements IOverviewService {
         _localDataFavoritesProducts.add(item);
       }
     }
-    // _localDataAllProducts.forEach((item) {
-    //   if (item.isFavorite) {
-    //     _localDataFavoritesProducts.add(item);
-    //   }
-    // });
     _sortDataSavingLists();
     return _localDataFavoritesProducts;
   }

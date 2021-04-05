@@ -3,6 +3,7 @@ import 'package:shopingapp/app/pages_modules/managed_products/entities/product.d
 import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_products_repo.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/service/i_managed_products_service.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/service/managed_products_service.dart';
+import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
@@ -10,13 +11,15 @@ import 'package:test/test.dart';
 import '../../../../test_utils/custom_test_methods.dart';
 import '../../../../test_utils/data_builders/product_databuilder.dart';
 import '../../../../test_utils/mocked_data/mocked_products_data.dart';
+import '../../overview/repo/overview_repo_mocks.dart';
 import '../repo/managed_products_repo_mocks.dart';
 import 'managed_products_service_mock.dart';
 
 class ManagedProductsServiceTest {
   static void unit() {
     IManagedProductsService _mPService, _injectMockService;
-    IManagedProductsRepo _mockRepo;
+    IManagedProductsRepo _mockRepoManagedProducts;
+    IOverviewRepo _mockRepoOverviewProducts;
     IOverviewService _ovService;
     var _product0 = ProductsMockedData().products().elementAt(0);
     var _product1 = ProductsMockedData().products().elementAt(1);
@@ -24,19 +27,20 @@ class ManagedProductsServiceTest {
     var _newProduct = ProductDataBuilder().ProductFull();
 
     setUp(() {
-      _mockRepo = ManagedProductsMockRepo();
-      _ovService = OverviewService();
-      _mPService =
-          ManagedProductsService(repo: _mockRepo, overviewService: _ovService);
-      // _overViewService = Get.put(OverviewService());
-      // _ovService = Get.find();
+      _mockRepoManagedProducts = ManagedProductsMockRepo();
+      _mockRepoOverviewProducts = OverviewMockRepo();
+      _ovService = OverviewService(repo: _mockRepoOverviewProducts);
+      _mPService = ManagedProductsService(
+        repo: _mockRepoManagedProducts,
+        overviewService: _ovService,
+      );
       _injectMockService = ManagedProductsInjectMockService();
     });
 
     tearDown(CustomTestMethods.globalTearDown);
 
     test('Checking Test Instances', () {
-      expect(_mockRepo, isA<ManagedProductsMockRepo>());
+      expect(_mockRepoManagedProducts, isA<ManagedProductsMockRepo>());
       expect(_mPService, isA<ManagedProductsService>());
       expect(_injectMockService, isA<ManagedProductsInjectMockService>());
       expect(_product0, isA<Product>());
@@ -121,11 +125,13 @@ class ManagedProductsServiceTest {
       });
     });
 
-    test('Updating a Product', () {
       _mPService.getProducts().then((_) {
+    test('Updating a Product', () {
         expect(_mPService.getProductById(_product1.id),
             isIn(_mPService.getLocalDataManagedProducts()));
 
+        // Erro: OverviewRepoMock nao esta sendo
+       // lido e nao encontra o produto
         _mPService.updateProduct(_product1).then((response) {
           expect(response, 200);
         });
