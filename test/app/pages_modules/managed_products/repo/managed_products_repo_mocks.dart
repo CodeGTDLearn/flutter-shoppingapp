@@ -3,8 +3,7 @@ import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_products_repo.dart';
 
-import '../../../../test_utils/mocked_data/mocked_products_data.dart';
-
+import '../../../../test_utils/mocked_datasource/products_mocked_datasource.dart';
 
 /* **************************************************
   *--> TIPOS DE MOCK
@@ -25,13 +24,13 @@ import '../../../../test_utils/mocked_data/mocked_products_data.dart';
   *--> VISAO PRATICA:
   *     Mocks permitem:
   *     - Testes mais rapidos, do que os feitos em WebService ou DB
-  *     - Testes independemente de WebService ou DB
+  *     - Testes independemente de WebServide ou DB
   *****************************************************/
 class ManagedProductsMockRepo extends Mock implements IManagedProductsRepo {
   @override
   Future<int> deleteProduct(String id) {
     // @formatter:off
-    final found = ProductsMockedData()
+    final found = ProductsMockedDatasource()
         .products()
         .firstWhere((item) => item.id == id,
         orElse: () {
@@ -43,27 +42,28 @@ class ManagedProductsMockRepo extends Mock implements IManagedProductsRepo {
   }
 
   @override
-  Future<List<Product>> getProducts() {
-    return Future.value(ProductsMockedData().products());
+  Future<List<Product>> getProducts() async {
+    return Future.value(ProductsMockedDatasource().products());
   }
 
   @override
   Future<Product> addProduct(Product product) {
-    var returnedMockedProduct = ProductsMockedData().product();
+    var returnedMockedProduct = ProductsMockedDatasource().product();
     returnedMockedProduct.id = Faker().randomGenerator.string(7, min: 7);
     return Future.value(returnedMockedProduct);
   }
 
   @override
   Future<int> updateProduct(Product product) {
+    // return Future.value(200);
     // @formatter:off
-    final found = ProductsMockedData()
+    final found = ProductsMockedDatasource()
         .products()
         .firstWhere((item) => item.id == product.id,
           orElse: () {
             return null;
           });
-    return found == null ? Future.value(400) : Future.value(200);
+    return found == null ? Future.value(500) : Future.value(200);
     // @formatter:on
   }
 }
@@ -79,12 +79,12 @@ class ManagedProductsMockRepoFail extends Mock implements IManagedProductsRepo {
 
   @override
   Future<List<Product>> getProducts() {
-    return Future.value(ProductsMockedData().productsEmpty());
+    return Future.value(ProductsMockedDatasource().productsEmpty());
   }
 
   @override
   Future<Product> addProduct(Product product) {
-    return Future.value(ProductsMockedData().productEmpty());
+    return Future.value(ProductsMockedDatasource().productEmpty());
   }
 
   @override

@@ -12,16 +12,20 @@ class OverviewService implements IOverviewService {
   OverviewService({this.repo});
 
   @override
-  List<Product> get getLocalDataAllProducts => [..._localDataAllProducts];
+  List<Product> getLocalDataAllProducts() {
+    return [..._localDataAllProducts];
+  }
+
+  @override
+  List<Product> getLocalDataFavoritesProducts() {
+    return [..._localDataFavoritesProducts];
+  }
 
   @override
   void addProductInLocalDataAllProducts(Product product) {
     _localDataAllProducts.add(product);
+    _sortDataSavingLists();
   }
-
-  @override
-  List<Product> get localDataFavoritesProducts =>
-      [..._localDataFavoritesProducts];
 
   @override
   Future<List<Product>> getProducts() {
@@ -70,15 +74,37 @@ class OverviewService implements IOverviewService {
 
   @override
   void updateProductInLocalDataLists(Product product) {
-    // @formatter:off
-    final _indexLocalDataAllProducts =
-    _localDataAllProducts.indexWhere((item) => item.id == product.id);
-    _localDataAllProducts[_indexLocalDataAllProducts] = product;
+    // Only LocalDataList are being updated because
+    // the ManageProductService already updated the product in "the Cloud",
+    // therefore this method only needs its LocalDataLists
 
-    final _indexLocalDataFavoritesProducts =
+    // @formatter:off
+    final _productIndexInLocalDataAllProducts =
+    _localDataAllProducts.indexWhere((item) => item.id == product.id);
+    _localDataAllProducts[_productIndexInLocalDataAllProducts] = product;
+
+    final _productIndexInLocalDataFavoritesProducts =
       _localDataFavoritesProducts.indexWhere((item) => item.id == product.id);
-    if(_indexLocalDataFavoritesProducts > 0){
-      _localDataFavoritesProducts[_indexLocalDataFavoritesProducts] = product;}
+    if(_productIndexInLocalDataFavoritesProducts > 0){
+      _localDataFavoritesProducts[_productIndexInLocalDataFavoritesProducts] = product;}
+
+    _sortDataSavingLists();
+    // @formatter:on
+  }
+
+  @override
+  void deleteProductInLocalDataLists(String productId) {
+    // @formatter:off
+    final _productIndexInLocalDataAllProducts =
+    _localDataAllProducts.indexWhere((item) => item.id == productId);
+    _localDataAllProducts.removeAt(_productIndexInLocalDataAllProducts);
+
+    final _productIndexInLocalDataFavoritesProducts =
+    _localDataFavoritesProducts.indexWhere((item) => item.id == productId);
+    if(_productIndexInLocalDataFavoritesProducts > 0){
+      _localDataFavoritesProducts.removeAt(_productIndexInLocalDataFavoritesProducts);}
+
+    _sortDataSavingLists();
     // @formatter:on
   }
 
@@ -86,9 +112,9 @@ class OverviewService implements IOverviewService {
   List<Product> getProductsByFilter(EnumFilter filter) {
     _updateLocalDataFavoritesProducts();
     if (filter == EnumFilter.Fav) {
-      return getFavoritesQtde() == 0 ? [] : localDataFavoritesProducts;
+      return getFavoritesQtde() == 0 ? [] : getLocalDataFavoritesProducts();
     }
-    return getProductsQtde() == 0 ? [] : getLocalDataAllProducts;
+    return getProductsQtde() == 0 ? [] : getLocalDataAllProducts();
   }
 
   @override
@@ -126,7 +152,7 @@ class OverviewService implements IOverviewService {
   }
 
   void _sortDataSavingLists() {
-    _localDataAllProducts.toList().sort;
-    _localDataFavoritesProducts.toList().sort;
+    _localDataAllProducts.reversed;
+    _localDataFavoritesProducts.reversed;
   }
 }

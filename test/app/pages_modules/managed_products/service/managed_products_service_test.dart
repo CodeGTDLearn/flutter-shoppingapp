@@ -10,7 +10,7 @@ import 'package:test/test.dart';
 
 import '../../../../test_utils/custom_test_methods.dart';
 import '../../../../test_utils/data_builders/product_databuilder.dart';
-import '../../../../test_utils/mocked_data/mocked_products_data.dart';
+import '../../../../test_utils/mocked_datasource/products_mocked_datasource.dart';
 import '../../overview/repo/overview_repo_mocks.dart';
 import '../repo/managed_products_repo_mocks.dart';
 import 'managed_products_service_mock.dart';
@@ -21,19 +21,21 @@ class ManagedProductsServiceTest {
     IManagedProductsRepo _mockRepoManagedProducts;
     IOverviewRepo _mockRepoOverviewProducts;
     IOverviewService _ovService;
-    var _product0 = ProductsMockedData().products().elementAt(0);
-    var _product1 = ProductsMockedData().products().elementAt(1);
-    var _products = ProductsMockedData().products();
+    var _product0 = ProductsMockedDatasource().products().elementAt(0);
+    var _product1 = ProductsMockedDatasource().products().elementAt(1);
+    var _products = ProductsMockedDatasource().products();
     var _newProduct = ProductDataBuilder().ProductFull();
 
     setUp(() {
-      _mockRepoManagedProducts = ManagedProductsMockRepo();
       _mockRepoOverviewProducts = OverviewMockRepo();
       _ovService = OverviewService(repo: _mockRepoOverviewProducts);
+
+      _mockRepoManagedProducts = ManagedProductsMockRepo();
       _mPService = ManagedProductsService(
         repo: _mockRepoManagedProducts,
         overviewService: _ovService,
       );
+
       _injectMockService = ManagedProductsInjectMockService();
     });
 
@@ -82,7 +84,7 @@ class ManagedProductsServiceTest {
     });
 
     test('Adding Product in LocalDataManagedProducts', () {
-      var productTest = ProductsMockedData().product();
+      var productTest = ProductsMockedDatasource().product();
 
       _mPService.getProducts().then((_) {
         expect(_mPService.getLocalDataManagedProducts().length, 4);
@@ -125,13 +127,20 @@ class ManagedProductsServiceTest {
       });
     });
 
-      _mPService.getProducts().then((_) {
     test('Updating a Product', () {
-        expect(_mPService.getProductById(_product1.id),
-            isIn(_mPService.getLocalDataManagedProducts()));
+      _ovService.getProducts().then((_) {
+        expect(
+          _ovService.getProductById(_product1.id),
+          isIn(_ovService.getLocalDataAllProducts()),
+        );
+      });
 
-        // Erro: OverviewRepoMock nao esta sendo
-       // lido e nao encontra o produto
+      _mPService.getProducts().then((_) {
+        expect(
+          _mPService.getProductById(_product1.id),
+          isIn(_mPService.getLocalDataManagedProducts()),
+        );
+
         _mPService.updateProduct(_product1).then((response) {
           expect(response, 200);
         });

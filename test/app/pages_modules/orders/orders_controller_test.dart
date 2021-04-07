@@ -4,7 +4,7 @@ import 'package:shopingapp/app/pages_modules/orders/service/i_orders_service.dar
 import 'package:shopingapp/app/pages_modules/orders/service/orders_service.dart';
 import 'package:test/test.dart';
 
-import '../../../test_utils/mocked_data/mocked_orders_data.dart';
+import '../../../test_utils/mocked_datasource/orders_mocked_datasource.dart';
 import '../orders/repo/orders_repo_mocks.dart';
 
 class OrdersControllerTest {
@@ -30,7 +30,7 @@ class OrdersControllerTest {
       expect(_controller.getOrdersObs().length, isZero);
 
       _controller.getOrders().forEach((value) {
-        expect(value.id.toString(), isIn(OrdersMockedData().orders()));
+        expect(value.id.toString(), isIn(OrdersMockedDatasource().orders()));
         expect(_controller.getQtdeOrdersObs(), isNonZero);
         expect(_controller.getOrdersObs().length, isNonZero);
       });
@@ -40,7 +40,7 @@ class OrdersControllerTest {
       _controller.getOrders().forEach((value) {
         expect(_controller.getQtdeOrdersObs(), isZero);
         expect(_controller.getOrdersObs().length, isZero);
-        expect(value.id.toString(), isIn(OrdersMockedData().orders()));
+        expect(value.id.toString(), isIn(OrdersMockedDatasource().orders()));
         expect(_controller.getQtdeOrdersObs(), isNonZero);
         expect(_controller.getOrdersObs().length, isNonZero);
         _controller.clearOrder();

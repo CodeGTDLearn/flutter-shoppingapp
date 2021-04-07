@@ -4,16 +4,14 @@ import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_pro
 import 'package:test/test.dart';
 
 import '../../../../test_utils/custom_test_methods.dart';
-import '../../../../test_utils/data_builders/product_databuilder.dart';
-import '../../../../test_utils/mocked_data/mocked_products_data.dart';
+import '../../../../test_utils/mocked_datasource/products_mocked_datasource.dart';
 import 'managed_products_repo_mocks.dart';
 
 class ManagedProductsRepoTest {
   static void unit() {
     IManagedProductsRepo _mockRepo, _injectMockRepo;
-    var _product0 = ProductsMockedData().products().elementAt(0);
-    var _product1 = ProductsMockedData().products().elementAt(1);
-    var _newProduct = ProductDataBuilder().ProductFull();
+    var _product0 = ProductsMockedDatasource().products().elementAt(0);
+    var _product1 = ProductsMockedDatasource().products().elementAt(1);
 
     setUp(() {
       _mockRepo = ManagedProductsMockRepo();
@@ -80,13 +78,16 @@ class ManagedProductsRepoTest {
       });
     });
 
-    test('Updating a Product - status 400', () {
-      _mockRepo.updateProduct(_newProduct).then((value) {
-        expect(value, 400);
-      });
+    test('Updating a Product(Inject) - status 400', () {
+      when(_injectMockRepo.updateProduct(_product0))
+          .thenAnswer((_) async => 400);
+
+      _injectMockRepo
+          .updateProduct(_product0)
+          .then((value) => {expect(value, 400)});
     });
 
-    test('Updating a Product(Inject) - status 400', () {
+    test('Updating a Product(Inject) - status 404', () {
       when(_injectMockRepo.updateProduct(_product0))
           .thenAnswer((_) async => 404);
 

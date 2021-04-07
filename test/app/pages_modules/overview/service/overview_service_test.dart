@@ -7,7 +7,7 @@ import 'package:shopingapp/app/pages_modules/overview/service/overview_service.d
 import 'package:test/test.dart';
 
 import '../../../../test_utils/data_builders/product_databuilder.dart';
-import '../../../../test_utils/mocked_data/mocked_products_data.dart';
+import '../../../../test_utils/mocked_datasource/products_mocked_datasource.dart';
 import '../repo/overview_repo_mocks.dart';
 import 'overview_service_mocks.dart';
 
@@ -22,7 +22,6 @@ class OverviewServiceTest {
       _injectMockService = OverviewInjectMockService();
     });
 
-    // group('Service | Mocked-Repo', () {
     test('Checking Instances to be used in the Tests', () {
       expect(_service, isA<OverviewService>());
       expect(_mockRepo, isA<OverviewMockRepo>());
@@ -36,7 +35,7 @@ class OverviewServiceTest {
 
     test('Checking localDataAllProducts loading', () {
       _service.getProducts().then((_) {
-        var list = _service.getLocalDataAllProducts;
+        var list = _service.getLocalDataAllProducts();
         expect(list[0].title, "Red Shirt");
         expect(list[3].description, 'Prepare any meal you want.');
       });
@@ -44,7 +43,7 @@ class OverviewServiceTest {
 
     test('Checking localDataFavoritesProducts loading', () {
       _service.getProducts().then((_) {
-        var list = _service.localDataFavoritesProducts;
+        var list = _service.getLocalDataFavoritesProducts();
         expect(list[0].isFavorite, isTrue);
         expect(list[0].title, "Yellow Scarf");
         expect(list[0].price, 19.99);
@@ -52,20 +51,28 @@ class OverviewServiceTest {
     });
 
     test('Adding Product in LocalDataAllProducts', () {
-        var productTest = ProductsMockedData().product();
+        var productTest = ProductsMockedDatasource().product();
 
       _service.getProducts().then((_) {
-        expect(_service.getLocalDataAllProducts.length, 4);
+        expect(_service.getLocalDataAllProducts().length, 4);
 
         _service.addProductInLocalDataAllProducts(productTest);
-        expect(_service.getLocalDataAllProducts.length, 5);
-        expect(_service.getLocalDataAllProducts[4].title, productTest.title);
+        expect(_service.getLocalDataAllProducts().length, 5);
+        expect(_service.getLocalDataAllProducts()[4].title, productTest.title);
+      });
+    });
+
+    test('Deleting Product', () {
+      _service.getProducts().then((value) {
+        expect(_service.getLocalDataAllProducts().length, 4);
+        _service.deleteProductInLocalDataLists(_service
+            .getLocalDataAllProducts()[0].id);
+        expect(_service.getLocalDataAllProducts().length, 3);
       });
     });
 
     test('Getting products', () {
       _service.getProducts().then((FetchedList) {
-        // var list = _service.localDataAllProducts;
         expect(FetchedList[0].title, "Red Shirt");
         expect(FetchedList[3].description, 'Prepare any meal you want.');
       });
@@ -98,7 +105,7 @@ class OverviewServiceTest {
     test('Getting a product using its ID', () {
       _service.getProducts().then((_) {
         var list = _service.getLocalDataAllProducts;
-        expect(_service.getProductById("p1").description, list[0].description);
+        expect(_service.getProductById("p1").description, list()[0].description);
       });
     });
 
@@ -140,7 +147,7 @@ class OverviewServiceTest {
       // @formatter:off
       when(_injectMockService.getProducts())
           .thenAnswer((_) async => Future
-          .value(ProductsMockedData()
+          .value(ProductsMockedDatasource()
           .productsEmpty()));
 
       _injectMockService.getProducts().then((value) {

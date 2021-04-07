@@ -2,7 +2,7 @@ import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
 
-import '../../../../test_utils/mocked_data/mocked_products_data.dart';
+import '../../../../test_utils/mocked_datasource/products_mocked_datasource.dart';
 
 
 
@@ -30,7 +30,7 @@ import '../../../../test_utils/mocked_data/mocked_products_data.dart';
 class OverviewMockRepo extends Mock implements IOverviewRepo {
   @override
   Future<List<Product>> getProducts() async {
-    return Future.value(ProductsMockedData().products());
+    return Future.value(ProductsMockedDatasource().products());
   }
 
   @override

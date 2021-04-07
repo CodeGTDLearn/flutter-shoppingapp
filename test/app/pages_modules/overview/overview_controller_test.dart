@@ -6,7 +6,7 @@ import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
-import '../../../test_utils/mocked_data/mocked_products_data.dart';
+import '../../../test_utils/mocked_datasource/products_mocked_datasource.dart';
 import 'repo/overview_repo_mocks.dart';
 
 class OverviewControllerTest {
@@ -39,17 +39,25 @@ class OverviewControllerTest {
       });
     });
 
-    test('Updating FilteredProductsObs Observable', () {
+    test('Updating FilteredProductsObs', () {
       _controller.getProducts().then((value) {
         expect(_controller.getFilteredProductsObs().length, 0);
 
-        var productTest = ProductsMockedData().product();
-        expect(_service.getLocalDataAllProducts.length, 4);
+        var productTest = ProductsMockedDatasource().product();
+        expect(_service.getLocalDataAllProducts().length, 4);
         _service.addProductInLocalDataAllProducts(productTest);
-        expect(_service.getLocalDataAllProducts.length, 5);
+        expect(_service.getLocalDataAllProducts().length, 5);
 
         _controller.updateFilteredProductsObs();
         expect(_controller.getFilteredProductsObs().length, 5);
+      });
+    });
+
+    test('Deleting Product', () {
+      _controller.getProducts().then((value) {
+        expect(_service.getLocalDataAllProducts().length, 4);
+        _controller.deleteProduct(_service.getLocalDataAllProducts()[0].id);
+        expect(_service.getLocalDataAllProducts().length, 3);
       });
     });
 
@@ -66,7 +74,7 @@ class OverviewControllerTest {
     });
 
     test('Getting a product using its ID', () {
-      var product = ProductsMockedData().productById("p1");
+      var product = ProductsMockedDatasource().productById("p1");
       _controller.getProducts().then((value) {
         expect(
             _controller.getProductById("p1").description, product.description);

@@ -19,7 +19,11 @@ class OverviewController extends GetxController {
   }
 
   void updateFilteredProductsObs() {
-    filteredProductsObs.assignAll(service.getLocalDataAllProducts);
+    filteredProductsObs.assignAll(service.getLocalDataAllProducts());
+  }
+
+  void deleteProduct(String productId) {
+    service.deleteProductInLocalDataLists(productId);
   }
 
   void getProductsByFilter(EnumFilter filter) {

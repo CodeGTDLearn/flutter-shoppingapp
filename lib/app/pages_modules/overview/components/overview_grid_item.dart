@@ -57,7 +57,8 @@ class OverviewGridItem extends StatelessWidget {
                           },
                           color: Theme.of(context).accentColor),
                     ),
-                    title: Text(_product.title, key: Key("$K_OV_GRD_PRD_TIT$index")),
+                    title: Text(_product.title,
+                        key: Key("$K_OV_GRD_PRD_TIT$index")),
                     trailing: IconButton(
                         key: Key("$K_OV_GRD_CRT_BTN$index"),
                         icon: OV_ICO_SHOPCART,

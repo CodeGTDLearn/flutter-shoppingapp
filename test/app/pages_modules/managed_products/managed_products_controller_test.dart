@@ -3,31 +3,36 @@ import 'package:shopingapp/app/pages_modules/managed_products/entities/product.d
 import 'package:shopingapp/app/pages_modules/managed_products/repo/i_managed_products_repo.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/service/i_managed_products_service.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/service/managed_products_service.dart';
+import 'package:shopingapp/app/pages_modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/pages_modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app/pages_modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
 import '../../../test_utils/custom_test_methods.dart';
 import '../../../test_utils/data_builders/product_databuilder.dart';
-import '../../../test_utils/mocked_data/mocked_products_data.dart';
+import '../../../test_utils/mocked_datasource/products_mocked_datasource.dart';
+import '../overview/repo/overview_repo_mocks.dart';
 import 'repo/managed_products_repo_mocks.dart';
 
 class ManagedProductsControllerTest {
   static void integration() {
+    IOverviewService _ovService;
+    IOverviewRepo _mockRepoOverviewProducts;
     ManagedProductsController _controller;
     IManagedProductsService _service;
-    IOverviewService _ovService;
-    IManagedProductsRepo _mockRepo;
-    var _product0 = ProductsMockedData().products().elementAt(0);
-    var _product1 = ProductsMockedData().products().elementAt(1);
-    var _products = ProductsMockedData().products();
+    IManagedProductsRepo _mockRepoManagedProducts;
+    var _product0 = ProductsMockedDatasource().products().elementAt(0);
+    var _product1 = ProductsMockedDatasource().products().elementAt(1);
+    var _products = ProductsMockedDatasource().products();
     var _newProduct = ProductDataBuilder().ProductFull();
 
     setUp(() {
-      _mockRepo = ManagedProductsMockRepo();
-      _ovService = OverviewService();
+      _mockRepoOverviewProducts = OverviewMockRepo();
+      _ovService = OverviewService(repo: _mockRepoOverviewProducts);
+
+      _mockRepoManagedProducts = ManagedProductsMockRepo();
       _service = ManagedProductsService(
-        repo: _mockRepo,
+        repo: _mockRepoManagedProducts,
         overviewService: _ovService,
       );
       _controller = ManagedProductsController(service: _service);
@@ -36,7 +41,7 @@ class ManagedProductsControllerTest {
     tearDown(CustomTestMethods.globalTearDown);
 
     test('Checking Test Instances', () {
-      expect(_mockRepo, isA<ManagedProductsMockRepo>());
+      expect(_mockRepoManagedProducts, isA<ManagedProductsMockRepo>());
       expect(_service, isA<ManagedProductsService>());
       expect(_controller, isA<ManagedProductsController>());
       expect(_product0, isA<Product>());
@@ -49,7 +54,7 @@ class ManagedProductsControllerTest {
       });
     });
 
-    test('Getting Products (getManagedProductsObs)', () {
+    test('Getting using GetManagedProductsObs', () {
       _controller.getProducts().then((_) {
         var list = _controller.getManagedProductsObs();
         expect(list[0].id, _products.elementAt(0).id);
@@ -102,6 +107,12 @@ class ManagedProductsControllerTest {
     });
 
     test('Updating a Product - status 200', () {
+      _ovService.getProducts().then((_) {
+        expect(
+          _ovService.getProductById(_product1.id),
+          isIn(_ovService.getLocalDataAllProducts()),
+        );
+      });
       _controller.getProducts().then((_) {
         expect(_controller.getProductById(_product1.id),
             isIn(_controller.getManagedProductsObs()));
@@ -111,21 +122,28 @@ class ManagedProductsControllerTest {
       });
     });
 
-    test('Updating a Product - status 400', () {
+    test('Updating a Product - status 500', () {
+      _ovService.getProducts().then((_) {
+        expect(
+          _ovService.getProductById(_product1.id),
+          isIn(_ovService.getLocalDataAllProducts()),
+        );
+      });
       _controller.getProducts().then((_) {
         expect(
-            _newProduct.id, isNot(isIn(_controller.getManagedProductsObs())));
+          _newProduct.id,
+          isNot(isIn(_controller.getManagedProductsObs())),
+        );
         _controller.updateProduct(_newProduct).then((response) {
-          expect(response, 400);
+          expect(response, 500);
         });
       });
     });
 
-    test('Updating ManagedProductsObs Observable', () {
-        var productTest = ProductsMockedData().product();
+    test('Updating ManagedProductsObs', () {
+      var productTest = ProductsMockedDatasource().product();
 
       _controller.getProducts().then((value) {
-
         expect(_service.getLocalDataManagedProducts().length, 4);
         _service.addLocalDataManagedProducts(productTest);
         expect(_service.getLocalDataManagedProducts().length, 5);

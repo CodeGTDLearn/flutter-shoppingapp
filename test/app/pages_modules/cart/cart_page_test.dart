@@ -89,7 +89,7 @@ class CartPageTest {
     }
 
     List<Product> _prods() {
-      return Get.find<IOverviewService>().getLocalDataAllProducts;
+      return Get.find<IOverviewService>().getLocalDataAllProducts();
     }
 
     double totalCart() {

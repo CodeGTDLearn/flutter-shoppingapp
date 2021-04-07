@@ -37,7 +37,7 @@ class ManagedProductsPageTest {
     var ovViewScaffGlobalKey = OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY;
     var manProdPageTitle = MANAGED_PRODUCTS_PAGE_TITLE;
     var iconAddProduct = MANAGED_PRODUCTS_ICON_ADD_APPBAR;
-    var drawerManProdOption = DRAWWER_MANAGED_PRODUCTS_OPTION;
+    var managedProductsDrawerOption = DRAWWER_MANAGED_PRODUCTS_OPTION;
 
     final binding = BindingsBuilder(() {
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
@@ -105,7 +105,7 @@ class ManagedProductsPageTest {
     }
 
     List<Product> _prods() {
-      return Get.find<IOverviewService>().getLocalDataAllProducts;
+      return Get.find<IOverviewService>().getLocalDataAllProducts();
     }
 
     tearDown(() {
@@ -113,7 +113,7 @@ class ManagedProductsPageTest {
       CustomTestMethods.globalTearDown();
     });
 
-    Future openManagedProductsPageFromOverviewPageDrawer(
+    Future checkOverviewPage04ItemsAndOpenManagedProductsPagebyDrawer(
         WidgetTester tester) async {
       expect(_seek.type(OverviewGridItem), findsNWidgets(4));
       expect(ovViewScaffGlobalKey.currentState.isDrawerOpen, isFalse);
@@ -121,14 +121,13 @@ class ManagedProductsPageTest {
       await tester.pump();
       await tester.pump(_seek.delay(1));
       expect(ovViewScaffGlobalKey.currentState.isDrawerOpen, isTrue);
-      // await tester.tap(_seek.key(drawerManProdOption));
-      await tester.tap(_seek.key(drawerManProdOption));
+      await tester.tap(_seek.key(managedProductsDrawerOption));
       await tester.pump();
       await tester.pump(_seek.delay(1));
       expect(ovViewScaffGlobalKey.currentState.isDrawerOpen, isFalse);
     }
 
-    void checkManagedProductsPageAndIts04ListedProducts() {
+    void checkManagedProductsPage04Items() {
       expect(_seek.text(manProdPageTitle), findsOneWidget);
       expect(_seek.type(ManagedProductItem), findsNWidgets(4));
       expect(_seek.text(_prods()[0].title.toString()), findsOneWidget);
@@ -144,8 +143,8 @@ class ManagedProductsPageTest {
       await tester.pump();
       _checkRegistredInstances();
 
-      await openManagedProductsPageFromOverviewPageDrawer(tester);
-      checkManagedProductsPageAndIts04ListedProducts();
+      await checkOverviewPage04ItemsAndOpenManagedProductsPagebyDrawer(tester);
+      checkManagedProductsPage04Items();
     });
 
     testWidgets('Deleting a product', (tester) async {
@@ -153,15 +152,30 @@ class ManagedProductsPageTest {
       await tester.pump();
       _checkRegistredInstances();
 
-      await openManagedProductsPageFromOverviewPageDrawer(tester);
-      checkManagedProductsPageAndIts04ListedProducts();
+      await checkOverviewPage04ItemsAndOpenManagedProductsPagebyDrawer(tester);
+      checkManagedProductsPage04Items();
 
-      var deleteIconProduct1 =
+      var deleteButtonIconProduct1 =
           _seek.key('$MANAGED_PRODUCTS_DELETEITEM_BUTTON_KEY${_prods()[0].id}');
-      await tester.tap(deleteIconProduct1);
+
+      var titleProduct1 = _prods()[0].title.toString();
+
+      // 1) Click DeleteButton in a Product
+      //   -> Check the ManagedProductPage Items
+      //   -> Confirm 'Deleted Product' absence
+      await tester.tap(deleteButtonIconProduct1);
       await tester.pump();
-      await tester.pumpAndSettle(_seek.delay(3));
+      await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.type(ManagedProductItem), findsNWidgets(3));
+
+      // 2) Click BackButton in ManagedProductPage
+      //   -> Go to Overview Page
+      //   -> Confirm 'Deleted Product' absence
+      expect(_seek.type(BackButton), findsOneWidget);
+      await tester.tap(_seek.type(BackButton));
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(_seek.type(OverviewGridItem), findsNWidgets(3));
+      expect(_seek.text(titleProduct1), findsNothing);
     });
 
     testWidgets('Updating a product', (tester) async {
@@ -184,8 +198,8 @@ class ManagedProductsPageTest {
       var manProdAddEditPageTitle =
           _seek.text(MANAGED_PRODUCTS_ADDEDIT_TITLEPAGE_EDIT);
 
-      await openManagedProductsPageFromOverviewPageDrawer(tester);
-      checkManagedProductsPageAndIts04ListedProducts();
+      await checkOverviewPage04ItemsAndOpenManagedProductsPagebyDrawer(tester);
+      checkManagedProductsPage04Items();
 
       // 1) Managed Products Page
       //   -> Click in 'First Product UpdateIcon'
@@ -238,6 +252,15 @@ class ManagedProductsPageTest {
       expect(manProdAddEditPageTitle, findsNothing);
       expect(_seek.text(manProdPageTitle), findsOneWidget);
       expect(_seek.text(newTitle), findsOneWidget);
+
+      // 7) Click BackButton in Managed Products Page
+      //   -> Go to Overview Page
+      //   -> Checking the Updated Data in OverviewPage
+      expect(_seek.type(BackButton), findsOneWidget);
+      await tester.tap(_seek.type(BackButton));
+      await tester.pumpAndSettle(_seek.delay(1));
+      expect(_seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
+      expect(_seek.text(newTitle), findsOneWidget);
     });
 
     testWidgets('Refreshing page - Refresh-Indicator', (tester) async {
@@ -245,8 +268,8 @@ class ManagedProductsPageTest {
       await tester.pump();
       _checkRegistredInstances();
 
-      await openManagedProductsPageFromOverviewPageDrawer(tester);
-      checkManagedProductsPageAndIts04ListedProducts();
+      await checkOverviewPage04ItemsAndOpenManagedProductsPagebyDrawer(tester);
+      checkManagedProductsPage04Items();
 
       var dragInitialPointElement =
           _seek.key('$MANAGED_PRODUCT_ITEM_KEY${_prods()[0].id}');
@@ -262,8 +285,8 @@ class ManagedProductsPageTest {
       await tester.pump();
       _checkRegistredInstances();
 
-      await openManagedProductsPageFromOverviewPageDrawer(tester);
-      checkManagedProductsPageAndIts04ListedProducts();
+      await checkOverviewPage04ItemsAndOpenManagedProductsPagebyDrawer(tester);
+      checkManagedProductsPage04Items();
 
       expect(_seek.type(BackButton), findsOneWidget);
       await tester.tap(_seek.type(BackButton));

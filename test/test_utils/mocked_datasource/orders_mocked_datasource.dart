@@ -1,14 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
 
+
 import 'package:shopingapp/app/pages_modules/orders/entities/order.dart';
 
-import 'mocked_datasource_config.dart';
+import 'config.dart';
 
-class OrdersMockedData {
+class OrdersMockedDatasource {
   String _MockedDatasource;
 
-  OrdersMockedData() {
+  OrdersMockedDatasource() {
     _MockedDatasource = MOCKED_DATASOURCE_ORDERS;
   }
 

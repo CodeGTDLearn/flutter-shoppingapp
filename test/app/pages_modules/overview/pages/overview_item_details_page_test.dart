@@ -67,7 +67,7 @@ class OverviewItemDetailsPageTest {
     }
 
     List<Product> _products() {
-      return Get.find<IOverviewService>().getLocalDataAllProducts;
+      return Get.find<IOverviewService>().getLocalDataAllProducts();
     }
 
     testWidgets('Checking OverviewPage Elements displayed', (tester) async {

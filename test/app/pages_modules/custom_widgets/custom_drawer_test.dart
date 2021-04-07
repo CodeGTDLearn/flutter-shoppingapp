@@ -71,7 +71,7 @@ class CustomDrawerTest {
     }
 
     List<Product> _products() {
-      return Get.find<IOverviewService>().getLocalDataAllProducts;
+      return Get.find<IOverviewService>().getLocalDataAllProducts();
     }
 
     testWidgets('Check Overview BEFORE open Drawer', (tester) async {

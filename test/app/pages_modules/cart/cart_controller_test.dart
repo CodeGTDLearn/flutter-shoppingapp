@@ -13,7 +13,7 @@ import 'package:test/test.dart';
 
 import '../../../test_utils/data_builders/cartitem_databuilder.dart';
 import '../../../test_utils/data_builders/product_databuilder.dart';
-import '../../../test_utils/mocked_data/mocked_orders_data.dart';
+import '../../../test_utils/mocked_datasource/orders_mocked_datasource.dart';
 import '../orders/repo/orders_repo_mocks.dart';
 
 class CartControllerTest {
@@ -30,7 +30,7 @@ class CartControllerTest {
     setUp(() {
       _product1 = ProductDataBuilder().ProductFull();
       _product2 = ProductDataBuilder().ProductFull();
-      _order1 = OrdersMockedData().orders().elementAt(0);
+      _order1 = OrdersMockedDatasource().orders().elementAt(0);
 
       _repo = CartRepo();
       _cartService = CartService(repo: _repo);

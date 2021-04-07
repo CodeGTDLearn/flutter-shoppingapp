@@ -25,7 +25,9 @@ class OverviewGrid extends StatelessWidget {
             padding: EdgeInsets.all(10),
             itemCount: controller.filteredProductsObs.length,
             itemBuilder: (ctx, index) => OverviewGridItem(
-                controller.filteredProductsObs[index], index.toString()),
+                  controller.filteredProductsObs[index],
+                  index.toString(),
+                ),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 3 / 2,
