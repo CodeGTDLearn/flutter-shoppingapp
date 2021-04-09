@@ -18,7 +18,6 @@ class ManagedProductsService implements IManagedProductsService {
       clearDataSavingLists();
       _localDataManagedProducts = products;
       _orderDataSavingLists();
-      // return _localDataManagedProducts;
       return getLocalDataManagedProducts();
     });
     // @formatter:on

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../overview/components/badge_shop_cart.dart';
 import '../overview/components/favorites_filter_popup.dart';
@@ -13,6 +14,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   Widget build(BuildContext context) {
     return AppBar(
+
         key: Key(K_DRW_APPBAR_BTN),
         title: Text(
             enumFilter == EnumFilter.All
@@ -20,7 +22,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 : OV_TIT_FAV_APPBAR,
             key: Key(K_OV_TIT_APPBAR)),
         actions: [FavoritesFilterPopup(enumFilter), BadgeShopCart()]);
-  }
 
+  }
   Size get preferredSize => const Size.fromHeight(55);
+
 }

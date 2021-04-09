@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/properties/theme/dark_theme_controller.dart';
+import 'package:shopingapp/app/core/texts_icons_provider/app_messages.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/managed_products/managed_products.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/pages_generic_components/drawwer.dart';
 import 'package:shopingapp/app/pages_modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/pages_modules/cart/core/cart_bindings.dart';
+import 'package:shopingapp/app/pages_modules/custom_widgets/core/keys/custom_circ_progr_indicator_keys.dart';
 import 'package:shopingapp/app/pages_modules/custom_widgets/core/keys/custom_drawer_widgets_keys.dart';
 import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
 import 'package:shopingapp/app/pages_modules/overview/controller/overview_controller.dart';
@@ -74,13 +76,15 @@ class CustomDrawerTest {
       return Get.find<IOverviewService>().getLocalDataAllProducts();
     }
 
-    testWidgets('Check Overview BEFORE open Drawer', (tester) async {
+    testWidgets('Checking Overview BEFORE open Drawer', (tester) async {
       await tester.pumpWidget(AppDriver());
-      await tester.pump();
       _isInstancesRegistred();
 
-      await tester.pump();
+      expect(seek.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
+      expect(seek.text(NO_PRODUCTS_FOUND_IN_YET), findsNothing);
 
+      await tester.pump();
+      await tester.pump(seek.delay(3));
       expect(seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
       expect(seek.text(_products()[0].title.toString()), findsOneWidget);
       expect(seek.text(_products()[1].title.toString()), findsOneWidget);
@@ -131,12 +135,12 @@ class CustomDrawerTest {
       expect(scaffoldKey.currentState.isDrawerOpen, isFalse);
       scaffoldKey.currentState.openDrawer();
       await tester.pump();
-      await tester.pump(seek.delay(1));
+      await tester.pump(seek.delay(3));
       expect(scaffoldKey.currentState.isDrawerOpen, isTrue);
       expect(seek.text(titleDrawer), findsOneWidget);
       await tester.tapAt(const Offset(750.0, 100.0)); // on the mask
       await tester.pump();
-      await tester.pump(seek.delay(1)); // animation done
+      await tester.pump(seek.delay(3)); // animation done
       expect(seek.text(titleDrawer), findsNothing);
     });
 
@@ -156,13 +160,13 @@ class CustomDrawerTest {
         expect(seek.text(titleDrawer), findsNothing);
         scaffoldKey.currentState.openDrawer();
         await tester.pump();
-        await tester.pump(seek.delay(1));
+        await tester.pump(seek.delay(3));
         expect(seek.text(titleDrawer), findsOneWidget);
         counter == 1
             ? await tester.tap(ovViewDrawerOption)
             : await tester.tap(manProdDrawerOption);
         await tester.pump();
-        await tester.pump(seek.delay(1));
+        await tester.pump(seek.delay(3));
         counter == 1
             ? expect(seek.text(ovViewPageTitle), findsOneWidget)
             : expect(seek.text(manProdPageTitle), findsOneWidget);

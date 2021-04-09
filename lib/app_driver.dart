@@ -14,7 +14,6 @@ class AppDriver extends StatelessWidget {
   final _appTheme = Get.put(AppTheme());
   final _darkTheme = Get.put(DarkThemeController());
   final _repo = Get.put<ISharedPrefsRepo>(SharedPrefsRepo());
-//teste
   @override
   Widget build(BuildContext context) {
     _repo.get('isDarkOption').then((shared) => shared == null
@@ -27,10 +26,6 @@ class AppDriver extends StatelessWidget {
 
       theme: _appTheme.theme(_darkTheme.isDark.value),
 
-      //Get PARAMETROS:
-//      initialBinding: CoreBinding(),
-//      smartManagement: SmartManagement.keepFactory,
-//      home: OverviewPage(Popup.All),
       initialRoute: AppRoutes.OVERVIEW_ALL,
       getPages: AppRoutes.getAppRoutes,
     );

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../core/properties/app_properties.dart';
 import '../../../core/texts_icons_provider/app_generic_words.dart';
-import '../../custom_widgets/custom_circ_progr_indicator.dart';
+import '../../custom_widgets/custom_progress_indicator.dart';
 import '../../custom_widgets/custom_snackbar.dart';
 import '../../orders/core/messages_snackbars_provided.dart';
 import '../components/dismis_cart_item.dart';
@@ -57,7 +57,7 @@ class CartPage extends StatelessWidget {
                                   height: consHeight * 0.08,
                                   child: Obx(() =>
                                       controller.qtdeCartItemsObs().isEqual(0)
-                                          ? CustomCircProgrIndicator.radius(
+                                          ? CustomProgressIndicator.radius(
                                               consWidth * 0.3)
                                           : _addOrderButton()))
                             ])))),

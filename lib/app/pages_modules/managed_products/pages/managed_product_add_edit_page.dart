@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../core/properties/app_owasp_regex.dart';
 import '../../../core/texts_icons_provider/app_generic_words.dart';
-import '../../custom_widgets/custom_circ_progr_indicator.dart';
+import '../../custom_widgets/custom_progress_indicator.dart';
 import '../../custom_widgets/custom_snackbar.dart';
 import '../../overview/controller/overview_controller.dart';
 import '../components/custom_text_form_field/custom_form_field.dart';
@@ -169,7 +169,7 @@ class _ManagedProductAddEditPageState extends State<ManagedProductAddEditPage> {
             ]),
         body: Obx(() => _manProdController
                 .reloadManagedProductsEditPageObs.value
-            ? CustomCircProgrIndicator()
+            ? CustomProgressIndicator()
             : Padding(
                 padding: EdgeInsets.all(16),
                 child: Form(

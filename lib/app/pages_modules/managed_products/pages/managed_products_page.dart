@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
+import 'package:shopingapp/app/pages_modules/custom_widgets/app_messages_provided.dart';
 
 import '../../../core/properties/app_routes.dart';
-import '../../custom_widgets/custom_circ_progr_indicator.dart';
+import '../../custom_widgets/custom_progress_indicator.dart';
 import '../components/managed_product_item.dart';
 import '../controller/managed_products_controller.dart';
 import '../core/managed_products_widget_keys.dart';
@@ -17,7 +18,6 @@ class ManagedProductsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // drawer: Get.find<CustomDrawer>(),
 
       appBar: AppBar(title: Text(MAN_PROD_TIT_APPBAR), actions: <Widget>[
         IconButton(
@@ -29,7 +29,7 @@ class ManagedProductsPage extends StatelessWidget {
 
       // GERENCIA DE ESTADO REATIVA - COM O GET
       body: Obx(() => (controller.getManagedProductsObs().length == 0
-          ? CustomCircProgrIndicator()
+          ? CustomProgressIndicator.message(message: NO_PROD, fontSize: 20)
           : RefreshIndicator(
               onRefresh: controller.getProducts,
               child: controller.getManagedProductsObs().length == 0

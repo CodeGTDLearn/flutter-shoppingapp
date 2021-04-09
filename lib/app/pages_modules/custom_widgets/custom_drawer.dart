@@ -86,10 +86,8 @@ class CustomDrawer extends StatelessWidget {
             SimpleSnackbar(SUCES, message).show();
           } else if (quantityItems != 0 && notRoutingWithoutQtdeEvaluation) {
             Get.toNamed(route);
-            // Get.offNamed(route);
           } else {
             Get.toNamed(route);
-            // Get.offNamed(route);
           }
         });
   }

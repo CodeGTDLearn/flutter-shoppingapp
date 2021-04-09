@@ -1,39 +1,40 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import '../../../core/properties/app_urls.dart';
 
+import '../../../core/properties/app_urls.dart';
 import '../../managed_products/entities/product.dart';
 import 'i_overview_repo.dart';
 
 class OverviewRepo implements IOverviewRepo {
-
   @override
   Future<List<Product>> getProducts() {
     // @formatter:off
     return http
-        .get(PRODUCTS_URL)
-        .then((jsonResponse) {
-            var _products = <Product>[];
-            final MapProductsDecodedFromJsonResponse =
-                json.decode(jsonResponse.body) as Map<String, dynamic>;
+            .get(PRODUCTS_URL)
+            .then((jsonResponse) {
+                var _products = <Product>[];
+                final MapProductsDecodedFromJsonResponse =
+                    json.decode(jsonResponse.body) as Map<String, dynamic>;
 
-            //todo: erro authentication to be done
-            // MapOrdersDecodedFromJsonResponse != null ||
-            //     jsonResponse.statusCode >= 400 ?
-            MapProductsDecodedFromJsonResponse != null ?
-            MapProductsDecodedFromJsonResponse
-                .forEach((idMap, dataMap) {
-                  var productCreatedFromDataMap = Product.fromJson(dataMap);
-                  productCreatedFromDataMap.id = idMap;
-                  _products.add(productCreatedFromDataMap);
-               })
-                :_products = [];
-      return _products;
-    }).catchError((onError){
-      print(">>>>>>>Por exemplo de autneticacao do Firebase>>>>>>$onError");
-      throw onError;
-    });
+                // todo: erro authentication to be done
+                // MapOrdersDecodedFromJsonResponse != null ||
+                //     jsonResponse.statusCode >= 400 ?
+                MapProductsDecodedFromJsonResponse != null ?
+                MapProductsDecodedFromJsonResponse
+                    .forEach((idMap, dataMap) {
+                      var productCreatedFromDataMap = Product.fromJson(dataMap);
+                      productCreatedFromDataMap.id = idMap;
+                      _products.add(productCreatedFromDataMap);
+                    })
+                    :_products = [];
+                return _products;})
+            .catchError((onError){
+              print(">>>>>>>Erro no Firebase: Autenticacao ou "
+                  "JsonFormat, etc...>>>>>>: "
+                  "$onError");
+              throw onError;
+            });
     // @formatter:on
   }
 

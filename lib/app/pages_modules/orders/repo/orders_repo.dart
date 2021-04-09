@@ -7,7 +7,6 @@ import '../entities/order.dart';
 import 'i_orders_repo.dart';
 
 class OrdersRepo extends IOrdersRepo {
-  // final List<Order> _orders = [];
 
   @override
   Future<Order> addOrder(Order order) async {
@@ -48,9 +47,4 @@ class OrdersRepo extends IOrdersRepo {
     }).catchError((onError) => throw onError);
     // @formatter:on
   }
-
-// @override
-// void clearOrders() {
-//   _orders.clear();
-// }
 }

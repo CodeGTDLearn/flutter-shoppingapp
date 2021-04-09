@@ -22,7 +22,6 @@ class ManagedProductsController extends GetxController {
 
   Future<List<Product>> getProducts() {
     return service.getProducts().then((response) {
-      // return managedProductsObs.value = response.isNull ? [] : response;
       response.isNull
           ? managedProductsObs.assignAll([])
           : managedProductsObs.assignAll(response);

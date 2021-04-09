@@ -1,6 +1,7 @@
 import 'package:test/test.dart';
 
 import 'custom_drawer_test.dart';
+import 'custom_progress_indicator.dart';
 
 class CustomWidgetsModuleTest {
   static void groups() {
@@ -9,6 +10,11 @@ class CustomWidgetsModuleTest {
     group(
       "$MODULE\View|Custom Drawer: Functional",
       CustomDrawerTest.functional,
+    );
+
+    group(
+      "$MODULE\View|CustomProgressIndicator: Functional",
+      CustomProgressIndicatorTest.functional,
     );
   }
 }
