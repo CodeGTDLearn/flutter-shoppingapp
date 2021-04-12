@@ -119,7 +119,7 @@ class ManagedProductsPageTest {
       expect(ovViewScaffGlobalKey.currentState.isDrawerOpen, isFalse);
       ovViewScaffGlobalKey.currentState.openDrawer();
       await tester.pump();
-      await tester.pump(_seek.delay(1));
+      await tester.pump(_seek.delay(3));
       expect(ovViewScaffGlobalKey.currentState.isDrawerOpen, isTrue);
       await tester.tap(_seek.key(managedProductsDrawerOption));
       await tester.pump();

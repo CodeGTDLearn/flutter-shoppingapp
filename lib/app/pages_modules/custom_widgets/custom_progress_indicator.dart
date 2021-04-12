@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shopingapp/app/core/properties/app_properties.dart';
 
+import '../../core/properties/app_properties.dart';
 import 'core/keys/custom_circ_progr_indicator_keys.dart';
 
 // ignore: must_be_immutable
@@ -18,7 +18,8 @@ class CustomProgressIndicator extends StatefulWidget {
   CustomProgressIndicator();
 
   @override
-  _CustomProgressIndicatorState createState() => _CustomProgressIndicatorState();
+  _CustomProgressIndicatorState createState() =>
+      _CustomProgressIndicatorState();
 }
 
 class _CustomProgressIndicatorState extends State<CustomProgressIndicator> {

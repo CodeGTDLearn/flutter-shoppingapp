@@ -76,6 +76,7 @@ class OverviewPageTest {
     }
 
     void _testProductTitlesAndTotalIconsInTheScreen() {
+
       //TEST TITLES
       //A) PAGE TITLE
       expect(seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
@@ -101,21 +102,20 @@ class OverviewPageTest {
 
     testWidgets('Checking Products in screen', (tester) async {
       await tester.pumpWidget(AppDriver());
-      await tester.pump();
       _isInstancesRegistred();
 
-      await tester.pump();
+      await tester.pumpAndSettle(seek.delay(3));
       _testProductTitlesAndTotalIconsInTheScreen();
       expect(seek.type(OverviewGridItem), findsNWidgets(4));
     });
 
     testWidgets('Toggling FavoritesIconButton in a product', (tester) async {
       await tester.pumpWidget(AppDriver());
-      await tester.pump();
       _isInstancesRegistred();
 
       var favBtnProduct = seek.key("$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0");
 
+      await tester.pumpAndSettle(seek.delay(3));
       // @formatter:off
       tester
           .tap(favBtnProduct)
@@ -129,9 +129,9 @@ class OverviewPageTest {
 
     testWidgets('Adding products + Checking Snackbar text', (tester) async {
       await tester.pumpWidget(AppDriver());
-      await tester.pump();
       _isInstancesRegistred();
 
+      await tester.pumpAndSettle(seek.delay(3));
       var CartIconKey = seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
       var snackbartext1 = seek.text(_products()[1].title.toString());
 
@@ -148,13 +148,13 @@ class OverviewPageTest {
 
     testWidgets('Adding products + Clicking Snackbar Undo', (tester) async {
       await tester.pumpWidget(AppDriver());
-      await tester.pump();
       _isInstancesRegistred();
 
       var key = seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
       var undo = seek.key(CUSTOM_SNACKBAR_BUTTON_KEY);
       var snackbarText = seek.text(_products()[1].title.toString());
 
+      await tester.pumpAndSettle(seek.delay(3));
       expect(seek.text("0"), findsOneWidget);
       await tester.tap(key);
       await tester.pumpAndSettle(seek.delay(1));
@@ -168,9 +168,9 @@ class OverviewPageTest {
 
     testWidgets('Adding a product 3x + Check ShopCartIcon', (tester) async {
       await tester.pumpWidget(AppDriver());
-      await tester.pump();
       _isInstancesRegistred();
 
+      await tester.pumpAndSettle(seek.delay(3));
       var favBtnProduct = seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
 
       var snackTitle1;
@@ -203,7 +203,7 @@ class OverviewPageTest {
       var key0 = seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
       var favBtnProduct = seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\1");
 
-      await tester.pump();
+      await tester.pumpAndSettle(seek.delay(3));
       expect(seek.text("0"), findsOneWidget);
       await tester.tap(key0);
       await tester.pumpAndSettle();
@@ -248,7 +248,7 @@ class OverviewPageTest {
           * somente e EXECUTADO com as keys 00/01
            */
 
-      await tester.pump();
+      await tester.pumpAndSettle(seek.delay(3));
       expect(seek.text("0"), findsOneWidget);
       await tester.tap(key2);
       await tester.pumpAndSettle();
@@ -263,12 +263,12 @@ class OverviewPageTest {
 
     testWidgets('Tapping FavoriteFilter - favorites Not found', (tester) async {
       await tester.pumpWidget(AppDriver());
-      await tester.pump();
       _isInstancesRegistred();
 
       var popup = seek.key(K_OV_FLT_APPBAR_BTN);
       var favBtnProduct = seek.key('$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\2');
 
+      await tester.pumpAndSettle(seek.delay(3));
       // 1) CHECK ONLY ONE FAVORITE
       expect(seek.iconType(IconButton, Icons.favorite), findsNWidgets(1));
 
@@ -297,9 +297,9 @@ class OverviewPageTest {
 
     testWidgets('Tapping FavoriteFilter', (tester) async {
       await tester.pumpWidget(AppDriver());
-      await tester.pump();
       _isInstancesRegistred();
 
+      await tester.pumpAndSettle(seek.delay(3));
       var titleProduct = seek.text(_products()[2].title.toString());
       var popup = seek.key(K_OV_FLT_APPBAR_BTN);
       var popupItemFav = seek.key(OVERVIEW_FAVORITE_FILTER_KEY);
@@ -331,13 +331,13 @@ class OverviewPageTest {
 
     testWidgets('Closing Favorite_Filter (tap OUTSIDE)', (tester) async {
       await tester.pumpWidget(AppDriver());
-      await tester.pump();
       _isInstancesRegistred();
 
       var popup = seek.key(K_OV_FLT_APPBAR_BTN);
       var popupItemFav = seek.key(OVERVIEW_FAVORITE_FILTER_KEY);
       var popupItemAll = seek.key(OVERVIEW_FAVORITE_FILTER_ALL_KEY);
 
+      await tester.pumpAndSettle(seek.delay(3));
       await tester.tap(popup);
       await tester.pumpAndSettle();
       expect(popupItemFav, findsOneWidget);

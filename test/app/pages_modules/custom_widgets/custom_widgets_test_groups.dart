@@ -1,7 +1,7 @@
 import 'package:test/test.dart';
 
 import 'custom_drawer_test.dart';
-import 'custom_progress_indicator.dart';
+import 'custom_progress_indicator_test.dart';
 
 class CustomWidgetsModuleTest {
   static void groups() {

@@ -17,6 +17,9 @@ class OverviewRepo implements IOverviewRepo {
                 final MapProductsDecodedFromJsonResponse =
                     json.decode(jsonResponse.body) as Map<String, dynamic>;
 
+                // https://medium
+                // .com/flutter-community/generate-the-code-to-parse-your-json-in-flutter-c68aa89a81d9
+                // https://www.youtube.com/watch?v=NkUtwePWhZo
                 // todo: erro authentication to be done
                 // MapOrdersDecodedFromJsonResponse != null ||
                 //     jsonResponse.statusCode >= 400 ?

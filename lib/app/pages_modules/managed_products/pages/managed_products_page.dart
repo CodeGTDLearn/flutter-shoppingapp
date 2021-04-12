@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
-import 'package:shopingapp/app/pages_modules/custom_widgets/app_messages_provided.dart';
 
 import '../../../core/properties/app_routes.dart';
+import '../../custom_widgets/app_messages_provided.dart';
 import '../../custom_widgets/custom_progress_indicator.dart';
 import '../components/managed_product_item.dart';
 import '../controller/managed_products_controller.dart';
@@ -18,7 +18,6 @@ class ManagedProductsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(title: Text(MAN_PROD_TIT_APPBAR), actions: <Widget>[
         IconButton(
             key: Key(K_MP_ADD_BTN),

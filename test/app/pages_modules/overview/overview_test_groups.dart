@@ -26,12 +26,12 @@ class OverviewModuleTest {
     );
 
     group(
-      "$OVERVIEW_MODULE_PAGE\View|Main Page: Functional",
+      "$OVERVIEW_MODULE_PAGE\View|Page: Functional",
       OverviewPageTest.functional,
     );
 
     group(
-      "$OVERVIEW_MODULE_PAGE\View|Details Product Page: Functional",
+      "$OVERVIEW_MODULE_PAGE\View|Item Details Page: Functional",
       OverviewItemDetailsPageTest.functional,
     );
   }

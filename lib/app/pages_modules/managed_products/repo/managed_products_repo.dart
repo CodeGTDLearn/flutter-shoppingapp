@@ -17,7 +17,7 @@ class ManagedProductsRepo implements IManagedProductsRepo {
             final MapProductsDecodedFromJsonResponse =
             json.decode(jsonResponse.body) as Map<String, dynamic>;
 
-        //todo: erro authentication to be done
+        // todo: erro authentication to be done
         // MapOrdersDecodedFromJsonResponse != null ||
         //     jsonResponse.statusCode >= 400 ?
             MapProductsDecodedFromJsonResponse != null ?

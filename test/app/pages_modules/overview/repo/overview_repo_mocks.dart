@@ -31,6 +31,19 @@ class OverviewMockRepo extends Mock implements IOverviewRepo {
   @override
   Future<List<Product>> getProducts() async {
     return Future.value(ProductsMockedDatasource().products());
+    // return Future.value(ProductsMockedDatasource().productsEmpty());
+  }
+
+  @override
+  Future<int> updateProduct(Product product) {
+    return Future.value(200);
+  }
+}
+
+class OverviewMockRepoEmptyDb extends Mock implements IOverviewRepo {
+  @override
+  Future<List<Product>> getProducts() async {
+    return Future.value(ProductsMockedDatasource().productsEmpty());
   }
 
   @override

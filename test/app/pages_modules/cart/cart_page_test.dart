@@ -309,11 +309,10 @@ class CartPageTest {
 
       //1) ADDING A PRODUCT IN THE CART
       expect(_seek.text("0"), findsOneWidget);
-      await tester.pumpAndSettle(_seek.delay(1));
+      await tester.pumpAndSettle(_seek.delay(2));
 
       //2) CLICKING CART-BUTTON AND CHECK THE CART-PAGE
       await tester.tap(_seek.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
-      await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.text(CART_TITLE_PAGE), findsNothing);
     });

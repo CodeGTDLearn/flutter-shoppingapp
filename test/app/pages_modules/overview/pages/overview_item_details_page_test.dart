@@ -71,11 +71,14 @@ class OverviewItemDetailsPageTest {
     }
 
     testWidgets('Checking OverviewPage Elements displayed', (tester) async {
+
       await tester.pumpWidget(AppDriver());
-      await tester.pump();
-      _isInstancesRegistred();
 
       await tester.pump();
+      await tester.pumpAndSettle(seek.delay(3));
+
+      _isInstancesRegistred();
+
 
       expect(seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
       expect(seek.text(_products()[0].title.toString()), findsOneWidget);
@@ -103,7 +106,8 @@ class OverviewItemDetailsPageTest {
 
       var keyProduct1 = seek.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
 
-          // @formatter:off
+      await tester.pumpAndSettle(seek.delay(3));
+      // @formatter:off
       tester
           .tap(keyProduct1)
           .then((value) => tester.pumpAndSettle(seek.delay(1)))
@@ -129,7 +133,7 @@ class OverviewItemDetailsPageTest {
       await tester.tap(keyProduct1);
 
       // check if the page has changed
-      await tester.pumpAndSettle(seek.delay(1));
+      await tester.pumpAndSettle(seek.delay(3));
       expect(seek.text(_products()[0].title.toString()), findsOneWidget);
 
       seek.imagesTotal(1);
