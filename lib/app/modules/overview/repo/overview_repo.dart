@@ -45,7 +45,7 @@ class OverviewRepo implements IOverviewRepo {
   Future<int> updateProduct(Product product) {
     return http
         .patch("$BASE_URL/$COLLECTION_PRODUCTS/${product.id}$EXTENSION",
-            body: product.to_Json())
+            body: product.toJson())
         .then((response) => response.statusCode);
   }
 }

@@ -36,7 +36,7 @@ class InventoryRepo implements IInventoryRepo {
   Future<Product> addProduct(Product product) {
     // @formatter:off
     return http
-            .post(PRODUCTS_URL, body: product.to_Json())
+            .post(PRODUCTS_URL, body: product.toJson())
             .then((response) {
                 product.id = json.decode(response.body)['name'];
                 return product;})
@@ -48,7 +48,7 @@ class InventoryRepo implements IInventoryRepo {
   Future<int> updateProduct(Product product) {
     return http
         .patch("$BASE_URL/$COLLECTION_PRODUCTS/${product.id}$EXTENSION",
-            body: product.to_Json())
+            body: product.toJson())
         .then((response) => response.statusCode);
     //there is no catchError in delete
   }
