@@ -1,16 +1,16 @@
 import 'package:get/get.dart';
 
-import '../../pages_modules/cart/core/cart_bindings.dart';
-import '../../pages_modules/cart/page/cart_page.dart';
-import '../../pages_modules/managed_products/core/managed_products_bindings.dart';
-import '../../pages_modules/managed_products/pages/managed_product_add_edit_page.dart';
-import '../../pages_modules/managed_products/pages/managed_products_page.dart';
-import '../../pages_modules/orders/core/orders_bindings.dart';
-import '../../pages_modules/orders/pages/orders_page.dart';
-import '../../pages_modules/overview/components/filter_favorite_enum.dart';
-import '../../pages_modules/overview/core/overview_bindings.dart';
-import '../../pages_modules/overview/pages/overview_item_details_page.dart';
-import '../../pages_modules/overview/pages/overview_page.dart';
+import '../../modules/cart/core/cart_bindings.dart';
+import '../../modules/cart/view/cart_view.dart';
+import '../../modules/inventory/core/inventory_bindings.dart';
+import '../../modules/inventory/view/inventory_add_edit_view.dart';
+import '../../modules/inventory/view/inventory_view.dart';
+import '../../modules/orders/core/orders_bindings.dart';
+import '../../modules/orders/view/orders_view.dart';
+import '../../modules/overview/components/filter_favorite_enum.dart';
+import '../../modules/overview/core/overview_bindings.dart';
+import '../../modules/overview/view/overview_item_details_view.dart';
+import '../../modules/overview/view/overview_view.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class AppRoutes {
@@ -25,11 +25,11 @@ class AppRoutes {
   static List<GetPage> getAppRoutes = [
     GetPage(
         name: OVERVIEW_ALL,
-        page: () => OverviewPage(enumFilter: EnumFilter.All),
+        page: () => OverviewView(enumFilter: EnumFilter.All),
         binding: OverviewBindings()),
     GetPage(
         name: OVERVIEW_FAV,
-        page: () => OverviewPage(enumFilter: EnumFilter.Fav),
+        page: () => OverviewView(enumFilter: EnumFilter.Fav),
         binding: OverviewBindings()),
     GetPage(
         name: ORDERS,
@@ -38,7 +38,7 @@ class AppRoutes {
     GetPage(
       // name: '$OVERVIEW_DETAIL_ROUTE:id',
       name: '$OVERVIEW_DETAIL',
-      page: () => OverviewItemDetailsPage(controller: Get.find()),
+      page: () => OverviewItemDetailsView(controller: Get.find()),
     ),
     GetPage(
       name: CART,
@@ -47,12 +47,12 @@ class AppRoutes {
     ),
     GetPage(
       name: MANAGED_PRODUCTS,
-      page: () => ManagedProductsPage(controller: Get.find()),
-      binding: ManagedProductsBindings(),
+      page: () => InventoryView(controller: Get.find()),
+      binding: InventoryBindings(),
     ),
     GetPage(
       name: MANAGED_PRODUCTS_ADDEDIT_PAGE,
-      page: () => ManagedProductAddEditPage(),
+      page: () => InventoryAddEditView(),
     ),
   ];
 }

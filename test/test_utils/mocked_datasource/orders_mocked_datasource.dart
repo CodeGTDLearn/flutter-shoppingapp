@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 
-import 'package:shopingapp/app/pages_modules/orders/entities/order.dart';
+import 'package:shopingapp/app/modules/orders/entities/order.dart';
 
 import 'config.dart';
 

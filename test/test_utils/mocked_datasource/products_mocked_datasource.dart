@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:shopingapp/app/pages_modules/managed_products/entities/product.dart';
-import 'package:shopingapp/app/pages_modules/overview/components/filter_favorite_enum.dart';
+import 'package:shopingapp/app/modules/inventory/entities/product.dart';
+import 'package:shopingapp/app/modules/overview/components/filter_favorite_enum.dart';
 
 import 'config.dart';
 
