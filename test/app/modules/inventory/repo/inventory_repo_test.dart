@@ -5,30 +5,31 @@ import 'package:test/test.dart';
 
 import '../../../../test_utils/mocked_datasource/products_mocked_datasource.dart';
 import '../../../../test_utils/test_utils.dart';
-import 'managed_products_repo_mocks.dart';
+import '../inventory_test_config.dart';
+import 'inventory_repo_mocks.dart';
 
-class ManagedProductsRepoTest {
+class InventoryRepoTest {
   static void unit() {
-    IInventoryRepo _mockRepo, _injectMockRepo;
+    IInventoryRepo _repo, _injectRepo;
     var _product0 = ProductsMockedDatasource().products().elementAt(0);
     var _product1 = ProductsMockedDatasource().products().elementAt(1);
 
     setUp(() {
-      _mockRepo = ManagedProductsMockRepo();
-      _injectMockRepo = ManagedProductsInjectMockRepo();
+      _repo = InventoryTestConfig().testsRepo;
+      _injectRepo = InventoryInjectMockRepo();
     });
 
     tearDown(TestMethods.globalTearDown);
 
     test('Checking Test Instances', () {
-      expect(_mockRepo, isA<ManagedProductsMockRepo>());
-      expect(_injectMockRepo, isA<ManagedProductsInjectMockRepo>());
+      expect(_repo, isA<IInventoryRepo>());
+      expect(_injectRepo, isA<InventoryInjectMockRepo>());
       expect(_product0, isA<Product>());
       expect(_product1, isA<Product>());
     });
 
     test('Getting Products', () {
-      _mockRepo.getProducts().then((response) {
+      _repo.getProducts().then((response) {
         expect(response, isA<List<Product>>());
         expect(response[0].id, _product0.id);
         expect(response[0].title, _product0.title);
@@ -39,7 +40,7 @@ class ManagedProductsRepoTest {
 
     //todo: erro authentication to be done
     test('Getting products - Error authentication', () {
-      _mockRepo.getProducts().catchError((onError) {
+      _repo.getProducts().catchError((onError) {
         if (onError.toString().isNotEmpty) {
           fail("Error: Aut");
         }
@@ -47,7 +48,7 @@ class ManagedProductsRepoTest {
     });
 
     test('Adding a Product', () {
-      _mockRepo.addProduct(_product0).then((addedProduct) {
+      _repo.addProduct(_product0).then((addedProduct) {
         // In addProduct, never the 'product to be added' has 'id'
         // expect(addedProduct.id, _product0.id);
         expect(addedProduct.title, _product0.title);
@@ -59,50 +60,50 @@ class ManagedProductsRepoTest {
     });
 
     test('Adding a Product(Inject)  - Empty Response', () {
-      when(_injectMockRepo.getProducts()).thenAnswer((_) async => []);
-      _injectMockRepo.getProducts().then((value) {
+      when(_injectRepo.getProducts()).thenAnswer((_) async => []);
+      _injectRepo.getProducts().then((value) {
         expect(value, isEmpty);
       });
     });
 
     test('Adding a Product(Inject)  - Null Response', () {
-      when(_injectMockRepo.getProducts()).thenAnswer((_) async => null);
-      _injectMockRepo.getProducts().then((value) {
+      when(_injectRepo.getProducts()).thenAnswer((_) async => null);
+      _injectRepo.getProducts().then((value) {
         expect(value, isNull);
       });
     });
 
     test('Updating a Product - status 200', () {
-      _mockRepo.updateProduct(_product0).then((value) {
+      _repo.updateProduct(_product0).then((value) {
         expect(value, 200);
       });
     });
 
     test('Updating a Product(Inject) - status 400', () {
-      when(_injectMockRepo.updateProduct(_product0))
+      when(_injectRepo.updateProduct(_product0))
           .thenAnswer((_) async => 400);
 
-      _injectMockRepo
+      _injectRepo
           .updateProduct(_product0)
           .then((value) => {expect(value, 400)});
     });
 
     test('Updating a Product(Inject) - status 404', () {
-      when(_injectMockRepo.updateProduct(_product0))
+      when(_injectRepo.updateProduct(_product0))
           .thenAnswer((_) async => 404);
 
-      _injectMockRepo
+      _injectRepo
           .updateProduct(_product0)
           .then((value) => {expect(value, 404)});
     });
 
     test('Deleting a Product - status 200', () {
-      _mockRepo.getProducts().then((response) {
+      _repo.getProducts().then((response) {
         expect(response, isA<List<Product>>());
         expect(response[0].id, _product0.id);
         expect(response[0].title, _product0.title);
 
-        _mockRepo.deleteProduct(_product0.id).then((value) {
+        _repo.deleteProduct(_product0.id).then((value) {
           expect(value, 200);
           expect(response[0].id, isNot(isIn(response)));
         });
@@ -110,10 +111,10 @@ class ManagedProductsRepoTest {
     });
 
     test('Deleting a Product(Inject) - status 404', () {
-      when(_injectMockRepo.deleteProduct(_product0.id))
+      when(_injectRepo.deleteProduct(_product0.id))
           .thenAnswer((_) async => 404);
 
-      _injectMockRepo
+      _injectRepo
           .deleteProduct(_product0.id)
           .then((value) => {expect(value, 404)});
     });

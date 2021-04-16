@@ -17,34 +17,33 @@ import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
 import '../../../../test_utils/test_utils.dart';
-import '../repo/overview_repo_mocks.dart';
+import '../overview_test_config.dart';
 
-class OverviewDetailsPageTest {
+class OverviewDetailsViewTest {
   static void functional() {
     TestUtils seek;
 
     final binding = BindingsBuilder(() {
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
 
-      Get.lazyPut<IOverviewRepo>(() => OverviewMockRepo());
-
+      Get.lazyPut<IOverviewRepo>(
+          () => OverviewTestConfig().testsRepo);
       Get.lazyPut<IOverviewService>(
-        () => OverviewService(repo: Get.find<IOverviewRepo>()),
-      );
-
+          () => OverviewService(repo: Get.find<IOverviewRepo>()));
       Get.lazyPut<OverviewController>(
-        () => OverviewController(service: Get.find<IOverviewService>()),
-      );
+          () => OverviewController(service: Get.find<IOverviewService>()));
 
       CartBindings().dependencies();
     });
 
     setUp(() {
+      expect(Get.isPrepared<DarkThemeController>(), isFalse);
       expect(Get.isPrepared<IOverviewRepo>(), isFalse);
       expect(Get.isPrepared<IOverviewService>(), isFalse);
       expect(Get.isPrepared<OverviewController>(), isFalse);
       expect(Get.isPrepared<CartController>(), isFalse);
       binding.builder();
+      expect(Get.isPrepared<DarkThemeController>(), isTrue);
       expect(Get.isPrepared<IOverviewRepo>(), isTrue);
       expect(Get.isPrepared<IOverviewService>(), isTrue);
       expect(Get.isPrepared<OverviewController>(), isTrue);
@@ -70,14 +69,12 @@ class OverviewDetailsPageTest {
     }
 
     testWidgets('Checking OverviewPage Elements displayed', (tester) async {
-
       await tester.pumpWidget(AppDriver());
 
       await tester.pump();
       await tester.pumpAndSettle(seek.delay(3));
 
       _isInstancesRegistred();
-
 
       expect(seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
       expect(seek.text(_products()[0].title.toString()), findsOneWidget);
@@ -106,7 +103,7 @@ class OverviewDetailsPageTest {
       var keyProduct1 = seek.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
 
       await tester.pumpAndSettle(seek.delay(3));
-      // @formatter:off
+          // @formatter:off
       tester
           .tap(keyProduct1)
           .then((value) => tester.pumpAndSettle(seek.delay(1)))

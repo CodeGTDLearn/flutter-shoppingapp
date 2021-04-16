@@ -7,21 +7,22 @@ import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
 import '../../../test_utils/mocked_datasource/products_mocked_datasource.dart';
-import 'repo/overview_repo_mocks.dart';
+import 'overview_test_config.dart';
 
 class OverviewControllerTest {
   static void integration() {
-    OverviewController _controller;
+    IOverviewRepo _repo;
     IOverviewService _service;
-    IOverviewRepo _mockRepo;
+    OverviewController _controller;
 
     setUp(() {
-      _mockRepo = OverviewMockRepo();
-      _service = OverviewService(repo: _mockRepo);
+      _repo = OverviewTestConfig().testsRepo;
+      _service = OverviewService(repo: _repo);
       _controller = OverviewController(service: _service);
     });
 
     test('Checking Instances to be used in the Tests', () {
+      expect(_repo, isA<IOverviewRepo>());
       expect(_service, isA<OverviewService>());
       expect(_controller, isA<OverviewController>());
     });

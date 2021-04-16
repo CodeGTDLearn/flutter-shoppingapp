@@ -21,34 +21,33 @@ import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
 import '../../../../test_utils/test_utils.dart';
-import '../repo/overview_repo_mocks.dart';
+import '../overview_test_config.dart';
 
-class OverviewPageTest {
+class OverviewViewTest {
   static void functional() {
     TestUtils seek;
 
     final binding = BindingsBuilder(() {
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
 
-      Get.lazyPut<IOverviewRepo>(() => OverviewMockRepo());
-
+      Get.lazyPut<IOverviewRepo>(
+          () => OverviewTestConfig().testsRepo);
       Get.lazyPut<IOverviewService>(
-        () => OverviewService(repo: Get.find<IOverviewRepo>()),
-      );
-
+          () => OverviewService(repo: Get.find<IOverviewRepo>()));
       Get.lazyPut<OverviewController>(
-        () => OverviewController(service: Get.find<IOverviewService>()),
-      );
+          () => OverviewController(service: Get.find<IOverviewService>()));
 
       CartBindings().dependencies();
     });
 
     setUp(() {
+      expect(Get.isPrepared<DarkThemeController>(), isFalse);
       expect(Get.isPrepared<IOverviewRepo>(), isFalse);
       expect(Get.isPrepared<IOverviewService>(), isFalse);
       expect(Get.isPrepared<OverviewController>(), isFalse);
       expect(Get.isPrepared<CartController>(), isFalse);
       binding.builder();
+      expect(Get.isPrepared<DarkThemeController>(), isTrue);
       expect(Get.isPrepared<IOverviewRepo>(), isTrue);
       expect(Get.isPrepared<IOverviewService>(), isTrue);
       expect(Get.isPrepared<OverviewController>(), isTrue);

@@ -20,5 +20,4 @@ import 'package:shopingapp/app/modules/inventory/service/i_inventory_service.dar
 //   *
 //   * *****************************************************/
 
-class ManagedProductsInjectMockService extends Mock
-    implements IInventoryService {}
+class InventoryInjectMockService extends Mock implements IInventoryService {}

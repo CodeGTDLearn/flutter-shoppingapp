@@ -1,6 +1,5 @@
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/cart/entities/cart_item.dart';
-import 'package:shopingapp/app/modules/cart/repo/cart_repo.dart';
 import 'package:shopingapp/app/modules/cart/repo/i_cart_repo.dart';
 import 'package:shopingapp/app/modules/cart/service/cart_service.dart';
 import 'package:shopingapp/app/modules/cart/service/i_cart_service.dart';
@@ -15,14 +14,16 @@ import '../../../test_utils/data_builders/cartitem_databuilder.dart';
 import '../../../test_utils/data_builders/product_databuilder.dart';
 import '../../../test_utils/mocked_datasource/orders_mocked_datasource.dart';
 import '../orders/repo/orders_repo_mocks.dart';
+import 'cart_test_config.dart';
 
 class CartControllerTest {
   static void integration() {
-    CartController _controller;
     ICartService _cartService;
-    ICartRepo _repo;
-    IOrdersRepo _repoMockOrders;
+    ICartRepo _cartRepo;
+    IOrdersRepo _ordersRepo;
     IOrdersService _ordersService;
+    CartController _controller;
+
     Product _product1, _product2;
     Order _order1;
     var _cartItems = CartItemDatabuilder.cartItems();
@@ -32,11 +33,11 @@ class CartControllerTest {
       _product2 = ProductDataBuilder().ProductFull();
       _order1 = OrdersMockedDatasource().orders().elementAt(0);
 
-      _repo = CartRepo();
-      _cartService = CartService(repo: _repo);
+      _cartRepo = CartTestConfig().testsRepo;
+      _cartService = CartService(repo: _cartRepo);
 
-      _repoMockOrders = OrdersMockRepo();
-      _ordersService = OrdersService(repo: _repoMockOrders);
+      _ordersRepo = OrdersMockRepo();
+      _ordersService = OrdersService(repo: _ordersRepo);
 
       _controller = CartController(
         cartService: _cartService,
@@ -45,11 +46,10 @@ class CartControllerTest {
     });
 
     test('Checking Instances to be used in the Tests', () {
-      expect(_repo, isA<CartRepo>());
-      expect(_cartService, isA<CartService>());
+      expect(_ordersRepo, isA<IOrdersRepo>());
+      expect(_ordersService, isA<IOrdersService>());
+      expect(_cartService, isA<ICartService>());
       expect(_controller, isA<CartController>());
-      expect(_repoMockOrders, isA<OrdersMockRepo>());
-      expect(_ordersService, isA<OrdersService>());
       expect(_cartItems, isA<List<CartItem>>());
     });
 

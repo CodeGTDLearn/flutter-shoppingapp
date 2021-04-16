@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import '../../orders/service/i_orders_service.dart';
 
+import '../../orders/service/i_orders_service.dart';
 import '../controller/cart_controller.dart';
 import '../repo/cart_repo.dart';
 import '../repo/i_cart_repo.dart';
@@ -11,9 +11,7 @@ class CartBindings extends Bindings {
   void dependencies() {
     Get.lazyPut<ICartRepo>(() => CartRepo());
 
-    Get.lazyPut<ICartService>(() => CartService(
-          repo: Get.find<ICartRepo>(),
-        ));
+    Get.lazyPut<ICartService>(() => CartService(repo: Get.find<ICartRepo>()));
 
     Get.lazyPut<CartController>(() => CartController(
           cartService: Get.find<ICartService>(),

@@ -9,26 +9,26 @@ import 'package:test/test.dart';
 
 import '../../../../test_utils/data_builders/cartitem_databuilder.dart';
 import '../../../../test_utils/data_builders/order_databuilder.dart';
-import '../repo/orders_repo_mocks.dart';
+import '../orders_test_config.dart';
 import 'orders_service_mock.dart';
 
 class OrdersServiceTest {
   static void unit() {
-    IOrdersService _service, _injectMockService;
-    IOrdersRepo _mockRepo;
+    IOrdersRepo _repo;
+    IOrdersService _service, _injectService;
     var _cartItems;
 
     setUp(() {
-      _mockRepo = OrdersMockRepo();
-      _service = OrdersService(repo: _mockRepo);
-      _injectMockService = OrdersInjectMockService();
+      _repo = OrdersTestConfig().testsRepo;
+      _service = OrdersService(repo: _repo);
+      _injectService = OrdersInjectMockService();
       _cartItems = CartItemDatabuilder.cartItems();
     });
 
     test('Checking Tests Instances', () {
-      expect(_service, isA<OrdersService>());
-      expect(_mockRepo, isA<OrdersMockRepo>());
-      expect(_injectMockService, isA<OrdersInjectMockService>());
+      expect(_repo, isA<IOrdersRepo>());
+      expect(_service, isA<IOrdersService>());
+      expect(_injectService, isA<OrdersInjectMockService>());
       expect(_cartItems, isA<List<CartItem>>());
     });
 
@@ -83,12 +83,12 @@ class OrdersServiceTest {
 
       // @formatter:off
       when(
-          _injectMockService
+          _injectService
           .addOrder(_cartItems, _amountOrder))
           .thenAnswer((_) async =>
            OrderDatabuilder.OrderParam(_cartItems, _id));
 
-          _injectMockService
+          _injectService
           .addOrder(_cartItems, _amountOrder)
           .then((orderReturned) {
             expect(orderReturned.id, _id);

@@ -28,9 +28,10 @@ import 'package:shopingapp/app_driver.dart';
 
 import '../../../../test_utils/test_utils.dart';
 import '../../overview/repo/overview_repo_mocks.dart';
-import '../repo/managed_products_repo_mocks.dart';
+import '../inventory_test_config.dart';
+import '../repo/inventory_repo_mocks.dart';
 
-class ManagedProductsAddEditPageTest {
+class InventoryAddEditPageTest {
   static void functional() {
     var _seek = TestUtils();
 
@@ -47,8 +48,7 @@ class ManagedProductsAddEditPageTest {
     var fldDescr = _seek.text(INVENTORY_ADDEDIT_FIELD_DESCRIPT);
     var fldImgUrl = _seek.text(INVENTORY_ADDEDIT_FIELD_IMAGE_URL);
     var fldImgTitle = _seek.text(INVENTORY_ADDEDIT_IMAGE_TITLE);
-    var manProdPageAddProductButton =
-        _seek.key(INVENTORY_APPBAR_ADDBUTTON_KEY);
+    var manProdPageAddProductButton = _seek.key(INVENTORY_APPBAR_ADDBUTTON_KEY);
     var saveProductButton = _seek.key(INVENTORY_ADDEDIT_SAVEBUTTON_KEY);
     var fieldFormTitle = _seek.key(INVENTORY_ADDEDIT_FIELD_TITLE_KEY);
     var fieldFormPrice = _seek.key(INVENTORY_ADDEDIT_FIELD_PRICE_KEY);
@@ -58,29 +58,24 @@ class ManagedProductsAddEditPageTest {
     var fakeTitle, fakePrice, fakeDesc, fakeImgUrl, invalidText;
     var _binding;
 
-    void _bindingBuilder(IInventoryRepo mock) {
+    void _bindingBuilder(IInventoryRepo repo) {
       Get.reset();
 
       _binding = BindingsBuilder(() {
         Get.lazyPut<Drawwer>(() => Drawwer());
 
         Get.lazyPut<IOverviewRepo>(() => OverviewMockRepo());
-
         Get.lazyPut<IOverviewService>(
           () => OverviewService(repo: Get.find()),
         );
-
         Get.lazyPut<OverviewController>(
           () => OverviewController(service: Get.find()),
         );
 
-        Get.lazyPut<IInventoryRepo>(() => ManagedProductsMockRepo());
-
+        Get.lazyPut<IInventoryRepo>(() => repo);
         Get.lazyPut<IInventoryService>(
-          () => InventoryService(
-              repo: Get.find(), overviewService: Get.find()),
+          () => InventoryService(repo: Get.find(), overviewService: Get.find()),
         );
-
         Get.lazyPut<InventoryController>(
           () => InventoryController(service: Get.find()),
         );
@@ -102,7 +97,7 @@ class ManagedProductsAddEditPageTest {
       expect(Get.isPrepared<IInventoryService>(), isFalse);
       expect(Get.isPrepared<InventoryController>(), isFalse);
 
-      _bindingBuilder(ManagedProductsMockRepo());
+      _bindingBuilder(InventoryTestConfig().testsRepo);
 
       expect(Get.isPrepared<Drawwer>(), isTrue);
       expect(Get.isPrepared<IOverviewRepo>(), isTrue);

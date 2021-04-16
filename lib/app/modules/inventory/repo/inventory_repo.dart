@@ -11,7 +11,7 @@ class InventoryRepo implements IInventoryRepo {
   Future<List<Product>> getProducts() {
     // @formatter:off
     return http
-        .get(PRODUCTS_URL)
+        .get(PRODUCTS_URL_HTTP)
         .then((jsonResponse) {
             var _products = <Product>[];
             final MapProductsDecodedFromJsonResponse =
@@ -36,7 +36,7 @@ class InventoryRepo implements IInventoryRepo {
   Future<Product> addProduct(Product product) {
     // @formatter:off
     return http
-            .post(PRODUCTS_URL, body: product.toJson())
+            .post(PRODUCTS_URL_HTTP, body: product.toJson())
             .then((response) {
                 product.id = json.decode(response.body)['name'];
                 return product;})
@@ -47,7 +47,7 @@ class InventoryRepo implements IInventoryRepo {
 
   Future<int> updateProduct(Product product) {
     return http
-        .patch("$BASE_URL/$COLLECTION_PRODUCTS/${product.id}$EXTENSION",
+        .patch("$URL_FIREBASE/$COLLECTION_PRODUCTS/${product.id}$EXTENSION",
             body: product.toJson())
         .then((response) => response.statusCode);
     //there is no catchError in delete
@@ -56,7 +56,7 @@ class InventoryRepo implements IInventoryRepo {
 
   Future<int> deleteProduct(String id) {
     return http
-        .delete("$BASE_URL/$COLLECTION_PRODUCTS/$id$EXTENSION")
+        .delete("$URL_FIREBASE/$COLLECTION_PRODUCTS/$id$EXTENSION")
         .then((response) => response.statusCode);
     //there is no catchError in delete and update;
   }

@@ -8,23 +8,23 @@ import 'package:test/test.dart';
 
 import '../../../../test_utils/data_builders/product_databuilder.dart';
 import '../../../../test_utils/mocked_datasource/products_mocked_datasource.dart';
-import '../repo/overview_repo_mocks.dart';
+import '../overview_test_config.dart';
 import 'overview_service_mocks.dart';
 
 class OverviewServiceTest {
   static void unit() {
-    IOverviewService _service, _injectMockService;
-    IOverviewRepo _mockRepo;
+    IOverviewRepo _repo;
+    IOverviewService _service, _injectService;
 
     setUp(() {
-      _mockRepo = OverviewMockRepo();
-      _service = OverviewService(repo: _mockRepo);
-      _injectMockService = OverviewInjectMockService();
+      _repo = OverviewTestConfig().testsRepo;
+      _service = OverviewService(repo: _repo);
+      _injectService = OverviewInjectMockService();
     });
 
     test('Checking Instances to be used in the Tests', () {
-      expect(_service, isA<OverviewService>());
-      expect(_mockRepo, isA<OverviewMockRepo>());
+      expect(_repo, isA<IOverviewRepo>());
+      expect(_service, isA<IOverviewService>());
     });
 
     test('Checking Response Type in GetProducts', () {
@@ -51,7 +51,7 @@ class OverviewServiceTest {
     });
 
     test('Adding Product in LocalDataAllProducts', () {
-        var productTest = ProductsMockedDatasource().product();
+      var productTest = ProductsMockedDatasource().product();
 
       _service.getProducts().then((_) {
         expect(_service.getLocalDataAllProducts().length, 4);
@@ -65,8 +65,8 @@ class OverviewServiceTest {
     test('Deleting Product', () {
       _service.getProducts().then((value) {
         expect(_service.getLocalDataAllProducts().length, 4);
-        _service.deleteProductInLocalDataLists(_service
-            .getLocalDataAllProducts()[0].id);
+        _service.deleteProductInLocalDataLists(
+            _service.getLocalDataAllProducts()[0].id);
         expect(_service.getLocalDataAllProducts().length, 3);
       });
     });
@@ -105,7 +105,8 @@ class OverviewServiceTest {
     test('Getting a product using its ID', () {
       _service.getProducts().then((_) {
         var list = _service.getLocalDataAllProducts;
-        expect(_service.getProductById("p1").description, list()[0].description);
+        expect(
+            _service.getProductById("p1").description, list()[0].description);
       });
     });
 
@@ -137,20 +138,19 @@ class OverviewServiceTest {
         expect(listFav.length, 0);
       });
     });
-    // });
-    // group('Injectable-Mocked-Service', () {
+
     test('Checking Instances to be used in the Tests', () {
-      expect(_injectMockService, isA<OverviewInjectMockService>());
+      expect(_injectService, isA<OverviewInjectMockService>());
     });
 
     test('Getting products - Fail hence Empty', () {
       // @formatter:off
-      when(_injectMockService.getProducts())
+      when(_injectService.getProducts())
           .thenAnswer((_) async => Future
           .value(ProductsMockedDatasource()
           .productsEmpty()));
 
-      _injectMockService.getProducts().then((value) {
+      _injectService.getProducts().then((value) {
         expect(value, List.empty());
       });
       // @formatter:on
@@ -158,17 +158,16 @@ class OverviewServiceTest {
 
     test('Toggle FavoriteStatus in a product - Fail 404', () {
       //INJECTABLE FOR SIMPLE-RETURNS
-      when(_injectMockService.getProductById("p3"))
+      when(_injectService.getProductById("p3"))
           .thenReturn(ProductDataBuilder().ProductFull());
 
       //INJECTABLE FOR FUTURES-RETURNS
-      when(_injectMockService.toggleFavoriteStatus("p3"))
+      when(_injectService.toggleFavoriteStatus("p3"))
           .thenAnswer((_) async => Future.value(true));
 
-      var previousToggleStatus =
-          _injectMockService.getProductById("p3").isFavorite;
+      var previousToggleStatus = _injectService.getProductById("p3").isFavorite;
 
-      _injectMockService.toggleFavoriteStatus("p3").then((value) {
+      _injectService.toggleFavoriteStatus("p3").then((value) {
         expect(true, previousToggleStatus);
       });
     });

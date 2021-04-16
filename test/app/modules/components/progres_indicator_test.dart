@@ -13,12 +13,14 @@ import 'package:shopingapp/app_driver.dart';
 
 import '../../../test_utils/test_utils.dart';
 import '../overview/repo/overview_repo_mocks.dart';
+import 'components_test_config.dart';
 
 class ProgresIndicatorTest {
   static void functional() {
     TestUtils seek;
 
     void bindigBuilderDependenciesManagement(IOverviewRepo repo) {
+      expect(Get.isPrepared<DarkThemeController>(), isFalse);
       expect(Get.isPrepared<IOverviewRepo>(), isFalse);
       expect(Get.isPrepared<IOverviewService>(), isFalse);
       expect(Get.isPrepared<OverviewController>(), isFalse);
@@ -34,6 +36,7 @@ class ProgresIndicatorTest {
 
       binding.builder();
 
+      expect(Get.isPrepared<DarkThemeController>(), isTrue);
       expect(Get.isPrepared<IOverviewRepo>(), isTrue);
       expect(Get.isPrepared<IOverviewService>(), isTrue);
       expect(Get.isPrepared<OverviewController>(), isTrue);
@@ -53,13 +56,14 @@ class ProgresIndicatorTest {
     }
 
     void _isInstancesRegistred() {
+      expect(Get.isRegistered<DarkThemeController>(), isTrue);
       expect(Get.isRegistered<IOverviewRepo>(), isTrue);
       expect(Get.isRegistered<IOverviewService>(), isTrue);
       expect(Get.isRegistered<OverviewController>(), isTrue);
     }
 
     testWidgets('Checking CustomProgrIndicator', (tester) async {
-      bindigBuilderDependenciesManagement(OverviewMockRepo());
+      bindigBuilderDependenciesManagement(ComponentsTestConfig().testsRepo);
 
       await tester.pumpWidget(AppDriver());
       _isInstancesRegistred();

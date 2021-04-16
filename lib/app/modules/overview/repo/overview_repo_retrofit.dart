@@ -8,7 +8,7 @@ import 'i_overview_repo.dart';
 part 'overview_repo_retrofit.g.dart';
 
 //flutter pub run build_runner watch
-@RestApi(baseUrl: BASE_URL)
+@RestApi(baseUrl: URL_FIREBASE)
 abstract class OverviewRepoRetrofit implements IOverviewRepo {
 
   factory OverviewRepoRetrofit(Dio dio, {String baseUrl}) = _OverviewRepoRetrofit;

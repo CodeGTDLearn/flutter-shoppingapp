@@ -11,7 +11,6 @@ import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/modules/cart/components/dismis_cart_item.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/cart/core/cart_widget_keys.dart';
-import 'package:shopingapp/app/modules/cart/repo/cart_repo.dart';
 import 'package:shopingapp/app/modules/cart/repo/i_cart_repo.dart';
 import 'package:shopingapp/app/modules/cart/service/cart_service.dart';
 import 'package:shopingapp/app/modules/cart/service/i_cart_service.dart';
@@ -30,6 +29,7 @@ import 'package:shopingapp/app_driver.dart';
 import '../../../test_utils/test_utils.dart';
 import '../orders/repo/orders_repo_mocks.dart';
 import '../overview/repo/overview_repo_mocks.dart';
+import 'cart_test_config.dart';
 
 class CartPageTest {
   static void functional() {
@@ -50,7 +50,7 @@ class CartPageTest {
 
       Get.lazyPut<IOrdersService>(() => OrdersService(repo: Get.find()));
 
-      Get.lazyPut<ICartRepo>(() => CartRepo());
+      Get.lazyPut<ICartRepo>(() => CartTestConfig().testsRepo);
 
       Get.lazyPut<ICartService>(() => CartService(repo: Get.find()));
 

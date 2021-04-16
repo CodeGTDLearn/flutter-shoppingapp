@@ -10,8 +10,8 @@ import 'package:shopingapp/app/core/texts_icons_provider/pages/inventory/invento
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/cart/core/cart_bindings.dart';
-import 'package:shopingapp/app/modules/components/core/keys/progres_indicator_keys.dart';
 import 'package:shopingapp/app/modules/components/core/keys/drawwer_keys.dart';
+import 'package:shopingapp/app/modules/components/core/keys/progres_indicator_keys.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
@@ -21,7 +21,7 @@ import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
 import '../../../test_utils/test_utils.dart';
-import '../overview/repo/overview_repo_mocks.dart';
+import 'components_test_config.dart';
 
 class DrawwerTest {
   static void functional() {
@@ -30,7 +30,8 @@ class DrawwerTest {
     final binding = BindingsBuilder(() {
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
 
-      Get.lazyPut<IOverviewRepo>(() => OverviewMockRepo());
+      // Get.lazyPut<IOverviewRepo>(() => OverviewMockRepo());
+      Get.lazyPut<IOverviewRepo>(() => ComponentsTestConfig().testsRepo);
 
       Get.lazyPut<IOverviewService>(
           () => OverviewService(repo: Get.find<IOverviewRepo>()));
@@ -38,17 +39,17 @@ class DrawwerTest {
       Get.lazyPut<OverviewController>(
           () => OverviewController(service: Get.find<IOverviewService>()));
 
-      // Get.lazyPut<ManagedProductsController>(() => ManagedProductsController());
-
       CartBindings().dependencies();
     });
 
     setUp(() {
+      expect(Get.isPrepared<DarkThemeController>(), isFalse);
       expect(Get.isPrepared<IOverviewRepo>(), isFalse);
       expect(Get.isPrepared<IOverviewService>(), isFalse);
       expect(Get.isPrepared<OverviewController>(), isFalse);
       expect(Get.isPrepared<CartController>(), isFalse);
       binding.builder();
+      expect(Get.isPrepared<DarkThemeController>(), isTrue);
       expect(Get.isPrepared<IOverviewRepo>(), isTrue);
       expect(Get.isPrepared<IOverviewService>(), isTrue);
       expect(Get.isPrepared<OverviewController>(), isTrue);
@@ -65,6 +66,7 @@ class DrawwerTest {
     });
 
     void _isInstancesRegistred() {
+      expect(Get.isRegistered<DarkThemeController>(), isTrue);
       expect(Get.isRegistered<IOverviewRepo>(), isTrue);
       expect(Get.isRegistered<IOverviewService>(), isTrue);
       expect(Get.isRegistered<OverviewController>(), isTrue);
@@ -169,7 +171,6 @@ class DrawwerTest {
         counter == 1
             ? expect(seek.text(ovViewPageTitle), findsOneWidget)
             : expect(seek.text(manProdPageTitle), findsOneWidget);
-
       }
     });
   }

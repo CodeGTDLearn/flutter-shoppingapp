@@ -5,23 +5,23 @@ import 'package:shopingapp/app/modules/orders/service/orders_service.dart';
 import 'package:test/test.dart';
 
 import '../../../test_utils/mocked_datasource/orders_mocked_datasource.dart';
-import '../orders/repo/orders_repo_mocks.dart';
+import 'orders_test_config.dart';
 
 class OrdersControllerTest {
   static void integration() {
-    IOrdersRepo _mockedRepo;
+    IOrdersRepo _repo;
     IOrdersService _service;
     OrdersController _controller;
 
     setUp(() {
-      _mockedRepo = OrdersMockRepo();
-      _service = OrdersService(repo: _mockedRepo);
+      _repo = OrdersTestConfig().testsRepo;
+      _service = OrdersService(repo: _repo);
       _controller = OrdersController(service: _service);
     });
 
     test('Checking Tests Instances', () {
-      expect(_mockedRepo, isA<OrdersMockRepo>());
-      expect(_service, isA<OrdersService>());
+      expect(_repo, isA<IOrdersRepo>());
+      expect(_service, isA<IOrdersService>());
       expect(_controller, isA<OrdersController>());
     });
 

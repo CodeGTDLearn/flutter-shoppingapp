@@ -28,9 +28,9 @@ import 'package:shopingapp/app_driver.dart';
 
 import '../../../../test_utils/test_utils.dart';
 import '../../overview/repo/overview_repo_mocks.dart';
-import '../repo/managed_products_repo_mocks.dart';
+import '../inventory_test_config.dart';
 
-class ManagedProductsPageTest {
+class InventoryPageTest {
   static void functional() {
     TestUtils _seek;
     var ovViewScaffGlobalKey = OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY;
@@ -41,11 +41,12 @@ class ManagedProductsPageTest {
     final binding = BindingsBuilder(() {
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
 
-      Get.lazyPut<IInventoryRepo>(() => ManagedProductsMockRepo());
+      Get.lazyPut<IInventoryRepo>(
+        () => InventoryTestConfig().testsRepo,
+      );
 
       Get.lazyPut<IInventoryService>(
-        () => InventoryService(
-            repo: Get.find(), overviewService: Get.find()),
+        () => InventoryService(repo: Get.find(), overviewService: Get.find()),
       );
 
       Get.lazyPut<InventoryController>(
