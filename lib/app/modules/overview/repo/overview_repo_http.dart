@@ -6,7 +6,7 @@ import '../../../core/properties/app_urls.dart';
 import '../../inventory/entities/product.dart';
 import 'i_overview_repo.dart';
 
-class OverviewRepo implements IOverviewRepo {
+class OverviewRepoHttp implements IOverviewRepo {
   @override
   Future<List<Product>> getProducts() {
     // @formatter:off
@@ -33,8 +33,7 @@ class OverviewRepo implements IOverviewRepo {
                     :_products = [];
                 return _products;})
             .catchError((onError){
-              print(">>>>>>>Erro no Firebase: Autenticacao ou "
-                  "JsonFormat, etc...>>>>>>: "
+              print(">>>> Erro no Firebase: Autenticacao ou JsonFormat, etc...>>>: "
                   "$onError");
               throw onError;
             });
@@ -42,7 +41,7 @@ class OverviewRepo implements IOverviewRepo {
   }
 
   @override
-  Future<int> updateProduct(Product product) {
+  Future<int> updateProduct(Product product, [String id]) {
     return http
         .patch("$BASE_URL/$COLLECTION_PRODUCTS/${product.id}$EXTENSION",
             body: product.toJson())
