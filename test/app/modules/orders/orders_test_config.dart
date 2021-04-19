@@ -4,7 +4,7 @@ import 'repo/orders_repo_mocks.dart';
 
 class OrdersTestConfig {
 //REPO-USED-IN-THIS-TEST-MODULE:
-  final IOrdersRepo _repository_to_be_used_in_all_orders_modules_tests =
+  final IOrdersRepo _repository_to_be_used_in_all_orders_module_tests =
       OrdersMockRepo();
 
 //TEST-GROUPS-TITLES:
@@ -14,5 +14,5 @@ class OrdersTestConfig {
   final ORDER_VIEW = 'Orders|View: Functional';
 
   IOrdersRepo get testsRepo =>
-      _repository_to_be_used_in_all_orders_modules_tests;
+      _repository_to_be_used_in_all_orders_module_tests;
 }

@@ -1,7 +1,4 @@
-const URL_FIREBASE =
-    "https://my-first-shop-app-1db95-default-rtdb.firebaseio.com";
-// const URL_RETROFIT =
-//     "https://my-first-shop-app-1db95-default-rtdb.firebaseio.com/";
+const URL_FIREBASE = "https://test-app-shop-default-rtdb.firebaseio.com/";
 
 const COLLECTION_PRODUCTS = "products";
 const COLLECTION_ORDERS = "orders";

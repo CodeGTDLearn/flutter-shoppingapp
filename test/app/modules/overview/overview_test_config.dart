@@ -10,7 +10,7 @@ https://blog.codemagic.io/choosing-the-right-database-for-your-flutter-app/
  */
 class OverviewTestConfig {
 //REPO-USED-IN-THIS-TEST-MODULE:
-  final IOverviewRepo _repository_to_be_used_in_all_overview_modules_tests =
+  final IOverviewRepo _repository_to_be_used_in_all_overview_module_tests =
       OverviewMockRepo();
 
 //   final IOverviewRepo OVERVIEW_REPO_OF_TEST = OverviewRepoHttp();
@@ -25,5 +25,5 @@ class OverviewTestConfig {
   final OVERVIEW_DETAIL_VIEW = 'Overview|Details View: Functional';
 
   IOverviewRepo get testsRepo =>
-      _repository_to_be_used_in_all_overview_modules_tests;
+      _repository_to_be_used_in_all_overview_module_tests;
 }

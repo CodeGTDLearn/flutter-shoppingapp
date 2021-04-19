@@ -4,7 +4,7 @@ import 'repo/inventory_repo_mocks.dart';
 
 class InventoryTestConfig {
 //REPO-USED-IN-THIS-TEST-MODULE:
-  final IInventoryRepo _repository_to_be_used_in_all_Inventory_modules_tests =
+  final IInventoryRepo _repository_to_be_used_in_all_Inventory_module_tests =
       InventoryMockRepo();
 
 //TEST-GROUPS-TITLES:
@@ -15,5 +15,5 @@ class InventoryTestConfig {
   final INVENTORY_DETAIL_VIEW = 'Inventory|View|Add/Edit Page: Functional';
 
   IInventoryRepo get testsRepo =>
-      _repository_to_be_used_in_all_Inventory_modules_tests;
+      _repository_to_be_used_in_all_Inventory_module_tests;
 }

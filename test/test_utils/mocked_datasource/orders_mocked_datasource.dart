@@ -15,7 +15,7 @@ class OrdersMockedDatasource {
 
   List<Order> orders() {
     final file = File(_MockedDatasource);
-    final json = jsonDecode(file.readAsStringSync());
+    final json = jsonDecode(file.readAsStringSync())["orders"];
     List<Order> result =
         json.map<Order>((json) => Order.fromJson(json)).toList();
     return result;
@@ -23,7 +23,7 @@ class OrdersMockedDatasource {
 
   Order order() {
     final file = File(_MockedDatasource);
-    final json = jsonDecode(file.readAsStringSync());
+    final json = jsonDecode(file.readAsStringSync())["orders"];
     List<Order> result =
         json.map<Order>((json) => Order.fromJson(json)).toList();
     return result.elementAt(0);
