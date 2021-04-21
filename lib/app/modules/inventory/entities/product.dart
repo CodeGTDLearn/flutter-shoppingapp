@@ -5,13 +5,12 @@ part 'product.g.dart';
 @JsonSerializable()
 class Product {
 
-  // Addinng Product is not working , problably, because id is being sending
-  // as a NULL
   String id;
-
-  String title, description, imageUrl;
+  String title;
+  String description;
+  String imageUrl;
   double price;
-  bool isFavorite = false;
+  bool isFavorite;
 
   Product({
     this.id,
@@ -19,7 +18,7 @@ class Product {
     this.description,
     this.price,
     this.imageUrl,
-    this.isFavorite,
+    this.isFavorite = false,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);

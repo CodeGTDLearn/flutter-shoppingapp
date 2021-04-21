@@ -1,6 +1,4 @@
-import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/modules/overview/repo/overview_repo_retrofit.dart';
 
 import '../../../core/properties/theme/dark_theme_controller.dart';
 import '../../cart/core/cart_bindings.dart';
@@ -18,9 +16,6 @@ class OverviewBindings extends Bindings {
     Get.lazyPut<DarkThemeController>(() => DarkThemeController());
 
     Get.lazyPut<Drawwer>(() => Drawwer());
-
-    // Get.lazyPut<Dio>(() => Dio());
-    // Get.lazyPut<IOverviewRepo>(() => OverviewRepoRetrofit(Get.find<Dio>()));
 
     Get.lazyPut<IOverviewRepo>(() => OverviewRepoHttp());
 

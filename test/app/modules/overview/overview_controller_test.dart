@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/components/filter_favorite_enum.dart';
 import 'package:shopingapp/app/modules/overview/controller/overview_controller.dart';
@@ -7,6 +8,7 @@ import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
 import '../../../test_utils/mocked_datasource/products_mocked_datasource.dart';
+import '../../../test_utils/test_utils.dart';
 import 'overview_test_config.dart';
 
 class OverviewControllerTest {
@@ -16,10 +18,14 @@ class OverviewControllerTest {
     OverviewController _controller;
 
     setUp(() {
-      _repo = OverviewTestConfig().testsRepo;
+      OverviewTestConfig().testBinding.builder();
+      _repo = Get.find<IOverviewRepo>();
       _service = OverviewService(repo: _repo);
       _controller = OverviewController(service: _service);
+      TestMethods.testInstanceName(Get.find<IOverviewRepo>());
     });
+
+    tearDown(TestMethods.globalTearDown);
 
     test('Checking Instances to be used in the Tests', () {
       expect(_repo, isA<IOverviewRepo>());

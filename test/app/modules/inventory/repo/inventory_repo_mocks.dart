@@ -84,7 +84,7 @@ class ManagedProductsMockRepoFail extends Mock implements IInventoryRepo {
 
   @override
   Future<Product> addProduct(Product product) {
-    return Future.value(ProductsMockedDatasource().productEmpty());
+    return Future.value(ProductsMockedDatasource().productNull());
   }
 
   @override

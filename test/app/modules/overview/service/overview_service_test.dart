@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/components/filter_favorite_enum.dart';
@@ -8,6 +9,7 @@ import 'package:test/test.dart';
 
 import '../../../../test_utils/data_builders/product_databuilder.dart';
 import '../../../../test_utils/mocked_datasource/products_mocked_datasource.dart';
+import '../../../../test_utils/test_utils.dart';
 import '../overview_test_config.dart';
 import 'overview_service_mocks.dart';
 
@@ -17,10 +19,14 @@ class OverviewServiceTest {
     IOverviewService _service, _injectService;
 
     setUp(() {
-      _repo = OverviewTestConfig().testsRepo;
+      OverviewTestConfig().testBinding.builder();
+      _repo = Get.find<IOverviewRepo>();
       _service = OverviewService(repo: _repo);
       _injectService = OverviewInjectMockService();
+      TestMethods.testInstanceName(Get.find<IOverviewRepo>());
     });
+
+    tearDown(TestMethods.globalTearDown);
 
     test('Checking Instances to be used in the Tests', () {
       expect(_repo, isA<IOverviewRepo>());

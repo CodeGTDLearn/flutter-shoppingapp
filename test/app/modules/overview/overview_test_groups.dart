@@ -12,7 +12,7 @@ class OverviewTestGroups {
     group("${OverviewTestConfig().OVERVIEW_REPO}", OverviewRepoTest.unit);
     group("${OverviewTestConfig().OVERVIEW_SERVICE}", OverviewServiceTest.unit);
     group("${OverviewTestConfig().OVERVIEW_CONTROLLER}", OverviewControllerTest.integration);
-    group("${OverviewTestConfig().OVERVIEW_VIEW}", OverviewViewTest.functional);
-    group("${OverviewTestConfig().OVERVIEW_DETAIL_VIEW}", OverviewDetailsViewTest.functional);
+    // group("${OverviewTestConfig().OVERVIEW_VIEW}", OverviewViewTest.functional);
+    // group("${OverviewTestConfig().OVERVIEW_DETAIL_VIEW}", OverviewDetailsViewTest.functional);
   }
 }

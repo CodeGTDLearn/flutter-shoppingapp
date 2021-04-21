@@ -59,7 +59,7 @@ class ProductsMockedDatasource {
     return [];
   }
 
-  Product productEmpty() {
+  Product productNull() {
     return null;
   }
 }

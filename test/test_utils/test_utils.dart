@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:image_test_utils/image_test_utils.dart';
+import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 
 class TestUtils {
   Finder key(String keyText) {
@@ -41,6 +42,11 @@ class TestUtils {
 }
 
 class TestMethods {
+
+  static void testInstanceName(IOverviewRepo repo) {
+    print(repo.runtimeType.toString());
+  }
+
   static void globalTearDown() {
     Get.reset();
   }

@@ -1,9 +1,12 @@
+import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
+import 'package:shopingapp/app/modules/overview/repo/overview_repo_http.dart';
 import 'package:test/test.dart';
 
 import '../../../../test_utils/data_builders/product_databuilder.dart';
+import '../../../../test_utils/test_utils.dart';
 import '../overview_test_config.dart';
 import 'overview_repo_mocks.dart';
 
@@ -12,13 +15,12 @@ class OverviewRepoTest {
     IOverviewRepo _repo, _injectRepo;
     var _productFail;
 
-    setUpAll(() {
-      _productFail = ProductDataBuilder().ProductId();
-    });
-
     setUp(() {
-      _repo = OverviewTestConfig().testsRepo;
+      _productFail = ProductDataBuilder().ProductId();
+      OverviewTestConfig().testBinding.builder();
+      _repo = Get.find<IOverviewRepo>();
       _injectRepo = OverviewInjectMockRepo();
+      TestMethods.testInstanceName(Get.find<IOverviewRepo>());
     });
 
     test('Checking Instances to be used in the Tests', () {
