@@ -43,10 +43,6 @@ class TestUtils {
 
 class TestMethods {
 
-  static void testInstanceName(IOverviewRepo repo) {
-    print(repo.runtimeType.toString());
-  }
-
   static void globalTearDown() {
     Get.reset();
   }

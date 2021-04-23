@@ -19,11 +19,10 @@ class OverviewServiceTest {
     IOverviewService _service, _injectService;
 
     setUp(() {
-      OverviewTestConfig().testBinding.builder();
+      OverviewTestConfig().bindingsBuilder();
       _repo = Get.find<IOverviewRepo>();
       _service = OverviewService(repo: _repo);
       _injectService = OverviewInjectMockService();
-      TestMethods.testInstanceName(Get.find<IOverviewRepo>());
     });
 
     tearDown(TestMethods.globalTearDown);
@@ -31,6 +30,7 @@ class OverviewServiceTest {
     test('Checking Instances to be used in the Tests', () {
       expect(_repo, isA<IOverviewRepo>());
       expect(_service, isA<IOverviewService>());
+      expect(_injectService, isA<OverviewInjectMockService>());
     });
 
     test('Checking Response Type in GetProducts', () {
@@ -143,10 +143,6 @@ class OverviewServiceTest {
         expect(listAll.length, 0);
         expect(listFav.length, 0);
       });
-    });
-
-    test('Checking Instances to be used in the Tests', () {
-      expect(_injectService, isA<OverviewInjectMockService>());
     });
 
     test('Getting products - Fail hence Empty', () {

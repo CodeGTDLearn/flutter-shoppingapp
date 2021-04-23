@@ -3,10 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/core/properties/theme/dark_theme_controller.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
-import 'package:shopingapp/app/modules/cart/core/cart_bindings.dart';
 import 'package:shopingapp/app/modules/components/core/keys/snackbarr_keys.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/components/favorites_filter_popup.dart';
@@ -17,7 +15,6 @@ import 'package:shopingapp/app/modules/overview/core/overview_texts_icons_provid
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
-import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
 import '../../../../test_utils/test_utils.dart';
@@ -40,22 +37,11 @@ class OverviewViewTest {
     // });
 
     setUp(() {
-      expect(Get.isPrepared<DarkThemeController>(), isFalse);
-      expect(Get.isPrepared<IOverviewRepo>(), isFalse);
-      expect(Get.isPrepared<IOverviewService>(), isFalse);
-      expect(Get.isPrepared<OverviewController>(), isFalse);
-      expect(Get.isPrepared<CartController>(), isFalse);
       // binding.builder();
-      OverviewTestConfig().testBinding.builder();
-      expect(Get.isPrepared<DarkThemeController>(), isTrue);
-      expect(Get.isPrepared<IOverviewRepo>(), isTrue);
-      expect(Get.isPrepared<IOverviewService>(), isTrue);
-      expect(Get.isPrepared<OverviewController>(), isTrue);
-      expect(Get.isPrepared<CartController>(), isTrue);
+      OverviewTestConfig().bindingsBuilder();
 
       HttpOverrides.global = null;
       seek = TestUtils();
-      TestMethods.testInstanceName(Get.find());
     });
 
     tearDown(() {

@@ -13,3 +13,5 @@ const TIME_OUT = 5000;
 
 //CUSTOM-PROGRESS-INDICATOR
 const CUST_PROG_INDIC_TIMER_TEXT = 3;
+
+const Map<String,String> HEADER_ACCEPT_JSON ={"Accept": "application/json"};

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
+import '../../../core/properties/app_properties.dart';
 import '../../../core/properties/app_urls.dart';
 import '../../inventory/entities/product.dart';
 import 'i_overview_repo.dart';
@@ -10,31 +11,27 @@ import 'i_overview_repo.dart';
 class OverviewRepoHttp implements IOverviewRepo {
   @override
   Future<List<Product>> getProducts() {
-    return http.get(PRODUCTS_URL_HTTP,
-        headers: {"Accept": "application/json"}).then((value) {
-      return _decodeResponse(value);
-    })
-    .catchError((onError) => throw onError);
-    // .catchError((onError){
-    //   print(">>>>>>>Erro no Firebase: Autenticacao ou "
-    //       "JsonFormat, etc...>>>>>>: "
-    //       "$onError");
-    //   throw onError;
-    // });
+    return http
+        .get(PRODUCTS_URL_HTTP, headers: HEADER_ACCEPT_JSON)
+        .then(_decodeResponse)
+        .catchError((onError) => throw onError);
   }
 
   @override
   Future<int> updateProduct(Product product) {
     return http
         //Product(Object) => Json(.toJson) => PlainText/Firebase(jsonEncode)
-        .patch("$URL_FIREBASE/$COLLECTION_PRODUCTS/${product.id}$EXTENSION",
-            body: jsonEncode(product.toJson()))
+        .patch(
+          "$PRODUCTS_URL_HTTP/${product.id}.json",
+          headers: HEADER_ACCEPT_JSON,
+          body: jsonEncode(product.toJson()),
+        )
         .then((response) => response.statusCode);
   }
 
   List<Product> _decodeResponse(Response response) {
     var _products = <Product>[];
-    //PlainText/Firebase(jsonEncode) ==> Json(Map) ==> List[Product](List - forEach)
+    //PlainText/Firebase(jsonEncode) ==> Json(Map) ==> List[Product](forEach)
     var plainText = response.body;
     final json = jsonDecode(plainText);
     json == null

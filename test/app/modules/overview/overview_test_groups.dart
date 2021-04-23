@@ -9,10 +9,10 @@ import 'service/overview_service_test.dart';
 
 class OverviewTestGroups {
   static void groups() {
-    group("${OverviewTestConfig().OVERVIEW_REPO}", OverviewRepoTest.unit);
-    group("${OverviewTestConfig().OVERVIEW_SERVICE}", OverviewServiceTest.unit);
-    group("${OverviewTestConfig().OVERVIEW_CONTROLLER}", OverviewControllerTest.integration);
-    // group("${OverviewTestConfig().OVERVIEW_VIEW}", OverviewViewTest.functional);
-    // group("${OverviewTestConfig().OVERVIEW_DETAIL_VIEW}", OverviewDetailsViewTest.functional);
+    group("${OverviewTestConfig().REPO_TEST_TITLE}", OverviewRepoTest.unit);
+    group("${OverviewTestConfig().SERVICE_TEST_TITLE}", OverviewServiceTest.unit);
+    group("${OverviewTestConfig().CONTROLLER_TEST_TITLE}", OverviewControllerTest.integration);
+    group("${OverviewTestConfig().VIEW_TEST_TITLE}", OverviewViewTest.functional);
+    group("${OverviewTestConfig().DETAIL_VIEW_TEST_TITLE}", OverviewDetailsViewTest.functional);
   }
 }

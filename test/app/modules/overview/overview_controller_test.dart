@@ -18,11 +18,10 @@ class OverviewControllerTest {
     OverviewController _controller;
 
     setUp(() {
-      OverviewTestConfig().testBinding.builder();
+      OverviewTestConfig().bindingsBuilder();
       _repo = Get.find<IOverviewRepo>();
       _service = OverviewService(repo: _repo);
       _controller = OverviewController(service: _service);
-      TestMethods.testInstanceName(Get.find<IOverviewRepo>());
     });
 
     tearDown(TestMethods.globalTearDown);

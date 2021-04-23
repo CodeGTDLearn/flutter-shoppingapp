@@ -2,11 +2,9 @@ import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
-import 'package:shopingapp/app/modules/overview/repo/overview_repo_http.dart';
 import 'package:test/test.dart';
 
 import '../../../../test_utils/data_builders/product_databuilder.dart';
-import '../../../../test_utils/test_utils.dart';
 import '../overview_test_config.dart';
 import 'overview_repo_mocks.dart';
 
@@ -17,15 +15,15 @@ class OverviewRepoTest {
 
     setUp(() {
       _productFail = ProductDataBuilder().ProductId();
-      OverviewTestConfig().testBinding.builder();
+      OverviewTestConfig().bindingsBuilder();
       _repo = Get.find<IOverviewRepo>();
       _injectRepo = OverviewInjectMockRepo();
-      TestMethods.testInstanceName(Get.find<IOverviewRepo>());
     });
 
-    test('Checking Instances to be used in the Tests', () {
+    test('Checking Instances', () {
       expect(_repo, isA<IOverviewRepo>());
       expect(_productFail, isA<Product>());
+      expect(_injectRepo, isA<OverviewInjectMockRepo>());
     });
 
     test('Checking Response Type in GetProducts', () {
@@ -40,6 +38,9 @@ class OverviewRepoTest {
       });
     });
 
+// todo: Diferente do OverviewMockRepo, o OverviewHttp nao retorna o value,
+//  portanto nao entrando no Then
+    // TEstando, usando o OverviewHttp, nao entra no _repo.getProducts().then
     test('Getting products', () {
       _repo.getProducts().then((value) {
         expect(value[0].title, "Red Shirt");
@@ -58,10 +59,6 @@ class OverviewRepoTest {
 
     test('Updating a Product - Response Status 200', () {
       _repo.updateProduct(_productFail).then((value) => expect(value, 200));
-    });
-
-    test('Checking Instances to be used in the Tests', () {
-      expect(_injectRepo, isA<OverviewInjectMockRepo>());
     });
 
     test('Getting products - Fail hence Empty', () {

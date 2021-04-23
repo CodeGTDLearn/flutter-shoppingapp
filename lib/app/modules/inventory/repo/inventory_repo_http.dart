@@ -31,7 +31,7 @@ class InventoryRepoHttp implements IInventoryRepo {
 
   Future<int> updateProduct(Product product) {
     return http
-        .patch("$URL_FIREBASE/$COLLECTION_PRODUCTS/${product.id}$EXTENSION",
+        .patch("$PRODUCTS_URL_HTTP/${product.id}.json",
             //Product(Object) => Json(.toJson) => PlainText/Firebase(jsonEncode)
             body: jsonEncode(product.toJson()))
         .then((response) => response.statusCode);
@@ -39,7 +39,7 @@ class InventoryRepoHttp implements IInventoryRepo {
 
   Future<int> deleteProduct(String id) {
     return http
-        .delete("$URL_FIREBASE/$COLLECTION_PRODUCTS/$id$EXTENSION")
+        .delete("$PRODUCTS_URL_HTTP/$id.json")
         .then((response) => response.statusCode);
   }
 
