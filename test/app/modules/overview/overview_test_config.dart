@@ -10,16 +10,17 @@ import 'package:test/test.dart';
 
 import 'repo/overview_repo_mocks.dart';
 
-  /* INSTRUCTIONS ABOUT REPO-TESTS OR REPO-REAL-PRODUCTION
+  /* INSTRUCTIONS ABOUT 'REPO-REAL-DE-PRODUCAO' E 'REPO-REAL-DE-PRODUCAO'
   https://timm.preetz.name/articles/http-request-flutter-test
-  By default all HTTP request made in a test invoked with flutter test
-  result in an empty response with status code 400.
-  Generally that seems like a good default behavior to avoid external
-  dependencies and hence reduce flakyness in tests.
+  By DEFAULT, HTTP request made in tests invoked BY flutter test
+  result in an empty response (400).
+  By DEFAULT, It is a good behavior to avoid external
+  dependencies and hence reduce flakyness(FRAGILE) tests.
   THEREFORE:
-  - TESTS CAN NOT DO EXTERNAL-HTTP REQUESTS/CALLS;
-  - HENCE, THE TESTS CAN NOT USE PRODUCTION-REAL-REPO
-  - SO, THE TESTS ONLY WILL USE MockedRepoClass(no external calls)
+  A) TESTS CAN NOT DO EXTERNAL-HTTP REQUESTS/CALLS;
+  B) HENCE, THE TESTS CAN NOT USE 'REPO-REAL-DE-PRODUCAO'
+  C) SO, THE TESTS ONLY WILL USE
+     'REPO-REAL-DE-PRODUCAO'MockedRepoClass(no external calls)
    */
 class OverviewTestConfig {
   final IOverviewRepo _ONLY_MOCKED_REPO = OverviewMockRepo();
