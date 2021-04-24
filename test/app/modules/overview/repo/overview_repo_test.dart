@@ -14,10 +14,10 @@ class OverviewRepoTest {
     var _productFail;
 
     setUp(() {
-      _productFail = ProductDataBuilder().ProductId();
       OverviewTestConfig().bindingsBuilder();
       _repo = Get.find<IOverviewRepo>();
       _injectRepo = OverviewInjectMockRepo();
+      _productFail = ProductDataBuilder().ProductId();
     });
 
     test('Checking Instances', () {

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/properties/theme/dark_theme_controller.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
@@ -10,7 +12,7 @@ import 'package:test/test.dart';
 
 import 'repo/overview_repo_mocks.dart';
 
-  /* INSTRUCTIONS ABOUT 'REPO-REAL-DE-PRODUCAO' E 'REPO-REAL-DE-PRODUCAO'
+/* INSTRUCTIONS ABOUT 'REPO-REAL-DE-PRODUCAO' E 'REPO-REAL-DE-PRODUCAO'
   https://timm.preetz.name/articles/http-request-flutter-test
   By DEFAULT, HTTP request made in tests invoked BY flutter test
   result in an empty response (400).
@@ -23,7 +25,7 @@ import 'repo/overview_repo_mocks.dart';
      'REPO-REAL-DE-PRODUCAO'MockedRepoClass(no external calls)
    */
 class OverviewTestConfig {
-  final IOverviewRepo _ONLY_MOCKED_REPO = OverviewMockRepo();
+  final IOverviewRepo _only_mocked_repo_no_external_calls = OverviewMockRepo();
 
   void bindingsBuilder() {
     Get.reset();
@@ -35,7 +37,7 @@ class OverviewTestConfig {
     expect(Get.isPrepared<CartController>(), isFalse);
 
     var binding = BindingsBuilder(() {
-      Get.lazyPut<IOverviewRepo>(() => _ONLY_MOCKED_REPO);
+      Get.lazyPut<IOverviewRepo>(() => _only_mocked_repo_no_external_calls);
 
       Get.lazyPut<IOverviewService>(
           () => OverviewService(repo: Get.find<IOverviewRepo>()));
@@ -54,9 +56,12 @@ class OverviewTestConfig {
     expect(Get.isPrepared<IOverviewService>(), isTrue);
     expect(Get.isPrepared<OverviewController>(), isTrue);
     expect(Get.isPrepared<CartController>(), isTrue);
+
+    HttpOverrides.global = null;
   }
 
-  String repoName() => _ONLY_MOCKED_REPO.runtimeType.toString();
+  String repoName() =>
+      _only_mocked_repo_no_external_calls.runtimeType.toString();
 
   get REPO_TEST_TITLE => '${repoName()}|Repo: Unit';
 

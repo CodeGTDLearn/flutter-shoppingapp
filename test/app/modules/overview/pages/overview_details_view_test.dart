@@ -20,22 +20,8 @@ class OverviewDetailsViewTest {
   static void functional() {
     TestUtils seek;
 
-    // final binding = BindingsBuilder(() {
-    //   Get.lazyPut<DarkThemeController>(() => DarkThemeController());
-    //
-    //   Get.lazyPut<IOverviewRepo>(() => OverviewTestConfig().testsRepo);
-    //   Get.lazyPut<IOverviewService>(
-    //       () => OverviewService(repo: Get.find<IOverviewRepo>()));
-    //   Get.lazyPut<OverviewController>(
-    //       () => OverviewController(service: Get.find<IOverviewService>()));
-    //
-    //   CartBindings().dependencies();
-    // });
-
     setUp(() {
-      // binding.builder();
       OverviewTestConfig().bindingsBuilder();
-      HttpOverrides.global = null;
       seek = TestUtils();
     });
 
