@@ -71,7 +71,7 @@ class InventoryMockRepo extends Mock implements IInventoryRepo {
 class InventoryInjectMockRepo extends Mock
     implements IInventoryRepo {}
 
-class ManagedProductsMockRepoFail extends Mock implements IInventoryRepo {
+class InventoryMockRepoFail extends Mock implements IInventoryRepo {
   @override
   Future<int> deleteProduct(String id) {
     return Future.value(400);

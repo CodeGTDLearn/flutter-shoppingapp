@@ -1,4 +1,5 @@
 import 'package:faker/faker.dart';
+import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/orders/entities/order.dart';
 import 'package:shopingapp/app/modules/orders/repo/i_orders_repo.dart';
@@ -14,15 +15,10 @@ class OrdersRepoTest {
     var _orderWithoutId;
 
     setUp(() {
-      _repo = OrdersTestConfig().testsRepo;
+      OrdersTestConfig().bindingsBuilder();
+      _repo = Get.find<IOrdersRepo>();
       _injectRepo = OrdersInjectMockRepo();
       _orderWithoutId = OrderDatabuilder.OrderFull();
-    });
-
-    test('Checking Tests Instances', () {
-      expect(_repo, isA<IOrdersRepo>());
-      expect(_injectRepo, isA<OrdersInjectMockRepo>());
-      expect(_orderWithoutId, isA<Order>());
     });
 
     test('Getting Orders - ResponseType', () {

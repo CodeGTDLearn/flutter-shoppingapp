@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/orders/controller/orders_controller.dart';
 import 'package:shopingapp/app/modules/orders/repo/i_orders_repo.dart';
 import 'package:shopingapp/app/modules/orders/service/i_orders_service.dart';
@@ -14,15 +15,10 @@ class OrdersControllerTest {
     OrdersController _controller;
 
     setUp(() {
-      _repo = OrdersTestConfig().testsRepo;
-      _service = OrdersService(repo: _repo);
-      _controller = OrdersController(service: _service);
-    });
-
-    test('Checking Tests Instances', () {
-      expect(_repo, isA<IOrdersRepo>());
-      expect(_service, isA<IOrdersService>());
-      expect(_controller, isA<OrdersController>());
+      OrdersTestConfig().bindingsBuilder();
+      _repo = Get.find<IOrdersRepo>();
+      _service = Get.find<IOrdersService>();
+      _controller = Get.find<OrdersController>();
     });
 
     test('Getting Orders', () {

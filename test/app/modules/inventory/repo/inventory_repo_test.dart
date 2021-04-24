@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
@@ -15,11 +16,10 @@ class InventoryRepoTest {
     var _product1 = ProductsMockedDatasource().products().elementAt(1);
 
     setUp(() {
-      _repo = InventoryTestConfig().testsRepo;
+      InventoryTestConfig().bindingsBuilder(InventoryMockRepo());
+      _repo = Get.find<IInventoryRepo>();
       _injectRepo = InventoryInjectMockRepo();
     });
-
-    tearDown(TestMethods.globalTearDown);
 
     test('Checking Test Instances', () {
       expect(_repo, isA<IInventoryRepo>());

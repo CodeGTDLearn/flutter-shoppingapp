@@ -42,7 +42,7 @@ class AppRoutes {
     ),
     GetPage(
       name: CART,
-      page: () => CartPage(controller: Get.find()),
+      page: () => CartView(controller: Get.find()),
       binding: CartBindings(),
     ),
     GetPage(

@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/inventory/controller/inventory_controller.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
@@ -13,6 +14,7 @@ import '../../../test_utils/mocked_datasource/products_mocked_datasource.dart';
 import '../../../test_utils/test_utils.dart';
 import '../overview/repo/overview_repo_mocks.dart';
 import 'inventory_test_config.dart';
+import 'repo/inventory_repo_mocks.dart';
 
 class InventoryControllerTest {
   static void integration() {
@@ -29,28 +31,13 @@ class InventoryControllerTest {
     var _newProduct = ProductDataBuilder().ProductFull();
 
     setUp(() {
-      _ovRepo = OverviewMockRepo();
-      _ovService = OverviewService(repo: _ovRepo);
+      InventoryTestConfig().bindingsBuilder(InventoryMockRepo());
+      _ovRepo = Get.find<IOverviewRepo>();
+      _ovService = Get.find<IOverviewService>();
 
-      _invRepo = InventoryTestConfig().testsRepo;
-      _invService = InventoryService(
-        repo: _invRepo,
-        overviewService: _ovService,
-      );
+      _invRepo = Get.find<IInventoryRepo>();
+      _invService = Get.find<IInventoryService>();
       _invController = InventoryController(service: _invService);
-    });
-
-    tearDown(TestMethods.globalTearDown);
-
-    test('Checking Test Instances', () {
-      expect(_ovRepo, isA<IOverviewRepo>());
-      expect(_ovService, isA<IOverviewService>());
-
-      expect(_invRepo, isA<IInventoryRepo>());
-      expect(_invService, isA<IInventoryService>());
-      expect(_invController, isA<InventoryController>());
-      expect(_product0, isA<Product>());
-      expect(_product1, isA<Product>());
     });
 
     test('Getting Products - ResponseType', () {

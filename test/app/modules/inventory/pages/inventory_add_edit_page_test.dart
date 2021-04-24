@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/inventory/inventory.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/inventory/inventory_add_edit.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
-import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/cart/core/cart_bindings.dart';
 import 'package:shopingapp/app/modules/components/core/keys/drawwer_keys.dart';
 import 'package:shopingapp/app/modules/components/drawwer.dart';
@@ -56,79 +55,15 @@ class InventoryAddEditPageTest {
     var fieldFormImgUrl = _seek.key(INVENTORY_ADDEDIT_FIELD_URL_KEY);
 
     var fakeTitle, fakePrice, fakeDesc, fakeImgUrl, invalidText;
-    var _binding;
-
-    void _bindingBuilder(IInventoryRepo repo) {
-      Get.reset();
-
-      _binding = BindingsBuilder(() {
-        Get.lazyPut<Drawwer>(() => Drawwer());
-
-        Get.lazyPut<IOverviewRepo>(() => OverviewMockRepo());
-        Get.lazyPut<IOverviewService>(
-          () => OverviewService(repo: Get.find()),
-        );
-        Get.lazyPut<OverviewController>(
-          () => OverviewController(service: Get.find()),
-        );
-
-        Get.lazyPut<IInventoryRepo>(() => repo);
-        Get.lazyPut<IInventoryService>(
-          () => InventoryService(repo: Get.find(), overviewService: Get.find()),
-        );
-        Get.lazyPut<InventoryController>(
-          () => InventoryController(service: Get.find()),
-        );
-
-        CartBindings().dependencies();
-      });
-
-      _binding.builder();
-    }
 
     setUp(() {
-      expect(Get.isPrepared<Drawwer>(), isFalse);
-      expect(Get.isPrepared<IOverviewRepo>(), isFalse);
-      expect(Get.isPrepared<IOverviewService>(), isFalse);
-      expect(Get.isPrepared<OverviewController>(), isFalse);
-      expect(Get.isPrepared<CartController>(), isFalse);
-
-      expect(Get.isPrepared<IInventoryRepo>(), isFalse);
-      expect(Get.isPrepared<IInventoryService>(), isFalse);
-      expect(Get.isPrepared<InventoryController>(), isFalse);
-
-      _bindingBuilder(InventoryTestConfig().testsRepo);
-
-      expect(Get.isPrepared<Drawwer>(), isTrue);
-      expect(Get.isPrepared<IOverviewRepo>(), isTrue);
-      expect(Get.isPrepared<IOverviewService>(), isTrue);
-      expect(Get.isPrepared<OverviewController>(), isTrue);
-      expect(Get.isPrepared<CartController>(), isTrue);
-
-      expect(Get.isPrepared<IInventoryRepo>(), isTrue);
-      expect(Get.isPrepared<IInventoryService>(), isTrue);
-      expect(Get.isPrepared<InventoryController>(), isTrue);
-
-      HttpOverrides.global = null;
+      InventoryTestConfig().bindingsBuilder(InventoryMockRepo());
       _seek = TestUtils();
     });
 
     tearDown(() {
-      TestMethods.globalTearDown();
       _seek = null;
     });
-
-    void _isInstancesRegistred() {
-      expect(Get.isRegistered<Drawwer>(), isTrue);
-      expect(Get.isRegistered<IOverviewRepo>(), isTrue);
-      expect(Get.isRegistered<IOverviewService>(), isTrue);
-      expect(Get.isRegistered<OverviewController>(), isTrue);
-      expect(Get.isRegistered<CartController>(), isTrue);
-
-      expect(Get.isRegistered<IInventoryRepo>(), isTrue);
-      expect(Get.isRegistered<IInventoryService>(), isTrue);
-      expect(Get.isRegistered<InventoryController>(), isTrue);
-    }
 
     void _expectTestingPageFieldsExistence() {
       expect(fldTitle, findsOneWidget);
@@ -208,7 +143,6 @@ class InventoryAddEditPageTest {
     testWidgets('Adding a product', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
-      _isInstancesRegistred();
 
       await _openAndTestManagedProductsAddEditPage(tester);
       _createFakeDataToTestTheManProdAddEditPageFormFields();
@@ -233,7 +167,6 @@ class InventoryAddEditPageTest {
     testWidgets('Open Managed Product AddEdit Page', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
-      _isInstancesRegistred();
 
       await _openAndTestManagedProductsAddEditPage(tester);
 
@@ -243,7 +176,6 @@ class InventoryAddEditPageTest {
     testWidgets('Fullfilling fields with previewImageUrl', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
-      _isInstancesRegistred();
 
       _createFakeDataToTestTheManProdAddEditPageFormFields();
 
@@ -270,7 +202,6 @@ class InventoryAddEditPageTest {
     testWidgets('Fullfilling fields testing INValidation', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
-      _isInstancesRegistred();
 
       _createFakeDataToTestTheManProdAddEditPageFormFields();
 
@@ -291,7 +222,6 @@ class InventoryAddEditPageTest {
     testWidgets('Testing Page BackButton', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
-      _isInstancesRegistred();
 
       await _openAndTestManagedProductsAddEditPage(tester);
 
@@ -304,13 +234,10 @@ class InventoryAddEditPageTest {
     });
 
     testWidgets('Open Page with NO products in DB', (tester) async {
-      _bindingBuilder(ManagedProductsMockRepoFail());
-      // _binding.builder();
+      InventoryTestConfig().bindingsBuilder(InventoryMockRepoFail());
 
       await tester.pumpWidget(AppDriver());
       await tester.pump();
-
-      _isInstancesRegistred();
 
       ovViewScaffGlobalKey.currentState.openDrawer();
       await tester.pump();

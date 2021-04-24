@@ -25,7 +25,7 @@ import 'repo/overview_repo_mocks.dart';
      'REPO-REAL-DE-PRODUCAO'MockedRepoClass(no external calls)
    */
 class OverviewTestConfig {
-  final IOverviewRepo _only_mocked_repo_no_external_calls = OverviewMockRepo();
+  final IOverviewRepo _mocked_repo_used_in_this_module_tests = OverviewMockRepo();
 
   void bindingsBuilder() {
     Get.reset();
@@ -37,7 +37,7 @@ class OverviewTestConfig {
     expect(Get.isPrepared<CartController>(), isFalse);
 
     var binding = BindingsBuilder(() {
-      Get.lazyPut<IOverviewRepo>(() => _only_mocked_repo_no_external_calls);
+      Get.lazyPut<IOverviewRepo>(() => _mocked_repo_used_in_this_module_tests);
 
       Get.lazyPut<IOverviewService>(
           () => OverviewService(repo: Get.find<IOverviewRepo>()));
@@ -61,7 +61,7 @@ class OverviewTestConfig {
   }
 
   String repoName() =>
-      _only_mocked_repo_no_external_calls.runtimeType.toString();
+      _mocked_repo_used_in_this_module_tests.runtimeType.toString();
 
   get REPO_TEST_TITLE => '${repoName()}|Repo: Unit';
 

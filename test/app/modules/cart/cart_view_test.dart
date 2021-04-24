@@ -31,52 +31,16 @@ import '../orders/repo/orders_repo_mocks.dart';
 import '../overview/repo/overview_repo_mocks.dart';
 import 'cart_test_config.dart';
 
-class CartPageTest {
+class CartViewTest {
   static void functional() {
     TestUtils _seek;
 
-    final binding = BindingsBuilder(() {
-      Get.lazyPut<DarkThemeController>(() => DarkThemeController());
-
-      Get.lazyPut<IOverviewRepo>(() => OverviewMockRepo());
-
-      Get.lazyPut<IOverviewService>(
-          () => OverviewService(repo: Get.find<IOverviewRepo>()));
-
-      Get.lazyPut<OverviewController>(
-          () => OverviewController(service: Get.find<IOverviewService>()));
-
-      Get.lazyPut<IOrdersRepo>(() => OrdersMockRepo());
-
-      Get.lazyPut<IOrdersService>(() => OrdersService(repo: Get.find()));
-
-      Get.lazyPut<ICartRepo>(() => CartTestConfig().testsRepo);
-
-      Get.lazyPut<ICartService>(() => CartService(repo: Get.find()));
-
-      Get.lazyPut<CartController>(() => CartController(
-            cartService: Get.find(),
-            ordersService: Get.find(),
-          ));
-    });
-
     setUp(() {
-      expect(Get.isPrepared<IOverviewRepo>(), isFalse);
-      expect(Get.isPrepared<IOverviewService>(), isFalse);
-      expect(Get.isPrepared<OverviewController>(), isFalse);
-      expect(Get.isPrepared<CartController>(), isFalse);
-      binding.builder();
-      expect(Get.isPrepared<IOverviewRepo>(), isTrue);
-      expect(Get.isPrepared<IOverviewService>(), isTrue);
-      expect(Get.isPrepared<OverviewController>(), isTrue);
-      expect(Get.isPrepared<CartController>(), isTrue);
-
-      HttpOverrides.global = null;
+      CartTestConfig().bindingsBuilder();
       _seek = TestUtils();
     });
 
     tearDown(() {
-      TestMethods.globalTearDown();
       _seek = null;
     });
 

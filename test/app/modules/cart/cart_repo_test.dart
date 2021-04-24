@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/cart/repo/i_cart_repo.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:test/test.dart';
@@ -18,15 +19,10 @@ class CartRepoTest {
     Product _product1, _product2;
 
     setUp(() {
+      CartTestConfig().bindingsBuilder();
       _product1 = ProductDataBuilder().ProductFull();
       _product2 = ProductDataBuilder().ProductFull();
-      _repo = CartTestConfig().testsRepo;
-    });
-
-    test('Checking Instances to be used in the Tests', () {
-      expect(_repo, isA<ICartRepo>());
-      expect(_product1, isA<Product>());
-      expect(_product2, isA<Product>());
+      _repo = Get.find<ICartRepo>();
     });
 
     test('Getting ALL products from the Cart', () {

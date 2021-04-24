@@ -1,16 +1,17 @@
 import 'package:test/test.dart';
 
 import 'cart_controller_test.dart';
-import 'cart_page_test.dart';
+import 'cart_view_test.dart';
 import 'cart_repo_test.dart';
 import 'cart_service_test.dart';
 import 'cart_test_config.dart';
 
 class CartTestGroups {
   static void groups() {
-    group("${CartTestConfig().CART_REPO}", CartRepoTest.unit);
-    group("${CartTestConfig().CART_SERVICE}", CartServiceTest.unit);
-    group("${CartTestConfig().CART_CONTROLLER}", CartControllerTest.integration);
-    group("${CartTestConfig().CART_VIEW}", CartPageTest.functional);
+    group("${CartTestConfig().REPO_TEST_TITLE}", CartRepoTest.unit);
+    group("${CartTestConfig().SERVICE_TEST_TITLE}", CartServiceTest.unit);
+    group("${CartTestConfig().CONTROLLER_TEST_TITLE}",
+        CartControllerTest.integration);
+    group("${CartTestConfig().VIEW_TEST_TITLE}", CartViewTest.functional);
   }
 }

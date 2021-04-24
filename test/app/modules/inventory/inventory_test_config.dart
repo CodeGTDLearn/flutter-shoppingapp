@@ -1,19 +1,92 @@
-import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
+import 'dart:io';
 
+import 'package:flutter_test/flutter_test.dart';
+import 'package:get/get.dart';
+import 'package:shopingapp/app/core/properties/theme/dark_theme_controller.dart';
+import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
+import 'package:shopingapp/app/modules/cart/core/cart_bindings.dart';
+import 'package:shopingapp/app/modules/inventory/controller/inventory_controller.dart';
+import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
+import 'package:shopingapp/app/modules/inventory/service/i_inventory_service.dart';
+import 'package:shopingapp/app/modules/inventory/service/inventory_service.dart';
+import 'package:shopingapp/app/modules/overview/controller/overview_controller.dart';
+import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
+import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
+import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
+
+import '../overview/repo/overview_repo_mocks.dart';
 import 'repo/inventory_repo_mocks.dart';
 
 class InventoryTestConfig {
 //REPO-USED-IN-THIS-TEST-MODULE:
-  final IInventoryRepo _repository_to_be_used_in_all_Inventory_module_tests =
+  final IInventoryRepo _mocked_repo_used_in_this_module_tests =
       InventoryMockRepo();
 
-//TEST-GROUPS-TITLES:
-  final INVENTORY_REPO = 'Inventory|Repo: Unit';
-  final INVENTORY_SERVICE = 'Inventory|Service|Repo: Unit';
-  final INVENTORY_CONTROLLER = 'Inventory|Controller|Service|Repo: Integr';
-  final INVENTORY_VIEW = 'Inventory|View: Functional';
-  final INVENTORY_DETAIL_VIEW = 'Inventory|View|Add/Edit: Functional';
+  void bindingsBuilder(IInventoryRepo mockRepo) {
+    Get.reset();
 
-  IInventoryRepo get testsRepo =>
-      _repository_to_be_used_in_all_Inventory_module_tests;
+    expect(Get.isPrepared<DarkThemeController>(), isFalse);
+
+    expect(Get.isPrepared<IOverviewRepo>(), isFalse);
+    expect(Get.isPrepared<IOverviewService>(), isFalse);
+    expect(Get.isPrepared<OverviewController>(), isFalse);
+
+    expect(Get.isPrepared<CartController>(), isFalse);
+
+    expect(Get.isPrepared<IInventoryRepo>(), isFalse);
+    expect(Get.isPrepared<IInventoryService>(), isFalse);
+    expect(Get.isPrepared<InventoryController>(), isFalse);
+
+    var binding = BindingsBuilder(() {
+      Get.lazyPut<DarkThemeController>(() => DarkThemeController());
+
+      Get.lazyPut<IInventoryRepo>(() => mockRepo);
+
+      Get.lazyPut<IInventoryService>(() => InventoryService(
+            repo: Get.find(),
+            overviewService: Get.find(),
+          ));
+
+      Get.lazyPut<InventoryController>(
+          () => InventoryController(service: Get.find()));
+
+      Get.lazyPut<IOverviewRepo>(() => OverviewMockRepo());
+
+      Get.lazyPut<IOverviewService>(() => OverviewService(repo: Get.find()));
+
+      Get.lazyPut<OverviewController>(
+          () => OverviewController(service: Get.find()));
+
+      CartBindings().dependencies();
+    });
+
+    binding.builder();
+
+    expect(Get.isPrepared<DarkThemeController>(), isTrue);
+
+    expect(Get.isPrepared<IOverviewRepo>(), isTrue);
+    expect(Get.isPrepared<IOverviewService>(), isTrue);
+    expect(Get.isPrepared<OverviewController>(), isTrue);
+
+    expect(Get.isPrepared<CartController>(), isTrue);
+
+    expect(Get.isPrepared<IInventoryRepo>(), isTrue);
+    expect(Get.isPrepared<IInventoryService>(), isTrue);
+    expect(Get.isPrepared<InventoryController>(), isTrue);
+
+    HttpOverrides.global = null;
+  }
+
+  String repoName() =>
+      _mocked_repo_used_in_this_module_tests.runtimeType.toString();
+
+  get REPO_TEST_TITLE => '${repoName()}|Repo: Unit';
+
+  get SERVICE_TEST_TITLE => '${repoName()}|Service|Repo: Unit';
+
+  get CONTROLLER_TEST_TITLE => '${repoName()}|Controller|Service|Repo: Integr';
+
+  get VIEW_TEST_TITLE => '${repoName()}|View: Functional';
+
+  get VIEW_ADDEDIT_TEST_TITLE => '${repoName()}|View|Add/Edit: Functional';
 }

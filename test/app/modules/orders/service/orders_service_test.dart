@@ -1,4 +1,5 @@
 import 'package:faker/faker.dart';
+import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/cart/entities/cart_item.dart';
 import 'package:shopingapp/app/modules/orders/entities/order.dart';
@@ -19,17 +20,11 @@ class OrdersServiceTest {
     var _cartItems;
 
     setUp(() {
-      _repo = OrdersTestConfig().testsRepo;
-      _service = OrdersService(repo: _repo);
+      OrdersTestConfig().bindingsBuilder();
+      _repo = Get.find<IOrdersRepo>();
+      _service = Get.find<IOrdersService>();
       _injectService = OrdersInjectMockService();
       _cartItems = CartItemDatabuilder.cartItems();
-    });
-
-    test('Checking Tests Instances', () {
-      expect(_repo, isA<IOrdersRepo>());
-      expect(_service, isA<IOrdersService>());
-      expect(_injectService, isA<OrdersInjectMockService>());
-      expect(_cartItems, isA<List<CartItem>>());
     });
 
     test('Getting Orders - ResponseType', () {

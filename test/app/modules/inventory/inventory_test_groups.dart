@@ -10,23 +10,23 @@ import 'service/inventory_service_test.dart';
 class InventoryTestGroups {
   static void groups() {
     group(
-      "${InventoryTestConfig().INVENTORY_REPO}",
+      "${InventoryTestConfig().REPO_TEST_TITLE}",
       InventoryRepoTest.unit,
     );
     group(
-      "${InventoryTestConfig().INVENTORY_SERVICE}",
+      "${InventoryTestConfig().SERVICE_TEST_TITLE}",
       InventoryServiceTest.unit,
     );
     group(
-      "${InventoryTestConfig().INVENTORY_CONTROLLER}",
+      "${InventoryTestConfig().CONTROLLER_TEST_TITLE}",
       InventoryControllerTest.integration,
     );
     group(
-      "${InventoryTestConfig().INVENTORY_VIEW}",
+      "${InventoryTestConfig().VIEW_TEST_TITLE}",
       InventoryPageTest.functional,
     );
     group(
-      "${InventoryTestConfig().INVENTORY_DETAIL_VIEW}",
+      "${InventoryTestConfig().VIEW_ADDEDIT_TEST_TITLE}",
       InventoryAddEditPageTest.functional,
     );
   }

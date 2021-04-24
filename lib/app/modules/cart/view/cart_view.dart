@@ -11,10 +11,10 @@ import '../controller/cart_controller.dart';
 import '../core/cart_texts_icons_provided.dart';
 import '../core/cart_widget_keys.dart';
 
-class CartPage extends StatelessWidget {
+class CartView extends StatelessWidget {
   final CartController controller;
 
-  CartPage({this.controller});
+  CartView({this.controller});
 
 
   Widget build(BuildContext context) {
