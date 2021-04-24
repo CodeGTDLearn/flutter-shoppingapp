@@ -10,7 +10,6 @@ import 'package:test/test.dart';
 
 import 'repo/overview_repo_mocks.dart';
 
-class OverviewTestConfig {
   /* INSTRUCTIONS ABOUT REPO-TESTS OR REPO-REAL-PRODUCTION
   https://timm.preetz.name/articles/http-request-flutter-test
   By default all HTTP request made in a test invoked with flutter test
@@ -22,6 +21,7 @@ class OverviewTestConfig {
   - HENCE, THE TESTS CAN NOT USE PRODUCTION-REAL-REPO
   - SO, THE TESTS ONLY WILL USE MockedRepoClass(no external calls)
    */
+class OverviewTestConfig {
   final IOverviewRepo _ONLY_MOCKED_REPO = OverviewMockRepo();
 
   void bindingsBuilder() {
