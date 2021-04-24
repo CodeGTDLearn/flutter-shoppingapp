@@ -11,17 +11,18 @@ import 'package:test/test.dart';
 import 'repo/overview_repo_mocks.dart';
 
 class OverviewTestConfig {
-  /*
+  /* INSTRUCTIONS ABOUT REPO-TESTS OR REPO-REAL-PRODUCTION
   https://timm.preetz.name/articles/http-request-flutter-test
   By default all HTTP request made in a test invoked with flutter test
   result in an empty response with status code 400.
   Generally that seems like a good default behavior to avoid external
   dependencies and hence reduce flakyness in tests.
   THEREFORE:
-  - TESTS CAN NOT DO EXTERNAL-HTTP REQUESTS/CALLS; HENCE, THE TESTS ONLY WILL
-    USE MockedRepoClass(no external calls)
+  - TESTS CAN NOT DO EXTERNAL-HTTP REQUESTS/CALLS;
+  - HENCE, THE TESTS CAN NOT USE PRODUCTION-REAL-REPO
+  - SO, THE TESTS ONLY WILL USE MockedRepoClass(no external calls)
    */
-  final IOverviewRepo _repoToBeTested = OverviewMockRepo();
+  final IOverviewRepo _ONLY_MOCKED_REPO = OverviewMockRepo();
 
   void bindingsBuilder() {
     Get.reset();
@@ -33,7 +34,7 @@ class OverviewTestConfig {
     expect(Get.isPrepared<CartController>(), isFalse);
 
     var binding = BindingsBuilder(() {
-      Get.lazyPut<IOverviewRepo>(() => _repoToBeTested);
+      Get.lazyPut<IOverviewRepo>(() => _ONLY_MOCKED_REPO);
 
       Get.lazyPut<IOverviewService>(
           () => OverviewService(repo: Get.find<IOverviewRepo>()));
@@ -54,7 +55,7 @@ class OverviewTestConfig {
     expect(Get.isPrepared<CartController>(), isTrue);
   }
 
-  String repoName() => _repoToBeTested.runtimeType.toString();
+  String repoName() => _ONLY_MOCKED_REPO.runtimeType.toString();
 
   get REPO_TEST_TITLE => '${repoName()}|Repo: Unit';
 
