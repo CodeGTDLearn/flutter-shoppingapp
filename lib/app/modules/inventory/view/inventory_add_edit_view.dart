@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/components/progres_indicator.dart';
+import '../../../core/components/snackbarr.dart';
 import '../../../core/properties/app_owasp_regex.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
-import '../../components/progres_indicator.dart';
-import '../../components/snackbarr.dart';
 import '../../overview/controller/overview_controller.dart';
 import '../components/custom_text_form_field/custom_form_field.dart';
 import '../controller/inventory_controller.dart';
@@ -15,8 +15,7 @@ import '../entities/product.dart';
 
 class InventoryAddEditView extends StatefulWidget {
   @override
-  _InventoryAddEditViewState createState() =>
-      _InventoryAddEditViewState();
+  _InventoryAddEditViewState createState() => _InventoryAddEditViewState();
 }
 
 class _InventoryAddEditViewState extends State<InventoryAddEditView> {
@@ -45,17 +44,14 @@ class _InventoryAddEditViewState extends State<InventoryAddEditView> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      _manProdController
-          .switchManagedProdAddEditFormToCustomCircularProgrIndic();
+      _manProdController.switchManagedProdAddEditFormToCustomCircularProgrIndic();
 
       if (Get.arguments == null) {
-        _manProdController
-            .switchManagedProdAddEditFormToCustomCircularProgrIndic();
+        _manProdController.switchManagedProdAddEditFormToCustomCircularProgrIndic();
       } else {
         _product = _manProdController.getProductById(Get.arguments);
         _imgUrlController.text = _product.imageUrl;
-        _manProdController
-            .switchManagedProdAddEditFormToCustomCircularProgrIndic();
+        _manProdController.switchManagedProdAddEditFormToCustomCircularProgrIndic();
       }
       _isInit = false;
     }
@@ -167,8 +163,7 @@ class _InventoryAddEditViewState extends State<InventoryAddEditView> {
                   icon: INV_ADDEDIT_ICO_SAVE_APPBAR,
                   onPressed: () => _saveForm(context))
             ]),
-        body: Obx(() => _manProdController
-                .reloadManagedProductsEditPageObs.value
+        body: Obx(() => _manProdController.reloadManagedProductsEditPageObs.value
             ? ProgresIndicator()
             : Padding(
                 padding: EdgeInsets.all(16),
@@ -197,36 +192,30 @@ class _InventoryAddEditViewState extends State<InventoryAddEditView> {
                         fieldName: INV_ADDEDIT_FLD_DESCR,
                         key: K_INV_ADED_FLD_DESC,
                       ),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Container(
-                                width: 100,
-                                height: 100,
-                                margin: EdgeInsets.only(top: 20, right: 10),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        width: 0.5, color: Colors.grey)),
-                                child: Container(
-                                    child: _imgUrlController.text.isEmpty
-                                        ? Center(
-                                            child:
-                                                Text(INV_ADDEDIT_IMG_TIT))
-                                        : FittedBox(
-                                            child: Image.network(
-                                                _imgUrlController.text,
-                                                fit: BoxFit.cover)))),
-                            Expanded(
-                                child: CustomFormField().create(
-                              product: _product,
-                              context: context,
-                              function: (_) => _saveForm(context),
-                              fieldName: INV_ADDEDIT_FLD_IMG_URL,
-                              key: K_INV_ADED_FLD_URL,
-                              node: _focusUrlNode,
-                              controller: _imgUrlController,
-                            ))
-                          ])
+                      Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                        Container(
+                            width: 100,
+                            height: 100,
+                            margin: EdgeInsets.only(top: 20, right: 10),
+                            decoration: BoxDecoration(
+                                border: Border.all(width: 0.5, color: Colors.grey)),
+                            child: Container(
+                                child: _imgUrlController.text.isEmpty
+                                    ? Center(child: Text(INV_ADDEDIT_IMG_TIT))
+                                    : FittedBox(
+                                        child: Image.network(_imgUrlController.text,
+                                            fit: BoxFit.cover)))),
+                        Expanded(
+                            child: CustomFormField().create(
+                          product: _product,
+                          context: context,
+                          function: (_) => _saveForm(context),
+                          fieldName: INV_ADDEDIT_FLD_IMG_URL,
+                          key: K_INV_ADED_FLD_URL,
+                          node: _focusUrlNode,
+                          controller: _imgUrlController,
+                        ))
+                      ])
                     ]))))));
   }
 }

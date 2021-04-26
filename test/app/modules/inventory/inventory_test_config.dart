@@ -14,13 +14,13 @@ import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 
-import '../overview/repo/overview_repo_mocks.dart';
-import 'repo/inventory_repo_mocks.dart';
+import '../overview/repo/overview_mocked_repo.dart';
+import 'repo/inventory_mocked_repo.dart';
 
 class InventoryTestConfig {
 //REPO-USED-IN-THIS-TEST-MODULE:
   final IInventoryRepo _mocked_repo_used_in_this_module_tests =
-      InventoryMockRepo();
+      InventoryMockedRepo();
 
   void bindingsBuilder(IInventoryRepo mockRepo) {
     Get.reset();
@@ -50,7 +50,7 @@ class InventoryTestConfig {
       Get.lazyPut<InventoryController>(
           () => InventoryController(service: Get.find()));
 
-      Get.lazyPut<IOverviewRepo>(() => OverviewMockRepo());
+      Get.lazyPut<IOverviewRepo>(() => OverviewMockedRepo());
 
       Get.lazyPut<IOverviewService>(() => OverviewService(repo: Get.find()));
 

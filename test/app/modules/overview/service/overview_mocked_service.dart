@@ -20,4 +20,4 @@ import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart'
 //   *
 //   * *****************************************************/
 
-class OverviewInjectMockService extends Mock implements IOverviewService {}
+class OverviewInjectMockedService extends Mock implements IOverviewService {}

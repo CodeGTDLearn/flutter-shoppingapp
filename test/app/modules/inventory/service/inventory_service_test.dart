@@ -1,26 +1,20 @@
 import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
-import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
 import 'package:shopingapp/app/modules/inventory/service/i_inventory_service.dart';
-import 'package:shopingapp/app/modules/inventory/service/inventory_service.dart';
-import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
-import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
 import '../../../../test_utils/data_builders/product_databuilder.dart';
 import '../../../../test_utils/mocked_datasource/products_mocked_datasource.dart';
 import '../inventory_test_config.dart';
-import '../repo/inventory_repo_mocks.dart';
-import 'inventory_service_mock.dart';
+import '../repo/inventory_mocked_repo.dart';
+import 'inventory_mocked_service.dart';
 
 class InventoryServiceTest {
   static void unit() {
-    IOverviewRepo _ovRepo;
     IOverviewService _ovService;
 
-    IInventoryRepo _invRepo;
     IInventoryService _invService, _invInjectService;
 
     var _product0 = ProductsMockedDatasource().products().elementAt(0);
@@ -29,14 +23,12 @@ class InventoryServiceTest {
     var _newProduct = ProductDataBuilder().ProductFull();
 
     setUp(() {
-      InventoryTestConfig().bindingsBuilder(InventoryMockRepo());
-      _ovRepo = Get.find<IOverviewRepo>();
+      InventoryTestConfig().bindingsBuilder(InventoryMockedRepo());
       _ovService = Get.find<IOverviewService>();
 
-      _invRepo = Get.find<IInventoryRepo>();
       _invService = Get.find<IInventoryService>();
 
-      _invInjectService = InventoryInjectMockService();
+      _invInjectService = InventoryInjectMockedService();
     });
 
     test('Getting Products - ResponseType', () {
@@ -81,8 +73,8 @@ class InventoryServiceTest {
 
         _invService.addLocalDataManagedProducts(productTest);
         expect(_invService.getLocalDataManagedProducts().length, 5);
-        expect(_invService.getLocalDataManagedProducts()[4].title,
-            productTest.title);
+        expect(
+            _invService.getLocalDataManagedProducts()[4].title, productTest.title);
       });
     });
 
@@ -151,8 +143,7 @@ class InventoryServiceTest {
       when(_invInjectService.deleteProduct(_newProduct.id))
           .thenAnswer((_) async => Future.value(404));
 
-      when(_invInjectService.getLocalDataManagedProducts())
-          .thenReturn(_products);
+      when(_invInjectService.getLocalDataManagedProducts()).thenReturn(_products);
 
       expect(_invInjectService.getLocalDataManagedProducts(), _products);
 

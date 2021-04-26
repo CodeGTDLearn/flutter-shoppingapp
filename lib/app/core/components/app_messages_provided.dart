@@ -1,4 +1,4 @@
-import '../../core/texts_icons_provider/messages.dart';
+import '../texts_icons_provider/messages.dart';
 
 //CUSTOM CIRCULAR PROGRESS INDICATOR
 const NO_ORD = NO_ORDERS_FOUND_IN_YET;

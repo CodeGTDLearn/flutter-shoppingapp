@@ -1,13 +1,7 @@
 import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
-import 'package:shopingapp/app/modules/cart/repo/i_cart_repo.dart';
-import 'package:shopingapp/app/modules/cart/service/cart_service.dart';
-import 'package:shopingapp/app/modules/cart/service/i_cart_service.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/orders/entities/order.dart';
-import 'package:shopingapp/app/modules/orders/repo/i_orders_repo.dart';
-import 'package:shopingapp/app/modules/orders/service/i_orders_service.dart';
-import 'package:shopingapp/app/modules/orders/service/orders_service.dart';
 import 'package:test/test.dart';
 
 import '../../../test_utils/data_builders/cartitem_databuilder.dart';
@@ -17,15 +11,10 @@ import 'cart_test_config.dart';
 
 class CartControllerTest {
   static void integration() {
-    ICartService _cartService;
-    ICartRepo _cartRepo;
-    IOrdersRepo _ordersRepo;
-    IOrdersService _ordersService;
     CartController _controller;
 
     Product _product1, _product2;
     Order _order1;
-    var _cartItems = CartItemDatabuilder.cartItems();
 
     setUp(() {
       _product1 = ProductDataBuilder().ProductFull();
@@ -33,14 +22,7 @@ class CartControllerTest {
       _order1 = OrdersMockedDatasource().orders().elementAt(0);
 
       CartTestConfig().bindingsBuilder();
-
-      _cartRepo = Get.find<ICartRepo>();
-      _cartService = Get.find<ICartService>();
-
-      _ordersRepo = Get.find<IOrdersRepo>();
-      _ordersService = Get.find<IOrdersService>();
-
-      _controller = Get.find<CartController>();;
+      _controller = Get.find<CartController>();
     });
 
     test('Getting ALL products from the Cart', () {
@@ -156,8 +138,7 @@ class CartControllerTest {
       expect(_product1.id.toString(), isIn(_controller.getAllCartItems()));
       expect(_product2.id.toString(), isIn(_controller.getAllCartItems()));
 
-      expect(_controller.getAmountCartItemsObs(),
-          _product1.price + _product2.price);
+      expect(_controller.getAmountCartItemsObs(), _product1.price + _product2.price);
     });
 
     test('Adding Orders', () {

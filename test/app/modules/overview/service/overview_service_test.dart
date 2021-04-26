@@ -11,7 +11,7 @@ import '../../../../test_utils/data_builders/product_databuilder.dart';
 import '../../../../test_utils/mocked_datasource/products_mocked_datasource.dart';
 import '../../../../test_utils/test_utils.dart';
 import '../overview_test_config.dart';
-import 'overview_service_mocks.dart';
+import 'overview_mocked_service.dart';
 
 class OverviewServiceTest {
   static void unit() {
@@ -22,7 +22,7 @@ class OverviewServiceTest {
       OverviewTestConfig().bindingsBuilder();
       _repo = Get.find<IOverviewRepo>();
       _service = OverviewService(repo: _repo);
-      _injectService = OverviewInjectMockService();
+      _injectService = OverviewInjectMockedService();
     });
 
     tearDown(TestMethods.globalTearDown);
@@ -30,7 +30,7 @@ class OverviewServiceTest {
     test('Checking Instances to be used in the Tests', () {
       expect(_repo, isA<IOverviewRepo>());
       expect(_service, isA<IOverviewService>());
-      expect(_injectService, isA<OverviewInjectMockService>());
+      expect(_injectService, isA<OverviewInjectMockedService>());
     });
 
     test('Checking Response Type in GetProducts', () {

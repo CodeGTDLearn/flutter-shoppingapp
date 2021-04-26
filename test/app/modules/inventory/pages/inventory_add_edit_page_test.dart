@@ -1,34 +1,21 @@
-import 'dart:io';
-
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/inventory/inventory.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/inventory/inventory_add_edit.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
-import 'package:shopingapp/app/modules/cart/core/cart_bindings.dart';
-import 'package:shopingapp/app/modules/components/core/keys/drawwer_keys.dart';
-import 'package:shopingapp/app/modules/components/drawwer.dart';
 import 'package:shopingapp/app/modules/inventory/components/inventory_item.dart';
-import 'package:shopingapp/app/modules/inventory/controller/inventory_controller.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 import 'package:shopingapp/app/modules/inventory/core/messages/field_form_validation_provided.dart';
-import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
-import 'package:shopingapp/app/modules/inventory/service/i_inventory_service.dart';
-import 'package:shopingapp/app/modules/inventory/service/inventory_service.dart';
 import 'package:shopingapp/app/modules/overview/components/overview_grid_item.dart';
-import 'package:shopingapp/app/modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
-import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
-import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
-import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
 import '../../../../test_utils/test_utils.dart';
-import '../../overview/repo/overview_repo_mocks.dart';
 import '../inventory_test_config.dart';
-import '../repo/inventory_repo_mocks.dart';
+import '../repo/inventory_mocked_repo.dart';
 
 class InventoryAddEditPageTest {
   static void functional() {
@@ -57,13 +44,11 @@ class InventoryAddEditPageTest {
     var fakeTitle, fakePrice, fakeDesc, fakeImgUrl, invalidText;
 
     setUp(() {
-      InventoryTestConfig().bindingsBuilder(InventoryMockRepo());
+      InventoryTestConfig().bindingsBuilder(InventoryMockedRepo());
       _seek = TestUtils();
     });
 
-    tearDown(() {
-      _seek = null;
-    });
+    tearDown(() => _seek = null);
 
     void _expectTestingPageFieldsExistence() {
       expect(fldTitle, findsOneWidget);
@@ -114,8 +99,7 @@ class InventoryAddEditPageTest {
       invalidText = "d";
       // fakeTitle = Faker().randomGenerator.string(10, min: 5);
       fakeTitle = "xxxxxx";
-      fakePrice =
-          Faker().randomGenerator.decimal(min: 20).toPrecision(2).toString();
+      fakePrice = Faker().randomGenerator.decimal(min: 20).toPrecision(2).toString();
       // fakeDesc = Faker().randomGenerator.string(30, min: 10);
       fakeDesc = "xxxxxxxxxxxxxx";
       fakeImgUrl =
@@ -234,7 +218,7 @@ class InventoryAddEditPageTest {
     });
 
     testWidgets('Open Page with NO products in DB', (tester) async {
-      InventoryTestConfig().bindingsBuilder(InventoryMockRepoFail());
+      InventoryTestConfig().bindingsBuilder(InventoryMockedRepoFail());
 
       await tester.pumpWidget(AppDriver());
       await tester.pump();

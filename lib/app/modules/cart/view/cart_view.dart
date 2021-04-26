@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/components/progres_indicator.dart';
+import '../../../core/components/snackbarr.dart';
 import '../../../core/properties/app_properties.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
-import '../../components/progres_indicator.dart';
-import '../../components/snackbarr.dart';
 import '../../orders/core/messages_snackbars_provided.dart';
 import '../components/dismis_cart_item.dart';
 import '../controller/cart_controller.dart';
@@ -16,13 +16,12 @@ class CartView extends StatelessWidget {
 
   CartView({this.controller});
 
-
   Widget build(BuildContext context) {
     var fullSizeLessAppbar = MediaQuery.of(context).size;
 
     return Scaffold(
-        appBar: AppBar(
-            title: Text(CRT_TIT_APPBAR), actions: [_clearCartIconButton()]),
+        appBar:
+            AppBar(title: Text(CRT_TIT_APPBAR), actions: [_clearCartIconButton()]),
         body: Container(
             width: fullSizeLessAppbar.width,
             height: fullSizeLessAppbar.height,
@@ -47,8 +46,7 @@ class CartView extends StatelessWidget {
                                       label: Text(
                                           controller.amountCartItemsObs.value
                                               .toStringAsFixed(2),
-                                          style:
-                                              TextStyle(color: Colors.white)),
+                                          style: TextStyle(color: Colors.white)),
                                       backgroundColor:
                                           Theme.of(context).primaryColor))),
                               SizedBox(width: consWidth * 0.18),
@@ -57,8 +55,7 @@ class CartView extends StatelessWidget {
                                   height: consHeight * 0.08,
                                   child: Obx(() =>
                                       controller.qtdeCartItemsObs().isEqual(0)
-                                          ? ProgresIndicator.radius(
-                                              consWidth * 0.3)
+                                          ? ProgresIndicator.radius(consWidth * 0.3)
                                           : _addOrderButton()))
                             ])))),
                 SizedBox(height: consHeight * 0.01),
@@ -66,10 +63,8 @@ class CartView extends StatelessWidget {
                   child: ListView.builder(
                       itemCount: controller.getAllCartItems().length,
                       itemBuilder: (ctx, item) {
-                        return DismisCartItem.DimissCartItem(controller
-                            .getAllCartItems()
-                            .values
-                            .elementAt(item));
+                        return DismisCartItem.DimissCartItem(
+                            controller.getAllCartItems().values.elementAt(item));
                       }),
                 )
               ]);
@@ -78,13 +73,12 @@ class CartView extends StatelessWidget {
 
   IconButton _clearCartIconButton() {
     return IconButton(
-      key: Key(K_CRT_CLR_CART_BTN),
+        key: Key(K_CRT_CLR_CART_BTN),
         icon: CRT_ICO_CLEAR,
         onPressed: () {
           controller.clearCart.call();
           SimpleSnackbar(SUCES, SUCES_ORD_CLEAN).show();
-          Future.delayed(Duration(milliseconds: DURATION))
-              .whenComplete(Get.back);
+          Future.delayed(Duration(milliseconds: DURATION)).whenComplete(Get.back);
         },
         tooltip: CRT_ICO_CLEAR_TOOLT);
   }
@@ -105,9 +99,8 @@ class CartView extends StatelessWidget {
                   controller.clearCart();
                   SimpleSnackbar(SUCES, SUCES_ORD_ADD).show();
                 })
-                .whenComplete(() =>
-                    Future.delayed(Duration(milliseconds: DURATION))
-                        .then((value) => Get.back()))
+                .whenComplete(() => Future.delayed(Duration(milliseconds: DURATION))
+                    .then((value) => Get.back()))
                 .catchError((onError) => SimpleSnackbar(OPS, ERROR_ORD).show());
           });
     });

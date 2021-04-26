@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../overview/components/badge_shop_cart.dart';
-import '../overview/components/favorites_filter_popup.dart';
-import '../overview/components/filter_favorite_enum.dart';
-import '../overview/core/overview_texts_icons_provided.dart';
-import '../overview/core/overview_widget_keys.dart';
+import '../../modules/overview/components/badge_shop_cart.dart';
+import '../../modules/overview/components/favorites_filter_popup.dart';
+import '../../modules/overview/components/filter_favorite_enum.dart';
+import '../../modules/overview/core/overview_texts_icons_provided.dart';
+import '../../modules/overview/core/overview_widget_keys.dart';
 
 class AppBarr extends StatelessWidget implements PreferredSizeWidget {
   final EnumFilter enumFilter;

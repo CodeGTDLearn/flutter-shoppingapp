@@ -1,29 +1,24 @@
 import 'package:faker/faker.dart';
 import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
-import 'package:shopingapp/app/modules/cart/entities/cart_item.dart';
 import 'package:shopingapp/app/modules/orders/entities/order.dart';
-import 'package:shopingapp/app/modules/orders/repo/i_orders_repo.dart';
 import 'package:shopingapp/app/modules/orders/service/i_orders_service.dart';
-import 'package:shopingapp/app/modules/orders/service/orders_service.dart';
 import 'package:test/test.dart';
 
 import '../../../../test_utils/data_builders/cartitem_databuilder.dart';
 import '../../../../test_utils/data_builders/order_databuilder.dart';
 import '../orders_test_config.dart';
-import 'orders_service_mock.dart';
+import 'orders_mocked_service.dart';
 
 class OrdersServiceTest {
   static void unit() {
-    IOrdersRepo _repo;
     IOrdersService _service, _injectService;
     var _cartItems;
 
     setUp(() {
       OrdersTestConfig().bindingsBuilder();
-      _repo = Get.find<IOrdersRepo>();
       _service = Get.find<IOrdersService>();
-      _injectService = OrdersInjectMockService();
+      _injectService = OrdersInjectMockedService();
       _cartItems = CartItemDatabuilder.cartItems();
     });
 

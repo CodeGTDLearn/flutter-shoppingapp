@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
-import '../../components/app_messages_provided.dart';
-import '../../components/progres_indicator.dart';
+import '../../../core/components/app_messages_provided.dart';
+import '../../../core/components/progres_indicator.dart';
 import '../controller/overview_controller.dart';
 import 'filter_favorite_enum.dart';
 import 'overview_grid_item.dart';

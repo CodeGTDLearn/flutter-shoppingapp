@@ -1,4 +1,4 @@
-import '../../../../core/texts_icons_provider/pages/components/drawwer.dart';
+import '../../texts_icons_provider/pages/components/drawwer.dart';
 
 const DRW_TIT_APPBAR = DRAWER_COMPONENT_TITLE_APPBAR;
 

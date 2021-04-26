@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:image_test_utils/image_test_utils.dart';
-import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 
 class TestUtils {
   Finder key(String keyText) {
@@ -26,8 +25,8 @@ class TestUtils {
   }
 
   Finder icon(Icon icon) {
-    return find.byWidgetPredicate(
-        (widget) => widget is Icon && widget.icon == icon.icon);
+    return find
+        .byWidgetPredicate((widget) => widget is Icon && widget.icon == icon.icon);
   }
 
   Duration delay(int seconds) {
@@ -42,9 +41,7 @@ class TestUtils {
 }
 
 class TestMethods {
-
   static void globalTearDown() {
     Get.reset();
   }
 }
-

@@ -8,7 +8,6 @@ import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
 import '../../../test_utils/mocked_datasource/products_mocked_datasource.dart';
-import '../../../test_utils/test_utils.dart';
 import 'overview_test_config.dart';
 
 class OverviewControllerTest {
@@ -23,8 +22,6 @@ class OverviewControllerTest {
       _service = OverviewService(repo: _repo);
       _controller = OverviewController(service: _service);
     });
-
-    tearDown(TestMethods.globalTearDown);
 
     test('Checking Instances to be used in the Tests', () {
       expect(_repo, isA<IOverviewRepo>());
@@ -82,8 +79,7 @@ class OverviewControllerTest {
     test('Getting a product using its ID', () {
       var product = ProductsMockedDatasource().productById("p1");
       _controller.getProducts().then((value) {
-        expect(
-            _controller.getProductById("p1").description, product.description);
+        expect(_controller.getProductById("p1").description, product.description);
       });
     });
 

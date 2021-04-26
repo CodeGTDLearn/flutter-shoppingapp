@@ -5,9 +5,8 @@ import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
 import 'package:test/test.dart';
 
 import '../../../../test_utils/mocked_datasource/products_mocked_datasource.dart';
-import '../../../../test_utils/test_utils.dart';
 import '../inventory_test_config.dart';
-import 'inventory_repo_mocks.dart';
+import 'inventory_mocked_repo.dart';
 
 class InventoryRepoTest {
   static void unit() {
@@ -16,14 +15,14 @@ class InventoryRepoTest {
     var _product1 = ProductsMockedDatasource().products().elementAt(1);
 
     setUp(() {
-      InventoryTestConfig().bindingsBuilder(InventoryMockRepo());
+      InventoryTestConfig().bindingsBuilder(InventoryMockedRepo());
       _repo = Get.find<IInventoryRepo>();
-      _injectRepo = InventoryInjectMockRepo();
+      _injectRepo = InventoryInjectMockedRepo();
     });
 
     test('Checking Test Instances', () {
       expect(_repo, isA<IInventoryRepo>());
-      expect(_injectRepo, isA<InventoryInjectMockRepo>());
+      expect(_injectRepo, isA<InventoryInjectMockedRepo>());
       expect(_product0, isA<Product>());
       expect(_product1, isA<Product>());
     });
@@ -80,21 +79,15 @@ class InventoryRepoTest {
     });
 
     test('Updating a Product(Inject) - status 400', () {
-      when(_injectRepo.updateProduct(_product0))
-          .thenAnswer((_) async => 400);
+      when(_injectRepo.updateProduct(_product0)).thenAnswer((_) async => 400);
 
-      _injectRepo
-          .updateProduct(_product0)
-          .then((value) => {expect(value, 400)});
+      _injectRepo.updateProduct(_product0).then((value) => {expect(value, 400)});
     });
 
     test('Updating a Product(Inject) - status 404', () {
-      when(_injectRepo.updateProduct(_product0))
-          .thenAnswer((_) async => 404);
+      when(_injectRepo.updateProduct(_product0)).thenAnswer((_) async => 404);
 
-      _injectRepo
-          .updateProduct(_product0)
-          .then((value) => {expect(value, 404)});
+      _injectRepo.updateProduct(_product0).then((value) => {expect(value, 404)});
     });
 
     test('Deleting a Product - status 200', () {
@@ -111,12 +104,9 @@ class InventoryRepoTest {
     });
 
     test('Deleting a Product(Inject) - status 404', () {
-      when(_injectRepo.deleteProduct(_product0.id))
-          .thenAnswer((_) async => 404);
+      when(_injectRepo.deleteProduct(_product0.id)).thenAnswer((_) async => 404);
 
-      _injectRepo
-          .deleteProduct(_product0.id)
-          .then((value) => {expect(value, 404)});
+      _injectRepo.deleteProduct(_product0.id).then((value) => {expect(value, 404)});
     });
   }
 }

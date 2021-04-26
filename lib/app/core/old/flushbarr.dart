@@ -2,7 +2,7 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
-import '../../modules/components/core/texts_icons/custom_flush_notifier_texts_icons_provided.dart';
+import '../components/texts_icons/custom_flush_notifier_texts_icons_provided.dart';
 import '../properties/app_properties.dart';
 import 'flushbar_keys.dart';
 

@@ -6,13 +6,12 @@ import 'package:shopingapp/app/modules/orders/controller/orders_controller.dart'
 import 'package:shopingapp/app/modules/orders/repo/i_orders_repo.dart';
 import 'package:shopingapp/app/modules/orders/service/i_orders_service.dart';
 import 'package:shopingapp/app/modules/orders/service/orders_service.dart';
-import 'package:shopingapp/app/modules/overview/controller/overview_controller.dart';
 import 'package:test/test.dart';
 
-import 'repo/orders_repo_mocks.dart';
+import 'repo/orders_mocked_repo.dart';
 
 class OrdersTestConfig {
-  final IOrdersRepo _mocked_repo_used_in_this_module_tests = OrdersMockRepo();
+  final IOrdersRepo _mocked_repo_used_in_this_module_tests = OrdersMockedRepo();
 
   void bindingsBuilder() {
     Get.reset();
@@ -42,8 +41,7 @@ class OrdersTestConfig {
     HttpOverrides.global = null;
   }
 
-  String repoName() =>
-      _mocked_repo_used_in_this_module_tests.runtimeType.toString();
+  String repoName() => _mocked_repo_used_in_this_module_tests.runtimeType.toString();
 
   get REPO_TEST_TITLE => '${repoName()}|Repo: Unit';
 

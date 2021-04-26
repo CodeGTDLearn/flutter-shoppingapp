@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/components/snackbarr.dart';
 import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
 import '../../cart/controller/cart_controller.dart';
 import '../../cart/core/cart_widget_keys.dart';
-import '../../components/snackbarr.dart';
 import '../core/messages_snackbars_provided.dart';
 import '../core/overview_texts_icons_provided.dart';
 
@@ -43,8 +43,7 @@ class BadgeShopCart extends StatelessWidget {
               constraints: BoxConstraints(minWidth: 16, minHeight: 16),
               child: Obx(
                 () => Text(_controller.getQtdeCartItemsObs().toString(),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 10)),
+                    textAlign: TextAlign.center, style: TextStyle(fontSize: 10)),
               )))
     ]);
   }

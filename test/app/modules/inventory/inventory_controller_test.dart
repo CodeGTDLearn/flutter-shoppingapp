@@ -1,27 +1,19 @@
 import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/inventory/controller/inventory_controller.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
-import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
 import 'package:shopingapp/app/modules/inventory/service/i_inventory_service.dart';
-import 'package:shopingapp/app/modules/inventory/service/inventory_service.dart';
-import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
-import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
 import '../../../test_utils/data_builders/product_databuilder.dart';
 import '../../../test_utils/mocked_datasource/products_mocked_datasource.dart';
-import '../../../test_utils/test_utils.dart';
-import '../overview/repo/overview_repo_mocks.dart';
 import 'inventory_test_config.dart';
-import 'repo/inventory_repo_mocks.dart';
+import 'repo/inventory_mocked_repo.dart';
 
 class InventoryControllerTest {
   static void integration() {
-    IOverviewRepo _ovRepo;
     IOverviewService _ovService;
 
-    IInventoryRepo _invRepo;
     IInventoryService _invService;
     InventoryController _invController;
 
@@ -31,11 +23,9 @@ class InventoryControllerTest {
     var _newProduct = ProductDataBuilder().ProductFull();
 
     setUp(() {
-      InventoryTestConfig().bindingsBuilder(InventoryMockRepo());
-      _ovRepo = Get.find<IOverviewRepo>();
+      InventoryTestConfig().bindingsBuilder(InventoryMockedRepo());
       _ovService = Get.find<IOverviewService>();
 
-      _invRepo = Get.find<IInventoryRepo>();
       _invService = Get.find<IInventoryService>();
       _invController = InventoryController(service: _invService);
     });
@@ -72,8 +62,7 @@ class InventoryControllerTest {
 
     test('Getting ProductsQtde', () {
       _invController.getProducts().then((value) {
-        expect(
-            _newProduct, isNot(isIn(_invController.getManagedProductsObs())));
+        expect(_newProduct, isNot(isIn(_invController.getManagedProductsObs())));
         expect(_invController.managedProductsQtde(), 4);
         _invController.addProduct(_newProduct).then((response) {
           expect(_invController.managedProductsQtde(), 5);

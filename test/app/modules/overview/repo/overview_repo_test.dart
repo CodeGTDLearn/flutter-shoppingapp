@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 
 import '../../../../test_utils/data_builders/product_databuilder.dart';
 import '../overview_test_config.dart';
-import 'overview_repo_mocks.dart';
+import 'overview_mocked_repo.dart';
 
 class OverviewRepoTest {
   static void unit() {
@@ -16,14 +16,14 @@ class OverviewRepoTest {
     setUp(() {
       OverviewTestConfig().bindingsBuilder();
       _repo = Get.find<IOverviewRepo>();
-      _injectRepo = OverviewInjectMockRepo();
+      _injectRepo = OverviewInjectMockedRepo();
       _productFail = ProductDataBuilder().ProductId();
     });
 
     test('Checking Instances', () {
       expect(_repo, isA<IOverviewRepo>());
       expect(_productFail, isA<Product>());
-      expect(_injectRepo, isA<OverviewInjectMockRepo>());
+      expect(_injectRepo, isA<OverviewInjectMockedRepo>());
     });
 
     test('Checking Response Type in GetProducts', () {

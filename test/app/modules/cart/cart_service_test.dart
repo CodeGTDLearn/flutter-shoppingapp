@@ -1,6 +1,4 @@
 import 'package:get/get.dart';
-import 'package:shopingapp/app/modules/cart/repo/i_cart_repo.dart';
-import 'package:shopingapp/app/modules/cart/service/cart_service.dart';
 import 'package:shopingapp/app/modules/cart/service/i_cart_service.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:test/test.dart';
@@ -12,14 +10,12 @@ import 'cart_test_config.dart';
 class CartServiceTest {
   static void unit() {
     ICartService _service;
-    ICartRepo _repo;
     Product _product1, _product2;
 
     setUp(() {
       CartTestConfig().bindingsBuilder();
       _product1 = ProductDataBuilder().ProductFull();
       _product2 = ProductDataBuilder().ProductFull();
-      _repo = Get.find<ICartRepo>();
       _service = Get.find<ICartService>();
     });
 

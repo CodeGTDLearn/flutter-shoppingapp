@@ -26,7 +26,7 @@ import '../../../../test_utils/mocked_datasource/products_mocked_datasource.dart
   *     - Testes mais rapidos, do que os feitos em WebService ou DB
   *     - Testes independemente de WebServide ou DB
   *****************************************************/
-class InventoryMockRepo extends Mock implements IInventoryRepo {
+class InventoryMockedRepo extends Mock implements IInventoryRepo {
   @override
   Future<int> deleteProduct(String id) {
     // @formatter:off
@@ -68,10 +68,10 @@ class InventoryMockRepo extends Mock implements IInventoryRepo {
   }
 }
 
-class InventoryInjectMockRepo extends Mock
+class InventoryInjectMockedRepo extends Mock
     implements IInventoryRepo {}
 
-class InventoryMockRepoFail extends Mock implements IInventoryRepo {
+class InventoryMockedRepoFail extends Mock implements IInventoryRepo {
   @override
   Future<int> deleteProduct(String id) {
     return Future.value(400);

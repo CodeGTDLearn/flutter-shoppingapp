@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/components/snackbarr.dart';
 import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
-import '../../components/snackbarr.dart';
 import '../controller/overview_controller.dart';
 import '../core/messages_snackbars_provided.dart';
 import '../core/overview_texts_icons_provided.dart';

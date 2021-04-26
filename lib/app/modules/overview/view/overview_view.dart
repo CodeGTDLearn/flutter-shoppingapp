@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../components/appbarr.dart';
-import '../../components/drawwer.dart';
+import '../../../core/components/appbarr.dart';
+import '../../../core/components/drawwer.dart';
 import '../components/filter_favorite_enum.dart';
 import '../components/overview_grid.dart';
 import '../controller/overview_controller.dart';

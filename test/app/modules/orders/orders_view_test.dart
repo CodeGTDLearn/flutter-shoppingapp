@@ -17,14 +17,14 @@ import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart'
 import 'package:shopingapp/app_driver.dart';
 
 import '../../../test_utils/test_utils.dart';
-import 'cart_test_config.dart';
+import 'orders_test_config.dart';
 
-class CartViewTest {
+class OrdersViewTest {
   static void functional() {
     TestUtils _seek;
 
     setUp(() {
-      CartTestConfig().bindingsBuilder();
+      OrdersTestConfig().bindingsBuilder();
       _seek = TestUtils();
     });
 

@@ -1,28 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/inventory/inventory.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/inventory/inventory_add_edit.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
-import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
-import 'package:shopingapp/app/modules/components/core/keys/drawwer_keys.dart';
 import 'package:shopingapp/app/modules/inventory/components/inventory_item.dart';
-import 'package:shopingapp/app/modules/inventory/controller/inventory_controller.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 import 'package:shopingapp/app/modules/inventory/core/messages/field_form_validation_provided.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
-import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
-import 'package:shopingapp/app/modules/inventory/service/i_inventory_service.dart';
 import 'package:shopingapp/app/modules/overview/components/overview_grid_item.dart';
-import 'package:shopingapp/app/modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
-import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
 import '../../../../test_utils/test_utils.dart';
 import '../inventory_test_config.dart';
-import '../repo/inventory_repo_mocks.dart';
+import '../repo/inventory_mocked_repo.dart';
 
 class InventoryPageTest {
   static void functional() {
@@ -33,7 +27,7 @@ class InventoryPageTest {
     var managedProductsDrawerOption = DRAWWER_MANAGED_PRODUCTS_OPTION;
 
     setUp(() {
-      InventoryTestConfig().bindingsBuilder(InventoryMockRepo());
+      InventoryTestConfig().bindingsBuilder(InventoryMockedRepo());
       _seek = TestUtils();
     });
 
@@ -41,9 +35,7 @@ class InventoryPageTest {
       return Get.find<IOverviewService>().getLocalDataAllProducts();
     }
 
-    tearDown(() {
-      _seek = null;
-    });
+    tearDown(() => _seek = null);
 
     Future checkOverviewPage04ItemsAndOpenManagedProductsPagebyDrawer(
         WidgetTester tester) async {
@@ -123,8 +115,7 @@ class InventoryPageTest {
       var titleFieldKey = _seek.key(INVENTORY_ADDEDIT_FIELD_TITLE_KEY);
       var descFieldKey = _seek.key(INVENTORY_ADDEDIT_FIELD_DESCRIPT_KEY);
       var saveButtonKey = _seek.key(INVENTORY_ADDEDIT_SAVEBUTTON_KEY);
-      var manProdAddEditPageTitle =
-          _seek.text(INVENTORY_ADDEDIT_TITLEPAGE_EDIT);
+      var manProdAddEditPageTitle = _seek.text(INVENTORY_ADDEDIT_TITLEPAGE_EDIT);
 
       await checkOverviewPage04ItemsAndOpenManagedProductsPagebyDrawer(tester);
       checkManagedProductsPage04Items();

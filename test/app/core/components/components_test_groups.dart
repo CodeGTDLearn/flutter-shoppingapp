@@ -7,12 +7,12 @@ import 'progres_indicator_test.dart';
 class ComponentsTestGroups {
   static void groups() {
     group(
-      "${ComponentsTestConfig().COMPONENTS_DRAWER}",
+      "${ComponentsTestConfig().DRAWWER_TEST_TITLE}",
       DrawwerTest.functional,
     );
 
     group(
-      "${ComponentsTestConfig().COMPONENTS_PROGRESS_INDICATOR}",
+      "${ComponentsTestConfig().PROGR_IND_TEST_TITLE}",
       ProgresIndicatorTest.functional,
     );
   }

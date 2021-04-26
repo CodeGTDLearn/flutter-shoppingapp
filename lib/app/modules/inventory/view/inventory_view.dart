@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 
+import '../../../core/components/app_messages_provided.dart';
+import '../../../core/components/progres_indicator.dart';
 import '../../../core/properties/app_routes.dart';
-import '../../components/app_messages_provided.dart';
-import '../../components/progres_indicator.dart';
 import '../components/inventory_item.dart';
 import '../controller/inventory_controller.dart';
 import '../core/inventory_keys.dart';
@@ -22,8 +22,7 @@ class InventoryView extends StatelessWidget {
         IconButton(
             key: Key(K_INV_ADD_BTN),
             icon: INV_ICO_ADD_APPBAR,
-            onPressed: () =>
-                Get.toNamed(AppRoutes.MANAGED_PRODUCTS_ADDEDIT_PAGE))
+            onPressed: () => Get.toNamed(AppRoutes.MANAGED_PRODUCTS_ADDEDIT_PAGE))
       ]),
 
       // GERENCIA DE ESTADO REATIVA - COM O GET

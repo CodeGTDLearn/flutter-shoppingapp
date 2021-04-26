@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
@@ -25,10 +23,7 @@ class OverviewDetailsViewTest {
       seek = TestUtils();
     });
 
-    tearDown(() {
-      TestMethods.globalTearDown();
-      seek = null;
-    });
+    tearDown(() => seek = null);
 
     void _isInstancesRegistred() {
       expect(Get.isRegistered<IOverviewRepo>(), isTrue);
@@ -56,8 +51,7 @@ class OverviewDetailsViewTest {
       expect(seek.text(_products()[3].title.toString()), findsOneWidget);
 
       expect(seek.iconType(IconButton, Icons.favorite), findsOneWidget);
-      expect(
-          seek.iconType(IconButton, Icons.favorite_border), findsNWidgets(3));
+      expect(seek.iconType(IconButton, Icons.favorite_border), findsNWidgets(3));
       expect(seek.iconType(IconButton, Icons.shopping_cart), findsNWidgets(5));
 
       expect(seek.iconData(Icons.more_vert), findsOneWidget);

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/properties/app_properties.dart';
-import 'core/keys/progres_indicator_keys.dart';
+import '../properties/app_properties.dart';
+import 'keys/progres_indicator_keys.dart';
 
 // ignore: must_be_immutable
 class ProgresIndicator extends StatefulWidget {
@@ -18,8 +18,7 @@ class ProgresIndicator extends StatefulWidget {
   ProgresIndicator();
 
   @override
-  _ProgresIndicatorState createState() =>
-      _ProgresIndicatorState();
+  _ProgresIndicatorState createState() => _ProgresIndicatorState();
 }
 
 class _ProgresIndicatorState extends State<ProgresIndicator> {

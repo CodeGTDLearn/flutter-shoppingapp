@@ -25,7 +25,7 @@ import '../../../../test_utils/mocked_datasource/orders_mocked_datasource.dart';
   *     - Testes mais rapidos, do que os feitos em WebService ou DB
   *     - Testes independemente de WebServide ou DB
   *****************************************************/
-class OrdersMockRepo extends Mock implements IOrdersRepo {
+class OrdersMockedRepo extends Mock implements IOrdersRepo {
   @override
   Future<Order> addOrder(Order order) async {
     return Future.value(OrdersMockedDatasource().order());
@@ -37,4 +37,4 @@ class OrdersMockRepo extends Mock implements IOrdersRepo {
   }
 }
 
-class OrdersInjectMockRepo extends Mock implements IOrdersRepo {}
+class OrdersInjectMockedRepo extends Mock implements IOrdersRepo {}

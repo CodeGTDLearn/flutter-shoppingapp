@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/core/components/keys/snackbarr_keys.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
-import 'package:shopingapp/app/modules/components/core/keys/snackbarr_keys.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/components/favorites_filter_popup.dart';
 import 'package:shopingapp/app/modules/overview/components/overview_grid_item.dart';
@@ -29,10 +27,7 @@ class OverviewViewTest {
       seek = TestUtils();
     });
 
-    tearDown(() {
-      TestMethods.globalTearDown();
-      seek = null;
-    });
+    tearDown(() => seek = null);
 
     void _isInstancesRegistred() {
       expect(Get.isRegistered<IOverviewRepo>(), isTrue);
@@ -60,8 +55,7 @@ class OverviewViewTest {
       //A) ONE FAVORITE
       expect(seek.iconType(IconButton, Icons.favorite), findsOneWidget);
       //B) THREE FAVORITES
-      expect(
-          seek.iconType(IconButton, Icons.favorite_border), findsNWidgets(3));
+      expect(seek.iconType(IconButton, Icons.favorite_border), findsNWidgets(3));
       //C) TEST THE FIVE ICON-CART ICONS:
       expect(seek.iconType(IconButton, Icons.shopping_cart), findsNWidgets(5));
 
@@ -143,8 +137,7 @@ class OverviewViewTest {
       var favBtnProduct = seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
 
       var snackTitle1;
-      snackTitle1 =
-          seek.text("${_products()[0].title.toString()}$ITEMCART_ADDED");
+      snackTitle1 = seek.text("${_products()[0].title.toString()}$ITEMCART_ADDED");
 
       expect(seek.text("0"), findsOneWidget);
 
@@ -275,8 +268,7 @@ class OverviewViewTest {
       var popupItemAll = seek.key(OVERVIEW_FAVORITE_FILTER_ALL_KEY);
 
       expect(seek.iconType(IconButton, Icons.favorite), findsNWidgets(1));
-      expect(
-          seek.iconType(IconButton, Icons.favorite_border), findsNWidgets(3));
+      expect(seek.iconType(IconButton, Icons.favorite_border), findsNWidgets(3));
       await tester.tap(popup);
       await tester.pump();
       expect(seek.text(OV_TXT_POPUP_FAV), findsOneWidget);
@@ -294,8 +286,7 @@ class OverviewViewTest {
       await tester.pump();
       await tester.pumpAndSettle(seek.delay(1));
       expect(seek.iconType(IconButton, Icons.favorite), findsNWidgets(1));
-      expect(
-          seek.iconType(IconButton, Icons.favorite_border), findsNWidgets(3));
+      expect(seek.iconType(IconButton, Icons.favorite_border), findsNWidgets(3));
     });
 
     testWidgets('Closing Favorite_Filter (tap OUTSIDE)', (tester) async {

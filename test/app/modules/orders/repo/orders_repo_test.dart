@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 
 import '../../../../test_utils/data_builders/order_databuilder.dart';
 import '../orders_test_config.dart';
-import 'orders_repo_mocks.dart';
+import 'orders_mocked_repo.dart';
 
 class OrdersRepoTest {
   static void unit() {
@@ -17,7 +17,7 @@ class OrdersRepoTest {
     setUp(() {
       OrdersTestConfig().bindingsBuilder();
       _repo = Get.find<IOrdersRepo>();
-      _injectRepo = OrdersInjectMockRepo();
+      _injectRepo = OrdersInjectMockedRepo();
       _orderWithoutId = OrderDatabuilder.OrderFull();
     });
 

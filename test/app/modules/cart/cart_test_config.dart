@@ -16,8 +16,8 @@ import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart'
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
-import '../orders/repo/orders_repo_mocks.dart';
-import '../overview/repo/overview_repo_mocks.dart';
+import '../orders/repo/orders_mocked_repo.dart';
+import '../overview/repo/overview_mocked_repo.dart';
 
 class CartTestConfig {
 
@@ -36,13 +36,13 @@ class CartTestConfig {
 
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
 
-      Get.lazyPut<IOverviewRepo>(() => OverviewMockRepo());
+      Get.lazyPut<IOverviewRepo>(() => OverviewMockedRepo());
       Get.lazyPut<IOverviewService>(
               () => OverviewService(repo: Get.find<IOverviewRepo>()));
       Get.lazyPut<OverviewController>(
               () => OverviewController(service: Get.find<IOverviewService>()));
 
-      Get.lazyPut<IOrdersRepo>(() => OrdersMockRepo());
+      Get.lazyPut<IOrdersRepo>(() => OrdersMockedRepo());
       Get.lazyPut<IOrdersService>(
           () => OrdersService(repo: Get.find<IOrdersRepo>()));
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/components/snackbarr.dart';
 import '../../../core/properties/app_properties.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
-import '../../components/snackbarr.dart';
 import '../../orders/core/messages_snackbars_provided.dart';
 import '../controller/cart_controller.dart';
 import '../core/cart_texts_icons_provided.dart';
@@ -14,7 +14,6 @@ class DismisCartItem extends StatelessWidget {
   final CartController controller = Get.find();
 
   DismisCartItem.DimissCartItem(this._cartItem);
-
 
   Widget build(BuildContext context) {
     return Dismissible(
@@ -30,13 +29,13 @@ class DismisCartItem extends StatelessWidget {
         direction: DismissDirection.endToStart,
         //
         onDismissed: (direction) {
-              controller.removeCartItem(_cartItem);
-              if (controller.getQtdeCartItemsObs().isEqual(0)){
-                // Get.snackbar(SUCES, QUIT_AFTER_DELS);
-                SimpleSnackbar(SUCES, QUIT_AFTER_DELS).show();
-                Future.delayed(Duration(milliseconds: DURATION))
-                    .then((value) => Get.back());
-              }
+          controller.removeCartItem(_cartItem);
+          if (controller.getQtdeCartItemsObs().isEqual(0)) {
+            // Get.snackbar(SUCES, QUIT_AFTER_DELS);
+            SimpleSnackbar(SUCES, QUIT_AFTER_DELS).show();
+            Future.delayed(Duration(milliseconds: DURATION))
+                .then((value) => Get.back());
+          }
         },
         //
         child: Card(
@@ -47,8 +46,7 @@ class DismisCartItem extends StatelessWidget {
                     leading: CircleAvatar(
                         child: Padding(
                             padding: EdgeInsets.all(5),
-                            child: FittedBox(
-                                child: Text('\$${_cartItem.price}')))),
+                            child: FittedBox(child: Text('\$${_cartItem.price}')))),
                     title: Text(_cartItem.title),
                     subtitle:
                         Text('Total \$${(_cartItem.price).toStringAsFixed(2)}'),

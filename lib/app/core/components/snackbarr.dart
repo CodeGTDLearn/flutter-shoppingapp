@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/properties/app_properties.dart';
-import 'core/keys/snackbarr_keys.dart';
+import '../properties/app_properties.dart';
+import 'keys/snackbarr_keys.dart';
 
 abstract class Snackbarr {
   void show();
@@ -35,11 +35,7 @@ class ButtonSnackbar implements Snackbarr {
   Function function;
 
   ButtonSnackbar(
-      {this.title,
-      this.message,
-      this.labelButton,
-      this.context,
-      this.function});
+      {this.title, this.message, this.labelButton, this.context, this.function});
 
   void show() {
     var snackBarButtonConfig = SnackBar(

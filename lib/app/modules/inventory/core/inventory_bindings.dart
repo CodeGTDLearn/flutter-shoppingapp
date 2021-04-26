@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../../components/drawwer.dart';
+import '../../../core/components/drawwer.dart';
 import '../../overview/service/i_overview_service.dart';
 import '../controller/inventory_controller.dart';
 import '../repo/i_inventory_repo.dart';

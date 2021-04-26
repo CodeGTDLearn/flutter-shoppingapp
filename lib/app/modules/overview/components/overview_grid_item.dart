@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/components/snackbarr.dart';
 import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
 import '../../cart/controller/cart_controller.dart';
-import '../../components/snackbarr.dart';
 import '../../inventory/entities/product.dart';
 import '../controller/overview_controller.dart';
 import '../core/messages_snackbars_provided.dart';
@@ -13,8 +13,7 @@ import '../core/overview_widget_keys.dart';
 
 class OverviewGridItem extends StatelessWidget {
   final Product _product;
-  final OverviewController _controller =
-      OverviewController(service: Get.find());
+  final OverviewController _controller = OverviewController(service: Get.find());
   final CartController _cartController = Get.find();
   final String index;
 
@@ -48,8 +47,7 @@ class OverviewGridItem extends StatelessWidget {
                                 .toggleFavoriteStatus(_product.id)
                                 .then((returnedFavStatus) {
                               if (returnedFavStatus) {
-                                SimpleSnackbar(SUCES, TOGGL_STATUS_SUCES)
-                                    .show();
+                                SimpleSnackbar(SUCES, TOGGL_STATUS_SUCES).show();
                               } else {
                                 SimpleSnackbar(OPS, TOGGL_STATUS_ERROR).show();
                               }
@@ -57,8 +55,7 @@ class OverviewGridItem extends StatelessWidget {
                           },
                           color: Theme.of(context).accentColor),
                     ),
-                    title: Text(_product.title,
-                        key: Key("$K_OV_GRD_PRD_TIT$index")),
+                    title: Text(_product.title, key: Key("$K_OV_GRD_PRD_TIT$index")),
                     trailing: IconButton(
                         key: Key("$K_OV_GRD_CRT_BTN$index"),
                         icon: OV_ICO_SHOPCART,
