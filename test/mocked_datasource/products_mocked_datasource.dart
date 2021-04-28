@@ -10,7 +10,7 @@ class ProductsMockedDatasource {
   String _MockedDatasource;
 
   ProductsMockedDatasource() {
-    _MockedDatasource = MOCKED_DATASOURCE_PRODUCTS;
+    _MockedDatasource = MOCKED_DATASOURCE;
   }
 
   List<Product> products() {

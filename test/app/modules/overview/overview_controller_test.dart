@@ -7,7 +7,7 @@ import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart'
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
-import '../../../test_utils/mocked_datasource/products_mocked_datasource.dart';
+import '../../../mocked_datasource/products_mocked_datasource.dart';
 import 'overview_test_config.dart';
 
 class OverviewControllerTest {

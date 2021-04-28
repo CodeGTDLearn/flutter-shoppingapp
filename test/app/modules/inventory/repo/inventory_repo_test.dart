@@ -4,7 +4,7 @@ import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
 import 'package:test/test.dart';
 
-import '../../../../test_utils/mocked_datasource/products_mocked_datasource.dart';
+import '../../../../mocked_datasource/products_mocked_datasource.dart';
 import '../inventory_test_config.dart';
 import 'inventory_mocked_repo.dart';
 

@@ -26,8 +26,15 @@ class CartTestConfig {
   void bindingsBuilder() {
     Get.reset();
 
+    expect(Get.isPrepared<DarkThemeController>(), isFalse);
+
+    expect(Get.isPrepared<IOverviewRepo>(), isFalse);
+    expect(Get.isPrepared<IOverviewService>(), isFalse);
+    expect(Get.isPrepared<OverviewController>(), isFalse);
+
     expect(Get.isPrepared<IOrdersRepo>(), isFalse);
     expect(Get.isPrepared<IOrdersService>(), isFalse);
+
     expect(Get.isPrepared<ICartRepo>(), isFalse);
     expect(Get.isPrepared<ICartService>(), isFalse);
     expect(Get.isPrepared<CartController>(), isFalse);
@@ -56,8 +63,15 @@ class CartTestConfig {
 
     binding.builder();
 
+    expect(Get.isPrepared<DarkThemeController>(), isTrue);
+
+    expect(Get.isPrepared<IOverviewRepo>(), isTrue);
+    expect(Get.isPrepared<IOverviewService>(), isTrue);
+    expect(Get.isPrepared<OverviewController>(), isTrue);
+
     expect(Get.isPrepared<IOrdersRepo>(), isTrue);
     expect(Get.isPrepared<IOrdersService>(), isTrue);
+
     expect(Get.isPrepared<ICartRepo>(), isTrue);
     expect(Get.isPrepared<ICartService>(), isTrue);
     expect(Get.isPrepared<CartController>(), isTrue);

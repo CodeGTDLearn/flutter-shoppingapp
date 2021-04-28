@@ -10,7 +10,7 @@ class OrdersMockedDatasource {
   String _MockedDatasource;
 
   OrdersMockedDatasource() {
-    _MockedDatasource = MOCKED_DATASOURCE_ORDERS;
+    _MockedDatasource = MOCKED_DATASOURCE;
   }
 
   List<Order> orders() {
@@ -27,5 +27,9 @@ class OrdersMockedDatasource {
     List<Order> result =
         json.map<Order>((json) => Order.fromJson(json)).toList();
     return result.elementAt(0);
+  }
+
+  List<Order> ordersEmpty() {
+    return [];
   }
 }

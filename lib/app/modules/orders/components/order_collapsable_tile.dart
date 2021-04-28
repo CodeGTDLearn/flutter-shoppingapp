@@ -6,17 +6,17 @@ import '../../../core/properties/app_properties.dart';
 import '../../../core/texts_icons_provider/pages/orders.dart';
 import '../core/orders_texts_icons_provided.dart';
 import '../entities/order.dart';
-import 'order_collapse_tile_controller.dart';
+import 'order_collapsable_tile_controller.dart';
 
 
-class OrderCollapseTile extends StatelessWidget {
+class OrderCollapsableTile extends StatelessWidget {
   final Order _order;
 
-  OrderCollapseTile(this._order);
+  OrderCollapsableTile(this._order);
 
   @override
   Widget build(BuildContext context) {
-    var _controller = OrderCollapseTileController();
+    var _controller = OrderCollapsableTileController();
 
     return Card(
         margin: EdgeInsets.all(15),
@@ -26,7 +26,7 @@ class OrderCollapseTile extends StatelessWidget {
                 color: Colors.white, boxShadow: [_boxShadow(Colors.grey, 5.0)]),
             child: ListTile(
                 dense: true,
-                title: Text("$ORDERS_LABEL_CARD: ${_order.amount}"),
+                title: Text("$ORDERS_LABEL_CARD${_order.amount}"),
                 subtitle:
                     Text(DateFormat(DATE_FORMAT).format(DateTime.parse(_order.datetime))),
                 trailing: IconButton(

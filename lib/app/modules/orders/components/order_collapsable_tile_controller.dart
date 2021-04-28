@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class OrderCollapseTileController extends GetxController{
+class OrderCollapsableTileController extends GetxController{
 
   var isTileCollapsed = false.obs;
 

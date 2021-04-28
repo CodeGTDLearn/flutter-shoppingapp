@@ -2,9 +2,7 @@ import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 
-import '../../../../test_utils/mocked_datasource/products_mocked_datasource.dart';
-
-
+import '../../../../mocked_datasource/products_mocked_datasource.dart';
 
 /* **************************************************
   *--> TIPOS DE MOCK
@@ -47,7 +45,7 @@ class OverviewMockRepoEmptyDb extends Mock implements IOverviewRepo {
 
   @override
   Future<int> updateProduct(Product product, [String id]) {
-    return Future.value(200);
+    return Future.value(400);
   }
 }
 

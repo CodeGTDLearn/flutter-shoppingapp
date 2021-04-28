@@ -26,10 +26,8 @@ class OverviewGrid extends StatelessWidget {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                  ProgresIndicator.message(
-                      message: NO_PROD, fontSize: 20)
-                ])),
-          )
+                ProgresIndicator.message(message: NO_PROD, fontSize: 20)
+              ])))
         : GridView.builder(
             padding: EdgeInsets.all(10),
             itemCount: controller.filteredProductsObs.length,

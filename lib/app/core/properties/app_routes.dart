@@ -33,7 +33,7 @@ class AppRoutes {
         binding: OverviewBindings()),
     GetPage(
         name: ORDERS,
-        page: () => OrdersPage(controller: Get.find()),
+        page: () => OrdersView(controller: Get.find()),
         binding: OrdersBindings()),
     GetPage(
       // name: '$OVERVIEW_DETAIL_ROUTE:id',

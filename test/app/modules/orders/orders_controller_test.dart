@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/orders/controller/orders_controller.dart';
 import 'package:test/test.dart';
 
-import '../../../test_utils/mocked_datasource/orders_mocked_datasource.dart';
+import '../../../mocked_datasource/orders_mocked_datasource.dart';
 import 'orders_test_config.dart';
 
 class OrdersControllerTest {
@@ -10,7 +10,7 @@ class OrdersControllerTest {
     OrdersController _controller;
 
     setUp(() {
-      OrdersTestConfig().bindingsBuilder();
+      OrdersTestConfig().bindingsBuilderMockedRepo();
       _controller = Get.find<OrdersController>();
     });
 
