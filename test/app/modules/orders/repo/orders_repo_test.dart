@@ -9,7 +9,7 @@ import '../../../../test_utils/data_builders/order_databuilder.dart';
 import '../orders_test_config.dart';
 import 'orders_mocked_repo.dart';
 
-class OrdersRepoTest {
+class OrdersRepoTests {
   static void unit() {
     IOrdersRepo _repo, _injectRepo;
     var _orderWithoutId;

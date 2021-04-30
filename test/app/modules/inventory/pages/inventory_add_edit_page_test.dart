@@ -17,7 +17,7 @@ import '../../../../test_utils/test_utils.dart';
 import '../inventory_test_config.dart';
 import '../repo/inventory_mocked_repo.dart';
 
-class InventoryAddEditPageTest {
+class InventoryAddEditPageTests {
   static void functional() {
     var _seek = TestUtils();
 

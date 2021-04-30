@@ -10,7 +10,7 @@ import '../../../test_utils/data_builders/product_databuilder.dart';
 import 'inventory_test_config.dart';
 import 'repo/inventory_mocked_repo.dart';
 
-class InventoryControllerTest {
+class InventoryControllerTests {
   static void integration() {
     IOverviewService _ovService;
 

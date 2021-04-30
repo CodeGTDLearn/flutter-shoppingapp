@@ -11,7 +11,7 @@ import '../inventory_test_config.dart';
 import '../repo/inventory_mocked_repo.dart';
 import 'inventory_mocked_service.dart';
 
-class InventoryServiceTest {
+class InventoryServiceTests {
   static void unit() {
     IOverviewService _ovService;
 

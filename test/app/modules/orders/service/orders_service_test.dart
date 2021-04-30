@@ -10,7 +10,7 @@ import '../../../../test_utils/data_builders/order_databuilder.dart';
 import '../orders_test_config.dart';
 import 'orders_mocked_service.dart';
 
-class OrdersServiceTest {
+class OrdersServiceTests {
   static void unit() {
     IOrdersService _service, _injectService;
     var _cartItems;

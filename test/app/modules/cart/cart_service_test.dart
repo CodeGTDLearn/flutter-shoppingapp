@@ -7,7 +7,7 @@ import '../../../test_utils/data_builders/cartitem_databuilder.dart';
 import '../../../test_utils/data_builders/product_databuilder.dart';
 import 'cart_test_config.dart';
 
-class CartServiceTest {
+class CartServiceTests {
   static void unit() {
     ICartService _service;
     Product _product1, _product2;

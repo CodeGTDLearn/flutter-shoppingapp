@@ -18,7 +18,7 @@ import '../../../../test_utils/test_utils.dart';
 import '../inventory_test_config.dart';
 import '../repo/inventory_mocked_repo.dart';
 
-class InventoryPageTest {
+class InventoryPageTests {
   static void functional() {
     TestUtils _seek;
     var ovViewScaffGlobalKey = OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY;

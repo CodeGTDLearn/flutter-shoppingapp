@@ -8,7 +8,7 @@ import '../../../../test_utils/data_builders/product_databuilder.dart';
 import '../overview_test_config.dart';
 import 'overview_mocked_repo.dart';
 
-class OverviewRepoTest {
+class OverviewRepoTests {
   static void unit() {
     IOverviewRepo _repo, _injectRepo;
     var _productFail;

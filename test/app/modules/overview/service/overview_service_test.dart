@@ -13,7 +13,7 @@ import '../../../../test_utils/test_utils.dart';
 import '../overview_test_config.dart';
 import 'overview_mocked_service.dart';
 
-class OverviewServiceTest {
+class OverviewServiceTests {
   static void unit() {
     IOverviewRepo _repo;
     IOverviewService _service, _injectService;

@@ -13,7 +13,7 @@ BECAUSE THERE IS NO 'CALLBACKS' FROM, WETHER DATABASE OR HTTP-CALLS
 (NAO EXISTE NECESSIDADE DE _injectableRepoMock
 POIS NAO EXISTEM 'CALLBACKS' DE DATABASE OU CHAMADAS-HTTP)
  */
-class CartRepoTest {
+class CartRepoTests {
   static void unit() {
     ICartRepo _repo;
     Product _product1, _product2;

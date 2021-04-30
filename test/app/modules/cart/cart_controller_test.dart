@@ -9,7 +9,7 @@ import '../../../test_utils/data_builders/cartitem_databuilder.dart';
 import '../../../test_utils/data_builders/product_databuilder.dart';
 import 'cart_test_config.dart';
 
-class CartControllerTest {
+class CartControllerTests {
   static void integration() {
     CartController _controller;
 

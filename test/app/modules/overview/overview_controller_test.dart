@@ -10,7 +10,7 @@ import 'package:test/test.dart';
 import '../../../mocked_datasource/products_mocked_datasource.dart';
 import 'overview_test_config.dart';
 
-class OverviewControllerTest {
+class OverviewControllerTests {
   static void integration() {
     IOverviewRepo _repo;
     IOverviewService _service;

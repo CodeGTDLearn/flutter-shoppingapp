@@ -8,7 +8,7 @@ import '../../../../mocked_datasource/products_mocked_datasource.dart';
 import '../inventory_test_config.dart';
 import 'inventory_mocked_repo.dart';
 
-class InventoryRepoTest {
+class InventoryRepoTests {
   static void unit() {
     IInventoryRepo _repo, _injectRepo;
     var _product0 = ProductsMockedDatasource().products().elementAt(0);

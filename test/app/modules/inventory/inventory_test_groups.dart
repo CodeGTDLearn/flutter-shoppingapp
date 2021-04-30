@@ -7,27 +7,27 @@ import 'pages/inventory_page_test.dart';
 import 'repo/inventory_repo_test.dart';
 import 'service/inventory_service_test.dart';
 
-class InventoryTestGroups {
+class InventoryTest {
   static void groups() {
     group(
       "${InventoryTestConfig().REPO_TEST_TITLE}",
-      InventoryRepoTest.unit,
+      InventoryRepoTests.unit,
     );
     group(
       "${InventoryTestConfig().SERVICE_TEST_TITLE}",
-      InventoryServiceTest.unit,
+      InventoryServiceTests.unit,
     );
     group(
       "${InventoryTestConfig().CONTROLLER_TEST_TITLE}",
-      InventoryControllerTest.integration,
+      InventoryControllerTests.integration,
     );
     group(
       "${InventoryTestConfig().VIEW_TEST_TITLE}",
-      InventoryPageTest.functional,
+      InventoryPageTests.functional,
     );
     group(
       "${InventoryTestConfig().VIEW_ADDEDIT_TEST_TITLE}",
-      InventoryAddEditPageTest.functional,
+      InventoryAddEditPageTests.functional,
     );
   }
 }

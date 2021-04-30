@@ -18,7 +18,7 @@ import 'package:shopingapp/app_driver.dart';
 import '../../../../test_utils/test_utils.dart';
 import '../overview_test_config.dart';
 
-class OverviewViewTest {
+class OverviewViewTests {
   static void functional() {
     TestUtils seek;
 
