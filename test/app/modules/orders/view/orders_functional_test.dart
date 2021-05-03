@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get/get.dart';
 import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
 import 'package:shopingapp/app/core/components/keys/progres_indicator_keys.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
@@ -18,52 +19,29 @@ import '../../../../test_utils/test_utils.dart';
 import '../orders_test_config.dart';
 
 class OrdersViewTests {
-  static void functional() {
+  void functional() {
     TestUtils _seek;
+    var testConfig = Get.put(OrdersTestConfig());
 
     setUp(() {
-      OrdersTestConfig().bindingsBuilderMockedRepo();
-      _seek = TestUtils();
+      testConfig.bindingsBuilderMockedRepo();
+      _seek = Get.put(TestUtils());
     });
 
-    tearDown(() => _seek = null);
+    tearDown(Get.reset);
 
-    void checkOneOrderInOrdersPage({int widgetsLeastQtde}) {
-      expect(_seek.text(ORDERS_TITLE_PAGE), findsOneWidget);
-      expect(
-        _seek.type(OrderCollapsableTile),
-        widgetsLeastQtde == 0 ? findsNothing : findsWidgets,
-      );
-      expect(
-        _seek.icon(ORDERS_ICON_COLLAPSE),
-        widgetsLeastQtde == 0 ? findsNothing : findsWidgets,
-      );
-    }
-
-    Future _openDrawwerAndClickOrdersDrawerOption(WidgetTester tester) async {
-      OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY.currentState.openDrawer();
-      await tester.pump();
-      await tester.pump(_seek.delay(1));
-      await tester.tap(_seek.key(DRAWWER_ORDER_OPTION));
-      await tester.pump();
-      await tester.pump(_seek.delay(3));
-    }
-
-    testWidgets('Opening OrderPage WITH an Order in DB', (tester) async {
+    testWidgets('${testConfig.TitleTest_OpenOrderPageWITHanOrderInDB}', (tester) async {
       await tester.pumpWidget(AppDriver());
-      await tester.pumpAndSettle();
 
-      await _openDrawwerAndClickOrdersDrawerOption(tester);
-
-      checkOneOrderInOrdersPage(widgetsLeastQtde: 1);
+      await openDrawwerAndClickOrdersDrawerOption(tester, _seek);
+      checkOneOrderInOrdersPage(_seek, widgetsLeastQtde: 1);
     });
 
-    testWidgets('Opening OrderPage WITHOUT Any Order in DB', (tester) async {
+    testWidgets('${testConfig.TitleTest_OpenOrderPageWITHOUtOrderInDB}', (tester) async {
       OrdersTestConfig().bindingsBuilderMockRepoEmptyDb();
-
       await tester.pumpWidget(AppDriver());
 
-      await _openDrawwerAndClickOrdersDrawerOption(tester);
+      await openDrawwerAndClickOrdersDrawerOption(tester, _seek);
 
       expect(_seek.type(CircularProgressIndicator), findsOneWidget);
       expect(_seek.text(NO_PRODUCTS_FOUND_IN_YET), findsNothing);
@@ -77,18 +55,14 @@ class OrdersViewTests {
       expect(_seek.type(CircularProgressIndicator), findsNothing);
     });
 
-    testWidgets('Testing Page BackButton', (tester) async {
+    testWidgets('${testConfig.TitleTest_TestPageBackButton}', (tester) async {
       await tester.pumpWidget(AppDriver());
-
-      await _openDrawwerAndClickOrdersDrawerOption(tester);
-
-      expect(_seek.text(ORDERS_TITLE_PAGE), findsOneWidget);
-      await tester.tap(_seek.type(BackButton));
-      await tester.pumpAndSettle(_seek.delay(1));
-      expect(_seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
+      await openDrawwerAndClickOrdersDrawerOption(tester, _seek);
+      await TestingPageBackButton(_seek, tester);
     });
 
-    testWidgets('Ordering from Cart Products - Button Order Now', (tester) async {
+    testWidgets('${testConfig.TitleTest_OrderingFromCartProductsButtonOrderNow}',
+        (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pumpAndSettle();
 
@@ -116,8 +90,8 @@ class OrdersViewTests {
       expect(_seek.type(OverviewView), findsOneWidget);
 
       //4) OPEN ORDERS-DRAWER-OPTION AND CHECK THE ORDER DONE ABOVE
-      await _openDrawwerAndClickOrdersDrawerOption(tester);
-      checkOneOrderInOrdersPage(widgetsLeastQtde: 1);
+      await openDrawwerAndClickOrdersDrawerOption(tester, _seek);
+      checkOneOrderInOrdersPage(_seek, widgetsLeastQtde: 1);
       expect(_seek.type(OrdersView), findsOneWidget);
 
       //5) PRESS BACK-BUTTON AND GOBACK TO OVERVIEW-PAGE
@@ -126,5 +100,35 @@ class OrdersViewTests {
       expect(_seek.type(OrdersView), findsNothing);
       expect(_seek.type(OverviewView), findsOneWidget);
     });
+  }
+
+  Future TestingPageBackButton(TestUtils _seek, WidgetTester tester) async {
+    expect(_seek.text(ORDERS_TITLE_PAGE), findsOneWidget);
+    await tester.tap(_seek.type(BackButton));
+    await tester.pumpAndSettle(_seek.delay(1));
+    expect(_seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
+  }
+
+  Future openDrawwerAndClickOrdersDrawerOption(
+      WidgetTester tester, TestUtils seek) async {
+    await tester.pumpAndSettle();
+    OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY.currentState.openDrawer();
+    await tester.pump();
+    await tester.pump(seek.delay(1));
+    await tester.tap(seek.key(DRAWWER_ORDER_OPTION));
+    await tester.pump();
+    await tester.pump(seek.delay(3));
+  }
+
+  void checkOneOrderInOrdersPage(TestUtils seek, {int widgetsLeastQtde}) {
+    expect(seek.text(ORDERS_TITLE_PAGE), findsOneWidget);
+    expect(
+      seek.type(OrderCollapsableTile),
+      widgetsLeastQtde == 0 ? findsNothing : findsWidgets,
+    );
+    expect(
+      seek.icon(ORDERS_ICON_COLLAPSE),
+      widgetsLeastQtde == 0 ? findsNothing : findsWidgets,
+    );
   }
 }

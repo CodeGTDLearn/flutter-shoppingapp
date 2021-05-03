@@ -52,8 +52,7 @@ class OrdersTestConfig {
 
       //ORDERS
       Get.lazyPut<IOrdersRepo>(() => ordersRepo);
-      Get.lazyPut<IOrdersService>(
-          () => OrdersService(repo: Get.find<IOrdersRepo>()));
+      Get.lazyPut<IOrdersService>(() => OrdersService(repo: Get.find<IOrdersRepo>()));
       Get.lazyPut<OrdersController>(
           () => OrdersController(service: Get.find<IOrdersService>()));
 
@@ -101,4 +100,13 @@ class OrdersTestConfig {
   get CONTROLLER_TEST_TITLE => '${repoName()}|Controller|Service|Repo: Integr';
 
   get VIEW_TEST_TITLE => '${repoName()}|View: Functional';
+
+  get TitleTest_OpenOrderPageWITHanOrderInDB => 'Open OrderPage WITH an Order in DB';
+
+  get TitleTest_OpenOrderPageWITHOUtOrderInDB => 'Open OrderPage WITHOUT Order in DB';
+
+  get TitleTest_TestPageBackButton => 'Testing Page BackButton';
+
+  get TitleTest_OrderingFromCartProductsButtonOrderNow =>
+      'Ordering from Cart Products - Button Order Now';
 }
