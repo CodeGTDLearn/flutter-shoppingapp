@@ -5,7 +5,7 @@ import 'drawwer_test.dart';
 import 'progres_indicator_test.dart';
 
 class ComponentsTest {
-  static void groups() {
+  void groups() {
     group(
       "${ComponentsTestConfig().DRAWWER_TEST_TITLE}",
       DrawwerTest.functional,

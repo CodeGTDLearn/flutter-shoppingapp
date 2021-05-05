@@ -83,12 +83,14 @@ class OrdersTestConfig {
     HttpOverrides.global = null;
   }
 
-  void bindingsBuilderMockedRepo() {
-    _bindingsBuilder(_mocked_repo_used_in_this_module_tests);
+  bool bindingsBuilderMockedRepo({bool execute}) {
+    if (execute) _bindingsBuilder(_mocked_repo_used_in_this_module_tests);
+    return execute;
   }
 
-  void bindingsBuilderMockRepoEmptyDb() {
-    _bindingsBuilder(OrdersMockedRepoEmptyDb());
+  bool bindingsBuilderMockRepoEmptyDb({bool execute}) {
+    if (execute) _bindingsBuilder(OrdersMockedRepoEmptyDb());
+    return execute;
   }
 
   String repoName() => _mocked_repo_used_in_this_module_tests.runtimeType.toString();
@@ -101,12 +103,12 @@ class OrdersTestConfig {
 
   get VIEW_TEST_TITLE => '${repoName()}|View: Functional';
 
-  get TitleTest_OpenOrderPageWITHanOrderInDB => 'Open OrderPage WITH an Order in DB';
+  get OpenOrderPageWITHanOrderInDB => 'Open OrderPage WITH an Order in DB';
 
-  get TitleTest_OpenOrderPageWITHOUtOrderInDB => 'Open OrderPage WITHOUT Order in DB';
+  get OpenOrderPageWITHOUanyOrderInDB => 'Open OrderPage WITHOUT Order in DB';
 
-  get TitleTest_TestPageBackButton => 'Testing Page BackButton';
+  get TestPageBackButton => 'Testing Page BackButton';
 
-  get TitleTest_OrderingFromCartProductsButtonOrderNow =>
+  get OrderingFromCartProductsButtonOrderNow =>
       'Ordering from Cart Products - Button Order Now';
 }

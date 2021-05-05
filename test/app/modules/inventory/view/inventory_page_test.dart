@@ -24,7 +24,7 @@ class InventoryPageTests {
     var ovViewScaffGlobalKey = OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY;
     var manProdPageTitle = INVENTORY_PAGE_TITLE;
     var iconAddProduct = INVENTORY_ICON_ADD_APPBAR;
-    var managedProductsDrawerOption = DRAWWER_MANAGED_PRODUCTS_OPTION;
+    var managedProductsDrawerOption = DRAWWER_INVENTORY_OPTION;
 
     setUp(() {
       InventoryTestConfig().bindingsBuilder(InventoryMockedRepo());
@@ -189,8 +189,7 @@ class InventoryPageTests {
       await checkOverviewPage04ItemsAndOpenManagedProductsPagebyDrawer(tester);
       checkManagedProductsPage04Items();
 
-      var dragInitialPointElement =
-          _seek.key('$INVENTORY_ITEM_KEY${_prods()[0].id}');
+      var dragInitialPointElement = _seek.key('$INVENTORY_ITEM_KEY${_prods()[0].id}');
       await tester.drag(dragInitialPointElement, Offset(0.0, -50.0));
       await tester.pump();
       await tester.pumpAndSettle(_seek.delay(1));

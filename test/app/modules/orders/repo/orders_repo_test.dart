@@ -11,15 +11,18 @@ import 'orders_mocked_repo.dart';
 
 class OrdersRepoTests {
   static void unit() {
+    var testConfig = Get.put(OrdersTestConfig());
     IOrdersRepo _repo, _injectRepo;
     var _orderWithoutId;
 
     setUp(() {
-      OrdersTestConfig().bindingsBuilderMockedRepo();
+      testConfig.bindingsBuilderMockedRepo(execute: true);
       _repo = Get.find<IOrdersRepo>();
       _injectRepo = OrdersInjectMockedRepo();
       _orderWithoutId = OrderDatabuilder.OrderFull();
     });
+
+    tearDown(Get.reset);
 
     test('Getting Orders - ResponseType', () {
       _repo.getOrders().then((value) {

@@ -15,8 +15,8 @@ const K_DRW_CRT_OP2 = DRAWWER_CART_OPTION;
 const DRAWWER_ORDER_OPTION = "drawwer_order_option";
 const K_DRW_ORD_OP3 = DRAWWER_ORDER_OPTION;
 
-const DRAWWER_MANAGED_PRODUCTS_OPTION = "drawwer_managed_products_option";
-const K_DRW_MPROD_OP4 = DRAWWER_MANAGED_PRODUCTS_OPTION;
+const DRAWWER_INVENTORY_OPTION = "drawwer_managed_products_option";
+const K_DRW_MPROD_OP4 = DRAWWER_INVENTORY_OPTION;
 
 const DRAWWER_DARK_MODE_OPTION = "drawwer_dark_mode_option";
 const K_DRW_DARKM_OP5 = DRAWWER_DARK_MODE_OPTION;

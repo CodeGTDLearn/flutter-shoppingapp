@@ -8,11 +8,14 @@ import 'orders_test_config.dart';
 class OrdersControllerTests {
   static void integration() {
     OrdersController _controller;
+    var testConfig = Get.put(OrdersTestConfig());
 
     setUp(() {
-      OrdersTestConfig().bindingsBuilderMockedRepo();
+      testConfig.bindingsBuilderMockedRepo(execute: true);
       _controller = Get.find<OrdersController>();
     });
+
+    tearDown(Get.reset);
 
     test('Getting Orders', () {
       expect(_controller.getQtdeOrdersObs(), isZero);

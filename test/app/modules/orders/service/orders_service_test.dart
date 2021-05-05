@@ -14,13 +14,16 @@ class OrdersServiceTests {
   static void unit() {
     IOrdersService _service, _injectService;
     var _cartItems;
+    var testConfig = Get.put(OrdersTestConfig());
 
     setUp(() {
-      OrdersTestConfig().bindingsBuilderMockedRepo();
+      testConfig.bindingsBuilderMockedRepo(execute: true);
       _service = Get.find<IOrdersService>();
       _injectService = OrdersInjectMockedService();
       _cartItems = CartItemDatabuilder.cartItems();
     });
+
+    tearDown(Get.reset);
 
     test('Getting Orders - ResponseType', () {
       _service.getOrders().then((value) {
