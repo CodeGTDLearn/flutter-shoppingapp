@@ -102,8 +102,8 @@ class DrawwerTest {
       var titleDrawer = DRAWER_COMPONENT_TITLE_APPBAR;
       var ovViewPageTitle = OVERVIEW_TITLE_PAGE_ALL;
       var manProdPageTitle = INVENTORY_PAGE_TITLE;
-      var manProdDrawerOption = seek.key(DRAWWER_INVENTORY_OPTION);
-      var ovViewDrawerOption = seek.key(DRAWWER_OVERVIEW_OPTION);
+      var manProdDrawerOption = seek.key(DRAWER_INVENTORY_OPTION_KEY);
+      var ovViewDrawerOption = seek.key(DRAWER_OVERVIEW_OPTION_KEY);
 
       for (var counter = 1; counter <= 2; counter++) {
         expect(seek.text(titleDrawer), findsNothing);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
 import 'package:shopingapp/app/core/components/keys/progres_indicator_keys.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/orders.dart';
@@ -19,30 +20,33 @@ import 'orders_view_tests.dart';
 class OrdersViewFunctionalTest {
   void functional() {
     TestUtils _seek;
-    var ordersViewTests = Get.put(OrdersViewTests());
+    var tests = Get.put(OrdersViewTests());
     var testConfig = Get.put(OrdersTestConfig());
-    var executingBindings;
+    var bindings;
     var products = ProductsMockedDatasource().products();
 
     setUp(() {
-      executingBindings = testConfig.bindingsBuilderMockedRepo(execute: true);
+      bindings = testConfig.bindingsBuilderMockedRepo(execute: true);
       _seek = Get.put(TestUtils());
     });
 
     tearDown(Get.reset);
 
-    testWidgets('${testConfig.OpenOrderPageWITHanOrderInDB}', (tester) async {
-      executingBindings ? await tester.pumpWidget(app.AppDriver()) : app.main();
+    testWidgets('${testConfig.OpenOrderViewWithAnOrderInDB}', (tester) async {
+      bindings ? await tester.pumpWidget(app.AppDriver()) : app.main();
 
-      await ordersViewTests.openDrawerAndClickOrdersOption(tester, _seek);
-      ordersViewTests.checkOneOrderInOrdersView(_seek, widgetsLeastQtde: 1);
+      await tests.openDrawerAndClickAnOption(
+        tester,
+        keyOption: DRAWER_ORDER_OPTION_KEY,
+      );
+      tests.checkOneOrderInOrdersView(widgetsMinimalQtde: 1);
     });
 
-    testWidgets('${testConfig.OpenOrderPageWITHOUanyOrderInDB}', (tester) async {
-      executingBindings = testConfig.bindingsBuilderMockRepoEmptyDb(execute: true);
-      executingBindings ? await tester.pumpWidget(app.AppDriver()) : app.main();
+    testWidgets('${testConfig.OpenOrderPageWithoutAnyOrderInDB}', (tester) async {
+      bindings = testConfig.bindingsBuilderMockRepoEmptyDb(execute: true);
+      bindings ? await tester.pumpWidget(app.AppDriver()) : app.main();
 
-      await ordersViewTests.openDrawerAndClickOrdersOption(tester, _seek);
+      await tests.openDrawerAndClickAnOption(tester);
 
       expect(_seek.type(CircularProgressIndicator), findsOneWidget);
       expect(_seek.text(NO_PRODUCTS_FOUND_IN_YET), findsNothing);
@@ -57,13 +61,22 @@ class OrdersViewFunctionalTest {
     });
 
     testWidgets('${testConfig.TestPageBackButton}', (tester) async {
-      executingBindings ? await tester.pumpWidget(app.AppDriver()) : app.main();
-      await ordersViewTests.openDrawerAndClickOrdersOption(tester, _seek);
-      await ordersViewTests.Test_PageBackButton(_seek, tester);
+      bindings ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      // await tests.openDrawerAndClickAnOption(tester, _seek);
+      await tests.openDrawerAndClickAnOption(
+        tester,
+        keyOption: DRAWER_ORDER_OPTION_KEY,
+      );
+      await tests.tapBackButtonView(
+        tester,
+        from: OrdersView,
+        to: OverviewView,
+      );
     });
 
-    testWidgets('${testConfig.OrderingFromCartProductsButtonOrderNow}', (tester) async {
-      executingBindings ? await tester.pumpWidget(app.AppDriver()) : app.main();
+    testWidgets('${testConfig.OrderingFromCartViewUsingTheButtonOrderNow}',
+        (tester) async {
+      bindings ? await tester.pumpWidget(app.AppDriver()) : app.main();
 
       //1) ADDING ONE PRODUCT IN THE CART
       await tester.pumpAndSettle();
@@ -87,9 +100,12 @@ class OrdersViewFunctionalTest {
       expect(_seek.type(OverviewView), findsOneWidget);
 
       //4) OPEN ORDERS-DRAWER-OPTION AND CHECK THE ORDER DONE ABOVE
-      await ordersViewTests.openDrawerAndClickOrdersOption(tester, _seek);
+      await tests.openDrawerAndClickAnOption(
+        tester,
+        keyOption: DRAWER_ORDER_OPTION_KEY,
+      );
       expect(_seek.type(OrdersView), findsOneWidget);
-      ordersViewTests.checkOneOrderInOrdersView(_seek, widgetsLeastQtde: 1);
+      tests.checkOneOrderInOrdersView(widgetsMinimalQtde: 1);
 
       //5) PRESS BACK-BUTTON AND GOBACK TO OVERVIEW-PAGE
       await tester.tap(_seek.type(BackButton));

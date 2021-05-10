@@ -26,17 +26,17 @@ class InventoryView extends StatelessWidget {
       ]),
 
       // GERENCIA DE ESTADO REATIVA - COM O GET
-      body: Obx(() => (controller.getManagedProductsObs().length == 0
+      body: Obx(() => (controller.getInventoryProductsObs().length == 0
           ? ProgresIndicator.message(message: NO_PROD, fontSize: 20)
           : RefreshIndicator(
               onRefresh: controller.getProducts,
-              child: controller.getManagedProductsObs().length == 0
+              child: controller.getInventoryProductsObs().length == 0
                   ? Center(child: Text('cccc'))
                   : ListView.builder(
-                      itemCount: controller.getManagedProductsObs().length,
+                      itemCount: controller.getInventoryProductsObs().length,
                       itemBuilder: (ctx, i) => Column(children: [
                             InventoryItem(
-                              product: controller.getManagedProductsObs()[i],
+                              product: controller.getInventoryProductsObs()[i],
                               inventoryController: controller,
                               overviewController: Get.find(),
                             ),

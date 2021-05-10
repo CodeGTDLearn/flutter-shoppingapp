@@ -103,12 +103,12 @@ class OrdersTestConfig {
 
   get VIEW_TEST_TITLE => '${repoName()}|View: Functional';
 
-  get OpenOrderPageWITHanOrderInDB => 'Open OrderPage WITH an Order in DB';
+  get OpenOrderViewWithAnOrderInDB => 'Open OrderPage WITH an Order in DB';
 
-  get OpenOrderPageWITHOUanyOrderInDB => 'Open OrderPage WITHOUT Order in DB';
+  get OpenOrderPageWithoutAnyOrderInDB => 'Open OrderPage WITHOUT Order in DB';
 
   get TestPageBackButton => 'Testing Page BackButton';
 
-  get OrderingFromCartProductsButtonOrderNow =>
+  get OrderingFromCartViewUsingTheButtonOrderNow =>
       'Ordering from Cart Products - Button Order Now';
 }

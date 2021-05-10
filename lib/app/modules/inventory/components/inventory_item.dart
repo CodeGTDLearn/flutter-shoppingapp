@@ -47,7 +47,7 @@ class InventoryItem extends StatelessWidget {
                         .deleteProduct(_id)
                         .then((statusCode) {
                             if (statusCode >= 200 && statusCode < 400) {
-                              inventoryController.updateManagedProductsObs();
+                              inventoryController.updateInventoryProductsObs();
                               overviewController.deleteProduct(_id);
                               overviewController.updateFilteredProductsObs();
                               SimpleSnackbar(SUCES, SUCESS_MAN_PROD_DEL).show();

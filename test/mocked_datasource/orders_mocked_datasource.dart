@@ -4,9 +4,8 @@ import 'dart:io';
 
 import 'package:shopingapp/app/modules/orders/entities/order.dart';
 
-import 'config.dart';
-
 class OrdersMockedDatasource {
+  final MOCKED_DATASOURCE = "test/mocked_datasource/mocked_datasource.json";
   String _MockedDatasource;
 
   OrdersMockedDatasource() {

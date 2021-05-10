@@ -3,15 +3,15 @@ import '../entities/product.dart';
 abstract class IInventoryService {
   Future<List<Product>> getProducts();
 
-  int managedProductsQtde();
+  int getProductsQtde();
 
-  List<Product> getLocalDataManagedProducts();
+  List<Product> getLocalDataInventoryProducts();
 
   Product getProductById(String id);
 
   Future<Product> addProduct(Product product);
 
-  void addLocalDataManagedProducts(Product product);
+  void addLocalDataInventoryProducts(Product product);
 
   Future<int> updateProduct(Product product);
 

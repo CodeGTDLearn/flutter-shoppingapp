@@ -17,7 +17,7 @@ class Drawwer extends StatelessWidget {
   BuildContext _context;
   final ICartService _cart = Get.find();
   final IOrdersService _orders = Get.find();
-  final InventoryController _managedProducts = Get.find();
+  final InventoryController _inventory = Get.find();
   final DarkThemeController _darkThemeController = Get.find();
 
   @override
@@ -28,7 +28,7 @@ class Drawwer extends StatelessWidget {
         child: Column(children: [
       AppBar(title: Text(DRW_TIT_APPBAR), automaticallyImplyLeading: false),
       _drawerItem(
-          quantityItems: _managedProducts.managedProductsQtde(),
+          quantityItems: _inventory.getProductsQtde(),
           leadIcon: DRW_ICO_PROD,
           title: DRW_LBL_PROD,
           message: DRW_NO_DATA,
@@ -52,7 +52,7 @@ class Drawwer extends StatelessWidget {
           notRoutingWithoutQtdeEvaluation: false,
           key: K_DRW_ORD_OP3),
       _drawerItem(
-          quantityItems: _managedProducts.managedProductsQtde(),
+          quantityItems: _inventory.getProductsQtde(),
           leadIcon: DRW_ICO_MAN_PROD,
           title: DRW_LBL_MAN_PROD,
           message: DRW_TXT_NO_MAN_PROD_YET,

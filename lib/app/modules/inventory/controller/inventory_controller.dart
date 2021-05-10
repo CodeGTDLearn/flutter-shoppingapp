@@ -6,8 +6,8 @@ import '../service/i_inventory_service.dart';
 class InventoryController extends GetxController {
   final IInventoryService service;
 
-  var managedProductsObs = <Product>[].obs;
-  var reloadManagedProductsEditPageObs = false.obs;
+  var inventoryProductsObs = <Product>[].obs;
+  var reloadInventoryEditPageObs = false.obs;
 
   InventoryController({this.service});
 
@@ -15,7 +15,7 @@ class InventoryController extends GetxController {
   @override
   void onInit() {
     // managedProductsObs.value = [];
-    managedProductsObs.assignAll([]);
+    inventoryProductsObs.assignAll([]);
     getProducts();
     super.onInit();
   }
@@ -23,14 +23,14 @@ class InventoryController extends GetxController {
   Future<List<Product>> getProducts() {
     return service.getProducts().then((response) {
       response.isNull
-          ? managedProductsObs.assignAll([])
-          : managedProductsObs.assignAll(response);
-      return managedProductsObs.toList();
+          ? inventoryProductsObs.assignAll([])
+          : inventoryProductsObs.assignAll(response);
+      return inventoryProductsObs.toList();
     }).catchError((onError) => throw onError);
   }
 
-  int managedProductsQtde() {
-    return service.managedProductsQtde();
+  int getProductsQtde() {
+    return service.getProductsQtde();
   }
 
   Product getProductById(String id) {
@@ -59,31 +59,31 @@ class InventoryController extends GetxController {
         .deleteProduct(id)
         .then((statusCode) {
             if (statusCode >= 400) {
-              managedProductsObs.assignAll(service.getLocalDataManagedProducts());
+              inventoryProductsObs.assignAll(service.getLocalDataInventoryProducts());
             }
             return statusCode;
         });
 
-    managedProductsObs.assignAll(service.getLocalDataManagedProducts());
+    inventoryProductsObs.assignAll(service.getLocalDataInventoryProducts());
 
     return responseFuture;
     // @formatter:on
   }
 
-  void switchManagedProdAddEditFormToCustomCircularProgrIndic() {
-    reloadManagedProductsEditPageObs.value =
-        !reloadManagedProductsEditPageObs.value;
+  void switchInventoryAddEditFormToCustomCircularProgrIndic() {
+    reloadInventoryEditPageObs.value =
+        !reloadInventoryEditPageObs.value;
   }
 
-  void updateManagedProductsObs() {
-    managedProductsObs.assignAll(service.getLocalDataManagedProducts());
+  void updateInventoryProductsObs() {
+    inventoryProductsObs.assignAll(service.getLocalDataInventoryProducts());
   }
 
-  List<Product> getManagedProductsObs() {
-    return managedProductsObs.toList();
+  List<Product> getInventoryProductsObs() {
+    return inventoryProductsObs.toList();
   }
 
-  bool getReloadManagedProductsEditPageObs() {
-    return reloadManagedProductsEditPageObs.value;
+  bool getReloadInventoryProductsEditPageObs() {
+    return reloadInventoryEditPageObs.value;
   }
 }

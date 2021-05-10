@@ -24,7 +24,7 @@ class InventoryPageTests {
     var ovViewScaffGlobalKey = OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY;
     var manProdPageTitle = INVENTORY_PAGE_TITLE;
     var iconAddProduct = INVENTORY_ICON_ADD_APPBAR;
-    var managedProductsDrawerOption = DRAWWER_INVENTORY_OPTION;
+    var managedProductsDrawerOption = DRAWER_INVENTORY_OPTION_KEY;
 
     setUp(() {
       InventoryTestConfig().bindingsBuilder(InventoryMockedRepo());

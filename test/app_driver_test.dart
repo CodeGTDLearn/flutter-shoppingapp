@@ -5,9 +5,9 @@ import 'app/modules/orders/orders_test_groups.dart';
 import 'app/modules/overview/overview_test_groups.dart';
 
 void main() {
-  // CartTest().groups();
-  // OverviewTest().groups();
+  CartTest().groups();
+  OverviewTest().groups();
   InventoryTest().groups();
-  // ComponentsTest().groups();
+  ComponentsTest().groups();
   OrdersTest().groups();
 }

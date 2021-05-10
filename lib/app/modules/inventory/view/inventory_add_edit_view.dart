@@ -44,14 +44,14 @@ class _InventoryAddEditViewState extends State<InventoryAddEditView> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      _manProdController.switchManagedProdAddEditFormToCustomCircularProgrIndic();
+      _manProdController.switchInventoryAddEditFormToCustomCircularProgrIndic();
 
       if (Get.arguments == null) {
-        _manProdController.switchManagedProdAddEditFormToCustomCircularProgrIndic();
+        _manProdController.switchInventoryAddEditFormToCustomCircularProgrIndic();
       } else {
         _product = _manProdController.getProductById(Get.arguments);
         _imgUrlController.text = _product.imageUrl;
-        _manProdController.switchManagedProdAddEditFormToCustomCircularProgrIndic();
+        _manProdController.switchInventoryAddEditFormToCustomCircularProgrIndic();
       }
       _isInit = false;
     }
@@ -77,7 +77,7 @@ class _InventoryAddEditViewState extends State<InventoryAddEditView> {
     _form.currentState.save();
 
     _manProdController
-        .switchManagedProdAddEditFormToCustomCircularProgrIndic();
+        .switchInventoryAddEditFormToCustomCircularProgrIndic();
 
     _product.id.isNull
         ? _saveProduct(_product, _context)
@@ -93,8 +93,8 @@ class _InventoryAddEditViewState extends State<InventoryAddEditView> {
         .addProduct(_product)
         .then((product) {
             _manProdController
-              .switchManagedProdAddEditFormToCustomCircularProgrIndic();
-            _manProdController.updateManagedProductsObs();
+              .switchInventoryAddEditFormToCustomCircularProgrIndic();
+            _manProdController.updateInventoryProductsObs();
             _ovViewController.updateFilteredProductsObs();
         })
         .whenComplete(() {
@@ -107,7 +107,7 @@ class _InventoryAddEditViewState extends State<InventoryAddEditView> {
             textConfirm: OK,
             onConfirm: Get.back);
             _manProdController
-              .switchManagedProdAddEditFormToCustomCircularProgrIndic();});
+              .switchInventoryAddEditFormToCustomCircularProgrIndic();});
     // @formatter:on
   }
 
@@ -118,8 +118,8 @@ class _InventoryAddEditViewState extends State<InventoryAddEditView> {
         .then((statusCode) {
             if (statusCode >= 200 && statusCode < 400)  {
               _manProdController
-                  .switchManagedProdAddEditFormToCustomCircularProgrIndic();
-              _manProdController.updateManagedProductsObs();
+                  .switchInventoryAddEditFormToCustomCircularProgrIndic();
+              _manProdController.updateInventoryProductsObs();
               _ovViewController.updateFilteredProductsObs();
               SimpleSnackbar(SUCES, SUCESS_MAN_PROD_UPDT).show();
             }
@@ -163,7 +163,7 @@ class _InventoryAddEditViewState extends State<InventoryAddEditView> {
                   icon: INV_ADDEDIT_ICO_SAVE_APPBAR,
                   onPressed: () => _saveForm(context))
             ]),
-        body: Obx(() => _manProdController.reloadManagedProductsEditPageObs.value
+        body: Obx(() => _manProdController.reloadInventoryEditPageObs.value
             ? ProgresIndicator()
             : Padding(
                 padding: EdgeInsets.all(16),

@@ -14,7 +14,6 @@ import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart';
 
 import '../../../../mocked_datasource/products_mocked_datasource.dart';
-import '../../../../test_utils/data_builders/product_databuilder.dart';
 import '../../../../test_utils/test_utils.dart';
 import '../inventory_test_config.dart';
 import '../repo/inventory_mocked_repo.dart';
@@ -33,14 +32,15 @@ class InventoryAddEditPageTests {
     Future _openInventoryAddEditView(tester) async {
       OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY.currentState.openDrawer();
       await tester.pumpAndSettle(_seek.delay(2));
-      await tester.tap(_seek.key(DRAWWER_INVENTORY_OPTION));
+      await tester.tap(_seek.key(DRAWER_INVENTORY_OPTION_KEY));
       await tester.pumpAndSettle(_seek.delay(1));
-      await tester.tap(_seek.key(INVENTORY_APPBAR_ADDBUTTON_KEY));
+      await tester.tap(_seek.key(INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY));
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.type(InventoryAddEditView), findsOneWidget);
     }
 
-    Future _AddingAndSavingOneProduct(tester, {Product product, bool validTexts}) async {
+    Future _addAndSaveProductInInventoryAddEditPage(tester,
+        {Product product, bool testUsingValidTexts}) async {
       var fakeTitle, fakePrice, fakeDesc, fakeImgUrl, invalidText;
 
       invalidText = "d";
@@ -52,12 +52,6 @@ class InventoryAddEditPageTests {
       fakeImgUrl = product.imageUrl ??
           "https://images.freeimages.com/images/large-previews/eae/clothes-3-1466560.jpg";
 
-      // fakeTitle = "xxxxxx";
-      // fakePrice = Faker().randomGenerator.decimal(min: 20).toPrecision(2).toString();
-      // fakeDesc = "xxxxxxxxxxxxxx";
-      // fakeImgUrl =
-      //     "https://images.freeimages.com/images/large-previews/eae/clothes-3-1466560.jpg";
-
       expect(_seek.text(INVENTORY_ADDEDIT_FIELD_TITLE), findsOneWidget);
       expect(_seek.text(INVENTORY_ADDEDIT_FIELD_PRICE), findsOneWidget);
       expect(_seek.text(INVENTORY_ADDEDIT_FIELD_DESCRIPT), findsOneWidget);
@@ -66,19 +60,19 @@ class InventoryAddEditPageTests {
 
       await tester.enterText(
         _seek.key(INVENTORY_ADDEDIT_FIELD_TITLE_KEY),
-        validTexts ? fakeTitle : invalidText,
+        testUsingValidTexts ? fakeTitle : invalidText,
       );
       await tester.enterText(
         _seek.key(INVENTORY_ADDEDIT_FIELD_PRICE_KEY),
-        validTexts ? fakePrice : invalidText,
+        testUsingValidTexts ? fakePrice : invalidText,
       );
       await tester.enterText(
         _seek.key(INVENTORY_ADDEDIT_FIELD_DESCRIPT_KEY),
-        validTexts ? fakeDesc : invalidText,
+        testUsingValidTexts ? fakeDesc : invalidText,
       );
       await tester.enterText(
         _seek.key(INVENTORY_ADDEDIT_FIELD_URL_KEY),
-        validTexts ? fakeImgUrl : invalidText,
+        testUsingValidTexts ? fakeImgUrl : invalidText,
       );
 
       await tester.pumpAndSettle(_seek.delay(2));
@@ -101,10 +95,10 @@ class InventoryAddEditPageTests {
 
       await _openInventoryAddEditView(tester);
 
-      await _AddingAndSavingOneProduct(
+      await _addAndSaveProductInInventoryAddEditPage(
         tester,
         product: ProductsMockedDatasource().product(),
-        validTexts: true,
+        testUsingValidTexts: true,
       );
 
       expect(_seek.type(InventoryView), findsOneWidget);
@@ -122,10 +116,10 @@ class InventoryAddEditPageTests {
       await tester.pumpAndSettle();
 
       await _openInventoryAddEditView(tester);
-      await _AddingAndSavingOneProduct(
+      await _addAndSaveProductInInventoryAddEditPage(
         tester,
         product: ProductsMockedDatasource().product(),
-        validTexts: true,
+        testUsingValidTexts: true,
       );
     });
 
@@ -154,10 +148,10 @@ class InventoryAddEditPageTests {
       await tester.pumpAndSettle();
 
       await _openInventoryAddEditView(tester);
-      await _AddingAndSavingOneProduct(
+      await _addAndSaveProductInInventoryAddEditPage(
         tester,
         product: ProductsMockedDatasource().product(),
-        validTexts: false,
+        testUsingValidTexts: false,
       );
 
       _expectTestingINValidationMessages(findsOneWidget);
@@ -186,11 +180,11 @@ class InventoryAddEditPageTests {
       await tester.pumpAndSettle(_seek.delay(1));
       expect(OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY.currentState.isDrawerOpen, isTrue);
 
-      await tester.tap(_seek.key(DRAWWER_INVENTORY_OPTION));
+      await tester.tap(_seek.key(DRAWER_INVENTORY_OPTION_KEY));
       await tester.pumpAndSettle(_seek.delay(2));
       expect(_seek.type(InventoryView), findsOneWidget);
 
-      await tester.tap(_seek.key(INVENTORY_APPBAR_ADDBUTTON_KEY));
+      await tester.tap(_seek.key(INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY));
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.type(InventoryAddEditView), findsOneWidget);
     });

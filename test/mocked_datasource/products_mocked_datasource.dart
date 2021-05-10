@@ -4,9 +4,8 @@ import 'dart:io';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/components/filter_favorite_enum.dart';
 
-import 'config.dart';
-
 class ProductsMockedDatasource {
+  final MOCKED_DATASOURCE = "test/mocked_datasource/mocked_datasource.json";
   String _MockedDatasource;
 
   ProductsMockedDatasource() {
@@ -16,24 +15,21 @@ class ProductsMockedDatasource {
   List<Product> products() {
     final file = File(_MockedDatasource);
     final json = jsonDecode(file.readAsStringSync())['products'];
-    List<Product> result =
-        json.map<Product>((json) => Product.fromJson(json)).toList();
+    List<Product> result = json.map<Product>((json) => Product.fromJson(json)).toList();
     return result;
   }
 
   Product product() {
     final file = File(_MockedDatasource);
     final json = jsonDecode(file.readAsStringSync())['products'];
-    List<Product> result =
-        json.map<Product>((json) => Product.fromJson(json)).toList();
+    List<Product> result = json.map<Product>((json) => Product.fromJson(json)).toList();
     return result.elementAt(0);
   }
 
   List<Product> favoritesProducts() {
     final file = File(_MockedDatasource);
     final json = jsonDecode(file.readAsStringSync())['products'];
-    List<Product> list =
-        json.map<Product>((json) => Product.fromJson(json)).toList();
+    List<Product> list = json.map<Product>((json) => Product.fromJson(json)).toList();
     var listReturn = <Product>[];
     for (var item in list) {
       if (item.isFavorite) listReturn.add(item);
@@ -44,8 +40,7 @@ class ProductsMockedDatasource {
   Product productById(String id) {
     final file = File(_MockedDatasource);
     final json = jsonDecode(file.readAsStringSync())['products'];
-    List<Product> list =
-        json.map<Product>((json) => Product.fromJson(json)).toList();
+    List<Product> list = json.map<Product>((json) => Product.fromJson(json)).toList();
     return list.firstWhere((element) => element.id == id);
   }
 

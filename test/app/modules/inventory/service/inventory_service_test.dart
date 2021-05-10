@@ -46,7 +46,7 @@ class InventoryServiceTests {
 
     test('Getting LocalDataManagedProducts', () {
       _invService.getProducts().then((_) {
-        var list = _invService.getLocalDataManagedProducts();
+        var list = _invService.getLocalDataInventoryProducts();
         expect(list[0].id, _products.elementAt(0).id);
         expect(list[0].title, _products.elementAt(0).title);
       });
@@ -61,7 +61,7 @@ class InventoryServiceTests {
         expect(addedProduct.description, _product0.description);
         expect(addedProduct.imageUrl, _product0.imageUrl);
         expect(addedProduct.isFavorite, _product0.isFavorite);
-        expect(addedProduct, isIn(_invService.getLocalDataManagedProducts()));
+        expect(addedProduct, isIn(_invService.getLocalDataInventoryProducts()));
       });
     });
 
@@ -69,25 +69,25 @@ class InventoryServiceTests {
       var productTest = ProductsMockedDatasource().product();
 
       _invService.getProducts().then((_) {
-        expect(_invService.getLocalDataManagedProducts().length, 4);
+        expect(_invService.getLocalDataInventoryProducts().length, 4);
 
-        _invService.addLocalDataManagedProducts(productTest);
-        expect(_invService.getLocalDataManagedProducts().length, 5);
+        _invService.addLocalDataInventoryProducts(productTest);
+        expect(_invService.getLocalDataInventoryProducts().length, 5);
         expect(
-            _invService.getLocalDataManagedProducts()[4].title, productTest.title);
+            _invService.getLocalDataInventoryProducts()[4].title, productTest.title);
       });
     });
 
     test('Getting ProductsQtde', () {
       _invService.getProducts().then((response) {
-        expect(response.length, _invService.managedProductsQtde());
+        expect(response.length, _invService.getProductsQtde());
       });
     });
 
     test('Getting ProductById', () {
       _invService.getProducts().then((_) {
         expect(_invService.getProductById(_product1.id),
-            isIn(_invService.getLocalDataManagedProducts()));
+            isIn(_invService.getLocalDataInventoryProducts()));
         expect(_invService.getProductById(_product1.id).title, _product1.title);
       });
     });
@@ -102,7 +102,7 @@ class InventoryServiceTests {
     test('Deleting a Product', () {
       _invService.getProducts().then((_) {
         expect(_invService.getProductById(_product1.id),
-            isIn(_invService.getLocalDataManagedProducts()));
+            isIn(_invService.getLocalDataInventoryProducts()));
         _invService.deleteProduct(_product1.id).then((response) {
           expect(response, 200);
         });
@@ -120,7 +120,7 @@ class InventoryServiceTests {
       _invService.getProducts().then((_) {
         expect(
           _invService.getProductById(_product1.id),
-          isIn(_invService.getLocalDataManagedProducts()),
+          isIn(_invService.getLocalDataInventoryProducts()),
         );
 
         _invService.updateProduct(_product1).then((response) {
@@ -132,7 +132,7 @@ class InventoryServiceTests {
     test('Deleting a Product - Optimistic/Rollback', () {
       _invService.getProducts().then((_) {
         expect(_invService.getProductById(_product1.id),
-            isIn(_invService.getLocalDataManagedProducts()));
+            isIn(_invService.getLocalDataInventoryProducts()));
         _invService.deleteProduct(_product1.id).then((response) {
           expect(response, 200);
         });
@@ -143,21 +143,21 @@ class InventoryServiceTests {
       when(_invInjectService.deleteProduct(_newProduct.id))
           .thenAnswer((_) async => Future.value(404));
 
-      when(_invInjectService.getLocalDataManagedProducts()).thenReturn(_products);
+      when(_invInjectService.getLocalDataInventoryProducts()).thenReturn(_products);
 
-      expect(_invInjectService.getLocalDataManagedProducts(), _products);
+      expect(_invInjectService.getLocalDataInventoryProducts(), _products);
 
       _invInjectService.deleteProduct(_newProduct.id).then((response) {
         expect(response, 404);
       });
       //Rollback the localDataManagedProducts 'cause unsuccessful deleteProduct
-      expect(_invInjectService.getLocalDataManagedProducts(), _products);
+      expect(_invInjectService.getLocalDataInventoryProducts(), _products);
     });
 
     test('Deleting a Product - Not found - Exception', () {
       _invService.getProducts().then((_) {
         expect(_invService.getProductById(_product1.id),
-            isIn(_invService.getLocalDataManagedProducts()));
+            isIn(_invService.getLocalDataInventoryProducts()));
         expect(() => _invService.deleteProduct(_newProduct.id),
             throwsA(isA<RangeError>()));
       });
@@ -165,9 +165,9 @@ class InventoryServiceTests {
 
     test('Clearing LocalDataManagedProducts', () {
       _invService.getProducts().then((response) {
-        expect(_invService.getLocalDataManagedProducts(), isNot(isEmpty));
+        expect(_invService.getLocalDataInventoryProducts(), isNot(isEmpty));
         _invService.clearDataSavingLists();
-        expect(_invService.getLocalDataManagedProducts(), isEmpty);
+        expect(_invService.getLocalDataInventoryProducts(), isEmpty);
       });
     });
   }

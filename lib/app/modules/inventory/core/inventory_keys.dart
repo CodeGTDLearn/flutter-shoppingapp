@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-const INVENTORY_APPBAR_ADDBUTTON_KEY = 'inventory_appbar_addbutton_key';
-const K_INV_ADD_BTN = INVENTORY_APPBAR_ADDBUTTON_KEY;
+const INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY = 'inventory_appbar_addbutton_key';
+const K_INV_ADD_BTN = INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY;
 
 const INVENTORY_DELETEITEM_BUTTON_KEY = 'inventory_deleteitem_button_key';
 const K_INV_DEL_BTN = INVENTORY_DELETEITEM_BUTTON_KEY;

@@ -38,7 +38,7 @@ class InventoryControllerTests {
 
     test('Getting using GetManagedProductsObs', () {
       _invController.getProducts().then((_) {
-        var list = _invController.getManagedProductsObs();
+        var list = _invController.getInventoryProductsObs();
         expect(list[0].id, _products.elementAt(0).id);
         expect(list[0].title, _products.elementAt(0).title);
       });
@@ -62,10 +62,10 @@ class InventoryControllerTests {
 
     test('Getting ProductsQtde', () {
       _invController.getProducts().then((value) {
-        expect(_newProduct, isNot(isIn(_invController.getManagedProductsObs())));
-        expect(_invController.managedProductsQtde(), 4);
+        expect(_newProduct, isNot(isIn(_invController.getInventoryProductsObs())));
+        expect(_invController.getProductsQtde(), 4);
         _invController.addProduct(_newProduct).then((response) {
-          expect(_invController.managedProductsQtde(), 5);
+          expect(_invController.getProductsQtde(), 5);
         });
       });
     });
@@ -76,7 +76,7 @@ class InventoryControllerTests {
         var found = _invController.getProductById(products[0].id);
         expect(found.id, _product0.id);
         expect(found.title, _product0.title);
-        expect(found, isIn(_invController.getManagedProductsObs()));
+        expect(found, isIn(_invController.getInventoryProductsObs()));
       });
       // @formatter:on
     });
@@ -97,7 +97,7 @@ class InventoryControllerTests {
       });
       _invController.getProducts().then((_) {
         expect(_invController.getProductById(_product1.id),
-            isIn(_invController.getManagedProductsObs()));
+            isIn(_invController.getInventoryProductsObs()));
         _invController.updateProduct(_product1).then((response) {
           expect(response, 200);
         });
@@ -114,7 +114,7 @@ class InventoryControllerTests {
       _invController.getProducts().then((_) {
         expect(
           _newProduct.id,
-          isNot(isIn(_invController.getManagedProductsObs())),
+          isNot(isIn(_invController.getInventoryProductsObs())),
         );
         _invController.updateProduct(_newProduct).then((response) {
           expect(response, 500);
@@ -126,20 +126,20 @@ class InventoryControllerTests {
       var productTest = ProductsMockedDatasource().product();
 
       _invController.getProducts().then((value) {
-        expect(_invService.getLocalDataManagedProducts().length, 4);
-        _invService.addLocalDataManagedProducts(productTest);
-        expect(_invService.getLocalDataManagedProducts().length, 5);
+        expect(_invService.getLocalDataInventoryProducts().length, 4);
+        _invService.addLocalDataInventoryProducts(productTest);
+        expect(_invService.getLocalDataInventoryProducts().length, 5);
 
-        expect(_invController.getManagedProductsObs().length, 4);
-        _invController.updateManagedProductsObs();
-        expect(_invController.getManagedProductsObs().length, 5);
+        expect(_invController.getInventoryProductsObs().length, 4);
+        _invController.updateInventoryProductsObs();
+        expect(_invController.getInventoryProductsObs().length, 5);
       });
     });
 
     test('Deleting Product - status 200', () {
       _invController.getProducts().then((_) {
         expect(_invController.getProductById(_product1.id),
-            isIn(_invController.getManagedProductsObs()));
+            isIn(_invController.getInventoryProductsObs()));
         _invController.deleteProduct(_product1.id).then((response) {
           expect(response, 200);
         });
@@ -149,7 +149,7 @@ class InventoryControllerTests {
     test('Deleting Product - Optimistic/Rollback', () {
       _invController.getProducts().then((_) {
         expect(_invController.getProductById(_product1.id),
-            isIn(_invController.getManagedProductsObs()));
+            isIn(_invController.getInventoryProductsObs()));
         _invController.deleteProduct(_product1.id).then((response) {
           expect(response, 200);
         });
@@ -159,7 +159,7 @@ class InventoryControllerTests {
     test('Deleting a Product - Not found - Exception', () {
       _invController.getProducts().then((_) {
         expect(_invController.getProductById(_product1.id),
-            isIn(_invController.getManagedProductsObs()));
+            isIn(_invController.getInventoryProductsObs()));
         expect(() => _invController.deleteProduct(_newProduct.id),
             throwsA(isA<RangeError>()));
       });
@@ -167,9 +167,9 @@ class InventoryControllerTests {
 
     test('Testing getReloadManagedProductsEditPage', () {
       _invController.getProducts().then((_) {
-        expect(_invController.getReloadManagedProductsEditPageObs(), isFalse);
-        _invController.switchManagedProdAddEditFormToCustomCircularProgrIndic();
-        expect(_invController.getReloadManagedProductsEditPageObs(), isTrue);
+        expect(_invController.getReloadInventoryProductsEditPageObs(), isFalse);
+        _invController.switchInventoryAddEditFormToCustomCircularProgrIndic();
+        expect(_invController.getReloadInventoryProductsEditPageObs(), isTrue);
       });
     });
   }
