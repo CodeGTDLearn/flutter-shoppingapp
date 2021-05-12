@@ -5,8 +5,8 @@ import 'package:shopingapp/app/modules/orders/entities/order.dart';
 import 'package:shopingapp/app/modules/orders/service/i_orders_service.dart';
 import 'package:test/test.dart';
 
-import '../../../../test_utils/data_builders/cartitem_databuilder.dart';
-import '../../../../test_utils/data_builders/order_databuilder.dart';
+import '../../../../data_builders/cartitem_databuilder.dart';
+import '../../../../data_builders/order_databuilder.dart';
 import '../orders_test_config.dart';
 import 'orders_mocked_service.dart';
 

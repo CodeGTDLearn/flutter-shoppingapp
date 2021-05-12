@@ -3,8 +3,8 @@ import 'package:shopingapp/app/modules/cart/service/i_cart_service.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:test/test.dart';
 
-import '../../../test_utils/data_builders/cartitem_databuilder.dart';
-import '../../../test_utils/data_builders/product_databuilder.dart';
+import '../../../data_builders/cartitem_databuilder.dart';
+import '../../../data_builders/product_databuilder.dart';
 import 'cart_test_config.dart';
 
 class CartServiceTests {

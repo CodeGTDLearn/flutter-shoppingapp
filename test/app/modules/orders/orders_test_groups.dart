@@ -12,6 +12,7 @@ class OrdersTest {
     group("${OrdersTestConfig().SERVICE_TEST_TITLE}", OrdersServiceTests.unit);
     group(
         "${OrdersTestConfig().CONTROLLER_TEST_TITLE}", OrdersControllerTests.integration);
-    group("${OrdersTestConfig().VIEW_TEST_TITLE}", OrdersViewFunctionalTest().functional);
+    group("${OrdersTestConfig().VIEW_TEST_TITLE}",
+        OrdersViewFunctionalTest(excludeGuiTest: true).functional);
   }
 }

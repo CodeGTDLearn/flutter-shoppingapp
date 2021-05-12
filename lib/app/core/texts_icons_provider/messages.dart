@@ -31,7 +31,7 @@ const VALIDATION_PROVIDE_THE_TITLE_FIELD_MINIMAL_SIZE = "Allowed: 05 to 10 chara
 const VALIDATION_PROVIDE_THE_DESCRIPTION_FIELD_MINIMAL_SIZE = "Allowed: 10 to 30 characters.";
 
 //CUSTOM CIRCULAR PROGRESS INDICATOR
-const NO_ORDERS_FOUND_IN_YET = "There is no Orders, yet";
-const NO_PRODUCTS_FOUND_IN_YET = "There is no Products, yet";
-const NO_CARTITEMS_FOUND_IN_YET = "There is no CartItems, yet";
-const NO_MANAGED_PRODUCTS_FOUND_IN_YET = "There is no Products to manage, yet";
+const NO_ORDERS_FOUND_YET = "There is no Orders, yet";
+const NO_PRODUCTS_FOUND_YET = "There is no Products, yet";
+const NO_CARTITEMS_FOUND_YET = "There is no CartItems, yet";
+const NO_MANAGED_PRODUCTS_FOUND_YET = "There is no Products to manage, yet";

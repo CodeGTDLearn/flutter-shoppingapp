@@ -5,8 +5,8 @@ import 'package:shopingapp/app/modules/inventory/service/i_inventory_service.dar
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:test/test.dart';
 
+import '../../../../data_builders/product_databuilder.dart';
 import '../../../../mocked_datasource/products_mocked_datasource.dart';
-import '../../../../test_utils/data_builders/product_databuilder.dart';
 import '../inventory_test_config.dart';
 import '../repo/inventory_mocked_repo.dart';
 import 'inventory_mocked_service.dart';
@@ -73,8 +73,7 @@ class InventoryServiceTests {
 
         _invService.addLocalDataInventoryProducts(productTest);
         expect(_invService.getLocalDataInventoryProducts().length, 5);
-        expect(
-            _invService.getLocalDataInventoryProducts()[4].title, productTest.title);
+        expect(_invService.getLocalDataInventoryProducts()[4].title, productTest.title);
       });
     });
 
@@ -94,8 +93,8 @@ class InventoryServiceTests {
 
     test('Getting ProductById - Exception', () {
       _invService.getProducts().then((_) {
-        expect(() => _invService.getProductById(_newProduct.id),
-            throwsA(isA<RangeError>()));
+        expect(
+            () => _invService.getProductById(_newProduct.id), throwsA(isA<RangeError>()));
       });
     });
 
@@ -158,8 +157,8 @@ class InventoryServiceTests {
       _invService.getProducts().then((_) {
         expect(_invService.getProductById(_product1.id),
             isIn(_invService.getLocalDataInventoryProducts()));
-        expect(() => _invService.deleteProduct(_newProduct.id),
-            throwsA(isA<RangeError>()));
+        expect(
+            () => _invService.deleteProduct(_newProduct.id), throwsA(isA<RangeError>()));
       });
     });
 

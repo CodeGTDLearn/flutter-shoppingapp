@@ -34,7 +34,7 @@ class DrawwerTest {
       await tester.pumpWidget(AppDriver());
 
       expect(seek.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
-      expect(seek.text(NO_PRODUCTS_FOUND_IN_YET), findsNothing);
+      expect(seek.text(NO_PRODUCTS_FOUND_YET), findsNothing);
 
       await tester.pump();
       await tester.pump(seek.delay(3));

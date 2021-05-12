@@ -38,9 +38,7 @@ class TestUtils {
       expect(find.byType(Image), findsNWidgets(numberOfImages));
     });
   }
-}
 
-class TestMethods {
   static void globalTearDown() {
     Get.reset();
   }

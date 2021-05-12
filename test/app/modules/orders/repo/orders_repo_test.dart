@@ -5,7 +5,7 @@ import 'package:shopingapp/app/modules/orders/entities/order.dart';
 import 'package:shopingapp/app/modules/orders/repo/i_orders_repo.dart';
 import 'package:test/test.dart';
 
-import '../../../../test_utils/data_builders/order_databuilder.dart';
+import '../../../../data_builders/order_databuilder.dart';
 import '../orders_test_config.dart';
 import 'orders_mocked_repo.dart';
 

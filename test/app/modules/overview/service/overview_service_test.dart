@@ -7,8 +7,8 @@ import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart'
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
+import '../../../../data_builders/product_databuilder.dart';
 import '../../../../mocked_datasource/products_mocked_datasource.dart';
-import '../../../../test_utils/data_builders/product_databuilder.dart';
 import '../../../../test_utils/test_utils.dart';
 import '../overview_test_config.dart';
 import 'overview_mocked_service.dart';
@@ -25,7 +25,7 @@ class OverviewServiceTests {
       _injectService = OverviewInjectMockedService();
     });
 
-    tearDown(TestMethods.globalTearDown);
+    tearDown(TestUtils.globalTearDown);
 
     test('Checking Instances to be used in the Tests', () {
       expect(_repo, isA<IOverviewRepo>());
@@ -71,8 +71,7 @@ class OverviewServiceTests {
     test('Deleting Product', () {
       _service.getProducts().then((value) {
         expect(_service.getLocalDataAllProducts().length, 4);
-        _service.deleteProductInLocalDataLists(
-            _service.getLocalDataAllProducts()[0].id);
+        _service.deleteProductInLocalDataLists(_service.getLocalDataAllProducts()[0].id);
         expect(_service.getLocalDataAllProducts().length, 3);
       });
     });
@@ -111,8 +110,7 @@ class OverviewServiceTests {
     test('Getting a product using its ID', () {
       _service.getProducts().then((_) {
         var list = _service.getLocalDataAllProducts;
-        expect(
-            _service.getProductById("p1").description, list()[0].description);
+        expect(_service.getProductById("p1").description, list()[0].description);
       });
     });
 
