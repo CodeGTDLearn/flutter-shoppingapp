@@ -7,26 +7,23 @@ import 'app/modules/inventory/inventory_test_groups.dart';
 import 'app/modules/orders/orders_test_groups.dart';
 import 'app/modules/orders/view/orders_view_functional_test.dart';
 import 'app/modules/overview/overview_test_groups.dart';
+import 'app_test_config.dart';
 
 void main() {
-  final _env = String.fromEnvironment('TEST').toLowerCase();
-  bool _exclude;
-  if (_env != null && _env == 'func') _exclude = true;
-  if (_env != null && _env == 'gui') _exclude = false;
-  if (_env != null && (_env != 'gui' && _env != 'func')) _exclude = true;
+  const _testType = String.fromEnvironment('myVar', defaultValue: WIDGET_TESTS);
+  _testType == WIDGET_TESTS ? _widgetTests() : _integrationTests();
+}
 
-  print('>>>env-variable: >>> $_env >>>>> $_exclude');
+void _widgetTests() {
+  CartTest().groups();
+  OrdersTest().groups();
+  OverviewTest().groups();
+  InventoryTest().groups();
+  ComponentsTest().groups();
+}
 
-  if (_exclude) {
-    CartTest().groups();
-    OverviewTest().groups();
-    InventoryTest().groups();
-    ComponentsTest().groups();
-    OrdersTest().groups();
-  } else {
-    IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-
-    group('Orders|Gui-Tests: ',
-        OrdersViewFunctionalTest(excludeGuiTest: _exclude).functional);
-  }
+void _integrationTests() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  group('Orders|Integration-GUI-Tests: ',
+      OrdersViewFunctionalTest(testType: INTEGRATION_TESTS).functional);
 }

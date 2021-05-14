@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
 import 'package:shopingapp/app/core/components/keys/progres_indicator_keys.dart';
-import 'package:shopingapp/app/core/components/progres_indicator.dart';
+import 'package:shopingapp/app/core/properties/app_urls.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/inventory/inventory_add_edit.dart';
 import 'package:shopingapp/app/modules/cart/core/cart_widget_keys.dart';
@@ -17,9 +18,8 @@ import 'package:shopingapp/app/modules/orders/view/orders_view.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 
-import '../../../../app_test_config.dart';
-import '../../../../test_utils/view_test_utils.dart';
 import '../../../../test_utils/test_utils.dart';
+import '../../../../test_utils/view_test_utils.dart';
 
 class OrdersViewTests {
   final _seek = TestUtils();
@@ -28,7 +28,7 @@ class OrdersViewTests {
   Future AddOneProductInDB(
     WidgetTester tester,
     int delaySeconds, {
-    bool testWithValidTexts,
+    bool validTexts,
   }) async {
     var invalidText;
     var _seek = Get.put(TestUtils(), tag: 'localTestUtilsInstance');
@@ -62,22 +62,22 @@ class OrdersViewTests {
     invalidText = "d";
     await tester.enterText(
       _seek.key(INVENTORY_ADDEDIT_FIELD_TITLE_KEY),
-      testWithValidTexts ? "Red Tomatoes" : invalidText,
+      validTexts ? "Red Tomatoes" : invalidText,
     );
 
     await tester.enterText(
       _seek.key(INVENTORY_ADDEDIT_FIELD_PRICE_KEY),
-      testWithValidTexts ? (99.99).toString() : invalidText,
+      validTexts ? (99.99).toString() : invalidText,
     );
 
     await tester.enterText(
       _seek.key(INVENTORY_ADDEDIT_FIELD_DESCRIPT_KEY),
-      testWithValidTexts ? "The best Red tomatoes ever. It is super red!" : invalidText,
+      validTexts ? "The best Red tomatoes ever. It is super red!" : invalidText,
     );
 
     await tester.enterText(
       _seek.key(INVENTORY_ADDEDIT_FIELD_URL_KEY),
-      testWithValidTexts
+      validTexts
           ? "https://images.freeimages.com/images/large-previews/294/tomatoes-1326096.jpg"
           : invalidText,
     );
@@ -155,7 +155,6 @@ class OrdersViewTests {
     WidgetTester tester,
     int delaySeconds,
   ) async {
-
     await _guiUtils.openDrawerAndClickAnOption(
       tester,
       delaySeconds: delaySeconds,
@@ -188,5 +187,17 @@ class OrdersViewTests {
       to: OverviewView,
       widgetTrigger: BackButton,
     );
+  }
+
+  void cleanDb() {
+    http.delete("$PRODUCTS_URL_HTTP").then((response) {
+      print('1111111 ${response.statusCode}');
+    });
+    http.delete("$ORDERS_URL_HTTP").then((response) {
+      print('22222 ${response.statusCode}');
+    });
+    http.delete("$CART_ITEM_URL_HTTP").then((response) {
+      print('33333 ${response.statusCode}');
+    });
   }
 }

@@ -83,14 +83,12 @@ class OrdersTestConfig {
     HttpOverrides.global = null;
   }
 
-  bool bindingsBuilderMockedRepo({bool execute}) {
+  void bindingsBuilderMockedRepo({bool execute}) {
     if (execute) _bindingsBuilder(_mocked_repo_used_in_this_module_tests);
-    return execute;
   }
 
-  bool bindingsBuilderMockRepoEmptyDb({bool execute}) {
+  void bindingsBuilderMockRepoEmptyDb({bool execute}) {
     if (execute) _bindingsBuilder(OrdersMockedRepoEmptyDb());
-    return execute;
   }
 
   String repoName() => _mocked_repo_used_in_this_module_tests.runtimeType.toString();

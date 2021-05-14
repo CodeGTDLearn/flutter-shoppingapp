@@ -8,10 +8,10 @@ import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
-import '../../../../app_test_config.dart';
-import '../../../../test_utils/view_test_utils.dart';
-import '../orders_test_config.dart';
-import 'orders_view_tests.dart';
+import '../../../../../app_test_config.dart';
+import '../../../../../test_utils/view_test_utils.dart';
+import '../../orders_test_config.dart';
+import '../orders_view_tests.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -19,29 +19,36 @@ void main() {
 }
 
 void gui() {
-  var _bindings;
+  //--------------------------------------------------------------
+  var testType = INTEGRATION_TESTS;
+  var _widgetTest = testType == WIDGET_TESTS;
+  //--------------------------------------------------------------
+
   var _tests = Get.put(OrdersViewTests());
   var _config = Get.put(OrdersTestConfig());
   final _viewTestUtils = ViewTestUtils();
 
-  setUp(() => _bindings = _config.bindingsBuilderMockedRepo(execute: false));
+  setUp(() => _config.bindingsBuilderMockedRepo(execute: false));
 
   tearDown(Get.reset);
 
   testWidgets('${_config.OpenOrderView_NoneOrderInDB}', (tester) async {
-    _bindings = _config.bindingsBuilderMockRepoEmptyDb(execute: false);
-    _bindings ? await tester.pumpWidget(app.AppDriver()) : app.main();
+    _config.bindingsBuilderMockRepoEmptyDb(execute: false);
+    _widgetTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
     await _tests.OpenOrderView_NoOrderInDB(tester, DELAY);
   });
 
   testWidgets('${_config.OrderingFromCartView_TapingTheButtonOrderNow}', (tester) async {
-    _bindings ? await tester.pumpWidget(app.AppDriver()) : app.main();
-    await _tests.AddOneProductInDB(tester, DELAY, testWithValidTexts: true);
+    _widgetTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+    _widgetTest
+        ? isNull
+        : await _tests.AddOneProductInDB(tester, DELAY, validTexts: true);
+    // await _tests.AddOneProductInDB(tester, DELAY, validTexts: true);
     await _tests.OrderingFromCartView_TapButtonOrderNow(tester, DELAY);
-  }, skip: true);
+  });
 
   testWidgets('${_config.OpenOrderView_WithAnOrderInDB}', (tester) async {
-    _bindings ? await tester.pumpWidget(app.AppDriver()) : app.main();
+    _widgetTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
 
     await _viewTestUtils.openDrawerAndClickAnOption(
       tester,
@@ -52,10 +59,10 @@ void gui() {
 
     _viewTestUtils.checkWidgetsQtdeInOneView(
         widgetView: OrdersView, widgetElement: OrderCollapsableTile, widgetQtde: 1);
-  }, skip: true);
+  });
 
   testWidgets('${_config.TapPageBackButton_InOrderView}', (tester) async {
-    _bindings ? await tester.pumpWidget(app.AppDriver()) : app.main();
+    _widgetTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
 
     await _viewTestUtils.openDrawerAndClickAnOption(
       tester,
@@ -70,5 +77,5 @@ void gui() {
       from: OrdersView,
       to: OverviewView,
     );
-  }, skip: true);
+  });
 }
