@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
 
-import '../../../app_test_config.dart';
+import '../../../app_tests_config.dart';
 import 'orders_controller_test.dart';
 import 'orders_test_config.dart';
 import 'repo/orders_repo_test.dart';
@@ -14,6 +14,6 @@ class OrdersTest {
     group(
         "${OrdersTestConfig().CONTROLLER_TEST_TITLE}", OrdersControllerTests.integration);
     group("${OrdersTestConfig().VIEW_TEST_TITLE}",
-        OrdersViewFunctionalTest(testType: WIDGET_TESTS).functional);
+        OrdersViewFunctionalTest(testType: UNIT_TESTS).functional);
   }
 }

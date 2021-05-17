@@ -12,7 +12,7 @@ class OrdersRepo extends IOrdersRepo {
   Future<Order> addOrder(Order order) async {
     // @formatter:off
     return http
-        .post(ORDERS_URL_HTTP, body: order.to_Json())
+        .post(ORDERS_URL, body: order.to_Json())
         .then((jsonReturnedOrder) {
            order.id = json.decode(jsonReturnedOrder.body)['name'];
            return order;
@@ -25,7 +25,7 @@ class OrdersRepo extends IOrdersRepo {
   Future<List<Order>> getOrders() async {
     // @formatter:off
     return http
-        .get(ORDERS_URL_HTTP)
+        .get(ORDERS_URL)
         .then((jsonResponse) {
         var _orders = <Order>[];
         

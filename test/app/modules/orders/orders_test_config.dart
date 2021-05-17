@@ -101,9 +101,9 @@ class OrdersTestConfig {
 
   get VIEW_TEST_TITLE => '${repoName()}|View: Functional';
 
-  get OpenOrderView_WithAnOrderInDB => 'Open OrderView WITH an Order in DB';
+  get OpenOrderView_OneOrderInDB => 'Open OrderView ONE ORDER in DB';
 
-  get OpenOrderView_NoneOrderInDB => 'Open OrderView WITHOUT Order in DB';
+  get OpenOrderView_NoneOrderInDB => 'Open OrderView NONE Order in DB';
 
   get TapPageBackButton_InOrderView => 'Testing OrderView BackButton';
 

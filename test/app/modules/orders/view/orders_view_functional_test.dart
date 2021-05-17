@@ -1,22 +1,23 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
+import 'package:shopingapp/app/core/properties/app_urls.dart';
 import 'package:shopingapp/app/modules/orders/components/order_collapsable_tile.dart';
 import 'package:shopingapp/app/modules/orders/view/orders_view.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
-import '../../../../app_test_config.dart';
+import '../../../../app_tests_config.dart';
 import '../../../../test_utils/view_test_utils.dart';
 import '../orders_test_config.dart';
 import 'orders_view_tests.dart';
 
 class OrdersViewFunctionalTest {
-  bool _widgetTest;
+  bool _unitTests;
 
   OrdersViewFunctionalTest({String testType}) {
-    _widgetTest = testType == WIDGET_TESTS;
+    _unitTests = testType == UNIT_TESTS;
   }
 
   void functional() {
@@ -24,29 +25,36 @@ class OrdersViewFunctionalTest {
     var _config = Get.put(OrdersTestConfig());
     final _viewTestUtils = ViewTestUtils();
 
-    tearDownAll(() => _tests.cleanDb());
+    setUpAll(_viewTestUtils.setUpAll);
 
-    setUp(() => _config.bindingsBuilderMockedRepo(execute: _widgetTest));
+    tearDownAll(_viewTestUtils.tearDownAll);
+
+    setUp(() => _config.bindingsBuilderMockedRepo(execute: _unitTests));
 
     tearDown(Get.reset);
 
     testWidgets('${_config.OpenOrderView_NoneOrderInDB}', (tester) async {
-      _config.bindingsBuilderMockRepoEmptyDb(execute: _widgetTest);
-      _widgetTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      _config.bindingsBuilderMockRepoEmptyDb(execute: _unitTests);
+      _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
+
+      await _viewTestUtils.removeFromDb(tester, url: ORDERS_URL, delaySeconds: 1);
+      await _viewTestUtils.removeFromDb(tester, url: PRODUCTS_URL, delaySeconds: 1);
+      await _viewTestUtils.removeFromDb(tester, url: CART_ITEM_URL, delaySeconds: 1);
+
       await _tests.OpenOrderView_NoOrderInDB(tester, DELAY);
     });
 
     testWidgets('${_config.OrderingFromCartView_TapingTheButtonOrderNow}',
         (tester) async {
-      _widgetTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
-      _widgetTest
+      _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      _unitTests
           ? isNull
           : await _tests.AddOneProductInDB(tester, DELAY, validTexts: true);
       await _tests.OrderingFromCartView_TapButtonOrderNow(tester, DELAY);
     });
 
-    testWidgets('${_config.OpenOrderView_WithAnOrderInDB}', (tester) async {
-      _widgetTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+    testWidgets('${_config.OpenOrderView_OneOrderInDB}', (tester) async {
+      _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
 
       await _viewTestUtils.openDrawerAndClickAnOption(
         tester,
@@ -60,7 +68,7 @@ class OrdersViewFunctionalTest {
     });
 
     testWidgets('${_config.TapPageBackButton_InOrderView}', (tester) async {
-      _widgetTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
 
       await _viewTestUtils.openDrawerAndClickAnOption(
         tester,
@@ -75,11 +83,6 @@ class OrdersViewFunctionalTest {
         from: OrdersView,
         to: OverviewView,
       );
-    });
-
-    testWidgets('Limpeza do DB', (tester) async {
-      _widgetTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
-      _widgetTest ? isNull : await _tests.cleanDb();
     });
   }
 }

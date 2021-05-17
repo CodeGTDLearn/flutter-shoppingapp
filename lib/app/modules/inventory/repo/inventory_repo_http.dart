@@ -10,7 +10,7 @@ import 'i_inventory_repo.dart';
 class InventoryRepoHttp implements IInventoryRepo {
   Future<List<Product>> getProducts() {
     return http
-        .get(PRODUCTS_URL_HTTP, headers: {"Accept": "application/json"})
+        .get(PRODUCTS_URL, headers: {"Accept": "application/json"})
         .then(_decodeResponse)
         .catchError((onError) => throw onError);
   }
@@ -18,7 +18,7 @@ class InventoryRepoHttp implements IInventoryRepo {
   Future<Product> addProduct(Product product) {
     // @formatter:off
     return http
-            .post(PRODUCTS_URL_HTTP, body: jsonEncode(product.toJson()))
+            .post(PRODUCTS_URL, body: jsonEncode(product.toJson()))
             .then((response) {
               //PlainText/Firebase(jsonEncode) ==> Json(Map) ==> Product
               var plainText = response.body;
@@ -31,7 +31,7 @@ class InventoryRepoHttp implements IInventoryRepo {
 
   Future<int> updateProduct(Product product) {
     return http
-        .patch("$PRODUCTS_URL_HTTP/${product.id}.json",
+        .patch("$PRODUCTS_URL/${product.id}.json",
             //Product(Object) => Json(.toJson) => PlainText/Firebase(jsonEncode)
             body: jsonEncode(product.toJson()))
         .then((response) => response.statusCode);
@@ -39,7 +39,7 @@ class InventoryRepoHttp implements IInventoryRepo {
 
   Future<int> deleteProduct(String id) {
     return http
-        .delete("$PRODUCTS_URL_HTTP/$id.json")
+        .delete("$PRODUCTS_URL/$id.json")
         .then((response) => response.statusCode);
   }
 

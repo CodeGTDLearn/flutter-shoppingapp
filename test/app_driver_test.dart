@@ -7,14 +7,20 @@ import 'app/modules/inventory/inventory_test_groups.dart';
 import 'app/modules/orders/orders_test_groups.dart';
 import 'app/modules/orders/view/orders_view_functional_test.dart';
 import 'app/modules/overview/overview_test_groups.dart';
-import 'app_test_config.dart';
+import 'app_tests_config.dart';
 
 void main() {
-  const _testType = String.fromEnvironment('myVar', defaultValue: WIDGET_TESTS);
-  _testType == WIDGET_TESTS ? _widgetTests() : _integrationTests();
+  const _testType = String.fromEnvironment('myVar', defaultValue: UNIT_TESTS);
+  if (_testType == UNIT_TESTS) _regularTests();
+  if (_testType == INTEGRATION_TESTS) _integrationTests();
+  if (_testType != UNIT_TESTS && _testType != INTEGRATION_TESTS) _testTypeNotAllowed;
 }
 
-void _widgetTests() {
+void _testTypeNotAllowed() {
+  print('TestType not Allowed.');
+}
+
+void _regularTests() {
   CartTest().groups();
   OrdersTest().groups();
   OverviewTest().groups();
@@ -24,6 +30,6 @@ void _widgetTests() {
 
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  group('Orders|Integration-GUI-Tests: ',
+  group('Orders|Integration-Tests: ',
       OrdersViewFunctionalTest(testType: INTEGRATION_TESTS).functional);
 }

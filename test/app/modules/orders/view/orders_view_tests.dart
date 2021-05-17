@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
 import 'package:shopingapp/app/core/components/keys/progres_indicator_keys.dart';
-import 'package:shopingapp/app/core/properties/app_urls.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/inventory/inventory_add_edit.dart';
 import 'package:shopingapp/app/modules/cart/core/cart_widget_keys.dart';
@@ -135,6 +133,7 @@ class OrdersViewTests {
       keyOption: DRAWER_ORDER_OPTION_KEY,
       scaffoldGlobalKey: OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY,
     );
+
     _guiUtils.checkWidgetsQtdeInOneView(
       widgetView: OrdersView,
       widgetElement: OrderCollapsableTile,
@@ -161,6 +160,7 @@ class OrdersViewTests {
       keyOption: DRAWER_ORDER_OPTION_KEY,
       scaffoldGlobalKey: OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY,
     );
+
     expect(_seek.type(OrdersView), findsOneWidget);
     expect(_seek.type(CircularProgressIndicator), findsNothing);
     expect(_seek.text(NO_ORDERS_FOUND_YET), findsOneWidget);
@@ -187,17 +187,5 @@ class OrdersViewTests {
       to: OverviewView,
       widgetTrigger: BackButton,
     );
-  }
-
-  void cleanDb() {
-    http.delete("$PRODUCTS_URL_HTTP").then((response) {
-      print('1111111 ${response.statusCode}');
-    });
-    http.delete("$ORDERS_URL_HTTP").then((response) {
-      print('22222 ${response.statusCode}');
-    });
-    http.delete("$CART_ITEM_URL_HTTP").then((response) {
-      print('33333 ${response.statusCode}');
-    });
   }
 }
