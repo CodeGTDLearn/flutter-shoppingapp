@@ -21,7 +21,7 @@ import '../overview/repo/overview_mocked_repo.dart';
 import 'repo/orders_mocked_repo.dart';
 
 class OrdersTestConfig {
-  final IOrdersRepo _mocked_repo_used_in_this_module_tests = OrdersMockedRepo();
+  final IOrdersRepo _mocked_repo_used_in_this_module_test = OrdersMockedRepo();
 
   void _bindingsBuilder(IOrdersRepo ordersRepo) {
     Get.reset();
@@ -84,14 +84,14 @@ class OrdersTestConfig {
   }
 
   void bindingsBuilderMockedRepo({bool execute}) {
-    if (execute) _bindingsBuilder(_mocked_repo_used_in_this_module_tests);
+    if (execute) _bindingsBuilder(_mocked_repo_used_in_this_module_test);
   }
 
   void bindingsBuilderMockRepoEmptyDb({bool execute}) {
     if (execute) _bindingsBuilder(OrdersMockedRepoEmptyDb());
   }
 
-  String repoName() => _mocked_repo_used_in_this_module_tests.runtimeType.toString();
+  String repoName() => _mocked_repo_used_in_this_module_test.runtimeType.toString();
 
   get REPO_TEST_TITLE => '${repoName()}|Repo: Unit';
 

@@ -8,7 +8,6 @@ import 'package:test/test.dart';
 import '../../../../data_builders/product_databuilder.dart';
 import '../../../../mocked_datasource/products_mocked_datasource.dart';
 import '../inventory_test_config.dart';
-import '../repo/inventory_mocked_repo.dart';
 import 'inventory_mocked_service.dart';
 
 class InventoryServiceTests {
@@ -23,7 +22,7 @@ class InventoryServiceTests {
     var _newProduct = ProductDataBuilder().ProductFull();
 
     setUp(() {
-      InventoryTestConfig().bindingsBuilder(InventoryMockedRepo());
+      InventoryTestConfig().bindingsBuilderMockedRepo(execute: true);
       _ovService = Get.find<IOverviewService>();
 
       _invService = Get.find<IInventoryService>();

@@ -54,7 +54,7 @@ class DrawwerTest {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
 
-      var scaffoldKey = OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY;
+      var scaffoldKey = DRAWWER_SCAFFOLD_GLOBALKEY;
       var titleDrawer = DRAWER_COMPONENT_TITLE_APPBAR;
 
       // Tapping three times
@@ -78,7 +78,7 @@ class DrawwerTest {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
 
-      var scaffoldKey = OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY;
+      var scaffoldKey = DRAWWER_SCAFFOLD_GLOBALKEY;
       var titleDrawer = DRAWER_COMPONENT_TITLE_APPBAR;
 
       expect(seek.text(titleDrawer), findsNothing);
@@ -98,7 +98,7 @@ class DrawwerTest {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
 
-      var scaffoldKey = OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY;
+      var scaffoldKey = DRAWWER_SCAFFOLD_GLOBALKEY;
       var titleDrawer = DRAWER_COMPONENT_TITLE_APPBAR;
       var ovViewPageTitle = OVERVIEW_TITLE_PAGE_ALL;
       var manProdPageTitle = INVENTORY_PAGE_TITLE;

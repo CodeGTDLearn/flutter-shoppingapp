@@ -1,8 +1,8 @@
 //OVERVIEW-MAIN PAGE
 import 'package:flutter/material.dart';
 
-final OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY = GlobalKey<ScaffoldState>();
-final K_OV_SCFLD_GLOB_KEY = OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY;
+final DRAWWER_SCAFFOLD_GLOBALKEY = GlobalKey<ScaffoldState>();
+final K_OV_SCFLD_GLOB_KEY = DRAWWER_SCAFFOLD_GLOBALKEY;
 
 const OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY = "overview_grid_item_favorite_button_key";
 const K_OV_GRD_FAV_BTN = OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY;

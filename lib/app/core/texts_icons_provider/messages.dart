@@ -34,4 +34,4 @@ const VALIDATION_PROVIDE_THE_DESCRIPTION_FIELD_MINIMAL_SIZE = "Allowed: 10 to 30
 const NO_ORDERS_FOUND_YET = "There is no Orders, yet";
 const NO_PRODUCTS_FOUND_YET = "There is no Products, yet";
 const NO_CARTITEMS_FOUND_YET = "There is no CartItems, yet";
-const NO_MANAGED_PRODUCTS_FOUND_YET = "There is no Products to manage, yet";
+const NO_INVENTORY_PRODUCTS_FOUND_YET = "There is no Products in Inventory, yet";

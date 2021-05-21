@@ -1,11 +1,12 @@
 import 'package:test/test.dart';
 
+import '../../../app_tests_config.dart';
 import 'inventory_controller_test.dart';
 import 'inventory_test_config.dart';
 import 'repo/inventory_repo_test.dart';
 import 'service/inventory_service_test.dart';
-import 'view/inventory_add_edit_page_test.dart';
-import 'view/inventory_page_test.dart';
+import 'view/inventory_add_edit_view_test.dart';
+import 'view/inventory_view_functional_test.dart';
 
 class InventoryTest {
   void groups() {
@@ -23,11 +24,11 @@ class InventoryTest {
     );
     group(
       "${InventoryTestConfig().VIEW_TEST_TITLE}",
-      InventoryPageTests.functional,
+      InventoryViewFunctionalTests(testType: UNIT_TESTS).functional,
     );
     group(
       "${InventoryTestConfig().VIEW_ADDEDIT_TEST_TITLE}",
-      InventoryAddEditPageTests.functional,
+      InventoryAddEditViewTests.functional,
     );
   }
 }

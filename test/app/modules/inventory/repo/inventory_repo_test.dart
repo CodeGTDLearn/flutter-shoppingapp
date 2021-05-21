@@ -15,7 +15,7 @@ class InventoryRepoTests {
     var _product1 = ProductsMockedDatasource().products().elementAt(1);
 
     setUp(() {
-      InventoryTestConfig().bindingsBuilder(InventoryMockedRepo());
+      InventoryTestConfig().bindingsBuilderMockedRepo(execute: true);
       _repo = Get.find<IInventoryRepo>();
       _injectRepo = InventoryInjectMockedRepo();
     });

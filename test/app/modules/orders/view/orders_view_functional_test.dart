@@ -25,9 +25,9 @@ class OrdersViewFunctionalTest {
     var _config = Get.put(OrdersTestConfig());
     final _viewTestUtils = ViewTestUtils();
 
-    setUpAll(_viewTestUtils.setUpAll);
+    setUpAll(_viewTestUtils.globalSetUpAll);
 
-    tearDownAll(_viewTestUtils.tearDownAll);
+    tearDownAll(_viewTestUtils.globalTearDownAll);
 
     setUp(() => _config.bindingsBuilderMockedRepo(execute: _unitTests));
 
@@ -49,7 +49,7 @@ class OrdersViewFunctionalTest {
       _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
       _unitTests
           ? isNull
-          : await _tests.AddOneProductInDB(tester, DELAY, validTexts: true);
+          : await _viewTestUtils.AddOneProductInDB(tester, DELAY, validTexts: true);
       await _tests.OrderingFromCartView_TapButtonOrderNow(tester, DELAY);
     });
 
@@ -60,7 +60,7 @@ class OrdersViewFunctionalTest {
         tester,
         delaySeconds: DELAY,
         keyOption: DRAWER_ORDER_OPTION_KEY,
-        scaffoldGlobalKey: OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY,
+        scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
       );
 
       _viewTestUtils.checkWidgetsQtdeInOneView(
@@ -74,7 +74,7 @@ class OrdersViewFunctionalTest {
         tester,
         delaySeconds: DELAY,
         keyOption: DRAWER_ORDER_OPTION_KEY,
-        scaffoldGlobalKey: OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY,
+        scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
       );
 
       await _tests.OpenOrderView_TapBackButton(

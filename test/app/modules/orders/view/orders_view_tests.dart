@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
 import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
 import 'package:shopingapp/app/core/components/keys/progres_indicator_keys.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
-import 'package:shopingapp/app/core/texts_icons_provider/pages/inventory/inventory_add_edit.dart';
 import 'package:shopingapp/app/modules/cart/core/cart_widget_keys.dart';
 import 'package:shopingapp/app/modules/cart/view/cart_view.dart';
-import 'package:shopingapp/app/modules/inventory/components/inventory_item.dart';
-import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
-import 'package:shopingapp/app/modules/inventory/view/inventory_add_edit_view.dart';
-import 'package:shopingapp/app/modules/inventory/view/inventory_view.dart';
 import 'package:shopingapp/app/modules/orders/components/order_collapsable_tile.dart';
 import 'package:shopingapp/app/modules/orders/view/orders_view.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
@@ -21,86 +15,7 @@ import '../../../../test_utils/view_test_utils.dart';
 
 class OrdersViewTests {
   final _seek = TestUtils();
-  final _guiUtils = ViewTestUtils();
-
-  Future AddOneProductInDB(
-    WidgetTester tester,
-    int delaySeconds, {
-    bool validTexts,
-  }) async {
-    var invalidText;
-    var _seek = Get.put(TestUtils(), tag: 'localTestUtilsInstance');
-
-    // A) OPEN DRAWER
-    // B) CLICK IN INVENTORY-DRAWER-OPTION
-    await _guiUtils.openDrawerAndClickAnOption(
-      tester,
-      delaySeconds: delaySeconds,
-      keyOption: DRAWER_INVENTORY_OPTION_KEY,
-      scaffoldGlobalKey: OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY,
-    );
-
-    expect(_seek.type(InventoryView), findsOneWidget);
-
-    // C) CLICK IN INVENTORY-ADD-PRODUCT-BUTTON
-    await _guiUtils.tapButtonWithResult(
-      tester,
-      delaySeconds: delaySeconds,
-      keyWidgetTrigger: INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY,
-      typeWidgetResult: InventoryAddEditView,
-    );
-
-    // D) GENERATE PRE-BUIT CONTENT + CLICK IN THE TEXT-FIELDS + ADD CONTENT
-    expect(_seek.text(INVENTORY_ADDEDIT_FIELD_TITLE), findsOneWidget);
-    expect(_seek.text(INVENTORY_ADDEDIT_FIELD_PRICE), findsOneWidget);
-    expect(_seek.text(INVENTORY_ADDEDIT_FIELD_DESCRIPT), findsOneWidget);
-    expect(_seek.text(INVENTORY_ADDEDIT_FIELD_IMAGE_URL), findsOneWidget);
-    expect(_seek.text(INVENTORY_ADDEDIT_IMAGE_TITLE), findsOneWidget);
-
-    invalidText = "d";
-    await tester.enterText(
-      _seek.key(INVENTORY_ADDEDIT_FIELD_TITLE_KEY),
-      validTexts ? "Red Tomatoes" : invalidText,
-    );
-
-    await tester.enterText(
-      _seek.key(INVENTORY_ADDEDIT_FIELD_PRICE_KEY),
-      validTexts ? (99.99).toString() : invalidText,
-    );
-
-    await tester.enterText(
-      _seek.key(INVENTORY_ADDEDIT_FIELD_DESCRIPT_KEY),
-      validTexts ? "The best Red tomatoes ever. It is super red!" : invalidText,
-    );
-
-    await tester.enterText(
-      _seek.key(INVENTORY_ADDEDIT_FIELD_URL_KEY),
-      validTexts
-          ? "https://images.freeimages.com/images/large-previews/294/tomatoes-1326096.jpg"
-          : invalidText,
-    );
-
-    await tester.pumpAndSettle(_seek.delay(delaySeconds));
-
-    // E) CLICK IN SAVE-BUTTON + RETURN TO INVENTORY-VIEW + CHECK INVENTORY-ITEM ADDED
-    await _guiUtils.tapButtonWithResult(
-      tester,
-      delaySeconds: delaySeconds,
-      keyWidgetTrigger: INVENTORY_ADDEDIT_SAVEBUTTON_KEY,
-      typeWidgetResult: InventoryItem,
-    );
-
-    // F) CLICK IN BACK-BUTTON + RETURN FROM INVENTORY-VIEW TO OVERVIEW-VIEW
-    await _guiUtils.navigationBetweenViews(
-      tester,
-      delaySeconds: delaySeconds,
-      from: InventoryView,
-      to: OverviewView,
-      widgetTrigger: BackButton,
-    );
-
-    Get.delete(tag: 'localTestUtilsInstance');
-  }
+  final _viewTestUtils = ViewTestUtils();
 
   Future OrderingFromCartView_TapButtonOrderNow(
     WidgetTester tester,
@@ -127,26 +42,26 @@ class OrdersViewTests {
     expect(_seek.type(OverviewView), findsOneWidget);
 
     //D) OPEN ORDERS-DRAWER-OPTION AND CHECK THE ORDER DONE ABOVE
-    await _guiUtils.openDrawerAndClickAnOption(
+    await _viewTestUtils.openDrawerAndClickAnOption(
       tester,
       delaySeconds: delaySeconds,
       keyOption: DRAWER_ORDER_OPTION_KEY,
-      scaffoldGlobalKey: OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY,
+      scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
-    _guiUtils.checkWidgetsQtdeInOneView(
+    _viewTestUtils.checkWidgetsQtdeInOneView(
       widgetView: OrdersView,
       widgetElement: OrderCollapsableTile,
       widgetQtde: 1,
     );
 
     //E) PRESS BACK-BUTTON AND GOBACK TO OVERVIEW-PAGE
-    await _guiUtils.navigationBetweenViews(
+    await _viewTestUtils.navigationBetweenViews(
       tester,
       delaySeconds: delaySeconds,
       from: OrdersView,
       to: OverviewView,
-      widgetTrigger: BackButton,
+      trigger: BackButton,
     );
   }
 
@@ -154,23 +69,23 @@ class OrdersViewTests {
     WidgetTester tester,
     int delaySeconds,
   ) async {
-    await _guiUtils.openDrawerAndClickAnOption(
+    await _viewTestUtils.openDrawerAndClickAnOption(
       tester,
       delaySeconds: delaySeconds,
       keyOption: DRAWER_ORDER_OPTION_KEY,
-      scaffoldGlobalKey: OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY,
+      scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
     expect(_seek.type(OrdersView), findsOneWidget);
     expect(_seek.type(CircularProgressIndicator), findsNothing);
     expect(_seek.text(NO_ORDERS_FOUND_YET), findsOneWidget);
 
-    await _guiUtils.navigationBetweenViews(
+    await _viewTestUtils.navigationBetweenViews(
       tester,
       delaySeconds: delaySeconds,
       from: OrdersView,
       to: OverviewView,
-      widgetTrigger: BackButton,
+      trigger: BackButton,
     );
   }
 
@@ -180,12 +95,12 @@ class OrdersViewTests {
     Type from,
     Type to,
   }) async {
-    await _guiUtils.navigationBetweenViews(
+    await _viewTestUtils.navigationBetweenViews(
       tester,
       delaySeconds: delaySeconds,
       from: OrdersView,
       to: OverviewView,
-      widgetTrigger: BackButton,
+      trigger: BackButton,
     );
   }
 }

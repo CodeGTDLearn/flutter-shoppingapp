@@ -16,21 +16,20 @@ import 'package:shopingapp/app_driver.dart';
 import '../../../../mocked_datasource/products_mocked_datasource.dart';
 import '../../../../test_utils/test_utils.dart';
 import '../inventory_test_config.dart';
-import '../repo/inventory_mocked_repo.dart';
 
-class InventoryAddEditPageTests {
+class InventoryAddEditViewTests {
   static void functional() {
     var _seek = TestUtils();
 
     setUp(() {
-      InventoryTestConfig().bindingsBuilder(InventoryMockedRepo());
+      InventoryTestConfig().bindingsBuilderMockedRepo(execute: true);
       _seek = TestUtils();
     });
 
     tearDown(() => _seek = null);
 
     Future _openInventoryAddEditView(tester) async {
-      OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY.currentState.openDrawer();
+      DRAWWER_SCAFFOLD_GLOBALKEY.currentState.openDrawer();
       await tester.pumpAndSettle(_seek.delay(2));
       await tester.tap(_seek.key(DRAWER_INVENTORY_OPTION_KEY));
       await tester.pumpAndSettle(_seek.delay(1));
@@ -172,13 +171,13 @@ class InventoryAddEditPageTests {
     });
 
     testWidgets('Open Page with NO products in DB', (tester) async {
-      InventoryTestConfig().bindingsBuilder(InventoryMockedRepoFail());
+      InventoryTestConfig().bindingsBuilderMockedRepoEmptyDb(execute: true);
 
       await tester.pumpWidget(AppDriver());
 
-      OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY.currentState.openDrawer();
+      DRAWWER_SCAFFOLD_GLOBALKEY.currentState.openDrawer();
       await tester.pumpAndSettle(_seek.delay(1));
-      expect(OVERVIEW_PAGE_SCAFFOLD_GLOBALKEY.currentState.isDrawerOpen, isTrue);
+      expect(DRAWWER_SCAFFOLD_GLOBALKEY.currentState.isDrawerOpen, isTrue);
 
       await tester.tap(_seek.key(DRAWER_INVENTORY_OPTION_KEY));
       await tester.pumpAndSettle(_seek.delay(2));

@@ -19,10 +19,9 @@ import 'repo/inventory_mocked_repo.dart';
 
 class InventoryTestConfig {
 //REPO-USED-IN-THIS-TEST-MODULE:
-  final IInventoryRepo _mocked_repo_used_in_this_module_tests =
-      InventoryMockedRepo();
+  final IInventoryRepo _mocked_repo_used_in_this_module_test = InventoryMockedRepo();
 
-  void bindingsBuilder(IInventoryRepo mockRepo) {
+  void _bindingsBuilder(IInventoryRepo mockRepo) {
     Get.reset();
 
     expect(Get.isPrepared<DarkThemeController>(), isFalse);
@@ -40,22 +39,16 @@ class InventoryTestConfig {
     var binding = BindingsBuilder(() {
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
 
-      Get.lazyPut<IInventoryRepo>(() => mockRepo);
+      Get.lazyPut<IOverviewRepo>(() => OverviewMockedRepo());
+      Get.lazyPut<IOverviewService>(() => OverviewService(repo: Get.find()));
+      Get.lazyPut<OverviewController>(() => OverviewController(service: Get.find()));
 
+      Get.lazyPut<IInventoryRepo>(() => mockRepo);
       Get.lazyPut<IInventoryService>(() => InventoryService(
             repo: Get.find(),
             overviewService: Get.find(),
           ));
-
-      Get.lazyPut<InventoryController>(
-          () => InventoryController(service: Get.find()));
-
-      Get.lazyPut<IOverviewRepo>(() => OverviewMockedRepo());
-
-      Get.lazyPut<IOverviewService>(() => OverviewService(repo: Get.find()));
-
-      Get.lazyPut<OverviewController>(
-          () => OverviewController(service: Get.find()));
+      Get.lazyPut<InventoryController>(() => InventoryController(service: Get.find()));
 
       CartBindings().dependencies();
     });
@@ -77,8 +70,15 @@ class InventoryTestConfig {
     HttpOverrides.global = null;
   }
 
-  String repoName() =>
-      _mocked_repo_used_in_this_module_tests.runtimeType.toString();
+  void bindingsBuilderMockedRepo({bool execute}) {
+    if (execute) _bindingsBuilder(_mocked_repo_used_in_this_module_test);
+  }
+
+  void bindingsBuilderMockedRepoEmptyDb({bool execute}) {
+    if (execute) _bindingsBuilder(InventoryMockedRepoEmptyDb());
+  }
+
+  String repoName() => _mocked_repo_used_in_this_module_test.runtimeType.toString();
 
   get REPO_TEST_TITLE => '${repoName()}|Repo: Unit';
 
@@ -89,4 +89,17 @@ class InventoryTestConfig {
   get VIEW_TEST_TITLE => '${repoName()}|View: Functional';
 
   get VIEW_ADDEDIT_TEST_TITLE => '${repoName()}|View|Add/Edit: Functional';
+
+  get OpenInventoryView_NoneOrderInDB => 'Open OrderView NONE Order in DB';
+
+  get checkProductsInInventoryView => 'Checking Products in Inventory View';
+
+  get DeleteProduct => 'Deleting a product';
+
+  get UpdateProduct => 'Updating a product';
+
+  get refreshingInventoryView_checkRefreshIndicator =>
+      'Refreshing page - Refresh-Indicator';
+
+  get TapPageBackButton_InInventoryView => 'Testing OrderView BackButton';
 }
