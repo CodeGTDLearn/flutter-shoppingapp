@@ -24,7 +24,7 @@ class InventoryTest {
     );
     group(
       "${InventoryTestConfig().VIEW_TEST_TITLE}",
-      InventoryViewFunctionalTests(testType: UNIT_TESTS).functional,
+      InventoryViewFunctionalTests(testType: UNIT_TEST).functional,
     );
     group(
       "${InventoryTestConfig().VIEW_ADDEDIT_TEST_TITLE}",

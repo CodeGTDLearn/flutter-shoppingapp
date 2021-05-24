@@ -56,7 +56,7 @@ class Drawwer extends StatelessWidget {
           leadIcon: DRW_ICO_MAN_PROD,
           title: DRW_LBL_MAN_PROD,
           message: DRW_TXT_NO_MAN_PROD_YET,
-          route: AppRoutes.MANAGED_PRODUCTS,
+          route: AppRoutes.INVENTORY,
           notRoutingWithoutQtdeEvaluation: false,
           key: K_DRW_MPROD_OP4),
       Obx(() => SwitchListTile(

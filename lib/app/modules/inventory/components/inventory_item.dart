@@ -35,7 +35,7 @@ class InventoryItem extends StatelessWidget {
                   key: Key('$K_INV_UPD_BTN$_id'),
                   icon: INV_ITEM_UPD_ICO,
                   onPressed: () => Get.toNamed(
-                      AppRoutes.MANAGED_PRODUCTS_ADDEDIT_PAGE,
+                      AppRoutes.INVENTORY_ADDEDIT_PRODUCT,
                       arguments: _id),
                   color: Theme.of(context).errorColor),
               IconButton(

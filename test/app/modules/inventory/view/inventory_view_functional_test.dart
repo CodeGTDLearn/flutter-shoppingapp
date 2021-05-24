@@ -1,7 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
 import 'package:shopingapp/app/core/properties/app_urls.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
+import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
@@ -14,24 +16,19 @@ class InventoryViewFunctionalTests {
   bool _unitTests;
 
   InventoryViewFunctionalTests({String testType}) {
-    _unitTests = testType == UNIT_TESTS;
+    _unitTests = testType == UNIT_TEST;
   }
 
   void functional() {
-    // var _tests = Get.put(InventoryViewTests());
-    var _tests = InventoryViewTests();
-    // var _config = Get.put(InventoryTestConfig());
-    var _config = InventoryTestConfig();
-    final _viewTestUtils = ViewTestUtils();
+    var _tests = Get.put(InventoryViewTests());
+    var _config = Get.put(InventoryTestConfig());
+    final _viewTestUtils = Get.put(ViewTestUtils());
 
     setUpAll(_viewTestUtils.globalSetUpAll);
 
     tearDownAll(_viewTestUtils.globalTearDownAll);
 
-    setUp(() {
-      _config.bindingsBuilderMockedRepo(execute: _unitTests);
-      // _tests = Get.put(InventoryViewTests());
-    });
+    setUp(() => _config.bindingsBuilderMockedRepo(execute: _unitTests));
 
     tearDown(Get.reset);
 
@@ -54,7 +51,7 @@ class InventoryViewFunctionalTests {
       if (!_unitTests) {
         await _viewTestUtils.AddOneProductInDB(
           tester,
-          DELAY,
+          delaySeconds: DELAY,
           validTexts: true,
           qtde: 2,
         );
@@ -90,7 +87,15 @@ class InventoryViewFunctionalTests {
 
     testWidgets('${_config.TapPageBackButton_InInventoryView}', (tester) async {
       _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
+
+      await _viewTestUtils.openDrawerAndClickAnOption(
+        tester,
+        delaySeconds: DELAY,
+        keyOption: DRAWER_INVENTORY_OPTION_KEY,
+        scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
+      );
+
       await _tests.tapingViewBackButton_In_InventoryView(tester);
-    }, skip: true);
+    });
   }
 }

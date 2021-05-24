@@ -1,3 +1,3 @@
 const DELAY = 1;
-const UNIT_TESTS = 'unit';
-const INTEGRATION_TESTS = 'integration';
+const UNIT_TEST = 'unit';
+const INTEGRATION_TEST = 'integration';

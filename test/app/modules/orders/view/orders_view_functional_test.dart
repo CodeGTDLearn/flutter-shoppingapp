@@ -17,13 +17,13 @@ class OrdersViewFunctionalTest {
   bool _unitTests;
 
   OrdersViewFunctionalTest({String testType}) {
-    _unitTests = testType == UNIT_TESTS;
+    _unitTests = testType == UNIT_TEST;
   }
 
   void functional() {
     var _tests = Get.put(OrdersViewTests());
     var _config = Get.put(OrdersTestConfig());
-    final _viewTestUtils = ViewTestUtils();
+    final _viewTestUtils = Get.put(ViewTestUtils());
 
     setUpAll(_viewTestUtils.globalSetUpAll);
 
@@ -47,9 +47,15 @@ class OrdersViewFunctionalTest {
     testWidgets('${_config.OrderingFromCartView_TapingTheButtonOrderNow}',
         (tester) async {
       _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
+
       _unitTests
           ? isNull
-          : await _viewTestUtils.AddOneProductInDB(tester, DELAY, validTexts: true);
+          : await _viewTestUtils.AddOneProductInDB(
+              tester,
+              delaySeconds: DELAY,
+              validTexts: true,
+            );
+
       await _tests.OrderingFromCartView_TapButtonOrderNow(tester, DELAY);
     });
 

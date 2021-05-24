@@ -14,6 +14,6 @@ class OrdersTest {
     group(
         "${OrdersTestConfig().CONTROLLER_TEST_TITLE}", OrdersControllerTests.integration);
     group("${OrdersTestConfig().VIEW_TEST_TITLE}",
-        OrdersViewFunctionalTest(testType: UNIT_TESTS).functional);
+        OrdersViewFunctionalTest(testType: UNIT_TEST).functional);
   }
 }

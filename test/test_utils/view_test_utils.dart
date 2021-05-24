@@ -18,8 +18,8 @@ class ViewTestUtils {
   final _seek = TestUtils();
 
   Future AddOneProductInDB(
-    WidgetTester tester,
-    int delaySeconds, {
+    WidgetTester tester,{
+    int delaySeconds,
     bool validTexts,
     int qtde,
   }) async {
@@ -158,7 +158,7 @@ class ViewTestUtils {
   Future removeFromDb(tester, {String url, int delaySeconds}) async {
     await tester.pumpAndSettle(_seek.delay(delaySeconds));
     http.delete("$url").then((response) {
-      print('Cleaning Db: Collection: $url|Status: ${response.statusCode}|DONE');
+      print('Removing Db Collection: $url |Status: ${response.statusCode}');
     });
   }
 

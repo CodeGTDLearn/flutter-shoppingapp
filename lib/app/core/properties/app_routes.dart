@@ -19,8 +19,8 @@ class AppRoutes {
   static const OVERVIEW_DETAIL = '/item-details/';
   static const CART = '/cart';
   static const ORDERS = '/orders';
-  static const MANAGED_PRODUCTS = '/managed-products';
-  static const MANAGED_PRODUCTS_ADDEDIT_PAGE = '/managed-product-add-edit';
+  static const INVENTORY = '/inventory';
+  static const INVENTORY_ADDEDIT_PRODUCT = '/inventory-add-edit';
 
   static List<GetPage> getAppRoutes = [
     GetPage(
@@ -46,12 +46,12 @@ class AppRoutes {
       binding: CartBindings(),
     ),
     GetPage(
-      name: MANAGED_PRODUCTS,
+      name: INVENTORY,
       page: () => InventoryView(controller: Get.find()),
       binding: InventoryBindings(),
     ),
     GetPage(
-      name: MANAGED_PRODUCTS_ADDEDIT_PAGE,
+      name: INVENTORY_ADDEDIT_PRODUCT,
       page: () => InventoryAddEditView(),
     ),
   ];

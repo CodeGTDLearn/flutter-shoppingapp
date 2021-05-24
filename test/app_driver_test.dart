@@ -11,14 +11,14 @@ import 'app/modules/overview/overview_test_groups.dart';
 import 'app_tests_config.dart';
 
 void main() {
-  const _testType = String.fromEnvironment('myVar', defaultValue: UNIT_TESTS);
-  if (_testType == UNIT_TESTS) _unitTests();
-  if (_testType == INTEGRATION_TESTS) _integrationTests();
-  if (_testType != UNIT_TESTS && _testType != INTEGRATION_TESTS) _testTypeNotAllowed;
+  const _testType = String.fromEnvironment('myVar', defaultValue: UNIT_TEST);
+  if (_testType == UNIT_TEST) _unitTests();
+  if (_testType == INTEGRATION_TEST) _integrationTests();
+  if (_testType != UNIT_TEST && _testType != INTEGRATION_TEST) _testTypeNotFound();
 }
 
-void _testTypeNotAllowed() {
-  print('TestType not Allowed.');
+void _testTypeNotFound() {
+  print('TestType not Found.');
 }
 
 void _unitTests() {
@@ -32,7 +32,7 @@ void _unitTests() {
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   // group('Orders|Integration-Tests: ',
-  //     OrdersViewFunctionalTest(testType: INTEGRATION_TESTS).functional);
+  //     OrdersViewFunctionalTest(testType: INTEGRATION_TEST).functional);
   group('Inventory|Integration-Tests: ',
-      InventoryViewFunctionalTests(testType: INTEGRATION_TESTS).functional);
+      InventoryViewFunctionalTests(testType: INTEGRATION_TEST).functional);
 }

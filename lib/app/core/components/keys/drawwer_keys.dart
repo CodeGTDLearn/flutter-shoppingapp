@@ -15,7 +15,7 @@ const K_DRW_CRT_OP2 = DRAWER_CART_OPTION_KEY;
 const DRAWER_ORDER_OPTION_KEY = "drawwer_order_option";
 const K_DRW_ORD_OP3 = DRAWER_ORDER_OPTION_KEY;
 
-const DRAWER_INVENTORY_OPTION_KEY = "drawwer_managed_products_option";
+const DRAWER_INVENTORY_OPTION_KEY = "drawwer_inventory_option";
 const K_DRW_MPROD_OP4 = DRAWER_INVENTORY_OPTION_KEY;
 
 const DRAWER_DARK_MODE_OPTION_KEY = "drawwer_dark_mode_option";
