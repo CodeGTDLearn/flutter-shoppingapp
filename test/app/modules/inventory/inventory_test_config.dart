@@ -90,16 +90,15 @@ class InventoryTestConfig {
 
   get VIEW_ADDEDIT_TEST_TITLE => '${repoName()}|View|Add/Edit: Functional';
 
-  get OpenInventoryView_NoneOrderInDB => 'Open OrderView NONE Order in DB';
+  get checkInventoryProductsAbsence => 'Open OrderView Empty (nothing in DB)';
 
-  get checkProductsInInventoryView => 'Checking Products in Inventory View';
+  get checkInventoryProducts => 'Checking Products in InventoryView';
 
-  get DeleteProduct => 'Deleting a product';
+  get deleteInventoryProduct => 'Deleting a product in InventoryView';
 
-  get UpdateProduct => 'Updating a product';
+  get updateInventoryProduct => 'Updating a product in InventoryView';
 
-  get refreshingInventoryView_checkRefreshIndicator =>
-      'Refreshing page - Refresh-Indicator';
+  get refreshingInventoryView => 'Refreshing InventoryView';
 
-  get TapPageBackButton_InInventoryView => 'Testing OrderView BackButton';
+  get tapingBackButtonInInventoryView => 'Testing InventoryView BackButton';
 }

@@ -9,6 +9,7 @@ import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../app_tests_config.dart';
+import '../../../../data_builders/product_databuilder.dart';
 import '../../../../test_utils/view_test_utils.dart';
 import '../orders_test_config.dart';
 import 'orders_view_tests.dart';
@@ -25,36 +26,47 @@ class OrdersViewFunctionalTest {
     var _config = Get.put(OrdersTestConfig());
     final _viewTestUtils = Get.put(ViewTestUtils());
 
-    setUpAll(_viewTestUtils.globalSetUpAll);
+    setUpAll(() => _viewTestUtils.globalSetUpAll(_tests.runtimeType.toString()));
 
-    tearDownAll(_viewTestUtils.globalTearDownAll);
+    tearDownAll(() => _viewTestUtils.globalTearDownAll(_tests.runtimeType.toString()));
 
     setUp(() => _config.bindingsBuilderMockedRepo(execute: _unitTests));
 
     tearDown(Get.reset);
 
     testWidgets('${_config.OpenOrderView_NoneOrderInDB}', (tester) async {
+      if (_unitTests == false) {
+        await _viewTestUtils.removeDbCollection(tester, url: ORDERS_URL, delaySeconds: 1);
+        await _viewTestUtils.removeDbCollection(tester,
+            url: PRODUCTS_URL, delaySeconds: 1);
+        await _viewTestUtils.removeDbCollection(tester,
+            url: CART_ITEM_URL, delaySeconds: 1);
+      }
       _config.bindingsBuilderMockRepoEmptyDb(execute: _unitTests);
       _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
-
-      await _viewTestUtils.removeFromDb(tester, url: ORDERS_URL, delaySeconds: 1);
-      await _viewTestUtils.removeFromDb(tester, url: PRODUCTS_URL, delaySeconds: 1);
-      await _viewTestUtils.removeFromDb(tester, url: CART_ITEM_URL, delaySeconds: 1);
-
       await _tests.OpenOrderView_NoOrderInDB(tester, DELAY);
     });
 
     testWidgets('${_config.OrderingFromCartView_TapingTheButtonOrderNow}',
         (tester) async {
+
+      if (!_unitTests) {
+        await _viewTestUtils.addObjectInDb(tester,
+            object: ProductDataBuilder().ProductFullStaticNoId(),
+            delaySeconds: DELAY,
+            collectionUrl: PRODUCTS_URL,
+            qtdeObjects: 1);
+      }
+
       _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
 
-      _unitTests
-          ? isNull
-          : await _viewTestUtils.AddOneProductInDB(
-              tester,
-              delaySeconds: DELAY,
-              validTexts: true,
-            );
+      // _unitTests
+      //     ? isNull
+      //     : await _viewTestUtils.AddProductInDB(
+      //         tester,
+      //         delaySeconds: DELAY,
+      //         validTexts: true,
+      //       );
 
       await _tests.OrderingFromCartView_TapButtonOrderNow(tester, DELAY);
     });
@@ -70,7 +82,7 @@ class OrdersViewFunctionalTest {
       );
 
       _viewTestUtils.checkWidgetsQtdeInOneView(
-          widgetView: OrdersView, widgetElement: OrderCollapsableTile, widgetQtde: 1);
+          widgetView: OrdersView, widgetType: OrderCollapsableTile, widgetQtde: 1);
     });
 
     testWidgets('${_config.TapPageBackButton_InOrderView}', (tester) async {

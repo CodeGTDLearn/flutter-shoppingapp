@@ -51,7 +51,7 @@ class OrdersViewTests {
 
     _viewTestUtils.checkWidgetsQtdeInOneView(
       widgetView: OrdersView,
-      widgetElement: OrderCollapsableTile,
+      widgetType: OrderCollapsableTile,
       widgetQtde: 1,
     );
 
@@ -69,6 +69,7 @@ class OrdersViewTests {
     WidgetTester tester,
     int delaySeconds,
   ) async {
+
     await _viewTestUtils.openDrawerAndClickAnOption(
       tester,
       delaySeconds: delaySeconds,

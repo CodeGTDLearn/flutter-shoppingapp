@@ -23,7 +23,7 @@ class InventoryViewTests {
 
   // final _prods = ProductsMockedDatasource().products();
 
-  Future tapingViewBackButton_In_InventoryView(tester) async {
+  Future tapingBackButtonInInventoryView(tester) async {
     await _viewTestUtils.navigationBetweenViews(
       tester,
       from: InventoryView,
@@ -33,11 +33,10 @@ class InventoryViewTests {
     );
   }
 
-  Future OpenInventoryView_NoOrderInDB(
+  Future checkInventoryProductsAbsence(
     WidgetTester tester,
     int delaySeconds,
   ) async {
-
     await _viewTestUtils.openDrawerAndClickAnOption(
       tester,
       delaySeconds: delaySeconds,
@@ -48,7 +47,7 @@ class InventoryViewTests {
     _viewTestUtils.checkWidgetsQtdeInOneView(
       widgetView: InventoryView,
       widgetQtde: 0,
-      widgetElement: InventoryItem,
+      widgetType: InventoryItem,
     );
 
     expect(_seek.text(NO_INVENTORY_PRODUCTS_FOUND_YET), findsOneWidget);
@@ -62,12 +61,12 @@ class InventoryViewTests {
     );
   }
 
-  Future refreshingInventoryView_checkRefreshIndicator(tester) async {
+  Future refreshingInventoryView(tester) async {
     await tester.pump();
 
     _viewTestUtils.checkWidgetsQtdeInOneView(
       widgetView: OverviewView,
-      widgetElement: OverviewGridItem,
+      widgetType: OverviewGridItem,
       widgetQtde: 4,
     );
 
@@ -80,7 +79,7 @@ class InventoryViewTests {
 
     _viewTestUtils.checkWidgetsQtdeInOneView(
       widgetView: InventoryView,
-      widgetElement: InventoryItem,
+      widgetType: InventoryItem,
       widgetQtde: 4,
     );
 
@@ -93,7 +92,7 @@ class InventoryViewTests {
     expect(_seek.type(RefreshIndicator), findsNWidgets(1));
   }
 
-  Future updateProduct(tester) async {
+  Future updateInventoryProduct(tester) async {
     await tester.pump();
 
     var newTitle = 'xxxxxx';
@@ -103,7 +102,7 @@ class InventoryViewTests {
 
         _viewTestUtils.checkWidgetsQtdeInOneView(
       widgetView: OverviewView,
-      widgetElement: OverviewGridItem,
+      widgetType: OverviewGridItem,
       widgetQtde: 4,
     );
 
@@ -116,7 +115,7 @@ class InventoryViewTests {
 
     _viewTestUtils.checkWidgetsQtdeInOneView(
       widgetView: InventoryView,
-      widgetElement: InventoryItem,
+      widgetType: InventoryItem,
       widgetQtde: 4,
     );
 
@@ -179,11 +178,12 @@ class InventoryViewTests {
     expect(_seek.text(newTitle), findsOneWidget);
   }
 
-  Future deleteProduct(
+  Future deleteInventoryProduct(
     tester, {
     int initialQtde,
     int finalQtde,
     String keyTrigger,
+    Type widgetType,
   }) async {
     await tester.pump();
 
@@ -196,8 +196,8 @@ class InventoryViewTests {
 
     _viewTestUtils.checkWidgetsQtdeInOneView(
       widgetView: InventoryView,
-      widgetElement: InventoryItem,
       widgetQtde: initialQtde,
+      widgetType: widgetType,
     );
 
     await tester.tap(_seek.key(keyTrigger));
@@ -206,8 +206,8 @@ class InventoryViewTests {
 
     _viewTestUtils.checkWidgetsQtdeInOneView(
       widgetView: InventoryView,
-      widgetElement: InventoryItem,
       widgetQtde: finalQtde,
+      widgetType: widgetType,
     );
 
     _viewTestUtils.navigationBetweenViews(
@@ -221,11 +221,11 @@ class InventoryViewTests {
     _viewTestUtils.checkWidgetsQtdeInOneView(
       widgetView: OverviewView,
       widgetQtde: 1,
-      widgetElement: OverviewGridItem,
+      widgetType: OverviewGridItem,
     );
   }
 
-  Future checkProductsInInventoryView(tester, int ProductsQtde) async {
+  Future checkInventoryProducts(tester, int ProductsQtde) async {
     await tester.pump();
 
     await _viewTestUtils.openDrawerAndClickAnOption(
@@ -237,7 +237,7 @@ class InventoryViewTests {
 
     _viewTestUtils.checkWidgetsQtdeInOneView(
       widgetView: InventoryView,
-      widgetElement: InventoryItem,
+      widgetType: InventoryItem,
       widgetQtde: ProductsQtde,
     );
   }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -15,10 +17,10 @@ import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'test_utils.dart';
 
 class ViewTestUtils {
-  final _seek = TestUtils();
+  final _seek = Get.put(TestUtils());
 
-  Future AddOneProductInDB(
-    WidgetTester tester,{
+  Future AddProductInDB(
+    WidgetTester tester, {
     int delaySeconds,
     bool validTexts,
     int qtde,
@@ -145,21 +147,61 @@ class ViewTestUtils {
 
   void checkWidgetsQtdeInOneView({
     Type widgetView,
-    Type widgetElement,
+    Type widgetType,
     int widgetQtde,
   }) {
     expect(_seek.type(widgetView), findsOneWidget);
     expect(
-      _seek.type(widgetElement),
+      _seek.type(widgetType),
       widgetQtde == 0 ? findsNothing : findsWidgets,
     );
   }
 
-  Future removeFromDb(tester, {String url, int delaySeconds}) async {
+  Future removeDbCollection(
+    tester, {
+    String url,
+    int delaySeconds,
+  }) async {
     await tester.pumpAndSettle(_seek.delay(delaySeconds));
     http.delete("$url").then((response) {
       print('Removing Db Collection: $url |Status: ${response.statusCode}');
     });
+  }
+
+  Future<Map<dynamic, dynamic>> addObjectInDb(
+    tester, {
+    var object,
+    String collectionUrl,
+    int delaySeconds,
+    int qtdeObjects,
+  }) async {
+    await tester.pumpAndSettle(_seek.delay(delaySeconds));
+
+    var returnMap = {};
+    qtdeObjects ??= 1;
+    for (var i = 1; i <= qtdeObjects; i++) {
+      // @formatter:off
+       http
+        .post(collectionUrl, body: jsonEncode(object.toJson()))
+        .then((response) {
+              //PlainText/Firebase(jsonEncode) ==> Json(Map) ==> Product
+              var plainText = response.body;
+              Map<String, dynamic> json = jsonDecode(plainText);
+              object.id = json['name'];
+
+              print('  \n Adding in Db - Object n° $i \n'
+                    ' - URL: $collectionUrl\n'
+                    ' - ObjectType: ${object.runtimeType.toString()}\n'
+                    ' - Status: ${response.statusCode}\n ');
+
+              returnMap.addAll({'position':i.toString(),'object':object});
+
+              })
+        .catchError((onError) => throw onError);
+      // @formatter:on
+    }
+
+    return returnMap;
   }
 
   Future sendAppToBackground({int delaySeconds}) async {
@@ -169,12 +211,20 @@ class ViewTestUtils {
     });
   }
 
-  void globalSetUpAll() {
-    print('>=======> Starting the FunctionalTests <=======<');
+  void globalSetUpAll(String testModuleName) {
+    print('\n \n \n'
+        '\n>>=========================================================>>\n'
+        '>>=========================================================>>\n'
+        '>====> Starting FunctionalTests: $testModuleName \n'
+        '>----------------------------------------------------------->\n');
   }
 
-  void globalTearDownAll() {
-    print('>=======> All Tests DONE <=======<');
+  void globalTearDownAll(String testModuleName) {
+    print('\n<-----------------------------------------------------------<\n'
+        '<====< Concluding FunctionalTests: $testModuleName \n'
+        '<<=========================================================<<\n'
+        '<<=========================================================<<\n'
+        '\n \n \n');
     Get.reset;
   }
 }
