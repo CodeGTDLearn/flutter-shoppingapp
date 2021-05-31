@@ -21,8 +21,6 @@ class InventoryViewTests {
   final _seek = Get.put(TestUtils());
   final _viewTestUtils = Get.put(ViewTestUtils());
 
-  // final _prods = ProductsMockedDatasource().products();
-
   Future tapingBackButtonInInventoryView(tester) async {
     await _viewTestUtils.navigationBetweenViews(
       tester,
@@ -182,8 +180,8 @@ class InventoryViewTests {
     tester, {
     int initialQtde,
     int finalQtde,
-    String keyTrigger,
-    Type widgetType,
+    String keyDeleteButton,
+    Type widgetTypeToDelete,
   }) async {
     await tester.pump();
 
@@ -197,20 +195,20 @@ class InventoryViewTests {
     _viewTestUtils.checkWidgetsQtdeInOneView(
       widgetView: InventoryView,
       widgetQtde: initialQtde,
-      widgetType: widgetType,
+      widgetType: widgetTypeToDelete,
     );
 
-    await tester.tap(_seek.key(keyTrigger));
+    await tester.tap(_seek.key(keyDeleteButton));
     await tester.pump();
     await tester.pumpAndSettle(_seek.delay(DELAY));
 
     _viewTestUtils.checkWidgetsQtdeInOneView(
       widgetView: InventoryView,
       widgetQtde: finalQtde,
-      widgetType: widgetType,
+      widgetType: widgetTypeToDelete,
     );
 
-    _viewTestUtils.navigationBetweenViews(
+    await _viewTestUtils.navigationBetweenViews(
       tester,
       delaySeconds: DELAY,
       from: InventoryView,

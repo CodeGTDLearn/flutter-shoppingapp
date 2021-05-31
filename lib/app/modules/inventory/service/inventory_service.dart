@@ -76,18 +76,25 @@ class InventoryService implements IInventoryService {
 
   @override
   Future<int> deleteProduct(String id) {
+    // @formatter:off
     final _index =
         _localInventoryProducts.indexWhere((item) => item.id == id);
+
     var _rollbackDataSavingProducts = [..._localInventoryProducts];
+
     _localInventoryProducts.removeAt(_index);
+
     _orderDataSavingLists();
-    return repo.deleteProduct(id).then((statusCode) {
-      if (statusCode >= 400) {
-        _localInventoryProducts = _rollbackDataSavingProducts;
-        _orderDataSavingLists();
-      }
-      return statusCode;
-    });
+
+    return repo
+            .deleteProduct(id)
+            .then((statusCode) {
+                if (statusCode >= 400) {
+                    _localInventoryProducts = _rollbackDataSavingProducts;
+                    _orderDataSavingLists();
+                  }
+               return statusCode;});
+    // @formatter:oN
   }
 
   @override

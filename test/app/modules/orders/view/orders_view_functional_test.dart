@@ -24,11 +24,11 @@ class OrdersViewFunctionalTest {
   void functional() {
     var _tests = Get.put(OrdersViewTests());
     var _config = Get.put(OrdersTestConfig());
-    final _viewTestUtils = Get.put(ViewTestUtils());
+    final _testUtils = Get.put(ViewTestUtils());
 
-    setUpAll(() => _viewTestUtils.globalSetUpAll(_tests.runtimeType.toString()));
+    setUpAll(() => _testUtils.globalSetUpAll(_tests.runtimeType.toString()));
 
-    tearDownAll(() => _viewTestUtils.globalTearDownAll(_tests.runtimeType.toString()));
+    tearDownAll(() => _testUtils.globalTearDownAll(_tests.runtimeType.toString()));
 
     setUp(() => _config.bindingsBuilderMockedRepo(execute: _unitTests));
 
@@ -36,10 +36,10 @@ class OrdersViewFunctionalTest {
 
     testWidgets('${_config.OpenOrderView_NoneOrderInDB}', (tester) async {
       if (_unitTests == false) {
-        await _viewTestUtils.removeDbCollection(tester, url: ORDERS_URL, delaySeconds: 1);
-        await _viewTestUtils.removeDbCollection(tester,
+        await _testUtils.removeDbCollection(tester, url: ORDERS_URL, delaySeconds: 1);
+        await _testUtils.removeDbCollection(tester,
             url: PRODUCTS_URL, delaySeconds: 1);
-        await _viewTestUtils.removeDbCollection(tester,
+        await _testUtils.removeDbCollection(tester,
             url: CART_ITEM_URL, delaySeconds: 1);
       }
       _config.bindingsBuilderMockRepoEmptyDb(execute: _unitTests);
@@ -49,20 +49,20 @@ class OrdersViewFunctionalTest {
 
     testWidgets('${_config.OrderingFromCartView_TapingTheButtonOrderNow}',
         (tester) async {
-
       if (!_unitTests) {
-        await _viewTestUtils.addObjectInDb(tester,
-            object: ProductDataBuilder().ProductFullStaticNoId(),
-            delaySeconds: DELAY,
-            collectionUrl: PRODUCTS_URL,
-            qtdeObjects: 1);
+        await _testUtils.addObjectInDb(
+          tester,
+          object: ProductDataBuilder().ProductFullStaticNoId(),
+          delaySeconds: DELAY,
+          collectionUrl: PRODUCTS_URL,
+        );
       }
 
       _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
 
       // _unitTests
       //     ? isNull
-      //     : await _viewTestUtils.AddProductInDB(
+      //     : await _testUtils.AddProductInDB(
       //         tester,
       //         delaySeconds: DELAY,
       //         validTexts: true,
@@ -74,21 +74,21 @@ class OrdersViewFunctionalTest {
     testWidgets('${_config.OpenOrderView_OneOrderInDB}', (tester) async {
       _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
 
-      await _viewTestUtils.openDrawerAndClickAnOption(
+      await _testUtils.openDrawerAndClickAnOption(
         tester,
         delaySeconds: DELAY,
         keyOption: DRAWER_ORDER_OPTION_KEY,
         scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
       );
 
-      _viewTestUtils.checkWidgetsQtdeInOneView(
+      _testUtils.checkWidgetsQtdeInOneView(
           widgetView: OrdersView, widgetType: OrderCollapsableTile, widgetQtde: 1);
     });
 
     testWidgets('${_config.TapPageBackButton_InOrderView}', (tester) async {
       _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
 
-      await _viewTestUtils.openDrawerAndClickAnOption(
+      await _testUtils.openDrawerAndClickAnOption(
         tester,
         delaySeconds: DELAY,
         keyOption: DRAWER_ORDER_OPTION_KEY,

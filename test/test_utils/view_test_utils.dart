@@ -168,41 +168,62 @@ class ViewTestUtils {
     });
   }
 
-  Future<Map<dynamic, dynamic>> addObjectInDb(
+  Future addObjectInDb(
     tester, {
     var object,
     String collectionUrl,
     int delaySeconds,
-    int qtdeObjects,
   }) async {
     await tester.pumpAndSettle(_seek.delay(delaySeconds));
 
-    var returnMap = {};
-    qtdeObjects ??= 1;
-    for (var i = 1; i <= qtdeObjects; i++) {
-      // @formatter:off
-       http
-        .post(collectionUrl, body: jsonEncode(object.toJson()))
+    // @formatter:off
+    return
+         http.post(collectionUrl, body: jsonEncode(object.toJson()))
         .then((response) {
-              //PlainText/Firebase(jsonEncode) ==> Json(Map) ==> Product
-              var plainText = response.body;
-              Map<String, dynamic> json = jsonDecode(plainText);
-              object.id = json['name'];
+               //PlainText/Firebase(jsonEncode) ==> Json(Map) ==> Product
+               var plainText = response.body;
+               Map<String, dynamic> json = jsonDecode(plainText);
+               object.id = json['name'];
 
-              print('  \n Adding in Db - Object n° $i \n'
-                    ' - URL: $collectionUrl\n'
-                    ' - ObjectType: ${object.runtimeType.toString()}\n'
-                    ' - Status: ${response.statusCode}\n ');
+               print('  \n Adding in Db - Object ID° ${object.id} \n'
+                     ' - URL: $collectionUrl\n'
+                     ' - ObjectType: ${object.runtimeType.toString()}\n'
+                     ' - Status: ${response.statusCode}\n ');
 
-              returnMap.addAll({'position':i.toString(),'object':object});
-
+               return object;
               })
         .catchError((onError) => throw onError);
-      // @formatter:on
-    }
-
-    return returnMap;
+    // @formatter:on
   }
+
+  // Future<List<Object>> _addMultipleObjectsInDb(
+  //     tester, {
+  //       var object,
+  //       String url,
+  //       int delaySeconds,
+  //       int qtdeObjects,
+  //     }) async {
+  //   // await tester.pumpAndSettle(_seek.delay(delaySeconds));
+  //   // var listReturn = <Product>[];
+  //
+  //   var listReturn;
+  //
+  //   qtdeObjects ??= 1;
+  //   for (var i = 1; i <= qtdeObjects; i++) {
+  //     await _testUtils
+  //         .addObjectInDb(tester,
+  //         // object: ProductDataBuilder().ProductFullStaticNoId(),
+  //         object: object,
+  //         delaySeconds: DELAY,
+  //         // collectionUrl: PRODUCTS_URL)
+  //         collectionUrl: url)
+  //         .then((object) {
+  //       listReturn.add(object);
+  //     });
+  //   }
+  //
+  //   return Future.value(listReturn);
+  // }
 
   Future sendAppToBackground({int delaySeconds}) async {
     await Future.delayed(Duration(seconds: delaySeconds), () {
@@ -212,19 +233,35 @@ class ViewTestUtils {
   }
 
   void globalSetUpAll(String testModuleName) {
-    print('\n \n \n'
+    print('\n '
+        '\n>>=========================================================>>'
+        '\n>>=========================================================>>'
+        '\n>====> Starting FunctionalTests: $testModuleName'
+        '\n>>=========================================================>>'
         '\n>>=========================================================>>\n'
-        '>>=========================================================>>\n'
-        '>====> Starting FunctionalTests: $testModuleName \n'
-        '>----------------------------------------------------------->\n');
+        '\n \n \n');
   }
 
   void globalTearDownAll(String testModuleName) {
-    print('\n<-----------------------------------------------------------<\n'
+    print('\n<<=========================================================<<\n'
+        '<<=========================================================<<\n'
         '<====< Concluding FunctionalTests: $testModuleName \n'
         '<<=========================================================<<\n'
         '<<=========================================================<<\n'
         '\n \n \n');
     Get.reset;
+  }
+
+  void globalSetUp(String testModuleName) {
+    print(''
+        '>----------------------------------------------------------->\n'
+        '>-----> Test: $testModuleName >-----> \n');
+  }
+
+  void globalTearDown(String testModuleName) {
+    print('\n'
+        '<-----< Test: $testModuleName <-----< \n'
+        '<-----------------------------------------------------------<'
+        '\n \n \n');
   }
 }

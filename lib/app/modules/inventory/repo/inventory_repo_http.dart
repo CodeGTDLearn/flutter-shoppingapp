@@ -20,7 +20,6 @@ class InventoryRepoHttp implements IInventoryRepo {
     return http
             .post(PRODUCTS_URL, body: jsonEncode(product.toJson()))
             .then((response) {
-              //PlainText/Firebase(jsonEncode) ==> Json(Map) ==> Product
               var plainText = response.body;
                 Map<String, dynamic> json = jsonDecode(plainText);
                 product.id = json['name'];
@@ -30,17 +29,22 @@ class InventoryRepoHttp implements IInventoryRepo {
   }
 
   Future<int> updateProduct(Product product) {
+    final noExtensionInUpdates = PRODUCTS_URL.replaceAll('.json', '/');
     return http
-        .patch("$PRODUCTS_URL/${product.id}.json",
-            //Product(Object) => Json(.toJson) => PlainText/Firebase(jsonEncode)
+        .patch("$noExtensionInUpdates${product.id}.json",
             body: jsonEncode(product.toJson()))
         .then((response) => response.statusCode);
   }
 
   Future<int> deleteProduct(String id) {
+    // @formatter:off
+    final noExtensionInDeletions = PRODUCTS_URL.replaceAll('.json', '/');
     return http
-        .delete("$PRODUCTS_URL/$id.json")
-        .then((response) => response.statusCode);
+             .delete("$noExtensionInDeletions$id.json")
+             .then((response) {
+               return response.statusCode;
+             });
+    // @formatter:on
   }
 
   List<Product> _decodeResponse(Response response) {
