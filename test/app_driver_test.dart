@@ -22,17 +22,17 @@ void _testTypeNotFound() {
 }
 
 void _unitTests() {
-  CartTest().groups();
-  OrdersTest().groups();
-  OverviewTest().groups();
+  // CartTest().groups();
+  // OrdersTest().groups();
+  // OverviewTest().groups();
   InventoryTest().groups();
-  ComponentsTest().groups();
+  // ComponentsTest().groups();
 }
 
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  group('Orders|Integration-Tests: ',
-      OrdersViewFunctionalTest(testType: INTEGRATION_TEST).functional);
+  // group('Orders|Integration-Tests: ',
+  //     OrdersViewFunctionalTest(testType: INTEGRATION_TEST).functional);
   group('Inventory|Integration-Tests: ',
       InventoryViewFunctionalTests(testType: INTEGRATION_TEST).functional);
 }

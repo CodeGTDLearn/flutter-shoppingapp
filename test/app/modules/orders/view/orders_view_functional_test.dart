@@ -30,9 +30,15 @@ class OrdersViewFunctionalTest {
 
     tearDownAll(() => _testUtils.globalTearDownAll(_tests.runtimeType.toString()));
 
-    setUp(() => _config.bindingsBuilderMockedRepo(execute: _unitTests));
+    setUp(() {
+      _testUtils.globalSetUp("Starting...");
+      _config.bindingsBuilderMockedRepo(execute: _unitTests);
+    });
 
-    tearDown(Get.reset);
+    tearDown(() {
+      _testUtils.globalTearDown("...Ending");
+      Get.reset;
+    });
 
     testWidgets('${_config.OpenOrderView_NoneOrderInDB}', (tester) async {
       if (_unitTests == false) {
@@ -59,14 +65,6 @@ class OrdersViewFunctionalTest {
       }
 
       _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
-
-      // _unitTests
-      //     ? isNull
-      //     : await _testUtils.AddProductInDB(
-      //         tester,
-      //         delaySeconds: DELAY,
-      //         validTexts: true,
-      //       );
 
       await _tests.OrderingFromCartView_TapButtonOrderNow(tester, DELAY);
     });

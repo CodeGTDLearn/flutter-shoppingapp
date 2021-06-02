@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
-import 'package:shopingapp/app/core/texts_icons_provider/pages/inventory/inventory.dart';
 import 'package:shopingapp/app/modules/inventory/components/inventory_item.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 import 'package:shopingapp/app/modules/inventory/core/messages/field_form_validation_provided.dart';
@@ -90,90 +89,66 @@ class InventoryViewTests {
     expect(_seek.type(RefreshIndicator), findsNWidgets(1));
   }
 
-  Future updateInventoryProduct(tester) async {
+  Future updateInventoryProduct(
+    tester, {
+    String currentTitle,
+    String updatedTitle,
+    String keyUpdateButton,
+    int delaySeconds,
+  }) async {
     await tester.pump();
-
-    var newTitle = 'xxxxxx';
-    var newDesc = 'xxxxxxxxxxxx';
-    var updateButtonProduct1 =
-        // _seek.key('$INVENTORY_UPDATEITEM_BUTTON_KEY${_prods[0].id}');
-
-        _viewTestUtils.checkWidgetsQtdeInOneView(
-      widgetView: OverviewView,
-      widgetType: OverviewGridItem,
-      widgetQtde: 4,
-    );
 
     await _viewTestUtils.openDrawerAndClickAnOption(
       tester,
-      delaySeconds: 3,
+      delaySeconds: delaySeconds,
       keyOption: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
-    _viewTestUtils.checkWidgetsQtdeInOneView(
-      widgetView: InventoryView,
-      widgetType: InventoryItem,
-      widgetQtde: 4,
-    );
-
-    // 1) Managed Products Page
-    //   -> Click in 'First Product UpdateIcon'
-    //   -> Open ManagedProductsAddEditPage(Product 01)
-    await tester.tap(updateButtonProduct1);
+    // 1) InventoryView
+    //   -> Check 'CurrentTitle'
+    //   -> Click in 'UpdateButton'
+    //   -> Open InventoryAddEditView
+    expect(_seek.text(currentTitle), findsWidgets);
+    await tester.tap(_seek.key(keyUpdateButton));
     await tester.pump();
-    await tester.pumpAndSettle(_seek.delay(1));
+    await tester.pumpAndSettle(_seek.delay(delaySeconds));
 
-    // 2) ManagedProductsAddEditPage(Product 01)
-    //   -> Checking the titlePage
-    //   -> Page Form Fields
-    expect(InventoryAddEditView, findsOneWidget);
-    // expect(_seek.text(_prods[0].title), findsOneWidget);
+    // 2) InventoryAddEditView
+    //   -> Checking View + Title-Form-Field
+    expect(_seek.type(InventoryAddEditView), findsOneWidget);
+    expect(_seek.text(currentTitle), findsWidgets);
 
-    // 3) Change the product
-    //   -> Title
-    //   -> Description
-    await tester.tap(_seek.key(INVENTORY_ADDEDIT_FIELD_TITLE_KEY));
-    await tester.enterText(_seek.key(INVENTORY_ADDEDIT_FIELD_TITLE_KEY), newTitle);
-    await tester.tap(_seek.key(INVENTORY_ADDEDIT_FIELD_DESCRIPT_KEY));
-    await tester.enterText(_seek.key(INVENTORY_ADDEDIT_FIELD_DESCRIPT_KEY), newDesc);
+    // 3) InventoryAddEditView
+    //   -> Insert 'UpdatedValue' in Title-Page-Form-Field
+    //   -> Checking the change
+    await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY));
+    await tester.enterText(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY), updatedTitle);
     await tester.pump();
-    await tester.pump(_seek.delay(2));
+    await tester.pump(_seek.delay(delaySeconds));
+    expect(_seek.text(updatedTitle), findsOneWidget);
 
-    // 4) Checking
-    //   -> New title
-    //   -> New Desccription
-    //   -> Other fields
-    expect(_seek.text(newTitle), findsOneWidget);
-    // expect(_seek.text(_prods[0].price.toString()), findsOneWidget);
-    expect(_seek.text(newDesc), findsOneWidget);
-    // expect(_seek.text(_prods[0].imageUrl), findsOneWidget);
-
-    // 5) Save form
-    //   -> Test INValidation messages
-    //   -> Back to Managed Products Page
-    await tester.tap(_seek.key(INVENTORY_ADDEDIT_SAVEBUTTON_KEY));
+    // 4) Save form
+    //   -> Tap Saving (Backing to InventoryView automatically)
+    //   -> Test absence of INValidation messages
+    //   -> Checking UpdatedValue
+    await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
     await tester.pump();
-    await tester.pump(_seek.delay(4));
+    await tester.pump(_seek.delay(delaySeconds));
     expect(_seek.text(INVALID_TITLE_MSG), findsNothing);
-    expect(_seek.text(INVALID_PRICE_MSG), findsNothing);
-    expect(_seek.text(INVALID_DESCR_MSG), findsNothing);
-    expect(_seek.text(INVALID_URL_MSG), findsNothing);
+    expect(_seek.text(updatedTitle), findsOneWidget);
+    expect(_seek.type(InventoryView), findsOneWidget);
 
-    // 6) Managed Products Page
-    //   -> Checking the Updated Data
-    expect(InventoryAddEditView, findsNothing);
-    expect(_seek.text(INVENTORY_PAGE_TITLE), findsOneWidget);
-    expect(_seek.text(newTitle), findsOneWidget);
+    // 5) Click InventoryView-BackButton
+    //   -> Go to OverviewView + UpdatedValue
 
-    // 7) Click BackButton in Managed Products Page
-    //   -> Go to Overview Page
-    //   -> Checking the Updated Data in OverviewPage
-    expect(_seek.type(BackButton), findsOneWidget);
+    //todo: BUG Update - the key BACKbUTTON is being tapped; HOWEVER, it does not go to
+    // OverviewView
+    //THEREFORE: the test fail in find OverviewView
     await tester.tap(_seek.type(BackButton));
-    await tester.pumpAndSettle(_seek.delay(1));
+    await tester.pump(_seek.delay(delaySeconds));
     expect(_seek.type(OverviewView), findsOneWidget);
-    expect(_seek.text(newTitle), findsOneWidget);
+    expect(_seek.text(updatedTitle), findsOneWidget);
   }
 
   Future deleteInventoryProduct(

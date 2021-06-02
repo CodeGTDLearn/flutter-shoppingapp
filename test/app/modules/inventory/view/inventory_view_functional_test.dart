@@ -4,7 +4,6 @@ import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
 import 'package:shopingapp/app/core/properties/app_urls.dart';
 import 'package:shopingapp/app/modules/inventory/components/inventory_item.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
-import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app_driver.dart' as app;
@@ -31,31 +30,38 @@ class InventoryViewFunctionalTests {
     tearDownAll(() => _testUtils.globalTearDownAll(_tests.runtimeType.toString()));
 
     setUp(() {
-      _testUtils.globalSetUp("INICIA TEST");
+      _testUtils.globalSetUp("Starting...");
       _config.bindingsBuilderMockedRepo(execute: _unitTests);
     });
 
     tearDown(() {
-      _testUtils.globalTearDown("FINALIZA TEST");
+      _testUtils.globalTearDown("...Ending");
       Get.reset;
     });
 
     testWidgets('${_config.checkInventoryProductsAbsence}', (tester) async {
       if (_unitTests == false) await _cleanDb(tester);
       _config.bindingsBuilderMockedRepoEmptyDb(execute: _unitTests);
-      _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
 
+      _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
       await _tests.checkInventoryProductsAbsence(tester, DELAY);
-    });
+    }, skip: true);
 
     testWidgets('${_config.checkInventoryProducts}', (tester) async {
-      if (!_unitTests) await _addProductsInDb(tester, qtdeObjects: 2);
-      _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      if (!_unitTests) {
+        await _cleanDb(tester);
+        await _testUtils.addObjectsInDb(tester,
+            qtdeObjects: 2,
+            collectionUrl: PRODUCTS_URL,
+            object: ProductDataBuilder().ProductFullStaticNoId(),
+            delaySeconds: DELAY);
+      }
 
+      _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
       _unitTests
           ? await _tests.checkInventoryProducts(tester, 4)
           : await _tests.checkInventoryProducts(tester, 2);
-    });
+    }, skip: true);
 
     testWidgets('${_config.deleteInventoryProduct}', (tester) async {
       var _products = [];
@@ -66,22 +72,50 @@ class InventoryViewFunctionalTests {
 
       if (!_unitTests) {
         await _cleanDb(tester);
-        await _addProductsInDb(tester, qtdeObjects: 2).then((value) => _products = value);
+        // await _addProductsInDb(tester, qtdeObjects: 2).then((value) => _prods = value);
+        await _testUtils
+            .addObjectsInDb(tester,
+                qtdeObjects: 2,
+                collectionUrl: PRODUCTS_URL,
+                object: ProductDataBuilder().ProductFullStaticNoId(),
+                delaySeconds: DELAY)
+            .then((value) => _products = value);
       }
 
       _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
-
       await _tests.deleteInventoryProduct(tester,
           initialQtde: 2,
           finalQtde: 1,
           keyDeleteButton: '$INVENTORY_DELETEITEM_BUTTON_KEY${_products[0].id}',
           widgetTypeToDelete: InventoryItem);
-    });
+    }, skip: true);
 
     testWidgets('${_config.updateInventoryProduct}', (tester) async {
+      var _prods = [];
+
+      if (_unitTests) {
+        Get.find<IOverviewService>().getProducts().then((value) => _prods = value);
+      }
+
+      if (!_unitTests) {
+        await _cleanDb(tester);
+        await _testUtils
+            .addObjectsInDb(tester,
+                qtdeObjects: 2,
+                collectionUrl: PRODUCTS_URL,
+                object: ProductDataBuilder().ProductFullStaticNoId(),
+                delaySeconds: DELAY)
+            .then((value) => _prods = value);
+      }
+
       _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
-      await _tests.updateInventoryProduct(tester);
-    }, skip: true);
+      await _tests.updateInventoryProduct(tester,
+          currentTitle: _prods[0].title,
+          updatedTitle: "XXXXXX",
+          delaySeconds: DELAY,
+          keyUpdateButton: '$INVENTORY_UPDATEITEM_BUTTON_KEY${_prods[0].id}');
+
+    });
 
     testWidgets('${_config.refreshingInventoryView}', (tester) async {
       _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
@@ -90,7 +124,6 @@ class InventoryViewFunctionalTests {
 
     testWidgets('${_config.tapingBackButtonInInventoryView}', (tester) async {
       _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
-
       await _testUtils.openDrawerAndClickAnOption(
         tester,
         delaySeconds: DELAY,
@@ -99,28 +132,7 @@ class InventoryViewFunctionalTests {
       );
 
       await _tests.tapingBackButtonInInventoryView(tester);
-    });
-  }
-
-  Future<List<Product>> _addProductsInDb(
-    tester, {
-    int qtdeObjects,
-  }) async {
-    var listReturn = <Product>[];
-
-    qtdeObjects ??= 1;
-    for (var i = 1; i <= qtdeObjects; i++) {
-      await _testUtils
-          .addObjectInDb(tester,
-              object: ProductDataBuilder().ProductFullStaticNoId(),
-              delaySeconds: DELAY,
-              collectionUrl: PRODUCTS_URL)
-          .then((object) {
-        listReturn.add(object);
-      });
-    }
-
-    return Future.value(listReturn);
+    }, skip: true);
   }
 
   Future _cleanDb(tester) async {

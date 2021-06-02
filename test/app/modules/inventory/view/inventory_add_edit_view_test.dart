@@ -58,25 +58,25 @@ class InventoryAddEditViewTests {
       expect(_seek.text(INVENTORY_ADDEDIT_IMAGE_TITLE), findsOneWidget);
 
       await tester.enterText(
-        _seek.key(INVENTORY_ADDEDIT_FIELD_TITLE_KEY),
+        _seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY),
         testUsingValidTexts ? fakeTitle : invalidText,
       );
       await tester.enterText(
-        _seek.key(INVENTORY_ADDEDIT_FIELD_PRICE_KEY),
+        _seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY),
         testUsingValidTexts ? fakePrice : invalidText,
       );
       await tester.enterText(
-        _seek.key(INVENTORY_ADDEDIT_FIELD_DESCRIPT_KEY),
+        _seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY),
         testUsingValidTexts ? fakeDesc : invalidText,
       );
       await tester.enterText(
-        _seek.key(INVENTORY_ADDEDIT_FIELD_URL_KEY),
+        _seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY),
         testUsingValidTexts ? fakeImgUrl : invalidText,
       );
 
       await tester.pumpAndSettle(_seek.delay(2));
 
-      await tester.tap(_seek.key(INVENTORY_ADDEDIT_SAVEBUTTON_KEY));
+      await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
       await tester.pump();
       await tester.pump(_seek.delay(2));
     }
@@ -130,14 +130,14 @@ class InventoryAddEditViewTests {
       await tester.pumpAndSettle(_seek.delay(2));
 
       _seek.imagesTotal(0);
-      await tester.tap(_seek.key(INVENTORY_ADDEDIT_FIELD_URL_KEY));
+      await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY));
       await tester.enterText(
-        _seek.key(INVENTORY_ADDEDIT_FIELD_URL_KEY),
+        _seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY),
         "https://images.freeimages"
         ".com/images/large-previews/eae/clothes-3-1466560.jpg",
       );
       await tester.pumpAndSettle(_seek.delay(2));
-      await tester.tap(_seek.key(INVENTORY_ADDEDIT_FIELD_DESCRIPT_KEY));
+      await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY));
       await tester.pumpAndSettle(_seek.delay(2));
       _seek.imagesTotal(1);
     });

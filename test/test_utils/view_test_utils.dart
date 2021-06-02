@@ -58,22 +58,22 @@ class ViewTestUtils {
 
       invalidText = "d";
       await tester.enterText(
-        _seek.key(INVENTORY_ADDEDIT_FIELD_TITLE_KEY),
+        _seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY),
         validTexts ? "Red Tomatoes" : invalidText,
       );
 
       await tester.enterText(
-        _seek.key(INVENTORY_ADDEDIT_FIELD_PRICE_KEY),
+        _seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY),
         validTexts ? (99.99).toString() : invalidText,
       );
 
       await tester.enterText(
-        _seek.key(INVENTORY_ADDEDIT_FIELD_DESCRIPT_KEY),
+        _seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY),
         validTexts ? "The best Red tomatoes ever. It is super red!" : invalidText,
       );
 
       await tester.enterText(
-        _seek.key(INVENTORY_ADDEDIT_FIELD_URL_KEY),
+        _seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY),
         validTexts
             ? "https://images.freeimages.com/images/large-previews/294/tomatoes-1326096.jpg"
             : invalidText,
@@ -85,7 +85,7 @@ class ViewTestUtils {
       await tapButtonWithResult(
         tester,
         delaySeconds: delaySeconds,
-        keyWidgetTrigger: INVENTORY_ADDEDIT_SAVEBUTTON_KEY,
+        keyWidgetTrigger: INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY,
         typeWidgetResult: InventoryItem,
       );
 
@@ -104,7 +104,7 @@ class ViewTestUtils {
     Get.delete(tag: 'localTestUtilsInstance');
   }
 
-  Future navigationBetweenViews(
+  void navigationBetweenViews(
     WidgetTester tester, {
     int delaySeconds,
     Type from,
@@ -113,7 +113,7 @@ class ViewTestUtils {
   }) async {
     expect(_seek.type(from), findsOneWidget);
     await tester.tap(_seek.type(trigger));
-    // await tester.pump();
+    await tester.pump();
     await tester.pumpAndSettle(_seek.delay(delaySeconds));
     expect(_seek.type(to), findsOneWidget);
   }
@@ -196,34 +196,32 @@ class ViewTestUtils {
     // @formatter:on
   }
 
-  // Future<List<Object>> _addMultipleObjectsInDb(
-  //     tester, {
-  //       var object,
-  //       String url,
-  //       int delaySeconds,
-  //       int qtdeObjects,
-  //     }) async {
-  //   // await tester.pumpAndSettle(_seek.delay(delaySeconds));
-  //   // var listReturn = <Product>[];
-  //
-  //   var listReturn;
-  //
-  //   qtdeObjects ??= 1;
-  //   for (var i = 1; i <= qtdeObjects; i++) {
-  //     await _testUtils
-  //         .addObjectInDb(tester,
-  //         // object: ProductDataBuilder().ProductFullStaticNoId(),
-  //         object: object,
-  //         delaySeconds: DELAY,
-  //         // collectionUrl: PRODUCTS_URL)
-  //         collectionUrl: url)
-  //         .then((object) {
-  //       listReturn.add(object);
-  //     });
-  //   }
-  //
-  //   return Future.value(listReturn);
-  // }
+  Future<List<Object>> addObjectsInDb(
+    tester, {
+    int qtdeObjects,
+    Object object,
+    String collectionUrl,
+    int delaySeconds,
+  }) async {
+    var listReturn = <Object>[];
+    qtdeObjects ??= 1;
+
+    for (var item = 1; item <= qtdeObjects; item++) {
+      await addObjectInDb(
+        tester,
+        object: object,
+        delaySeconds: delaySeconds,
+        collectionUrl: collectionUrl,
+      ).then((responseObject) {
+        listReturn.add(responseObject);
+        // print('  \n Object N° $item \n'
+        //     ' - URL: $collectionUrl\n'
+        //     ' - ObjectType: ${responseObject.runtimeType.toString()}\n');
+      });
+    }
+
+    return Future.value(listReturn);
+  }
 
   Future sendAppToBackground({int delaySeconds}) async {
     await Future.delayed(Duration(seconds: delaySeconds), () {
@@ -255,11 +253,11 @@ class ViewTestUtils {
   void globalSetUp(String testModuleName) {
     print(''
         '>----------------------------------------------------------->\n'
-        '>-----> Test: $testModuleName >-----> \n');
+        '>-----> Test: $testModuleName >-----> \n \n');
   }
 
   void globalTearDown(String testModuleName) {
-    print('\n'
+    print('\n \n'
         '<-----< Test: $testModuleName <-----< \n'
         '<-----------------------------------------------------------<'
         '\n \n \n');
