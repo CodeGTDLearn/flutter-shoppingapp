@@ -6,6 +6,7 @@ import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
 import 'package:shopingapp/app/modules/inventory/components/inventory_item.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 import 'package:shopingapp/app/modules/inventory/core/messages/field_form_validation_provided.dart';
+import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/inventory/view/inventory_add_edit_view.dart';
 import 'package:shopingapp/app/modules/inventory/view/inventory_view.dart';
 import 'package:shopingapp/app/modules/overview/components/overview_grid_item.dart';
@@ -13,6 +14,7 @@ import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 
 import '../../../../app_tests_config.dart';
+import '../../../../mocked_datasource/products_mocked_datasource.dart';
 import '../../../../test_utils/test_utils.dart';
 import '../../../../test_utils/view_test_utils.dart';
 
@@ -91,12 +93,16 @@ class InventoryViewTests {
 
   Future updateInventoryProduct(
     tester, {
-    String currentTitle,
+    // String currentTitle,
     String updatedTitle,
-    String keyUpdateButton,
+    // String keyUpdateButton,
     int delaySeconds,
+    bool useValidTexts,
+    Product productToBeUpdated,
+    bool isUnitTest,
   }) async {
-    await tester.pump();
+    var keyUpdateButton =
+        _seek.key('$INVENTORY_UPDATEITEM_BUTTON_KEY${productToBeUpdated.id}');
 
     await _viewTestUtils.openDrawerAndClickAnOption(
       tester,
@@ -109,46 +115,60 @@ class InventoryViewTests {
     //   -> Check 'CurrentTitle'
     //   -> Click in 'UpdateButton'
     //   -> Open InventoryAddEditView
-    expect(_seek.text(currentTitle), findsWidgets);
-    await tester.tap(_seek.key(keyUpdateButton));
-    await tester.pump();
-    await tester.pumpAndSettle(_seek.delay(delaySeconds));
+    expect(_seek.type(InventoryView), findsOneWidget);
+    expect(_seek.text(productToBeUpdated.title), findsWidgets);
+    await tester.tap(keyUpdateButton);
+    await tester.pump(_seek.delay(delaySeconds));
 
     // 2) InventoryAddEditView
     //   -> Checking View + Title-Form-Field
+    await tester.pump();
     expect(_seek.type(InventoryAddEditView), findsOneWidget);
-    expect(_seek.text(currentTitle), findsWidgets);
+    expect(_seek.text(productToBeUpdated.title), findsWidgets);
 
-    // 3) InventoryAddEditView
-    //   -> Insert 'UpdatedValue' in Title-Page-Form-Field
-    //   -> Checking the change
-    await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY));
-    await tester.enterText(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY), updatedTitle);
-    await tester.pump();
-    await tester.pump(_seek.delay(delaySeconds));
-    expect(_seek.text(updatedTitle), findsOneWidget);
+    var cicles = useValidTexts ? 1 : 2;
+    for (var i = 1; i <= cicles; i++) {
+      updatedTitle =
+          useValidTexts || i == cicles ? updatedTitle : 'invalid * text * in / title';
 
-    // 4) Save form
-    //   -> Tap Saving (Backing to InventoryView automatically)
-    //   -> Test absence of INValidation messages
-    //   -> Checking UpdatedValue
-    await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
-    await tester.pump();
-    await tester.pump(_seek.delay(delaySeconds));
-    expect(_seek.text(INVALID_TITLE_MSG), findsNothing);
-    expect(_seek.text(updatedTitle), findsOneWidget);
-    expect(_seek.type(InventoryView), findsOneWidget);
+      // 3) InventoryAddEditView
+      //   -> Insert 'UpdatedValue' in Title-Page-Form-Field
+      //   -> Checking the change
+      await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY));
+      await tester.enterText(
+        _seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY),
+        updatedTitle,
+      );
+      await tester.pump(_seek.delay(delaySeconds));
 
-    // 5) Click InventoryView-BackButton
-    //   -> Go to OverviewView + UpdatedValue
+      // 4) Save form
+      //   -> Tap Saving (Backing to InventoryView automatically)
+      //   -> Test existence of INValidation messages
+      //   -> Go to InventoryView + Checking UpdatedValue
+      await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
+      await tester.pump(_seek.delay(delaySeconds));
+      expect(
+        _seek.text(INVALID_TITLE_MSG),
+        useValidTexts ? findsNothing : findsOneWidget,
+      );
+    }
 
-    //todo: BUG Update - the key BACKbUTTON is being tapped; HOWEVER, it does not go to
-    // OverviewView
-    //THEREFORE: the test fail in find OverviewView
-    await tester.tap(_seek.type(BackButton));
-    await tester.pump(_seek.delay(delaySeconds));
-    expect(_seek.type(OverviewView), findsOneWidget);
-    expect(_seek.text(updatedTitle), findsOneWidget);
+    if (!isUnitTest) {
+      await tester.pump(_seek.delay(delaySeconds));
+      expect(_seek.type(InventoryView), findsOneWidget);
+      expect(_seek.text(updatedTitle), findsOneWidget);
+
+      // 5) Click InventoryView-BackButton
+      //   -> Go to OverviewView + UpdatedValue
+      await _viewTestUtils.navigationBetweenViews(
+        tester,
+        delaySeconds: DELAY,
+        from: InventoryView,
+        to: OverviewView,
+        trigger: BackButton,
+      );
+      expect(_seek.text(updatedTitle), findsOneWidget);
+    }
   }
 
   Future deleteInventoryProduct(

@@ -10,25 +10,19 @@ import 'view/inventory_view_functional_test.dart';
 
 class InventoryTest {
   void groups() {
-    group(
-      "${InventoryTestConfig().REPO_TEST_TITLE}",
-      InventoryRepoTests.unit,
-    );
-    group(
-      "${InventoryTestConfig().SERVICE_TEST_TITLE}",
-      InventoryServiceTests.unit,
-    );
-    group(
-      "${InventoryTestConfig().CONTROLLER_TEST_TITLE}",
-      InventoryControllerTests.integration,
-    );
+    // group("${InventoryTestConfig().REPO_TEST_TITLE}", InventoryRepoTests.unit);
+    // group("${InventoryTestConfig().SERVICE_TEST_TITLE}", InventoryServiceTests.unit);
+    // group(
+    //   "${InventoryTestConfig().CONTROLLER_TEST_TITLE}",
+    //   InventoryControllerTests.integration,
+    // );
     group(
       "${InventoryTestConfig().VIEW_TEST_TITLE}",
       InventoryViewFunctionalTests(testType: UNIT_TEST).functional,
     );
-    group(
-      "${InventoryTestConfig().VIEW_ADDEDIT_TEST_TITLE}",
-      InventoryAddEditViewTests.functional,
-    );
+    // group(
+    //   "${InventoryTestConfig().VIEW_ADDEDIT_TEST_TITLE}",
+    //   InventoryAddEditViewTests.functional,
+    // );
   }
 }

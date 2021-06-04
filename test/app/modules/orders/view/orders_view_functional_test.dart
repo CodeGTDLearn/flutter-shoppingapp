@@ -65,7 +65,6 @@ class OrdersViewFunctionalTest {
       }
 
       _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
-
       await _tests.OrderingFromCartView_TapButtonOrderNow(tester, DELAY);
     });
 
