@@ -11,9 +11,9 @@ class ValidateTitle extends ValidationAbstraction {
   FormFieldValidator<String> validate() {
     return Validators.compose([
       Validators.required(EMPTY_FIELD),
-      Validators.patternString(SAFE_TEXT, INVALID_TEXT),
-      Validators.minLength(FIELD_TITLE_MIN_SIZE, INVALID_TITLE_MSG),
-      Validators.maxLength(FIELD_TITLE_MAX_SIZE, INVALID_TITLE_MSG)
+      Validators.patternString(SAFE_TEXT, INVALID_TEXT_MSG),
+      Validators.minLength(FIELD_TITLE_MIN_SIZE, INVALID_MSG_SIZE_05_10),
+      Validators.maxLength(FIELD_TITLE_MAX_SIZE, INVALID_MSG_SIZE_05_10)
     ]);
   }
 }

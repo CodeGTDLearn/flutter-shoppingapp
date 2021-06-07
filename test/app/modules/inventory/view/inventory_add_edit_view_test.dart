@@ -82,7 +82,7 @@ class InventoryAddEditViewTests {
     }
 
     void _expectTestingINValidationMessages(Matcher matcher) {
-      expect(_seek.text(INVALID_TITLE_MSG), matcher);
+      expect(_seek.text(INVALID_MSG_SIZE_05_10), matcher);
       expect(_seek.text(INVALID_PRICE_MSG), matcher);
       expect(_seek.text(INVALID_DESCR_MSG), matcher);
       expect(_seek.text(INVALID_URL_MSG), matcher);

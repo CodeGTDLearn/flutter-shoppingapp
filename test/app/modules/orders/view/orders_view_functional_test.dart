@@ -15,10 +15,10 @@ import '../orders_test_config.dart';
 import 'orders_view_tests.dart';
 
 class OrdersViewFunctionalTest {
-  bool _unitTests;
+  bool _unitTest;
 
   OrdersViewFunctionalTest({String testType}) {
-    _unitTests = testType == UNIT_TEST;
+    _unitTest = testType == UNIT_TEST;
   }
 
   void functional() {
@@ -32,7 +32,7 @@ class OrdersViewFunctionalTest {
 
     setUp(() {
       _testUtils.globalSetUp("Starting...");
-      _config.bindingsBuilderMockedRepo(execute: _unitTests);
+      _config.bindingsBuilderMockedRepo(execute: _unitTest);
     });
 
     tearDown(() {
@@ -41,21 +41,21 @@ class OrdersViewFunctionalTest {
     });
 
     testWidgets('${_config.OpenOrderView_NoneOrderInDB}', (tester) async {
-      if (_unitTests == false) {
+      if (_unitTest == false) {
         await _testUtils.removeDbCollection(tester, url: ORDERS_URL, delaySeconds: 1);
         await _testUtils.removeDbCollection(tester,
             url: PRODUCTS_URL, delaySeconds: 1);
         await _testUtils.removeDbCollection(tester,
             url: CART_ITEM_URL, delaySeconds: 1);
       }
-      _config.bindingsBuilderMockRepoEmptyDb(execute: _unitTests);
-      _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      _config.bindingsBuilderMockRepoEmptyDb(execute: _unitTest);
+      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
       await _tests.OpenOrderView_NoOrderInDB(tester, DELAY);
     });
 
     testWidgets('${_config.OrderingFromCartView_TapingTheButtonOrderNow}',
         (tester) async {
-      if (!_unitTests) {
+      if (!_unitTest) {
         await _testUtils.addObjectInDb(
           tester,
           object: ProductDataBuilder().ProductFullStaticNoId(),
@@ -64,12 +64,12 @@ class OrdersViewFunctionalTest {
         );
       }
 
-      _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
       await _tests.OrderingFromCartView_TapButtonOrderNow(tester, DELAY);
     });
 
     testWidgets('${_config.OpenOrderView_OneOrderInDB}', (tester) async {
-      _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
 
       await _testUtils.openDrawerAndClickAnOption(
         tester,
@@ -83,7 +83,7 @@ class OrdersViewFunctionalTest {
     });
 
     testWidgets('${_config.TapPageBackButton_InOrderView}', (tester) async {
-      _unitTests ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
 
       await _testUtils.openDrawerAndClickAnOption(
         tester,

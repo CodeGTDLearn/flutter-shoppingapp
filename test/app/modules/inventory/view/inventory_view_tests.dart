@@ -93,16 +93,19 @@ class InventoryViewTests {
 
   Future updateInventoryProduct(
     tester, {
-    // String currentTitle,
-    String updatedTitle,
-    // String keyUpdateButton,
+    String fieldInputText,
+    String fieldKey,
+    String fieldValidationMessage,
     int delaySeconds,
-    bool useValidTexts,
-    Product productToBeUpdated,
+    Product productToUpdate,
     bool isUnitTest,
   }) async {
+    delaySeconds ??= DELAY;
+
+    var checkInvalidInput = fieldValidationMessage != null ? true : false;
+
     var keyUpdateButton =
-        _seek.key('$INVENTORY_UPDATEITEM_BUTTON_KEY${productToBeUpdated.id}');
+        _seek.key('$INVENTORY_UPDATEITEM_BUTTON_KEY${productToUpdate.id}');
 
     await _viewTestUtils.openDrawerAndClickAnOption(
       tester,
@@ -116,7 +119,7 @@ class InventoryViewTests {
     //   -> Click in 'UpdateButton'
     //   -> Open InventoryAddEditView
     expect(_seek.type(InventoryView), findsOneWidget);
-    expect(_seek.text(productToBeUpdated.title), findsWidgets);
+    expect(_seek.text(productToUpdate.title), findsWidgets);
     await tester.tap(keyUpdateButton);
     await tester.pump(_seek.delay(delaySeconds));
 
@@ -124,39 +127,46 @@ class InventoryViewTests {
     //   -> Checking View + Title-Form-Field
     await tester.pump();
     expect(_seek.type(InventoryAddEditView), findsOneWidget);
-    expect(_seek.text(productToBeUpdated.title), findsWidgets);
+    expect(_seek.text(productToUpdate.title), findsWidgets);
 
-    var cicles = useValidTexts ? 1 : 2;
-    for (var i = 1; i <= cicles; i++) {
-      updatedTitle =
-          useValidTexts || i == cicles ? updatedTitle : 'invalid * text * in / title';
+    var cycles = checkInvalidInput ? 2 : 1;
+    for (var i = 1; i <= cycles; i++) {
+      if (checkInvalidInput) fieldInputText = i == 1 ? fieldInputText : 'textValid';
 
       // 3) InventoryAddEditView
-      //   -> Insert 'UpdatedValue' in Title-Page-Form-Field
+      //   -> Insert 'UpdatedValue' in Page-Form-Field
       //   -> Checking the change
-      await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY));
-      await tester.enterText(
-        _seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY),
-        updatedTitle,
-      );
+      // await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY));
+      await tester.tap(_seek.key(fieldKey));
+      await tester.enterText(_seek.key(fieldKey), fieldInputText);
+      // _seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY),
       await tester.pump(_seek.delay(delaySeconds));
 
       // 4) Save form
-      //   -> Tap Saving (Backing to InventoryView automatically)
+      //   -> Tap Saving:
+      //      - ONLY IN FUNCTIONAL-TESTS: Backing to InventoryView automatically
       //   -> Test existence of INValidation messages
       //   -> Go to InventoryView + Checking UpdatedValue
       await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
       await tester.pump(_seek.delay(delaySeconds));
-      expect(
-        _seek.text(INVALID_TITLE_MSG),
-        useValidTexts ? findsNothing : findsOneWidget,
-      );
+
+      if (checkInvalidInput && i == 1) {
+        expect(_seek.text(fieldValidationMessage), findsOneWidget);
+      }
+      await tester.pump(_seek.delay(delaySeconds));
     }
 
+    // 4.1) Save form
+    //   -> Tap Saving:
+    //      - UNIT-TESTS: DO NOT Backing to InventoryView automatically
+    //        - THEREFORE: _unitTests DOES NOT EXECUTE THIS 'TEST-PHASE', because:
+    //          - They uses MOCK-OBJECTS which are not 'PERSISTED' IN DB
+    //          - Without 'PERSISTENCE' in DB InventoryAddEditView does not GO-BACK
+    //          InventoryView automatically
     if (!isUnitTest) {
       await tester.pump(_seek.delay(delaySeconds));
       expect(_seek.type(InventoryView), findsOneWidget);
-      expect(_seek.text(updatedTitle), findsOneWidget);
+      expect(_seek.text(fieldInputText), findsOneWidget);
 
       // 5) Click InventoryView-BackButton
       //   -> Go to OverviewView + UpdatedValue
@@ -167,7 +177,7 @@ class InventoryViewTests {
         to: OverviewView,
         trigger: BackButton,
       );
-      expect(_seek.text(updatedTitle), findsOneWidget);
+      expect(_seek.text(fieldInputText), findsOneWidget);
     }
   }
 

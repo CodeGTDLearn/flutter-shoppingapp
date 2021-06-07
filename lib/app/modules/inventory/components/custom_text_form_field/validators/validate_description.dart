@@ -11,7 +11,7 @@ class ValidateDescription extends ValidationAbstraction {
   FormFieldValidator<String> validate() {
     return Validators.compose([
       Validators.required(EMPTY_FIELD),
-      Validators.patternString(SAFE_TEXT, INVALID_TEXT),
+      Validators.patternString(SAFE_TEXT, INVALID_TEXT_MSG),
       Validators.minLength(FIELD_DESC_MIN_SIZE, INVALID_DESCR_MSG),
       Validators.maxLength(FIELD_DESC_MAX_SIZE, INVALID_DESCR_MSG),
     ]);

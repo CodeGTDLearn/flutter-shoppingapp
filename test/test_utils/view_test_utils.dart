@@ -163,7 +163,7 @@ class ViewTestUtils {
     int delaySeconds,
   }) async {
     await tester.pumpAndSettle(_seek.delay(delaySeconds));
-    http.delete("$url").then((response) {
+    http.delete(Uri.parse("$url")).then((response) {
       print('Removing Db Collection: $url |Status: ${response.statusCode}');
     });
   }
@@ -178,7 +178,7 @@ class ViewTestUtils {
 
     // @formatter:off
     return
-         http.post(collectionUrl, body: jsonEncode(object.toJson()))
+         http.post(Uri.parse(collectionUrl), body: jsonEncode(object.toJson()))
         .then((response) {
                //PlainText/Firebase(jsonEncode) ==> Json(Map) ==> Product
                var plainText = response.body;

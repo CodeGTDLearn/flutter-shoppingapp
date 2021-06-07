@@ -21,14 +21,14 @@ const CART_QUIT_AFTER_ALL_DELETIONS = "There is no products in cart anymore.";
 const DATABASE_EMPTY_NO_DATA_YET = 'There is no products to display.';
 
 //Field Form Validation
-const VALIDATION_FIELD_SHOULD_BE_FILLED = "Please, fullfill the field.";
-const VALIDATION_PROVIDE_THE_CORRECT_FORMAT_NUMBER = "Please, provide a proper value.";
-const VALIDATION_ONLY_TEXTS_AND_NUMBER = "Please, only text and number are allowed.";
+const VALIDATION_MESSAGE_FILLED_FIELD = "Please, fill the field.";
+const VALIDATION_MESSAGE_FORMAT_NUMBER = "Please, provide a proper value.";
+const VALIDATION_MESSAGE_ONLY_TEXTS_AND_NUMBER = "Please, only text and number are allowed.";
 
-const VALIDATION_PROVIDE_THE_CORRECT_PRICE_FORMAT = "Please, proper price.";
-const VALIDATION_PROVIDE_THE_CORRECT_URL_FORMAT = "Please, provide proper URL.";
-const VALIDATION_PROVIDE_THE_TITLE_FIELD_MINIMAL_SIZE = "Allowed: 05 to 10 characters.";
-const VALIDATION_PROVIDE_THE_DESCRIPTION_FIELD_MINIMAL_SIZE = "Allowed: 10 to 30 characters.";
+const VALIDATION_MESSAGE_PRICE_FORMAT = "Please, proper price.";
+const VALIDATION_MESSAGE_URL_FORMAT = "Please, provide proper URL.";
+const VALIDATION_MESSAGE_SIZE_05_10 = "Allowed: 05 to 10 characters.";
+const VALIDATION_MESSAGE_SIZE_10_30 = "Allowed: 10 to 30 characters.";
 
 //CUSTOM CIRCULAR PROGRESS INDICATOR
 const NO_ORDERS_FOUND_YET = "There is no Orders, yet";

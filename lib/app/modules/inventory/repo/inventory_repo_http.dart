@@ -10,7 +10,7 @@ import 'i_inventory_repo.dart';
 class InventoryRepoHttp implements IInventoryRepo {
   Future<List<Product>> getProducts() {
     return http
-        .get(PRODUCTS_URL, headers: {"Accept": "application/json"})
+        .get(Uri.parse(PRODUCTS_URL), headers: {"Accept": "application/json"})
         .then(_decodeResponse)
         .catchError((onError) => throw onError);
   }
@@ -18,7 +18,7 @@ class InventoryRepoHttp implements IInventoryRepo {
   Future<Product> addProduct(Product product) {
     // @formatter:off
     return http
-            .post(PRODUCTS_URL, body: jsonEncode(product.toJson()))
+            .post(Uri.parse(PRODUCTS_URL), body: jsonEncode(product.toJson()))
             .then((response) {
               var plainText = response.body;
                 Map<String, dynamic> json = jsonDecode(plainText);
@@ -31,7 +31,7 @@ class InventoryRepoHttp implements IInventoryRepo {
   Future<int> updateProduct(Product product) {
     final noExtensionInUpdates = PRODUCTS_URL.replaceAll('.json', '/');
     return http
-        .patch("$noExtensionInUpdates${product.id}.json",
+        .patch(Uri.parse("$noExtensionInUpdates${product.id}.json"),
             body: jsonEncode(product.toJson()))
         .then((response) => response.statusCode);
   }
@@ -40,7 +40,7 @@ class InventoryRepoHttp implements IInventoryRepo {
     // @formatter:off
     final noExtensionInDeletions = PRODUCTS_URL.replaceAll('.json', '/');
     return http
-             .delete("$noExtensionInDeletions$id.json")
+             .delete(Uri.parse("$noExtensionInDeletions$id.json"))
              .then((response) {
                return response.statusCode;
              });

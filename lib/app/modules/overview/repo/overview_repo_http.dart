@@ -12,7 +12,7 @@ class OverviewRepoHttp implements IOverviewRepo {
   @override
   Future<List<Product>> getProducts() {
     return http
-        .get(PRODUCTS_URL, headers: HEADER_ACCEPT_JSON)
+        .get(Uri.parse(PRODUCTS_URL), headers: HEADER_ACCEPT_JSON)
         .then(_decodeResponse)
         .catchError((onError) => throw onError);
   }
@@ -22,7 +22,7 @@ class OverviewRepoHttp implements IOverviewRepo {
     return http
         //Product(Object) => Json(.toJson) => PlainText/Firebase(jsonEncode)
         .patch(
-          "$PRODUCTS_URL/${product.id}.json",
+          Uri.parse("$PRODUCTS_URL/${product.id}.json"),
           headers: HEADER_ACCEPT_JSON,
           body: jsonEncode(product.toJson()),
         )
