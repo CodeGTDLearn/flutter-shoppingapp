@@ -185,7 +185,7 @@ class ViewTestUtils {
                Map<String, dynamic> json = jsonDecode(plainText);
                object.id = json['name'];
 
-               print('  \n Adding in Db - Object ID° ${object.id} \n'
+               print('  \n Adding in Db|Object ID: ${object.id} \n'
                      ' - URL: $collectionUrl\n'
                      ' - ObjectType: ${object.runtimeType.toString()}\n'
                      ' - Status: ${response.statusCode}\n ');
@@ -214,9 +214,6 @@ class ViewTestUtils {
         collectionUrl: collectionUrl,
       ).then((responseObject) {
         listReturn.add(responseObject);
-        // print('  \n Object N° $item \n'
-        //     ' - URL: $collectionUrl\n'
-        //     ' - ObjectType: ${responseObject.runtimeType.toString()}\n');
       });
     }
 

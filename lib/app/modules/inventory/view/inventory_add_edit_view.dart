@@ -1,3 +1,4 @@
+import 'package:currency_textfield/currency_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -6,7 +7,7 @@ import '../../../core/components/snackbarr.dart';
 import '../../../core/properties/app_owasp_regex.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
 import '../../overview/controller/overview_controller.dart';
-import '../components/custom_text_form_field/custom_form_field.dart';
+import '../components/custom_form_field/custom_form_field.dart';
 import '../controller/inventory_controller.dart';
 import '../core/inventory_keys.dart';
 import '../core/messages/messages_snackbars_provided.dart';
@@ -59,7 +60,7 @@ class _InventoryAddEditViewState extends State<InventoryAddEditView> {
   }
 
   void _previewImageUrl() {
-    var result = RegExp(SAFE_URL, caseSensitive: false)
+    var result = RegExp(OWASP_SAFE_URL, caseSensitive: false)
         .firstMatch(_imgUrlController.text.trim());
 
     if (!_focusUrlNode.hasFocus) {
@@ -179,12 +180,16 @@ class _InventoryAddEditViewState extends State<InventoryAddEditView> {
                         key: K_INV_ADED_FLD_TIT,
                       ),
                       CustomFormField().create(
-                        product: _product,
-                        context: context,
-                        function: (_) => _requestfocus(_focusDescr, context),
-                        fieldName: INV_ADDEDIT_FLD_PRICE,
-                        key: K_INV_ADED_FLD_PRICE,
-                      ),
+                          product: _product,
+                          context: context,
+                          function: (_) => _requestfocus(_focusDescr, context),
+                          fieldName: INV_ADDEDIT_FLD_PRICE,
+                          key: K_INV_ADED_FLD_PRICE,
+                          controller: CurrencyTextFieldController(
+                            rightSymbol: "\$",
+                            decimalSymbol: ".",
+                            thousandSymbol: ",",
+                          )),
                       CustomFormField().create(
                         product: _product,
                         context: context,

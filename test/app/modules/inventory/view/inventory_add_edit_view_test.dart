@@ -82,10 +82,10 @@ class InventoryAddEditViewTests {
     }
 
     void _expectTestingINValidationMessages(Matcher matcher) {
-      expect(_seek.text(INVALID_MSG_SIZE_05_10), matcher);
-      expect(_seek.text(INVALID_PRICE_MSG), matcher);
-      expect(_seek.text(INVALID_DESCR_MSG), matcher);
-      expect(_seek.text(INVALID_URL_MSG), matcher);
+      expect(_seek.text(SIZE_05_INVALID_MSG), matcher);
+      expect(_seek.text(PRICE_INVALID_MSG), matcher);
+      expect(_seek.text(SIZE_10_INVALID_MSG), matcher);
+      expect(_seek.text(URL_INVALID_MSG), matcher);
     }
 
     testWidgets('Adding a product', (tester) async {

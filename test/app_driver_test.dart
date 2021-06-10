@@ -27,8 +27,8 @@ void _unitTests() {
 
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  group('Orders|Integration-Tests: ',
-      OrdersViewFunctionalTest(testType: INTEGRATION_TEST).functional);
+  // group('Orders|Integration-Tests: ',
+  //     OrdersViewFunctionalTest(testType: INTEGRATION_TEST).functional);
   group('Inventory|Integration-Tests: ',
       InventoryViewFunctionalTests(testType: INTEGRATION_TEST).functional);
 }

@@ -1,19 +1,20 @@
+import 'package:currency_textfield/currency_textfield.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/properties/app_form_field_sizes.dart';
 import '../../core/texts_icons/inventory_edit_texts_icons_provided.dart';
 import '../../entities/product.dart';
-import 'validators/validate_description.dart';
-import 'validators/validate_price.dart';
-import 'validators/validate_title.dart';
-import 'validators/validate_url.dart';
-import 'validators/validation_abstraction.dart';
-import 'validators/validation_config.dart';
+import 'field_validators/description_validator.dart';
+import 'field_validators/price_validator.dart';
+import 'field_validators/title_validator.dart';
+import 'field_validators/url_validator.dart';
+import 'field_validators/validator_abstraction.dart';
 
 class CustomFormField {
-  final ValidationAbstraction _title = ValidateTitle();
-  final ValidationAbstraction _price = ValidatePrice();
-  final ValidationAbstraction _descr = ValidateDescription();
-  final ValidationAbstraction _url = ValidateUrl();
+  final ValidatorAbstraction _title = TitleValidator();
+  final ValidatorAbstraction _price = PriceValidator();
+  final ValidatorAbstraction _descr = DescriptionValidator();
+  final ValidatorAbstraction _url = UrlValidator();
 
   String _hint;
   String _labelText;
@@ -29,9 +30,9 @@ class CustomFormField {
     BuildContext context,
     Function function,
     String fieldName,
-    FocusNode node,
-    TextEditingController controller,
     String key,
+    FocusNode node,
+    var controller,
   }) {
     _loadTextFieldsParameters(fieldName, product);
 
@@ -74,7 +75,7 @@ class CustomFormField {
           _labelText = fieldName;
           _textInputAction = TextInputAction.next;
           _textInputType = TextInputType.number;
-          _maxLength =  FIELD_PRICE_MAX_SIZE;
+          _maxLength = FIELD_PRICE_MAX_SIZE;
           _validatorCriteria = _price.validate();
         }
         break;
@@ -101,17 +102,16 @@ class CustomFormField {
     }
   }
 
-  void _loadProductWithFieldValue(String field, Product prod, var value) {
-    if (field == INV_ADDEDIT_FLD_TITLE) prod.title = value;
-    if (field == INV_ADDEDIT_FLD_PRICE) prod.price = double.parse(value);
-    if (field == INV_ADDEDIT_FLD_IMG_URL) prod.imageUrl = value;
-    if (field == INV_ADDEDIT_FLD_DESCR) prod.description = value;
+  void _loadProductWithFieldValue(String field, Product product, var value) {
+    if (field == INV_ADDEDIT_FLD_TITLE) product.title = value;
+    if (field == INV_ADDEDIT_FLD_IMG_URL) product.imageUrl = value;
+    if (field == INV_ADDEDIT_FLD_DESCR) product.description = value;
+    if (field == INV_ADDEDIT_FLD_PRICE) {
+      var stringValue = value as String;
+      stringValue = stringValue.replaceAll(",","");
+      stringValue = stringValue.replaceAll("\$","");
+      product.price = double.parse(stringValue);
+      //TODO 01: quando a edicao e carregada, o preco aparece vazio
+    }
   }
 }
-// validator: fieldName == "url"
-// validator: fieldName == MAN_PROD_ADDEDIT_FLD_IMG_URL
-//     ? (value) {
-//         if (!isURL(value)) return INVALID_URL;
-//         return null;
-//       }
-//     : _validatorCriteria,

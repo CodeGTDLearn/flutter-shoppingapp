@@ -93,16 +93,13 @@ class InventoryViewTests {
 
   Future updateInventoryProduct(
     tester, {
-    String fieldInputText,
+    String inputValidText,
     String fieldKey,
-    String fieldValidationMessage,
     int delaySeconds,
     Product productToUpdate,
     bool isUnitTest,
   }) async {
     delaySeconds ??= DELAY;
-
-    var checkInvalidInput = fieldValidationMessage != null ? true : false;
 
     var keyUpdateButton =
         _seek.key('$INVENTORY_UPDATEITEM_BUTTON_KEY${productToUpdate.id}');
@@ -129,17 +126,97 @@ class InventoryViewTests {
     expect(_seek.type(InventoryAddEditView), findsOneWidget);
     expect(_seek.text(productToUpdate.title), findsWidgets);
 
-    var cycles = checkInvalidInput ? 2 : 1;
-    for (var i = 1; i <= cycles; i++) {
-      if (checkInvalidInput) fieldInputText = i == 1 ? fieldInputText : 'textValid';
+    // 3) InventoryAddEditView
+    //   -> Insert 'UpdatedValue' in Page-Form-Field
+    //   -> Checking the change
+    // await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY));
+    await tester.tap(_seek.key(fieldKey));
+    await tester.enterText(_seek.key(fieldKey), inputValidText);
+    await tester.pump(_seek.delay(delaySeconds));
+
+    // 4) Save form
+    //   -> Tap Saving:
+    //      - ONLY IN FUNCTIONAL-TESTS: Backing to InventoryView automatically
+    //   -> Test existence of INValidation messages
+    //   -> Go to InventoryView + Checking UpdatedValue
+    await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
+    await tester.pump(_seek.delay(delaySeconds));
+
+    // 4.1) Save form
+    //   -> Tap Saving:
+    //      - UNIT-TESTS: DO NOT Backing to InventoryView automatically
+    //        - THEREFORE: _unitTests DOES NOT EXECUTE THIS 'TEST-PHASE', because:
+    //          - They uses MOCK-OBJECTS which are not 'PERSISTED' IN DB
+    //          - Without 'PERSISTENCE' in DB InventoryAddEditView does not GO-BACK
+    //          InventoryView automatically
+    if (!isUnitTest) {
+      await tester.pump(_seek.delay(delaySeconds));
+      expect(_seek.type(InventoryView), findsOneWidget);
+      expect(_seek.text(inputValidText), findsOneWidget);
+
+      // 5) Click InventoryView-BackButton
+      //   -> Go to OverviewView + UpdatedValue
+      await _viewTestUtils.navigationBetweenViews(
+        tester,
+        delaySeconds: DELAY,
+        from: InventoryView,
+        to: OverviewView,
+        trigger: BackButton,
+      );
+      expect(_seek.text(inputValidText), findsOneWidget);
+    }
+  }
+
+  Future checkInputInjectionOrInputValidation(
+    tester, {
+    String injectionTextOrInvalidText,
+    String fieldKey,
+    String shownValidationErrorMessage,
+    int delaySeconds,
+    Product productToUpdate,
+    bool isUnitTest,
+  }) async {
+    delaySeconds ??= DELAY;
+
+    var keyUpdateButton =
+        _seek.key('$INVENTORY_UPDATEITEM_BUTTON_KEY${productToUpdate.id}');
+
+    await _viewTestUtils.openDrawerAndClickAnOption(
+      tester,
+      delaySeconds: delaySeconds,
+      keyOption: DRAWER_INVENTORY_OPTION_KEY,
+      scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
+    );
+
+    // 1) InventoryView
+    //   -> Check 'CurrentTitle'
+    //   -> Click in 'UpdateButton'
+    //   -> Open InventoryAddEditView
+    expect(_seek.type(InventoryView), findsOneWidget);
+    expect(_seek.text(productToUpdate.title), findsWidgets);
+    await tester.tap(keyUpdateButton);
+    await tester.pump(_seek.delay(delaySeconds));
+
+    // 2) InventoryAddEditView
+    //   -> Checking View + Title-Form-Field
+    await tester.pump();
+    expect(_seek.type(InventoryAddEditView), findsOneWidget);
+    expect(_seek.text(productToUpdate.title), findsWidgets);
+
+    for (var i = 1; i <= 2; i++) {
+      var validText = double.tryParse(injectionTextOrInvalidText);
+      injectionTextOrInvalidText = i == 1
+          ? injectionTextOrInvalidText
+          : validText.isNull
+              ? 'validTexts'
+              : '99.99';
 
       // 3) InventoryAddEditView
       //   -> Insert 'UpdatedValue' in Page-Form-Field
       //   -> Checking the change
       // await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY));
       await tester.tap(_seek.key(fieldKey));
-      await tester.enterText(_seek.key(fieldKey), fieldInputText);
-      // _seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY),
+      await tester.enterText(_seek.key(fieldKey), injectionTextOrInvalidText);
       await tester.pump(_seek.delay(delaySeconds));
 
       // 4) Save form
@@ -150,9 +227,8 @@ class InventoryViewTests {
       await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
       await tester.pump(_seek.delay(delaySeconds));
 
-      if (checkInvalidInput && i == 1) {
-        expect(_seek.text(fieldValidationMessage), findsOneWidget);
-      }
+      if (i == 1) expect(_seek.text(shownValidationErrorMessage), findsWidgets);
+
       await tester.pump(_seek.delay(delaySeconds));
     }
 
@@ -166,7 +242,6 @@ class InventoryViewTests {
     if (!isUnitTest) {
       await tester.pump(_seek.delay(delaySeconds));
       expect(_seek.type(InventoryView), findsOneWidget);
-      expect(_seek.text(fieldInputText), findsOneWidget);
 
       // 5) Click InventoryView-BackButton
       //   -> Go to OverviewView + UpdatedValue
@@ -177,7 +252,6 @@ class InventoryViewTests {
         to: OverviewView,
         trigger: BackButton,
       );
-      expect(_seek.text(fieldInputText), findsOneWidget);
     }
   }
 

@@ -1,5 +1,4 @@
 //FlushBar Dialogs
-
 const ITEM_CART_ADDED_IN_THE_SHOPCART = " Added in the cart.";
 const ITEM_CART_REMOVED_FROM_THE_SHOPCART = "Item removed successfully.";
 const NO_ITEMS_IN_THE_SHOPCART_YET = "No items in the cart, yet.";
@@ -21,14 +20,13 @@ const CART_QUIT_AFTER_ALL_DELETIONS = "There is no products in cart anymore.";
 const DATABASE_EMPTY_NO_DATA_YET = 'There is no products to display.';
 
 //Field Form Validation
-const VALIDATION_MESSAGE_FILLED_FIELD = "Please, fill the field.";
-const VALIDATION_MESSAGE_FORMAT_NUMBER = "Please, provide a proper value.";
-const VALIDATION_MESSAGE_ONLY_TEXTS_AND_NUMBER = "Please, only text and number are allowed.";
-
-const VALIDATION_MESSAGE_PRICE_FORMAT = "Please, proper price.";
-const VALIDATION_MESSAGE_URL_FORMAT = "Please, provide proper URL.";
-const VALIDATION_MESSAGE_SIZE_05_10 = "Allowed: 05 to 10 characters.";
-const VALIDATION_MESSAGE_SIZE_10_30 = "Allowed: 10 to 30 characters.";
+const EMPTY_FIELD_INVALIDATION_MESSAGE = "Please, fill the field.";
+const FORMAT_NUMBER_INVALIDATION_MESSAGE = "Please, provide a proper value.";
+const ONLY_TEXTNUMBER_INVALIDATION_MESSAGE = "Please, only text and number are allowed.";
+const FORMAT_PRICE_INVALIDATION_MESSAGE = "Please, type the price properly.";
+const FORMAT_URL_INVALIDATION_MESSAGE = "Please, provide proper URL.";
+const SIZE_05_INVALIDATION_MESSAGE = "Allowed: 05 to 10 characters.";
+const SIZE_10_INVALIDATION_MESSAGE = "Allowed: 10 to 30 characters.";
 
 //CUSTOM CIRCULAR PROGRESS INDICATOR
 const NO_ORDERS_FOUND_YET = "There is no Orders, yet";

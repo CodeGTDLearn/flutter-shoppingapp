@@ -98,9 +98,25 @@ class InventoryTestConfig {
 
   get updatingProduct => 'Updating a product';
 
-  get updatingProduct_InvalidTitle => 'Updating a product (Invalid Title)';
-
   get testingRefreshingView => 'Refreshing View';
 
   get testingBackButtonInView => 'Testing BackButton';
+
+  get titleValidation_05MinSize => 'Title validation|min 05 chars';
+
+  get titleInjectionScript => 'Title script injection|OWASP';
+
+  get titleEmptyNotAllowed => 'Title validation|empty not allowed';
+
+  get descrValid_10MinSize => 'Description Validation|min 10 chars';
+
+  get descrInjectionScript => 'Description script injection|OWASP';
+
+  get descrEmptyNotAllowed => 'Description validation|empty not allowed';
+
+  get priceValid_06MaxSize => 'Price Validation|max 07 chars';
+
+  get priceInjectionScript => 'Price script injection|OWASP';
+
+  get priceEmptyNotAllowed => 'Price validation|empty not allowed';
 }

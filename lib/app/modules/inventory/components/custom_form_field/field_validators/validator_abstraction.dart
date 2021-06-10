@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
-abstract class ValidationAbstraction {
+abstract class ValidatorAbstraction {
   FormFieldValidator<String> validate();
 }
