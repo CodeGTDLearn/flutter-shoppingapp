@@ -6,7 +6,6 @@ import 'package:shopingapp/app/modules/inventory/components/inventory_item.dart'
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 import 'package:shopingapp/app/modules/inventory/core/messages/field_form_validation_provided.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
-import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../app_tests_config.dart';
@@ -20,28 +19,28 @@ class InventoryViewFunctionalTests {
   bool _unitTest;
   final _tests = Get.put(InventoryViewTests());
   final _config = Get.put(InventoryTestConfig());
-  final _testUtils = Get.put(ViewTestUtils());
+  final _utils = Get.put(ViewTestUtils());
 
   InventoryViewFunctionalTests({String testType}) {
     _unitTest = testType == UNIT_TEST;
   }
 
   void functional() {
-    setUpAll(() => _testUtils.globalSetUpAll(_tests.runtimeType.toString()));
+    setUpAll(() => _utils.globalSetUpAll(_tests.runtimeType.toString()));
 
-    tearDownAll(() => _testUtils.globalTearDownAll(_tests.runtimeType.toString()));
+    tearDownAll(() => _utils.globalTearDownAll(_tests.runtimeType.toString()));
 
     setUp(() {
-      _testUtils.globalSetUp("Starting...");
+      _utils.globalSetUp("Starting...");
       _config.bindingsBuilderMockedRepo(execute: _unitTest);
     });
 
     tearDown(() {
-      _testUtils.globalTearDown("...Ending");
+      _utils.globalTearDown("...Ending");
       Get.reset;
     });
 
-    testWidgets('${_config.checkingProductsAbsence}', (tester) async {
+    testWidgets('${_config.checking_ProductsAbsence}', (tester) async {
       if (_unitTest == false) await _cleanDb(tester);
       _config.bindingsBuilderMockedRepoEmptyDb(execute: _unitTest);
 
@@ -49,10 +48,10 @@ class InventoryViewFunctionalTests {
       await _tests.checkInventoryProductsAbsence(tester, DELAY);
     });
 
-    testWidgets('${_config.checkingProducts}', (tester) async {
+    testWidgets('${_config.checking_Products}', (tester) async {
       if (!_unitTest) {
         await _cleanDb(tester);
-        await _testUtils.addObjectsInDb(tester,
+        await _utils.addObjectsInDb(tester,
             qtdeObjects: 2,
             collectionUrl: PRODUCTS_URL,
             object: ProductDataBuilder().ProductFullStaticNoId(),
@@ -65,7 +64,7 @@ class InventoryViewFunctionalTests {
           : await _tests.checkInventoryProducts(tester, 2);
     });
 
-    testWidgets('${_config.deletingProduct}', (tester) async {
+    testWidgets('${_config.deleting_Product}', (tester) async {
       var product = await _testProduct(tester, unitTest: _unitTest);
 
       _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
@@ -76,7 +75,7 @@ class InventoryViewFunctionalTests {
           widgetTypeToDelete: InventoryItem);
     });
 
-    testWidgets('${_config.updatingProduct}', (tester) async {
+    testWidgets('${_config.updating_Product}', (tester) async {
       var product = await _testProduct(tester, unitTest: _unitTest);
 
       _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
@@ -89,15 +88,15 @@ class InventoryViewFunctionalTests {
       );
     });
 
-    testWidgets('${_config.testingRefreshingView}', (tester) async {
+    testWidgets('${_config.testing_RefreshingView}', (tester) async {
       _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
       await _tests.refreshingInventoryView(tester);
     }, skip: true);
 
-    testWidgets('${_config.testingBackButtonInView}', (tester) async {
+    testWidgets('${_config.testing_BackButtonInView}', (tester) async {
       _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
 
-      await _testUtils.openDrawerAndClickAnOption(
+      await _utils.openDrawerAndClickAnOption(
         tester,
         delaySeconds: DELAY,
         keyOption: DRAWER_INVENTORY_OPTION_KEY,
@@ -108,7 +107,7 @@ class InventoryViewFunctionalTests {
     });
 
     //TITLE CHECK VALIDATIONS + CHECK INJECTIONS -------------------------------
-    testWidgets('${_config.titleValidation_05MinSize}', (tester) async {
+    testWidgets('${_config.validation_title_05MinSize}', (tester) async {
       var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
 
       _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
@@ -122,7 +121,7 @@ class InventoryViewFunctionalTests {
       );
     });
 
-    testWidgets('${_config.titleEmptyNotAllowed}', (tester) async {
+    testWidgets('${_config.validation_title_emptyNotAllowed}', (tester) async {
       var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
 
       _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
@@ -136,7 +135,7 @@ class InventoryViewFunctionalTests {
       );
     });
 
-    testWidgets('${_config.titleInjectionScript}', (tester) async {
+    testWidgets('${_config.validation_title_injectionScript}', (tester) async {
       var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
 
       _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
@@ -151,7 +150,7 @@ class InventoryViewFunctionalTests {
     });
 
     //DESCRIPTION CHECK VALIDATIONS + CHECK INJECTIONS -------------------------
-    testWidgets('${_config.descrValid_10MinSize}', (tester) async {
+    testWidgets('${_config.validation_descript_10MinSize}', (tester) async {
       var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
 
       _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
@@ -165,7 +164,7 @@ class InventoryViewFunctionalTests {
       );
     });
 
-    testWidgets('${_config.descrEmptyNotAllowed}', (tester) async {
+    testWidgets('${_config.validation_descript_EmptyNotAllowed}', (tester) async {
       var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
 
       _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
@@ -179,7 +178,7 @@ class InventoryViewFunctionalTests {
       );
     });
 
-    testWidgets('${_config.descrInjectionScript}', (tester) async {
+    testWidgets('${_config.validation_descript_injectionScript}', (tester) async {
       var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
 
       _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
@@ -194,7 +193,7 @@ class InventoryViewFunctionalTests {
     });
 
     //PRICE CHECK VALIDATIONS + CHECK INJECTIONS -------------------------
-    testWidgets('${_config.priceEmptyNotAllowed}', (tester) async {
+    testWidgets('${_config.validation_price_EmptyNotAllowed}', (tester) async {
       var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
 
       _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
@@ -208,7 +207,7 @@ class InventoryViewFunctionalTests {
       );
     });
 
-    testWidgets('${_config.priceInjectionScript}', (tester) async {
+    testWidgets('${_config.validation_price_injectionScript}', (tester) async {
       var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
 
       _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
@@ -222,7 +221,7 @@ class InventoryViewFunctionalTests {
       );
     });
 
-    testWidgets('${_config.priceValid_06MaxSize}', (tester) async {
+    testWidgets('${_config.validation_price_06MaxSize}', (tester) async {
       var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
 
       _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
@@ -243,7 +242,7 @@ class InventoryViewFunctionalTests {
 
     if (!unitTest) {
       await _cleanDb(tester);
-      await _testUtils
+      await _utils
           .addObjectsInDb(tester,
               qtdeObjects: 2,
               collectionUrl: PRODUCTS_URL,
@@ -256,8 +255,8 @@ class InventoryViewFunctionalTests {
   }
 
   Future _cleanDb(tester) async {
-    await _testUtils.removeDbCollection(tester, url: ORDERS_URL, delaySeconds: 1);
-    await _testUtils.removeDbCollection(tester, url: PRODUCTS_URL, delaySeconds: 1);
-    await _testUtils.removeDbCollection(tester, url: CART_ITEM_URL, delaySeconds: 1);
+    await _utils.removeDbCollection(tester, url: ORDERS_URL, delaySeconds: 1);
+    await _utils.removeDbCollection(tester, url: PRODUCTS_URL, delaySeconds: 1);
+    await _utils.removeDbCollection(tester, url: CART_ITEM_URL, delaySeconds: 1);
   }
 }

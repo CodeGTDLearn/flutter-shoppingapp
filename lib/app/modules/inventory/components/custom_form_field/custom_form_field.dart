@@ -2,6 +2,7 @@ import 'package:currency_textfield/currency_textfield.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/properties/app_form_field_sizes.dart';
+import '../../../../core/properties/app_properties.dart';
 import '../../core/texts_icons/inventory_edit_texts_icons_provided.dart';
 import '../../entities/product.dart';
 import 'field_validators/description_validator.dart';
@@ -22,6 +23,7 @@ class CustomFormField {
   TextInputType _textInputType;
   String _initialValue;
   int _maxLength;
+  var _controller;
 
   var _validatorCriteria;
 
@@ -38,17 +40,18 @@ class CustomFormField {
 
     return TextFormField(
       key: Key(key),
-      //******************************************************
-      //****        !!!!!  INCOMPATIBILITY  !!!!!         ****
-      //******************************************************
-      //***  CONTROLLER e incompativel com INITIAL_VALUE   ***
+
+      //***  CONTROLLER + INITIAL_VALUE are incompativel   ********************
       initialValue: controller == null ? _initialValue : null,
-      controller: controller,
-      //******************************************************
+      // controller: controller == null ? null : controller,
+      // todo 01: incompatibilidade entre no controller da url com o controller da
+      //  mascara de moeda
+      controller: controller ?? product.price == null ? _controller : null,
+      //***********************************************************************
       decoration: InputDecoration(labelText: _labelText, hintText: _hint),
       textInputAction: _textInputAction,
       maxLength: _maxLength,
-      maxLines: fieldName == INV_ADDEDIT_FLD_DESCR ? 3 : 1,
+      maxLines: fieldName == INVENT_ADDEDIT_FLD_DESCR ? 3 : 1,
       keyboardType: _textInputType,
       validator: _validatorCriteria,
       onFieldSubmitted: function,
@@ -59,59 +62,65 @@ class CustomFormField {
 
   void _loadTextFieldsParameters(String fieldName, Product product) {
     switch (fieldName) {
-      case INV_ADDEDIT_FLD_TITLE:
+      case INVENT_ADDEDIT_FLD_TITLE:
         {
-          _initialValue = product.title;
           _labelText = fieldName;
           _textInputAction = TextInputAction.next;
           _textInputType = TextInputType.text;
           _maxLength = FIELD_TITLE_MAX_SIZE;
           _validatorCriteria = _title.validate();
+          _initialValue = product.title;
         }
         break;
-      case INV_ADDEDIT_FLD_PRICE:
+      case INVENT_ADDEDIT_FLD_PRICE:
         {
-          _initialValue = product.price == null ? "" : product.price.toString();
           _labelText = fieldName;
           _textInputAction = TextInputAction.next;
           _textInputType = TextInputType.number;
           _maxLength = FIELD_PRICE_MAX_SIZE;
           _validatorCriteria = _price.validate();
+          _initialValue = product.price == null ? null : product.price.toString();
+          _controller = product.price == null
+              ? CurrencyTextFieldController(
+                  rightSymbol: CURRENCY_FORMAT,
+                  decimalSymbol: DECIMAL_SYMBOL,
+                  thousandSymbol: THOUSAND_SYMBOL)
+              : null;
         }
         break;
-      case INV_ADDEDIT_FLD_DESCR:
+      case INVENT_ADDEDIT_FLD_DESCR:
         {
-          _initialValue = product.description;
           _labelText = fieldName;
           _textInputAction = TextInputAction.next;
           _textInputType = TextInputType.multiline;
           _maxLength = FIELD_DESC_MAX_SIZE;
           _validatorCriteria = _descr.validate();
+          _initialValue = product.description;
         }
         break;
-      case INV_ADDEDIT_FLD_IMG_URL:
+      case INVENT_ADDEDIT_FLD_IMGURL:
         {
-          _initialValue = product.imageUrl;
           _labelText = fieldName;
           _textInputAction = TextInputAction.done;
           _textInputType = TextInputType.url;
           _validatorCriteria = _url.validate();
           _maxLength = FIELD_URL_MAX_SIZE;
+          _initialValue = product.imageUrl == null ? null : product.imageUrl;
+          // _controller = product.imageUrl == null ? controller : null;
         }
         break;
     }
   }
 
   void _loadProductWithFieldValue(String field, Product product, var value) {
-    if (field == INV_ADDEDIT_FLD_TITLE) product.title = value;
-    if (field == INV_ADDEDIT_FLD_IMG_URL) product.imageUrl = value;
-    if (field == INV_ADDEDIT_FLD_DESCR) product.description = value;
-    if (field == INV_ADDEDIT_FLD_PRICE) {
+    if (field == INVENT_ADDEDIT_FLD_TITLE) product.title = value;
+    if (field == INVENT_ADDEDIT_FLD_IMGURL) product.imageUrl = value;
+    if (field == INVENT_ADDEDIT_FLD_DESCR) product.description = value;
+    if (field == INVENT_ADDEDIT_FLD_PRICE) {
       var stringValue = value as String;
-      stringValue = stringValue.replaceAll(",","");
-      stringValue = stringValue.replaceAll("\$","");
+      stringValue = stringValue.replaceAll(",", "");
+      stringValue = stringValue.replaceAll("\$", "");
       product.price = double.parse(stringValue);
-      //TODO 01: quando a edicao e carregada, o preco aparece vazio
     }
   }
 }

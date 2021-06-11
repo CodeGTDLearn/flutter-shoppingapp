@@ -5,6 +5,11 @@ const APP_DEBUG_CHECK = false;
 //FLUSHBAR + GETX-SNACKBAR
 const DURATION = 1000;
 
+//CURRENCY
+const CURRENCY_FORMAT = "\$";
+const DECIMAL_SYMBOL = ".";
+const THOUSAND_SYMBOL = ",";
+
 //DATE-FORMATS
 //ORDERS-ITEM
 const DATE_FORMAT = 'dd MMM yyyy - hh:mm';

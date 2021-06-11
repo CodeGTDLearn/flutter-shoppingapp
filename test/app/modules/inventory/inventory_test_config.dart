@@ -90,33 +90,33 @@ class InventoryTestConfig {
 
   get VIEW_ADDEDIT_TEST_TITLE => '${repoName()}|View|Add/Edit: Functional';
 
-  get checkingProductsAbsence => 'Checking products absence (empty DB)';
+  get checking_ProductsAbsence => 'Checking products absence (empty DB)';
 
-  get checkingProducts => 'Checking Products';
+  get checking_Products => 'Checking Products';
 
-  get deletingProduct => 'Deleting a product';
+  get deleting_Product => 'Deleting a product';
 
-  get updatingProduct => 'Updating a product';
+  get updating_Product => 'Updating a product';
 
-  get testingRefreshingView => 'Refreshing View';
+  get testing_RefreshingView => 'Refreshing View';
 
-  get testingBackButtonInView => 'Testing BackButton';
+  get testing_BackButtonInView => 'Testing BackButton';
 
-  get titleValidation_05MinSize => 'Title validation|min 05 chars';
+  get validation_title_05MinSize => 'Title validation|min 05 chars';
 
-  get titleInjectionScript => 'Title script injection|OWASP';
+  get validation_title_injectionScript => 'Title script injection|OWASP';
 
-  get titleEmptyNotAllowed => 'Title validation|empty not allowed';
+  get validation_title_emptyNotAllowed => 'Title validation|empty not allowed';
 
-  get descrValid_10MinSize => 'Description Validation|min 10 chars';
+  get validation_descript_10MinSize => 'Description Validation|min 10 chars';
 
-  get descrInjectionScript => 'Description script injection|OWASP';
+  get validation_descript_injectionScript => 'Description script injection|OWASP';
 
-  get descrEmptyNotAllowed => 'Description validation|empty not allowed';
+  get validation_descript_EmptyNotAllowed => 'Description validation|empty not allowed';
 
-  get priceValid_06MaxSize => 'Price Validation|max 07 chars';
+  get validation_price_06MaxSize => 'Price Validation|max 07 chars';
 
-  get priceInjectionScript => 'Price script injection|OWASP';
+  get validation_price_injectionScript => 'Price script injection|OWASP';
 
-  get priceEmptyNotAllowed => 'Price validation|empty not allowed';
+  get validation_price_EmptyNotAllowed => 'Price validation|empty not allowed';
 }

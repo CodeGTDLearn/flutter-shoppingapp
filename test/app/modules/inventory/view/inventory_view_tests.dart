@@ -5,7 +5,6 @@ import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
 import 'package:shopingapp/app/modules/inventory/components/inventory_item.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
-import 'package:shopingapp/app/modules/inventory/core/messages/field_form_validation_provided.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/inventory/view/inventory_add_edit_view.dart';
 import 'package:shopingapp/app/modules/inventory/view/inventory_view.dart';
@@ -14,7 +13,6 @@ import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 
 import '../../../../app_tests_config.dart';
-import '../../../../mocked_datasource/products_mocked_datasource.dart';
 import '../../../../test_utils/test_utils.dart';
 import '../../../../test_utils/view_test_utils.dart';
 
