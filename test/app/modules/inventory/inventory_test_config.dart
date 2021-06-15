@@ -102,21 +102,27 @@ class InventoryTestConfig {
 
   get testing_BackButtonInView => 'Testing BackButton';
 
-  get validation_title_05MinSize => 'Title validation|min 05 chars';
+  get validation_title_05MinSize => 'Title|Validation|min 05 chars';
 
-  get validation_title_injectionScript => 'Title script injection|OWASP';
+  get validation_title_emptyNotAllowed => 'Title|Validation|empty not allowed';
 
-  get validation_title_emptyNotAllowed => 'Title validation|empty not allowed';
+  get validation_title_injection => 'Title|Check injection (OWASP)';
 
-  get validation_descript_10MinSize => 'Description Validation|min 10 chars';
+  get validation_descript_10MinSize => 'Description|Validation|min 10 chars';
 
-  get validation_descript_injectionScript => 'Description script injection|OWASP';
+  get validation_descript_EmptyNotAllowed => 'Description|Validation|empty not allowed';
 
-  get validation_descript_EmptyNotAllowed => 'Description validation|empty not allowed';
+  get validation_descript_injection => 'Description|Check injection (OWASP)';
 
-  get validation_price_06MaxSize => 'Price Validation|max 07 chars';
+  get validation_price_06MaxSize => 'Price|Validation|max 07 chars';
 
-  get validation_price_injectionScript => 'Price script injection|OWASP';
+  get validation_price_EmptyNotAllowed => 'Price|Validation|empty not allowed';
 
-  get validation_price_EmptyNotAllowed => 'Price validation|empty not allowed';
+  get validation_price_injection => 'Price|Check injection (OWASP)';
+
+  get validation_url_Size => 'Url Image|Validation|max 135 chars';
+
+  get validation_url_EmptyNotAllowed => 'Url Image|Validation|empty not allowed';
+
+  get validation_url_injection => 'Url Image|Check injection (OWASP)';
 }

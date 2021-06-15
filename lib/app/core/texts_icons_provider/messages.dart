@@ -27,6 +27,7 @@ const FORMAT_PRICE_INVALIDATION_MESSAGE = "Please, type the price properly.";
 const FORMAT_URL_INVALIDATION_MESSAGE = "Please, provide proper URL.";
 const SIZE_05_INVALIDATION_MESSAGE = "Allowed: 05 to 10 characters.";
 const SIZE_10_INVALIDATION_MESSAGE = "Allowed: 10 to 30 characters.";
+const SIZE_URL_INVALIDATION_MESSAGE = "Allowed: 10 to 135 characters.";
 
 //CUSTOM CIRCULAR PROGRESS INDICATOR
 const NO_ORDERS_FOUND_YET = "There is no Orders, yet";

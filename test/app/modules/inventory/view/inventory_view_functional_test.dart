@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
 import 'package:shopingapp/app/core/properties/app_urls.dart';
+import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
 import 'package:shopingapp/app/modules/inventory/components/inventory_item.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 import 'package:shopingapp/app/modules/inventory/core/messages/field_form_validation_provided.dart';
@@ -135,7 +136,7 @@ class InventoryViewFunctionalTests {
       );
     });
 
-    testWidgets('${_config.validation_title_injectionScript}', (tester) async {
+    testWidgets('${_config.validation_title_injection}', (tester) async {
       var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
 
       _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
@@ -178,7 +179,7 @@ class InventoryViewFunctionalTests {
       );
     });
 
-    testWidgets('${_config.validation_descript_injectionScript}', (tester) async {
+    testWidgets('${_config.validation_descript_injection}', (tester) async {
       var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
 
       _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
@@ -207,7 +208,7 @@ class InventoryViewFunctionalTests {
       );
     });
 
-    testWidgets('${_config.validation_price_injectionScript}', (tester) async {
+    testWidgets('${_config.validation_price_injection}', (tester) async {
       var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
 
       _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
@@ -231,6 +232,50 @@ class InventoryViewFunctionalTests {
         injectionTextOrInvalidText: "evilLetter",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY,
         shownValidationErrorMessage: PRICE_INVALID_MSG,
+        productToUpdate: productToUpdate,
+        isUnitTest: _unitTest,
+      );
+    });
+
+    //URL CHECK VALIDATIONS + CHECK INJECTIONS -------------------------
+    testWidgets('${_config.validation_url_EmptyNotAllowed}', (tester) async {
+      var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
+
+      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      await _tests.checkInputInjectionOrInputValidation(
+        tester,
+        injectionTextOrInvalidText: "",
+        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY,
+        shownValidationErrorMessage: EMPTY_FIELD_INVALID_MSG,
+        productToUpdate: productToUpdate,
+        isUnitTest: _unitTest,
+      );
+    });
+
+    testWidgets('${_config.validation_url_injection}', (tester) async {
+      var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
+
+      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      await _tests.checkInputInjectionOrInputValidation(
+        tester,
+        injectionTextOrInvalidText: "<SCRIPT>",
+        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY,
+        shownValidationErrorMessage: URL_INVALID_MSG,
+        productToUpdate: productToUpdate,
+        isUnitTest: _unitTest,
+      );
+    });
+
+    testWidgets('${_config.validation_url_Size}', (tester) async {
+      var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
+
+      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      await _tests.checkInputInjectionOrInputValidation(
+        tester,
+        //se inserir texto tem que falhar no price, numero tera' que formatar in realtime
+        injectionTextOrInvalidText: "evilLetter",
+        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY,
+        shownValidationErrorMessage: URL_INVALID_MSG,
         productToUpdate: productToUpdate,
         isUnitTest: _unitTest,
       );
