@@ -7,6 +7,7 @@ import 'repo/inventory_repo_test.dart';
 import 'service/inventory_service_test.dart';
 import 'view/inventory_add_edit_view_test.dart';
 import 'view/inventory_view_functional_test.dart';
+import 'view/inventory_view_validation_test.dart';
 
 class InventoryTest {
   void groups() {
@@ -18,11 +19,15 @@ class InventoryTest {
     // );
     group(
       "${InventoryTestConfig().VIEW_TEST_TITLE}",
-      InventoryViewFunctionalTests(testType: UNIT_TEST).functional,
+      InventoryViewFunctionalTest(testType: UNIT_TEST).functional,
     );
-    // group(
-    //   "${InventoryTestConfig().VIEW_ADDEDIT_TEST_TITLE}",
-    //   InventoryAddEditViewTests.functional,
-    // );
+    group(
+      "${InventoryTestConfig().VIEW_TEST_VALID_TITLE}",
+      InventoryViewValidationTest(testType: UNIT_TEST).functional,
+    );
+    group(
+      "${InventoryTestConfig().VIEW_ADDEDIT_TEST_TITLE}",
+      InventoryAddEditViewTest.functional,
+    );
   }
 }

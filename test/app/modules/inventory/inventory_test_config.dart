@@ -88,6 +88,8 @@ class InventoryTestConfig {
 
   get VIEW_TEST_TITLE => '${repoName()}|View: Functional';
 
+  get VIEW_TEST_VALID_TITLE => '${repoName()}|View|Validation: Functional';
+
   get VIEW_ADDEDIT_TEST_TITLE => '${repoName()}|View|Add/Edit: Functional';
 
   get checking_ProductsAbsence => 'Checking products absence (empty DB)';
@@ -102,27 +104,31 @@ class InventoryTestConfig {
 
   get testing_BackButtonInView => 'Testing BackButton';
 
-  get validation_title_05MinSize => 'Title|Validation|min 05 chars';
+  //TITLE CHECK VALIDATIONS + CHECK INJECTIONS -------------------------------
+  get validation_title_size => 'Title|Validation|min 05 chars';
 
-  get validation_title_emptyNotAllowed => 'Title|Validation|empty not allowed';
+  get validation_title_empty => 'Title|Validation|empty not allowed';
 
   get validation_title_injection => 'Title|Check injection (OWASP)';
 
-  get validation_descript_10MinSize => 'Description|Validation|min 10 chars';
+  //DESCRIPTION CHECK VALIDATIONS + CHECK INJECTIONS -------------------------
+  get validation_descript_size => 'Description|Validation|min 10 chars';
 
-  get validation_descript_EmptyNotAllowed => 'Description|Validation|empty not allowed';
+  get validation_descript_empty => 'Description|Validation|empty not allowed';
 
   get validation_descript_injection => 'Description|Check injection (OWASP)';
 
-  get validation_price_06MaxSize => 'Price|Validation|max 07 chars';
+  //PRICE CHECK VALIDATIONS + CHECK INJECTIONS -------------------------------
+  get validation_price_size => 'Price|Validation|max 07 chars';
 
-  get validation_price_EmptyNotAllowed => 'Price|Validation|empty not allowed';
+  get validation_price_empty => 'Price|Validation|empty not allowed';
 
   get validation_price_injection => 'Price|Check injection (OWASP)';
 
-  get validation_url_Size => 'Url Image|Validation|max 135 chars';
+  //URL CHECK VALIDATIONS + CHECK INJECTIONS ---------------------------------
+  get validation_url_size => 'Url Image|Validation|max 135 chars';
 
-  get validation_url_EmptyNotAllowed => 'Url Image|Validation|empty not allowed';
+  get validation_url_empty => 'Url Image|Validation|empty not allowed';
 
   get validation_url_injection => 'Url Image|Check injection (OWASP)';
 }

@@ -38,9 +38,6 @@ class OverviewRepoTests {
       });
     });
 
-// todo: Diferente do OverviewMockRepo, o OverviewHttp nao retorna o value,
-//  portanto nao entrando no Then
-    // TEstando, usando o OverviewHttp, nao entra no _repo.getProducts().then
     test('Getting products', () {
       _repo.getProducts().then((value) {
         expect(value[0].title, "Red Shirt");
@@ -70,12 +67,9 @@ class OverviewRepoTests {
     });
 
     test('Updating a Product - Response Status 404', () {
-      when(_injectRepo.updateProduct(_productFail))
-          .thenAnswer((_) async => 404);
+      when(_injectRepo.updateProduct(_productFail)).thenAnswer((_) async => 404);
 
-      _injectRepo
-          .updateProduct(_productFail)
-          .then((value) => {expect(value, 404)});
+      _injectRepo.updateProduct(_productFail).then((value) => {expect(value, 404)});
     });
 
     test('Getting products - Null as response', () {

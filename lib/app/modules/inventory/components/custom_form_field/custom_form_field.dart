@@ -49,7 +49,7 @@ class CustomFormField {
       decoration: InputDecoration(labelText: _labelText, hintText: _hint),
       textInputAction: _textInputAction,
       maxLength: _maxLength,
-      maxLines: fieldName == INV_ADEDT_FLD_DESCR ? 3 : 1,
+      maxLines: fieldName == INV_ADEDT_FLD_DESCR ? 4 : 1,
       keyboardType: _textInputType,
       validator: _validatorCriteria,
       onFieldSubmitted: function,
@@ -86,7 +86,7 @@ class CustomFormField {
           _labelText = fieldName;
           _textInputAction = TextInputAction.next;
           _textInputType = TextInputType.multiline;
-          _maxLength = FIELD_DESC_MAX_SIZE;
+          _maxLength = FIELD_DESCRIPT_MAX_SIZE;
           _validatorCriteria = _descr.validate();
           _initialValue = product.description;
         }

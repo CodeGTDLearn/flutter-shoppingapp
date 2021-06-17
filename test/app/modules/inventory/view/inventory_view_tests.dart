@@ -37,7 +37,7 @@ class InventoryViewTests {
     await _viewTestUtils.openDrawerAndClickAnOption(
       tester,
       delaySeconds: delaySeconds,
-      keyOption: DRAWER_INVENTORY_OPTION_KEY,
+      clickedKeyOption: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
@@ -70,7 +70,7 @@ class InventoryViewTests {
     await _viewTestUtils.openDrawerAndClickAnOption(
       tester,
       delaySeconds: DELAY,
-      keyOption: DRAWER_INVENTORY_OPTION_KEY,
+      clickedKeyOption: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
@@ -80,6 +80,8 @@ class InventoryViewTests {
       widgetQtde: 4,
     );
 
+    //todo 01: provide the 'starting point' that will start the 'dragging' for the 'ref
+    // resh' (for example: updateInventoryProduct + productToUpdate: product,)
     // "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0"
     // var dragInitialPointElement = _seek.key('$INVENTORY_ITEM_KEY${_prods[0].id}');
     // await tester.drag(dragInitialPointElement, Offset(0.0, -50.0));
@@ -105,7 +107,7 @@ class InventoryViewTests {
     await _viewTestUtils.openDrawerAndClickAnOption(
       tester,
       delaySeconds: delaySeconds,
-      keyOption: DRAWER_INVENTORY_OPTION_KEY,
+      clickedKeyOption: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
@@ -182,7 +184,7 @@ class InventoryViewTests {
     await _viewTestUtils.openDrawerAndClickAnOption(
       tester,
       delaySeconds: delaySeconds,
-      keyOption: DRAWER_INVENTORY_OPTION_KEY,
+      clickedKeyOption: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
@@ -202,12 +204,16 @@ class InventoryViewTests {
     expect(_seek.text(productToUpdate.title), findsWidgets);
 
     for (var i = 1; i <= 2; i++) {
-      var validText = double.tryParse(injectionTextOrInvalidText);
+      var isPriceField = fieldKey == INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY;
+      var isUrlField = fieldKey == INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY;
+
       injectionTextOrInvalidText = i == 1
           ? injectionTextOrInvalidText
-          : validText.isNull
-              ? 'validTexts'
-              : '99.99';
+          : isPriceField
+              ? '99.99'
+              : isUrlField
+                  ? 'https://images.freeimages.com/images/large-previews/294/tomatoes-1326096.jpg'
+                  : 'validTexts';
 
       // 3) InventoryAddEditView
       //   -> Insert 'UpdatedValue' in Page-Form-Field
@@ -234,8 +240,8 @@ class InventoryViewTests {
     //   -> Tap Saving:
     //      - UNIT-TESTS: DO NOT Backing to InventoryView automatically
     //        - THEREFORE: _unitTests DOES NOT EXECUTE THIS 'TEST-PHASE', because:
-    //          - They uses MOCK-OBJECTS which are not 'PERSISTED' IN DB
-    //          - Without 'PERSISTENCE' in DB InventoryAddEditView does not GO-BACK
+    //          - They uses MOCK-OBJECTS which are not ' ACTUAL PERSISTED' IN DB
+    //          - Without 'PERSISTENCE' in DB, InventoryAddEditView does not GO-BACK TO
     //          InventoryView automatically
     if (!isUnitTest) {
       await tester.pump(_seek.delay(delaySeconds));
@@ -265,7 +271,7 @@ class InventoryViewTests {
     await _viewTestUtils.openDrawerAndClickAnOption(
       tester,
       delaySeconds: DELAY,
-      keyOption: DRAWER_INVENTORY_OPTION_KEY,
+      clickedKeyOption: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
@@ -306,7 +312,7 @@ class InventoryViewTests {
     await _viewTestUtils.openDrawerAndClickAnOption(
       tester,
       delaySeconds: DELAY,
-      keyOption: DRAWER_INVENTORY_OPTION_KEY,
+      clickedKeyOption: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 

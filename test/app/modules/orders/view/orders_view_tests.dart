@@ -45,7 +45,7 @@ class OrdersViewTests {
     await _viewTestUtils.openDrawerAndClickAnOption(
       tester,
       delaySeconds: delaySeconds,
-      keyOption: DRAWER_ORDER_OPTION_KEY,
+      clickedKeyOption: DRAWER_ORDER_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
@@ -73,7 +73,7 @@ class OrdersViewTests {
     await _viewTestUtils.openDrawerAndClickAnOption(
       tester,
       delaySeconds: delaySeconds,
-      keyOption: DRAWER_ORDER_OPTION_KEY,
+      clickedKeyOption: DRAWER_ORDER_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 

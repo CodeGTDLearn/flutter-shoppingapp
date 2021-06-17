@@ -15,10 +15,11 @@ import '../orders_test_config.dart';
 import 'orders_view_tests.dart';
 
 class OrdersViewFunctionalTest {
-  bool _unitTest;
+  bool _isUnitTest;
+  final bool _skipTest = false;
 
   OrdersViewFunctionalTest({String testType}) {
-    _unitTest = testType == UNIT_TEST;
+    _isUnitTest = testType == UNIT_TEST;
   }
 
   void functional() {
@@ -32,7 +33,7 @@ class OrdersViewFunctionalTest {
 
     setUp(() {
       _utils.globalSetUp("Starting...");
-      _config.bindingsBuilderMockedRepo(execute: _unitTest);
+      _config.bindingsBuilderMockedRepo(execute: _isUnitTest);
     });
 
     tearDown(() {
@@ -41,19 +42,19 @@ class OrdersViewFunctionalTest {
     });
 
     testWidgets('${_config.checking_noneOrderInDB}', (tester) async {
-      if (_unitTest == false) {
+      if (_isUnitTest == false) {
         await _utils.removeDbCollection(tester, url: ORDERS_URL, delaySeconds: 1);
         await _utils.removeDbCollection(tester, url: PRODUCTS_URL, delaySeconds: 1);
         await _utils.removeDbCollection(tester, url: CART_ITEM_URL, delaySeconds: 1);
       }
-      _config.bindingsBuilderMockRepoEmptyDb(execute: _unitTest);
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      _config.bindingsBuilderMockRepoEmptyDb(execute: _isUnitTest);
+      _isUnitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
       await _tests.OpenOrderView_NoOrderInDB(tester, DELAY);
-    });
+    }, skip: _skipTest);
 
     testWidgets('${_config.ordering_fromCartView_tapingTheButtonOrderNow}',
         (tester) async {
-      if (!_unitTest) {
+      if (!_isUnitTest) {
         await _utils.addObjectInDb(
           tester,
           object: ProductDataBuilder().ProductFullStaticNoId(),
@@ -62,31 +63,31 @@ class OrdersViewFunctionalTest {
         );
       }
 
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      _isUnitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
       await _tests.OrderingFromCartView_TapButtonOrderNow(tester, DELAY);
-    });
+    }, skip: _skipTest);
 
     testWidgets('${_config.checking_oneOrderInDB}', (tester) async {
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      _isUnitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
 
       await _utils.openDrawerAndClickAnOption(
         tester,
         delaySeconds: DELAY,
-        keyOption: DRAWER_ORDER_OPTION_KEY,
+        clickedKeyOption: DRAWER_ORDER_OPTION_KEY,
         scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
       );
 
       _utils.checkWidgetsQtdeInOneView(
           widgetView: OrdersView, widgetType: OrderCollapsableTile, widgetQtde: 1);
-    });
+    }, skip: _skipTest);
 
     testWidgets('${_config.tapping_PageBackButton}', (tester) async {
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      _isUnitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
 
       await _utils.openDrawerAndClickAnOption(
         tester,
         delaySeconds: DELAY,
-        keyOption: DRAWER_ORDER_OPTION_KEY,
+        clickedKeyOption: DRAWER_ORDER_OPTION_KEY,
         scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
       );
 
@@ -96,6 +97,6 @@ class OrdersViewFunctionalTest {
         from: OrdersView,
         to: OverviewView,
       );
-    });
+    }, skip: _skipTest);
   }
 }

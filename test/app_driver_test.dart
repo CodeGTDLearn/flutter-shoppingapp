@@ -5,6 +5,7 @@ import 'app/core/components/components_test_groups.dart';
 import 'app/modules/cart/cart_test_groups.dart';
 import 'app/modules/inventory/inventory_test_groups.dart';
 import 'app/modules/inventory/view/inventory_view_functional_test.dart';
+import 'app/modules/inventory/view/inventory_view_validation_test.dart';
 import 'app/modules/orders/orders_test_groups.dart';
 import 'app/modules/orders/view/orders_view_functional_test.dart';
 import 'app/modules/overview/overview_test_groups.dart';
@@ -19,7 +20,7 @@ void main() {
 
 void _unitTests() {
   // CartTest().groups();
-  // OrdersTest().groups();
+  OrdersTest().groups();
   // OverviewTest().groups();
   InventoryTest().groups();
   // ComponentsTest().groups();
@@ -27,8 +28,10 @@ void _unitTests() {
 
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  // group('Orders|Integration-Tests: ',
-  //     OrdersViewFunctionalTest(testType: INTEGRATION_TEST).functional);
+  group('Orders|Integration-Tests: ',
+      OrdersViewFunctionalTest(testType: INTEGRATION_TEST).functional);
   group('Inventory|Integration-Tests: ',
-      InventoryViewFunctionalTests(testType: INTEGRATION_TEST).functional);
+      InventoryViewFunctionalTest(testType: INTEGRATION_TEST).functional);
+  group('Inventory|Integration-Tests: ',
+      InventoryViewValidationTest(testType: INTEGRATION_TEST).functional);
 }

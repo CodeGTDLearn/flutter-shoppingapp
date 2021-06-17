@@ -2,6 +2,10 @@ import '../../inventory/entities/product.dart';
 import '../entities/cart_item.dart';
 import 'i_cart_repo.dart';
 
+// ------------- FLUTTER ERROR: FIREBASE RULES DEADLINE/DATE EXPIRE!!! ---------------
+// I/flutter ( 8038): The following _TypeError was thrown running a test:
+// I/flutter ( 8038): type 'String' is not a subtype of type 'Map<String, dynamic>'
+// ------------ SOLUTION: RENEW/REDATE FIREBASE RULES DEADLINE/DATE ------------------
 class CartRepo implements ICartRepo {
   final Map<String, CartItem> _cartItems = {};
 

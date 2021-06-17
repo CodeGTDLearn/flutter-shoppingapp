@@ -48,16 +48,12 @@ class _InventoryAddEditViewState extends State<InventoryAddEditView> {
     if (_isInit) {
       _invController.switchInventoryAddEditFormToCustomCircularProgrIndic();
 
-      // todo 01: dessa forma a url padrao, esta sendo carregada inicialmente,
-      // e isso nao esta correto pois, ela nao deve aparecer
-      if (Get.arguments == null) _imgUrlController.text = NO_IMAGE_AVAILABLE;
-
       if (Get.arguments != null) {
         _product = _invController.getProductById(Get.arguments);
         _imgUrlController.text = _product.imageUrl;
+        _imgUrlPreviewObs.value = true;
       }
       _invController.switchInventoryAddEditFormToCustomCircularProgrIndic();
-      _imgUrlPreviewObs.value = true;
       _isInit = false;
     }
     super.didChangeDependencies();
@@ -121,13 +117,11 @@ class _InventoryAddEditViewState extends State<InventoryAddEditView> {
                             margin: EdgeInsets.only(top: 20, right: 10),
                             decoration: BoxDecoration(
                                 border: Border.all(width: 0.5, color: Colors.grey)),
-                            // todo 01: dessa forma a url padrao, esta sendo carregada inicialmente,
-                            // e isso nao esta correto pois, ela nao deve aparecer
                             child: Obx(() => (Container(
-                                child: _imgUrlPreviewObs.value
-                                    ? _showImage(_imgUrlController.text)
-                                    : _showImage(_imgUrlController.text))))),
-                                    // : Center(child: Text(INV_ADEDT_IMG_TIT)))))),
+                                  child: _imgUrlPreviewObs.value
+                                      ? _showProductImage(_imgUrlController.text)
+                                      : Center(child: INV_ADEDT_NO_IMG_TIT),
+                                )))),
                         Expanded(
                             child: CustomFormField().create(
                                 product: _product,
@@ -141,16 +135,14 @@ class _InventoryAddEditViewState extends State<InventoryAddEditView> {
                     ]))))));
   }
 
-  FittedBox _showImage(String url) {
-    // todo 01: dessa forma a url padrao, esta sendo carregada inicialmente,
-    // e isso nao esta correto pois, ela nao deve aparecer
-    // url = url.isNullOrBlank ? NO_IMAGE_AVAILABLE : url;
+  FittedBox _showProductImage(String url) {
     return FittedBox(child: Image.network(url, fit: BoxFit.cover));
   }
 
   void _previewImageUrl() {
     var isUnsafeUrl = RegExp(OWASP_SAFE_URL, caseSensitive: false)
-            .firstMatch(_imgUrlController.text.trim()) == null;
+            .firstMatch(_imgUrlController.text.trim()) ==
+        null;
     var isImgUrlNull = _imgUrlController.text == null;
     var lostFocus = !_nodeImgUrl.hasFocus;
 

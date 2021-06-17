@@ -16,14 +16,15 @@ import '../../../../test_utils/view_test_utils.dart';
 import '../inventory_test_config.dart';
 import 'inventory_view_tests.dart';
 
-class InventoryViewFunctionalTests {
-  bool _unitTest;
+class InventoryViewFunctionalTest {
+  bool _isUnitTest;
+  final bool _skipTest = false;
   final _tests = Get.put(InventoryViewTests());
   final _config = Get.put(InventoryTestConfig());
   final _utils = Get.put(ViewTestUtils());
 
-  InventoryViewFunctionalTests({String testType}) {
-    _unitTest = testType == UNIT_TEST;
+  InventoryViewFunctionalTest({String testType}) {
+    _isUnitTest = testType == UNIT_TEST;
   }
 
   void functional() {
@@ -33,7 +34,7 @@ class InventoryViewFunctionalTests {
 
     setUp(() {
       _utils.globalSetUp("Starting...");
-      _config.bindingsBuilderMockedRepo(execute: _unitTest);
+      _config.bindingsBuilderMockedRepo(execute: _isUnitTest);
     });
 
     tearDown(() {
@@ -42,15 +43,15 @@ class InventoryViewFunctionalTests {
     });
 
     testWidgets('${_config.checking_ProductsAbsence}', (tester) async {
-      if (_unitTest == false) await _cleanDb(tester);
-      _config.bindingsBuilderMockedRepoEmptyDb(execute: _unitTest);
+      if (_isUnitTest == false) await _cleanDb(tester);
+      _config.bindingsBuilderMockedRepoEmptyDb(execute: _isUnitTest);
 
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      _isUnitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
       await _tests.checkInventoryProductsAbsence(tester, DELAY);
-    });
+    }, skip: _skipTest);
 
     testWidgets('${_config.checking_Products}', (tester) async {
-      if (!_unitTest) {
+      if (!_isUnitTest) {
         await _cleanDb(tester);
         await _utils.addObjectsInDb(tester,
             qtdeObjects: 2,
@@ -59,230 +60,68 @@ class InventoryViewFunctionalTests {
             delaySeconds: DELAY);
       }
 
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
-      _unitTest
+      _isUnitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      _isUnitTest
           ? await _tests.checkInventoryProducts(tester, 4)
           : await _tests.checkInventoryProducts(tester, 2);
-    });
+    }, skip: _skipTest);
 
     testWidgets('${_config.deleting_Product}', (tester) async {
-      var product = await _testProduct(tester, unitTest: _unitTest);
+      var product = await _loadProductsInDbToUseInThisTest(
+        tester,
+        unitTest: _isUnitTest,
+      );
 
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      _isUnitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
       await _tests.deleteInventoryProduct(tester,
           initialQtde: 2,
           finalQtde: 1,
           keyDeleteButton: '$INVENTORY_DELETEITEM_BUTTON_KEY${product.id}',
           widgetTypeToDelete: InventoryItem);
-    });
+    }, skip: _skipTest);
 
     testWidgets('${_config.updating_Product}', (tester) async {
-      var product = await _testProduct(tester, unitTest: _unitTest);
+      var product = await _loadProductsInDbToUseInThisTest(
+        tester,
+        unitTest: _isUnitTest,
+      );
 
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      _isUnitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
       await _tests.updateInventoryProduct(
         tester,
         inputValidText: "XXXXXX",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
         productToUpdate: product,
-        isUnitTest: _unitTest,
+        isUnitTest: _isUnitTest,
       );
-    });
+    }, skip: _skipTest);
 
+    //todo 01: provide the 'starting point' that will start the 'dragging' for the 'ref
+    // resh' (for example: updateInventoryProduct + productToUpdate: product,)
     testWidgets('${_config.testing_RefreshingView}', (tester) async {
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      _isUnitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
       await _tests.refreshingInventoryView(tester);
+    // }, skip: _skipTest);
     }, skip: true);
 
     testWidgets('${_config.testing_BackButtonInView}', (tester) async {
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      _isUnitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
 
       await _utils.openDrawerAndClickAnOption(
         tester,
         delaySeconds: DELAY,
-        keyOption: DRAWER_INVENTORY_OPTION_KEY,
+        clickedKeyOption: DRAWER_INVENTORY_OPTION_KEY,
         scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
       );
 
       await _tests.tapingBackButtonInInventoryView(tester);
-    });
-
-    //TITLE CHECK VALIDATIONS + CHECK INJECTIONS -------------------------------
-    testWidgets('${_config.validation_title_05MinSize}', (tester) async {
-      var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
-
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
-      await _tests.checkInputInjectionOrInputValidation(
-        tester,
-        injectionTextOrInvalidText: "Size",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
-        shownValidationErrorMessage: SIZE_05_INVALID_MSG,
-        productToUpdate: productToUpdate,
-        isUnitTest: _unitTest,
-      );
-    });
-
-    testWidgets('${_config.validation_title_emptyNotAllowed}', (tester) async {
-      var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
-
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
-      await _tests.checkInputInjectionOrInputValidation(
-        tester,
-        injectionTextOrInvalidText: "",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
-        shownValidationErrorMessage: EMPTY_FIELD_INVALID_MSG,
-        productToUpdate: productToUpdate,
-        isUnitTest: _unitTest,
-      );
-    });
-
-    testWidgets('${_config.validation_title_injection}', (tester) async {
-      var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
-
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
-      await _tests.checkInputInjectionOrInputValidation(
-        tester,
-        injectionTextOrInvalidText: "<SCRIPT>",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
-        shownValidationErrorMessage: TEXT_NUMBER_INVALID_MSG,
-        productToUpdate: productToUpdate,
-        isUnitTest: _unitTest,
-      );
-    });
-
-    //DESCRIPTION CHECK VALIDATIONS + CHECK INJECTIONS -------------------------
-    testWidgets('${_config.validation_descript_10MinSize}', (tester) async {
-      var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
-
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
-      await _tests.checkInputInjectionOrInputValidation(
-        tester,
-        injectionTextOrInvalidText: "Size",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY,
-        shownValidationErrorMessage: SIZE_10_INVALID_MSG,
-        productToUpdate: productToUpdate,
-        isUnitTest: _unitTest,
-      );
-    });
-
-    testWidgets('${_config.validation_descript_EmptyNotAllowed}', (tester) async {
-      var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
-
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
-      await _tests.checkInputInjectionOrInputValidation(
-        tester,
-        injectionTextOrInvalidText: "",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY,
-        shownValidationErrorMessage: EMPTY_FIELD_INVALID_MSG,
-        productToUpdate: productToUpdate,
-        isUnitTest: _unitTest,
-      );
-    });
-
-    testWidgets('${_config.validation_descript_injection}', (tester) async {
-      var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
-
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
-      await _tests.checkInputInjectionOrInputValidation(
-        tester,
-        injectionTextOrInvalidText: "<SCRIPT>",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY,
-        shownValidationErrorMessage: TEXT_NUMBER_INVALID_MSG,
-        productToUpdate: productToUpdate,
-        isUnitTest: _unitTest,
-      );
-    });
-
-    //PRICE CHECK VALIDATIONS + CHECK INJECTIONS -------------------------
-    testWidgets('${_config.validation_price_EmptyNotAllowed}', (tester) async {
-      var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
-
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
-      await _tests.checkInputInjectionOrInputValidation(
-        tester,
-        injectionTextOrInvalidText: "",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY,
-        shownValidationErrorMessage: EMPTY_FIELD_INVALID_MSG,
-        productToUpdate: productToUpdate,
-        isUnitTest: _unitTest,
-      );
-    });
-
-    testWidgets('${_config.validation_price_injection}', (tester) async {
-      var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
-
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
-      await _tests.checkInputInjectionOrInputValidation(
-        tester,
-        injectionTextOrInvalidText: "<SCRIPT>",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY,
-        shownValidationErrorMessage: PRICE_INVALID_MSG,
-        productToUpdate: productToUpdate,
-        isUnitTest: _unitTest,
-      );
-    });
-
-    testWidgets('${_config.validation_price_06MaxSize}', (tester) async {
-      var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
-
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
-      await _tests.checkInputInjectionOrInputValidation(
-        tester,
-        //se inserir texto tem que falhar no price, numero tera' que formatar in realtime
-        injectionTextOrInvalidText: "evilLetter",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY,
-        shownValidationErrorMessage: PRICE_INVALID_MSG,
-        productToUpdate: productToUpdate,
-        isUnitTest: _unitTest,
-      );
-    });
-
-    //URL CHECK VALIDATIONS + CHECK INJECTIONS -------------------------
-    testWidgets('${_config.validation_url_EmptyNotAllowed}', (tester) async {
-      var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
-
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
-      await _tests.checkInputInjectionOrInputValidation(
-        tester,
-        injectionTextOrInvalidText: "",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY,
-        shownValidationErrorMessage: EMPTY_FIELD_INVALID_MSG,
-        productToUpdate: productToUpdate,
-        isUnitTest: _unitTest,
-      );
-    });
-
-    testWidgets('${_config.validation_url_injection}', (tester) async {
-      var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
-
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
-      await _tests.checkInputInjectionOrInputValidation(
-        tester,
-        injectionTextOrInvalidText: "<SCRIPT>",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY,
-        shownValidationErrorMessage: URL_INVALID_MSG,
-        productToUpdate: productToUpdate,
-        isUnitTest: _unitTest,
-      );
-    });
-
-    testWidgets('${_config.validation_url_Size}', (tester) async {
-      var productToUpdate = await _testProduct(tester, unitTest: _unitTest);
-
-      _unitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
-      await _tests.checkInputInjectionOrInputValidation(
-        tester,
-        //se inserir texto tem que falhar no price, numero tera' que formatar in realtime
-        injectionTextOrInvalidText: "evilLetter",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY,
-        shownValidationErrorMessage: URL_INVALID_MSG,
-        productToUpdate: productToUpdate,
-        isUnitTest: _unitTest,
-      );
-    });
+    }, skip: _skipTest);
   }
 
-  Future<dynamic> _testProduct(tester, {bool unitTest}) async {
+  Future<dynamic> _loadProductsInDbToUseInThisTest(
+    tester, {
+    bool unitTest,
+  }) async {
     var _product;
 
     if (!unitTest) {

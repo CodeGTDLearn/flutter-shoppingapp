@@ -7,6 +7,10 @@ import '../../../core/properties/app_urls.dart';
 import '../entities/product.dart';
 import 'i_inventory_repo.dart';
 
+// ------------- FLUTTER ERROR: FIREBASE RULES DEADLINE/DATE EXPIRE!!! ---------------
+// I/flutter ( 8038): The following _TypeError was thrown running a test:
+// I/flutter ( 8038): type 'String' is not a subtype of type 'Map<String, dynamic>'
+// ------------ SOLUTION: RENEW/REDATE FIREBASE RULES DEADLINE/DATE ------------------
 class InventoryRepoHttp implements IInventoryRepo {
   Future<List<Product>> getProducts() {
     return http

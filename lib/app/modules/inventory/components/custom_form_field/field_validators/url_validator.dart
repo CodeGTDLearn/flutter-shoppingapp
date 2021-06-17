@@ -14,8 +14,7 @@ class UrlValidator extends ValidatorAbstraction {
       Validators.required(EMPTY_FIELD_INVALID_MSG),
       Validators.patternRegExp(
           RegExp(OWASP_SAFE_URL, caseSensitive: false), URL_INVALID_MSG),
-      Validators.minLength(FIELD_URL_MIN_SIZE, SIZE_URL_INVALIDATION_MESSAGE),
-      Validators.maxLength(FIELD_URL_MAX_SIZE, SIZE_URL_INVALIDATION_MESSAGE),
+      Validators.minLength(FIELD_URL_MIN_SIZE, SIZE_URL_INVALID_MSG),
     ]);
   }
 }

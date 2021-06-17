@@ -41,15 +41,6 @@ class OrdersRepoTests {
       });
     });
 
-    //todo: erro authentication to be done
-    // test('Getting products - Error authentication', () {
-    //   _repo.getProducts().catchError((onError) {
-    //     if (onError.toString().isNotEmpty) {
-    //       fail("Error: Aut");
-    //     }
-    //   });
-    // });
-
     test('Getting Orders - No response Content (Empty)', () {
       when(_injectRepo.getOrders()).thenAnswer((_) async => []);
       _injectRepo.getOrders().then((value) {

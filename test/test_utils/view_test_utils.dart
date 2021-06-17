@@ -33,7 +33,7 @@ class ViewTestUtils {
     await openDrawerAndClickAnOption(
       tester,
       delaySeconds: delaySeconds,
-      keyOption: DRAWER_INVENTORY_OPTION_KEY,
+      clickedKeyOption: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
@@ -134,13 +134,13 @@ class ViewTestUtils {
   Future openDrawerAndClickAnOption(
     WidgetTester tester, {
     int delaySeconds,
-    String keyOption,
+    String clickedKeyOption,
     GlobalKey<ScaffoldState> scaffoldGlobalKey,
   }) async {
     await tester.pumpAndSettle();
     scaffoldGlobalKey.currentState.openDrawer();
     await tester.pumpAndSettle(Duration(milliseconds: delaySeconds * 1000 + 1700));
-    await tester.tap(_seek.key(keyOption));
+    await tester.tap(_seek.key(clickedKeyOption));
     await tester.pumpAndSettle();
     await tester.pump(Duration(milliseconds: delaySeconds * 1000 + 1700));
   }

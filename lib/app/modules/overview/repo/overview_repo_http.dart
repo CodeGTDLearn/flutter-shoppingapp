@@ -8,11 +8,16 @@ import '../../../core/properties/app_urls.dart';
 import '../../inventory/entities/product.dart';
 import 'i_overview_repo.dart';
 
+  // ------------- FLUTTER ERROR: FIREBASE RULES DEADLINE/DATE EXPIRE!!! ---------------
+  // I/flutter ( 8038): The following _TypeError was thrown running a test:
+  // I/flutter ( 8038): type 'String' is not a subtype of type 'Map<String, dynamic>'
+  // ------------ SOLUTION: RENEW/REDATE FIREBASE RULES DEADLINE/DATE ------------------
 class OverviewRepoHttp implements IOverviewRepo {
+
   @override
   Future<List<Product>> getProducts() {
     return http
-        .get(Uri.parse(PRODUCTS_URL), headers: HEADER_ACCEPT_JSON)
+        .get(Uri.parse(PRODUCTS_URL))
         .then(_decodeResponse)
         .catchError((onError) => throw onError);
   }
@@ -20,7 +25,6 @@ class OverviewRepoHttp implements IOverviewRepo {
   @override
   Future<int> updateProduct(Product product) {
     return http
-        //Product(Object) => Json(.toJson) => PlainText/Firebase(jsonEncode)
         .patch(
           Uri.parse("$PRODUCTS_URL/${product.id}.json"),
           headers: HEADER_ACCEPT_JSON,
@@ -31,7 +35,6 @@ class OverviewRepoHttp implements IOverviewRepo {
 
   List<Product> _decodeResponse(Response response) {
     var _products = <Product>[];
-    //PlainText/Firebase(jsonEncode) ==> Json(Map) ==> List[Product](forEach)
     var plainText = response.body;
     final json = jsonDecode(plainText);
     json == null
@@ -44,56 +47,3 @@ class OverviewRepoHttp implements IOverviewRepo {
     return _products;
   }
 }
-//
-// final json = jsonDecode(stringResponse.body);
-// _products = json.map<Product>((data) => Product.fromJson(data)).toList();
-//
-//
-// import 'dart:convert';
-//
-// import 'package:http/http.dart' as http;
-//
-// import '../../../core/properties/app_urls.dart';
-// import '../../inventory/entities/product.dart';
-// import 'i_overview_repo.dart';
-//
-// class OverviewRepoHttp implements IOverviewRepo {
-//   @override
-//   Future<List<Product>> getProducts() {
-//     // @formatter:off
-//     return http
-//         .get(PRODUCTS_URL_HTTP)
-//         .then((jsonResponse) {
-//       var _products = <Product>[];
-//       final MapProductsDecodedFromJsonResponse =
-//       json.decode(jsonResponse.body) as Map<String, dynamic>;
-//
-//       // todo: erro authentication to be done
-//       // MapOrdersDecodedFromJsonResponse != null ||
-//       //     jsonResponse.statusCode >= 400 ?
-//       MapProductsDecodedFromJsonResponse != null ?
-//       MapProductsDecodedFromJsonResponse
-//           .forEach((idMap, dataMap) {
-//         var productCreatedFromDataMap = Product.fromJson(dataMap);
-//         productCreatedFromDataMap.id = idMap;
-//         _products.add(productCreatedFromDataMap);
-//       })
-//           :_products = [];
-//       return _products;})
-//         .catchError((onError){
-//       print(">>>>>>>Erro no Firebase: Autenticacao ou "
-//           "JsonFormat, etc...>>>>>>: "
-//           "$onError");
-//       throw onError;
-//     });
-//     // @formatter:on
-//   }
-//
-//   @override
-//   Future<int> updateProduct(Product product, [String id]) {
-//     return http
-//         .patch("$URL_FIREBASE/$COLLECTION_PRODUCTS/${product.id}$EXTENSION",
-//         body: product.toJson())
-//         .then((response) => response.statusCode);
-//   }
-// }
