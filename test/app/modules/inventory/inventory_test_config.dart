@@ -88,7 +88,7 @@ class InventoryTestConfig {
 
   get VIEW_TEST_TITLE => '${repoName()}|View: Functional';
 
-  get VIEW_TEST_VALID_TITLE => '${repoName()}|View|Validation: Functional';
+  get VIEW_TEST_VALID_TITLE => '${repoName()}|View|Add/Edit|Validation: Functional';
 
   get VIEW_ADDEDIT_TEST_TITLE => '${repoName()}|View|Add/Edit: Functional';
 
@@ -100,9 +100,9 @@ class InventoryTestConfig {
 
   get updating_Product => 'Updating a product';
 
-  get testing_RefreshingView => 'Refreshing View';
+  get refreshingInventoryView => 'Refreshing View';
 
-  get testing_BackButtonInView => 'Testing BackButton';
+  get testInventoryViewBackButton => 'Testing BackButton';
 
   //TITLE CHECK VALIDATIONS + CHECK INJECTIONS -------------------------------
   get validation_title_size => 'Title|Validation|min 05 chars';

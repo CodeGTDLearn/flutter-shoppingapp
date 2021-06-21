@@ -13,6 +13,7 @@ import 'package:shopingapp/app/modules/inventory/view/inventory_add_edit_view.da
 import 'package:shopingapp/app/modules/inventory/view/inventory_view.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
+import 'package:shopingapp/app_driver.dart' as app;
 
 import 'test_utils.dart';
 
@@ -98,7 +99,7 @@ class ViewTestUtils {
       delaySeconds: delaySeconds,
       from: InventoryView,
       to: OverviewView,
-      trigger: BackButton,
+      triggerElement: BackButton,
     );
 
     Get.delete(tag: 'localTestUtilsInstance');
@@ -109,10 +110,10 @@ class ViewTestUtils {
     int delaySeconds,
     Type from,
     Type to,
-    Type trigger,
+    Type triggerElement,
   }) async {
     expect(_seek.type(from), findsOneWidget);
-    await tester.tap(_seek.type(trigger));
+    await tester.tap(_seek.type(triggerElement));
     await tester.pump();
     await tester.pumpAndSettle(_seek.delay(delaySeconds));
     expect(_seek.type(to), findsOneWidget);
@@ -157,14 +158,36 @@ class ViewTestUtils {
     );
   }
 
-  Future removeDbCollection(
+  Future removeCollectionFromDb(
     tester, {
     String url,
     int delaySeconds,
   }) async {
     await tester.pumpAndSettle(_seek.delay(delaySeconds));
     http.delete(Uri.parse("$url")).then((response) {
-      print('Removing Db Collection: $url |Status: ${response.statusCode}');
+      print('  \n Removing Db Collection:\n'
+          ' - URL: $url\n'
+          ' - Status: ${response.statusCode}\n');
+    });
+  }
+
+  Future removeObjectFromDb(
+    tester, {
+    String url,
+    int delaySeconds,
+    String idElement,
+  }) async {
+    await tester.pumpAndSettle(_seek.delay(delaySeconds));
+
+    final noExtensionInDeletions = url.replaceAll('.json', '/');
+    return http
+        .delete(Uri.parse("$noExtensionInDeletions$idElement.json"))
+        .then((response) {
+      print('  \n Removing Db Element:\n'
+          ' - URL: $noExtensionInDeletions$idElement.json\n'
+          ' - ID: $idElement\n'
+          ' - Status: ${response.statusCode}\n');
+      return response.statusCode;
     });
   }
 
@@ -180,14 +203,14 @@ class ViewTestUtils {
     return
          http.post(Uri.parse(collectionUrl), body: jsonEncode(object.toJson()))
         .then((response) {
-               //PlainText/Firebase(jsonEncode) ==> Json(Map) ==> Product
                var plainText = response.body;
                Map<String, dynamic> json = jsonDecode(plainText);
                object.id = json['name'];
 
-               print('  \n Adding in Db|Object ID: ${object.id} \n'
+               print('  \n Adding Object in Db:\n'
                      ' - URL: $collectionUrl\n'
-                     ' - ObjectType: ${object.runtimeType.toString()}\n'
+                     ' - ID: ${object.id}\n'
+                     ' - Type: ${object.runtimeType.toString()}\n'
                      ' - Status: ${response.statusCode}\n ');
 
                return object;
@@ -227,6 +250,10 @@ class ViewTestUtils {
     });
   }
 
+  Future<void> selectInitialization(tester, bool isUnitTest) async {
+    isUnitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+  }
+
   void globalSetUpAll(String testModuleName) {
     print('\n '
         '\n>>=============================================================>>'
@@ -258,5 +285,6 @@ class ViewTestUtils {
         '<---------< Test: $testModuleName <---------< \n'
         '<---------------------------------------------------------------<'
         '\n \n \n');
+    Get.reset;
   }
 }

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/properties/theme/dark_theme_controller.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
-import 'package:shopingapp/app/modules/cart/repo/cart_repo.dart';
+import 'package:shopingapp/app/modules/cart/repo/cart_repo_http.dart';
 import 'package:shopingapp/app/modules/cart/repo/i_cart_repo.dart';
 import 'package:shopingapp/app/modules/cart/service/cart_service.dart';
 import 'package:shopingapp/app/modules/cart/service/i_cart_service.dart';
@@ -57,7 +57,7 @@ class OrdersTestConfig {
           () => OrdersController(service: Get.find<IOrdersService>()));
 
       //CART
-      Get.lazyPut<ICartRepo>(() => CartRepo());
+      Get.lazyPut<ICartRepo>(() => CartRepoHttp());
       Get.lazyPut<ICartService>(() => CartService(repo: Get.find<ICartRepo>()));
       Get.lazyPut<CartController>(() => CartController(
           cartService: Get.find<ICartService>(),

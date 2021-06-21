@@ -15,12 +15,15 @@ import '../../../../test_utils/view_test_utils.dart';
 
 class OrdersViewTests {
   final _seek = TestUtils();
-  final _viewTestUtils = ViewTestUtils();
+  final _utils = ViewTestUtils();
 
   Future OrderingFromCartView_TapButtonOrderNow(
     WidgetTester tester,
     int delaySeconds,
-  ) async {
+      bool isUnitTest) async {
+
+    await _utils.selectInitialization(tester, isUnitTest);
+
     //A) ADDING ONE PRODUCT IN THE CART
     await tester.pumpAndSettle();
     expect(_seek.type(OverviewView), findsOneWidget);
@@ -42,35 +45,38 @@ class OrdersViewTests {
     expect(_seek.type(OverviewView), findsOneWidget);
 
     //D) OPEN ORDERS-DRAWER-OPTION AND CHECK THE ORDER DONE ABOVE
-    await _viewTestUtils.openDrawerAndClickAnOption(
+    await _utils.openDrawerAndClickAnOption(
       tester,
       delaySeconds: delaySeconds,
       clickedKeyOption: DRAWER_ORDER_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
-    _viewTestUtils.checkWidgetsQtdeInOneView(
+    _utils.checkWidgetsQtdeInOneView(
       widgetView: OrdersView,
       widgetType: OrderCollapsableTile,
       widgetQtde: 1,
     );
 
     //E) PRESS BACK-BUTTON AND GOBACK TO OVERVIEW-PAGE
-    await _viewTestUtils.navigationBetweenViews(
+    await _utils.navigationBetweenViews(
       tester,
       delaySeconds: delaySeconds,
       from: OrdersView,
       to: OverviewView,
-      trigger: BackButton,
+      triggerElement: BackButton,
     );
   }
 
   Future OpenOrderView_NoOrderInDB(
     WidgetTester tester,
     int delaySeconds,
+    bool isUnitTest,
   ) async {
 
-    await _viewTestUtils.openDrawerAndClickAnOption(
+    await _utils.selectInitialization(tester, isUnitTest);
+
+    await _utils.openDrawerAndClickAnOption(
       tester,
       delaySeconds: delaySeconds,
       clickedKeyOption: DRAWER_ORDER_OPTION_KEY,
@@ -81,12 +87,12 @@ class OrdersViewTests {
     expect(_seek.type(CircularProgressIndicator), findsNothing);
     expect(_seek.text(NO_ORDERS_FOUND_YET), findsOneWidget);
 
-    await _viewTestUtils.navigationBetweenViews(
+    await _utils.navigationBetweenViews(
       tester,
       delaySeconds: delaySeconds,
       from: OrdersView,
       to: OverviewView,
-      trigger: BackButton,
+      triggerElement: BackButton,
     );
   }
 
@@ -96,12 +102,13 @@ class OrdersViewTests {
     Type from,
     Type to,
   }) async {
-    await _viewTestUtils.navigationBetweenViews(
+    await _utils.navigationBetweenViews(
       tester,
       delaySeconds: delaySeconds,
       from: OrdersView,
       to: OverviewView,
-      trigger: BackButton,
+      triggerElement: BackButton,
     );
   }
+
 }

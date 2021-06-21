@@ -6,7 +6,7 @@ import 'package:shopingapp/app/modules/orders/components/order_collapsable_tile.
 import 'package:shopingapp/app/modules/orders/view/orders_view.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
-import 'package:shopingapp/app_driver.dart' as app;
+// import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../app_tests_config.dart';
 import '../../../../data_builders/product_databuilder.dart';
@@ -36,20 +36,17 @@ class OrdersViewFunctionalTest {
       _config.bindingsBuilderMockedRepo(execute: _isUnitTest);
     });
 
-    tearDown(() {
-      _utils.globalTearDown("...Ending");
-      Get.reset;
-    });
+    tearDown(() => _utils.globalTearDown("...Ending"));
 
     testWidgets('${_config.checking_noneOrderInDB}', (tester) async {
       if (_isUnitTest == false) {
-        await _utils.removeDbCollection(tester, url: ORDERS_URL, delaySeconds: 1);
-        await _utils.removeDbCollection(tester, url: PRODUCTS_URL, delaySeconds: 1);
-        await _utils.removeDbCollection(tester, url: CART_ITEM_URL, delaySeconds: 1);
+        await _utils.removeCollectionFromDb(tester, url: ORDERS_URL, delaySeconds: 1);
+        await _utils.removeCollectionFromDb(tester, url: PRODUCTS_URL, delaySeconds: 1);
+        await _utils.removeCollectionFromDb(tester, url: CART_ITEM_URL, delaySeconds: 1);
       }
       _config.bindingsBuilderMockRepoEmptyDb(execute: _isUnitTest);
-      _isUnitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
-      await _tests.OpenOrderView_NoOrderInDB(tester, DELAY);
+
+      await _tests.OpenOrderView_NoOrderInDB(tester, DELAY, _isUnitTest);
     }, skip: _skipTest);
 
     testWidgets('${_config.ordering_fromCartView_tapingTheButtonOrderNow}',
@@ -63,12 +60,12 @@ class OrdersViewFunctionalTest {
         );
       }
 
-      _isUnitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
-      await _tests.OrderingFromCartView_TapButtonOrderNow(tester, DELAY);
+      await _tests.OrderingFromCartView_TapButtonOrderNow(tester, DELAY, _isUnitTest);
     }, skip: _skipTest);
 
     testWidgets('${_config.checking_oneOrderInDB}', (tester) async {
-      _isUnitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      // _isUnitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      await _utils.selectInitialization(tester, _isUnitTest);
 
       await _utils.openDrawerAndClickAnOption(
         tester,
@@ -82,7 +79,8 @@ class OrdersViewFunctionalTest {
     }, skip: _skipTest);
 
     testWidgets('${_config.tapping_PageBackButton}', (tester) async {
-      _isUnitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      // _isUnitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+      await _utils.selectInitialization(tester, _isUnitTest);
 
       await _utils.openDrawerAndClickAnOption(
         tester,

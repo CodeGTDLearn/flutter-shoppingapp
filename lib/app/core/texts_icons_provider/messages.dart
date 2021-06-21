@@ -1,5 +1,5 @@
 //FlushBar Dialogs
-import 'package:shopingapp/app/core/properties/app_form_field_sizes.dart';
+import '../properties/app_form_field_sizes.dart';
 
 const ITEM_CART_ADDED_IN_THE_SHOPCART = " Added in the cart.";
 const ITEM_CART_REMOVED_FROM_THE_SHOPCART = "Item removed successfully.";
@@ -28,10 +28,14 @@ const ONLY_TEXTNUMBER_INVALIDATION_MESSAGE = "Please, only text and number are a
 const FORMAT_PRICE_INVALIDATION_MESSAGE = "Please, type the price properly.";
 const FORMAT_URL_INVALIDATION_MESSAGE = "Please, provide proper URL.";
 //Field Form Validation - Specific Messages
-const SIZE_05_INVALIDATION_MESSAGE = "Allowed: $FIELD_TITLE_MIN_SIZE to $FIELD_TITLE_MAX_SIZE characters.";
-const SIZE_10_INVALIDATION_MESSAGE = "Allowed: $FIELD_DESC_MIN_SIZE to $FIELD_DESCRIPT_MAX_SIZE characters.";
-const SIZE_URL_INVALIDATION_MESSAGE = "Allowed: $FIELD_URL_MIN_SIZE to $FIELD_URL_MAX_SIZE characters.";
-const SIZE_PRICE_INVALIDATION_MESSAGE = "Allowed: $FIELD_PRICE_MIN_SIZE to $FIELD_PRICE_MAX_SIZE characters.";
+const SIZE_05_INVALIDATION_MESSAGE =
+    "Allowed: $FIELD_TITLE_MIN_SIZE to $FIELD_TITLE_MAX_SIZE characters.";
+const SIZE_10_INVALIDATION_MESSAGE =
+    "Allowed: $FIELD_DESC_MIN_SIZE to $FIELD_DESCRIPT_MAX_SIZE characters.";
+const SIZE_URL_INVALIDATION_MESSAGE =
+    "Allowed: $FIELD_URL_MIN_SIZE to $FIELD_URL_MAX_SIZE characters.";
+const SIZE_PRICE_INVALIDATION_MESSAGE =
+    "Allowed: $FIELD_PRICE_MIN_SIZE to $FIELD_PRICE_MAX_SIZE characters.";
 
 //CUSTOM CIRCULAR PROGRESS INDICATOR
 const NO_ORDERS_FOUND_YET = "There is no Orders, yet";
