@@ -21,23 +21,23 @@ class InventoryViewValidationTest {
   final bool _skipTest = false;
   final _tests = Get.put(InventoryViewTests());
   final _config = Get.put(InventoryTestConfig());
-  final _utils = Get.put(ViewTestUtils());
+  final _viewUtils = Get.put(ViewTestUtils());
 
   InventoryViewValidationTest({String testType}) {
-    _unitTest = testType == UNIT_TEST;
+    _unitTest = testType == WIDGET_TEST;
   }
 
   void functional() {
-    setUpAll(() => _utils.globalSetUpAll(_tests.runtimeType.toString()));
+    setUpAll(() => _viewUtils.globalSetUpAll(_tests.runtimeType.toString()));
 
-    tearDownAll(() => _utils.globalTearDownAll(_tests.runtimeType.toString()));
+    tearDownAll(() => _viewUtils.globalTearDownAll(_tests.runtimeType.toString()));
 
     setUp(() {
-      _utils.globalSetUp("Starting...");
-      _config.bindingsBuilderMockedRepo(execute: _unitTest);
+      _viewUtils.globalSetUp("Starting...");
+      _config.bindingsBuilderMockedRepo(testType: _unitTest);
     });
 
-    tearDown(() => _utils.globalTearDown("...Ending"));
+    tearDown(() => _viewUtils.globalTearDown("...Ending"));
 
     //TITLE CHECK VALIDATIONS + CHECK INJECTIONS -------------------------------
     testWidgets('${_config.validation_title_size}', (tester) async {
@@ -45,7 +45,6 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        _unitTest,
         injectionTextOrInvalidText: "Size",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
         shownValidationErrorMessage: SIZE_05_INVALID_MSG,
@@ -58,7 +57,6 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        _unitTest,
         injectionTextOrInvalidText: "",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
         shownValidationErrorMessage: EMPTY_FIELD_INVALID_MSG,
@@ -71,7 +69,6 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        _unitTest,
         injectionTextOrInvalidText: "<SCRIPT>",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
         shownValidationErrorMessage: TEXT_NUMBER_INVALID_MSG,
@@ -85,7 +82,6 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        _unitTest,
         injectionTextOrInvalidText: "Size",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY,
         shownValidationErrorMessage: SIZE_10_INVALID_MSG,
@@ -98,7 +94,6 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        _unitTest,
         injectionTextOrInvalidText: "",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY,
         shownValidationErrorMessage: EMPTY_FIELD_INVALID_MSG,
@@ -111,7 +106,6 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        _unitTest,
         injectionTextOrInvalidText: "<SCRIPT>",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY,
         shownValidationErrorMessage: TEXT_NUMBER_INVALID_MSG,
@@ -125,7 +119,6 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        _unitTest,
         injectionTextOrInvalidText: "evilLetterrr",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY,
         shownValidationErrorMessage: PRICE_INVALID_MSG,
@@ -138,7 +131,6 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        _unitTest,
         injectionTextOrInvalidText: "",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY,
         shownValidationErrorMessage: EMPTY_FIELD_INVALID_MSG,
@@ -151,7 +143,6 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        _unitTest,
         injectionTextOrInvalidText: "<SCRIPT>",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY,
         shownValidationErrorMessage: PRICE_INVALID_MSG,
@@ -165,7 +156,6 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        _unitTest,
         injectionTextOrInvalidText: "evilLetter",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY,
         shownValidationErrorMessage: URL_INVALID_MSG,
@@ -178,7 +168,6 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        _unitTest,
         injectionTextOrInvalidText: "",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY,
         shownValidationErrorMessage: EMPTY_FIELD_INVALID_MSG,
@@ -191,7 +180,6 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        _unitTest,
         injectionTextOrInvalidText: "<SCRIPT>",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY,
         shownValidationErrorMessage: URL_INVALID_MSG,
@@ -208,7 +196,7 @@ class InventoryViewValidationTest {
 
     if (!unitTest) {
       await _cleanDb(tester);
-      await _utils
+      await _viewUtils
           .addObjectsInDb(tester,
               qtdeObjects: 2,
               collectionUrl: PRODUCTS_URL,
@@ -221,8 +209,8 @@ class InventoryViewValidationTest {
   }
 
   Future _cleanDb(tester) async {
-    await _utils.removeCollectionFromDb(tester, url: ORDERS_URL, delaySeconds: 1);
-    await _utils.removeCollectionFromDb(tester, url: PRODUCTS_URL, delaySeconds: 1);
-    await _utils.removeCollectionFromDb(tester, url: CART_ITEM_URL, delaySeconds: 1);
+    await _viewUtils.removeCollectionFromDb(tester, url: ORDERS_URL, delaySeconds: 1);
+    await _viewUtils.removeCollectionFromDb(tester, url: PRODUCTS_URL, delaySeconds: 1);
+    await _viewUtils.removeCollectionFromDb(tester, url: CART_ITEM_URL, delaySeconds: 1);
   }
 }

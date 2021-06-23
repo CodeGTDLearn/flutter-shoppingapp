@@ -9,7 +9,7 @@ import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/inventory/inventory_add_edit.dart';
 import 'package:shopingapp/app/modules/inventory/components/inventory_item.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
-import 'package:shopingapp/app/modules/inventory/view/inventory_add_edit_view.dart';
+import 'package:shopingapp/app/modules/inventory/view/inventory_edit_view.dart';
 import 'package:shopingapp/app/modules/inventory/view/inventory_view.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
@@ -19,91 +19,6 @@ import 'test_utils.dart';
 
 class ViewTestUtils {
   final _seek = Get.put(TestUtils());
-
-  Future AddProductInDB(
-    WidgetTester tester, {
-    int delaySeconds,
-    bool validTexts,
-    int qtde,
-  }) async {
-    var invalidText;
-    var _seek = Get.put(TestUtils(), tag: 'localTestUtilsInstance');
-
-    // A) OPEN DRAWER
-    // B) CLICK IN INVENTORY-DRAWER-OPTION
-    await openDrawerAndClickAnOption(
-      tester,
-      delaySeconds: delaySeconds,
-      clickedKeyOption: DRAWER_INVENTORY_OPTION_KEY,
-      scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
-    );
-
-    expect(_seek.type(InventoryView), findsOneWidget);
-
-    qtde ??= 1;
-    for (var i = 1; i <= qtde; i++) {
-      // C) CLICK IN INVENTORY-ADD-PRODUCT-BUTTON
-      await tapButtonWithResult(
-        tester,
-        delaySeconds: delaySeconds,
-        keyWidgetTrigger: INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY,
-        typeWidgetResult: InventoryAddEditView,
-      );
-
-      // D) GENERATE PRE-BUIT CONTENT + CLICK IN THE TEXT-FIELDS + ADD CONTENT
-      expect(_seek.text(INVENTORY_ADDEDIT_FIELD_TITLE), findsOneWidget);
-      expect(_seek.text(INVENTORY_ADDEDIT_FIELD_PRICE), findsOneWidget);
-      expect(_seek.text(INVENTORY_ADDEDIT_FIELD_DESCRIPT), findsOneWidget);
-      expect(_seek.text(INVENTORY_ADDEDIT_FIELD_IMAGE_URL), findsOneWidget);
-      expect(_seek.text(INVENTORY_ADDEDIT_IMAGE_TITLE), findsOneWidget);
-
-      invalidText = "d";
-      await tester.enterText(
-        _seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY),
-        validTexts ? "Red Tomatoes" : invalidText,
-      );
-
-      await tester.enterText(
-        _seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY),
-        validTexts ? (99.99).toString() : invalidText,
-      );
-
-      await tester.enterText(
-        _seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY),
-        validTexts ? "The best Red tomatoes ever. It is super red!" : invalidText,
-      );
-
-      await tester.enterText(
-        _seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY),
-        validTexts
-            ? "https://images.freeimages.com/images/large-previews/294/tomatoes-1326096.jpg"
-            : invalidText,
-      );
-
-      await tester.pumpAndSettle(_seek.delay(delaySeconds));
-
-      // E) CLICK IN SAVE-BUTTON + RETURN TO INVENTORY-VIEW + CHECK INVENTORY-ITEM ADDED
-      await tapButtonWithResult(
-        tester,
-        delaySeconds: delaySeconds,
-        keyWidgetTrigger: INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY,
-        typeWidgetResult: InventoryItem,
-      );
-
-      await tester.pumpAndSettle(_seek.delay(delaySeconds));
-    }
-
-    // F) CLICK IN BACK-BUTTON + RETURN FROM INVENTORY-VIEW TO OVERVIEW-VIEW
-    await navigationBetweenViews(
-      tester,
-      delaySeconds: delaySeconds,
-      from: InventoryView,
-      to: OverviewView,
-      triggerElement: BackButton,
-    );
-
-    Get.delete(tag: 'localTestUtilsInstance');
-  }
 
   void navigationBetweenViews(
     WidgetTester tester, {
@@ -250,8 +165,12 @@ class ViewTestUtils {
     });
   }
 
-  Future<void> selectInitialization(tester, bool isUnitTest) async {
-    isUnitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
+  Future<void> testsInitialization(
+    tester, {
+    bool testType,
+    Widget appDriver,
+  }) async {
+    testType ? await tester.pumpWidget(appDriver) : runApp(appDriver);
   }
 
   void globalSetUpAll(String testModuleName) {

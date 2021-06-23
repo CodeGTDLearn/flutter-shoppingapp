@@ -13,12 +13,12 @@ import '../core/messages/messages_snackbars_provided.dart';
 import '../core/texts_icons/inventory_edit_texts_icons_provided.dart';
 import '../entities/product.dart';
 
-class InventoryAddEditView extends StatefulWidget {
+class InventoryEditView extends StatefulWidget {
   @override
-  _InventoryAddEditViewState createState() => _InventoryAddEditViewState();
+  _InventoryEditViewState createState() => _InventoryEditViewState();
 }
 
-class _InventoryAddEditViewState extends State<InventoryAddEditView> {
+class _InventoryEditViewState extends State<InventoryEditView> {
   final InventoryController _invController = Get.find();
   final OverviewController _ovController = Get.find();
 

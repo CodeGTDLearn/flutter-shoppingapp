@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../../modules/cart/core/cart_bindings.dart';
 import '../../modules/cart/view/cart_view.dart';
 import '../../modules/inventory/core/inventory_bindings.dart';
-import '../../modules/inventory/view/inventory_add_edit_view.dart';
+import '../../modules/inventory/view/inventory_edit_view.dart';
 import '../../modules/inventory/view/inventory_view.dart';
 import '../../modules/orders/core/orders_bindings.dart';
 import '../../modules/orders/view/orders_view.dart';
@@ -52,7 +52,7 @@ class AppRoutes {
     ),
     GetPage(
       name: INVENTORY_ADDEDIT_PRODUCT,
-      page: () => InventoryAddEditView(),
+      page: () => InventoryEditView(),
     ),
   ];
 }

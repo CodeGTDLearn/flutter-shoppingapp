@@ -6,53 +6,62 @@ import 'package:shopingapp/app/modules/orders/components/order_collapsable_tile.
 import 'package:shopingapp/app/modules/orders/view/orders_view.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
-// import 'package:shopingapp/app_driver.dart' as app;
+import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../app_tests_config.dart';
 import '../../../../data_builders/product_databuilder.dart';
+import '../../../../test_utils/test_utils.dart';
 import '../../../../test_utils/view_test_utils.dart';
 import '../orders_test_config.dart';
 import 'orders_view_tests.dart';
 
 class OrdersViewFunctionalTest {
-  bool _isUnitTest;
+  bool _isWidgetTest;
   final bool _skipTest = false;
+  final _config = Get.put(OrdersTestConfig());
+  final _viewUtils = Get.put(ViewTestUtils());
+  final _testUtils = Get.put(TestUtils());
 
   OrdersViewFunctionalTest({String testType}) {
-    _isUnitTest = testType == UNIT_TEST;
+    _isWidgetTest = testType == WIDGET_TEST;
   }
 
   void functional() {
-    var _tests = Get.put(OrdersViewTests());
-    var _config = Get.put(OrdersTestConfig());
-    final _utils = Get.put(ViewTestUtils());
 
-    setUpAll(() => _utils.globalSetUpAll(_tests.runtimeType.toString()));
+    final _tests = Get.put(OrdersViewTests(
+      testType: _isWidgetTest,
+      testUtils: _testUtils,
+      viewTestUtils: _viewUtils,
+    ));
 
-    tearDownAll(() => _utils.globalTearDownAll(_tests.runtimeType.toString()));
+    setUpAll(() => _viewUtils.globalSetUpAll(_tests.runtimeType.toString()));
+
+    tearDownAll(() => _viewUtils.globalTearDownAll(_tests.runtimeType.toString()));
 
     setUp(() {
-      _utils.globalSetUp("Starting...");
-      _config.bindingsBuilderMockedRepo(execute: _isUnitTest);
+      _viewUtils.globalSetUp("Starting...");
+      _config.bindingsBuilderMockedRepo(testType: _isWidgetTest);
     });
 
-    tearDown(() => _utils.globalTearDown("...Ending"));
+    tearDown(() => _viewUtils.globalTearDown("...Ending"));
 
     testWidgets('${_config.checking_noneOrderInDB}', (tester) async {
-      if (_isUnitTest == false) {
-        await _utils.removeCollectionFromDb(tester, url: ORDERS_URL, delaySeconds: 1);
-        await _utils.removeCollectionFromDb(tester, url: PRODUCTS_URL, delaySeconds: 1);
-        await _utils.removeCollectionFromDb(tester, url: CART_ITEM_URL, delaySeconds: 1);
+      if (_isWidgetTest == false) {
+        await _viewUtils.removeCollectionFromDb(tester, url: ORDERS_URL, delaySeconds: 1);
+        await _viewUtils.removeCollectionFromDb(tester,
+            url: PRODUCTS_URL, delaySeconds: 1);
+        await _viewUtils.removeCollectionFromDb(tester,
+            url: CART_ITEM_URL, delaySeconds: 1);
       }
-      _config.bindingsBuilderMockRepoEmptyDb(execute: _isUnitTest);
+      _config.bindingsBuilderMockRepoEmptyDb(testType: _isWidgetTest);
 
-      await _tests.OpenOrderView_NoOrderInDB(tester, DELAY, _isUnitTest);
+      await _tests.OpenOrderView_NoOrderInDB(tester, DELAY);
     }, skip: _skipTest);
 
     testWidgets('${_config.ordering_fromCartView_tapingTheButtonOrderNow}',
         (tester) async {
-      if (!_isUnitTest) {
-        await _utils.addObjectInDb(
+      if (!_isWidgetTest) {
+        await _viewUtils.addObjectInDb(
           tester,
           object: ProductDataBuilder().ProductFullStaticNoId(),
           delaySeconds: DELAY,
@@ -60,29 +69,35 @@ class OrdersViewFunctionalTest {
         );
       }
 
-      await _tests.OrderingFromCartView_TapButtonOrderNow(tester, DELAY, _isUnitTest);
+      await _tests.OrderingFromCartView_TapButtonOrderNow(tester, DELAY);
     }, skip: _skipTest);
 
     testWidgets('${_config.checking_oneOrderInDB}', (tester) async {
-      // _isUnitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
-      await _utils.selectInitialization(tester, _isUnitTest);
+      await _viewUtils.testsInitialization(
+        tester,
+        testType: _isWidgetTest,
+        appDriver: app.AppDriver(),
+      );
 
-      await _utils.openDrawerAndClickAnOption(
+      await _viewUtils.openDrawerAndClickAnOption(
         tester,
         delaySeconds: DELAY,
         clickedKeyOption: DRAWER_ORDER_OPTION_KEY,
         scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
       );
 
-      _utils.checkWidgetsQtdeInOneView(
+      _viewUtils.checkWidgetsQtdeInOneView(
           widgetView: OrdersView, widgetType: OrderCollapsableTile, widgetQtde: 1);
     }, skip: _skipTest);
 
-    testWidgets('${_config.tapping_PageBackButton}', (tester) async {
-      // _isUnitTest ? await tester.pumpWidget(app.AppDriver()) : app.main();
-      await _utils.selectInitialization(tester, _isUnitTest);
+    testWidgets('${_config.tapping_ViewBackButton}', (tester) async {
+      await _viewUtils.testsInitialization(
+        tester,
+        testType: _isWidgetTest,
+        appDriver: app.AppDriver(),
+      );
 
-      await _utils.openDrawerAndClickAnOption(
+      await _viewUtils.openDrawerAndClickAnOption(
         tester,
         delaySeconds: DELAY,
         clickedKeyOption: DRAWER_ORDER_OPTION_KEY,

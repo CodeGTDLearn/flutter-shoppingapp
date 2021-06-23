@@ -18,7 +18,7 @@ import '../overview/repo/overview_mocked_repo.dart';
 import 'repo/inventory_mocked_repo.dart';
 
 class InventoryTestConfig {
-//REPO-USED-IN-THIS-TEST-MODULE:
+  //REPO-USED-IN-THIS-TEST-MODULE:
   final IInventoryRepo _mocked_repo_used_in_this_module_test = InventoryMockedRepo();
 
   void _bindingsBuilder(IInventoryRepo mockRepo) {
@@ -70,65 +70,60 @@ class InventoryTestConfig {
     HttpOverrides.global = null;
   }
 
-  void bindingsBuilderMockedRepo({bool execute}) {
-    if (execute) _bindingsBuilder(_mocked_repo_used_in_this_module_test);
+  void bindingsBuilderMockedRepo({bool testType}) {
+    if (testType) _bindingsBuilder(_mocked_repo_used_in_this_module_test);
   }
 
-  void bindingsBuilderMockedRepoEmptyDb({bool execute}) {
-    if (execute) _bindingsBuilder(InventoryMockedRepoEmptyDb());
+  void bindingsBuilderMockedRepoEmptyDb({bool testType}) {
+    if (testType) _bindingsBuilder(InventoryMockedRepoEmptyDb());
   }
 
+  // @formatter:off
+  //MVC-TITLES -----------------------------------------------------------------
   String repoName() => _mocked_repo_used_in_this_module_test.runtimeType.toString();
 
   get REPO_TEST_TITLE => '${repoName()}|Repo: Unit';
-
   get SERVICE_TEST_TITLE => '${repoName()}|Service|Repo: Unit';
-
   get CONTROLLER_TEST_TITLE => '${repoName()}|Controller|Service|Repo: Integr';
-
   get VIEW_TEST_TITLE => '${repoName()}|View: Functional';
+  get VIEW_TEST_VALID_TITLE => '${repoName()}|View|Edit|Validation: Functional';
+  get VIEW_EDIT_TEST_TITLE => '${repoName()}|View|Edit: Functional';
 
-  get VIEW_TEST_VALID_TITLE => '${repoName()}|View|Add/Edit|Validation: Functional';
-
-  get VIEW_ADDEDIT_TEST_TITLE => '${repoName()}|View|Add/Edit: Functional';
-
+  //TEST-TITLES ----------------------------------------------------------------
   get checking_ProductsAbsence => 'Checking products absence (empty DB)';
-
   get checking_Products => 'Checking Products';
-
   get deleting_Product => 'Deleting a product';
-
   get updating_Product => 'Updating a product';
-
   get refreshingInventoryView => 'Refreshing View';
-
   get testInventoryViewBackButton => 'Testing BackButton';
 
-  //TITLE CHECK VALIDATIONS + CHECK INJECTIONS -------------------------------
+  //TEST-TITLES: TITLE CHECK VALIDATIONS + CHECK INJECTIONS --------------------
   get validation_title_size => 'Title|Validation|min 05 chars';
-
   get validation_title_empty => 'Title|Validation|empty not allowed';
-
   get validation_title_injection => 'Title|Check injection (OWASP)';
 
-  //DESCRIPTION CHECK VALIDATIONS + CHECK INJECTIONS -------------------------
+  //TEST-TITLES: DESCRIPTION CHECK VALIDATIONS + CHECK INJECTIONS --------------
   get validation_descript_size => 'Description|Validation|min 10 chars';
-
   get validation_descript_empty => 'Description|Validation|empty not allowed';
-
   get validation_descript_injection => 'Description|Check injection (OWASP)';
 
-  //PRICE CHECK VALIDATIONS + CHECK INJECTIONS -------------------------------
+  //TEST-TITLES: PRICE CHECK VALIDATIONS + CHECK INJECTIONS --------------------
   get validation_price_size => 'Price|Validation|max 07 chars';
-
   get validation_price_empty => 'Price|Validation|empty not allowed';
-
   get validation_price_injection => 'Price|Check injection (OWASP)';
 
-  //URL CHECK VALIDATIONS + CHECK INJECTIONS ---------------------------------
+  //TEST-TITLES: URL CHECK VALIDATIONS + CHECK INJECTIONS ----------------------
   get validation_url_size => 'Url Image|Validation|max 135 chars';
-
   get validation_url_empty => 'Url Image|Validation|empty not allowed';
-
   get validation_url_injection => 'Url Image|Check injection (OWASP)';
+
+  //TEST-TITLES: URL CHECK VALIDATIONS + CHECK INJECTIONS ----------------------
+  get edit_checking_ProductsAbsence => 'Open Page with NO products in DB';
+  get edit_open_view => 'Open Inventory-Edit View';
+  get edit_add_product => 'Adding a product';
+  get edit_filling_view => 'Filling fields with previewImageUrl';
+  get edit_filling_view_invalid => 'Filling fields testing INValidation';
+  get edit_back_button => 'Testing Page BackButton';
+
+// @formatter:on
 }
