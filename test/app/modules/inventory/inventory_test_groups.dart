@@ -17,17 +17,17 @@ class InventoryTest {
     //   "${InventoryTestConfig().CONTROLLER_TEST_TITLE}",
     //   InventoryControllerTests.integration,
     // );
-    // group(
-    //   "${InventoryTestConfig().VIEW_TEST_TITLE}",
-    //   InventoryViewFunctionalTest(testType: WIDGET_TEST).functional,
-    // );
+    group(
+      "${InventoryTestConfig().VIEW_TEST_TITLE}",
+      InventoryViewFunctionalTest(testType: WIDGET_TEST).functional,
+    );
     // group(
     //   "${InventoryTestConfig().VIEW_TEST_VALID_TITLE}",
     //   InventoryViewValidationTest(testType: WIDGET_TEST).functional,
     // );
     group(
       "${InventoryTestConfig().VIEW_EDIT_TEST_TITLE}",
-      InventoryViewEditFunctionalTest().functional,
+      InventoryViewEditFunctionalTest(testType: WIDGET_TEST).functional,
     );
   }
 }

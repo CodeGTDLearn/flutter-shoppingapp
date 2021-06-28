@@ -90,11 +90,11 @@ class InventoryTestConfig {
   get VIEW_EDIT_TEST_TITLE => '${repoName()}|View|Edit: Functional';
 
   //TEST-TITLES ----------------------------------------------------------------
-  get checking_ProductsAbsence => 'Checking products absence (empty DB)';
-  get checking_Products => 'Checking Products';
-  get deleting_Product => 'Deleting a product';
-  get updating_Product => 'Updating a product';
-  get refreshingInventoryView => 'Refreshing View';
+  get check_ProductsAbsence => 'Checking products absence (empty DB)';
+  get check_Products => 'Checking Products';
+  get delete_Product => 'Deleting a product';
+  get update_Product => 'Updating a product';
+  get refresh_inventoryView => 'Refreshing View';
   get testInventoryViewBackButton => 'Testing BackButton';
 
   //TEST-TITLES: TITLE CHECK VALIDATIONS + CHECK INJECTIONS --------------------
@@ -118,11 +118,9 @@ class InventoryTestConfig {
   get validation_url_injection => 'Url Image|Check injection (OWASP)';
 
   //TEST-TITLES: URL CHECK VALIDATIONS + CHECK INJECTIONS ----------------------
-  get edit_checking_ProductsAbsence => 'Open Page with NO products in DB';
-  get edit_open_view => 'Open Inventory-Edit View';
-  get edit_add_product => 'Adding a product';
-  get edit_filling_view => 'Filling fields with previewImageUrl';
-  get edit_filling_view_invalid => 'Filling fields testing INValidation';
+  get edit_add_product_via_form => 'Adding a product';
+  get edit_preview_url_in_form => 'check previewImageUrl';
+  get edit_fill_form_invalid => 'Filling fields testing INValidation';
   get edit_back_button => 'Testing Page BackButton';
 
 // @formatter:on

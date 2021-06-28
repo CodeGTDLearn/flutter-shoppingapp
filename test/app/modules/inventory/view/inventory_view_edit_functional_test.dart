@@ -13,8 +13,10 @@ import 'package:shopingapp/app/modules/inventory/view/inventory_view.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart';
+import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../app_tests_config.dart';
+import '../../../../data_builders/product_databuilder.dart';
 import '../../../../mocked_datasource/products_mocked_datasource.dart';
 import '../../../../test_utils/test_utils.dart';
 import '../../../../test_utils/view_test_utils.dart';
@@ -51,41 +53,11 @@ class InventoryViewEditFunctionalTest {
 
     tearDown(() => _viewTestUtils.globalTearDown("...Ending"));
 
-    testWidgets('${_config.edit_add_product}', (tester) async {
-      await tester.pumpWidget(AppDriver());
-      await tester.pumpAndSettle();
+    testWidgets('${_config.edit_add_product_via_form}', (tester) async {
+      await _tests.addProductFillingForm(tester);
+      }, skip: _skipTest);
 
-      await _tests.openInventoryEditView(tester);
-
-      await _tests.addProductInInventoryEditPage(
-        tester,
-        product: ProductsMockedDatasource().product(),
-        testUsingValidTexts: true,
-      );
-
-      expect(_testUtils.type(InventoryView), findsOneWidget);
-      expect(_testUtils.type(InventoryItem), findsNWidgets(5));
-
-      expect(_testUtils.type(BackButton), findsOneWidget);
-      await tester.tap(_testUtils.type(BackButton));
-      await tester.pumpAndSettle(_testUtils.delay(1));
-
-      expect(_testUtils.type(OverviewView), findsOneWidget);
-    }, skip: _skipTest);
-
-    testWidgets('${_config.edit_open_view}', (tester) async {
-      await tester.pumpWidget(AppDriver());
-      await tester.pumpAndSettle();
-
-      await _tests.openInventoryEditView(tester);
-      await _tests.addProductInInventoryEditPage(
-        tester,
-        product: ProductsMockedDatasource().product(),
-        testUsingValidTexts: true,
-      );
-    }, skip: _skipTest);
-
-    testWidgets('${_config.edit_filling_view}', (tester) async {
+    testWidgets('${_config.edit_preview_url_in_form}', (tester) async {
       await tester.pumpWidget(AppDriver());
 
       await _tests.openInventoryEditView(tester);
@@ -103,14 +75,15 @@ class InventoryViewEditFunctionalTest {
       await tester.tap(_testUtils.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY));
       await tester.pumpAndSettle(_testUtils.delay(2));
       _testUtils.imagesTotal(1);
-    }, skip: _skipTest);
+    }, skip: true);
+    // });
 
-    testWidgets('${_config.edit_filling_view_invalid}', (tester) async {
+    testWidgets('${_config.edit_fill_form_invalid}', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pumpAndSettle();
 
       await _tests.openInventoryEditView(tester);
-      await _tests.addProductInInventoryEditPage(
+      await _tests.addProductFillingFormInInventoryEditView(
         tester,
         product: ProductsMockedDatasource().product(),
         testUsingValidTexts: false,
@@ -119,36 +92,10 @@ class InventoryViewEditFunctionalTest {
       _tests.expectTestingINValidationMessages(findsOneWidget);
 
       expect(_testUtils.type(InventoryEditView), findsOneWidget);
-    }, skip: _skipTest);
+    }, skip: true);
 
     testWidgets('${_config.edit_back_button}', (tester) async {
-      await tester.pumpWidget(AppDriver());
-      await tester.pumpAndSettle();
-
-      await _tests.openInventoryEditView(tester);
-
-      expect(_testUtils.type(BackButton), findsOneWidget);
-      await tester.tap(_testUtils.type(BackButton));
-      await tester.pumpAndSettle(_testUtils.delay(2));
-      expect(_testUtils.type(InventoryView), findsOneWidget);
-    }, skip: _skipTest);
-
-    testWidgets('${_config.edit_checking_ProductsAbsence}', (tester) async {
-      InventoryTestConfig().bindingsBuilderMockedRepoEmptyDb(testType: true);
-
-      await tester.pumpWidget(AppDriver());
-
-      DRAWWER_SCAFFOLD_GLOBALKEY.currentState.openDrawer();
-      await tester.pumpAndSettle(_testUtils.delay(1));
-      expect(DRAWWER_SCAFFOLD_GLOBALKEY.currentState.isDrawerOpen, isTrue);
-
-      await tester.tap(_testUtils.key(DRAWER_INVENTORY_OPTION_KEY));
-      await tester.pumpAndSettle(_testUtils.delay(2));
-      expect(_testUtils.type(InventoryView), findsOneWidget);
-
-      await tester.tap(_testUtils.key(INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY));
-      await tester.pumpAndSettle(_testUtils.delay(1));
-      expect(_testUtils.type(InventoryEditView), findsOneWidget);
+      await _tests.tapBackButtonInInventoryEditView(tester);
     }, skip: _skipTest);
   }
 }

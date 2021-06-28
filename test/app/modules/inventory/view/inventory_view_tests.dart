@@ -18,6 +18,7 @@ import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../app_tests_config.dart';
+import '../../../../data_builders/product_databuilder.dart';
 import '../../../../test_utils/test_utils.dart';
 import '../../../../test_utils/view_test_utils.dart';
 
@@ -278,8 +279,8 @@ class InventoryViewTests {
     //   -> Tap Saving:
     //      - UNIT-TESTS: DO NOT Backing to InventoryView automatically
     //        - THEREFORE: _unitTests DOES NOT EXECUTE THIS 'TEST-PHASE', because:
-    //          - They uses MOCK-OBJECTS which are not ' ACTUAL PERSISTED' IN DB
-    //          - Without 'PERSISTENCE' in DB, InventoryAddEditView does not GO-BACK TO
+    //          - They uses MOCK-OBJECTS which are not 'ACTUAL PERSISTED' IN the DB
+    //          - Without 'PERSISTENCE' in DB, InventoryEditView does not GO-BACK TO
     //          InventoryView automatically
     if (testType == false) {
       await tester.pump(testUtils.delay(delaySeconds));
@@ -350,7 +351,7 @@ class InventoryViewTests {
     );
   }
 
-  Future checkInventoryProducts(tester, int ProductsQtde) async {
+  Future checkInventoryViewProducts(tester, int ProductsQtde) async {
     await viewTestUtils.testsInitialization(
       tester,
       testType: testType,
@@ -375,21 +376,20 @@ class InventoryViewTests {
 
   //-------------------------TEST-METHODS-INVENTORY-EDIT-VIEW------------------------
   Future openInventoryEditView(tester) async {
-    DRAWWER_SCAFFOLD_GLOBALKEY.currentState.openDrawer();
-    await tester.pumpAndSettle(testUtils.delay(2));
-    await tester.tap(testUtils.key(DRAWER_INVENTORY_OPTION_KEY));
-    await tester.pumpAndSettle(testUtils.delay(1));
-    await tester.tap(testUtils.key(INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY));
-    await tester.pumpAndSettle(testUtils.delay(1));
-    expect(testUtils.type(InventoryEditView), findsOneWidget);
+    await viewTestUtils.openDrawerAndClickAnOption(
+      tester,
+      delaySeconds: DELAY,
+      clickedKeyOption: DRAWER_INVENTORY_OPTION_KEY,
+      scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
+    );
   }
 
   Future AddProductInDb(
-      WidgetTester tester, {
-        int delaySeconds,
-        bool validTexts,
-        int qtde,
-      }) async {
+    WidgetTester tester, {
+    int delaySeconds,
+    bool validTexts,
+    int qtde,
+  }) async {
     var invalidText;
     var _seek = Get.put(TestUtils(), tag: 'localTestUtilsInstance');
 
@@ -469,7 +469,7 @@ class InventoryViewTests {
     Get.delete(tag: 'localTestUtilsInstance');
   }
 
-  Future addProductInInventoryEditPage(
+  Future addProductFillingFormInInventoryEditView(
     tester, {
     Product product,
     bool testUsingValidTexts,
@@ -495,10 +495,9 @@ class InventoryViewTests {
       testUsingValidTexts ? validTitle : invalidText,
     );
     //Price is blocked against INVALID CONTENT, so there is no need to test it.
-    // await tester.enterText(
-    //   testUtils.key(INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY),
-    //   testUsingValidTexts ? validPrice : invalidText,
-    // );
+    await tester.enterText(
+        testUtils.key(INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY), validPrice
+        );
     await tester.enterText(
       testUtils.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY),
       testUsingValidTexts ? validDesc : invalidText,
@@ -515,10 +514,77 @@ class InventoryViewTests {
     await tester.pump(testUtils.delay(2));
   }
 
+  Future<void> addProductFillingForm(tester) async {
+    await viewTestUtils.testsInitialization(
+      tester,
+      testType: testType,
+      appDriver: app.AppDriver(),
+    );
+
+    await viewTestUtils.openDrawerAndClickAnOption(
+      tester,
+      delaySeconds: DELAY,
+      clickedKeyOption: DRAWER_INVENTORY_OPTION_KEY,
+      scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
+    );
+
+    await tester.pumpAndSettle(testUtils.delay(1));
+    await tester.tap(testUtils.key(INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY));
+    await tester.pumpAndSettle(testUtils.delay(1));
+    expect(testUtils.type(InventoryEditView), findsOneWidget);
+
+    await addProductFillingFormInInventoryEditView(
+      tester,
+      product: ProductDataBuilder().ProductFullStaticNoId(),
+      testUsingValidTexts: true,
+    );
+
+    if (testType == false) {
+      viewTestUtils.checkWidgetsQtdeInOneView(
+        widgetView: InventoryView,
+        widgetType: InventoryItem,
+        widgetQtde: 5,
+      );
+    }
+
+    await tester.tap(testUtils.type(BackButton));
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+
+    expect(testUtils.type(OverviewView), findsOneWidget);
+  }
+
   void expectTestingINValidationMessages(Matcher matcher) {
     expect(testUtils.text(SIZE_05_INVALID_MSG), matcher);
     // expect(_testUtils.text(PRICE_INVALID_MSG), matcher);
     expect(testUtils.text(SIZE_10_INVALID_MSG), matcher);
     expect(testUtils.text(URL_INVALID_MSG), matcher);
+  }
+
+  Future tapBackButtonInInventoryEditView(tester) async {
+    await viewTestUtils.testsInitialization(
+      tester,
+      testType: testType,
+      appDriver: app.AppDriver(),
+    );
+
+    await viewTestUtils.openDrawerAndClickAnOption(
+      tester,
+      delaySeconds: DELAY,
+      clickedKeyOption: DRAWER_INVENTORY_OPTION_KEY,
+      scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
+    );
+
+    await tester.pumpAndSettle(testUtils.delay(DELAY + 1));
+    await tester.tap(testUtils.key(INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY));
+    await tester.pumpAndSettle(testUtils.delay(DELAY + 1));
+    expect(testUtils.type(InventoryEditView), findsOneWidget);
+
+    await viewTestUtils.navigationBetweenViews(
+      tester,
+      from: InventoryEditView,
+      to: InventoryView,
+      triggerElement: BackButton,
+      delaySeconds: DELAY,
+    );
   }
 }

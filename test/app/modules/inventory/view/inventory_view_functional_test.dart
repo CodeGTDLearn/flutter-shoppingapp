@@ -41,29 +41,24 @@ class InventoryViewFunctionalTest {
 
     tearDown(() => _viewUtils.globalTearDown("...Ending"));
 
-    testWidgets('${_config.checking_ProductsAbsence}', (tester) async {
+    testWidgets('${_config.check_ProductsAbsence}', (tester) async {
       if (_isWidgetTest == false) await _cleanDb(tester);
+
       _config.bindingsBuilderMockedRepoEmptyDb(testType: _isWidgetTest);
+
       await _tests.checkInventoryProductsAbsence(tester, DELAY);
     }, skip: _skipTest);
 
-    testWidgets('${_config.checking_Products}', (tester) async {
-      if (!_isWidgetTest) {
-        await _cleanDb(tester);
-        await _viewUtils.addObjectsInDb(tester,
-            qtdeObjects: 2,
-            collectionUrl: PRODUCTS_URL,
-            object: ProductDataBuilder().ProductFullStaticNoId(),
-            delaySeconds: DELAY);
-      }
+    testWidgets('${_config.check_Products}', (tester) async {
+      await _loadTwoProductsInDb(tester, testType: _isWidgetTest);
 
       _isWidgetTest
-          ? await _tests.checkInventoryProducts(tester, 4)
-          : await _tests.checkInventoryProducts(tester, 2);
+          ? await _tests.checkInventoryViewProducts(tester, 4)
+          : await _tests.checkInventoryViewProducts(tester, 2);
     }, skip: _skipTest);
 
-    testWidgets('${_config.deleting_Product}', (tester) async {
-      var product = await _loadProductsInDb(tester, testType: _isWidgetTest);
+    testWidgets('${_config.delete_Product}', (tester) async {
+      var product = await _loadTwoProductsInDb(tester, testType: _isWidgetTest);
 
       await _tests.deleteInventoryProduct(
         tester,
@@ -74,8 +69,8 @@ class InventoryViewFunctionalTest {
       );
     }, skip: _skipTest);
 
-    testWidgets('${_config.updating_Product}', (tester) async {
-      var product = await _loadProductsInDb(tester, testType: _isWidgetTest);
+    testWidgets('${_config.update_Product}', (tester) async {
+      var product = await _loadTwoProductsInDb(tester, testType: _isWidgetTest);
 
       await _tests.updateInventoryProduct(
         tester,
@@ -83,23 +78,24 @@ class InventoryViewFunctionalTest {
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
         productToUpdate: product,
       );
+
     }, skip: _skipTest);
 
-    testWidgets('${_config.refreshingInventoryView}', (tester) async {
-      var product = await _loadProductsInDb(tester, testType: _isWidgetTest);
+    testWidgets('${_config.refresh_inventoryView}', (tester) async {
+      var product = await _loadTwoProductsInDb(tester, testType: _isWidgetTest);
 
-      await _tests.refreshingInventoryView(
-        tester,
-        trigger: product,
-      );
+      await _tests.refreshingInventoryView(tester, trigger: product);
+
     }, skip: _skipTest);
 
     testWidgets('${_config.testInventoryViewBackButton}', (tester) async {
+
       await _tests.tapingBackButtonInInventoryView(tester);
+
     }, skip: _skipTest);
   }
 
-  Future<dynamic> _loadProductsInDb(tester, {bool testType}) async {
+  Future<dynamic> _loadTwoProductsInDb(tester, {bool testType}) async {
     var _product;
 
     if (!testType) {
