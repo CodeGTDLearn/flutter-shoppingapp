@@ -33,7 +33,7 @@ class TestUtils {
     return Duration(seconds: seconds);
   }
 
-  void imagesTotal(int numberOfImages) {
+  void checkImageTotalOnAView(int numberOfImages) {
     provideMockedNetworkImages(() async {
       expect(find.byType(Image), findsNWidgets(numberOfImages));
     });

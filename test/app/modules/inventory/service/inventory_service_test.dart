@@ -22,7 +22,7 @@ class InventoryServiceTests {
     var _newProduct = ProductDataBuilder().ProductFull();
 
     setUp(() {
-      InventoryTestConfig().bindingsBuilderMockedRepo(testType: true);
+      InventoryTestConfig().bindingsBuilderMockedRepo(isUnitTest: true);
       _ovService = Get.find<IOverviewService>();
 
       _invService = Get.find<IInventoryService>();

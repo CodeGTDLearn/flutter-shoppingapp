@@ -7,7 +7,7 @@ import 'service/overview_service_test.dart';
 import 'view/overview_details_view_test.dart';
 import 'view/overview_view_test.dart';
 
-class OverviewTest {
+class OverviewTestGroups {
   void groups() {
     group("${OverviewTestConfig().REPO_TEST_TITLE}", OverviewRepoTests.unit);
     group("${OverviewTestConfig().SERVICE_TEST_TITLE}", OverviewServiceTests.unit);

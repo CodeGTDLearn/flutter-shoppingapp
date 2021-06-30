@@ -17,7 +17,7 @@ class OrdersServiceTests {
     var testConfig = Get.put(OrdersTestConfig());
 
     setUp(() {
-      testConfig.bindingsBuilderMockedRepo(testType: true);
+      testConfig.bindingsBuilderMockedRepo(isWidgetTest: true);
       _service = Get.find<IOrdersService>();
       _injectService = OrdersInjectMockedService();
       _cartItems = CartItemDatabuilder.cartItems();

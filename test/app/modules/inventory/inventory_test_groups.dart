@@ -9,22 +9,24 @@ import 'view/inventory_view_edit_functional_test.dart';
 import 'view/inventory_view_functional_test.dart';
 import 'view/inventory_view_validation_test.dart';
 
-class InventoryTest {
+class InventoryTestGroups {
   void groups() {
-    // group("${InventoryTestConfig().REPO_TEST_TITLE}", InventoryRepoTests.unit);
-    // group("${InventoryTestConfig().SERVICE_TEST_TITLE}", InventoryServiceTests.unit);
-    // group(
-    //   "${InventoryTestConfig().CONTROLLER_TEST_TITLE}",
-    //   InventoryControllerTests.integration,
-    // );
+    group("${InventoryTestConfig().REPO_TEST_TITLE}", InventoryRepoTests.unit);
+    group("${InventoryTestConfig().SERVICE_TEST_TITLE}", InventoryServiceTests.unit);
+    group(
+      "${InventoryTestConfig().CONTROLLER_TEST_TITLE}",
+      InventoryControllerTests.integration,
+    );
     group(
       "${InventoryTestConfig().VIEW_TEST_TITLE}",
       InventoryViewFunctionalTest(testType: WIDGET_TEST).functional,
     );
-    // group(
-    //   "${InventoryTestConfig().VIEW_TEST_VALID_TITLE}",
-    //   InventoryViewValidationTest(testType: WIDGET_TEST).functional,
-    // );
+
+    group(
+      "${InventoryTestConfig().VIEW_TEST_VALID_TITLE}",
+      InventoryViewValidationTest(testType: WIDGET_TEST).functional,
+    );
+
     group(
       "${InventoryTestConfig().VIEW_EDIT_TEST_TITLE}",
       InventoryViewEditFunctionalTest(testType: WIDGET_TEST).functional,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
 import 'package:shopingapp/app/core/components/keys/progres_indicator_keys.dart';
+import 'package:shopingapp/app/core/properties/app_urls.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
 import 'package:shopingapp/app/modules/cart/core/cart_widget_keys.dart';
 import 'package:shopingapp/app/modules/cart/view/cart_view.dart';
@@ -11,23 +12,41 @@ import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
+import '../../../../app_tests_config.dart';
+import '../../../../data_builders/product_databuilder.dart';
+import '../../../../test_utils/db_test_utils.dart';
 import '../../../../test_utils/test_utils.dart';
-import '../../../../test_utils/view_test_utils.dart';
+import '../../../../test_utils/ui_test_utils.dart';
 
 class OrdersViewTests {
   final TestUtils testUtils;
-  final ViewTestUtils viewTestUtils;
-  final testType;
+  final UiTestUtils uiTestUtils;
+  final DbTestUtils dbTestUtils;
+  final isWidgetTest;
 
-  OrdersViewTests({this.testType, this.testUtils, this.viewTestUtils});
+  OrdersViewTests({
+    this.isWidgetTest,
+    this.testUtils,
+    this.uiTestUtils,
+    this.dbTestUtils,
+  });
 
   Future OrderingFromCartView_TapButtonOrderNow(
     WidgetTester tester,
     int delaySeconds,
   ) async {
-    await viewTestUtils.testsInitialization(
+    if (isWidgetTest == false) {
+      await dbTestUtils.addObject(
+        tester,
+        object: ProductDataBuilder().ProductFullStaticNoId(),
+        delaySeconds: DELAY,
+        collectionUrl: PRODUCTS_URL,
+      );
+    }
+
+    await uiTestUtils.testInitialization(
       tester,
-      testType: testType,
+      isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
     );
 
@@ -52,43 +71,43 @@ class OrdersViewTests {
     expect(testUtils.type(OverviewView), findsOneWidget);
 
     //D) OPEN ORDERS-DRAWER-OPTION AND CHECK THE ORDER DONE ABOVE
-    await viewTestUtils.openDrawerAndClickAnOption(
+    await uiTestUtils.openDrawerAndClickAnOption(
       tester,
       delaySeconds: delaySeconds,
-      clickedKeyOption: DRAWER_ORDER_OPTION_KEY,
+      optionKey: DRAWER_ORDER_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
-    viewTestUtils.checkWidgetsQtdeInOneView(
+    uiTestUtils.checkWidgetsQtdeInOneView(
       widgetView: OrdersView,
       widgetType: OrderCollapsableTile,
       widgetQtde: 1,
     );
 
     //E) PRESS BACK-BUTTON AND GOBACK TO OVERVIEW-PAGE
-    await viewTestUtils.navigationBetweenViews(
+    await uiTestUtils.navigationBetweenViews(
       tester,
       delaySeconds: delaySeconds,
       from: OrdersView,
       to: OverviewView,
-      triggerElement: BackButton,
+      triggerWidget: BackButton,
     );
   }
 
-  Future OpenOrderView_NoOrderInDB(
+  Future checkOrders_OrdersAbsence(
     WidgetTester tester,
     int delaySeconds,
   ) async {
-    await viewTestUtils.testsInitialization(
+    await uiTestUtils.testInitialization(
       tester,
-      testType: testType,
+      isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
     );
 
-    await viewTestUtils.openDrawerAndClickAnOption(
+    await uiTestUtils.openDrawerAndClickAnOption(
       tester,
       delaySeconds: delaySeconds,
-      clickedKeyOption: DRAWER_ORDER_OPTION_KEY,
+      optionKey: DRAWER_ORDER_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
@@ -96,27 +115,42 @@ class OrdersViewTests {
     expect(testUtils.type(CircularProgressIndicator), findsNothing);
     expect(testUtils.text(NO_ORDERS_FOUND_YET), findsOneWidget);
 
-    await viewTestUtils.navigationBetweenViews(
+    await uiTestUtils.navigationBetweenViews(
       tester,
       delaySeconds: delaySeconds,
       from: OrdersView,
       to: OverviewView,
-      triggerElement: BackButton,
+      triggerWidget: BackButton,
     );
   }
 
-  Future OpenOrderView_TapBackButton(
+  Future tapingBackButtonInOrdersView(
     WidgetTester tester,
     int delaySeconds, {
     Type from,
     Type to,
   }) async {
-    await viewTestUtils.navigationBetweenViews(
+    await uiTestUtils.testInitialization(
+      tester,
+      isWidgetTest: isWidgetTest,
+      appDriver: app.AppDriver(),
+    );
+
+    await uiTestUtils.openDrawerAndClickAnOption(
+      tester,
+      delaySeconds: DELAY,
+      optionKey: DRAWER_ORDER_OPTION_KEY,
+      scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
+    );
+
+    await tester.pumpAndSettle();
+
+    await uiTestUtils.navigationBetweenViews(
       tester,
       delaySeconds: delaySeconds,
       from: OrdersView,
       to: OverviewView,
-      triggerElement: BackButton,
+      triggerWidget: BackButton,
     );
   }
 }

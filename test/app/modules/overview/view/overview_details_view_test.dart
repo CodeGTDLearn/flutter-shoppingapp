@@ -99,7 +99,7 @@ class OverviewDetailsViewTests {
       await tester.pumpAndSettle(seek.delay(3));
       expect(seek.text(_products()[0].title.toString()), findsOneWidget);
 
-      seek.imagesTotal(1);
+      seek.checkImageTotalOnAView(1);
     });
   }
 }

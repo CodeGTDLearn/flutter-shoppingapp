@@ -7,7 +7,7 @@ import 'repo/orders_repo_test.dart';
 import 'service/orders_service_test.dart';
 import 'view/orders_view_functional_test.dart';
 
-class OrdersTest {
+class OrdersTestGroups {
   void groups() {
     group("${OrdersTestConfig().REPO_TEST_TITLE}", OrdersRepoTests.unit);
     group("${OrdersTestConfig().SERVICE_TEST_TITLE}", OrdersServiceTests.unit);

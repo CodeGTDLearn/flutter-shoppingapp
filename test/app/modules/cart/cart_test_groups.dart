@@ -6,7 +6,7 @@ import 'cart_service_test.dart';
 import 'cart_test_config.dart';
 import 'cart_view_test.dart';
 
-class CartTest {
+class CartTestGroups {
   void groups() {
     group("${CartTestConfig().REPO_TEST_TITLE}", CartRepoTests.unit);
     group("${CartTestConfig().SERVICE_TEST_TITLE}", CartServiceTests.unit);

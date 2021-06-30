@@ -83,12 +83,12 @@ class OrdersTestConfig {
     HttpOverrides.global = null;
   }
 
-  void bindingsBuilderMockedRepo({bool testType}) {
-    if (testType) _bindingsBuilder(_mocked_repo_used_in_this_module_test);
+  void bindingsBuilderMockedRepo({bool isWidgetTest}) {
+    if (isWidgetTest) _bindingsBuilder(_mocked_repo_used_in_this_module_test);
   }
 
-  void bindingsBuilderMockRepoEmptyDb({bool testType}) {
-    if (testType) _bindingsBuilder(OrdersMockedRepoEmptyDb());
+  void bindingsBuilderMockRepoEmptyDb({bool isWidgetTest}) {
+    if (isWidgetTest) _bindingsBuilder(OrdersMockedRepoEmptyDb());
   }
 
   String repoName() => _mocked_repo_used_in_this_module_test.runtimeType.toString();
@@ -101,12 +101,12 @@ class OrdersTestConfig {
 
   get VIEW_TEST_TITLE => '${repoName()}|View: Functional';
 
-  get checking_oneOrderInDB => 'Open OrderView ONE ORDER in DB';
+  get check_oneOrderInDB => 'Opening OrderView ONE ORDER in DB';
 
-  get checking_noneOrderInDB => 'Open OrderView NONE Order in DB';
+  get check_emptyDB => 'Opening OrderView NONE Order in DB';
 
-  get tapping_ViewBackButton => 'Testing OrderView BackButton';
+  get tap_ViewBackButton => 'Testing OrderView BackButton';
 
-  get ordering_fromCartView_tapingTheButtonOrderNow =>
-      'Ordering from CartView - Taping Button Order Now';
+  get ordering_InCartView_tapOrderNowBtn =>
+      'Ordering from CartView - Taping Order Now Button';
 }

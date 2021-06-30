@@ -20,24 +20,24 @@ void main() {
 }
 
 void _unitTests() {
-  // CartTest().groups();//<<<<<<<<<<<<< BUG 01
+  // CartTestGroups().groups(); //<<<<<<<<<<<<< BUG 01
 
-  OverviewTest().groups();
-  InventoryTest().groups();
-  // OrdersTest().groups();
-  // ComponentsTest().groups();
+  OverviewTestGroups().groups();
+  InventoryTestGroups().groups();
+  OrdersTestGroups().groups();
+  ComponentsTestGroups().groups();
 }
 
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  // group('Orders|Integration-Tests: ',
-  //     OrdersViewFunctionalTest(testType: INTEGRATION_TEST).functional);
-  //
+  group('Orders|Integration-Tests: ',
+      OrdersViewFunctionalTest(testType: INTEGRATION_TEST).functional);
+
   group('Inventory|Integration-Tests: ',
       InventoryViewFunctionalTest(testType: INTEGRATION_TEST).functional);
 
-  // group('Inventory|Integration-Tests: ',
-  //     InventoryViewValidationTest(testType: INTEGRATION_TEST).functional);
+  group('Inventory|Integration-Tests: ',
+      InventoryViewValidationTest(testType: INTEGRATION_TEST).functional);
 
   group('Inventory|Integration-Tests: ',
       InventoryViewEditFunctionalTest(testType: INTEGRATION_TEST).functional);
