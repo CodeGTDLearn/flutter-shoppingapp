@@ -14,8 +14,8 @@ import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 
-import '../overview/repo/overview_mocked_repo.dart';
-import 'repo/inventory_mocked_repo.dart';
+import '../app/modules/inventory/repo/inventory_mocked_repo.dart';
+import '../app/modules/overview/repo/overview_mocked_repo.dart';
 
 class InventoryTestConfig {
   //REPO-USED-IN-THIS-TEST-MODULE:
@@ -81,7 +81,6 @@ class InventoryTestConfig {
   // @formatter:off
   //MVC-TITLES -----------------------------------------------------------------
   String repoName() => _mocked_repo_used_in_this_module_test.runtimeType.toString();
-
   get REPO_TEST_TITLE => '${repoName()}|Repo: Unit';
   get SERVICE_TEST_TITLE => '${repoName()}|Service|Repo: Unit';
   get CONTROLLER_TEST_TITLE => '${repoName()}|Controller|Service|Repo: Integr';
@@ -122,6 +121,5 @@ class InventoryTestConfig {
   get edit_fill_form_invalid => 'Filling fields testing INValidation';
   get edit_preview_url_in_form => 'check previewImageUrl';
   get edit_add_product_in_form => 'Adding a product';
-
-// @formatter:on
+  // @formatter:on
 }

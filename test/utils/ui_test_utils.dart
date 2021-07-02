@@ -3,12 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 
-import 'db_test_utils.dart';
 import 'test_utils.dart';
 
 class UiTestUtils {
   final TestUtils _seek = Get.put(TestUtils());
-  final DbTestUtils _dbUtils = Get.put(DbTestUtils());
 
   void navigationBetweenViews(
     WidgetTester tester, {

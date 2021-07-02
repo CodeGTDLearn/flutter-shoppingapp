@@ -22,7 +22,8 @@ class _InventoryEditViewState extends State<InventoryEditView> {
   final InventoryController _invController = Get.find();
   final OverviewController _ovController = Get.find();
 
-  var _imgUrlPreviewObs = false.obs;
+  // var _imgUrlPreviewObs = false.obs;
+  final _imgUrlPreviewObs = false.obs;
 
   bool _isInit = true;
 
@@ -167,32 +168,24 @@ class _InventoryEditViewState extends State<InventoryEditView> {
 
   void _saveProduct(Product _product, BuildContext _context) {
     // @formatter:off
-    _invController
-        .addProduct(_product)
-        .then((product) {
+    _invController.addProduct(_product).then((product) {
       _invController.switchInventoryAddEditFormToCustomCircularProgrIndic();
       _invController.updateInventoryProductsObs();
       _ovController.updateFilteredProductsObs();
-    })
-        .whenComplete(() {
+    }).whenComplete(() {
       SimpleSnackbar(SUCES, SUCESS_MAN_PROD_ADD).show();
-    })
-        .catchError((onError) {
+    }).catchError((onError) {
       Get.defaultDialog(
-          title: OPS,
-          middleText: ERROR_MAN_PROD,
-          textConfirm: OK,
-          onConfirm: Get.back);
-      _invController.switchInventoryAddEditFormToCustomCircularProgrIndic();});
+          title: OPS, middleText: ERROR_MAN_PROD, textConfirm: OK, onConfirm: Get.back);
+      _invController.switchInventoryAddEditFormToCustomCircularProgrIndic();
+    });
     // @formatter:on
   }
 
   void _updateProduct(Product _product, BuildContext _context) {
     // @formatter:off
-    _invController
-        .updateProduct(_product)
-        .then((statusCode) {
-      if (statusCode >= 200 && statusCode < 400)  {
+    _invController.updateProduct(_product).then((statusCode) {
+      if (statusCode >= 200 && statusCode < 400) {
         _invController.switchInventoryAddEditFormToCustomCircularProgrIndic();
         _invController.updateInventoryProductsObs();
         _ovController.updateFilteredProductsObs();
@@ -200,10 +193,7 @@ class _InventoryEditViewState extends State<InventoryEditView> {
       }
       if (statusCode >= 400) {
         Get.defaultDialog(
-            title: OPS,
-            middleText: ERROR_MAN_PROD,
-            textConfirm: OK,
-            onConfirm: Get.back);
+            title: OPS, middleText: ERROR_MAN_PROD, textConfirm: OK, onConfirm: Get.back);
       }
     });
     // @formatter:on

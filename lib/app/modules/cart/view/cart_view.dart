@@ -20,8 +20,7 @@ class CartView extends StatelessWidget {
     var fullSizeLessAppbar = MediaQuery.of(context).size;
 
     return Scaffold(
-        appBar:
-            AppBar(title: Text(CRT_TIT_APPBAR), actions: [_clearCartIconButton()]),
+        appBar: AppBar(title: Text(CRT_TIT_APPBAR), actions: [_clearCartIconButton()]),
         body: Container(
             width: fullSizeLessAppbar.width,
             height: fullSizeLessAppbar.height,
@@ -38,8 +37,8 @@ class CartView extends StatelessWidget {
                             child: Row(children: [
                               Container(
                                   width: consWidth * 0.15,
-                                  child: Text(CRT_LBL_CARD,
-                                      style: TextStyle(fontSize: 20))),
+                                  child:
+                                      Text(CRT_LBL_CARD, style: TextStyle(fontSize: 20))),
                               Container(
                                   width: consWidth * 0.25,
                                   child: Obx(() => Chip(
@@ -47,8 +46,7 @@ class CartView extends StatelessWidget {
                                           controller.amountCartItemsObs.value
                                               .toStringAsFixed(2),
                                           style: TextStyle(color: Colors.white)),
-                                      backgroundColor:
-                                          Theme.of(context).primaryColor))),
+                                      backgroundColor: Theme.of(context).primaryColor))),
                               SizedBox(width: consWidth * 0.18),
                               Container(
                                   width: consWidth * 0.3,
@@ -85,10 +83,11 @@ class CartView extends StatelessWidget {
 
   Builder _addOrderButton() {
     return Builder(builder: (_context) {
-      return FlatButton(
+      // return FlatButton(
+      return TextButton(
           key: Key(K_CRT_ORD_NOW_BTN),
-          child: Text(CRT_LBL_ORD,
-              style: TextStyle(color: Theme.of(_context).primaryColor)),
+          child:
+              Text(CRT_LBL_ORD, style: TextStyle(color: Theme.of(_context).primaryColor)),
           onPressed: () {
             controller
                 .addOrder(

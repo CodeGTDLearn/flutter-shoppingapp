@@ -12,19 +12,19 @@ import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
-import '../../../../app_tests_config.dart';
+import '../../../../config/app_tests_config.dart';
 import '../../../../data_builders/product_databuilder.dart';
-import '../../../../test_utils/db_test_utils.dart';
-import '../../../../test_utils/test_utils.dart';
-import '../../../../test_utils/ui_test_utils.dart';
+import '../../../../utils/db_test_utils.dart';
+import '../../../../utils/test_utils.dart';
+import '../../../../utils/ui_test_utils.dart';
 
-class OrdersViewTests {
+class OrdersTests {
   final TestUtils testUtils;
   final UiTestUtils uiTestUtils;
   final DbTestUtils dbTestUtils;
   final isWidgetTest;
 
-  OrdersViewTests({
+  OrdersTests({
     this.isWidgetTest,
     this.testUtils,
     this.uiTestUtils,

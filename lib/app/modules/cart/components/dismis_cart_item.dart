@@ -33,8 +33,7 @@ class DismisCartItem extends StatelessWidget {
           if (controller.getQtdeCartItemsObs().isEqual(0)) {
             // Get.snackbar(SUCES, QUIT_AFTER_DELS);
             SimpleSnackbar(SUCES, QUIT_AFTER_DELS).show();
-            Future.delayed(Duration(milliseconds: DURATION))
-                .then((value) => Get.back());
+            Future.delayed(Duration(milliseconds: DURATION)).then((value) => Get.back());
           }
         },
         //
@@ -48,8 +47,7 @@ class DismisCartItem extends StatelessWidget {
                             padding: EdgeInsets.all(5),
                             child: FittedBox(child: Text('\$${_cartItem.price}')))),
                     title: Text(_cartItem.title),
-                    subtitle:
-                        Text('Total \$${(_cartItem.price).toStringAsFixed(2)}'),
+                    subtitle: Text('Total \$${(_cartItem.price).toStringAsFixed(2)}'),
                     trailing: Text('x${_cartItem.qtde}')))),
         //
         confirmDismiss: (direction) {
@@ -66,8 +64,10 @@ class DismisCartItem extends StatelessWidget {
         });
   }
 
-  FlatButton _flatButton(String label, bool remove, BuildContext context) {
-    return FlatButton(
+  // FlatButton _flatButton(String label, bool remove, BuildContext context) {
+  TextButton _flatButton(String label, bool remove, BuildContext context) {
+    // return FlatButton(
+    return TextButton(
       key: Key('btn${_cartItem.id}'),
       onPressed: () => Navigator.of(context).pop(remove),
       child: Text(label),

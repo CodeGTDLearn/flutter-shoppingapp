@@ -18,12 +18,13 @@ class OrdersView extends StatelessWidget {
     controller.getOrders();
     return Scaffold(
         appBar: AppBar(title: Text(ORD_TIT_PAGE)),
-        body: Obx(() => controller.ordersObs.length == 0
+        // body: Obx(() => controller.ordersObs.length == 0
+        body: Obx(() => controller.ordersObs.isEmpty
             ? ProgresIndicator.message(message: NO_ORD, fontSize: 20)
             : Container(
                 child: ListView.builder(
                     itemCount: controller.ordersObs.length,
-                    itemBuilder: (ctx, item) => OrderCollapsableTile(
-                        controller.ordersObs.toList()[item])))));
+                    itemBuilder: (ctx, item) =>
+                        OrderCollapsableTile(controller.ordersObs.toList()[item])))));
   }
 }

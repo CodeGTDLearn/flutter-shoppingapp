@@ -1,13 +1,13 @@
 import 'package:test/test.dart';
 
-import '../../../app_tests_config.dart';
-import 'inventory_controller_test.dart';
-import 'inventory_test_config.dart';
-import 'repo/inventory_repo_test.dart';
-import 'service/inventory_service_test.dart';
-import 'view/inventory_view_edit_functional_test.dart';
-import 'view/inventory_view_functional_test.dart';
-import 'view/inventory_view_validation_test.dart';
+import '../app/modules/inventory/inventory_controller_test.dart';
+import '../app/modules/inventory/repo/inventory_repo_test.dart';
+import '../app/modules/inventory/service/inventory_service_test.dart';
+import '../app/modules/inventory/view/inventory_view_edit_functional_test.dart';
+import '../app/modules/inventory/view/inventory_view_functional_test.dart';
+import '../app/modules/inventory/view/inventory_view_validation_test.dart';
+import '../config/app_tests_config.dart';
+import '../config/inventory_test_config.dart';
 
 class InventoryTestGroups {
   void groups() {

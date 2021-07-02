@@ -1,19 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
-import 'package:shopingapp/app/modules/inventory/entities/product.dart';
-import 'package:shopingapp/app/modules/inventory/view/inventory_edit_view.dart';
-import 'package:shopingapp/app_driver.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
-import '../../../../app_tests_config.dart';
+import '../../../../config/app_tests_config.dart';
+import '../../../../config/inventory_test_config.dart';
 import '../../../../data_builders/product_databuilder.dart';
-import '../../../../mocked_datasource/products_mocked_datasource.dart';
-import '../../../../test_utils/db_test_utils.dart';
-import '../../../../test_utils/test_utils.dart';
-import '../../../../test_utils/ui_test_utils.dart';
-import '../inventory_test_config.dart';
-import 'inventory_view_tests.dart';
+import '../../../../utils/db_test_utils.dart';
+import '../../../../utils/test_utils.dart';
+import '../../../../utils/ui_test_utils.dart';
+import 'inventory_tests.dart';
 
 class InventoryViewEditFunctionalTest {
   bool _isWidgetTest;
@@ -28,7 +24,7 @@ class InventoryViewEditFunctionalTest {
   }
 
   void functional() {
-    final _tests = Get.put(InventoryViewTests(
+    final _tests = Get.put(InventoryTests(
         isWidgetTest: _isWidgetTest,
         testUtils: _utils,
         uiTestUtils: _uiUtils,

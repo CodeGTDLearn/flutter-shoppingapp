@@ -5,9 +5,9 @@ import 'package:shopingapp/app/modules/orders/entities/order.dart';
 import 'package:shopingapp/app/modules/orders/service/i_orders_service.dart';
 import 'package:test/test.dart';
 
+import '../../../../config/orders_test_config.dart';
 import '../../../../data_builders/cartitem_databuilder.dart';
 import '../../../../data_builders/order_databuilder.dart';
-import '../orders_test_config.dart';
 import 'orders_mocked_service.dart';
 
 class OrdersServiceTests {
@@ -71,22 +71,17 @@ class OrdersServiceTests {
 
     test('Adding Order', () {
       var _id = "-${Faker().randomGenerator.string(21, min: 20)}";
-      var _amountOrder = double.parse(
-          Faker().randomGenerator.decimal(min: 22.0).toStringAsFixed(2));
+      var _amountOrder =
+          double.parse(Faker().randomGenerator.decimal(min: 22.0).toStringAsFixed(2));
 
       // @formatter:off
-      when(
-          _injectService
-          .addOrder(_cartItems, _amountOrder))
-          .thenAnswer((_) async =>
-           OrderDatabuilder.OrderParam(_cartItems, _id));
+      when(_injectService.addOrder(_cartItems, _amountOrder))
+          .thenAnswer((_) async => OrderDatabuilder.OrderParam(_cartItems, _id));
 
-          _injectService
-          .addOrder(_cartItems, _amountOrder)
-          .then((orderReturned) {
-            expect(orderReturned.id, _id);
-            expect(orderReturned.cartItems[0].id, _cartItems[0].id);
-            expect(orderReturned.cartItems[1].id, _cartItems[1].id);
+      _injectService.addOrder(_cartItems, _amountOrder).then((orderReturned) {
+        expect(orderReturned.id, _id);
+        expect(orderReturned.cartItems[0].id, _cartItems[0].id);
+        expect(orderReturned.cartItems[1].id, _cartItems[1].id);
       });
     });
     // @formatter:on

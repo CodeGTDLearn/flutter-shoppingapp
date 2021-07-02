@@ -26,8 +26,8 @@ class CartRepoHttp implements ICartRepo {
         );
       });
     } else {
-      _cartItems.putIfAbsent(product.id,
-          () => CartItem(product.id, product.title, 1, product.price));
+      _cartItems.putIfAbsent(
+          product.id, () => CartItem(product.id, product.title, 1, product.price));
     }
   }
 
@@ -58,6 +58,7 @@ class CartRepoHttp implements ICartRepo {
 
   @override
   void clearCart() {
-    if (getAllCartItems().length != 0) _cartItems.clear();
+    // if (getAllCartItems().length != 0) _cartItems.clear();
+    if (getAllCartItems().isNotEmpty) _cartItems.clear();
   }
 }

@@ -7,8 +7,8 @@ import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
-import '../../../test_utils/test_utils.dart';
-import 'components_test_config.dart';
+import '../../../config/components_test_config.dart';
+import '../../../utils/test_utils.dart';
 
 class ProgresIndicatorTest {
   static void functional() {

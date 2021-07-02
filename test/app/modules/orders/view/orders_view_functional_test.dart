@@ -7,12 +7,12 @@ import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
-import '../../../../app_tests_config.dart';
-import '../../../../test_utils/db_test_utils.dart';
-import '../../../../test_utils/test_utils.dart';
-import '../../../../test_utils/ui_test_utils.dart';
-import '../orders_test_config.dart';
-import 'orders_view_tests.dart';
+import '../../../../config/app_tests_config.dart';
+import '../../../../config/orders_test_config.dart';
+import '../../../../utils/db_test_utils.dart';
+import '../../../../utils/test_utils.dart';
+import '../../../../utils/ui_test_utils.dart';
+import 'orders_tests.dart';
 
 class OrdersViewFunctionalTest {
   bool _isWidgetTest;
@@ -27,7 +27,7 @@ class OrdersViewFunctionalTest {
   }
 
   void functional() {
-    final _tests = Get.put(OrdersViewTests(
+    final _tests = Get.put(OrdersTests(
       testUtils: _utils,
       uiTestUtils: _uiUtils,
       isWidgetTest: _isWidgetTest,
@@ -46,7 +46,9 @@ class OrdersViewFunctionalTest {
     tearDown(() => _uiUtils.globalTearDown("...Ending"));
 
     testWidgets('${_config.check_oneOrderInDB}', (tester) async {
-      await _cleanDb(tester);
+      if (!_isWidgetTest) {
+        await _dbUtils.removeAllCollections(tester, delaySeconds: DELAY, dbName: DB_NAME);
+      }
       _config.bindingsBuilderMockRepoEmptyDb(isWidgetTest: _isWidgetTest);
       await _tests.checkOrders_OrdersAbsence(tester, DELAY);
     }, skip: _skipTest);
@@ -84,11 +86,5 @@ class OrdersViewFunctionalTest {
         to: OverviewView,
       );
     }, skip: _skipTest);
-  }
-
-  Future<void> _cleanDb(WidgetTester tester) async {
-    if (_isWidgetTest == false) {
-      await _dbUtils.removeAllCollections(tester, delaySeconds: DELAY, dbName: DB_NAME);
-    }
   }
 }

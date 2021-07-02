@@ -4,14 +4,14 @@ import 'package:shopingapp/app/core/properties/app_urls.dart';
 import 'package:shopingapp/app/modules/inventory/components/inventory_item.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 
-import '../../../../app_tests_config.dart';
+import '../../../../config/app_tests_config.dart';
+import '../../../../config/inventory_test_config.dart';
 import '../../../../data_builders/product_databuilder.dart';
 import '../../../../mocked_datasource/products_mocked_datasource.dart';
-import '../../../../test_utils/db_test_utils.dart';
-import '../../../../test_utils/test_utils.dart';
-import '../../../../test_utils/ui_test_utils.dart';
-import '../inventory_test_config.dart';
-import 'inventory_view_tests.dart';
+import '../../../../utils/db_test_utils.dart';
+import '../../../../utils/test_utils.dart';
+import '../../../../utils/ui_test_utils.dart';
+import 'inventory_tests.dart';
 
 class InventoryViewFunctionalTest {
   bool _isWidgetTest;
@@ -26,7 +26,7 @@ class InventoryViewFunctionalTest {
   }
 
   void functional() {
-    final _tests = Get.put(InventoryViewTests(
+    final _tests = Get.put(InventoryTests(
         isWidgetTest: _isWidgetTest,
         testUtils: _utils,
         uiTestUtils: _uiUtils,
@@ -44,7 +44,9 @@ class InventoryViewFunctionalTest {
     tearDown(() => _uiUtils.globalTearDown("...Ending"));
 
     testWidgets('${_config.check_ProductsAbsence}', (tester) async {
-      if (_isWidgetTest == false) await _cleanDb(tester);
+      if (!_isWidgetTest) {
+        await _dbUtils.removeAllCollections(tester, delaySeconds: DELAY, dbName: DB_NAME);
+      }
       _config.bindingsBuilderMockedRepoEmptyDb(isWidgetTest: _isWidgetTest);
       await _tests.checkInventoryProductsAbsence(tester, DELAY);
     }, skip: _skipTest);
@@ -92,7 +94,7 @@ class InventoryViewFunctionalTest {
     var _product;
 
     if (!isWidgetTest) {
-      await _cleanDb(tester);
+      await _dbUtils.removeAllCollections(tester, delaySeconds: DELAY, dbName: DB_NAME);
       await _dbUtils
           .addMultipleObjects(tester,
               qtdeObjects: 2,
@@ -102,11 +104,5 @@ class InventoryViewFunctionalTest {
           .then((value) => _product = value[0]);
     }
     return isWidgetTest ? ProductsMockedDatasource().products()[0] : _product;
-  }
-
-  Future<void> _cleanDb(tester) async {
-    if (_isWidgetTest == false) {
-      await _dbUtils.removeAllCollections(tester, delaySeconds: DELAY, dbName: DB_NAME);
-    }
   }
 }

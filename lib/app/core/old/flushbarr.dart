@@ -31,7 +31,8 @@ class Flushbarr {
             message: _message,
             duration: Duration(milliseconds: _duration),
             icon: FLUSHNOT_ICO,
-            mainButton: FlatButton(
+            // mainButton: FlatButton(
+            mainButton: TextButton(
                 key: Key(K_FB02),
                 onPressed: function,
                 child: Text(labelButton,

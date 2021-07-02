@@ -7,10 +7,10 @@ import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart'
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
+import '../../../../config/overview_test_config.dart';
 import '../../../../data_builders/product_databuilder.dart';
 import '../../../../mocked_datasource/products_mocked_datasource.dart';
-import '../../../../test_utils/test_utils.dart';
-import '../overview_test_config.dart';
+import '../../../../utils/test_utils.dart';
 import 'overview_mocked_service.dart';
 
 class OverviewServiceTests {
@@ -145,10 +145,8 @@ class OverviewServiceTests {
 
     test('Getting products - Fail hence Empty', () {
       // @formatter:off
-      when(_injectService.getProducts())
-          .thenAnswer((_) async => Future
-          .value(ProductsMockedDatasource()
-          .productsEmpty()));
+      when(_injectService.getProducts()).thenAnswer(
+          (_) async => Future.value(ProductsMockedDatasource().productsEmpty()));
 
       _injectService.getProducts().then((value) {
         expect(value, List.empty());

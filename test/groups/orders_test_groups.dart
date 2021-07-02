@@ -1,11 +1,11 @@
 import 'package:test/test.dart';
 
-import '../../../app_tests_config.dart';
-import 'orders_controller_test.dart';
-import 'orders_test_config.dart';
-import 'repo/orders_repo_test.dart';
-import 'service/orders_service_test.dart';
-import 'view/orders_view_functional_test.dart';
+import '../app/modules/orders/orders_controller_test.dart';
+import '../app/modules/orders/repo/orders_repo_test.dart';
+import '../app/modules/orders/service/orders_service_test.dart';
+import '../app/modules/orders/view/orders_view_functional_test.dart';
+import '../config/app_tests_config.dart';
+import '../config/orders_test_config.dart';
 
 class OrdersTestGroups {
   void groups() {

@@ -25,10 +25,12 @@ class BadgeShopCart extends StatelessWidget {
           key: Key(K_SHP_CART_APPBAR_BTN),
           icon: OV_ICO_SHOPCART,
           onPressed: () {
-            if (_controller.getAllCartItems().length == 0) {
+            // if (_controller.getAllCartItems().length == 0) {
+            if (_controller.getAllCartItems().isEmpty) {
               SimpleSnackbar(OPS, NO_ITEMS_CART_YET).show();
             } else {
-              Scaffold.of(context).removeCurrentSnackBar();
+              // Scaffold.of(context).removeCurrentSnackBar();
+              ScaffoldMessenger.of(context).removeCurrentSnackBar();
               Get.toNamed(AppRoutes.CART);
             }
           }),

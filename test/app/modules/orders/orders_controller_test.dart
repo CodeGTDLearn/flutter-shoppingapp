@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/orders/controller/orders_controller.dart';
 import 'package:test/test.dart';
 
+import '../../../config/orders_test_config.dart';
 import '../../../mocked_datasource/orders_mocked_datasource.dart';
-import 'orders_test_config.dart';
 
 class OrdersControllerTests {
   static void integration() {

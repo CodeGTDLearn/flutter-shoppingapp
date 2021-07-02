@@ -20,14 +20,13 @@ class OverviewGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     controller.getProductsByFilter(enumFilter);
 
-    return Obx(() => controller.filteredProductsObs.length == 0
+    // return Obx(() => controller.filteredProductsObs.length == 0
+    return Obx(() => controller.filteredProductsObs.isEmpty
         ? SingleChildScrollView(
             child: Center(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                ProgresIndicator.message(message: NO_PROD, fontSize: 20)
-              ])))
+                child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            ProgresIndicator.message(message: NO_PROD, fontSize: 20)
+          ])))
         : GridView.builder(
             padding: EdgeInsets.all(10),
             itemCount: controller.filteredProductsObs.length,

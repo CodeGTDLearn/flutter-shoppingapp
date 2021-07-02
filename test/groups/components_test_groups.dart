@@ -1,8 +1,8 @@
 import 'package:test/test.dart';
 
-import 'components_test_config.dart';
-import 'drawwer_test.dart';
-import 'progres_indicator_test.dart';
+import '../app/core/components/drawwer_test.dart';
+import '../app/core/components/progres_indicator_test.dart';
+import '../config/components_test_config.dart';
 
 class ComponentsTestGroups {
   void groups() {

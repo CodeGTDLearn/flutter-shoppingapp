@@ -1,7 +1,7 @@
 import 'package:faker/faker.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 
-import '../app_tests_config.dart';
+import '../config/app_tests_config.dart';
 
 class ProductDataBuilder {
   Product ProductId({String id}) {

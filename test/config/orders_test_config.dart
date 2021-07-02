@@ -7,6 +7,7 @@ import 'package:shopingapp/app/modules/cart/repo/cart_repo_http.dart';
 import 'package:shopingapp/app/modules/cart/repo/i_cart_repo.dart';
 import 'package:shopingapp/app/modules/cart/service/cart_service.dart';
 import 'package:shopingapp/app/modules/cart/service/i_cart_service.dart';
+import 'package:shopingapp/app/modules/orders/controller/orders_controller.dart';
 import 'package:shopingapp/app/modules/orders/repo/i_orders_repo.dart';
 import 'package:shopingapp/app/modules/orders/service/i_orders_service.dart';
 import 'package:shopingapp/app/modules/orders/service/orders_service.dart';
@@ -16,14 +17,13 @@ import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart'
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
-import '../orders/repo/orders_mocked_repo.dart';
-import '../overview/repo/overview_mocked_repo.dart';
+import '../app/modules/orders/repo/orders_mocked_repo.dart';
+import '../app/modules/overview/repo/overview_mocked_repo.dart';
 
-class CartTestConfig {
+class OrdersTestConfig {
+  final IOrdersRepo _mocked_repo_used_in_this_module_test = OrdersMockedRepo();
 
-  final ICartRepo _mocked_repo_used_in_this_module_tests = CartRepoHttp();
-
-  void bindingsBuilder() {
+  void _bindingsBuilder(IOrdersRepo ordersRepo) {
     Get.reset();
 
     expect(Get.isPrepared<DarkThemeController>(), isFalse);
@@ -34,27 +34,30 @@ class CartTestConfig {
 
     expect(Get.isPrepared<IOrdersRepo>(), isFalse);
     expect(Get.isPrepared<IOrdersService>(), isFalse);
+    expect(Get.isPrepared<OrdersController>(), isFalse);
 
     expect(Get.isPrepared<ICartRepo>(), isFalse);
     expect(Get.isPrepared<ICartService>(), isFalse);
     expect(Get.isPrepared<CartController>(), isFalse);
 
     var binding = BindingsBuilder(() {
-
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
 
+      //OVERVIEW
       Get.lazyPut<IOverviewRepo>(() => OverviewMockedRepo());
       Get.lazyPut<IOverviewService>(
-              () => OverviewService(repo: Get.find<IOverviewRepo>()));
+          () => OverviewService(repo: Get.find<IOverviewRepo>()));
       Get.lazyPut<OverviewController>(
-              () => OverviewController(service: Get.find<IOverviewService>()));
+          () => OverviewController(service: Get.find<IOverviewService>()));
 
-      Get.lazyPut<IOrdersRepo>(() => OrdersMockedRepo());
-      Get.lazyPut<IOrdersService>(
-          () => OrdersService(repo: Get.find<IOrdersRepo>()));
+      //ORDERS
+      Get.lazyPut<IOrdersRepo>(() => ordersRepo);
+      Get.lazyPut<IOrdersService>(() => OrdersService(repo: Get.find<IOrdersRepo>()));
+      Get.lazyPut<OrdersController>(
+          () => OrdersController(service: Get.find<IOrdersService>()));
 
-      Get.lazyPut<ICartRepo>(() => _mocked_repo_used_in_this_module_tests);
-
+      //CART
+      Get.lazyPut<ICartRepo>(() => CartRepoHttp());
       Get.lazyPut<ICartService>(() => CartService(repo: Get.find<ICartRepo>()));
       Get.lazyPut<CartController>(() => CartController(
           cartService: Get.find<ICartService>(),
@@ -71,6 +74,7 @@ class CartTestConfig {
 
     expect(Get.isPrepared<IOrdersRepo>(), isTrue);
     expect(Get.isPrepared<IOrdersService>(), isTrue);
+    expect(Get.isPrepared<OrdersController>(), isTrue);
 
     expect(Get.isPrepared<ICartRepo>(), isTrue);
     expect(Get.isPrepared<ICartService>(), isTrue);
@@ -79,14 +83,28 @@ class CartTestConfig {
     HttpOverrides.global = null;
   }
 
-  String repoName() =>
-      _mocked_repo_used_in_this_module_tests.runtimeType.toString();
+  void bindingsBuilderMockedRepo({bool isWidgetTest}) {
+    if (isWidgetTest) _bindingsBuilder(_mocked_repo_used_in_this_module_test);
+  }
 
+  void bindingsBuilderMockRepoEmptyDb({bool isWidgetTest}) {
+    if (isWidgetTest) _bindingsBuilder(OrdersMockedRepoEmptyDb());
+  }
+
+  String repoName() => _mocked_repo_used_in_this_module_test.runtimeType.toString();
+
+  // @formatter:off
+  //MVC-TITLES -----------------------------------------------------------------
   get REPO_TEST_TITLE => '${repoName()}|Repo: Unit';
-
   get SERVICE_TEST_TITLE => '${repoName()}|Service|Repo: Unit';
-
   get CONTROLLER_TEST_TITLE => '${repoName()}|Controller|Service|Repo: Integr';
-
   get VIEW_TEST_TITLE => '${repoName()}|View: Functional';
+
+  //TEST-TITLES ----------------------------------------------------------------
+  get check_oneOrderInDB => 'Opening OrderView ONE ORDER in DB';
+  get check_emptyDB => 'Opening OrderView NONE Order in DB';
+  get tap_ViewBackButton => 'Testing OrderView BackButton';
+  get ordering_InCartView_tapOrderNowBtn =>
+      'Ordering from CartView - Taping Order Now Button';
+  // @formatter:on
 }

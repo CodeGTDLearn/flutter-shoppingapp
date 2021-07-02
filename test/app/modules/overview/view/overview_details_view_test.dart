@@ -11,95 +11,79 @@ import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
-import '../../../../test_utils/test_utils.dart';
-import '../overview_test_config.dart';
+import '../../../../config/app_tests_config.dart';
+import '../../../../config/overview_test_config.dart';
+import '../../../../utils/db_test_utils.dart';
+import '../../../../utils/test_utils.dart';
+import '../../../../utils/ui_test_utils.dart';
+import 'overview_tests.dart';
 
-class OverviewDetailsViewTests {
-  static void functional() {
-    TestUtils seek;
+class OverviewDetailsViewTest {
+  bool _isWidgetTest;
+  final bool _skipTest = false;
+  TestUtils _utils = Get.put(TestUtils());
+  final UiTestUtils _uiUtils = Get.put(UiTestUtils());
+  final DbTestUtils _dbUtils = Get.put(DbTestUtils());
+  final OverviewTestConfig _config = Get.put(OverviewTestConfig());
+
+  OverviewDetailsViewTest({String testType}) {
+    _isWidgetTest = testType == WIDGET_TEST;
+  }
+
+  void functional() {
+    final _tests = Get.put(OverviewTests(
+        isWidgetTest: _isWidgetTest,
+        testUtils: _utils,
+        uiTestUtils: _uiUtils,
+        dbTestUtils: _dbUtils));
+
+    setUpAll(() => _uiUtils.globalSetUpAll(_tests.runtimeType.toString()));
+
+    tearDownAll(() => _uiUtils.globalTearDownAll(_tests.runtimeType.toString()));
 
     setUp(() {
-      OverviewTestConfig().bindingsBuilder();
-      seek = TestUtils();
+      _uiUtils.globalSetUp("Starting...");
+      _config.bindingsBuilder();
     });
 
-    tearDown(() => seek = null);
-
-    void _isInstancesRegistred() {
-      expect(Get.isRegistered<IOverviewRepo>(), isTrue);
-      expect(Get.isRegistered<IOverviewService>(), isTrue);
-      expect(Get.isRegistered<OverviewController>(), isTrue);
-      expect(Get.isRegistered<CartController>(), isTrue);
-    }
+    tearDown(() => _uiUtils.globalTearDown("...Ending"));
 
     List<Product> _products() {
       return Get.find<IOverviewService>().getLocalDataAllProducts();
     }
 
-    testWidgets('Checking OverviewPage Elements displayed', (tester) async {
-      await tester.pumpWidget(AppDriver());
-
-      await tester.pump();
-      await tester.pumpAndSettle(seek.delay(3));
-
-      _isInstancesRegistred();
-
-      expect(seek.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
-      expect(seek.text(_products()[0].title.toString()), findsOneWidget);
-      expect(seek.text(_products()[1].title.toString()), findsOneWidget);
-      expect(seek.text(_products()[2].title.toString()), findsOneWidget);
-      expect(seek.text(_products()[3].title.toString()), findsOneWidget);
-
-      expect(seek.iconType(IconButton, Icons.favorite), findsOneWidget);
-      expect(seek.iconType(IconButton, Icons.favorite_border), findsNWidgets(3));
-      expect(seek.iconType(IconButton, Icons.shopping_cart), findsNWidgets(5));
-
-      expect(seek.iconData(Icons.more_vert), findsOneWidget);
-
-      provideMockedNetworkImages(() async {
-        expect(find.byType(Image), findsNWidgets(4));
-      });
-    });
-
-    testWidgets('Clicking Product 01 + Show Details Page: Checking texts',
-        (tester) async {
+    testWidgets('${_config.click_product_check_details_texts}', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
-      _isInstancesRegistred();
 
-      var keyProduct1 = seek.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
+      var keyProduct1 = _utils.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
 
-      await tester.pumpAndSettle(seek.delay(3));
-          // @formatter:off
+      await tester.pumpAndSettle(_utils.delay(3));
+      // @formatter:off
       tester
           .tap(keyProduct1)
-          .then((value) => tester.pumpAndSettle(seek.delay(1)))
+          .then((value) => tester.pumpAndSettle(_utils.delay(1)))
           .then((value) {
-              expect(seek.text(_products()[0].title.toString()),
-                  findsOneWidget);
-              expect(seek.text('\$${_products()[0].price}'),
-                  findsOneWidget);
-              expect(seek.text(_products()[0].description.toString()),
-                  findsOneWidget);
-          });
+        expect(_utils.text(_products()[0].title.toString()), findsOneWidget);
+        expect(_utils.text('\$${_products()[0].price}'), findsOneWidget);
+        expect(_utils.text(_products()[0].description.toString()), findsOneWidget);
+      });
       // @formatter:on
-    });
+    }, skip: _skipTest);
 
-    testWidgets('Clicking Product 01 + Show Details Page: Checking image',
-        (tester) async {
+    testWidgets('${_config.click_product_check_details_image}', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
-      _isInstancesRegistred();
 
-      var keyProduct1 = seek.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
+      var keyProduct1 = _utils.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
 
       await tester.tap(keyProduct1);
 
       // check if the page has changed
-      await tester.pumpAndSettle(seek.delay(3));
-      expect(seek.text(_products()[0].title.toString()), findsOneWidget);
+      await tester.pumpAndSettle(_utils.delay(3));
+      expect(_utils.text(_products()[0].title.toString()), findsOneWidget);
 
-      seek.checkImageTotalOnAView(1);
-    });
+      _utils.checkImageTotalOnAView(1);
+    }, skip: _skipTest);
   }
 }

@@ -58,7 +58,9 @@ class ButtonSnackbar implements Snackbarr {
               ]));
         }));
 
-    Scaffold.of(context).removeCurrentSnackBar();
-    Scaffold.of(context).showSnackBar(snackBarButtonConfig);
+    // Scaffold.of(context).removeCurrentSnackBar();
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    // Scaffold.of(context).showSnackBar(snackBarButtonConfig);
+    ScaffoldMessenger.of(context).showSnackBar(snackBarButtonConfig);
   }
 }

@@ -16,8 +16,8 @@ import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
-import '../../../test_utils/test_utils.dart';
-import 'cart_test_config.dart';
+import '../../../config/cart_test_config.dart';
+import '../../../utils/test_utils.dart';
 
 class CartViewTests {
   static void functional() {
@@ -48,7 +48,6 @@ class CartViewTests {
     testWidgets('Adding products + Check Appbar CartIcon Qtde', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
-      _isInstancesRegistred();
 
       var CartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
 
@@ -67,7 +66,6 @@ class CartViewTests {
     testWidgets('Adding a product + Check product in CartPage', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
-      _isInstancesRegistred();
 
       var CartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
       var cartButtonPage = _seek.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
@@ -91,7 +89,6 @@ class CartViewTests {
     testWidgets('Adding a product + Check Snackbar Info', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
-      _isInstancesRegistred();
 
       var CartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
 
@@ -120,7 +117,6 @@ class CartViewTests {
     testWidgets('Denying FIRST product Dismissing', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
-      _isInstancesRegistred();
 
       var cartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
       var cartItemTitleProduct1 = _seek.text(_prods()[0].title.toString());
@@ -154,7 +150,6 @@ class CartViewTests {
     testWidgets('Dismissing FIRST added product', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
-      _isInstancesRegistred();
 
       var cartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
       var cartItemTitleProduct1 = _seek.text(_prods()[0].title.toString());
@@ -191,7 +186,6 @@ class CartViewTests {
     testWidgets('Dismissing SECOND/LAST added product', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
-      _isInstancesRegistred();
 
       var cartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
       var cartIconProduct2 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\1");
@@ -253,7 +247,6 @@ class CartViewTests {
     testWidgets('No products in Cart, No access to Cart Page', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
-      _isInstancesRegistred();
 
       //1) ADDING A PRODUCT IN THE CART
       expect(_seek.text("0"), findsOneWidget);
@@ -268,7 +261,6 @@ class CartViewTests {
     testWidgets('Acessing Cart Page + Testing two product added', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
-      _isInstancesRegistred();
 
       var CartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
       var CartIconProduct2 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\1");
@@ -303,7 +295,6 @@ class CartViewTests {
     testWidgets('Checking Amount Cart', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
-      _isInstancesRegistred();
 
       var cartController = Get.find<CartController>();
       var CartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
@@ -322,14 +313,13 @@ class CartViewTests {
       await tester.tap(cartButtonPage);
       await tester.pumpAndSettle(_seek.delay(1));
       expect(_seek.text(CART_TITLE_PAGE), findsOneWidget);
-      expect(_seek.text(cartController.getAmountCartItemsObs().toString()),
-          findsOneWidget);
+      expect(
+          _seek.text(cartController.getAmountCartItemsObs().toString()), findsOneWidget);
     });
 
     testWidgets('Ordering Cart Products - Order Now button', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
-      _isInstancesRegistred();
 
       var CartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
       var snackbartext1 = _seek.text(_prods()[1].title.toString());
@@ -365,7 +355,6 @@ class CartViewTests {
     testWidgets('Clearing Cart Products - ClearCart IconButton', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
-      _isInstancesRegistred();
 
       var CartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
       var snackbartext1 = _seek.text(_prods()[1].title.toString());
@@ -401,7 +390,6 @@ class CartViewTests {
     testWidgets('Testing Page BackButton', (tester) async {
       await tester.pumpWidget(AppDriver());
       await tester.pump();
-      _isInstancesRegistred();
 
       var CartIconProduct1 = _seek.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
       var cartButtonPage = _seek.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);

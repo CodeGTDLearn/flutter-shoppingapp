@@ -10,7 +10,7 @@ import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart'
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 import 'package:test/test.dart';
 
-import 'repo/overview_mocked_repo.dart';
+import '../app/modules/overview/repo/overview_mocked_repo.dart';
 
 /* INSTRUCTIONS ABOUT 'REPO-REAL-DE-PRODUCAO' E 'REPO-REAL-DE-PRODUCAO'
   https://timm.preetz.name/articles/http-request-flutter-test
@@ -60,16 +60,32 @@ class OverviewTestConfig {
     HttpOverrides.global = null;
   }
 
-  String repoName() =>
-      _mocked_repo_used_in_this_module_tests.runtimeType.toString();
-
+  // @formatter:off
+  //MVC-TITLES -----------------------------------------------------------------
+  String repoName() => _mocked_repo_used_in_this_module_tests.runtimeType.toString();
   get REPO_TEST_TITLE => '${repoName()}|Repo: Unit';
-
   get SERVICE_TEST_TITLE => '${repoName()}|Service|Repo: Unit';
-
   get CONTROLLER_TEST_TITLE => '${repoName()}|Controller|Service|Repo: Integr';
-
   get VIEW_TEST_TITLE => '${repoName()}|View: Functional';
-
   get DETAIL_VIEW_TEST_TITLE => '${repoName()}|View|Details: Functional';
+
+  //OVERVIEW-TEST-TITLES -------------------------------------------------------
+  get check_products => 'Checking products';
+  get toggle_favorite_status => 'Toggling FavoritesIconButton in a product';
+  get add_prod_snackbar => 'Adding products + Checking Snackbar text';
+  get add_prod_snackbar_undo => 'Adding products + Clicking Snackbar Undo';
+  get add_prod1_3x_check_shopCartIcon => 'Adding a product 3x + Check ShopCartIcon';
+  get add_prods1And2_check_shopCartIcon => 'Adding products 1/2 + Check ShopCartIcon';
+  get add_prods3And4_check_shopCartIcon => 'Adding products 3/4 + Checking ShopCartIcon';
+  get tap_fav_filter_no_favorites_found => 'Tap FavoriteFilter - favorites Not found';
+  get tap_fav_filter => 'Tapping FavoriteFilter';
+  get close_fav_filter => 'Closing Favorite_Filter (tap OUTSIDE)';
+
+  //OVERVIEW-DETAILS-TEST-TITLES -----------------------------------------------
+  get click_product_check_details_texts =>
+      'Clicking Product 01 + Show Details Page: Checking texts';
+
+  get click_product_check_details_image =>
+      'Clicking Product 01 + Show Details Page: Checking image';
+  // @formatter:on
 }

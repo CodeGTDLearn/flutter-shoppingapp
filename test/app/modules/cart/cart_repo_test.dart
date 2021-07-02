@@ -3,9 +3,9 @@ import 'package:shopingapp/app/modules/cart/repo/i_cart_repo.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:test/test.dart';
 
+import '../../../config/cart_test_config.dart';
 import '../../../data_builders/cartitem_databuilder.dart';
 import '../../../data_builders/product_databuilder.dart';
-import 'cart_test_config.dart';
 
 /*
 THERE IS NO NECESSITY OF _injectableRepoMock
