@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/components/keys/snackbarr_keys.dart';
+import 'package:shopingapp/app/core/properties/app_urls.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/components/favorites_filter_popup.dart';
@@ -13,6 +14,9 @@ import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart'
 import 'package:shopingapp/app_driver.dart' as app;
 import 'package:shopingapp/app_driver.dart';
 
+import '../../../../config/app_tests_config.dart';
+import '../../../../data_builders/product_databuilder.dart';
+import '../../../../mocked_datasource/products_mocked_datasource.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/test_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
@@ -333,5 +337,21 @@ class OverviewTests {
 
   List<Product> _products() {
     return Get.find<IOverviewService>().getLocalDataAllProducts();
+  }
+
+  Future<dynamic> loadTwoProductsInDb(tester, {bool isWidgetTest}) async {
+    var _product;
+
+    if (!isWidgetTest) {
+      await dbTestUtils.cleanDb(url: TEST_URL, interval: DELAY, db: DB_NAME);
+      await dbTestUtils
+          .addMultipleObjects(tester,
+              qtdeObjects: 2,
+              collectionUrl: PRODUCTS_URL,
+              object: ProductDataBuilder().ProductFullStaticNoId(),
+              interval: DELAY)
+          .then((value) => _product = value[0]);
+    }
+    return isWidgetTest ? ProductsMockedDatasource().products()[0] : _product;
   }
 }

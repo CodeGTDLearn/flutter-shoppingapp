@@ -32,21 +32,21 @@ class OverviewDetailsViewTest {
 
   void functional() {
     final _tests = Get.put(OverviewTests(
-        isWidgetTest: _isWidgetTest,
         testUtils: _utils,
         uiTestUtils: _uiUtils,
-        dbTestUtils: _dbUtils));
+        dbTestUtils: _dbUtils,
+        isWidgetTest: _isWidgetTest));
 
-    setUpAll(() => _uiUtils.globalSetUpAll(_tests.runtimeType.toString()));
+    setUpAll(() => _utils.globalSetUpAll(_tests.runtimeType.toString()));
 
-    tearDownAll(() => _uiUtils.globalTearDownAll(_tests.runtimeType.toString()));
+    tearDownAll(() => _utils.globalTearDownAll(_tests.runtimeType.toString()));
 
     setUp(() {
-      _uiUtils.globalSetUp("Starting...");
+      _utils.globalSetUp("Starting...");
       _config.bindingsBuilder();
     });
 
-    tearDown(() => _uiUtils.globalTearDown("...Ending"));
+    tearDown(() => _utils.globalTearDown("...Ending"));
 
     List<Product> _products() {
       return Get.find<IOverviewService>().getLocalDataAllProducts();

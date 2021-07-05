@@ -33,13 +33,13 @@ class OrdersTests {
 
   Future OrderingFromCartView_TapButtonOrderNow(
     WidgetTester tester,
-    int delaySeconds,
+    int interval,
   ) async {
     if (isWidgetTest == false) {
       await dbTestUtils.addObject(
         tester,
         object: ProductDataBuilder().ProductFullStaticNoId(),
-        delaySeconds: DELAY,
+        interval: DELAY,
         collectionUrl: PRODUCTS_URL,
       );
     }
@@ -54,26 +54,26 @@ class OrdersTests {
     await tester.pumpAndSettle();
     expect(testUtils.type(OverviewView), findsOneWidget);
     await tester.tap(testUtils.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0"));
-    await tester.pumpAndSettle(testUtils.delay(delaySeconds));
+    await tester.pumpAndSettle(testUtils.delay(interval));
     expect(testUtils.text("1"), findsOneWidget);
 
     //B) CLICKING CART-BUTTON-PAGE AND CHECK THE AMOUNT CART
     await tester.tap(testUtils.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
-    await tester.pumpAndSettle(testUtils.delay(delaySeconds));
+    await tester.pumpAndSettle(testUtils.delay(interval));
     expect(testUtils.type(CartView), findsOneWidget);
 
     //C) CLICKING ORDER-NOW-BUTTON AND GO BACK TO THE PREVIOUS PAGE
     await tester.tap(testUtils.key(CART_PAGE_ORDERSNOW_BUTTON_KEY));
-    await tester.pump(testUtils.delay(delaySeconds));
+    await tester.pump(testUtils.delay(interval));
     expect(testUtils.key(CART_PAGE_ORDERSNOW_BUTTON_KEY), findsNothing);
     expect(testUtils.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
-    await tester.pump(testUtils.delay(delaySeconds));
+    await tester.pump(testUtils.delay(interval));
     expect(testUtils.type(OverviewView), findsOneWidget);
 
     //D) OPEN ORDERS-DRAWER-OPTION AND CHECK THE ORDER DONE ABOVE
     await uiTestUtils.openDrawerAndClickAnOption(
       tester,
-      delaySeconds: delaySeconds,
+      interval: interval,
       optionKey: DRAWER_ORDER_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
@@ -87,7 +87,7 @@ class OrdersTests {
     //E) PRESS BACK-BUTTON AND GOBACK TO OVERVIEW-PAGE
     await uiTestUtils.navigationBetweenViews(
       tester,
-      delaySeconds: delaySeconds,
+      interval: interval,
       from: OrdersView,
       to: OverviewView,
       triggerWidget: BackButton,
@@ -96,7 +96,7 @@ class OrdersTests {
 
   Future checkOrders_OrdersAbsence(
     WidgetTester tester,
-    int delaySeconds,
+    int interval,
   ) async {
     await uiTestUtils.testInitialization(
       tester,
@@ -106,7 +106,7 @@ class OrdersTests {
 
     await uiTestUtils.openDrawerAndClickAnOption(
       tester,
-      delaySeconds: delaySeconds,
+      interval: interval,
       optionKey: DRAWER_ORDER_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
@@ -117,7 +117,7 @@ class OrdersTests {
 
     await uiTestUtils.navigationBetweenViews(
       tester,
-      delaySeconds: delaySeconds,
+      interval: interval,
       from: OrdersView,
       to: OverviewView,
       triggerWidget: BackButton,
@@ -126,7 +126,7 @@ class OrdersTests {
 
   Future tapingBackButtonInOrdersView(
     WidgetTester tester,
-    int delaySeconds, {
+    int interval, {
     Type from,
     Type to,
   }) async {
@@ -138,7 +138,7 @@ class OrdersTests {
 
     await uiTestUtils.openDrawerAndClickAnOption(
       tester,
-      delaySeconds: DELAY,
+      interval: DELAY,
       optionKey: DRAWER_ORDER_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
@@ -147,7 +147,7 @@ class OrdersTests {
 
     await uiTestUtils.navigationBetweenViews(
       tester,
-      delaySeconds: delaySeconds,
+      interval: interval,
       from: OrdersView,
       to: OverviewView,
       triggerWidget: BackButton,

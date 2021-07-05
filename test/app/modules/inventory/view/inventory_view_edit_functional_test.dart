@@ -13,11 +13,11 @@ import 'inventory_tests.dart';
 
 class InventoryViewEditFunctionalTest {
   bool _isWidgetTest;
-  final bool _skipTest = false;
-  final TestUtils _utils = Get.put(TestUtils());
-  final UiTestUtils _uiUtils = Get.put(UiTestUtils());
-  final DbTestUtils _dbUtils = Get.put(DbTestUtils());
-  final InventoryTestConfig _config = Get.put(InventoryTestConfig());
+  final _skipTest = false;
+  final _utils = Get.put(TestUtils());
+  final _uiUtils = Get.put(UiTestUtils());
+  final _dbUtils = Get.put(DbTestUtils());
+  final _config = Get.put(InventoryTestConfig());
 
   InventoryViewEditFunctionalTest({String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
@@ -25,22 +25,25 @@ class InventoryViewEditFunctionalTest {
 
   void functional() {
     final _tests = Get.put(InventoryTests(
-        isWidgetTest: _isWidgetTest,
-        testUtils: _utils,
-        uiTestUtils: _uiUtils,
-        dbTestUtils: _dbUtils));
+      testUtils: _utils,
+      dbTestUtils: _dbUtils,
+      uiTestUtils: _uiUtils,
+      isWidgetTest: _isWidgetTest,
+    ));
 
-    setUpAll(() => _uiUtils.globalSetUpAll(_tests.runtimeType.toString()));
-
-    tearDownAll(() => _uiUtils.globalTearDownAll(_tests.runtimeType.toString()));
-
-    setUp(() {
-      _uiUtils.globalSetUp("Starting...");
-      _config.bindingsBuilderMockedRepo(isUnitTest: _isWidgetTest);
-      // _utils = Get.put(TestUtils());
+    setUpAll(() async {
+      _utils.globalSetUpAll(_tests.runtimeType.toString());
+      await _dbUtils.cleanDb(url: TEST_URL, db: DB_NAME, interval: DELAY);
     });
 
-    tearDown(() => _uiUtils.globalTearDown("...Ending"));
+    tearDownAll(() => _utils.globalTearDownAll(_tests.runtimeType.toString()));
+
+    setUp(() {
+      _utils.globalSetUp("Starting...");
+      _config.bindingsBuilderMockedRepo(isUnitTest: _isWidgetTest);
+    });
+
+    tearDown(() => _utils.globalTearDown("...Ending"));
 
     testWidgets('${_config.edit_add_product_in_form}', (tester) async {
       await _tests.addProductFillingFormInInventoryEditView(

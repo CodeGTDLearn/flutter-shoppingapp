@@ -17,10 +17,10 @@ import 'orders_tests.dart';
 class OrdersViewFunctionalTest {
   bool _isWidgetTest;
   final bool _skipTest = false;
-  final _config = Get.put(OrdersTestConfig());
+  final _utils = Get.put(TestUtils());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
-  final _utils = Get.put(TestUtils());
+  final _config = Get.put(OrdersTestConfig());
 
   OrdersViewFunctionalTest({String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
@@ -34,20 +34,20 @@ class OrdersViewFunctionalTest {
       dbTestUtils: _dbUtils,
     ));
 
-    setUpAll(() => _uiUtils.globalSetUpAll(_tests.runtimeType.toString()));
+    setUpAll(() => _utils.globalSetUpAll(_tests.runtimeType.toString()));
 
-    tearDownAll(() => _uiUtils.globalTearDownAll(_tests.runtimeType.toString()));
+    tearDownAll(() => _utils.globalTearDownAll(_tests.runtimeType.toString()));
 
     setUp(() {
-      _uiUtils.globalSetUp("Starting...");
+      _utils.globalSetUp("Starting...");
       _config.bindingsBuilderMockedRepo(isWidgetTest: _isWidgetTest);
     });
 
-    tearDown(() => _uiUtils.globalTearDown("...Ending"));
+    tearDown(() => _utils.globalTearDown("...Ending"));
 
     testWidgets('${_config.check_oneOrderInDB}', (tester) async {
       if (!_isWidgetTest) {
-        await _dbUtils.removeAllCollections(tester, delaySeconds: DELAY, dbName: DB_NAME);
+        await _dbUtils.cleanDb(url: TEST_URL, interval: DELAY, db: DB_NAME);
       }
       _config.bindingsBuilderMockRepoEmptyDb(isWidgetTest: _isWidgetTest);
       await _tests.checkOrders_OrdersAbsence(tester, DELAY);
@@ -66,7 +66,7 @@ class OrdersViewFunctionalTest {
 
       await _uiUtils.openDrawerAndClickAnOption(
         tester,
-        delaySeconds: DELAY,
+        interval: DELAY,
         optionKey: DRAWER_ORDER_OPTION_KEY,
         scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
       );

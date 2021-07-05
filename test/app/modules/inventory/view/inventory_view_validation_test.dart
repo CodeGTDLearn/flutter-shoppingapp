@@ -1,44 +1,52 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/core/properties/app_urls.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 import 'package:shopingapp/app/modules/inventory/core/messages/field_form_validation_provided.dart';
 
 import '../../../../config/app_tests_config.dart';
 import '../../../../config/inventory_test_config.dart';
-import '../../../../data_builders/product_databuilder.dart';
-import '../../../../mocked_datasource/products_mocked_datasource.dart';
 import '../../../../utils/db_test_utils.dart';
+import '../../../../utils/test_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 import 'inventory_tests.dart';
 
 class InventoryViewValidationTest {
-  bool _isUnitTest;
-  final bool _skipTest = false;
-  final _uiTestUtils = Get.put(UiTestUtils());
-  final _dbTestUtils = Get.put(DbTestUtils());
-  final _tests = Get.put(InventoryTests());
+  bool _isWidgetTest;
+  final _skipTest = false;
+  final _utils = Get.put(TestUtils());
+  final _uiUtils = Get.put(UiTestUtils());
+  final _dbUtils = Get.put(DbTestUtils());
   final _config = Get.put(InventoryTestConfig());
 
   InventoryViewValidationTest({String testType}) {
-    _isUnitTest = testType == WIDGET_TEST;
+    _isWidgetTest = testType == WIDGET_TEST;
   }
 
   void functional() {
-    setUpAll(() => _uiTestUtils.globalSetUpAll(_tests.runtimeType.toString()));
+    final _tests = Get.put(InventoryTests(
+      testUtils: _utils,
+      dbTestUtils: _dbUtils,
+      uiTestUtils: _uiUtils,
+      isWidgetTest: _isWidgetTest,
+    ));
 
-    tearDownAll(() => _uiTestUtils.globalTearDownAll(_tests.runtimeType.toString()));
-
-    setUp(() {
-      _uiTestUtils.globalSetUp("Starting...");
-      _config.bindingsBuilderMockedRepo(isUnitTest: _isUnitTest);
+    setUpAll(() async {
+      _utils.globalSetUpAll(_tests.runtimeType.toString());
+      await _dbUtils.cleanDb(url: TEST_URL, interval: DELAY, db: DB_NAME);
     });
 
-    tearDown(() => _uiTestUtils.globalTearDown("...Ending"));
+    tearDownAll(() => _utils.globalTearDownAll(_tests.runtimeType.toString()));
+
+    setUp(() {
+      _utils.globalSetUp("Starting...");
+      _config.bindingsBuilderMockedRepo(isUnitTest: _isWidgetTest);
+    });
+
+    tearDown(() => _utils.globalTearDown("...Ending"));
 
     //TITLE CHECK VALIDATIONS + CHECK INJECTIONS -------------------------------
     testWidgets('${_config.validation_title_size}', (tester) async {
-      var product = await _loadProductsInDbForThisTest(tester, _isUnitTest);
+      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -50,7 +58,7 @@ class InventoryViewValidationTest {
     }, skip: _skipTest);
 
     testWidgets('${_config.validation_title_empty}', (tester) async {
-      var product = await _loadProductsInDbForThisTest(tester, _isUnitTest);
+      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -62,7 +70,7 @@ class InventoryViewValidationTest {
     }, skip: _skipTest);
 
     testWidgets('${_config.validation_title_inject}', (tester) async {
-      var product = await _loadProductsInDbForThisTest(tester, _isUnitTest);
+      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -75,7 +83,7 @@ class InventoryViewValidationTest {
 
     //DESCRIPTION CHECK VALIDATIONS + CHECK INJECTIONS -------------------------
     testWidgets('${_config.validation_descript_size}', (tester) async {
-      var product = await _loadProductsInDbForThisTest(tester, _isUnitTest);
+      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -87,7 +95,7 @@ class InventoryViewValidationTest {
     }, skip: _skipTest);
 
     testWidgets('${_config.validation_descript_empty}', (tester) async {
-      var product = await _loadProductsInDbForThisTest(tester, _isUnitTest);
+      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -99,7 +107,7 @@ class InventoryViewValidationTest {
     }, skip: _skipTest);
 
     testWidgets('${_config.validation_descript_inject}', (tester) async {
-      var product = await _loadProductsInDbForThisTest(tester, _isUnitTest);
+      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -112,7 +120,7 @@ class InventoryViewValidationTest {
 
     //PRICE CHECK VALIDATIONS + CHECK INJECTIONS -------------------------------
     testWidgets('${_config.validation_price_size}', (tester) async {
-      var product = await _loadProductsInDbForThisTest(tester, _isUnitTest);
+      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -124,7 +132,7 @@ class InventoryViewValidationTest {
     }, skip: _skipTest);
 
     testWidgets('${_config.validation_price_empty}', (tester) async {
-      var product = await _loadProductsInDbForThisTest(tester, _isUnitTest);
+      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -136,7 +144,7 @@ class InventoryViewValidationTest {
     }, skip: _skipTest);
 
     testWidgets('${_config.validation_price_inject}', (tester) async {
-      var product = await _loadProductsInDbForThisTest(tester, _isUnitTest);
+      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -149,7 +157,7 @@ class InventoryViewValidationTest {
 
     //URL CHECK VALIDATIONS + CHECK INJECTIONS ---------------------------------
     testWidgets('${_config.validation_url_size}', (tester) async {
-      var product = await _loadProductsInDbForThisTest(tester, _isUnitTest);
+      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -161,7 +169,7 @@ class InventoryViewValidationTest {
     }, skip: _skipTest);
 
     testWidgets('${_config.validation_url_empty}', (tester) async {
-      var product = await _loadProductsInDbForThisTest(tester, _isUnitTest);
+      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -173,7 +181,7 @@ class InventoryViewValidationTest {
     }, skip: _skipTest);
 
     testWidgets('${_config.validation_url_inject}', (tester) async {
-      var product = await _loadProductsInDbForThisTest(tester, _isUnitTest);
+      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -183,31 +191,5 @@ class InventoryViewValidationTest {
         productToUpdate: product,
       );
     }, skip: _skipTest);
-  }
-
-  Future<dynamic> _loadProductsInDbForThisTest(
-    tester,
-    bool unitTest,
-  ) async {
-    var _product;
-
-    if (!unitTest) {
-      await _cleanDb(tester);
-      await _dbTestUtils
-          .addMultipleObjects(tester,
-              qtdeObjects: 2,
-              collectionUrl: PRODUCTS_URL,
-              object: ProductDataBuilder().ProductFullStaticNoId(),
-              delaySeconds: DELAY)
-          .then((value) => _product = value[0]);
-    }
-
-    return unitTest ? ProductsMockedDatasource().products()[0] : _product;
-  }
-
-  Future _cleanDb(tester) async {
-    await _dbTestUtils.removeCollection(tester, url: ORDERS_URL, delaySeconds: 1);
-    await _dbTestUtils.removeCollection(tester, url: PRODUCTS_URL, delaySeconds: 1);
-    await _dbTestUtils.removeCollection(tester, url: CART_ITEM_URL, delaySeconds: 1);
   }
 }

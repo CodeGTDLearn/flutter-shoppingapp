@@ -25,21 +25,22 @@ class OverviewViewTest {
 
   void functional() {
     final _tests = Get.put(OverviewTests(
-        isWidgetTest: _isWidgetTest,
-        testUtils: _utils,
-        uiTestUtils: _uiUtils,
-        dbTestUtils: _dbUtils));
+      testUtils: _utils,
+      dbTestUtils: _dbUtils,
+      uiTestUtils: _uiUtils,
+      isWidgetTest: _isWidgetTest,
+    ));
 
-    setUpAll(() => _uiUtils.globalSetUpAll(_tests.runtimeType.toString()));
+    setUpAll(() => _utils.globalSetUpAll(_tests.runtimeType.toString()));
 
-    tearDownAll(() => _uiUtils.globalTearDownAll(_tests.runtimeType.toString()));
+    tearDownAll(() => _utils.globalTearDownAll(_tests.runtimeType.toString()));
 
     setUp(() {
-      _uiUtils.globalSetUp("Starting...");
+      _utils.globalSetUp("Starting...");
       _config.bindingsBuilder();
     });
 
-    tearDown(() => _uiUtils.globalTearDown("...Ending"));
+    tearDown(() => _utils.globalTearDown("...Ending"));
 
     testWidgets('${_config.check_products}', (tester) async {
       await _tests.checkProducts(tester);
@@ -81,21 +82,5 @@ class OverviewViewTest {
     testWidgets('${_config.close_fav_filter}', (tester) async {
       await _tests.closeFavoriteFilter(tester);
     }, skip: _skipTest);
-  }
-
-  Future<dynamic> _loadTwoProductsInDb(tester, {bool isWidgetTest}) async {
-    var _product;
-
-    if (!isWidgetTest) {
-      await _dbUtils.removeAllCollections(tester, delaySeconds: DELAY, dbName: DB_NAME);
-      await _dbUtils
-          .addMultipleObjects(tester,
-              qtdeObjects: 2,
-              collectionUrl: PRODUCTS_URL,
-              object: ProductDataBuilder().ProductFullStaticNoId(),
-              delaySeconds: DELAY)
-          .then((value) => _product = value[0]);
-    }
-    return isWidgetTest ? ProductsMockedDatasource().products()[0] : _product;
   }
 }

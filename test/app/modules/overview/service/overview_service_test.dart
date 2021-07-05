@@ -17,6 +17,7 @@ class OverviewServiceTests {
   static void unit() {
     IOverviewRepo _repo;
     IOverviewService _service, _injectService;
+    final _utils = Get.put(TestUtils());
 
     setUp(() {
       OverviewTestConfig().bindingsBuilder();
@@ -25,7 +26,7 @@ class OverviewServiceTests {
       _injectService = OverviewInjectMockedService();
     });
 
-    tearDown(TestUtils.globalTearDown);
+    tearDown(() => _utils.globalTearDown("...Ending"));
 
     test('Checking Instances to be used in the Tests', () {
       expect(_repo, isA<IOverviewRepo>());

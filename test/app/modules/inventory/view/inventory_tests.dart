@@ -18,6 +18,8 @@ import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/app_tests_config.dart';
+import '../../../../data_builders/product_databuilder.dart';
+import '../../../../mocked_datasource/products_mocked_datasource.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/test_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
@@ -35,7 +37,7 @@ class InventoryTests {
     this.dbTestUtils,
   });
 
-  Future tapingBackButtonInInventoryView(tester) async {
+  Future<dynamic> tapingBackButtonInInventoryView(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -44,7 +46,7 @@ class InventoryTests {
 
     await uiTestUtils.openDrawerAndClickAnOption(
       tester,
-      delaySeconds: DELAY,
+      interval: DELAY,
       optionKey: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
@@ -54,11 +56,11 @@ class InventoryTests {
       from: InventoryView,
       to: OverviewView,
       triggerWidget: BackButton,
-      delaySeconds: DELAY,
+      interval: DELAY,
     );
   }
 
-  Future checkInventoryProductsAbsence(tester, int delaySeconds) async {
+  Future<dynamic> checkInventoryProductsAbsence(tester, int interval) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -67,7 +69,7 @@ class InventoryTests {
 
     await uiTestUtils.openDrawerAndClickAnOption(
       tester,
-      delaySeconds: delaySeconds,
+      interval: interval,
       optionKey: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
@@ -82,14 +84,14 @@ class InventoryTests {
 
     await uiTestUtils.navigationBetweenViews(
       tester,
-      delaySeconds: delaySeconds,
+      interval: interval,
       from: InventoryView,
       to: OverviewView,
       triggerWidget: BackButton,
     );
   }
 
-  Future refreshingInventoryView(tester, {Product triggerProduct}) async {
+  Future<dynamic> refreshingInventoryView(tester, {Product draggerWidget}) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -100,7 +102,7 @@ class InventoryTests {
 
     await uiTestUtils.openDrawerAndClickAnOption(
       tester,
-      delaySeconds: DELAY,
+      interval: DELAY,
       optionKey: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
@@ -110,13 +112,13 @@ class InventoryTests {
       await dbTestUtils.removeObject(
         tester,
         url: PRODUCTS_URL,
-        delaySeconds: DELAY,
-        id: triggerProduct.id,
+        interval: DELAY,
+        id: draggerWidget.id,
       );
     }
 
     await tester.drag(
-      testUtils.key('$INVENTORY_ITEM_KEY${triggerProduct.id}'),
+      testUtils.key('$INVENTORY_ITEM_KEY${draggerWidget.id}'),
       Offset(0.0, 150.0),
     );
 
@@ -126,14 +128,14 @@ class InventoryTests {
     if (isWidgetTest == false) expect(testUtils.type(InventoryItem), findsNWidgets(1));
   }
 
-  Future updateInventoryProduct(
+  Future<dynamic> updateInventoryProduct(
     tester, {
     String inputValidText,
     String fieldKey,
-    int delaySeconds,
+    int interval,
     Product productToUpdate,
   }) async {
-    delaySeconds ??= DELAY;
+    interval ??= DELAY;
 
     await uiTestUtils.testInitialization(
       tester,
@@ -146,7 +148,7 @@ class InventoryTests {
 
     await uiTestUtils.openDrawerAndClickAnOption(
       tester,
-      delaySeconds: delaySeconds,
+      interval: interval,
       optionKey: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
@@ -158,7 +160,7 @@ class InventoryTests {
     expect(testUtils.type(InventoryView), findsOneWidget);
     expect(testUtils.text(productToUpdate.title), findsWidgets);
     await tester.tap(keyUpdateButton);
-    await tester.pump(testUtils.delay(delaySeconds));
+    await tester.pump(testUtils.delay(interval));
 
     // 2) InventoryAddEditView
     //   -> Checking View + Title-Form-Field
@@ -172,7 +174,7 @@ class InventoryTests {
     // await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY));
     await tester.tap(testUtils.key(fieldKey));
     await tester.enterText(testUtils.key(fieldKey), inputValidText);
-    await tester.pump(testUtils.delay(delaySeconds));
+    await tester.pump(testUtils.delay(interval));
 
     // 4) Save form
     //   -> Tap Saving:
@@ -180,7 +182,7 @@ class InventoryTests {
     //   -> Test existence of INValidation messages
     //   -> Go to InventoryView + Checking UpdatedValue
     await tester.tap(testUtils.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
-    await tester.pump(testUtils.delay(delaySeconds));
+    await tester.pump(testUtils.delay(interval));
 
     // 4.1) Save form
     //   -> Tap Saving:
@@ -190,7 +192,7 @@ class InventoryTests {
     //          - Without 'PERSISTENCE' in DB InventoryAddEditView does not GO-BACK
     //          InventoryView automatically
     if (isWidgetTest == false) {
-      await tester.pump(testUtils.delay(delaySeconds));
+      await tester.pump(testUtils.delay(interval));
       expect(testUtils.type(InventoryView), findsOneWidget);
       expect(testUtils.text(inputValidText), findsOneWidget);
 
@@ -198,7 +200,7 @@ class InventoryTests {
       //   -> Go to OverviewView + UpdatedValue
       await uiTestUtils.navigationBetweenViews(
         tester,
-        delaySeconds: DELAY,
+        interval: DELAY,
         from: InventoryView,
         to: OverviewView,
         triggerWidget: BackButton,
@@ -207,15 +209,15 @@ class InventoryTests {
     }
   }
 
-  Future checkInputInjectionOrInputValidation(
+  Future<dynamic> checkInputInjectionOrInputValidation(
     tester, {
     String injectionTextOrInvalidText,
     String fieldKey,
     String shownValidationErrorMessage,
-    int delaySeconds,
+    int interval,
     Product productToUpdate,
   }) async {
-    delaySeconds ??= DELAY;
+    interval ??= DELAY;
 
     await uiTestUtils.testInitialization(
       tester,
@@ -228,7 +230,7 @@ class InventoryTests {
 
     await uiTestUtils.openDrawerAndClickAnOption(
       tester,
-      delaySeconds: delaySeconds,
+      interval: interval,
       optionKey: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
@@ -240,7 +242,7 @@ class InventoryTests {
     expect(testUtils.type(InventoryView), findsOneWidget);
     expect(testUtils.text(productToUpdate.title), findsWidgets);
     await tester.tap(keyUpdateButton);
-    await tester.pump(testUtils.delay(delaySeconds));
+    await tester.pump(testUtils.delay(interval));
 
     // 2) InventoryAddEditView
     //   -> Checking View + Title-Form-Field
@@ -266,7 +268,7 @@ class InventoryTests {
       // await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY));
       await tester.tap(testUtils.key(fieldKey));
       await tester.enterText(testUtils.key(fieldKey), injectionTextOrInvalidText);
-      await tester.pump(testUtils.delay(delaySeconds));
+      await tester.pump(testUtils.delay(interval));
 
       // 4) Save form
       //   -> Tap Saving:
@@ -274,11 +276,11 @@ class InventoryTests {
       //   -> Test existence of INValidation messages
       //   -> Go to InventoryView + Checking UpdatedValue
       await tester.tap(testUtils.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
-      await tester.pump(testUtils.delay(delaySeconds));
+      await tester.pump(testUtils.delay(interval));
 
       if (i == 1) expect(testUtils.text(shownValidationErrorMessage), findsWidgets);
 
-      await tester.pump(testUtils.delay(delaySeconds));
+      await tester.pump(testUtils.delay(interval));
     }
 
     // 4.1) Save form
@@ -289,14 +291,14 @@ class InventoryTests {
     //          - Without 'PERSISTENCE' in DB, InventoryEditView does not GO-BACK TO
     //          InventoryView automatically
     if (isWidgetTest == false) {
-      await tester.pump(testUtils.delay(delaySeconds));
+      await tester.pump(testUtils.delay(interval));
       expect(testUtils.type(InventoryView), findsOneWidget);
 
       // 5) Click InventoryView-BackButton
       //   -> Go to OverviewView + UpdatedValue
       await uiTestUtils.navigationBetweenViews(
         tester,
-        delaySeconds: DELAY,
+        interval: DELAY,
         from: InventoryView,
         to: OverviewView,
         triggerWidget: BackButton,
@@ -304,7 +306,7 @@ class InventoryTests {
     }
   }
 
-  Future deleteInventoryProduct(
+  Future<dynamic> deleteInventoryProduct(
     tester, {
     int initialQtde,
     int finalQtde,
@@ -321,7 +323,7 @@ class InventoryTests {
 
     await uiTestUtils.openDrawerAndClickAnOption(
       tester,
-      delaySeconds: DELAY,
+      interval: DELAY,
       optionKey: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
@@ -344,7 +346,7 @@ class InventoryTests {
 
     await uiTestUtils.navigationBetweenViews(
       tester,
-      delaySeconds: DELAY,
+      interval: DELAY,
       from: InventoryView,
       to: OverviewView,
       triggerWidget: BackButton,
@@ -357,7 +359,7 @@ class InventoryTests {
     );
   }
 
-  Future checkInventoryViewProducts(tester, int ProductsQtde) async {
+  Future<dynamic> checkInventoryViewProducts(tester, int ProductsQtde) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -368,7 +370,7 @@ class InventoryTests {
 
     await uiTestUtils.openDrawerAndClickAnOption(
       tester,
-      delaySeconds: DELAY,
+      interval: DELAY,
       optionKey: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
@@ -381,10 +383,10 @@ class InventoryTests {
   }
 
   //-------------------------TEST-METHODS-INVENTORY-EDIT-VIEW------------------------
-  Future openInventoryEditView(tester) async {
+  Future<dynamic> openInventoryEditView(tester) async {
     await uiTestUtils.openDrawerAndClickAnOption(
       tester,
-      delaySeconds: DELAY,
+      interval: DELAY,
       optionKey: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
@@ -395,9 +397,9 @@ class InventoryTests {
     expect(testUtils.type(InventoryEditView), findsOneWidget);
   }
 
-  Future AddProductInDb(
+  Future<dynamic> AddProductInDb(
     WidgetTester tester, {
-    int delaySeconds,
+    int interval,
     bool validTexts,
     int qtde,
   }) async {
@@ -408,7 +410,7 @@ class InventoryTests {
     // B) CLICK IN INVENTORY-DRAWER-OPTION
     await UiTestUtils().openDrawerAndClickAnOption(
       tester,
-      delaySeconds: delaySeconds,
+      interval: interval,
       optionKey: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
@@ -420,7 +422,7 @@ class InventoryTests {
       // C) CLICK IN INVENTORY-ADD-PRODUCT-BUTTON
       await UiTestUtils().tapButtonWithResult(
         tester,
-        delaySeconds: delaySeconds,
+        interval: interval,
         triggerKey: INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY,
         resultWidget: InventoryEditView,
       );
@@ -453,23 +455,23 @@ class InventoryTests {
         validTexts ? IMAGE1_TEST_URL : invalidText,
       );
 
-      await tester.pumpAndSettle(_seek.delay(delaySeconds));
+      await tester.pumpAndSettle(_seek.delay(interval));
 
       // E) CLICK IN SAVE-BUTTON + RETURN TO INVENTORY-VIEW + CHECK INVENTORY-ITEM ADDED
       await UiTestUtils().tapButtonWithResult(
         tester,
-        delaySeconds: delaySeconds,
+        interval: interval,
         triggerKey: INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY,
         resultWidget: InventoryItem,
       );
 
-      await tester.pumpAndSettle(_seek.delay(delaySeconds));
+      await tester.pumpAndSettle(_seek.delay(interval));
     }
 
     // F) CLICK IN BACK-BUTTON + RETURN FROM INVENTORY-VIEW TO OVERVIEW-VIEW
     await UiTestUtils().navigationBetweenViews(
       tester,
-      delaySeconds: delaySeconds,
+      interval: interval,
       from: InventoryView,
       to: OverviewView,
       triggerWidget: BackButton,
@@ -478,7 +480,7 @@ class InventoryTests {
     Get.delete(tag: 'localTestUtilsInstance');
   }
 
-  Future addProductFillingFormInInventoryEditView(
+  Future<dynamic> addProductFillingFormInInventoryEditView(
     tester, {
     Product product,
     bool useValidTexts,
@@ -544,7 +546,7 @@ class InventoryTests {
     expect(testUtils.text(URL_INVALID_MSG), matcher);
   }
 
-  Future tapBackButtonInInventoryEditView(tester) async {
+  Future<dynamic> tapBackButtonInInventoryEditView(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -558,7 +560,27 @@ class InventoryTests {
       from: InventoryEditView,
       to: InventoryView,
       triggerWidget: BackButton,
-      delaySeconds: DELAY,
+      interval: DELAY,
     );
+  }
+
+  Future<dynamic> loadTwoProductsInDb(tester, {bool isWidgetTest}) async {
+    var _product;
+
+    if (!isWidgetTest) {
+      await dbTestUtils.cleanDb(
+        url: TEST_URL,
+        interval: DELAY,
+        db: DB_NAME,
+      );
+      await dbTestUtils
+          .addMultipleObjects(tester,
+              qtdeObjects: 2,
+              collectionUrl: PRODUCTS_URL,
+              object: ProductDataBuilder().ProductFullStaticNoId(),
+              interval: DELAY)
+          .then((value) => _product = value[0]);
+    }
+    return isWidgetTest ? ProductsMockedDatasource().products()[0] : _product;
   }
 }

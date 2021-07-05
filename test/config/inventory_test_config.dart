@@ -94,7 +94,7 @@ class InventoryTestConfig {
   get delete_Product => 'Deleting a product';
   get update_Product => 'Updating a product';
   get refresh_View => 'Refreshing View';
-  get test_ViewBackButton => 'Testing BackButton';
+  get view_BackButton => 'Testing BackButton';
 
   //TEST-TITLES: TITLE CHECK VALIDATIONS + CHECK INJECTIONS --------------------
   get validation_title_size => 'Title|Validation|min 05 chars';
