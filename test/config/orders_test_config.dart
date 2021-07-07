@@ -94,6 +94,9 @@ class OrdersTestConfig {
   String repoName() => _mocked_repo_used_in_this_module_test.runtimeType.toString();
 
   // @formatter:off
+  //GROUP-TITLES ---------------------------------------------------------------
+  static get ORDERS_GROUP_TITLE => 'Orders|Integration-Tests:';
+
   //MVC-TITLES -----------------------------------------------------------------
   get REPO_TEST_TITLE => '${repoName()}|Repo: Unit';
   get SERVICE_TEST_TITLE => '${repoName()}|Service|Repo: Unit';
@@ -101,10 +104,10 @@ class OrdersTestConfig {
   get VIEW_TEST_TITLE => '${repoName()}|View: Functional';
 
   //TEST-TITLES ----------------------------------------------------------------
-  get check_oneOrderInDB => 'Opening OrderView ONE ORDER in DB';
-  get check_emptyDB => 'Opening OrderView NONE Order in DB';
-  get tap_ViewBackButton => 'Testing OrderView BackButton';
+  get check_oneOrderInDB => 'Opening View ONE ORDER in DB';
+  get check_emptyDB => 'Opening View NONE Order in DB';
+  get tap_ViewBackButton => 'Testing View BackButton';
   get ordering_InCartView_tapOrderNowBtn =>
-      'Ordering from CartView - Taping Order Now Button';
+      'Ordering from CartView - Taping OrderNow Button';
   // @formatter:on
 }

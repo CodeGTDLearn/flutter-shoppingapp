@@ -31,10 +31,7 @@ class InventoryViewEditFunctionalTest {
       isWidgetTest: _isWidgetTest,
     ));
 
-    setUpAll(() async {
-      _utils.globalSetUpAll(_tests.runtimeType.toString());
-      await _dbUtils.cleanDb(url: TEST_URL, db: DB_NAME, interval: DELAY);
-    });
+    setUpAll(() async => _utils.globalSetUpAll(_tests.runtimeType.toString()));
 
     tearDownAll(() => _utils.globalTearDownAll(_tests.runtimeType.toString()));
 
@@ -45,7 +42,7 @@ class InventoryViewEditFunctionalTest {
 
     tearDown(() => _utils.globalTearDown("...Ending"));
 
-    testWidgets('${_config.edit_add_product_in_form}', (tester) async {
+    testWidgets(_config.edit_add_product_in_form, (tester) async {
       await _tests.addProductFillingFormInInventoryEditView(
         tester,
         product: ProductDataBuilder().ProductFullStaticNoId(),
@@ -53,11 +50,11 @@ class InventoryViewEditFunctionalTest {
       );
     }, skip: _skipTest);
 
-    testWidgets('${_config.edit_preview_url_in_form}', (tester) async {
+    testWidgets(_config.edit_preview_url_in_form, (tester) async {
       await _uiUtils.testInitialization(
         tester,
         isWidgetTest: _isWidgetTest,
-        appDriver: app.AppDriver(),
+        driver: app.AppDriver(),
       );
 
       await _tests.openInventoryEditView(tester);
@@ -72,7 +69,7 @@ class InventoryViewEditFunctionalTest {
       _utils.checkImageTotalOnAView(1);
     }, skip: _skipTest);
 
-    testWidgets('${_config.edit_fill_form_invalid}', (tester) async {
+    testWidgets(_config.edit_fill_form_invalid, (tester) async {
       await _tests.addProductFillingFormInInventoryEditView(
         tester,
         product: ProductDataBuilder().ProductFullStaticNoId(),
@@ -80,7 +77,7 @@ class InventoryViewEditFunctionalTest {
       );
     }, skip: _skipTest);
 
-    testWidgets('${_config.edit_back_button}', (tester) async {
+    testWidgets(_config.edit_back_button, (tester) async {
       await _tests.tapBackButtonInInventoryEditView(tester);
     }, skip: _skipTest);
   }

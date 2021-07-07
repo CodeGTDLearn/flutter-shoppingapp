@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:image_test_utils/image_test_utils.dart';
+import 'package:shopingapp/app/core/properties/app_urls.dart';
+import 'package:shopingapp/app/modules/inventory/entities/product.dart';
+
+import '../config/app_tests_config.dart';
+import '../data_builders/product_databuilder.dart';
+import '../mocked_datasource/products_mocked_datasource.dart';
+import 'db_test_utils.dart';
 
 class TestUtils {
   Finder key(String keyText) {
@@ -38,8 +45,25 @@ class TestUtils {
     });
   }
 
-  void globalSetUpAll(String testModuleName) {
-    print(_generateText(
+  Future<Product> loadTwoProductsInDb(tester, {bool isWidgetTest}) async {
+    var _product;
+    var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
+    if (!isWidgetTest) {
+      await dbTestUtils.cleanDb(url: TEST_URL, interval: DELAY, db: DB_NAME);
+      await dbTestUtils
+          .addMultipleObjects(tester,
+              qtdeObjects: 2,
+              collectionUrl: PRODUCTS_URL,
+              object: ProductDataBuilder().ProductFullStaticNoId(),
+              interval: DELAY)
+          .then((value) => _product = value[0]);
+    }
+    Get.delete(tag: 'dbInstance');
+    return isWidgetTest ? ProductsMockedDatasource().products()[0] : _product;
+  }
+
+  void globalSetUpAll(String testModuleName) async {
+    await print(_testTextHeader(
       module: testModuleName,
       label: 'Starting FunctionalTests: ',
       fullLength: 63,
@@ -47,9 +71,38 @@ class TestUtils {
       qtdeSuperiorLine: 2,
       lineCharacter: '=',
     ));
+
+    await Get.put(DbTestUtils()).cleanDb(url: TEST_URL, interval: DELAY, db: DB_NAME);
   }
 
-  String _generateText({
+  void globalTearDownAll(String testModuleName) async {
+    print('\n'
+        '<<=============================================================<<\n'
+        '<<=============================================================<<\n'
+        '<========<< Concluding FunctionalTests: $testModuleName \n'
+        '<<=============================================================<<\n'
+        '<<=============================================================<<\n'
+        '\n \n \n');
+    Get.reset;
+  }
+
+  void globalSetUp(String testModuleName) {
+    print(''
+        '>--------------------------------------------------------------->\n'
+        '>---------> $testModuleName >---------> \n \n');
+    // '>---------> Test: $testModuleName >---------> \n \n');
+  }
+
+  void globalTearDown(String testModuleName) {
+    print('\n \n'
+        // '<---------< Test: $testModuleName <---------< \n'
+        '<---------< $testModuleName <---------< \n'
+        '<---------------------------------------------------------------<'
+        '\n \n \n');
+    Get.reset;
+  }
+
+  String _testTextHeader({
     String module,
     String label,
     String arrowChar,
@@ -77,33 +130,9 @@ class TestUtils {
       superiorLine = "$superiorLine${"$superiorLine"}";
     }
     var middle = '$middleLine $title $middleLine';
-    var footer = '\n$superiorLine\n \n \n \n';
+    // var footer = '\n$superiorLine\n \n \n \n';
+    var footer = '\n$superiorLine\n \n';
 
     return '$superiorLine$middle$footer';
-  }
-
-  void globalTearDownAll(String testModuleName) async {
-    print('\n'
-        '<<=============================================================<<\n'
-        '<<=============================================================<<\n'
-        '<========<< Concluding FunctionalTests: $testModuleName \n'
-        '<<=============================================================<<\n'
-        '<<=============================================================<<\n'
-        '\n \n \n');
-    Get.reset;
-  }
-
-  void globalSetUp(String testModuleName) {
-    print(''
-        '>--------------------------------------------------------------->\n'
-        '>---------> Test: $testModuleName >---------> \n \n');
-  }
-
-  void globalTearDown(String testModuleName) {
-    print('\n \n'
-        '<---------< Test: $testModuleName <---------< \n'
-        '<---------------------------------------------------------------<'
-        '\n \n \n');
-    Get.reset;
   }
 }

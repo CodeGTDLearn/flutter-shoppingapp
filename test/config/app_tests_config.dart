@@ -1,4 +1,4 @@
-const DELAY = 1;
+const DELAY = 2;
 const WIDGET_TEST = 'widget_test';
 const INTEGRATION_TEST = 'integration';
 const DB_NAME = 'test-app-dev-e6ee1-default-rtdb';

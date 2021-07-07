@@ -79,6 +79,11 @@ class InventoryTestConfig {
   }
 
   // @formatter:off
+  //GROUP-TITLES ---------------------------------------------------------------
+  static get INVENTORY_GROUP_TITLE => 'Inventory|Integration-Tests:';
+  static get INVENTORY_EDIT_GROUP_TITLE => 'Inventory-Edit|Integration-Tests:';
+  static get INVENTORY_VALIDATION_GROUP_TITLE => 'Inventory-Valid|Integration-Tests:';
+
   //MVC-TITLES -----------------------------------------------------------------
   String repoName() => _mocked_repo_used_in_this_module_test.runtimeType.toString();
   get REPO_TEST_TITLE => '${repoName()}|Repo: Unit';
@@ -90,36 +95,36 @@ class InventoryTestConfig {
 
   //TEST-TITLES ----------------------------------------------------------------
   get check_ProductsAbsence => 'Checking products (empty DB)';
+  get refresh_View => 'Refreshing View';
   get check_Products => 'Checking Products';
   get delete_Product => 'Deleting a product';
   get update_Product => 'Updating a product';
-  get refresh_View => 'Refreshing View';
   get view_BackButton => 'Testing BackButton';
 
   //TEST-TITLES: TITLE CHECK VALIDATIONS + CHECK INJECTIONS --------------------
   get validation_title_size => 'Title|Validation|min 05 chars';
-  get validation_title_empty => 'Title|Validation|empty not allowed';
   get validation_title_inject => 'Title|Check injection (OWASP)';
+  get validation_title_empty => 'Title|Validation|empty not allowed';
 
   //TEST-TITLES: DESCRIPTION CHECK VALIDATIONS + CHECK INJECTIONS --------------
   get validation_descript_size => 'Description|Validation|min 10 chars';
-  get validation_descript_empty => 'Description|Validation|empty not allowed';
   get validation_descript_inject => 'Description|Check injection (OWASP)';
+  get validation_descript_empty => 'Description|Validation|empty not allowed';
 
   //TEST-TITLES: PRICE CHECK VALIDATIONS + CHECK INJECTIONS --------------------
   get validation_price_size => 'Price|Validation|max 07 chars';
-  get validation_price_empty => 'Price|Validation|empty not allowed';
   get validation_price_inject => 'Price|Check injection (OWASP)';
+  get validation_price_empty => 'Price|Validation|empty not allowed';
 
   //TEST-TITLES: URL CHECK VALIDATIONS + CHECK INJECTIONS ----------------------
   get validation_url_size => 'Url Image|Validation|max 135 chars';
-  get validation_url_empty => 'Url Image|Validation|empty not allowed';
   get validation_url_inject => 'Url Image|Check injection (OWASP)';
+  get validation_url_empty => 'Url Image|Validation|empty not allowed';
 
   //TEST-TITLES: URL CHECK VALIDATIONS + CHECK INJECTIONS ----------------------
   get edit_back_button => 'Testing Page BackButton';
-  get edit_fill_form_invalid => 'Filling fields testing INValidation';
-  get edit_preview_url_in_form => 'check previewImageUrl';
   get edit_add_product_in_form => 'Adding a product';
+  get edit_preview_url_in_form => 'check previewImageUrl';
+  get edit_fill_form_invalid => 'Filling fields testing INValidation';
   // @formatter:on
 }

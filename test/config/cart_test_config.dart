@@ -20,7 +20,6 @@ import '../app/modules/orders/repo/orders_mocked_repo.dart';
 import '../app/modules/overview/repo/overview_mocked_repo.dart';
 
 class CartTestConfig {
-
   final ICartRepo _mocked_repo_used_in_this_module_tests = CartRepoHttp();
 
   void bindingsBuilder() {
@@ -40,18 +39,16 @@ class CartTestConfig {
     expect(Get.isPrepared<CartController>(), isFalse);
 
     var binding = BindingsBuilder(() {
-
       Get.lazyPut<DarkThemeController>(() => DarkThemeController());
 
       Get.lazyPut<IOverviewRepo>(() => OverviewMockedRepo());
       Get.lazyPut<IOverviewService>(
-              () => OverviewService(repo: Get.find<IOverviewRepo>()));
+          () => OverviewService(repo: Get.find<IOverviewRepo>()));
       Get.lazyPut<OverviewController>(
-              () => OverviewController(service: Get.find<IOverviewService>()));
+          () => OverviewController(service: Get.find<IOverviewService>()));
 
       Get.lazyPut<IOrdersRepo>(() => OrdersMockedRepo());
-      Get.lazyPut<IOrdersService>(
-          () => OrdersService(repo: Get.find<IOrdersRepo>()));
+      Get.lazyPut<IOrdersService>(() => OrdersService(repo: Get.find<IOrdersRepo>()));
 
       Get.lazyPut<ICartRepo>(() => _mocked_repo_used_in_this_module_tests);
 
@@ -79,9 +76,13 @@ class CartTestConfig {
     HttpOverrides.global = null;
   }
 
-  String repoName() =>
-      _mocked_repo_used_in_this_module_tests.runtimeType.toString();
+  String repoName() => _mocked_repo_used_in_this_module_tests.runtimeType.toString();
 
+  // @formatter:off
+  //GROUP-TITLES ---------------------------------------------------------------
+  static get CART_GROUP_TITLE => 'Cart|Integration-Tests:';
+
+  //MVC-TITLES -----------------------------------------------------------------
   get REPO_TEST_TITLE => '${repoName()}|Repo: Unit';
 
   get SERVICE_TEST_TITLE => '${repoName()}|Service|Repo: Unit';
@@ -89,4 +90,5 @@ class CartTestConfig {
   get CONTROLLER_TEST_TITLE => '${repoName()}|Controller|Service|Repo: Integr';
 
   get VIEW_TEST_TITLE => '${repoName()}|View: Functional';
+  // @formatter:on
 }

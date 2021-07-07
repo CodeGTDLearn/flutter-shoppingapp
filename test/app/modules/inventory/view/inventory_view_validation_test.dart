@@ -30,10 +30,7 @@ class InventoryViewValidationTest {
       isWidgetTest: _isWidgetTest,
     ));
 
-    setUpAll(() async {
-      _utils.globalSetUpAll(_tests.runtimeType.toString());
-      await _dbUtils.cleanDb(url: TEST_URL, interval: DELAY, db: DB_NAME);
-    });
+    setUpAll(() async => _utils.globalSetUpAll(_tests.runtimeType.toString()));
 
     tearDownAll(() => _utils.globalTearDownAll(_tests.runtimeType.toString()));
 
@@ -45,8 +42,8 @@ class InventoryViewValidationTest {
     tearDown(() => _utils.globalTearDown("...Ending"));
 
     //TITLE CHECK VALIDATIONS + CHECK INJECTIONS -------------------------------
-    testWidgets('${_config.validation_title_size}', (tester) async {
-      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
+    testWidgets(_config.validation_title_size, (tester) async {
+      var product = await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -57,8 +54,8 @@ class InventoryViewValidationTest {
       );
     }, skip: _skipTest);
 
-    testWidgets('${_config.validation_title_empty}', (tester) async {
-      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
+    testWidgets(_config.validation_title_empty, (tester) async {
+      var product = await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -69,8 +66,8 @@ class InventoryViewValidationTest {
       );
     }, skip: _skipTest);
 
-    testWidgets('${_config.validation_title_inject}', (tester) async {
-      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
+    testWidgets(_config.validation_title_inject, (tester) async {
+      var product = await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -82,8 +79,8 @@ class InventoryViewValidationTest {
     }, skip: _skipTest);
 
     //DESCRIPTION CHECK VALIDATIONS + CHECK INJECTIONS -------------------------
-    testWidgets('${_config.validation_descript_size}', (tester) async {
-      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
+    testWidgets(_config.validation_descript_size, (tester) async {
+      var product = await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -94,8 +91,8 @@ class InventoryViewValidationTest {
       );
     }, skip: _skipTest);
 
-    testWidgets('${_config.validation_descript_empty}', (tester) async {
-      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
+    testWidgets(_config.validation_descript_empty, (tester) async {
+      var product = await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -106,8 +103,8 @@ class InventoryViewValidationTest {
       );
     }, skip: _skipTest);
 
-    testWidgets('${_config.validation_descript_inject}', (tester) async {
-      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
+    testWidgets(_config.validation_descript_inject, (tester) async {
+      var product = await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -119,8 +116,8 @@ class InventoryViewValidationTest {
     }, skip: _skipTest);
 
     //PRICE CHECK VALIDATIONS + CHECK INJECTIONS -------------------------------
-    testWidgets('${_config.validation_price_size}', (tester) async {
-      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
+    testWidgets(_config.validation_price_size, (tester) async {
+      var product = await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -131,8 +128,8 @@ class InventoryViewValidationTest {
       );
     }, skip: _skipTest);
 
-    testWidgets('${_config.validation_price_empty}', (tester) async {
-      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
+    testWidgets(_config.validation_price_empty, (tester) async {
+      var product = await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -143,8 +140,8 @@ class InventoryViewValidationTest {
       );
     }, skip: _skipTest);
 
-    testWidgets('${_config.validation_price_inject}', (tester) async {
-      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
+    testWidgets(_config.validation_price_inject, (tester) async {
+      var product = await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -156,8 +153,8 @@ class InventoryViewValidationTest {
     }, skip: _skipTest);
 
     //URL CHECK VALIDATIONS + CHECK INJECTIONS ---------------------------------
-    testWidgets('${_config.validation_url_size}', (tester) async {
-      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
+    testWidgets(_config.validation_url_size, (tester) async {
+      var product = await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -168,8 +165,8 @@ class InventoryViewValidationTest {
       );
     }, skip: _skipTest);
 
-    testWidgets('${_config.validation_url_empty}', (tester) async {
-      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
+    testWidgets(_config.validation_url_empty, (tester) async {
+      var product = await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -180,8 +177,8 @@ class InventoryViewValidationTest {
       );
     }, skip: _skipTest);
 
-    testWidgets('${_config.validation_url_inject}', (tester) async {
-      var product = await _tests.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
+    testWidgets(_config.validation_url_inject, (tester) async {
+      var product = await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,

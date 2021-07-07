@@ -37,11 +37,11 @@ class InventoryTests {
     this.dbTestUtils,
   });
 
-  Future<dynamic> tapingBackButtonInInventoryView(tester) async {
+  Future<void> tappingBackButtonInInventoryView(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
-      appDriver: app.AppDriver(),
+      driver: app.AppDriver(),
     );
 
     await uiTestUtils.openDrawerAndClickAnOption(
@@ -60,11 +60,11 @@ class InventoryTests {
     );
   }
 
-  Future<dynamic> checkInventoryProductsAbsence(tester, int interval) async {
+  Future<void> checkInventoryProductsAbsence(tester, int interval) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
-      appDriver: app.AppDriver(),
+      driver: app.AppDriver(),
     );
 
     await uiTestUtils.openDrawerAndClickAnOption(
@@ -91,11 +91,11 @@ class InventoryTests {
     );
   }
 
-  Future<dynamic> refreshingInventoryView(tester, {Product draggerWidget}) async {
+  Future<void> refreshingInventoryView(tester, {Product draggerWidget}) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
-      appDriver: app.AppDriver(),
+      driver: app.AppDriver(),
     );
 
     await tester.pump();
@@ -128,7 +128,7 @@ class InventoryTests {
     if (isWidgetTest == false) expect(testUtils.type(InventoryItem), findsNWidgets(1));
   }
 
-  Future<dynamic> updateInventoryProduct(
+  Future<void> updateInventoryProduct(
     tester, {
     String inputValidText,
     String fieldKey,
@@ -140,7 +140,7 @@ class InventoryTests {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
-      appDriver: app.AppDriver(),
+      driver: app.AppDriver(),
     );
 
     var keyUpdateButton =
@@ -209,7 +209,7 @@ class InventoryTests {
     }
   }
 
-  Future<dynamic> checkInputInjectionOrInputValidation(
+  Future<void> checkInputInjectionOrInputValidation(
     tester, {
     String injectionTextOrInvalidText,
     String fieldKey,
@@ -222,7 +222,7 @@ class InventoryTests {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
-      appDriver: app.AppDriver(),
+      driver: app.AppDriver(),
     );
 
     var keyUpdateButton =
@@ -306,7 +306,7 @@ class InventoryTests {
     }
   }
 
-  Future<dynamic> deleteInventoryProduct(
+  Future<void> deleteInventoryProduct(
     tester, {
     int initialQtde,
     int finalQtde,
@@ -316,7 +316,7 @@ class InventoryTests {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
-      appDriver: app.AppDriver(),
+      driver: app.AppDriver(),
     );
 
     await tester.pump();
@@ -359,11 +359,11 @@ class InventoryTests {
     );
   }
 
-  Future<dynamic> checkInventoryViewProducts(tester, int ProductsQtde) async {
+  Future<void> checkInventoryItemsInInventoryView(tester, int itemsQtde) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
-      appDriver: app.AppDriver(),
+      driver: app.AppDriver(),
     );
 
     await tester.pump();
@@ -378,12 +378,12 @@ class InventoryTests {
     uiTestUtils.checkWidgetsQtdeInOneView(
       widgetView: InventoryView,
       widgetType: InventoryItem,
-      widgetQtde: ProductsQtde,
+      widgetQtde: itemsQtde,
     );
   }
 
   //-------------------------TEST-METHODS-INVENTORY-EDIT-VIEW------------------------
-  Future<dynamic> openInventoryEditView(tester) async {
+  Future<void> openInventoryEditView(tester) async {
     await uiTestUtils.openDrawerAndClickAnOption(
       tester,
       interval: DELAY,
@@ -397,7 +397,7 @@ class InventoryTests {
     expect(testUtils.type(InventoryEditView), findsOneWidget);
   }
 
-  Future<dynamic> AddProductInDb(
+  Future<void> AddProductInDb(
     WidgetTester tester, {
     int interval,
     bool validTexts,
@@ -480,7 +480,7 @@ class InventoryTests {
     Get.delete(tag: 'localTestUtilsInstance');
   }
 
-  Future<dynamic> addProductFillingFormInInventoryEditView(
+  Future<void> addProductFillingFormInInventoryEditView(
     tester, {
     Product product,
     bool useValidTexts,
@@ -488,7 +488,7 @@ class InventoryTests {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
-      appDriver: app.AppDriver(),
+      driver: app.AppDriver(),
     );
 
     await openInventoryEditView(tester);
@@ -539,18 +539,11 @@ class InventoryTests {
         : expect(testUtils.type(InventoryEditView), findsOneWidget);
   }
 
-  void _expectTestingINValidationMessages(Matcher matcher) {
-    expect(testUtils.text(SIZE_05_INVALID_MSG), matcher);
-    // expect(_testUtils.text(PRICE_INVALID_MSG), matcher);
-    expect(testUtils.text(SIZE_10_INVALID_MSG), matcher);
-    expect(testUtils.text(URL_INVALID_MSG), matcher);
-  }
-
-  Future<dynamic> tapBackButtonInInventoryEditView(tester) async {
+  Future<void> tapBackButtonInInventoryEditView(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
-      appDriver: app.AppDriver(),
+      driver: app.AppDriver(),
     );
 
     await openInventoryEditView(tester);
@@ -564,23 +557,10 @@ class InventoryTests {
     );
   }
 
-  Future<dynamic> loadTwoProductsInDb(tester, {bool isWidgetTest}) async {
-    var _product;
-
-    if (!isWidgetTest) {
-      await dbTestUtils.cleanDb(
-        url: TEST_URL,
-        interval: DELAY,
-        db: DB_NAME,
-      );
-      await dbTestUtils
-          .addMultipleObjects(tester,
-              qtdeObjects: 2,
-              collectionUrl: PRODUCTS_URL,
-              object: ProductDataBuilder().ProductFullStaticNoId(),
-              interval: DELAY)
-          .then((value) => _product = value[0]);
-    }
-    return isWidgetTest ? ProductsMockedDatasource().products()[0] : _product;
+  void _expectTestingINValidationMessages(Matcher matcher) {
+    expect(testUtils.text(SIZE_05_INVALID_MSG), matcher);
+    // expect(_testUtils.text(PRICE_INVALID_MSG), matcher);
+    expect(testUtils.text(SIZE_10_INVALID_MSG), matcher);
+    expect(testUtils.text(URL_INVALID_MSG), matcher);
   }
 }

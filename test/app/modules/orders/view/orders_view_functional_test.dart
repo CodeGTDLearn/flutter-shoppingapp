@@ -34,7 +34,7 @@ class OrdersViewFunctionalTest {
       dbTestUtils: _dbUtils,
     ));
 
-    setUpAll(() => _utils.globalSetUpAll(_tests.runtimeType.toString()));
+    setUpAll(() async => _utils.globalSetUpAll(_tests.runtimeType.toString()));
 
     tearDownAll(() => _utils.globalTearDownAll(_tests.runtimeType.toString()));
 
@@ -45,7 +45,7 @@ class OrdersViewFunctionalTest {
 
     tearDown(() => _utils.globalTearDown("...Ending"));
 
-    testWidgets('${_config.check_oneOrderInDB}', (tester) async {
+    testWidgets(_config.check_oneOrderInDB, (tester) async {
       if (!_isWidgetTest) {
         await _dbUtils.cleanDb(url: TEST_URL, interval: DELAY, db: DB_NAME);
       }
@@ -53,15 +53,15 @@ class OrdersViewFunctionalTest {
       await _tests.checkOrders_OrdersAbsence(tester, DELAY);
     }, skip: _skipTest);
 
-    testWidgets('${_config.ordering_InCartView_tapOrderNowBtn}', (tester) async {
+    testWidgets(_config.ordering_InCartView_tapOrderNowBtn, (tester) async {
       await _tests.OrderingFromCartView_TapButtonOrderNow(tester, DELAY);
     }, skip: _skipTest);
 
-    testWidgets('${_config.check_oneOrderInDB}', (tester) async {
+    testWidgets(_config.check_oneOrderInDB, (tester) async {
       await _uiUtils.testInitialization(
         tester,
         isWidgetTest: _isWidgetTest,
-        appDriver: app.AppDriver(),
+        driver: app.AppDriver(),
       );
 
       await _uiUtils.openDrawerAndClickAnOption(
@@ -78,8 +78,8 @@ class OrdersViewFunctionalTest {
       );
     }, skip: _skipTest);
 
-    testWidgets('${_config.tap_ViewBackButton}', (tester) async {
-      await _tests.tapingBackButtonInOrdersView(
+    testWidgets(_config.tap_ViewBackButton, (tester) async {
+      await _tests.tappingBackButtonInOrdersView(
         tester,
         DELAY,
         from: OrdersView,

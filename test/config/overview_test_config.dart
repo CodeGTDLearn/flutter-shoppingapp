@@ -60,9 +60,14 @@ class OverviewTestConfig {
     HttpOverrides.global = null;
   }
 
-  // @formatter:off
-  //MVC-TITLES -----------------------------------------------------------------
   String repoName() => _mocked_repo_used_in_this_module_tests.runtimeType.toString();
+
+  // @formatter:off
+  //GROUP-TITLES ---------------------------------------------------------------
+  static get OVERVIEW_GROUP_TITLE => 'OverView|Integration-Tests:';
+  static get OVERVIEW_DETAIL_GROUP_TITLE => 'OverView|Details|Integration-Tests:';
+
+  //MVC-TITLES -----------------------------------------------------------------
   get REPO_TEST_TITLE => '${repoName()}|Repo: Unit';
   get SERVICE_TEST_TITLE => '${repoName()}|Service|Repo: Unit';
   get CONTROLLER_TEST_TITLE => '${repoName()}|Controller|Service|Repo: Integr';

@@ -71,8 +71,8 @@ class UiTestUtils {
   Future<void> testInitialization(
     tester, {
     bool isWidgetTest,
-    Widget appDriver,
+    Widget driver,
   }) async {
-    isWidgetTest ? await tester.pumpWidget(appDriver) : runApp(appDriver);
+    isWidgetTest ? await tester.pumpWidget(driver) : runApp(driver);
   }
 }

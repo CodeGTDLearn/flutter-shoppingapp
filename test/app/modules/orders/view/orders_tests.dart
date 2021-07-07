@@ -31,7 +31,7 @@ class OrdersTests {
     this.dbTestUtils,
   });
 
-  Future OrderingFromCartView_TapButtonOrderNow(
+  Future<void> OrderingFromCartView_TapButtonOrderNow(
     WidgetTester tester,
     int interval,
   ) async {
@@ -47,7 +47,7 @@ class OrdersTests {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
-      appDriver: app.AppDriver(),
+      driver: app.AppDriver(),
     );
 
     //A) ADDING ONE PRODUCT IN THE CART
@@ -94,14 +94,14 @@ class OrdersTests {
     );
   }
 
-  Future checkOrders_OrdersAbsence(
+  Future<void> checkOrders_OrdersAbsence(
     WidgetTester tester,
     int interval,
   ) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
-      appDriver: app.AppDriver(),
+      driver: app.AppDriver(),
     );
 
     await uiTestUtils.openDrawerAndClickAnOption(
@@ -124,7 +124,7 @@ class OrdersTests {
     );
   }
 
-  Future tapingBackButtonInOrdersView(
+  Future<void> tappingBackButtonInOrdersView(
     WidgetTester tester,
     int interval, {
     Type from,
@@ -133,7 +133,7 @@ class OrdersTests {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
-      appDriver: app.AppDriver(),
+      driver: app.AppDriver(),
     );
 
     await uiTestUtils.openDrawerAndClickAnOption(

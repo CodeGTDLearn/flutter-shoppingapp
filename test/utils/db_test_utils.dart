@@ -1,24 +1,24 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-import '../config/app_tests_config.dart';
 import 'test_utils.dart';
 
 class DbTestUtils {
-  final _seek = Get.put(TestUtils());
+  final _utils = Get.put(TestUtils());
 
-  Future cleanDb({String url, String db, int interval}) async {
-    http.delete(Uri.parse(url)).then((response) {
-      print('  \n Removing All Collections in Db:\n'
+  Future cleanDb({
+    String url,
+    String db,
+    int interval,
+  }) async {
+    await http.delete(Uri.parse(url)).then((response) {
+      print(' Removing All Collections in Db:\n'
           ' - DB_Name: $db\n'
-          ' - Status: ${response.statusCode}\n');
+          ' - Status: ${response.statusCode}\n \n \n');
     });
-
-    sleep(Duration(seconds: DELAY * 2));
   }
 
   Future removeCollection(
@@ -26,7 +26,7 @@ class DbTestUtils {
     String url,
     int interval,
   }) async {
-    await tester.pumpAndSettle(_seek.delay(interval));
+    await tester.pumpAndSettle(_utils.delay(interval));
     http.delete(Uri.parse("$url")).then((response) {
       print('  \n Removing Db Collection:\n'
           ' - URL: $url\n'
@@ -40,7 +40,7 @@ class DbTestUtils {
     int interval,
     String id,
   }) async {
-    await tester.pumpAndSettle(_seek.delay(interval));
+    await tester.pumpAndSettle(_utils.delay(interval));
     final noExtensionInDeletions = url.replaceAll('.json', '/');
 
     return http.delete(Uri.parse("$noExtensionInDeletions$id.json")).then((response) {
@@ -58,7 +58,7 @@ class DbTestUtils {
     String collectionUrl,
     int interval,
   }) async {
-    await tester.pumpAndSettle(_seek.delay(interval));
+    await tester.pumpAndSettle(_utils.delay(interval));
 
     // @formatter:off
     return http
