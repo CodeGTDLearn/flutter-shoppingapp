@@ -12,9 +12,10 @@ class OverviewRepoTests {
   static void unit() {
     IOverviewRepo _repo, _injectRepo;
     var _productFail;
+    var testConfig = Get.put(OverviewTestConfig());
 
     setUp(() {
-      OverviewTestConfig().bindingsBuilder();
+      testConfig.bindingsBuilderMockedRepo(isWidgetTest: true);
       _repo = Get.find<IOverviewRepo>();
       _injectRepo = OverviewInjectMockedRepo();
       _productFail = ProductDataBuilder().ProductId();

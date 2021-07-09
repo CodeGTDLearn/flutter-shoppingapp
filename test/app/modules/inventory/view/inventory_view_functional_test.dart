@@ -12,7 +12,6 @@ import 'inventory_tests.dart';
 
 class InventoryViewFunctionalTest {
   bool _isWidgetTest;
-  final _skipTest = false;
   final _utils = Get.put(TestUtils());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
@@ -48,14 +47,14 @@ class InventoryViewFunctionalTest {
 
       _config.bindingsBuilderMockedRepoEmptyDb(isWidgetTest: _isWidgetTest);
       await _tests.checkInventoryProductsAbsence(tester, DELAY);
-    }, skip: _skipTest);
+    });
 
     testWidgets(_config.check_Products, (tester) async {
       await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
       _isWidgetTest
           ? await _tests.checkInventoryItemsInInventoryView(tester, 4)
           : await _tests.checkInventoryItemsInInventoryView(tester, 2);
-    }, skip: _skipTest);
+    });
 
     testWidgets(_config.delete_Product, (tester) async {
       var product = await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
@@ -66,7 +65,7 @@ class InventoryViewFunctionalTest {
         keyDeleteButton: '$INVENTORY_DELETEITEM_BUTTON_KEY${product.id}',
         widgetTypeToDelete: InventoryItem,
       );
-    }, skip: _skipTest);
+    });
 
     testWidgets(_config.update_Product, (tester) async {
       var product = await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
@@ -76,15 +75,15 @@ class InventoryViewFunctionalTest {
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
         productToUpdate: product,
       );
-    }, skip: _skipTest);
+    });
 
     testWidgets(_config.refresh_View, (tester) async {
       var product = await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
       await _tests.refreshingInventoryView(tester, draggerWidget: product);
-    }, skip: _skipTest);
+    });
 
     testWidgets(_config.view_BackButton, (tester) async {
       await _tests.tappingBackButtonInInventoryView(tester);
-    }, skip: _skipTest);
+    });
   }
 }

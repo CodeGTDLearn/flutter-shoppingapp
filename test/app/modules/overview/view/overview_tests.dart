@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/components/keys/snackbarr_keys.dart';
-import 'package:shopingapp/app/core/properties/app_urls.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/components/favorites_filter_popup.dart';
@@ -15,8 +14,6 @@ import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/app_tests_config.dart';
-import '../../../../data_builders/product_databuilder.dart';
-import '../../../../mocked_datasource/products_mocked_datasource.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/test_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
@@ -34,28 +31,7 @@ class OverviewTests {
     this.dbTestUtils,
   });
 
-  Future<void> toggleFavoriteStatus(WidgetTester tester) async {
-    await uiTestUtils.testInitialization(
-      tester,
-      isWidgetTest: isWidgetTest,
-      driver: app.AppDriver(),
-    );
-
-    var favBtnProduct = testUtils.key("$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0");
-
-    await tester.pumpAndSettle(testUtils.delay(3));
-    // @formatter:off
-    tester
-        .tap(favBtnProduct)
-        .then((value) => tester.pumpAndSettle(testUtils.delay(1)))
-        .then((value) {
-      expect(testUtils.iconType(IconButton, Icons.favorite), findsNWidgets(2));
-      expect(testUtils.iconType(IconButton, Icons.favorite_border), findsNWidgets(2));
-    });
-    // @formatter:on
-  }
-
-  Future<void> addProductCheckSnackbar(WidgetTester tester) async {
+  Future<void> addProductCheckSnackbar(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -77,7 +53,7 @@ class OverviewTests {
     // expect(snackbartext1, findsOneWidget);
   }
 
-  Future<void> addProductAndClickUndoInSnackbar(WidgetTester tester) async {
+  Future<void> addProductAndClickUndoInSnackbar(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -100,7 +76,7 @@ class OverviewTests {
     // expect(snackbarText, findsOneWidget);
   }
 
-  Future<void> addProducts3And4AndCheckShopcarticon(WidgetTester tester) async {
+  Future<void> addProducts3And4AndCheckShopcarticon(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -150,7 +126,7 @@ class OverviewTests {
     // expect(snackTitle3, findsOneWidget);
   }
 
-  Future<void> tapFavoritesFilterNoFavoritesFound(WidgetTester tester) async {
+  Future<void> tapFavoritesFilterNoFavoritesFound(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -187,7 +163,7 @@ class OverviewTests {
     expect(testUtils.text(OVERVIEW_TITLE_PAGE_FAVORITE), findsNothing);
   }
 
-  Future<void> tapFavoriteFilter(WidgetTester tester) async {
+  Future<void> tapFavoriteFilter(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -222,7 +198,7 @@ class OverviewTests {
     expect(testUtils.iconType(IconButton, Icons.favorite_border), findsNWidgets(3));
   }
 
-  Future<void> closeFavoriteFilter(WidgetTester tester) async {
+  Future<void> closeFavoriteFilter(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -244,7 +220,7 @@ class OverviewTests {
     expect(popupItemAll, findsNothing);
   }
 
-  Future<void> addProduct1ThreeTimesAndCheckShopCartIcon(WidgetTester tester) async {
+  Future<void> addProduct1ThreeTimesAndCheckShopCartIcon(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -269,7 +245,7 @@ class OverviewTests {
     expect(snackTitle1, findsOneWidget);
   }
 
-  Future<void> addProducts1And2AndCheckShopcarticon(WidgetTester tester) async {
+  Future<void> addProducts1And2AndCheckShopcarticon(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -349,12 +325,50 @@ class OverviewTests {
       driver: app.AppDriver(),
     );
 
-    await tester.pumpAndSettle(testUtils.delay(DELAY + 3));
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
 
-    uiTestUtils.checkWidgetsQtdeInOneView(
+    uiTestUtils.checkWidgetsTypesQtdeInAView(
       widgetView: OverviewView,
       widgetType: OverviewGridItem,
       widgetQtde: itemsQtde,
+    );
+  }
+
+  void checkOverviewFavorites(tester, int itemsQtde) async {
+    await uiTestUtils.testInitialization(
+      tester,
+      isWidgetTest: isWidgetTest,
+      driver: app.AppDriver(),
+    );
+
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+
+    uiTestUtils.checkWidgetsTypesQtdeInAView(
+      widgetView: OverviewView,
+      widgetType: OverviewGridItem,
+      widgetQtde: itemsQtde,
+    );
+  }
+
+  Future<void> toggleProductFavoriteButton(tester, {int favoritesAfterToggle}) async {
+    await uiTestUtils.testInitialization(
+      tester,
+      isWidgetTest: isWidgetTest,
+      driver: app.AppDriver(),
+    );
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+
+    var favButton = testUtils.key("$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0");
+
+    // @formatter:off
+    await tester
+        .tap(favButton)
+        .then((value) => tester.pumpAndSettle(testUtils.delay(DELAY)));
+    // @formatter:on
+
+    expect(
+      testUtils.iconType(IconButton, Icons.favorite),
+      findsNWidgets(favoritesAfterToggle),
     );
   }
 

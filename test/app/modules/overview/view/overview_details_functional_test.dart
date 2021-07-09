@@ -8,15 +8,14 @@ import '../../../../utils/test_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 import 'overview_tests.dart';
 
-class OverviewDetailsViewTest {
+class OverviewDetailsFunctionalTest {
   bool _isWidgetTest;
-  final bool _skipTest = false;
-  TestUtils _utils = Get.put(TestUtils());
+  final TestUtils _utils = Get.put(TestUtils());
   final UiTestUtils _uiUtils = Get.put(UiTestUtils());
   final DbTestUtils _dbUtils = Get.put(DbTestUtils());
   final OverviewTestConfig _config = Get.put(OverviewTestConfig());
 
-  OverviewDetailsViewTest({String testType}) {
+  OverviewDetailsFunctionalTest({String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
   }
 
@@ -33,17 +32,17 @@ class OverviewDetailsViewTest {
 
     setUp(() {
       _utils.globalSetUp("Starting...");
-      _config.bindingsBuilder();
+      _config.bindingsBuilderMockedRepo(isWidgetTest: _isWidgetTest);
     });
 
     tearDown(() => _utils.globalTearDown("...Ending"));
 
     testWidgets(_config.click_product_check_details_texts, (tester) async {
       await _tests.clickProductCheckDetailsText(tester);
-    }, skip: _skipTest);
+    });
 
     testWidgets(_config.click_product_check_details_image, (tester) async {
       await _tests.clickProductCheckDetailsImage(tester);
-    }, skip: _skipTest);
+    });
   }
 }

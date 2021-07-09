@@ -27,7 +27,7 @@ import '../app/modules/overview/repo/overview_mocked_repo.dart';
 class OverviewTestConfig {
   final IOverviewRepo _mocked_repo_used_in_this_module_tests = OverviewMockedRepo();
 
-  void bindingsBuilder() {
+  void _bindingsBuilder(IOverviewRepo overviewRepo) {
     Get.reset();
 
     expect(Get.isPrepared<DarkThemeController>(), isFalse);
@@ -37,7 +37,8 @@ class OverviewTestConfig {
     expect(Get.isPrepared<CartController>(), isFalse);
 
     var binding = BindingsBuilder(() {
-      Get.lazyPut<IOverviewRepo>(() => _mocked_repo_used_in_this_module_tests);
+      Get.lazyPut<IOverviewRepo>(() => overviewRepo);
+      // Get.lazyPut<IOverviewRepo>(() => _mocked_repo_used_in_this_module_tests);
 
       Get.lazyPut<IOverviewService>(
           () => OverviewService(repo: Get.find<IOverviewRepo>()));
@@ -58,6 +59,14 @@ class OverviewTestConfig {
     expect(Get.isPrepared<CartController>(), isTrue);
 
     HttpOverrides.global = null;
+  }
+
+  void bindingsBuilderMockedRepo({bool isWidgetTest}) {
+    if (isWidgetTest) _bindingsBuilder(_mocked_repo_used_in_this_module_tests);
+  }
+
+  void bindingsBuilderMockRepoEmptyDb({bool isWidgetTest}) {
+    if (isWidgetTest) _bindingsBuilder(OverviewMockRepoEmptyDb());
   }
 
   String repoName() => _mocked_repo_used_in_this_module_tests.runtimeType.toString();

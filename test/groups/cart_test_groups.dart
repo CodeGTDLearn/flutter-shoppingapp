@@ -7,10 +7,26 @@ import '../app/modules/cart/cart_view_test.dart';
 import '../config/cart_test_config.dart';
 
 class CartTestGroups {
-  void groups() {
-    group("${CartTestConfig().REPO_TEST_TITLE}", CartRepoTests.unit);
-    group("${CartTestConfig().SERVICE_TEST_TITLE}", CartServiceTests.unit);
-    group("${CartTestConfig().CONTROLLER_TEST_TITLE}", CartControllerTests.integration);
-    group("${CartTestConfig().VIEW_TEST_TITLE}", CartViewTests.functional);
+  void groups(bool skipGroup) {
+    group(
+      CartTestConfig().REPO_TEST_TITLE,
+      CartRepoTests.unit,
+      skip: skipGroup, // 'skip-group' overrides the internal 'skip-methods'
+    );
+    group(
+      CartTestConfig().SERVICE_TEST_TITLE,
+      CartServiceTests.unit,
+      skip: skipGroup,
+    );
+    group(
+      CartTestConfig().CONTROLLER_TEST_TITLE,
+      CartControllerTests.integration,
+      skip: skipGroup,
+    );
+    group(
+      CartTestConfig().VIEW_TEST_TITLE,
+      CartViewTests.functional,
+      skip: skipGroup,
+    );
   }
 }

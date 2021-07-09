@@ -78,7 +78,7 @@ class OrdersTests {
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
-    uiTestUtils.checkWidgetsQtdeInOneView(
+    uiTestUtils.checkWidgetsTypesQtdeInAView(
       widgetView: OrdersView,
       widgetType: OrderCollapsableTile,
       widgetQtde: 1,

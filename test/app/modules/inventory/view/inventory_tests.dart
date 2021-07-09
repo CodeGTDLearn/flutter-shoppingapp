@@ -18,8 +18,6 @@ import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/app_tests_config.dart';
-import '../../../../data_builders/product_databuilder.dart';
-import '../../../../mocked_datasource/products_mocked_datasource.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/test_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
@@ -74,7 +72,7 @@ class InventoryTests {
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
-    uiTestUtils.checkWidgetsQtdeInOneView(
+    uiTestUtils.checkWidgetsTypesQtdeInAView(
       widgetView: InventoryView,
       widgetQtde: 0,
       widgetType: InventoryItem,
@@ -328,7 +326,7 @@ class InventoryTests {
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
-    uiTestUtils.checkWidgetsQtdeInOneView(
+    uiTestUtils.checkWidgetsTypesQtdeInAView(
       widgetView: InventoryView,
       widgetQtde: initialQtde,
       widgetType: widgetTypeToDelete,
@@ -338,7 +336,7 @@ class InventoryTests {
     await tester.pump();
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
-    uiTestUtils.checkWidgetsQtdeInOneView(
+    uiTestUtils.checkWidgetsTypesQtdeInAView(
       widgetView: InventoryView,
       widgetQtde: finalQtde,
       widgetType: widgetTypeToDelete,
@@ -352,7 +350,7 @@ class InventoryTests {
       triggerWidget: BackButton,
     );
 
-    uiTestUtils.checkWidgetsQtdeInOneView(
+    uiTestUtils.checkWidgetsTypesQtdeInAView(
       widgetView: OverviewView,
       widgetQtde: 1,
       widgetType: OverviewGridItem,
@@ -375,7 +373,7 @@ class InventoryTests {
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
-    uiTestUtils.checkWidgetsQtdeInOneView(
+    uiTestUtils.checkWidgetsTypesQtdeInAView(
       widgetView: InventoryView,
       widgetType: InventoryItem,
       widgetQtde: itemsQtde,

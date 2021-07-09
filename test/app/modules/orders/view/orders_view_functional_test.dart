@@ -16,7 +16,6 @@ import 'orders_tests.dart';
 
 class OrdersViewFunctionalTest {
   bool _isWidgetTest;
-  final bool _skipTest = false;
   final _utils = Get.put(TestUtils());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
@@ -29,9 +28,9 @@ class OrdersViewFunctionalTest {
   void functional() {
     final _tests = Get.put(OrdersTests(
       testUtils: _utils,
+      dbTestUtils: _dbUtils,
       uiTestUtils: _uiUtils,
       isWidgetTest: _isWidgetTest,
-      dbTestUtils: _dbUtils,
     ));
 
     setUpAll(() async => _utils.globalSetUpAll(_tests.runtimeType.toString()));
@@ -51,11 +50,11 @@ class OrdersViewFunctionalTest {
       }
       _config.bindingsBuilderMockRepoEmptyDb(isWidgetTest: _isWidgetTest);
       await _tests.checkOrders_OrdersAbsence(tester, DELAY);
-    }, skip: _skipTest);
+    });
 
     testWidgets(_config.ordering_InCartView_tapOrderNowBtn, (tester) async {
       await _tests.OrderingFromCartView_TapButtonOrderNow(tester, DELAY);
-    }, skip: _skipTest);
+    });
 
     testWidgets(_config.check_oneOrderInDB, (tester) async {
       await _uiUtils.testInitialization(
@@ -71,12 +70,12 @@ class OrdersViewFunctionalTest {
         scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
       );
 
-      _uiUtils.checkWidgetsQtdeInOneView(
+      _uiUtils.checkWidgetsTypesQtdeInAView(
         widgetView: OrdersView,
         widgetType: OrderCollapsableTile,
         widgetQtde: 1,
       );
-    }, skip: _skipTest);
+    });
 
     testWidgets(_config.tap_ViewBackButton, (tester) async {
       await _tests.tappingBackButtonInOrdersView(
@@ -85,6 +84,6 @@ class OrdersViewFunctionalTest {
         from: OrdersView,
         to: OverviewView,
       );
-    }, skip: _skipTest);
+    });
   }
 }

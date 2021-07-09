@@ -13,7 +13,6 @@ import 'inventory_tests.dart';
 
 class InventoryViewEditFunctionalTest {
   bool _isWidgetTest;
-  final _skipTest = false;
   final _utils = Get.put(TestUtils());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
@@ -48,7 +47,7 @@ class InventoryViewEditFunctionalTest {
         product: ProductDataBuilder().ProductFullStaticNoId(),
         useValidTexts: true,
       );
-    }, skip: _skipTest);
+    });
 
     testWidgets(_config.edit_preview_url_in_form, (tester) async {
       await _uiUtils.testInitialization(
@@ -67,7 +66,7 @@ class InventoryViewEditFunctionalTest {
       await tester.tap(_utils.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY));
       await tester.pumpAndSettle(_utils.delay(DELAY));
       _utils.checkImageTotalOnAView(1);
-    }, skip: _skipTest);
+    });
 
     testWidgets(_config.edit_fill_form_invalid, (tester) async {
       await _tests.addProductFillingFormInInventoryEditView(
@@ -75,10 +74,10 @@ class InventoryViewEditFunctionalTest {
         product: ProductDataBuilder().ProductFullStaticNoId(),
         useValidTexts: false,
       );
-    }, skip: _skipTest);
+    });
 
     testWidgets(_config.edit_back_button, (tester) async {
       await _tests.tapBackButtonInInventoryEditView(tester);
-    }, skip: _skipTest);
+    });
   }
 }

@@ -15,9 +15,10 @@ class OverviewControllerTests {
     IOverviewRepo _repo;
     IOverviewService _service;
     OverviewController _controller;
+    var testConfig = Get.put(OverviewTestConfig());
 
     setUp(() {
-      OverviewTestConfig().bindingsBuilder();
+      testConfig.bindingsBuilderMockedRepo(isWidgetTest: true);
       _repo = Get.find<IOverviewRepo>();
       _service = OverviewService(repo: _repo);
       _controller = OverviewController(service: _service);

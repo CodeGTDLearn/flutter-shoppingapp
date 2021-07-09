@@ -49,7 +49,7 @@ class UiTestUtils {
     await tester.pump(Duration(milliseconds: interval * 1000 + 1700));
   }
 
-  void checkWidgetsQtdeInOneView({
+  void checkWidgetsTypesQtdeInAView({
     Type widgetView,
     Type widgetType,
     int widgetQtde,

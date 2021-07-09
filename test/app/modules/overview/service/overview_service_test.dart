@@ -18,9 +18,10 @@ class OverviewServiceTests {
     IOverviewRepo _repo;
     IOverviewService _service, _injectService;
     final _utils = Get.put(TestUtils());
+    var testConfig = Get.put(OverviewTestConfig());
 
     setUp(() {
-      OverviewTestConfig().bindingsBuilder();
+      testConfig.bindingsBuilderMockedRepo(isWidgetTest: true);
       _repo = Get.find<IOverviewRepo>();
       _service = OverviewService(repo: _repo);
       _injectService = OverviewInjectMockedService();

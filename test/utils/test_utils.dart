@@ -63,7 +63,7 @@ class TestUtils {
   }
 
   void globalSetUpAll(String testModuleName) async {
-    await print(_testTextHeader(
+    await print(_headerGenerator(
       module: testModuleName,
       label: 'Starting FunctionalTests: ',
       fullLength: 63,
@@ -102,7 +102,7 @@ class TestUtils {
     Get.reset;
   }
 
-  String _testTextHeader({
+  String _headerGenerator({
     String module,
     String label,
     String arrowChar,
