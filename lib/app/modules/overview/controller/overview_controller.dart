@@ -34,17 +34,15 @@ class OverviewController extends GetxController {
 
   Future<bool> toggleFavoriteStatus(String id) {
     // @formatter:off
-    var _previousFavStatus = getProductById(id).isFavorite;
-    var futureReturn = service
-        .toggleFavoriteStatus(id)
-        .then((returnedFavStatus) {
-                if (_previousFavStatus != returnedFavStatus){
-                  favoriteStatusObs.value = returnedFavStatus;
-                }else{
-                  return false;
-                }
-          return true;
-        });
+    var _previousStatus = getProductById(id).isFavorite;
+    var futureReturn = service.toggleFavoriteStatus(id).then((returnedFavStatus) {
+      if (_previousStatus != returnedFavStatus) {
+        favoriteStatusObs.value = returnedFavStatus;
+      } else {
+        return false;
+      }
+      return true;
+    });
     favoriteStatusObs.value = getProductById(id).isFavorite;
     return futureReturn;
     // @formatter:on

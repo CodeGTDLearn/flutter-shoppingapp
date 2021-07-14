@@ -32,8 +32,8 @@ class OverviewGridItem extends StatelessWidget {
             child: GridTile(
                 child: GestureDetector(
                     key: Key("$K_OV_ITM_DET_PAGE$index"),
-                    onTap: () => Get.toNamed(AppRoutes.OVERVIEW_DETAIL,
-                        arguments: _product.id),
+                    onTap: () =>
+                        Get.toNamed(AppRoutes.OVERVIEW_DETAIL, arguments: _product.id),
                     child: Image.network(_product.imageUrl, fit: BoxFit.cover)),
                 footer: GridTileBar(
                     leading: Obx(
@@ -45,8 +45,11 @@ class OverviewGridItem extends StatelessWidget {
                           onPressed: () {
                             _controller
                                 .toggleFavoriteStatus(_product.id)
-                                .then((returnedFavStatus) {
-                              if (returnedFavStatus) {
+                                .then((favoriteStatus) {
+                              // favoriteStatus
+                              //     ? SimpleSnackbar(SUCES, TOGGL_STATUS_SUCES).show()
+                              //     : SimpleSnackbar(OPS, TOGGL_STATUS_ERROR).show();
+                              if (favoriteStatus) {
                                 SimpleSnackbar(SUCES, TOGGL_STATUS_SUCES).show();
                               } else {
                                 SimpleSnackbar(OPS, TOGGL_STATUS_ERROR).show();
@@ -66,8 +69,7 @@ class OverviewGridItem extends StatelessWidget {
                             title: DONE,
                             message: "${_product.title}$ITEMCART_ADDED",
                             labelButton: UNDO,
-                            function: () =>
-                                _cartController.addCartItemUndo(_product),
+                            function: () => _cartController.addCartItemUndo(_product),
                           ).show();
                         },
                         color: Theme.of(context).accentColor),

@@ -31,7 +31,7 @@ class OverviewTestGroups {
     group(
       OverviewTestConfig().VIEW_TEST_TITLE,
       OverviewViewFunctionalTest(testType: WIDGET_TEST).functional,
-      skip: false,
+      skip: skipGroup,
     );
 
     group(

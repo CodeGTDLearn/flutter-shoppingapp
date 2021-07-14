@@ -58,14 +58,14 @@ class InventoryViewEditFunctionalTest {
 
       await _tests.openInventoryEditView(tester);
 
-      _utils.checkImageTotalOnAView(0);
+      _utils.checkImageTotalInAView(0);
       await tester.tap(_utils.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY));
       await tester.enterText(
           _utils.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY), IMAGE2_TEST_URL);
       await tester.pumpAndSettle(_utils.delay(DELAY));
       await tester.tap(_utils.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY));
       await tester.pumpAndSettle(_utils.delay(DELAY));
-      _utils.checkImageTotalOnAView(1);
+      _utils.checkImageTotalInAView(1);
     });
 
     testWidgets(_config.edit_fill_form_invalid, (tester) async {

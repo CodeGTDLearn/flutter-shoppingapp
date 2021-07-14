@@ -8,12 +8,11 @@ import '../../../core/properties/app_urls.dart';
 import '../../inventory/entities/product.dart';
 import 'i_overview_repo.dart';
 
-  // ------------- FLUTTER ERROR: FIREBASE RULES DEADLINE/DATE EXPIRE!!! ---------------
-  // I/flutter ( 8038): The following _TypeError was thrown running a test:
-  // I/flutter ( 8038): type 'String' is not a subtype of type 'Map<String, dynamic>'
-  // ------------ SOLUTION: RENEW/REDATE FIREBASE RULES DEADLINE/DATE ------------------
+// ------------- FLUTTER ERROR: FIREBASE RULES DEADLINE/DATE EXPIRE!!! ---------------
+// I/flutter ( 8038): The following _TypeError was thrown running a test:
+// I/flutter ( 8038): type 'String' is not a subtype of type 'Map<String, dynamic>'
+// ------------ SOLUTION: RENEW/REDATE FIREBASE RULES DEADLINE/DATE ------------------
 class OverviewRepoHttp implements IOverviewRepo {
-
   @override
   Future<List<Product>> getProducts() {
     return http
@@ -24,9 +23,17 @@ class OverviewRepoHttp implements IOverviewRepo {
 
   @override
   Future<int> updateProduct(Product product) {
+    // final noExtensionInUpdates = PRODUCTS_URL.replaceAll('.json', '/');
+    // return http
+    //     .patch(Uri.parse("$noExtensionInUpdates${product.id}.json"),
+    //         body: jsonEncode(product.toJson()))
+    //     .then((response) => response.statusCode);
+    final noExtensionInUpdates = PRODUCTS_URL.replaceAll('.json', '/');
+    product.id = null;
     return http
         .patch(
-          Uri.parse("$PRODUCTS_URL/${product.id}.json"),
+          Uri.parse("$noExtensionInUpdates${product.id}.json"),
+          // Uri.parse("$PRODUCTS_URL/${product.id}.json"),
           headers: HEADER_ACCEPT_JSON,
           body: jsonEncode(product.toJson()),
         )

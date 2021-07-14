@@ -20,11 +20,12 @@ const K_OV_GRD_PRD_TIT = OVERVIEW_GRID_PRODUCT_TITLE_KEY;
 const OVERVIEW_PAGE_TITLE_APPBAR_KEY = "overview_page_title_appbar_key";
 const K_OV_TIT_APPBAR = OVERVIEW_PAGE_TITLE_APPBAR_KEY;
 
-const K_OV_FLT_APPBAR_BTN = "overview_popup_filter_fav_all_appbar_button_key";
-const K_OV06 = K_OV_FLT_APPBAR_BTN;
+const OVERVIEW_FAVORITE_FILTER_APPBAR_BUTTON_KEY =
+    "overview_popup_filter_fav_all_appbar_button_key";
+const K_OV06 = OVERVIEW_FAVORITE_FILTER_APPBAR_BUTTON_KEY;
 
-const OVERVIEW_FAVORITE_FILTER_KEY = "overview_favorite_filter_key";
-const K_OV_FLT_FAV = OVERVIEW_FAVORITE_FILTER_KEY;
+const OVERVIEW_FAVORITE_FILTER_FAV_KEY = "overview_favorite_filter_key";
+const K_OV_FLT_FAV = OVERVIEW_FAVORITE_FILTER_FAV_KEY;
 
 const OVERVIEW_FAVORITE_FILTER_ALL_KEY = "overview_all_filter_key";
 const K_OV_FLT_ALL = OVERVIEW_FAVORITE_FILTER_ALL_KEY;

@@ -47,7 +47,7 @@ class OverviewService implements IOverviewService {
     // @formatter:off
     final _index = _localDataAllProducts.indexWhere((item) => item.id == id);
     var _toggleProduct = _localDataAllProducts[_index];
-    var _previousFavoriteStatus = _toggleProduct.isFavorite;
+    var _previousStatus = _toggleProduct.isFavorite;
 
     _toggleProduct.isFavorite = !_toggleProduct.isFavorite;
 
@@ -64,7 +64,7 @@ class OverviewService implements IOverviewService {
         _localDataFavoritesProducts.add(_toggleProduct);
       }
       if (badRequest) {
-        _toggleProduct.isFavorite = _previousFavoriteStatus;
+        _toggleProduct.isFavorite = _previousStatus;
       }
       _sortDataSavingLists();
       return _toggleProduct.isFavorite;
@@ -80,13 +80,14 @@ class OverviewService implements IOverviewService {
 
     // @formatter:off
     final _productIndexInLocalDataAllProducts =
-    _localDataAllProducts.indexWhere((item) => item.id == product.id);
+        _localDataAllProducts.indexWhere((item) => item.id == product.id);
     _localDataAllProducts[_productIndexInLocalDataAllProducts] = product;
 
     final _productIndexInLocalDataFavoritesProducts =
-      _localDataFavoritesProducts.indexWhere((item) => item.id == product.id);
-    if(_productIndexInLocalDataFavoritesProducts > 0){
-      _localDataFavoritesProducts[_productIndexInLocalDataFavoritesProducts] = product;}
+        _localDataFavoritesProducts.indexWhere((item) => item.id == product.id);
+    if (_productIndexInLocalDataFavoritesProducts > 0) {
+      _localDataFavoritesProducts[_productIndexInLocalDataFavoritesProducts] = product;
+    }
 
     _sortDataSavingLists();
     // @formatter:on
@@ -96,13 +97,14 @@ class OverviewService implements IOverviewService {
   void deleteProductInLocalDataLists(String productId) {
     // @formatter:off
     final _productIndexInLocalDataAllProducts =
-    _localDataAllProducts.indexWhere((item) => item.id == productId);
+        _localDataAllProducts.indexWhere((item) => item.id == productId);
     _localDataAllProducts.removeAt(_productIndexInLocalDataAllProducts);
 
     final _productIndexInLocalDataFavoritesProducts =
-    _localDataFavoritesProducts.indexWhere((item) => item.id == productId);
-    if(_productIndexInLocalDataFavoritesProducts > 0){
-      _localDataFavoritesProducts.removeAt(_productIndexInLocalDataFavoritesProducts);}
+        _localDataFavoritesProducts.indexWhere((item) => item.id == productId);
+    if (_productIndexInLocalDataFavoritesProducts > 0) {
+      _localDataFavoritesProducts.removeAt(_productIndexInLocalDataFavoritesProducts);
+    }
 
     _sortDataSavingLists();
     // @formatter:on

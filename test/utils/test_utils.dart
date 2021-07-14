@@ -39,7 +39,7 @@ class TestUtils {
     return Duration(seconds: seconds);
   }
 
-  void checkImageTotalOnAView(int numberOfImages) {
+  void checkImageTotalInAView(int numberOfImages) {
     provideMockedNetworkImages(() async {
       expect(find.byType(Image), findsNWidgets(numberOfImages));
     });
@@ -51,15 +51,40 @@ class TestUtils {
     if (!isWidgetTest) {
       await dbTestUtils.cleanDb(url: TEST_URL, interval: DELAY, db: DB_NAME);
       await dbTestUtils
-          .addMultipleObjects(tester,
-              qtdeObjects: 2,
-              collectionUrl: PRODUCTS_URL,
-              object: ProductDataBuilder().ProductFullStaticNoId(),
-              interval: DELAY)
+          .addMultipleObjects(
+            tester,
+            qtdeObjects: 2,
+            collectionUrl: PRODUCTS_URL,
+            object: ProductDataBuilder().ProductFullStaticNoId(),
+            interval: DELAY,
+          )
           .then((value) => _product = value[0]);
     }
     Get.delete(tag: 'dbInstance');
-    return isWidgetTest ? ProductsMockedDatasource().products()[0] : _product;
+    return isWidgetTest
+        ? Future.value(ProductsMockedDatasource().products()[0])
+        : Future.value(_product);
+  }
+
+  Future<List<Product>> loadFourProductsListInDb(tester, {bool isWidgetTest}) async {
+    var _listProducts;
+    var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
+    if (!isWidgetTest) {
+      await dbTestUtils.cleanDb(url: TEST_URL, interval: DELAY, db: DB_NAME);
+      await dbTestUtils
+          .addMultipleObjects(
+            tester,
+            qtdeObjects: 4,
+            collectionUrl: PRODUCTS_URL,
+            object: ProductDataBuilder().ProductFullStaticNoId(),
+            interval: DELAY,
+          )
+          .then((value) => _listProducts = value);
+    }
+    Get.delete(tag: 'dbInstance');
+    return isWidgetTest
+        ? Future.value(ProductsMockedDatasource().products())
+        : Future.value(_listProducts.cast<Product>());
   }
 
   void globalSetUpAll(String testModuleName) async {

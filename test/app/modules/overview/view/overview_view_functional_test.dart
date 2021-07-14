@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 
 import '../../../../config/app_tests_config.dart';
 import '../../../../config/overview_test_config.dart';
@@ -41,12 +42,12 @@ class OverviewViewFunctionalTest {
     testWidgets(_config.check_products, (tester) async {
       await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
       _isWidgetTest
-          ? await _tests.checkOverviewGridItemInOverviewView(tester, 4)
-          : await _tests.checkOverviewGridItemInOverviewView(tester, 2);
-    }, skip: false);
+          ? await _tests.checkOverviewGridItemInOverviewView(tester, itemsQtde: 4)
+          : await _tests.checkOverviewGridItemInOverviewView(tester, itemsQtde: 2);
+    });
 
     testWidgets(_config.toggle_favorite_status, (tester) async {
-      _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
+      await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
       _isWidgetTest
           ? await _tests.toggleProductFavoriteButton(
               tester,
@@ -56,10 +57,10 @@ class OverviewViewFunctionalTest {
               tester,
               favoritesAfterToggle: 1,
             );
-    }, skip: false);
+    });
 
     testWidgets(_config.add_prod_snackbar, (tester) async {
-      await _tests.addProductCheckSnackbar(tester);
+      await _tests.addProductCheckShopCartIconAndSnackbar(tester);
     });
 
     testWidgets(_config.add_prod_snackbar_undo, (tester) async {
@@ -67,18 +68,29 @@ class OverviewViewFunctionalTest {
     });
 
     testWidgets(_config.add_prod1_3x_check_shopCartIcon, (tester) async {
-      await _tests.addProduct1ThreeTimesAndCheckShopCartIcon(tester);
+      var products = await _utils.loadFourProductsListInDb(
+        tester,
+        isWidgetTest: _isWidgetTest,
+      );
+      await _tests.addProduct1_3x_CheckingShopCartIcon(tester, listProducts: products);
     });
 
-    testWidgets(_config.add_prods1And2_check_shopCartIcon, (tester) async {
-      await _tests.addProducts1And2AndCheckShopcarticon(tester);
-    });
-
-    testWidgets(_config.add_prods3And4_check_shopCartIcon, (tester) async {
-      await _tests.addProducts3And4AndCheckShopcarticon(tester);
+    testWidgets(_config.add_4products_check_shopCartIcon, (tester) async {
+      var products = await _utils.loadFourProductsListInDb(
+        tester,
+        isWidgetTest: _isWidgetTest,
+      );
+      await _tests.addMultipleProductsAndCheckShopCartIcon(
+        tester,
+        listProducts: products,
+      );
     });
 
     testWidgets(_config.tap_fav_filter_no_favorites_found, (tester) async {
+      await _utils.loadFourProductsListInDb(
+        tester,
+        isWidgetTest: _isWidgetTest,
+      );
       await _tests.tapFavoritesFilterNoFavoritesFound(tester);
     });
 
@@ -88,6 +100,6 @@ class OverviewViewFunctionalTest {
 
     testWidgets(_config.close_fav_filter, (tester) async {
       await _tests.closeFavoriteFilter(tester);
-    });
+    }, skip: false);
   }
 }

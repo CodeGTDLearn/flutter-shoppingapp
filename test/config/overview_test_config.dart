@@ -86,12 +86,12 @@ class OverviewTestConfig {
   //OVERVIEW-TEST-TITLES -------------------------------------------------------
   get check_products => 'Checking products';
   get toggle_favorite_status => 'Toggling FavoritesIconButton in a product';
-  get add_prod_snackbar => 'Adding products + Checking Snackbar text';
-  get add_prod_snackbar_undo => 'Adding products + Clicking Snackbar Undo';
+  get add_prod_snackbar => 'Adding product + Check: ShopCartIcon|Snackbar';
+  get add_prod_snackbar_undo => 'Adding product + Clicking Snackbar Undo';
   get add_prod1_3x_check_shopCartIcon => 'Adding a product 3x + Check ShopCartIcon';
-  get add_prods1And2_check_shopCartIcon => 'Adding products 1/2 + Check ShopCartIcon';
+  get add_4products_check_shopCartIcon => 'Adding 4 products + Check ShopCartIcon';
   get add_prods3And4_check_shopCartIcon => 'Adding products 3/4 + Checking ShopCartIcon';
-  get tap_fav_filter_no_favorites_found => 'Tap FavoriteFilter - favorites Not found';
+  get tap_fav_filter_no_favorites_found => 'Tapping FavoriteFilter - Not favorites found';
   get tap_fav_filter => 'Tapping FavoriteFilter';
   get close_fav_filter => 'Closing Favorite_Filter (tap OUTSIDE)';
 
