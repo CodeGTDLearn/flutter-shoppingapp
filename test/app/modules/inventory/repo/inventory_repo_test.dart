@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../config/inventory_test_config.dart';
 import '../../../../mocked_datasource/products_mocked_datasource.dart';
@@ -10,7 +10,7 @@ import 'inventory_mocked_repo.dart';
 
 class InventoryRepoTests {
   static void unit() {
-    IInventoryRepo _repo, _injectRepo;
+    late IInventoryRepo _repo, _injectRepo;
     var _product0 = ProductsMockedDatasource().products().elementAt(0);
     var _product1 = ProductsMockedDatasource().products().elementAt(1);
 

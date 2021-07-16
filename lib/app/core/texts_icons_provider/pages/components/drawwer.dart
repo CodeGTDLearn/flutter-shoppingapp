@@ -20,3 +20,5 @@ const DRAWER_COMPONENT_TEXT_NO_MANAGED_PRODUCTS_YET = "No Managed Products, Yet"
 
 const DRAWER_COMPONENT_LABEL_DARKTHEME = "Dark";
 const DRAWER_COMPONENT_ICON_DARKTHEME = Icon(Icons.lightbulb_outline);
+
+const DRAWER_COMPONENT_ICON_NONE = Icon(Icons.hourglass_empty);

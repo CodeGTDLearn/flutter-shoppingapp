@@ -9,7 +9,7 @@ class InventoryController extends GetxController {
   var inventoryProductsObs = <Product>[].obs;
   var reloadInventoryEditPageObs = false.obs;
 
-  InventoryController({this.service});
+  InventoryController({required this.service});
 
   // GERENCIA DE ESTADO REATIVA ou SIMPLES - COM O GET
   @override
@@ -22,7 +22,7 @@ class InventoryController extends GetxController {
 
   Future<List<Product>> getProducts() {
     return service.getProducts().then((response) {
-      response.isNull
+      response == null
           ? inventoryProductsObs.assignAll([])
           : inventoryProductsObs.assignAll(response);
       return inventoryProductsObs.toList();
@@ -39,12 +39,9 @@ class InventoryController extends GetxController {
 
   Future<Product> addProduct(Product _product) {
     // @formatter:off
-    return service
-        .addProduct(_product)
-        .then((addedProduct){
-            return addedProduct;
-        })
-        .catchError((onError) => throw onError);
+    return service.addProduct(_product).then((addedProduct) {
+      return addedProduct;
+    }).catchError((onError) => throw onError);
     // @formatter:on
   }
 
@@ -54,15 +51,12 @@ class InventoryController extends GetxController {
 
   Future<int> deleteProduct(String id) {
     // @formatter:off
-    var responseFuture =
-    service
-        .deleteProduct(id)
-        .then((statusCode) {
-            if (statusCode >= 400) {
-              inventoryProductsObs.assignAll(service.getLocalDataInventoryProducts());
-            }
-            return statusCode;
-        });
+    var responseFuture = service.deleteProduct(id).then((statusCode) {
+      if (statusCode >= 400) {
+        inventoryProductsObs.assignAll(service.getLocalDataInventoryProducts());
+      }
+      return statusCode;
+    });
 
     inventoryProductsObs.assignAll(service.getLocalDataInventoryProducts());
 
@@ -71,8 +65,7 @@ class InventoryController extends GetxController {
   }
 
   void switchInventoryAddEditFormToCustomCircularProgrIndic() {
-    reloadInventoryEditPageObs.value =
-        !reloadInventoryEditPageObs.value;
+    reloadInventoryEditPageObs.value = !reloadInventoryEditPageObs.value;
   }
 
   void updateInventoryProductsObs() {

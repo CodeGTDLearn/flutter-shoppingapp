@@ -11,7 +11,7 @@ abstract class Snackbarr {
 class SimpleSnackbar implements Snackbarr {
   String title;
   String message;
-  int durationMilis;
+  int? durationMilis;
 
   SimpleSnackbar(this.title, this.message, [this.durationMilis]);
 
@@ -34,8 +34,13 @@ class ButtonSnackbar implements Snackbarr {
   BuildContext context;
   Function function;
 
-  ButtonSnackbar(
-      {this.title, this.message, this.labelButton, this.context, this.function});
+  ButtonSnackbar({
+    required this.title,
+    required this.message,
+    required this.labelButton,
+    required this.context,
+    required this.function,
+  });
 
   void show() {
     var snackBarButtonConfig = SnackBar(
@@ -58,9 +63,7 @@ class ButtonSnackbar implements Snackbarr {
               ]));
         }));
 
-    // Scaffold.of(context).removeCurrentSnackBar();
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
-    // Scaffold.of(context).showSnackBar(snackBarButtonConfig);
     ScaffoldMessenger.of(context).showSnackBar(snackBarButtonConfig);
   }
 }

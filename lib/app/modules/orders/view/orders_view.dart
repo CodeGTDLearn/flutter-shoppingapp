@@ -11,7 +11,7 @@ import '../core/orders_texts_icons_provided.dart';
 class OrdersView extends StatelessWidget {
   final OrdersController controller;
 
-  OrdersView({this.controller});
+  OrdersView({required this.controller});
 
   @override
   Widget build(BuildContext context) {

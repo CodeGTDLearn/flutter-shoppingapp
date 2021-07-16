@@ -8,7 +8,7 @@ class OverviewItemDetailsView extends StatelessWidget {
   final String _id = Get.arguments;
   final OverviewController controller;
 
-  OverviewItemDetailsView({this.controller});
+  OverviewItemDetailsView({required this.controller});
 
   @override
   Widget build(BuildContext context) {

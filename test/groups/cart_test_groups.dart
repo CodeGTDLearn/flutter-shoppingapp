@@ -1,4 +1,4 @@
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../app/modules/cart/cart_controller_test.dart';
 import '../app/modules/cart/cart_repo_test.dart';

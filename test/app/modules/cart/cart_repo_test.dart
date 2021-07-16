@@ -1,7 +1,7 @@
+import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/cart/repo/i_cart_repo.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
-import 'package:test/test.dart';
 
 import '../../../config/cart_test_config.dart';
 import '../../../data_builders/cartitem_databuilder.dart';
@@ -15,8 +15,8 @@ POIS NAO EXISTEM 'CALLBACKS' DE DATABASE OU CHAMADAS-HTTP)
  */
 class CartRepoTests {
   static void unit() {
-    ICartRepo _repo;
-    Product _product1, _product2;
+    late ICartRepo _repo;
+    late Product _product1, _product2;
 
     setUp(() {
       CartTestConfig().bindingsBuilder();

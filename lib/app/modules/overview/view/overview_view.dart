@@ -11,7 +11,7 @@ import '../core/overview_widget_keys.dart';
 class OverviewView extends StatelessWidget {
   final EnumFilter enumFilter;
 
-  OverviewView({this.enumFilter});
+  OverviewView({enumFilter});
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,4 +22,3 @@ class OverviewView extends StatelessWidget {
     );
   }
 }
-

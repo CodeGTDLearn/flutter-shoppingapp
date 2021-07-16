@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../config/overview_test_config.dart';
 import '../../../../data_builders/product_databuilder.dart';
@@ -10,8 +10,8 @@ import 'overview_mocked_repo.dart';
 
 class OverviewRepoTests {
   static void unit() {
-    IOverviewRepo _repo, _injectRepo;
-    var _productFail;
+    late IOverviewRepo _repo, _injectRepo;
+    late var _productFail;
     var testConfig = Get.put(OverviewTestConfig());
 
     setUp(() {

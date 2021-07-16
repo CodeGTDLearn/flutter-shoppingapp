@@ -5,16 +5,16 @@ import 'package:shopingapp/app/modules/overview/controller/overview_controller.d
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../../config/overview_test_config.dart';
 import '../../../mocked_datasource/products_mocked_datasource.dart';
 
 class OverviewControllerTests {
   static void integration() {
-    IOverviewRepo _repo;
-    IOverviewService _service;
-    OverviewController _controller;
+    late IOverviewRepo _repo;
+    late IOverviewService _service;
+    late OverviewController _controller;
     var testConfig = Get.put(OverviewTestConfig());
 
     setUp(() {

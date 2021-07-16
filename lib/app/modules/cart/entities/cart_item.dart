@@ -1,17 +1,17 @@
 import 'dart:convert';
 
 class CartItem {
-  CartItem([
-    this.id,
-    this.title,
-    this.qtde,
-    this.price,
-  ]);
-
   String id;
   String title;
   int qtde;
   double price;
+
+  CartItem(
+    this.id,
+    this.title,
+    this.qtde,
+    this.price,
+  );
 
   factory CartItem.from_Json(String str) => CartItem.fromJson(json.decode(str));
 

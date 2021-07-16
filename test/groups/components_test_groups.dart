@@ -1,4 +1,4 @@
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../app/core/components/drawwer_test.dart';
 import '../app/core/components/progres_indicator_test.dart';

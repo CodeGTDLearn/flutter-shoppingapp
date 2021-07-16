@@ -7,17 +7,14 @@ import '../../modules/overview/core/overview_texts_icons_provided.dart';
 import '../../modules/overview/core/overview_widget_keys.dart';
 
 class AppBarr extends StatelessWidget implements PreferredSizeWidget {
-  final EnumFilter enumFilter;
+  final EnumFilter enumFilter = EnumFilter.All;
 
-  AppBarr({this.enumFilter});
+  AppBarr({required enumFilter});
 
   Widget build(BuildContext context) {
     return AppBar(
         key: Key(K_DRW_APPBAR_BTN),
-        title: Text(
-            enumFilter == EnumFilter.All
-                ? OV_TIT_ALL_APPBAR
-                : OV_TIT_FAV_APPBAR,
+        title: Text(enumFilter == EnumFilter.All ? OV_TIT_ALL_APPBAR : OV_TIT_FAV_APPBAR,
             key: Key(K_OV_TIT_APPBAR)),
         actions: [FavoritesFilterPopup(enumFilter), BadgeShopCart()]);
   }

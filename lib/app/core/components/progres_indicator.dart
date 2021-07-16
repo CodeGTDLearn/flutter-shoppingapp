@@ -6,14 +6,14 @@ import 'keys/progres_indicator_keys.dart';
 
 // ignore: must_be_immutable
 class ProgresIndicator extends StatefulWidget {
-  double radius;
-  String message = '';
-  double fontSize;
+  double? radius;
+  String? message;
+  double? fontSize;
   bool _showCircularProgressIndicator = true;
 
-  ProgresIndicator.radius([this.radius]);
+  ProgresIndicator.message({required this.message, required this.fontSize});
 
-  ProgresIndicator.message({this.message, this.fontSize});
+  ProgresIndicator.radius([this.radius]);
 
   ProgresIndicator();
 
@@ -25,21 +25,17 @@ class _ProgresIndicatorState extends State<ProgresIndicator> {
   @override
   void initState() {
     super.initState();
-    if (widget.message.isNotEmpty) _timer();
+    if (widget.message != null) _timer();
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
+  void dispose() => super.dispose();
 
-  _timer() async {
+  void _timer() async {
     await Future.delayed(Duration(seconds: CUST_PROG_INDIC_TIMER_TEXT));
 
     if (mounted) {
-      setState(() {
-        widget._showCircularProgressIndicator = false;
-      });
+      setState(() => widget._showCircularProgressIndicator = false);
     }
   }
 
@@ -52,7 +48,7 @@ class _ProgresIndicatorState extends State<ProgresIndicator> {
       alignment: Alignment.center,
       child: widget._showCircularProgressIndicator
           ? CircularProgressIndicator()
-          : Text(widget.message, style: TextStyle(fontSize: widget.fontSize)),
+          : Text(widget.message!, style: TextStyle(fontSize: widget.fontSize)),
     );
   }
 }

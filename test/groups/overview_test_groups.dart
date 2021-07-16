@@ -1,4 +1,4 @@
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../app/modules/overview/overview_controller_test.dart';
 import '../app/modules/overview/repo/overview_repo_test.dart';

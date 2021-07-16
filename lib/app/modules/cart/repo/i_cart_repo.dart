@@ -1,5 +1,3 @@
-
-
 import '../../inventory/entities/product.dart';
 import '../entities/cart_item.dart';
 

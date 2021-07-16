@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 
 import '../../../../config/app_tests_config.dart';
 import '../../../../config/overview_test_config.dart';

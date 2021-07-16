@@ -28,12 +28,12 @@ class CustomFormField {
   var _validatorCriteria;
 
   TextFormField create({
-    Product product,
-    BuildContext context,
-    Function function,
-    String fieldName,
-    String key,
-    FocusNode node,
+    required Product product,
+    required BuildContext context,
+    required Function function,
+    required String fieldName,
+    required String key,
+    required FocusNode node,
     var controller,
   }) {
     _loadTextFieldsParameters(fieldName, product);
@@ -43,8 +43,7 @@ class CustomFormField {
 
       //************  CONTROLLER + INITIAL_VALUE are incompativel  ************
       initialValue: controller == null ? _initialValue : null,
-      controller:
-          controller ?? (fieldName == INV_ADEDT_FLD_PRICE ? _controller : null),
+      controller: controller ?? (fieldName == INV_ADEDT_FLD_PRICE ? _controller : null),
       //***********************************************************************
       decoration: InputDecoration(labelText: _labelText, hintText: _hint),
       textInputAction: _textInputAction,

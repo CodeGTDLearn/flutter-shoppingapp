@@ -14,7 +14,7 @@ import '../core/cart_widget_keys.dart';
 class CartView extends StatelessWidget {
   final CartController controller;
 
-  CartView({this.controller});
+  CartView({required this.controller});
 
   Widget build(BuildContext context) {
     var fullSizeLessAppbar = MediaQuery.of(context).size;

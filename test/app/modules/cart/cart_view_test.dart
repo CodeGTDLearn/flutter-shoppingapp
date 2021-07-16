@@ -10,9 +10,7 @@ import 'package:shopingapp/app/modules/cart/components/dismis_cart_item.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/cart/core/cart_widget_keys.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
-import 'package:shopingapp/app/modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
-import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
@@ -21,7 +19,7 @@ import '../../../utils/test_utils.dart';
 
 class CartViewTests {
   static void functional() {
-    TestUtils _seek;
+    late TestUtils _seek;
 
     setUp(() {
       CartTestConfig().bindingsBuilder();
@@ -30,12 +28,12 @@ class CartViewTests {
 
     tearDown(() => _seek = null);
 
-    void _isInstancesRegistred() {
-      expect(Get.isRegistered<IOverviewRepo>(), isTrue);
-      expect(Get.isRegistered<IOverviewService>(), isTrue);
-      expect(Get.isRegistered<OverviewController>(), isTrue);
-      expect(Get.isRegistered<CartController>(), isTrue);
-    }
+    // void _isInstancesRegistred() {
+    //   expect(Get.isRegistered<IOverviewRepo>(), isTrue);
+    //   expect(Get.isRegistered<IOverviewService>(), isTrue);
+    //   expect(Get.isRegistered<OverviewController>(), isTrue);
+    //   expect(Get.isRegistered<CartController>(), isTrue);
+    // }
 
     List<Product> _prods() {
       return Get.find<IOverviewService>().getLocalDataAllProducts();

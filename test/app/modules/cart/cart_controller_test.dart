@@ -1,8 +1,8 @@
+import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/orders/entities/order.dart';
-import 'package:test/test.dart';
 
 import '../../../config/cart_test_config.dart';
 import '../../../data_builders/cartitem_databuilder.dart';
@@ -11,10 +11,9 @@ import '../../../mocked_datasource/orders_mocked_datasource.dart';
 
 class CartControllerTests {
   static void integration() {
-    CartController _controller;
-
-    Product _product1, _product2;
-    Order _order1;
+    late CartController _controller;
+    late Product _product1, _product2;
+    late Order _order1;
 
     setUp(() {
       _product1 = ProductDataBuilder().ProductFull();

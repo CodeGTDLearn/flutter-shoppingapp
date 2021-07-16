@@ -25,10 +25,10 @@ class OrdersTests {
   final isWidgetTest;
 
   OrdersTests({
-    this.isWidgetTest,
-    this.testUtils,
-    this.uiTestUtils,
-    this.dbTestUtils,
+    required this.isWidgetTest,
+    required this.testUtils,
+    required this.uiTestUtils,
+    required this.dbTestUtils,
   });
 
   Future<void> OrderingFromCartView_TapButtonOrderNow(

@@ -9,7 +9,7 @@ class OverviewService implements IOverviewService {
   List<Product> _localDataAllProducts = [];
   List<Product> _localDataFavoritesProducts = [];
 
-  OverviewService({this.repo});
+  OverviewService({required this.repo});
 
   @override
   List<Product> getLocalDataAllProducts() {

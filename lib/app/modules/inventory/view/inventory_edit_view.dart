@@ -158,7 +158,7 @@ class _InventoryEditViewState extends State<InventoryEditView> {
 
     _invController.switchInventoryAddEditFormToCustomCircularProgrIndic();
 
-    _product.id.isNull
+    _product.id == null
         ? _saveProduct(_product, _context)
         : _updateProduct(_product, _context);
 

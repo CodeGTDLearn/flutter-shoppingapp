@@ -16,11 +16,15 @@ class InventoryItem extends StatelessWidget {
   final InventoryController inventoryController;
   final OverviewController overviewController;
 
-  InventoryItem({this.product, this.inventoryController, this.overviewController});
+  InventoryItem({
+    required this.product,
+    required this.inventoryController,
+    required this.overviewController,
+  });
 
   @override
   Widget build(BuildContext context) {
-    var _id = product.id;
+    var _id = product.id!;
     var _title = product.title;
     var _imageUrl = product.imageUrl;
 
@@ -42,18 +46,17 @@ class InventoryItem extends StatelessWidget {
                   icon: INV_ITEM_DEL_ICO,
                   // @formatter:off
                   onPressed: () =>
-                      inventoryController
-                        .deleteProduct(_id)
-                        .then((statusCode) {
-                            if (statusCode >= 200 && statusCode < 400) {
-                              inventoryController.updateInventoryProductsObs();
-                              overviewController.deleteProduct(_id);
-                              overviewController.updateFilteredProductsObs();
-                              SimpleSnackbar(SUCES, SUCESS_MAN_PROD_DEL).show();
-                            }
-                            if (statusCode >= 400) {
-                              SimpleSnackbar(OPS, ERROR_MAN_PROD).show();}
-                        }),
+                      inventoryController.deleteProduct(_id).then((statusCode) {
+                        if (statusCode >= 200 && statusCode < 400) {
+                          inventoryController.updateInventoryProductsObs();
+                          overviewController.deleteProduct(_id);
+                          overviewController.updateFilteredProductsObs();
+                          SimpleSnackbar(SUCES, SUCESS_MAN_PROD_DEL).show();
+                        }
+                        if (statusCode >= 400) {
+                          SimpleSnackbar(OPS, ERROR_MAN_PROD).show();
+                        }
+                      }),
                   // @formatter:on
                   color: Theme.of(context).errorColor),
             ])));

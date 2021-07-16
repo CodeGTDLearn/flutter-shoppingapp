@@ -5,7 +5,7 @@ import 'package:shopingapp/app/modules/overview/components/filter_favorite_enum.
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../config/overview_test_config.dart';
 import '../../../../data_builders/product_databuilder.dart';
@@ -15,8 +15,8 @@ import 'overview_mocked_service.dart';
 
 class OverviewServiceTests {
   static void unit() {
-    IOverviewRepo _repo;
-    IOverviewService _service, _injectService;
+    late IOverviewRepo _repo;
+    late IOverviewService _service, _injectService;
     final _utils = Get.put(TestUtils());
     var testConfig = Get.put(OverviewTestConfig());
 

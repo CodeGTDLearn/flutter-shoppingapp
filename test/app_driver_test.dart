@@ -11,7 +11,6 @@ import 'config/app_tests_config.dart';
 import 'config/inventory_test_config.dart';
 import 'config/orders_test_config.dart';
 import 'config/overview_test_config.dart';
-import 'groups/cart_test_groups.dart';
 import 'groups/components_test_groups.dart';
 import 'groups/inventory_test_groups.dart';
 import 'groups/orders_test_groups.dart';

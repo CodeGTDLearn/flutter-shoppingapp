@@ -12,11 +12,11 @@ import '../../../utils/test_utils.dart';
 
 class ProgresIndicatorTest {
   static void functional() {
-    TestUtils seek;
+    late TestUtils _seek;
 
-    setUp(() => seek = TestUtils());
+    setUp(() => _seek = Get.put(TestUtils(), tag: 'tempInstance'));
 
-    tearDown(() => seek = null);
+    tearDown(() => Get.delete(tag: 'tempInstance'));
 
     List<Product> _products() {
       return Get.find<IOverviewService>().getLocalDataAllProducts();
@@ -27,16 +27,16 @@ class ProgresIndicatorTest {
 
       await tester.pumpWidget(AppDriver());
 
-      expect(seek.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
+      expect(_seek.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
 
       await tester.pump();
-      await tester.pump(seek.delay(3));
+      await tester.pump(_seek.delay(3));
 
-      expect(seek.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsNothing);
-      expect(seek.text(NO_PRODUCTS_FOUND_YET), findsNothing);
+      expect(_seek.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsNothing);
+      expect(_seek.text(NO_PRODUCTS_FOUND_YET), findsNothing);
 
-      expect(seek.text(_products()[0].title.toString()), findsOneWidget);
-      expect(seek.text(_products()[1].title.toString()), findsOneWidget);
+      expect(_seek.text(_products()[0].title.toString()), findsOneWidget);
+      expect(_seek.text(_products()[1].title.toString()), findsOneWidget);
     });
 
     testWidgets('Checking CustomProgrIndicator EmptyDB', (tester) async {
@@ -44,16 +44,16 @@ class ProgresIndicatorTest {
 
       await tester.pumpWidget(AppDriver());
 
-      expect(seek.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
-      expect(seek.type(CircularProgressIndicator), findsOneWidget);
-      expect(seek.text(NO_PRODUCTS_FOUND_YET), findsNothing);
+      expect(_seek.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
+      expect(_seek.type(CircularProgressIndicator), findsOneWidget);
+      expect(_seek.text(NO_PRODUCTS_FOUND_YET), findsNothing);
 
       await tester.pump();
-      await tester.pump(seek.delay(3));
+      await tester.pump(_seek.delay(3));
 
-      expect(seek.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
-      expect(seek.type(CircularProgressIndicator), findsNothing);
-      expect(seek.text(NO_PRODUCTS_FOUND_YET), findsOneWidget);
+      expect(_seek.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
+      expect(_seek.type(CircularProgressIndicator), findsNothing);
+      expect(_seek.text(NO_PRODUCTS_FOUND_YET), findsOneWidget);
     });
   }
 }

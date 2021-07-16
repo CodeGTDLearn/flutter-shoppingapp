@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/orders/entities/order.dart';
 import 'package:shopingapp/app/modules/orders/repo/i_orders_repo.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../config/orders_test_config.dart';
 import '../../../../data_builders/order_databuilder.dart';
@@ -12,7 +12,7 @@ import 'orders_mocked_repo.dart';
 class OrdersRepoTests {
   static void unit() {
     var testConfig = Get.put(OrdersTestConfig());
-    IOrdersRepo _repo, _injectRepo;
+    late IOrdersRepo _repo, _injectRepo;
     var _orderWithoutId;
 
     setUp(() {

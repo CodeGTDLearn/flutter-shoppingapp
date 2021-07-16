@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/orders/entities/order.dart';
 import 'package:shopingapp/app/modules/orders/service/i_orders_service.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../config/orders_test_config.dart';
 import '../../../../data_builders/cartitem_databuilder.dart';
@@ -12,8 +12,8 @@ import 'orders_mocked_service.dart';
 
 class OrdersServiceTests {
   static void unit() {
-    IOrdersService _service, _injectService;
-    var _cartItems;
+    late IOrdersService _service, _injectService;
+    late var _cartItems;
     var testConfig = Get.put(OrdersTestConfig());
 
     setUp(() {

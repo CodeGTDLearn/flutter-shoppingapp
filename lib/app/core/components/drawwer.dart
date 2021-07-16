@@ -14,7 +14,6 @@ import 'texts_icons/drawwer_texts_icons_provided.dart';
 
 // ignore: must_be_immutable
 class Drawwer extends StatelessWidget {
-  BuildContext _context;
   final ICartService _cart = Get.find();
   final IOrdersService _orders = Get.find();
   final InventoryController _inventory = Get.find();
@@ -22,8 +21,6 @@ class Drawwer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _context = context;
-
     return Drawer(
         child: Column(children: [
       AppBar(title: Text(DRW_TIT_APPBAR), automaticallyImplyLeading: false),
@@ -34,7 +31,8 @@ class Drawwer extends StatelessWidget {
           message: DRW_NO_DATA,
           route: AppRoutes.OVERVIEW_ALL,
           notRoutingWithoutQtdeEvaluation: false,
-          key: K_DRW_OV_OP1),
+          key: K_DRW_OV_OP1,
+          context: context),
       _drawerItem(
           quantityItems: _cart.cartItemsQtde(),
           leadIcon: DRW_ICO_CART,
@@ -42,7 +40,8 @@ class Drawwer extends StatelessWidget {
           message: DRW_TXT_CART,
           route: AppRoutes.CART,
           notRoutingWithoutQtdeEvaluation: true,
-          key: K_DRW_CRT_OP2),
+          key: K_DRW_CRT_OP2,
+          context: context),
       _drawerItem(
           quantityItems: _orders.ordersQtde(),
           leadIcon: DRW_ICO_ORD,
@@ -50,7 +49,8 @@ class Drawwer extends StatelessWidget {
           message: DRW_TXT_ORD,
           route: AppRoutes.ORDERS,
           notRoutingWithoutQtdeEvaluation: false,
-          key: K_DRW_ORD_OP3),
+          key: K_DRW_ORD_OP3,
+          context: context),
       _drawerItem(
           quantityItems: _inventory.getProductsQtde(),
           leadIcon: DRW_ICO_MAN_PROD,
@@ -58,7 +58,8 @@ class Drawwer extends StatelessWidget {
           message: DRW_TXT_NO_MAN_PROD_YET,
           route: AppRoutes.INVENTORY,
           notRoutingWithoutQtdeEvaluation: false,
-          key: K_DRW_MPROD_OP4),
+          key: K_DRW_MPROD_OP4,
+          context: context),
       Obx(() => SwitchListTile(
           key: Key(K_DRW_DARKM_OP5),
           secondary: DRW_ICO_DARKTHM,
@@ -68,20 +69,22 @@ class Drawwer extends StatelessWidget {
     ]));
   }
 
-  ListTile _drawerItem(
-      {int quantityItems,
-      Icon leadIcon,
-      String title,
-      String message,
-      String route,
-      bool notRoutingWithoutQtdeEvaluation,
-      String key}) {
+  ListTile _drawerItem({
+    required int quantityItems,
+    required Icon leadIcon,
+    required String title,
+    required String message,
+    required String route,
+    required bool notRoutingWithoutQtdeEvaluation,
+    required String key,
+    required BuildContext context,
+  }) {
     return ListTile(
         key: Key(key),
         leading: leadIcon,
         title: Text(title),
         onTap: () {
-          Navigator.pop(_context);
+          Navigator.pop(context);
           if (quantityItems == 0 && notRoutingWithoutQtdeEvaluation) {
             SimpleSnackbar(SUCES, message).show();
           } else if (quantityItems != 0 && notRoutingWithoutQtdeEvaluation) {

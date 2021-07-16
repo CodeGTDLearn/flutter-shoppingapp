@@ -29,10 +29,10 @@ class InventoryTests {
   final DbTestUtils dbTestUtils;
 
   InventoryTests({
-    this.testUtils,
-    this.uiTestUtils,
-    this.isWidgetTest,
-    this.dbTestUtils,
+    required this.testUtils,
+    required this.uiTestUtils,
+    required this.isWidgetTest,
+    required this.dbTestUtils,
   });
 
   Future<void> tappingBackButtonInInventoryView(tester) async {

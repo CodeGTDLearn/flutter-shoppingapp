@@ -1,7 +1,7 @@
+import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/cart/service/i_cart_service.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
-import 'package:test/test.dart';
 
 import '../../../config/cart_test_config.dart';
 import '../../../data_builders/cartitem_databuilder.dart';
@@ -9,8 +9,8 @@ import '../../../data_builders/product_databuilder.dart';
 
 class CartServiceTests {
   static void unit() {
-    ICartService _service;
-    Product _product1, _product2;
+    late ICartService _service;
+    late Product _product1, _product2;
 
     setUp(() {
       CartTestConfig().bindingsBuilder();
@@ -121,8 +121,7 @@ class CartServiceTests {
       expect(_product1.id.toString(), isIn(_service.getAllCartItems()));
       expect(_product2.id.toString(), isIn(_service.getAllCartItems()));
 
-      expect(_service.cartItemTotal$Amount(),
-          allOf([_product1.price + _product2.price]));
+      expect(_service.cartItemTotal$Amount(), allOf([_product1.price + _product2.price]));
     });
     // });
   }
