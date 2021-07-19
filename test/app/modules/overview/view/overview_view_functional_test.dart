@@ -9,13 +9,13 @@ import '../../../../utils/ui_test_utils.dart';
 import 'overview_tests.dart';
 
 class OverviewViewFunctionalTest {
-  bool _isWidgetTest;
+  late bool _isWidgetTest;
   final TestUtils _utils = Get.put(TestUtils());
   final UiTestUtils _uiUtils = Get.put(UiTestUtils());
   final DbTestUtils _dbUtils = Get.put(DbTestUtils());
   final OverviewTestConfig _config = Get.put(OverviewTestConfig());
 
-  OverviewViewFunctionalTest({String testType}) {
+  OverviewViewFunctionalTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
   }
 
@@ -81,7 +81,7 @@ class OverviewViewFunctionalTest {
       );
       await _tests.addMultipleProductsAndCheckShopCartIcon(
         tester,
-        listProducts: products,
+        // listProducts: products,
       );
     });
 

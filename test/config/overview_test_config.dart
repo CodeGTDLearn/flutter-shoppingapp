@@ -61,11 +61,11 @@ class OverviewTestConfig {
     HttpOverrides.global = null;
   }
 
-  void bindingsBuilderMockedRepo({bool isWidgetTest}) {
+  void bindingsBuilderMockedRepo({required bool isWidgetTest}) {
     if (isWidgetTest) _bindingsBuilder(_mocked_repo_used_in_this_module_tests);
   }
 
-  void bindingsBuilderMockRepoEmptyDb({bool isWidgetTest}) {
+  void bindingsBuilderMockRepoEmptyDb({required bool isWidgetTest}) {
     if (isWidgetTest) _bindingsBuilder(OverviewMockRepoEmptyDb());
   }
 

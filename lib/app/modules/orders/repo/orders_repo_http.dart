@@ -11,42 +11,36 @@ import 'i_orders_repo.dart';
 // I/flutter ( 8038): type 'String' is not a subtype of type 'Map<String, dynamic>'
 // ------------ SOLUTION: RENEW/REDATE FIREBASE RULES DEADLINE/DATE ------------------
 class OrdersRepoHttp extends IOrdersRepo {
-
   @override
   Future<Order> addOrder(Order order) async {
     // @formatter:off
     return http
-        .post(Uri.parse(ORDERS_URL), body: order.to_Json())
+        .post(Uri.parse(ORDERS_URL), body: order.toJson())
         .then((jsonReturnedOrder) {
-           order.id = json.decode(jsonReturnedOrder.body)['name'];
-           return order;
-        })
-        .catchError((onError)=> throw onError);
+      order.id = json.decode(jsonReturnedOrder.body)['name'];
+      return order;
+    }).catchError((onError) => throw onError);
     // @formatter:on
   }
 
   @override
   Future<List<Order>> getOrders() async {
     // @formatter:off
-    return http
-        .get(Uri.parse(ORDERS_URL))
-        .then((jsonResponse) {
-        var _orders = <Order>[];
-        
-        final MapOrdersDecodedFromJsonResponse =
-        json.decode(jsonResponse.body) as Map<String, dynamic>;
+    return http.get(Uri.parse(ORDERS_URL)).then((jsonResponse) {
+      var _orders = <Order>[];
 
-        MapOrdersDecodedFromJsonResponse != null ||
-            jsonResponse.statusCode >= 400 ?
-        MapOrdersDecodedFromJsonResponse
-          .forEach((idMap, dataMap) {
-            var orderCreatedFromDataMap = Order.fromJson(dataMap);
+      final MapOrdersDecodedFromJsonResponse =
+          json.decode(jsonResponse.body) as Map<String, dynamic>;
 
-            orderCreatedFromDataMap.id = idMap;
+      MapOrdersDecodedFromJsonResponse != null || jsonResponse.statusCode >= 400
+          ? MapOrdersDecodedFromJsonResponse.forEach((idMap, dataMap) {
+              var orderCreatedFromDataMap = Order.fromJson(dataMap);
 
-            _orders.add(orderCreatedFromDataMap);
-          })
-          :_orders = [];
+              orderCreatedFromDataMap.id = idMap;
+
+              _orders.add(orderCreatedFromDataMap);
+            })
+          : _orders = [];
       return _orders;
     }).catchError((onError) => throw onError);
     // @formatter:on

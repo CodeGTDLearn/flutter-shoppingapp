@@ -70,11 +70,11 @@ class InventoryTestConfig {
     HttpOverrides.global = null;
   }
 
-  void bindingsBuilderMockedRepo({bool isUnitTest}) {
+  void bindingsBuilderMockedRepo({required bool isUnitTest}) {
     if (isUnitTest) _bindingsBuilder(_mocked_repo_used_in_this_module_test);
   }
 
-  void bindingsBuilderMockedRepoEmptyDb({bool isWidgetTest}) {
+  void bindingsBuilderMockedRepoEmptyDb({required bool isWidgetTest}) {
     if (isWidgetTest) _bindingsBuilder(InventoryMockedRepoEmptyDb());
   }
 

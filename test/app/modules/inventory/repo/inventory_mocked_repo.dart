@@ -30,12 +30,8 @@ class InventoryMockedRepo extends Mock implements IInventoryRepo {
   @override
   Future<int> deleteProduct(String id) {
     // @formatter:off
-    final found = ProductsMockedDatasource()
-        .products()
-        .firstWhere((item) => item.id == id,
-        orElse: () {
-          return null;
-        });
+    final found =
+        ProductsMockedDatasource().products().firstWhere((item) => item.id == id);
     return found == null ? Future.value(400) : Future.value(200);
     // @formatter:on
     // return Future.value(200);
@@ -57,19 +53,14 @@ class InventoryMockedRepo extends Mock implements IInventoryRepo {
   Future<int> updateProduct(Product product) {
     // return Future.value(200);
     // @formatter:off
-    final found = ProductsMockedDatasource()
-        .products()
-        .firstWhere((item) => item.id == product.id,
-          orElse: () {
-            return null;
-          });
+    final found =
+        ProductsMockedDatasource().products().firstWhere((item) => item.id == product.id);
     return found == null ? Future.value(500) : Future.value(200);
     // @formatter:on
   }
 }
 
-class InventoryInjectMockedRepo extends Mock
-    implements IInventoryRepo {}
+class InventoryInjectMockedRepo extends Mock implements IInventoryRepo {}
 
 class InventoryMockedRepoEmptyDb extends Mock implements IInventoryRepo {
   @override
@@ -84,7 +75,7 @@ class InventoryMockedRepoEmptyDb extends Mock implements IInventoryRepo {
 
   @override
   Future<Product> addProduct(Product product) {
-    return Future.value(ProductsMockedDatasource().productNull());
+    return Future.value(ProductsMockedDatasource().product());
   }
 
   @override

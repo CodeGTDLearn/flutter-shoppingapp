@@ -44,7 +44,7 @@ class OverviewGridItem extends StatelessWidget {
                               : OV_ICO_NOFAV,
                           onPressed: () {
                             _controller
-                                .toggleFavoriteStatus(_product.id)
+                                .toggleFavoriteStatus(_product.id!)
                                 .then((favoriteStatus) {
                               // favoriteStatus
                               //     ? SimpleSnackbar(SUCES, TOGGL_STATUS_SUCES).show()

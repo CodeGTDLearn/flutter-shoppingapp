@@ -15,13 +15,13 @@ import '../../../../utils/ui_test_utils.dart';
 import 'orders_tests.dart';
 
 class OrdersViewFunctionalTest {
-  bool _isWidgetTest;
+  late bool _isWidgetTest;
   final _utils = Get.put(TestUtils());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
   final _config = Get.put(OrdersTestConfig());
 
-  OrdersViewFunctionalTest({String testType}) {
+  OrdersViewFunctionalTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
   }
 
@@ -46,7 +46,7 @@ class OrdersViewFunctionalTest {
 
     testWidgets(_config.check_oneOrderInDB, (tester) async {
       if (!_isWidgetTest) {
-        await _dbUtils.cleanDb(url: TEST_URL, interval: DELAY, db: DB_NAME);
+        await _dbUtils.cleanDb(url: TEST_URL, db: DB_NAME);
       }
       _config.bindingsBuilderMockRepoEmptyDb(isWidgetTest: _isWidgetTest);
       await _tests.checkOrders_OrdersAbsence(tester, DELAY);

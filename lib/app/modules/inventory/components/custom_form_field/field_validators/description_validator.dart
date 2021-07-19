@@ -6,7 +6,7 @@ import '../../../../../core/properties/app_owasp_regex.dart';
 import '../../../core/messages/field_form_validation_provided.dart';
 import 'validator_abstraction.dart';
 
-class DescriptionValidator extends ValidatorAbstraction {
+class DescriptValidator extends ValidatorAbstraction {
   @override
   FormFieldValidator<String> validate() {
     return Validators.compose([

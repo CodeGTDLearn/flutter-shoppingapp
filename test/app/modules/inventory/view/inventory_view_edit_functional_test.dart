@@ -12,13 +12,13 @@ import '../../../../utils/ui_test_utils.dart';
 import 'inventory_tests.dart';
 
 class InventoryViewEditFunctionalTest {
-  bool _isWidgetTest;
+  late bool _isWidgetTest;
   final _utils = Get.put(TestUtils());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
   final _config = Get.put(InventoryTestConfig());
 
-  InventoryViewEditFunctionalTest({String testType}) {
+  InventoryViewEditFunctionalTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
   }
 

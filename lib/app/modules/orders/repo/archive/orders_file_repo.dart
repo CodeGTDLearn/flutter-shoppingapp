@@ -1,13 +1,10 @@
-
-
 import '../../entities/order.dart';
 
 class OrdersFileRepo {
   final List<Order> _orders = [];
 
-  Future<int> addOrder(Order order) {
+  void addOrder(Order order) {
     _orders.add(order);
-    return null;
   }
 
   void clearOrdersList() {

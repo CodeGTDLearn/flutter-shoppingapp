@@ -81,23 +81,24 @@ class InventoryServiceTests {
 
     test('Getting ProductById', () {
       _service.getProducts().then((_) {
-        expect(_service.getProductById(_product1.id),
+        expect(_service.getProductById(_product1.id!),
             isIn(_service.getLocalDataInventoryProducts()));
-        expect(_service.getProductById(_product1.id).title, _product1.title);
+        expect(_service.getProductById(_product1.id!).title, _product1.title);
       });
     });
 
     test('Getting ProductById - Exception', () {
       _service.getProducts().then((_) {
-        expect(() => _service.getProductById(_newProduct.id), throwsA(isA<RangeError>()));
+        expect(
+            () => _service.getProductById(_newProduct.id!), throwsA(isA<RangeError>()));
       });
     });
 
     test('Deleting a Product', () {
       _service.getProducts().then((_) {
-        expect(_service.getProductById(_product1.id),
+        expect(_service.getProductById(_product1.id!),
             isIn(_service.getLocalDataInventoryProducts()));
-        _service.deleteProduct(_product1.id).then((response) {
+        _service.deleteProduct(_product1.id!).then((response) {
           expect(response, 200);
         });
       });
@@ -106,14 +107,14 @@ class InventoryServiceTests {
     test('Updating a Product', () {
       _overviewService.getProducts().then((_) {
         expect(
-          _overviewService.getProductById(_product1.id),
+          _overviewService.getProductById(_product1.id!),
           isIn(_overviewService.getLocalDataAllProducts()),
         );
       });
 
       _service.getProducts().then((_) {
         expect(
-          _service.getProductById(_product1.id),
+          _service.getProductById(_product1.id!),
           isIn(_service.getLocalDataInventoryProducts()),
         );
 
@@ -125,23 +126,23 @@ class InventoryServiceTests {
 
     test('Deleting a Product - Optimistic/Rollback', () {
       _service.getProducts().then((_) {
-        expect(_service.getProductById(_product1.id),
+        expect(_service.getProductById(_product1.id!),
             isIn(_service.getLocalDataInventoryProducts()));
-        _service.deleteProduct(_product1.id).then((response) {
+        _service.deleteProduct(_product1.id!).then((response) {
           expect(response, 200);
         });
       });
     });
 
     test('Deleting a Product(Inject) - Optimistic (Mocked)', () {
-      when(_injectService.deleteProduct(_newProduct.id))
+      when(_injectService.deleteProduct(_newProduct.id!))
           .thenAnswer((_) async => Future.value(404));
 
       when(_injectService.getLocalDataInventoryProducts()).thenReturn(_products);
 
       expect(_injectService.getLocalDataInventoryProducts(), _products);
 
-      _injectService.deleteProduct(_newProduct.id).then((response) {
+      _injectService.deleteProduct(_newProduct.id!).then((response) {
         expect(response, 404);
       });
       //Rollback the localDataManagedProducts 'cause unsuccessful deleteProduct
@@ -150,9 +151,9 @@ class InventoryServiceTests {
 
     test('Deleting a Product - Not found - Exception', () {
       _service.getProducts().then((_) {
-        expect(_service.getProductById(_product1.id),
+        expect(_service.getProductById(_product1.id!),
             isIn(_service.getLocalDataInventoryProducts()));
-        expect(() => _service.deleteProduct(_newProduct.id), throwsA(isA<RangeError>()));
+        expect(() => _service.deleteProduct(_newProduct.id!), throwsA(isA<RangeError>()));
       });
     });
 

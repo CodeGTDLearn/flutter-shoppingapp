@@ -39,23 +39,28 @@ class CartRepoHttp implements ICartRepo {
 
   @override
   void addCartItemUndo(Product product) {
-    var qtde = 0;
-    _cartItems.forEach((key, value) {
-      if (key == product.id) qtde = value.qtde;
+    _cartItems.forEach((key, cartItem) {
+      if (key == product.id) {
+        cartItem.qtde == 1
+            ? _cartItems.remove(product.id)
+            : cartItem.qtde = cartItem.qtde - 1;
+      }
     });
-    if (qtde == 1) _cartItems.remove(product.id);
-    if (qtde > 1) {
-      _cartItems.update(product.id!, (itemFound) {
-        if (itemFound.qtde == 1) return _cartItems.remove(product.id);
-        return CartItem(
-          itemFound.id,
-          itemFound.title,
-          itemFound.qtde - 1,
-          itemFound.price,
-        );
-      });
-    }
   }
+  // var qtde = 0;
+  // if (qtde == 1) _cartItems.remove(product.id);
+  // if (qtde > 1) {
+  // _cartItems.update(product.id!, (item) {
+  //   item.qtde == 1
+  //       ? _cartItems.remove(product.id)
+  //       : CartItem(
+  //           item.id,
+  //           item.title,
+  //           item.qtde - 1,
+  //           item.price,
+  //         );
+  // });
+  // }
 
   @override
   void removeCartItem(CartItem cartItem) {

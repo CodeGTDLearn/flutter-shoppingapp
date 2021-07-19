@@ -71,7 +71,7 @@ class InventoryControllerTests {
     test('Getting ProductById', () {
       // @formatter:off
       _controller.getProducts().then((products) {
-        var found = _controller.getProductById(products[0].id);
+        var found = _controller.getProductById(products[0].id!);
         expect(found.id, _product0.id);
         expect(found.title, _product0.title);
         expect(found, isIn(_controller.getInventoryProductsObs()));
@@ -81,20 +81,20 @@ class InventoryControllerTests {
 
     test('Getting ProductById - Exception', () {
       _controller.getProducts().then((_) {
-        expect(
-            () => _controller.getProductById(_newProduct.id), throwsA(isA<RangeError>()));
+        expect(() => _controller.getProductById(_newProduct.id!),
+            throwsA(isA<RangeError>()));
       });
     });
 
     test('Updating a Product - status 200', () {
       _overviewService.getProducts().then((_) {
         expect(
-          _overviewService.getProductById(_product1.id),
+          _overviewService.getProductById(_product1.id!),
           isIn(_overviewService.getLocalDataAllProducts()),
         );
       });
       _controller.getProducts().then((_) {
-        expect(_controller.getProductById(_product1.id),
+        expect(_controller.getProductById(_product1.id!),
             isIn(_controller.getInventoryProductsObs()));
         _controller.updateProduct(_product1).then((response) {
           expect(response, 200);
@@ -105,7 +105,7 @@ class InventoryControllerTests {
     test('Updating a Product - status 500', () {
       _overviewService.getProducts().then((_) {
         expect(
-          _overviewService.getProductById(_product1.id),
+          _overviewService.getProductById(_product1.id!),
           isIn(_overviewService.getLocalDataAllProducts()),
         );
       });
@@ -136,9 +136,9 @@ class InventoryControllerTests {
 
     test('Deleting Product - status 200', () {
       _controller.getProducts().then((_) {
-        expect(_controller.getProductById(_product1.id),
+        expect(_controller.getProductById(_product1.id!),
             isIn(_controller.getInventoryProductsObs()));
-        _controller.deleteProduct(_product1.id).then((response) {
+        _controller.deleteProduct(_product1.id!).then((response) {
           expect(response, 200);
         });
       });
@@ -146,9 +146,9 @@ class InventoryControllerTests {
 
     test('Deleting Product - Optimistic/Rollback', () {
       _controller.getProducts().then((_) {
-        expect(_controller.getProductById(_product1.id),
+        expect(_controller.getProductById(_product1.id!),
             isIn(_controller.getInventoryProductsObs()));
-        _controller.deleteProduct(_product1.id).then((response) {
+        _controller.deleteProduct(_product1.id!).then((response) {
           expect(response, 200);
         });
       });
@@ -156,10 +156,10 @@ class InventoryControllerTests {
 
     test('Deleting a Product - Not found - Exception', () {
       _controller.getProducts().then((_) {
-        expect(_controller.getProductById(_product1.id),
+        expect(_controller.getProductById(_product1.id!),
             isIn(_controller.getInventoryProductsObs()));
         expect(
-            () => _controller.deleteProduct(_newProduct.id), throwsA(isA<RangeError>()));
+            () => _controller.deleteProduct(_newProduct.id!), throwsA(isA<RangeError>()));
       });
     });
 

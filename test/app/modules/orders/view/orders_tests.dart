@@ -127,8 +127,8 @@ class OrdersTests {
   Future<void> tappingBackButtonInOrdersView(
     WidgetTester tester,
     int interval, {
-    Type from,
-    Type to,
+    required Type from,
+    required Type to,
   }) async {
     await uiTestUtils.testInitialization(
       tester,

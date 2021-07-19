@@ -18,7 +18,7 @@ class OverviewRepoTests {
       testConfig.bindingsBuilderMockedRepo(isWidgetTest: true);
       _repo = Get.find<IOverviewRepo>();
       _injectRepo = OverviewInjectMockedRepo();
-      _productFail = ProductDataBuilder().ProductId();
+      _productFail = ProductDataBuilder().ProductFull();
     });
 
     test('Checking Instances', () {
@@ -69,14 +69,12 @@ class OverviewRepoTests {
 
     test('Updating a Product - Response Status 404', () {
       when(_injectRepo.updateProduct(_productFail)).thenAnswer((_) async => 404);
-
       _injectRepo.updateProduct(_productFail).then((value) => {expect(value, 404)});
     });
 
-    test('Getting products - Null as response', () {
-      when(_injectRepo.getProducts()).thenAnswer((_) async => null);
-
-      _injectRepo.getProducts().then((value) => expect(value, isNull));
+    test('Getting products - Response Status >500', () {
+      when(_injectRepo.updateProduct(_productFail)).thenAnswer((_) async => 500);
+      _injectRepo.updateProduct(_productFail).then((value) => {expect(value, 500)});
     });
   }
 }

@@ -23,10 +23,10 @@ class OverviewTests {
   final DbTestUtils dbTestUtils;
 
   OverviewTests({
-    this.testUtils,
-    this.uiTestUtils,
-    this.isWidgetTest,
-    this.dbTestUtils,
+    required this.testUtils,
+    required this.uiTestUtils,
+    required this.isWidgetTest,
+    required this.dbTestUtils,
   });
 
   Future<void> addProductCheckShopCartIconAndSnackbar(tester) async {
@@ -153,7 +153,7 @@ class OverviewTests {
 
   Future<void> addProduct1_3x_CheckingShopCartIcon(
     tester, {
-    List<Product> listProducts,
+    required List<Product> listProducts,
   }) async {
     await uiTestUtils.testInitialization(
       tester,
@@ -173,9 +173,11 @@ class OverviewTests {
   }
 
   Future<void> addMultipleProductsAndCheckShopCartIcon(
-    tester, {
-    List<Product> listProducts,
-  }) async {
+    tester,
+    // {
+    // List<Product> listProducts,
+    // }
+  ) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -258,7 +260,7 @@ class OverviewTests {
     // @formatter:on
   }
 
-  void checkOverviewGridItemInOverviewView(tester, {int itemsQtde}) async {
+  void checkOverviewGridItemInOverviewView(tester, {required int itemsQtde}) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -290,7 +292,10 @@ class OverviewTests {
     );
   }
 
-  Future<void> toggleProductFavoriteButton(tester, {int favoritesAfterToggle}) async {
+  Future<void> toggleProductFavoriteButton(
+    tester, {
+    required int favoritesAfterToggle,
+  }) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,

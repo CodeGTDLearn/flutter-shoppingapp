@@ -23,10 +23,8 @@ class CartViewTests {
 
     setUp(() {
       CartTestConfig().bindingsBuilder();
-      _seek = TestUtils();
+      _seek = Get.put(TestUtils());
     });
-
-    tearDown(() => _seek = null);
 
     // void _isInstancesRegistred() {
     //   expect(Get.isRegistered<IOverviewRepo>(), isTrue);

@@ -10,9 +10,8 @@ class DbTestUtils {
   final _utils = Get.put(TestUtils());
 
   Future cleanDb({
-    String url,
-    String db,
-    int interval,
+    required String url,
+    required String db,
   }) async {
     await http.delete(Uri.parse(url)).then((response) {
       print(' Removing All Collections in Db:\n'
@@ -23,8 +22,8 @@ class DbTestUtils {
 
   Future removeCollection(
     tester, {
-    String url,
-    int interval,
+    required String url,
+    required int interval,
   }) async {
     await tester.pumpAndSettle(_utils.delay(interval));
     http.delete(Uri.parse("$url")).then((response) {
@@ -36,9 +35,9 @@ class DbTestUtils {
 
   Future removeObject(
     tester, {
-    String url,
-    int interval,
-    String id,
+    required String url,
+    required int interval,
+    required String id,
   }) async {
     await tester.pumpAndSettle(_utils.delay(interval));
     final noExtensionInDeletions = url.replaceAll('.json', '/');
@@ -54,9 +53,9 @@ class DbTestUtils {
 
   Future addObject(
     tester, {
-    var object,
-    String collectionUrl,
-    int interval,
+    required var object,
+    required String collectionUrl,
+    required int interval,
   }) async {
     await tester.pumpAndSettle(_utils.delay(interval));
 
@@ -81,10 +80,10 @@ class DbTestUtils {
 
   Future<List<Object>> addMultipleObjects(
     tester, {
-    int qtdeObjects,
-    Object object,
-    String collectionUrl,
-    int interval,
+    required int qtdeObjects,
+    required Object object,
+    required String collectionUrl,
+    required int interval,
   }) async {
     var listReturn = <Object>[];
     qtdeObjects ??= 1;

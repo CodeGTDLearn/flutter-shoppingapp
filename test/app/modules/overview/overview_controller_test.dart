@@ -60,7 +60,7 @@ class OverviewControllerTests {
     test('Deleting Product', () {
       _controller.getProducts().then((value) {
         expect(_service.getLocalDataAllProducts().length, 4);
-        _controller.deleteProduct(_service.getLocalDataAllProducts()[0].id);
+        _controller.deleteProduct(_service.getLocalDataAllProducts()[0].id!);
         expect(_service.getLocalDataAllProducts().length, 3);
       });
     });

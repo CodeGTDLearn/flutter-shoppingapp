@@ -44,7 +44,7 @@ class OverviewMockRepoEmptyDb extends Mock implements IOverviewRepo {
   }
 
   @override
-  Future<int> updateProduct(Product product, [String id]) {
+  Future<int> updateProduct(Product product, [String? id]) {
     return Future.value(400);
   }
 }

@@ -9,16 +9,15 @@ class OrdersController {
   var qtdeOrdersObs = 0.obs;
   var ordersObs = <Order>[].obs;
 
-  OrdersController({this.service});
+  OrdersController({required this.service});
 
   List<Order> getOrders() {
     ordersObs.assignAll([]);
     // @formatter:off
-    service
-     .getOrders()
-     .then((value) {ordersObs.assignAll(value);})
-     .catchError((onError)=> throw onError);
-     return ordersObs.toList();
+    service.getOrders().then((value) {
+      ordersObs.assignAll(value);
+    }).catchError((onError) => throw onError);
+    return ordersObs.toList();
     // @formatter:on
   }
 

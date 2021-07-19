@@ -9,7 +9,7 @@ class OverviewController extends GetxController {
   var filteredProductsObs = <Product>[].obs;
   var favoriteStatusObs = false.obs;
 
-  OverviewController({this.service});
+  OverviewController({required this.service});
 
   @override
   void onInit() {

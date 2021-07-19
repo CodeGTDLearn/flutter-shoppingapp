@@ -4,9 +4,9 @@ import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import '../config/app_tests_config.dart';
 
 class ProductDataBuilder {
-  Product ProductId({String id}) {
-    return Product(id: Faker().randomGenerator.string(3, min: 2));
-  }
+  // Product ProductId() {
+  //   return Product(id: Faker().randomGenerator.string(3, min: 2));
+  // }
 
   Product ProductFull() {
     return Product(

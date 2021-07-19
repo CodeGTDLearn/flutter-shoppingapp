@@ -7,6 +7,14 @@ import '../../../core/properties/app_owasp_regex.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
 import '../../overview/controller/overview_controller.dart';
 import '../components/custom_form_field/custom_form_field.dart';
+import '../components/custom_form_field/field_properties/description_properties.dart';
+import '../components/custom_form_field/field_properties/price_properties.dart';
+import '../components/custom_form_field/field_properties/title_properties.dart';
+import '../components/custom_form_field/field_properties/url_properties.dart';
+import '../components/custom_form_field/field_validators/description_validator.dart';
+import '../components/custom_form_field/field_validators/price_validator.dart';
+import '../components/custom_form_field/field_validators/title_validator.dart';
+import '../components/custom_form_field/field_validators/url_validator.dart';
 import '../controller/inventory_controller.dart';
 import '../core/inventory_keys.dart';
 import '../core/messages/messages_snackbars_provided.dart';
@@ -35,7 +43,7 @@ class _InventoryEditViewState extends State<InventoryEditView> {
 
   final _formKey = K_INV_FORM_GKEY;
 
-  Product _product = Product();
+  late Product _product;
 
   @override
   void initState() {
@@ -90,21 +98,24 @@ class _InventoryEditViewState extends State<InventoryEditView> {
                     key: _formKey,
                     child: SingleChildScrollView(
                         child: Column(children: [
-                      CustomFormField().create(
+                      CustomFormField(TitleValidator(), TitleProperties()).create(
                           product: _product,
+                          initialValue: _product.title,
                           context: context,
                           fieldName: INV_ADEDT_FLD_TITLE,
                           key: K_INV_ADDEDIT_FLD_TITLE,
                           function: (_) => _sendFocusTo(_nodePrice, context)),
-                      CustomFormField().create(
+                      CustomFormField(PriceValidator(), PriceProperties()).create(
                           product: _product,
+                          initialValue: _product.price.toString(),
                           context: context,
                           fieldName: INV_ADEDT_FLD_PRICE,
                           key: K_INV_ADDEDIT_FLD_PRICE,
                           function: (_) => _sendFocusTo(_nodeDescr, context),
                           node: _nodePrice),
-                      CustomFormField().create(
+                      CustomFormField(DescriptValidator(), DescripProperties()).create(
                           product: _product,
+                          initialValue: _product.description,
                           context: context,
                           fieldName: INV_ADEDT_FLD_DESCR,
                           key: K_INV_ADDEDIT_FLD_DESCR,
@@ -123,14 +134,16 @@ class _InventoryEditViewState extends State<InventoryEditView> {
                                       : Center(child: INV_ADEDT_NO_IMG_TIT),
                                 )))),
                         Expanded(
-                            child: CustomFormField().create(
-                                product: _product,
-                                context: context,
-                                fieldName: INV_ADEDT_FLD_IMGURL,
-                                key: K_INV_ADDEDIT_FLD_IMGURL,
-                                function: (_) => _saveForm(context),
-                                node: _nodeImgUrl,
-                                controller: _imgUrlController))
+                            child: CustomFormField(UrlValidator(), UrlProperties())
+                                .create(
+                                    product: _product,
+                                    initialValue: _product.imageUrl,
+                                    context: context,
+                                    fieldName: INV_ADEDT_FLD_IMGURL,
+                                    key: K_INV_ADDEDIT_FLD_IMGURL,
+                                    function: (_) => _saveForm(context),
+                                    node: _nodeImgUrl,
+                                    controller: _imgUrlController))
                       ])
                     ]))))));
   }
@@ -152,9 +165,9 @@ class _InventoryEditViewState extends State<InventoryEditView> {
 
   void _saveForm(BuildContext _context) {
     // @formatter:off
-    if (!_formKey.currentState.validate()) return;
+    if (!_formKey.currentState!.validate()) return;
 
-    _formKey.currentState.save();
+    _formKey.currentState!.save();
 
     _invController.switchInventoryAddEditFormToCustomCircularProgrIndic();
 

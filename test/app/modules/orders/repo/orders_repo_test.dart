@@ -48,12 +48,10 @@ class OrdersRepoTests {
       });
     });
 
-    test('Getting Orders - Null as response', () {
-      when(_injectRepo.getOrders()).thenAnswer((_) async => null);
-      _injectRepo.getOrders().then((value) {
-        expect(value, isNull);
-      });
-    });
+    // test('Updating a Product(Inject) - status 500', () {
+    //   when(_injectRepo.getOrders()).thenAnswer((_) async => 500);
+    //   _injectRepo.getOrders().then((value) => {expect(value, 500)});
+    // });
 
     test('Adding Order', () {
       var id = Faker().randomGenerator.string(20, min: 20);

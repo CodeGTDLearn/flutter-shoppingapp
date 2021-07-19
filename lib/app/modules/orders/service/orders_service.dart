@@ -8,25 +8,24 @@ class OrdersService implements IOrdersService {
 
   List<Order> _localDataOrders = [];
 
-  OrdersService({this.repo});
+  OrdersService({required this.repo});
 
   @override
   Future<Order> addOrder(List<CartItem> cartItems, double amount) {
     var orderTimeStamp = DateTime.now();
     var order = Order(
+      null,
       amount.toStringAsFixed(2),
       orderTimeStamp.toIso8601String(),
       cartItems,
     );
 
     // @formatter:off
-    return repo
-            .addOrder(order)
-            .then((orderAddedReturned) {
-                order.datetime = orderTimeStamp.toString();
-                _localDataOrders.add(order);
-                return orderAddedReturned;})
-            .catchError((onError) => throw onError);
+    return repo.addOrder(order).then((orderAddedReturned) {
+      order.datetime = orderTimeStamp.toString();
+      _localDataOrders.add(order);
+      return orderAddedReturned;
+    }).catchError((onError) => throw onError);
     // @formatter:on
   }
 

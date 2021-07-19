@@ -9,7 +9,7 @@ import '../controller/overview_controller.dart';
 import '../core/overview_widget_keys.dart';
 
 class OverviewView extends StatelessWidget {
-  final EnumFilter enumFilter;
+  final EnumFilter enumFilter = EnumFilter.All;
 
   OverviewView({enumFilter});
 

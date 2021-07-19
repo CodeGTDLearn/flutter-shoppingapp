@@ -13,7 +13,7 @@ import '../core/texts_icons/inventory_texts_icons_provided.dart';
 class InventoryView extends StatelessWidget {
   final InventoryController controller;
 
-  InventoryView({this.controller});
+  InventoryView({required this.controller});
 
   @override
   Widget build(BuildContext context) {

@@ -17,7 +17,7 @@ import '../../../utils/test_utils.dart';
 
 class DrawwerTest {
   static void functional() {
-    TestUtils _seek = TestUtils();
+    var _seek = Get.put(TestUtils());
 
     setUp(() {
       ComponentsTestConfig().bindingsBuilderMockedRepo();
@@ -55,22 +55,23 @@ class DrawwerTest {
       await tester.pump();
 
       var scaffoldKey = DRAWWER_SCAFFOLD_GLOBALKEY;
+      var scaffState = scaffoldKey.currentState!;
       var titleDrawer = DRAWER_COMPONENT_TITLE_APPBAR;
 
       // Tapping three times
       for (var counter = 0; counter <= 2; counter++) {
         expect(_seek.text(titleDrawer), findsNothing);
-        expect(scaffoldKey.currentState.isDrawerOpen, isFalse);
-        scaffoldKey.currentState.openDrawer();
+        expect(scaffState.isDrawerOpen, isFalse);
+        scaffState.openDrawer();
         await tester.pump();
         await tester.pump(_seek.delay(1));
-        expect(scaffoldKey.currentState.isDrawerOpen, isTrue);
+        expect(scaffState.isDrawerOpen, isTrue);
         expect(_seek.text(titleDrawer), findsOneWidget);
         await tester.tapAt(const Offset(750.0, 100.0)); // on the mask
         await tester.pump();
         await tester.pump(_seek.delay(1)); // animation done
         expect(_seek.text(titleDrawer), findsNothing);
-        expect(scaffoldKey.currentState.isDrawerOpen, isFalse);
+        expect(scaffState.isDrawerOpen, isFalse);
       }
     });
 
@@ -79,14 +80,15 @@ class DrawwerTest {
       await tester.pump();
 
       var scaffoldKey = DRAWWER_SCAFFOLD_GLOBALKEY;
+      var scaffState = scaffoldKey.currentState!;
       var titleDrawer = DRAWER_COMPONENT_TITLE_APPBAR;
 
       expect(_seek.text(titleDrawer), findsNothing);
-      expect(scaffoldKey.currentState.isDrawerOpen, isFalse);
-      scaffoldKey.currentState.openDrawer();
+      expect(scaffState.isDrawerOpen, isFalse);
+      scaffState.openDrawer();
       await tester.pump();
       await tester.pump(_seek.delay(3));
-      expect(scaffoldKey.currentState.isDrawerOpen, isTrue);
+      expect(scaffState.isDrawerOpen, isTrue);
       expect(_seek.text(titleDrawer), findsOneWidget);
       await tester.tapAt(const Offset(750.0, 100.0)); // on the mask
       await tester.pump();
@@ -99,6 +101,7 @@ class DrawwerTest {
       await tester.pump();
 
       var scaffoldKey = DRAWWER_SCAFFOLD_GLOBALKEY;
+      var scaffState = scaffoldKey.currentState!;
       var titleDrawer = DRAWER_COMPONENT_TITLE_APPBAR;
       var ovViewPageTitle = OVERVIEW_TITLE_PAGE_ALL;
       var manProdPageTitle = INVENTORY_PAGE_TITLE;
@@ -107,7 +110,7 @@ class DrawwerTest {
 
       for (var counter = 1; counter <= 2; counter++) {
         expect(_seek.text(titleDrawer), findsNothing);
-        scaffoldKey.currentState.openDrawer();
+        scaffState.openDrawer();
         await tester.pump();
         await tester.pump(_seek.delay(3));
         expect(_seek.text(titleDrawer), findsOneWidget);

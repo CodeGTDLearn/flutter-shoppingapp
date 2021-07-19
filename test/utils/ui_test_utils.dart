@@ -10,10 +10,10 @@ class UiTestUtils {
 
   void navigationBetweenViews(
     WidgetTester tester, {
-    int interval,
-    Type from,
-    Type to,
-    Type triggerWidget,
+    required int interval,
+    required Type from,
+    required Type to,
+    required Type triggerWidget,
   }) async {
     expect(_seek.type(from), findsOneWidget);
     await tester.tap(_seek.type(triggerWidget));
@@ -24,9 +24,9 @@ class UiTestUtils {
 
   Future tapButtonWithResult(
     WidgetTester tester, {
-    int interval,
-    String triggerKey,
-    Type resultWidget,
+    required int interval,
+    required String triggerKey,
+    required Type resultWidget,
   }) async {
     await tester.tap(_seek.key(triggerKey));
     await tester.pump();
@@ -37,12 +37,12 @@ class UiTestUtils {
 
   Future openDrawerAndClickAnOption(
     WidgetTester tester, {
-    int interval,
-    String optionKey,
-    GlobalKey<ScaffoldState> scaffoldGlobalKey,
+    required int interval,
+    required String optionKey,
+    required GlobalKey<ScaffoldState> scaffoldGlobalKey,
   }) async {
     await tester.pumpAndSettle();
-    scaffoldGlobalKey.currentState.openDrawer();
+    scaffoldGlobalKey.currentState!.openDrawer();
     await tester.pumpAndSettle(Duration(milliseconds: interval * 1000 + 1700));
     await tester.tap(_seek.key(optionKey));
     await tester.pumpAndSettle();
@@ -50,9 +50,9 @@ class UiTestUtils {
   }
 
   void checkWidgetsTypesQtdeInAView({
-    Type widgetView,
-    Type widgetType,
-    int widgetQtde,
+    required Type widgetView,
+    required Type widgetType,
+    required int widgetQtde,
   }) {
     expect(_seek.type(widgetView), findsOneWidget);
     expect(
@@ -61,7 +61,7 @@ class UiTestUtils {
     );
   }
 
-  Future sendAppToBackground({int interval}) async {
+  Future sendAppToBackground({required int interval}) async {
     await Future.delayed(Duration(seconds: interval), () {
       print('Application Closed.');
       SystemChannels.platform.invokeMethod('SystemNavigator.pop');
@@ -70,8 +70,8 @@ class UiTestUtils {
 
   Future<void> testInitialization(
     tester, {
-    bool isWidgetTest,
-    Widget driver,
+    required bool isWidgetTest,
+    required Widget driver,
   }) async {
     isWidgetTest ? await tester.pumpWidget(driver) : runApp(driver);
   }

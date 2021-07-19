@@ -45,11 +45,11 @@ class TestUtils {
     // });
   }
 
-  Future<Product> loadTwoProductsInDb(tester, {bool isWidgetTest}) async {
+  Future<Product> loadTwoProductsInDb(tester, {required bool isWidgetTest}) async {
     var _product;
     var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
     if (!isWidgetTest) {
-      await dbTestUtils.cleanDb(url: TEST_URL, interval: DELAY, db: DB_NAME);
+      await dbTestUtils.cleanDb(url: TEST_URL, db: DB_NAME);
       await dbTestUtils
           .addMultipleObjects(
             tester,
@@ -66,11 +66,14 @@ class TestUtils {
         : Future.value(_product);
   }
 
-  Future<List<Product>> loadFourProductsListInDb(tester, {bool isWidgetTest}) async {
+  Future<List<Product>> loadFourProductsListInDb(
+    tester, {
+    required bool isWidgetTest,
+  }) async {
     var _listProducts;
     var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
     if (!isWidgetTest) {
-      await dbTestUtils.cleanDb(url: TEST_URL, interval: DELAY, db: DB_NAME);
+      await dbTestUtils.cleanDb(url: TEST_URL, db: DB_NAME);
       await dbTestUtils
           .addMultipleObjects(
             tester,
@@ -97,7 +100,7 @@ class TestUtils {
       lineCharacter: '=',
     ));
 
-    await Get.put(DbTestUtils()).cleanDb(url: TEST_URL, interval: DELAY, db: DB_NAME);
+    await Get.put(DbTestUtils()).cleanDb(url: TEST_URL, db: DB_NAME);
   }
 
   void globalTearDownAll(String testModuleName) async {
@@ -128,12 +131,12 @@ class TestUtils {
   }
 
   String _headerGenerator({
-    String module,
-    String label,
-    String arrowChar,
-    String lineCharacter,
-    int fullLength,
-    int qtdeSuperiorLine,
+    required String module,
+    required String label,
+    required String arrowChar,
+    required String lineCharacter,
+    required int fullLength,
+    required int qtdeSuperiorLine,
   }) {
     var title = '$label $module';
     var superiorLine = arrowChar;

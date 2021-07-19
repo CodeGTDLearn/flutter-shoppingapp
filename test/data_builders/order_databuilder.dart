@@ -15,6 +15,7 @@ class OrderDatabuilder {
     ListCartItemsFake.add(carItem2);
 
     return Order(
+        null,
         Faker().randomGenerator.decimal(scale: 1, min: 100.00).toString(),
         Faker().date.dateTime(minYear: 2019, maxYear: 2020).toString(),
         ListCartItemsFake);
@@ -22,9 +23,10 @@ class OrderDatabuilder {
 
   static Order OrderParam(List<CartItem> cartItems, String id) {
     return Order(
-        Faker().randomGenerator.decimal(min: 22.0).toStringAsFixed(2),
-        Faker().date.dateTime(minYear: 2019, maxYear: 2020).toString(),
-        cartItems,
-        id);
+      id,
+      Faker().randomGenerator.decimal(min: 22.0).toStringAsFixed(2),
+      Faker().date.dateTime(minYear: 2019, maxYear: 2020).toString(),
+      cartItems,
+    );
   }
 }

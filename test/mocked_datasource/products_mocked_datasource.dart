@@ -6,7 +6,7 @@ import 'package:shopingapp/app/modules/overview/components/filter_favorite_enum.
 
 class ProductsMockedDatasource {
   final MOCKED_DATASOURCE = "test/mocked_datasource/mocked_datasource.json";
-  String _MockedDatasource;
+  late String _MockedDatasource;
 
   ProductsMockedDatasource() {
     _MockedDatasource = MOCKED_DATASOURCE;
@@ -52,9 +52,5 @@ class ProductsMockedDatasource {
 
   List<Product> productsEmpty() {
     return [];
-  }
-
-  Product productNull() {
-    return null;
   }
 }

@@ -89,7 +89,7 @@ class InventoryTests {
     );
   }
 
-  Future<void> refreshingInventoryView(tester, {Product draggerWidget}) async {
+  Future<void> refreshingInventoryView(tester, {required Product draggerWidget}) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -111,7 +111,7 @@ class InventoryTests {
         tester,
         url: PRODUCTS_URL,
         interval: DELAY,
-        id: draggerWidget.id,
+        id: draggerWidget.id!,
       );
     }
 
@@ -128,13 +128,10 @@ class InventoryTests {
 
   Future<void> updateInventoryProduct(
     tester, {
-    String inputValidText,
-    String fieldKey,
-    int interval,
-    Product productToUpdate,
+    required String inputValidText,
+    required String fieldKey,
+    required Product productToUpdate,
   }) async {
-    interval ??= DELAY;
-
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -146,7 +143,7 @@ class InventoryTests {
 
     await uiTestUtils.openDrawerAndClickAnOption(
       tester,
-      interval: interval,
+      interval: DELAY,
       optionKey: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
@@ -158,7 +155,7 @@ class InventoryTests {
     expect(testUtils.type(InventoryView), findsOneWidget);
     expect(testUtils.text(productToUpdate.title), findsWidgets);
     await tester.tap(keyUpdateButton);
-    await tester.pump(testUtils.delay(interval));
+    await tester.pump(testUtils.delay(DELAY));
 
     // 2) InventoryAddEditView
     //   -> Checking View + Title-Form-Field
@@ -172,7 +169,7 @@ class InventoryTests {
     // await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY));
     await tester.tap(testUtils.key(fieldKey));
     await tester.enterText(testUtils.key(fieldKey), inputValidText);
-    await tester.pump(testUtils.delay(interval));
+    await tester.pump(testUtils.delay(DELAY));
 
     // 4) Save form
     //   -> Tap Saving:
@@ -180,7 +177,7 @@ class InventoryTests {
     //   -> Test existence of INValidation messages
     //   -> Go to InventoryView + Checking UpdatedValue
     await tester.tap(testUtils.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
-    await tester.pump(testUtils.delay(interval));
+    await tester.pump(testUtils.delay(DELAY));
 
     // 4.1) Save form
     //   -> Tap Saving:
@@ -190,7 +187,7 @@ class InventoryTests {
     //          - Without 'PERSISTENCE' in DB InventoryAddEditView does not GO-BACK
     //          InventoryView automatically
     if (isWidgetTest == false) {
-      await tester.pump(testUtils.delay(interval));
+      await tester.pump(testUtils.delay(DELAY));
       expect(testUtils.type(InventoryView), findsOneWidget);
       expect(testUtils.text(inputValidText), findsOneWidget);
 
@@ -209,14 +206,11 @@ class InventoryTests {
 
   Future<void> checkInputInjectionOrInputValidation(
     tester, {
-    String injectionTextOrInvalidText,
-    String fieldKey,
-    String shownValidationErrorMessage,
-    int interval,
-    Product productToUpdate,
+    required String injectionTextOrInvalidText,
+    required String fieldKey,
+    required String shownValidationErrorMessage,
+    required Product productToUpdate,
   }) async {
-    interval ??= DELAY;
-
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -228,7 +222,7 @@ class InventoryTests {
 
     await uiTestUtils.openDrawerAndClickAnOption(
       tester,
-      interval: interval,
+      interval: DELAY,
       optionKey: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
@@ -240,7 +234,7 @@ class InventoryTests {
     expect(testUtils.type(InventoryView), findsOneWidget);
     expect(testUtils.text(productToUpdate.title), findsWidgets);
     await tester.tap(keyUpdateButton);
-    await tester.pump(testUtils.delay(interval));
+    await tester.pump(testUtils.delay(DELAY));
 
     // 2) InventoryAddEditView
     //   -> Checking View + Title-Form-Field
@@ -266,7 +260,7 @@ class InventoryTests {
       // await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY));
       await tester.tap(testUtils.key(fieldKey));
       await tester.enterText(testUtils.key(fieldKey), injectionTextOrInvalidText);
-      await tester.pump(testUtils.delay(interval));
+      await tester.pump(testUtils.delay(DELAY));
 
       // 4) Save form
       //   -> Tap Saving:
@@ -274,11 +268,11 @@ class InventoryTests {
       //   -> Test existence of INValidation messages
       //   -> Go to InventoryView + Checking UpdatedValue
       await tester.tap(testUtils.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
-      await tester.pump(testUtils.delay(interval));
+      await tester.pump(testUtils.delay(DELAY));
 
       if (i == 1) expect(testUtils.text(shownValidationErrorMessage), findsWidgets);
 
-      await tester.pump(testUtils.delay(interval));
+      await tester.pump(testUtils.delay(DELAY));
     }
 
     // 4.1) Save form
@@ -289,7 +283,7 @@ class InventoryTests {
     //          - Without 'PERSISTENCE' in DB, InventoryEditView does not GO-BACK TO
     //          InventoryView automatically
     if (isWidgetTest == false) {
-      await tester.pump(testUtils.delay(interval));
+      await tester.pump(testUtils.delay(DELAY));
       expect(testUtils.type(InventoryView), findsOneWidget);
 
       // 5) Click InventoryView-BackButton
@@ -306,10 +300,10 @@ class InventoryTests {
 
   Future<void> deleteInventoryProduct(
     tester, {
-    int initialQtde,
-    int finalQtde,
-    String keyDeleteButton,
-    Type widgetTypeToDelete,
+    required int initialQtde,
+    required int finalQtde,
+    required String keyDeleteButton,
+    required Type widgetTypeToDelete,
   }) async {
     await uiTestUtils.testInitialization(
       tester,
@@ -397,9 +391,9 @@ class InventoryTests {
 
   Future<void> AddProductInDb(
     WidgetTester tester, {
-    int interval,
-    bool validTexts,
-    int qtde,
+    required int interval,
+    required bool validTexts,
+    required int qtde,
   }) async {
     var invalidText;
     var _seek = Get.put(TestUtils(), tag: 'localTestUtilsInstance');
@@ -480,8 +474,8 @@ class InventoryTests {
 
   Future<void> addProductFillingFormInInventoryEditView(
     tester, {
-    Product product,
-    bool useValidTexts,
+    required Product product,
+    required bool useValidTexts,
   }) async {
     await uiTestUtils.testInitialization(
       tester,
