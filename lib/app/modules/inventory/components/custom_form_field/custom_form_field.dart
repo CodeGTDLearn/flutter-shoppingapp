@@ -1,45 +1,49 @@
+import 'package:currency_textfield/currency_textfield.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/properties/app_properties.dart';
 import '../../core/texts_icons/inventory_edit_texts_icons_provided.dart';
 import '../../entities/product.dart';
 import 'field_properties/properties_abstraction.dart';
-import 'field_validators/validator_abstraction.dart';
 
 class CustomFormField {
-  late final ValidatorAbstraction validator;
   late final PropertiesAbstraction properties;
 
-  CustomFormField(this.validator, this.properties);
+  CustomFormField(this.properties);
 
   TextFormField create({
     required Product product,
     required BuildContext context,
-    required Function function,
-    required String fieldName,
+    required Function onFieldSubmitted,
+    required String label,
     required String initialValue,
     required String key,
+    FormFieldValidator<String>? validator,
     FocusNode? node,
-    var controller,
+    TextEditingController? controller,
   }) {
-    var map = properties.properties(fieldName, initialValue, validator);
+    var map = properties.properties();
     return TextFormField(
       key: Key(key),
       //************  CONTROLLER + INITIAL_VALUE are incompativel  ************
-      initialValue: controller == null ? getValue(map, 'initialValue') : null,
+      initialValue: controller == null ? initialValue : null,
       controller: controller ??
-          (fieldName == INV_ADEDT_FLD_PRICE ? getValue(map, 'controller') : null),
+          (label == INV_EDT_LBL_PRICE && initialValue.isEmpty
+              ? _priceController()
+              : null),
+      // 'controller': initialValue.isEmpty ? _priceController : null,
       //***********************************************************************
-      decoration: InputDecoration(labelText: getValue(map, 'labelText')),
+      decoration: InputDecoration(labelText: label),
       textInputAction: getValue(map, 'textInputAction'),
       maxLength: getValue(map, 'maxLength'),
-      maxLines: fieldName == INV_ADEDT_FLD_DESCR ? 4 : 1,
+      maxLines: label == INV_EDT_LBL_DESCR ? 4 : 1,
       keyboardType: getValue(map, 'textInputType'),
-      validator: getValue(map, 'validatorCriteria'),
-      onFieldSubmitted: function(),
-      onSaved: (fieldValue) => _loadProductWithFieldValue(fieldName, product, fieldValue),
+      // validator: getValue(map, 'validatorCriteria'),
+      validator: validator,
+      onFieldSubmitted: (_) => onFieldSubmitted,
+      onSaved: (fieldValue) => _loadProductWithFieldValue(label, product, fieldValue),
       focusNode: node,
     );
-    // validator: _validatorCriteria,
   }
 
   dynamic getValue(Map<String, dynamic> map, String key) {
@@ -49,15 +53,22 @@ class CustomFormField {
   }
 
   void _loadProductWithFieldValue(String field, Product product, var value) {
-    if (field == INV_ADEDT_FLD_TITLE) product.title = value;
-    if (field == INV_ADEDT_FLD_IMGURL) product.imageUrl = value;
-    if (field == INV_ADEDT_FLD_DESCR) product.description = value;
-    if (field == INV_ADEDT_FLD_PRICE) {
-      var stringValue = value as String;
-      stringValue = stringValue.replaceAll(",", "");
-      stringValue = stringValue.replaceAll("\$", "");
-      product.price = double.parse(stringValue);
+    if (field == INV_EDT_LBL_TITLE) product.title = value;
+    if (field == INV_EDT_LBL_IMGURL) product.imageUrl = value;
+    if (field == INV_EDT_LBL_DESCR) product.description = value;
+    if (field == INV_EDT_LBL_PRICE) {
+      var txtValue = (value as String).isEmpty ? '0.00' : value.toString();
+      txtValue = txtValue.replaceAll(",", "");
+      txtValue = txtValue.replaceAll("\$", "");
+      product.price = double.parse(txtValue);
     }
+  }
+
+  CurrencyTextFieldController _priceController() {
+    return CurrencyTextFieldController(
+        rightSymbol: CURRENCY_FORMAT,
+        decimalSymbol: DECIMAL_SYMBOL,
+        thousandSymbol: THOUSAND_SYMBOL);
   }
 }
 // final ValidatorAbstraction _validTitle = TitleValidator();
@@ -77,6 +88,36 @@ class CustomFormField {
 // late String _initialValue;
 // late int _maxLength;
 // late var _controller;
+
+// TextFormField create({
+//   required Product product,
+//   required BuildContext context,
+//   required Function function,
+//   required String fieldName,
+//   required String key,
+//   required FocusNode node,
+//   var controller,
+// }) {
+//   _loadTextFieldsParameters(fieldName, product);
+//
+//   return TextFormField(
+//     key: Key(key),
+//
+//     //************  CONTROLLER + INITIAL_VALUE are incompativel  ************
+//     initialValue: controller == null ? _initialValue : null,
+//     controller: controller ?? (fieldName == INV_ADEDT_FLD_PRICE ? _controller : null),
+//     //***********************************************************************
+//     decoration: InputDecoration(labelText: _labelText, hintText: _hint),
+//     textInputAction: _textInputAction,
+//     maxLength: _maxLength,
+//     maxLines: fieldName == INV_ADEDT_FLD_DESCR ? 4 : 1,
+//     keyboardType: _textInputType,
+//     validator: _validatorCriteria,
+//     onFieldSubmitted: function,
+//     onSaved: (field) => _loadProductWithFieldValue(fieldName, product, field),
+//     focusNode: node,
+//   );
+// }
 
 // var _validatorCriteria;
 // void _loadTextFieldParameters(String fieldName, Product fieldContent) {
@@ -123,10 +164,4 @@ class CustomFormField {
 //       }
 //       break;
 //   }
-// }
-// CurrencyTextFieldController _priceController() {
-//   return CurrencyTextFieldController(
-//       rightSymbol: CURRENCY_FORMAT,
-//       decimalSymbol: DECIMAL_SYMBOL,
-//       thousandSymbol: THOUSAND_SYMBOL);
 // }

@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -17,14 +18,14 @@ import 'groups/orders_test_groups.dart';
 import 'groups/overview_test_groups.dart';
 
 void main() {
-  const _type = String.fromEnvironment('testType', defaultValue: WIDGET_TEST);
+  final _type = String.fromEnvironment('testType', defaultValue: WIDGET_TEST);
   if (_type == WIDGET_TEST) _unitAndWidgetTests();
   if (_type == INTEGRATION_TEST) _integrationTests();
   if (_type != WIDGET_TEST && _type != INTEGRATION_TEST) print('TestType not Found.');
 }
 
 void _unitAndWidgetTests() {
-  final skipGroup = true;
+  final skipGroup = false;
 
   // CartTestGroups().groups(skipGroup); //<<<<<<<<<<<<< BUG 01
   InventoryTestGroups().groups(skipGroup);
@@ -38,7 +39,7 @@ void _unitAndWidgetTests() {
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final skipGroup = true;
+  final skipGroup = false;
 
   group(
     OrdersTestConfig.ORDERS_GROUP_TITLE,

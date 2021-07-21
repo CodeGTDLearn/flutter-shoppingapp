@@ -91,7 +91,7 @@ class TestUtils {
   }
 
   void globalSetUpAll(String testModuleName) async {
-    await print(_headerGenerator(
+    print(_headerGenerator(
       module: testModuleName,
       label: 'Starting FunctionalTests: ',
       fullLength: 63,

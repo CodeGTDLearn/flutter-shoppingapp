@@ -5,18 +5,11 @@ import 'properties_abstraction.dart';
 
 class UrlProperties extends PropertiesAbstraction {
   @override
-  Map<String, dynamic> properties(
-    String fieldName,
-    String initialValue,
-    ValidatorAbstraction fieldValidator,
-  ) {
+  Map<String, dynamic> properties() {
     return {
-      'labelText': fieldName,
       'textInputAction': TextInputAction.done,
       'textInputType': TextInputType.url,
       'maxLength': FIELD_URL_MAX_SIZE,
-      'validatorCriteria': fieldValidator,
-      'initialValue': initialValue,
     };
   }
 }

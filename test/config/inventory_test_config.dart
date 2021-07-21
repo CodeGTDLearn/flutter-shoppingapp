@@ -87,11 +87,11 @@ class InventoryTestConfig {
   //MVC-TITLES -----------------------------------------------------------------
   String repoName() => _mocked_repo_used_in_this_module_test.runtimeType.toString();
   get REPO_TEST_TITLE => '${repoName()}|Repo: Unit';
-  get SERVICE_TEST_TITLE => '${repoName()}|Service|Repo: Unit';
-  get CONTROLLER_TEST_TITLE => '${repoName()}|Controller|Service|Repo: Integr';
+  get SERVICE_TEST_TITLE => '${repoName()}|Service: Unit';
+  get CONTROLLER_TEST_TITLE => '${repoName()}|Controller: Integr';
   get VIEW_TEST_TITLE => '${repoName()}|View: Functional';
-  get VIEW_TEST_VALID_TITLE => '${repoName()}|View|Edit|Validation: Functional';
-  get VIEW_EDIT_TEST_TITLE => '${repoName()}|View|Edit: Functional';
+  get VIEW_TEST_VALID_TITLE => '${repoName()}|View-Edit|Validation: Functional';
+  get VIEW_EDIT_TEST_TITLE => '${repoName()}|View-Edit: Functional';
 
   //TEST-TITLES ----------------------------------------------------------------
   get check_ProductsAbsence => 'Checking products (empty DB)';
@@ -103,22 +103,22 @@ class InventoryTestConfig {
 
   //TEST-TITLES: TITLE CHECK VALIDATIONS + CHECK INJECTIONS --------------------
   get validation_title_size => 'Title|Validation|min 05 chars';
-  get validation_title_inject => 'Title|Check injection (OWASP)';
+  get validation_title_inject => 'Title|Injection (OWASP)';
   get validation_title_empty => 'Title|Validation|empty not allowed';
 
   //TEST-TITLES: DESCRIPTION CHECK VALIDATIONS + CHECK INJECTIONS --------------
   get validation_descript_size => 'Description|Validation|min 10 chars';
-  get validation_descript_inject => 'Description|Check injection (OWASP)';
+  get validation_descript_inject => 'Description|Injection (OWASP)';
   get validation_descript_empty => 'Description|Validation|empty not allowed';
 
   //TEST-TITLES: PRICE CHECK VALIDATIONS + CHECK INJECTIONS --------------------
   get validation_price_size => 'Price|Validation|max 07 chars';
-  get validation_price_inject => 'Price|Check injection (OWASP)';
+  get validation_price_inject => 'Price|Injection (OWASP)';
   get validation_price_empty => 'Price|Validation|empty not allowed';
 
   //TEST-TITLES: URL CHECK VALIDATIONS + CHECK INJECTIONS ----------------------
   get validation_url_size => 'Url Image|Validation|max 135 chars';
-  get validation_url_inject => 'Url Image|Check injection (OWASP)';
+  get validation_url_inject => 'Url Image|Injection (OWASP)';
   get validation_url_empty => 'Url Image|Validation|empty not allowed';
 
   //TEST-TITLES: URL CHECK VALIDATIONS + CHECK INJECTIONS ----------------------

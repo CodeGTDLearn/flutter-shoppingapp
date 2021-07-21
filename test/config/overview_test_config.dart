@@ -74,12 +74,12 @@ class OverviewTestConfig {
   // @formatter:off
   //GROUP-TITLES ---------------------------------------------------------------
   static get OVERVIEW_GROUP_TITLE => 'OverView|Integration-Tests:';
-  static get OVERVIEW_DETAIL_GROUP_TITLE => 'OverView|Details|Integration-Tests:';
+  static get OVERVIEW_DETAIL_GROUP_TITLE => 'OverView-Details|Integration-Tests:';
 
   //MVC-TITLES -----------------------------------------------------------------
   get REPO_TEST_TITLE => '${repoName()}|Repo: Unit';
-  get SERVICE_TEST_TITLE => '${repoName()}|Service|Repo: Unit';
-  get CONTROLLER_TEST_TITLE => '${repoName()}|Controller|Service|Repo: Integr';
+  get SERVICE_TEST_TITLE => '${repoName()}|Service: Unit';
+  get CONTROLLER_TEST_TITLE => '${repoName()}|Controller: Integr';
   get VIEW_TEST_TITLE => '${repoName()}|View: Functional';
   get DETAIL_VIEW_TEST_TITLE => '${repoName()}|View|Details: Functional';
 

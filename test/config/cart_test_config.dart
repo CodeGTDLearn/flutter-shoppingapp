@@ -85,9 +85,9 @@ class CartTestConfig {
   //MVC-TITLES -----------------------------------------------------------------
   get REPO_TEST_TITLE => '${repoName()}|Repo: Unit';
 
-  get SERVICE_TEST_TITLE => '${repoName()}|Service|Repo: Unit';
+  get SERVICE_TEST_TITLE => '${repoName()}|Service: Unit';
 
-  get CONTROLLER_TEST_TITLE => '${repoName()}|Controller|Service|Repo: Integr';
+  get CONTROLLER_TEST_TITLE => '${repoName()}|Controller: Integr';
 
   get VIEW_TEST_TITLE => '${repoName()}|View: Functional';
   // @formatter:on

@@ -46,9 +46,9 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        injectionTextOrInvalidText: "Size",
+        inputText: "Size",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
-        shownValidationErrorMessage: SIZE_05_INVALID_MSG,
+        validationErrorMessage: SIZE_05_INVALID_ERROR_MSG,
         productToUpdate: product,
       );
     });
@@ -58,9 +58,9 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        injectionTextOrInvalidText: "",
+        inputText: "",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
-        shownValidationErrorMessage: EMPTY_FIELD_INVALID_MSG,
+        validationErrorMessage: EMPTY_FIELD_INVALID_ERROR_MSG,
         productToUpdate: product,
       );
     });
@@ -70,9 +70,9 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        injectionTextOrInvalidText: "<SCRIPT>",
+        inputText: "<SCRIPT>",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
-        shownValidationErrorMessage: TEXT_NUMBER_INVALID_MSG,
+        validationErrorMessage: TEXT_NUMBER_INVALID_ERROR_MSG,
         productToUpdate: product,
       );
     });
@@ -83,9 +83,9 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        injectionTextOrInvalidText: "Size",
+        inputText: "Size",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY,
-        shownValidationErrorMessage: SIZE_10_INVALID_MSG,
+        validationErrorMessage: SIZE_10_INVALID_ERROR_MSG,
         productToUpdate: product,
       );
     });
@@ -95,9 +95,9 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        injectionTextOrInvalidText: "",
+        inputText: "",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY,
-        shownValidationErrorMessage: EMPTY_FIELD_INVALID_MSG,
+        validationErrorMessage: EMPTY_FIELD_INVALID_ERROR_MSG,
         productToUpdate: product,
       );
     });
@@ -107,9 +107,9 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        injectionTextOrInvalidText: "<SCRIPT>",
+        inputText: "<SCRIPT>",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY,
-        shownValidationErrorMessage: TEXT_NUMBER_INVALID_MSG,
+        validationErrorMessage: TEXT_NUMBER_INVALID_ERROR_MSG,
         productToUpdate: product,
       );
     });
@@ -120,9 +120,9 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        injectionTextOrInvalidText: "evilLetterrr",
+        inputText: "evilLetterrr",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY,
-        shownValidationErrorMessage: PRICE_INVALID_MSG,
+        validationErrorMessage: PRICE_INVALID_ERROR_MSG,
         productToUpdate: product,
       );
     });
@@ -132,9 +132,9 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        injectionTextOrInvalidText: "",
+        inputText: "",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY,
-        shownValidationErrorMessage: EMPTY_FIELD_INVALID_MSG,
+        validationErrorMessage: EMPTY_FIELD_INVALID_ERROR_MSG,
         productToUpdate: product,
       );
     });
@@ -144,9 +144,9 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        injectionTextOrInvalidText: "<SCRIPT>",
+        inputText: "<SCRIPT>",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY,
-        shownValidationErrorMessage: PRICE_INVALID_MSG,
+        validationErrorMessage: PRICE_INVALID_ERROR_MSG,
         productToUpdate: product,
       );
     });
@@ -157,9 +157,9 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        injectionTextOrInvalidText: "evilLetter",
+        inputText: "evilLetter",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY,
-        shownValidationErrorMessage: URL_INVALID_MSG,
+        validationErrorMessage: URL_INVALID_ERROR_MSG,
         productToUpdate: product,
       );
     });
@@ -169,9 +169,9 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        injectionTextOrInvalidText: "",
+        inputText: "",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY,
-        shownValidationErrorMessage: EMPTY_FIELD_INVALID_MSG,
+        validationErrorMessage: EMPTY_FIELD_INVALID_ERROR_MSG,
         productToUpdate: product,
       );
     });
@@ -181,9 +181,9 @@ class InventoryViewValidationTest {
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
-        injectionTextOrInvalidText: "<SCRIPT>",
+        inputText: "<SCRIPT>",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY,
-        shownValidationErrorMessage: URL_INVALID_MSG,
+        validationErrorMessage: URL_INVALID_ERROR_MSG,
         productToUpdate: product,
       );
     });

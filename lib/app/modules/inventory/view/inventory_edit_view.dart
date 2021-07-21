@@ -30,7 +30,6 @@ class _InventoryEditViewState extends State<InventoryEditView> {
   final InventoryController _invController = Get.find();
   final OverviewController _ovController = Get.find();
 
-  // var _imgUrlPreviewObs = false.obs;
   final _imgUrlPreviewObs = false.obs;
 
   bool _isInit = true;
@@ -81,13 +80,12 @@ class _InventoryEditViewState extends State<InventoryEditView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text(Get.arguments == null
-                ? INV_ADEDT_LBL_ADD_APPBAR
-                : INV_ADEDT_LBL_EDIT_APPBAR),
+            title: Text(
+                Get.arguments == null ? INV_EDT_LBL_ADD_APPBAR : INV_EDT_LBL_EDIT_APPBAR),
             actions: [
               IconButton(
                   key: Key(K_INV_ADDEDIT_SAVE_BTN),
-                  icon: ICO_INV_ADEDT_SAVE_BTN_APPBAR,
+                  icon: ICO_INV_EDT_SAVE_BTN_APPBAR,
                   onPressed: () => _saveForm(context))
             ]),
         body: Obx(() => _invController.reloadInventoryEditPageObs.value
@@ -98,28 +96,31 @@ class _InventoryEditViewState extends State<InventoryEditView> {
                     key: _formKey,
                     child: SingleChildScrollView(
                         child: Column(children: [
-                      CustomFormField(TitleValidator(), TitleProperties()).create(
+                      CustomFormField(TitleProperties()).create(
                           product: _product,
                           initialValue: _product.title,
                           context: context,
-                          fieldName: INV_ADEDT_FLD_TITLE,
+                          label: INV_EDT_LBL_TITLE,
                           key: K_INV_ADDEDIT_FLD_TITLE,
-                          function: (_) => _sendFocusTo(_nodePrice, context)),
-                      CustomFormField(PriceValidator(), PriceProperties()).create(
+                          validator: TitleValidator().validate(),
+                          onFieldSubmitted: (_) => _sendFocusTo(_nodePrice, context)),
+                      CustomFormField(PriceProperties()).create(
                           product: _product,
                           initialValue: _product.price.toString(),
                           context: context,
-                          fieldName: INV_ADEDT_FLD_PRICE,
+                          label: INV_EDT_LBL_PRICE,
                           key: K_INV_ADDEDIT_FLD_PRICE,
-                          function: (_) => _sendFocusTo(_nodeDescr, context),
+                          validator: PriceValidator().validate(),
+                          onFieldSubmitted: (_) => _sendFocusTo(_nodeDescr, context),
                           node: _nodePrice),
-                      CustomFormField(DescriptValidator(), DescripProperties()).create(
+                      CustomFormField(DescripProperties()).create(
                           product: _product,
                           initialValue: _product.description,
                           context: context,
-                          fieldName: INV_ADEDT_FLD_DESCR,
+                          label: INV_EDT_LBL_DESCR,
                           key: K_INV_ADDEDIT_FLD_DESCR,
-                          function: (_) => _sendFocusTo(_nodeImgUrl, context),
+                          validator: DescriptionValidator().validate(),
+                          onFieldSubmitted: (_) => _sendFocusTo(_nodeImgUrl, context),
                           node: _nodeDescr),
                       Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
                         Container(
@@ -131,19 +132,19 @@ class _InventoryEditViewState extends State<InventoryEditView> {
                             child: Obx(() => (Container(
                                   child: _imgUrlPreviewObs.value
                                       ? _showProductImage(_imgUrlController.text)
-                                      : Center(child: INV_ADEDT_NO_IMG_TIT),
+                                      : Center(child: INV_EDT_NO_IMG_TIT),
                                 )))),
                         Expanded(
-                            child: CustomFormField(UrlValidator(), UrlProperties())
-                                .create(
-                                    product: _product,
-                                    initialValue: _product.imageUrl,
-                                    context: context,
-                                    fieldName: INV_ADEDT_FLD_IMGURL,
-                                    key: K_INV_ADDEDIT_FLD_IMGURL,
-                                    function: (_) => _saveForm(context),
-                                    node: _nodeImgUrl,
-                                    controller: _imgUrlController))
+                            child: CustomFormField(UrlProperties()).create(
+                                product: _product,
+                                initialValue: _product.imageUrl,
+                                context: context,
+                                label: INV_EDT_LBL_IMGURL,
+                                key: K_INV_ADDEDIT_FLD_IMGURL,
+                                validator: UrlValidator().validate(),
+                                onFieldSubmitted: (_) => _saveForm(context),
+                                node: _nodeImgUrl,
+                                controller: _imgUrlController))
                       ])
                     ]))))));
   }

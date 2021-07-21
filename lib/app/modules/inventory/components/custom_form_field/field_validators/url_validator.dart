@@ -10,10 +10,10 @@ class UrlValidator extends ValidatorAbstraction {
   @override
   FormFieldValidator<String> validate() {
     return Validators.compose([
-      Validators.required(EMPTY_FIELD_INVALID_MSG),
+      Validators.required(EMPTY_FIELD_INVALID_ERROR_MSG),
       Validators.patternRegExp(
-          RegExp(OWASP_SAFE_URL, caseSensitive: false), URL_INVALID_MSG),
-      Validators.minLength(FIELD_URL_MIN_SIZE, SIZE_URL_INVALID_MSG),
+          RegExp(OWASP_SAFE_URL, caseSensitive: false), URL_INVALID_ERROR_MSG),
+      Validators.minLength(FIELD_URL_MIN_SIZE, SIZE_URL_INVALID_ERROR_MSG),
     ]);
   }
 }

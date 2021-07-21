@@ -8,26 +8,19 @@ import 'properties_abstraction.dart';
 
 class PriceProperties extends PropertiesAbstraction {
   @override
-  Map<String, dynamic> properties(
-    String fieldName,
-    String initialValue,
-    ValidatorAbstraction fieldValidator,
-  ) {
-    CurrencyTextFieldController _priceController() {
-      return CurrencyTextFieldController(
-          rightSymbol: CURRENCY_FORMAT,
-          decimalSymbol: DECIMAL_SYMBOL,
-          thousandSymbol: THOUSAND_SYMBOL);
-    }
+  Map<String, dynamic> properties() {
+    // CurrencyTextFieldController _priceController() {
+    //   return CurrencyTextFieldController(
+    //       rightSymbol: CURRENCY_FORMAT,
+    //       decimalSymbol: DECIMAL_SYMBOL,
+    //       thousandSymbol: THOUSAND_SYMBOL);
+    // }
 
     return {
-      'labelText': fieldName,
       'textInputAction': TextInputAction.next,
       'textInputType': TextInputType.number,
       'maxLength': FIELD_PRICE_MAX_SIZE,
-      'validatorCriteria': fieldValidator,
-      'initialValue': initialValue,
-      'controller': initialValue.isEmpty ? _priceController : null,
+      // 'controller': initialValue.isEmpty ? _priceController : null,
     };
   }
 }

@@ -260,7 +260,7 @@ class OverviewTests {
     // @formatter:on
   }
 
-  void checkOverviewGridItemInOverviewView(tester, {required int itemsQtde}) async {
+  Future checkOverviewGridItemInOverviewView(tester, {required int itemsQtde}) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,

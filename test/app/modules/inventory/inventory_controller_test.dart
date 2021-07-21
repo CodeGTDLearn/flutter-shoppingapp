@@ -103,17 +103,12 @@ class InventoryControllerTests {
     });
 
     test('Updating a Product - status 500', () {
-      _overviewService.getProducts().then((_) {
-        expect(
-          _overviewService.getProductById(_product1.id!),
-          isIn(_overviewService.getLocalDataAllProducts()),
-        );
-      });
       _controller.getProducts().then((_) {
         expect(
           _newProduct.id,
           isNot(isIn(_controller.getInventoryProductsObs())),
         );
+        _newProduct;
         _controller.updateProduct(_newProduct).then((response) {
           expect(response, 500);
         });

@@ -13,7 +13,7 @@ class ProductDataBuilder {
       id: Faker().randomGenerator.string(3, min: 2),
       title: Faker().food.dish(),
       description: Faker().food.cuisine(),
-      price: Faker().randomGenerator.decimal(),
+      price: num.parse(Faker().randomGenerator.decimal().toStringAsFixed(2)).toDouble(),
       imageUrl: "https://images.freeimages"
           ".com/images/large-previews/eae/clothes-3-1466560.jpg",
       isFavorite: true,

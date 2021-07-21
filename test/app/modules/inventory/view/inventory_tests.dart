@@ -206,9 +206,9 @@ class InventoryTests {
 
   Future<void> checkInputInjectionOrInputValidation(
     tester, {
-    required String injectionTextOrInvalidText,
+    required String inputText,
     required String fieldKey,
-    required String shownValidationErrorMessage,
+    required String validationErrorMessage,
     required Product productToUpdate,
   }) async {
     await uiTestUtils.testInitialization(
@@ -246,8 +246,8 @@ class InventoryTests {
       var isPriceField = fieldKey == INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY;
       var isUrlField = fieldKey == INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY;
 
-      injectionTextOrInvalidText = i == 1
-          ? injectionTextOrInvalidText
+      inputText = i == 1
+          ? inputText
           : isPriceField
               ? '99.99'
               : isUrlField
@@ -259,7 +259,7 @@ class InventoryTests {
       //   -> Checking the change
       // await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY));
       await tester.tap(testUtils.key(fieldKey));
-      await tester.enterText(testUtils.key(fieldKey), injectionTextOrInvalidText);
+      await tester.enterText(testUtils.key(fieldKey), inputText);
       await tester.pump(testUtils.delay(DELAY));
 
       // 4) Save form
@@ -270,7 +270,7 @@ class InventoryTests {
       await tester.tap(testUtils.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
       await tester.pump(testUtils.delay(DELAY));
 
-      if (i == 1) expect(testUtils.text(shownValidationErrorMessage), findsWidgets);
+      if (i == 1) expect(testUtils.text(validationErrorMessage), findsWidgets);
 
       await tester.pump(testUtils.delay(DELAY));
     }
@@ -409,7 +409,7 @@ class InventoryTests {
 
     expect(_seek.type(InventoryView), findsOneWidget);
 
-    qtde ??= 1;
+    // qtde ??= 1;
     for (var i = 1; i <= qtde; i++) {
       // C) CLICK IN INVENTORY-ADD-PRODUCT-BUTTON
       await UiTestUtils().tapButtonWithResult(
@@ -488,12 +488,14 @@ class InventoryTests {
     var validTitle, validPrice, validDesc, validImgUrl, invalidText;
 
     invalidText = "d";
-    validTitle = product.title ?? "xxxxxx";
-    validPrice = product.price.toString() ??
-        Faker().randomGenerator.decimal(min: 20).toStringAsFixed(2);
-
-    validDesc = product.description ?? "xxxxxxxxxxxxxx";
-    validImgUrl = product.imageUrl ?? IMAGE1_TEST_URL;
+    // validTitle = product.title ?? "xxxxxx";
+    // validPrice = product.price.toString() ?? Faker().randomGenerator.decimal(min: 20).toStringAsFixed(2);
+    // validDesc = product.description ?? "xxxxxxxxxxxxxx";
+    // validImgUrl = product.imageUrl ?? IMAGE1_TEST_URL;
+    validTitle = product.title;
+    validPrice = product.price.toString();
+    validDesc = product.description;
+    validImgUrl = product.imageUrl;
 
     expect(testUtils.text(INVENTORY_ADDEDIT_FIELD_TITLE), findsOneWidget);
     expect(testUtils.text(INVENTORY_ADDEDIT_FIELD_PRICE), findsOneWidget);
@@ -550,9 +552,9 @@ class InventoryTests {
   }
 
   void _expectTestingINValidationMessages(Matcher matcher) {
-    expect(testUtils.text(SIZE_05_INVALID_MSG), matcher);
+    expect(testUtils.text(SIZE_05_INVALID_ERROR_MSG), matcher);
     // expect(_testUtils.text(PRICE_INVALID_MSG), matcher);
-    expect(testUtils.text(SIZE_10_INVALID_MSG), matcher);
-    expect(testUtils.text(URL_INVALID_MSG), matcher);
+    expect(testUtils.text(SIZE_10_INVALID_ERROR_MSG), matcher);
+    expect(testUtils.text(URL_INVALID_ERROR_MSG), matcher);
   }
 }

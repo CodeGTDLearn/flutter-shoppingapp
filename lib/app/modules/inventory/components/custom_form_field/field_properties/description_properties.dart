@@ -5,18 +5,11 @@ import 'properties_abstraction.dart';
 
 class DescripProperties extends PropertiesAbstraction {
   @override
-  Map<String, dynamic> properties(
-    String fieldName,
-    String initialValue,
-    ValidatorAbstraction fieldValidator,
-  ) {
+  Map<String, dynamic> properties() {
     return {
-      'labelText': fieldName,
       'textInputAction': TextInputAction.next,
       'textInputType': TextInputType.multiline,
       'maxLength': FIELD_DESCRIPT_MAX_SIZE,
-      'validatorCriteria': fieldValidator,
-      'initialValue': initialValue,
     };
   }
 }

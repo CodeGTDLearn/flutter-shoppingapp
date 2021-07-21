@@ -10,9 +10,9 @@ class PriceValidator extends ValidatorAbstraction {
   @override
   FormFieldValidator<String> validate() {
     return Validators.compose([
-      Validators.required(EMPTY_FIELD_INVALID_MSG),
-      Validators.patternString(OWASP_SAFE_NUMBER, PRICE_INVALID_MSG),
-      Validators.minLength(FIELD_PRICE_MIN_SIZE, PRICE_INVALID_MSG),
+      Validators.required(EMPTY_FIELD_INVALID_ERROR_MSG),
+      Validators.patternString(OWASP_SAFE_NUMBER, PRICE_INVALID_ERROR_MSG),
+      Validators.minLength(FIELD_PRICE_MIN_SIZE, PRICE_INVALID_ERROR_MSG),
     ]);
   }
 }

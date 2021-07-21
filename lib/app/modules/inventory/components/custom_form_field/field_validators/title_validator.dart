@@ -10,9 +10,9 @@ class TitleValidator extends ValidatorAbstraction {
   @override
   FormFieldValidator<String> validate() {
     return Validators.compose([
-      Validators.required(EMPTY_FIELD_INVALID_MSG),
-      Validators.patternString(OWASP_SAFE_TEXT, TEXT_NUMBER_INVALID_MSG),
-      Validators.minLength(FIELD_TITLE_MIN_SIZE, SIZE_05_INVALID_MSG),
+      Validators.required(EMPTY_FIELD_INVALID_ERROR_MSG),
+      Validators.patternString(OWASP_SAFE_TEXT, TEXT_NUMBER_INVALID_ERROR_MSG),
+      Validators.minLength(FIELD_TITLE_MIN_SIZE, SIZE_05_INVALID_ERROR_MSG),
     ]);
   }
 }

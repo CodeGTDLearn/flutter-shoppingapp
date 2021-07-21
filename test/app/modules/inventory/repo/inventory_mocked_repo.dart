@@ -1,4 +1,5 @@
 import 'package:faker/faker.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
@@ -51,12 +52,11 @@ class InventoryMockedRepo extends Mock implements IInventoryRepo {
 
   @override
   Future<int> updateProduct(Product product) {
-    // return Future.value(200);
-    // @formatter:off
-    final found =
-        ProductsMockedDatasource().products().firstWhere((item) => item.id == product.id);
-    return found == null ? Future.value(500) : Future.value(200);
-    // @formatter:on
+    var result = 500;
+    ProductsMockedDatasource().products().forEach((item) {
+      if (item.id == product.id) result = 200;
+    });
+    return Future.value(result);
   }
 }
 

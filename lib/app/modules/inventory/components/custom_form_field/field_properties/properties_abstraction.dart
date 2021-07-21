@@ -1,9 +1,5 @@
-import '../field_validators/validator_abstraction.dart';
+import 'package:flutter/material.dart';
 
 abstract class PropertiesAbstraction {
-  Map<String, dynamic> properties(
-    String fieldName,
-    String initialValue,
-    ValidatorAbstraction fieldValidator,
-  );
+  Map<String, dynamic> properties();
 }

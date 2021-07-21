@@ -9,7 +9,7 @@ import 'test_utils.dart';
 class DbTestUtils {
   final _utils = Get.put(TestUtils());
 
-  Future cleanDb({
+  Future<void> cleanDb({
     required String url,
     required String db,
   }) async {
@@ -20,7 +20,7 @@ class DbTestUtils {
     });
   }
 
-  Future removeCollection(
+  Future<void> removeCollection(
     tester, {
     required String url,
     required int interval,
@@ -33,7 +33,7 @@ class DbTestUtils {
     });
   }
 
-  Future removeObject(
+  Future<void> removeObject(
     tester, {
     required String url,
     required int interval,
@@ -51,7 +51,7 @@ class DbTestUtils {
     });
   }
 
-  Future addObject(
+  Future<dynamic> addObject(
     tester, {
     required var object,
     required String collectionUrl,
@@ -78,7 +78,7 @@ class DbTestUtils {
     // @formatter:on
   }
 
-  Future<List<Object>> addMultipleObjects(
+  Future<List<dynamic>> addMultipleObjects(
     tester, {
     required int qtdeObjects,
     required Object object,
@@ -86,7 +86,7 @@ class DbTestUtils {
     required int interval,
   }) async {
     var listReturn = <Object>[];
-    qtdeObjects ??= 1;
+    // qtdeObjects ??= 1;
 
     for (var item = 1; item <= qtdeObjects; item++) {
       await addObject(

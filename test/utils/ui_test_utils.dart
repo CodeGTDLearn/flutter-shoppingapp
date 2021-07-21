@@ -8,7 +8,7 @@ import 'test_utils.dart';
 class UiTestUtils {
   final TestUtils _seek = Get.put(TestUtils());
 
-  void navigationBetweenViews(
+  Future<void> navigationBetweenViews(
     WidgetTester tester, {
     required int interval,
     required Type from,
@@ -22,7 +22,7 @@ class UiTestUtils {
     expect(_seek.type(to), findsOneWidget);
   }
 
-  Future tapButtonWithResult(
+  Future<void> tapButtonWithResult(
     WidgetTester tester, {
     required int interval,
     required String triggerKey,
@@ -35,7 +35,7 @@ class UiTestUtils {
     expect(_seek.type(resultWidget), findsWidgets);
   }
 
-  Future openDrawerAndClickAnOption(
+  Future<void> openDrawerAndClickAnOption(
     WidgetTester tester, {
     required int interval,
     required String optionKey,
@@ -61,7 +61,7 @@ class UiTestUtils {
     );
   }
 
-  Future sendAppToBackground({required int interval}) async {
+  Future<void> sendAppToBackground({required int interval}) async {
     await Future.delayed(Duration(seconds: interval), () {
       print('Application Closed.');
       SystemChannels.platform.invokeMethod('SystemNavigator.pop');
