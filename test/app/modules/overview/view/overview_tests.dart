@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/components/keys/snackbarr_keys.dart';
+import 'package:shopingapp/app/core/components/snackbarr.dart';
+import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/components/overview_grid_item.dart';
@@ -55,15 +57,15 @@ class OverviewTests {
     );
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    var cartBtnProduct0 = testUtils.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
-    var firstProductSnackbarText = testUtils.text(_products()[1].title);
-    var firstProductSnackbarUndoButton = testUtils.key(CUSTOM_SNACKBAR_BUTTON_KEY);
+    var cartButtonProduct0 = testUtils.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
+    var Product0SnackbarText = testUtils.text(_products()[1].title);
+    var Product0SnackbarUndoButton = testUtils.key(CUSTOM_SNACKBAR_BUTTON_KEY);
 
-    await tester.tap(cartBtnProduct0);
+    await tester.tap(cartButtonProduct0);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(testUtils.text("1"), findsOneWidget);
-    expect(firstProductSnackbarText, findsWidgets);
-    await tester.tap(firstProductSnackbarUndoButton);
+    expect(Product0SnackbarText, findsWidgets);
+    await tester.tap(Product0SnackbarUndoButton);
     await tester.pump();
     expect(testUtils.text("0"), findsOneWidget);
   }
@@ -78,6 +80,7 @@ class OverviewTests {
     await tester.pump();
     var popup = testUtils.key(OVERVIEW_FAVORITE_FILTER_APPBAR_BUTTON_KEY);
     var favoriteFilterOption = testUtils.key(OVERVIEW_FAVORITE_FILTER_FAV_KEY);
+    var favoriteFilterOptionTxt = testUtils.text(OVERVIEW_FAVORITES_FILTER_OPTION);
     var productFavoriteBtn = testUtils.key('$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\2');
 
     if (isWidgetTest) await tester.tap(productFavoriteBtn);
@@ -87,6 +90,7 @@ class OverviewTests {
     await tester.tap(popup);
     await tester.pump(testUtils.delay(DELAY));
 
+    await tester.ensureVisible(favoriteFilterOption);
     await tester.tap(favoriteFilterOption);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(testUtils.text(OVERVIEW_TITLE_PAGE_FAVORITE), findsNothing);
@@ -105,20 +109,19 @@ class OverviewTests {
     var popupItemAll = testUtils.key(OVERVIEW_FAVORITE_FILTER_ALL_KEY);
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
+    expect(testUtils.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
     if (!isWidgetTest) await tester.tap(productFavoriteBtn);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-
     expect(testUtils.iconType(IconButton, Icons.favorite), findsNWidgets(1));
-    expect(testUtils.type(OverviewGridItem), findsNWidgets(4));
 
     await tester.tap(popup);
-    await tester.pumpAndSettle(testUtils.delay(DELAY + 5));
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
     await tester.tap(popupItemFav);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
     expect(testUtils.text(OVERVIEW_TITLE_PAGE_FAVORITE), findsOneWidget);
-    expect(testUtils.iconType(IconButton, Icons.favorite), findsNWidgets(1));
-    expect(testUtils.type(OverviewGridItem), findsNothing);
+    expect(testUtils.type(OverviewGridItem), findsOneWidget);
+    // expect(testUtils.iconType(IconButton, Icons.favorite), findsNWidgets(1));
 
     await tester.tap(popup);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
@@ -172,12 +175,7 @@ class OverviewTests {
     expect(snackTitle, findsOneWidget);
   }
 
-  Future<void> addMultipleProductsAndCheckShopCartIcon(
-    tester,
-    // {
-    // List<Product> listProducts,
-    // }
-  ) async {
+  Future<void> addMultipleProductsAndCheckShopCartIcon(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,

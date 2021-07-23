@@ -42,7 +42,7 @@ class InventoryViewFunctionalTest {
 
     testWidgets(_config.check_ProductsAbsence, (tester) async {
       if (!_isWidgetTest) {
-        await _dbUtils.cleanDb(url: TEST_URL, db: DB_NAME);
+        await _dbUtils.cleanDb(dbUrl: TEST_URL, dbName: DB_NAME);
       }
 
       _config.bindingsBuilderMockedRepoEmptyDb(isWidgetTest: _isWidgetTest);

@@ -38,7 +38,7 @@ class TestUtils {
     return Duration(seconds: seconds);
   }
 
-  //todo 01 - resolver o problema do package: image_test_utils: 1.0.0
+  //todo null-safety - resolver o problema do package: image_test_utils: 1.0.0
   void checkImageTotalInAView(int numberOfImages) {
     // provideMockedNetworkImages(() async {
     //   expect(find.byType(Image), findsNWidgets(numberOfImages));
@@ -49,7 +49,7 @@ class TestUtils {
     var _product;
     var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
     if (!isWidgetTest) {
-      await dbTestUtils.cleanDb(url: TEST_URL, db: DB_NAME);
+      await dbTestUtils.cleanDb(dbUrl: TEST_URL, dbName: DB_NAME);
       await dbTestUtils
           .addMultipleObjects(
             tester,
@@ -73,7 +73,7 @@ class TestUtils {
     var _listProducts;
     var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
     if (!isWidgetTest) {
-      await dbTestUtils.cleanDb(url: TEST_URL, db: DB_NAME);
+      await dbTestUtils.cleanDb(dbUrl: TEST_URL, dbName: DB_NAME);
       await dbTestUtils
           .addMultipleObjects(
             tester,
@@ -100,7 +100,7 @@ class TestUtils {
       lineCharacter: '=',
     ));
 
-    await Get.put(DbTestUtils()).cleanDb(url: TEST_URL, db: DB_NAME);
+    await Get.put(DbTestUtils()).cleanDb(dbUrl: TEST_URL, dbName: DB_NAME);
   }
 
   void globalTearDownAll(String testModuleName) async {

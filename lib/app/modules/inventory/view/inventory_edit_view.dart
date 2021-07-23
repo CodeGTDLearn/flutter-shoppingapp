@@ -46,6 +46,7 @@ class _InventoryEditViewState extends State<InventoryEditView> {
 
   @override
   void initState() {
+    _product = Product.emptyInitialized();
     _nodeImgUrl.addListener(_previewImageUrl);
     super.initState();
   }
@@ -60,6 +61,7 @@ class _InventoryEditViewState extends State<InventoryEditView> {
         _imgUrlController.text = _product.imageUrl;
         _imgUrlPreviewObs.value = true;
       }
+
       _invController.switchInventoryAddEditFormToCustomCircularProgrIndic();
       _isInit = false;
     }

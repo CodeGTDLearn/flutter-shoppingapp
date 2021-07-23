@@ -17,9 +17,9 @@ class SimpleSnackbar implements Snackbarr {
 
   void show() {
     Get.snackbar(
-      title, message,
+      title,
+      message,
       duration: Duration(milliseconds: durationMilis ??= DURATION),
-      // duration: Duration(milliseconds: DURATION),
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: Colors.black,
       colorText: Colors.white,

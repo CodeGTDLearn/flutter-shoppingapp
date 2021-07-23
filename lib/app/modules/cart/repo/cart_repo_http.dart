@@ -39,45 +39,15 @@ class CartRepoHttp implements ICartRepo {
 
   @override
   void addCartItemUndo(Product product) {
-    // _cartItems.forEach((key, cartItem) {
-    //   if (key == product.id) {
-    //     cartItem.qtde == 1
-    //         ? _cartItems.remove(product.id)
-    //         : cartItem.qtde = cartItem.qtde - 1;
-    //   }
-    // });
-    var qtde = 0;
-    if (qtde == 1) _cartItems.remove(product.id);
-    if (qtde > 1) {
-      _cartItems.update(product.id!, (item) {
-        item.qtde == 1
-            ? _cartItems.remove(product.id)
-            : return CartItem(
-                item.id,
-                item.title,
-                item.qtde - 1,
-                item.price,
-              );
-        return _cartItems;
-      });
-    }
+    var productQuantity = 0;
+    _cartItems.forEach((key, value) {
+      if (key == product.id) productQuantity = value.qtde;
+    });
+    productQuantity == 1
+        ? _cartItems.remove(product.id)
+        : _cartItems.update(product.id!,
+            (item) => CartItem(item.id, item.title, item.qtde - 1, item.price));
   }
-  // @override
-  // void addCartItem(Product product) {
-  //   if (_cartItems.containsKey(product.id)) {
-  //     _cartItems.update(product.id, (itemFound) {
-  //       return CartItem(
-  //         itemFound.id,
-  //         itemFound.title,
-  //         itemFound.qtde + 1,
-  //         itemFound.price,
-  //       );
-  //     });
-  //   } else {
-  //     _cartItems.putIfAbsent(
-  //         product.id, () => CartItem(product.id, product.title, 1, product.price));
-  //   }
-  // }
 
   @override
   void removeCartItem(CartItem cartItem) {

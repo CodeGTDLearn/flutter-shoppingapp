@@ -1,6 +1,7 @@
 //GENERAL PROPERTIES
 const APP_TITLE = "My Shopp App";
 const APP_DEBUG_CHECK = false;
+const PLAY_APP_TEST = 'PlayAppTest';
 
 //NO IMAGE-URL
 const NO_IMAGE_AVAILABLE =

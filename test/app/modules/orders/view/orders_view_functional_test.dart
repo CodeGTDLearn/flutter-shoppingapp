@@ -46,7 +46,7 @@ class OrdersViewFunctionalTest {
 
     testWidgets(_config.check_oneOrderInDB, (tester) async {
       if (!_isWidgetTest) {
-        await _dbUtils.cleanDb(url: TEST_URL, db: DB_NAME);
+        await _dbUtils.cleanDb(dbUrl: TEST_URL, dbName: DB_NAME);
       }
       _config.bindingsBuilderMockRepoEmptyDb(isWidgetTest: _isWidgetTest);
       await _tests.checkOrders_OrdersAbsence(tester, DELAY);

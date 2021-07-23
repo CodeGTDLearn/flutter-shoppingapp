@@ -22,6 +22,14 @@ class Product {
     this.isFavorite = false,
   });
 
+  Product.emptyInitialized({
+    this.title = '',
+    this.description = '',
+    this.price = 0.00,
+    this.imageUrl = '',
+    this.isFavorite = false,
+  });
+
   factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProductToJson(this);

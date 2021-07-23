@@ -39,7 +39,7 @@ void _unitAndWidgetTests() {
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final skipGroup = false;
+  final skipGroup = true;
 
   group(
     OrdersTestConfig.ORDERS_GROUP_TITLE,

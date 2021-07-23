@@ -122,7 +122,7 @@ class InventoryTestConfig {
   get validation_url_empty => 'Url Image|Validation|empty not allowed';
 
   //TEST-TITLES: URL CHECK VALIDATIONS + CHECK INJECTIONS ----------------------
-  get edit_back_button => 'Testing Page BackButton';
+  get edit_back_button => 'Testing BackButton';
   get edit_add_product_in_form => 'Adding a product';
   get edit_preview_url_in_form => 'check previewImageUrl';
   get edit_fill_form_invalid => 'Filling fields testing INValidation';

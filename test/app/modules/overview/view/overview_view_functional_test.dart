@@ -79,10 +79,7 @@ class OverviewViewFunctionalTest {
         tester,
         isWidgetTest: _isWidgetTest,
       );
-      await _tests.addMultipleProductsAndCheckShopCartIcon(
-        tester,
-        // listProducts: products,
-      );
+      await _tests.addMultipleProductsAndCheckShopCartIcon(tester);
     });
 
     testWidgets(_config.tap_fav_filter_no_favorites_found, (tester) async {
@@ -99,6 +96,6 @@ class OverviewViewFunctionalTest {
 
     testWidgets(_config.close_fav_filter, (tester) async {
       await _tests.closeFavoriteFilter(tester);
-    }, skip: false);
+    });
   }
 }

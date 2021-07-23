@@ -488,10 +488,6 @@ class InventoryTests {
     var validTitle, validPrice, validDesc, validImgUrl, invalidText;
 
     invalidText = "d";
-    // validTitle = product.title ?? "xxxxxx";
-    // validPrice = product.price.toString() ?? Faker().randomGenerator.decimal(min: 20).toStringAsFixed(2);
-    // validDesc = product.description ?? "xxxxxxxxxxxxxx";
-    // validImgUrl = product.imageUrl ?? IMAGE1_TEST_URL;
     validTitle = product.title;
     validPrice = product.price.toString();
     validDesc = product.description;
