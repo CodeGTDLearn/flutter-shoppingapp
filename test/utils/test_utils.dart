@@ -6,7 +6,7 @@ import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 
 import '../config/app_tests_config.dart';
 import '../data_builders/product_databuilder.dart';
-import '../mocked_datasource/products_mocked_datasource.dart';
+import '../test_datasource/test_products_datasource.dart';
 import 'db_test_utils.dart';
 
 class TestUtils {
@@ -62,7 +62,7 @@ class TestUtils {
     }
     Get.delete(tag: 'dbInstance');
     return isWidgetTest
-        ? Future.value(ProductsMockedDatasource().products()[0])
+        ? Future.value(TestProductsDatasource().products()[0])
         : Future.value(_product);
   }
 
@@ -86,7 +86,7 @@ class TestUtils {
     }
     Get.delete(tag: 'dbInstance');
     return isWidgetTest
-        ? Future.value(ProductsMockedDatasource().products())
+        ? Future.value(TestProductsDatasource().products())
         : Future.value(_listProducts.cast<Product>());
   }
 

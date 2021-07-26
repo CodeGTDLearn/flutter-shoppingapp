@@ -3,11 +3,11 @@ import 'dart:io';
 
 import 'package:shopingapp/app/modules/orders/entities/order.dart';
 
-class OrdersMockedDatasource {
-  final MOCKED_DATASOURCE = "test/mocked_datasource/mocked_datasource.json";
+class TestOrdersDatasource {
+  final MOCKED_DATASOURCE = "test/test_datasource/mocked_datasource.json";
   late String _MockedDatasource;
 
-  OrdersMockedDatasource() {
+  TestOrdersDatasource() {
     _MockedDatasource = MOCKED_DATASOURCE;
   }
 

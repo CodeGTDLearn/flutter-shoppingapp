@@ -7,7 +7,7 @@ import 'package:shopingapp/app/modules/orders/entities/order.dart';
 import '../../../config/cart_test_config.dart';
 import '../../../data_builders/cartitem_databuilder.dart';
 import '../../../data_builders/product_databuilder.dart';
-import '../../../mocked_datasource/orders_mocked_datasource.dart';
+import '../../../test_datasource/test_orders_datasource.dart';
 
 class CartControllerTests {
   static void integration() {
@@ -18,7 +18,7 @@ class CartControllerTests {
     setUp(() {
       _product1 = ProductDataBuilder().ProductFull();
       _product2 = ProductDataBuilder().ProductFull();
-      _order1 = OrdersMockedDatasource().orders().elementAt(0);
+      _order1 = TestOrdersDatasource().orders().elementAt(0);
 
       CartTestConfig().bindingsBuilder();
       _controller = Get.find<CartController>();

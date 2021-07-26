@@ -4,7 +4,7 @@ import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
 
-import '../../../../mocked_datasource/products_mocked_datasource.dart';
+import '../../../../test_datasource/test_products_datasource.dart';
 
 /* **************************************************
   *--> TIPOS DE MOCK
@@ -31,8 +31,7 @@ class InventoryMockedRepo extends Mock implements IInventoryRepo {
   @override
   Future<int> deleteProduct(String id) {
     // @formatter:off
-    final found =
-        ProductsMockedDatasource().products().firstWhere((item) => item.id == id);
+    final found = TestProductsDatasource().products().firstWhere((item) => item.id == id);
     return found == null ? Future.value(400) : Future.value(200);
     // @formatter:on
     // return Future.value(200);
@@ -40,12 +39,12 @@ class InventoryMockedRepo extends Mock implements IInventoryRepo {
 
   @override
   Future<List<Product>> getProducts() async {
-    return Future.value(ProductsMockedDatasource().products());
+    return Future.value(TestProductsDatasource().products());
   }
 
   @override
   Future<Product> addProduct(Product product) {
-    var returnedMockedProduct = ProductsMockedDatasource().product();
+    var returnedMockedProduct = TestProductsDatasource().product();
     returnedMockedProduct.id = Faker().randomGenerator.string(7, min: 7);
     return Future.value(returnedMockedProduct);
   }
@@ -53,7 +52,7 @@ class InventoryMockedRepo extends Mock implements IInventoryRepo {
   @override
   Future<int> updateProduct(Product product) {
     var result = 500;
-    ProductsMockedDatasource().products().forEach((item) {
+    TestProductsDatasource().products().forEach((item) {
       if (item.id == product.id) result = 200;
     });
     return Future.value(result);
@@ -70,12 +69,12 @@ class InventoryMockedRepoEmptyDb extends Mock implements IInventoryRepo {
 
   @override
   Future<List<Product>> getProducts() {
-    return Future.value(ProductsMockedDatasource().productsEmpty());
+    return Future.value(TestProductsDatasource().productsEmpty());
   }
 
   @override
   Future<Product> addProduct(Product product) {
-    return Future.value(ProductsMockedDatasource().product());
+    return Future.value(TestProductsDatasource().product());
   }
 
   @override

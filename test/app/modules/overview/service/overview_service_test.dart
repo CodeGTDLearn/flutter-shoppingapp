@@ -9,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../config/overview_test_config.dart';
 import '../../../../data_builders/product_databuilder.dart';
-import '../../../../mocked_datasource/products_mocked_datasource.dart';
+import '../../../../test_datasource/test_products_datasource.dart';
 import '../../../../utils/test_utils.dart';
 import 'overview_mocked_service.dart';
 
@@ -59,7 +59,7 @@ class OverviewServiceTests {
     });
 
     test('Adding Product in LocalDataAllProducts', () {
-      var productTest = ProductsMockedDatasource().product();
+      var productTest = TestProductsDatasource().product();
 
       _service.getProducts().then((_) {
         expect(_service.getLocalDataAllProducts().length, 4);
@@ -145,32 +145,32 @@ class OverviewServiceTests {
       });
     });
 
-    test('Getting products - Fail hence Empty', () {
-      // @formatter:off
-      when(_injectService.getProducts()).thenAnswer(
-          (_) async => Future.value(ProductsMockedDatasource().productsEmpty()));
-
-      _injectService.getProducts().then((value) {
-        expect(value, List.empty());
-      });
-      // @formatter:on
-    });
-
-    test('Toggle FavoriteStatus in a product - Fail 404', () {
-      //INJECTABLE FOR SIMPLE-RETURNS
-      when(_injectService.getProductById("p3"))
-          .thenReturn(ProductDataBuilder().ProductFull());
-
-      //INJECTABLE FOR FUTURES-RETURNS
-      when(_injectService.toggleFavoriteStatus("p3"))
-          .thenAnswer((_) async => Future.value(true));
-
-      var previousToggleStatus = _injectService.getProductById("p3").isFavorite;
-
-      _injectService.toggleFavoriteStatus("p3").then((value) {
-        expect(true, previousToggleStatus);
-      });
-    });
     // });
   }
 }
+// test('Getting products - Fail hence Empty', () {
+//   // @formatter:off
+//   when(_injectService.getProducts()).thenAnswer(
+//       (_) async => Future.value(TestProductsDatasource().productsEmpty()));
+//
+//   _injectService.getProducts().then((value) {
+//     expect(value, List.empty());
+//   });
+//   // @formatter:on
+// });
+//
+// test('Toggle FavoriteStatus in a product - Fail 404', () {
+//   //INJECTABLE FOR SIMPLE-RETURNS
+//   when(_injectService.getProductById("p3"))
+//       .thenReturn(ProductDataBuilder().ProductFull());
+//
+//   //INJECTABLE FOR FUTURES-RETURNS
+//   when(_injectService.toggleFavoriteStatus("p3"))
+//       .thenAnswer((_) async => Future.value(true));
+//
+//   var previousToggleStatus = _injectService.getProductById("p3").isFavorite;
+//
+//   _injectService.toggleFavoriteStatus("p3").then((value) {
+//     expect(true, previousToggleStatus);
+//   });
+// });

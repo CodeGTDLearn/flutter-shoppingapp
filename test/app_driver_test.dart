@@ -1,4 +1,3 @@
-// @dart=2.9
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -18,13 +17,15 @@ import 'groups/orders_test_groups.dart';
 import 'groups/overview_test_groups.dart';
 
 void main() {
-  final _type = String.fromEnvironment('testType', defaultValue: WIDGET_TEST);
-  if (_type == WIDGET_TEST) _unitAndWidgetTests();
-  if (_type == INTEGRATION_TEST) _integrationTests();
-  if (_type != WIDGET_TEST && _type != INTEGRATION_TEST) print('TestType not Found.');
+  // String.fromEnvironment => MUST BE CONSTANT!!!
+  const _env = String.fromEnvironment("testType", defaultValue: WIDGET_TEST);
+  print("ENV_VAR: ${_env.toString()}");
+  if (_env == WIDGET_TEST) _unitTests();
+  if (_env == INTEGRATION_TEST) _integrationTests();
+  if (_env != WIDGET_TEST && _env != INTEGRATION_TEST) print('TestType not Found.');
 }
 
-void _unitAndWidgetTests() {
+void _unitTests() {
   final skipGroup = false;
 
   // CartTestGroups().groups(skipGroup); //<<<<<<<<<<<<< BUG 01
@@ -39,30 +40,30 @@ void _unitAndWidgetTests() {
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final skipGroup = true;
+  final skipGroup = false;
 
   group(
     OrdersTestConfig.ORDERS_GROUP_TITLE,
     OrdersViewFunctionalTest(testType: INTEGRATION_TEST).functional,
-    skip: skipGroup, //'skip-group' overrides the internal 'skip-methods'
+    skip: true, //'skip-group' overrides the internal 'skip-methods'
   );
 
   group(
     InventoryTestConfig.INVENTORY_GROUP_TITLE,
     InventoryViewFunctionalTest(testType: INTEGRATION_TEST).functional,
-    skip: skipGroup,
+    skip: true,
   );
 
   group(
     InventoryTestConfig.INVENTORY_EDIT_GROUP_TITLE,
     InventoryViewEditFunctionalTest(testType: INTEGRATION_TEST).functional,
-    skip: skipGroup,
+    skip: true,
   );
 
   group(
     InventoryTestConfig.INVENTORY_VALIDATION_GROUP_TITLE,
     InventoryViewValidationTest(testType: INTEGRATION_TEST).functional,
-    skip: skipGroup,
+    skip: true,
   );
 
   //------------------------------------------------------
@@ -75,6 +76,6 @@ void _integrationTests() {
   group(
     OverviewTestConfig.OVERVIEW_DETAIL_GROUP_TITLE,
     OverviewDetailsFunctionalTest(testType: INTEGRATION_TEST).functional,
-    skip: skipGroup,
+    skip: true,
   );
 }

@@ -8,7 +8,7 @@ import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../config/overview_test_config.dart';
-import '../../../mocked_datasource/products_mocked_datasource.dart';
+import '../../../test_datasource/test_products_datasource.dart';
 
 class OverviewControllerTests {
   static void integration() {
@@ -47,7 +47,7 @@ class OverviewControllerTests {
       _controller.getProducts().then((value) {
         expect(_controller.getFilteredProductsObs().length, 0);
 
-        var productTest = ProductsMockedDatasource().product();
+        var productTest = TestProductsDatasource().product();
         expect(_service.getLocalDataAllProducts().length, 4);
         _service.addProductInLocalDataAllProducts(productTest);
         expect(_service.getLocalDataAllProducts().length, 5);
@@ -78,7 +78,7 @@ class OverviewControllerTests {
     });
 
     test('Getting a product using its ID', () {
-      var product = ProductsMockedDatasource().productById("p1");
+      var product = TestProductsDatasource().productById("p1");
       _controller.getProducts().then((value) {
         expect(_controller.getProductById("p1").description, product.description);
       });

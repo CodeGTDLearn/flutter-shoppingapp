@@ -3,7 +3,7 @@ import 'package:shopingapp/app/modules/orders/controller/orders_controller.dart'
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../config/orders_test_config.dart';
-import '../../../mocked_datasource/orders_mocked_datasource.dart';
+import '../../../test_datasource/test_orders_datasource.dart';
 
 class OrdersControllerTests {
   static void integration() {
@@ -22,7 +22,7 @@ class OrdersControllerTests {
       expect(_controller.getOrdersObs().length, isZero);
 
       _controller.getOrders().forEach((value) {
-        expect(value.id.toString(), isIn(OrdersMockedDatasource().orders()));
+        expect(value.id.toString(), isIn(TestOrdersDatasource().orders()));
         expect(_controller.getQtdeOrdersObs(), isNonZero);
         expect(_controller.getOrdersObs().length, isNonZero);
       });
@@ -32,7 +32,7 @@ class OrdersControllerTests {
       _controller.getOrders().forEach((value) {
         expect(_controller.getQtdeOrdersObs(), isZero);
         expect(_controller.getOrdersObs().length, isZero);
-        expect(value.id.toString(), isIn(OrdersMockedDatasource().orders()));
+        expect(value.id.toString(), isIn(TestOrdersDatasource().orders()));
         expect(_controller.getQtdeOrdersObs(), isNonZero);
         expect(_controller.getOrdersObs().length, isNonZero);
         _controller.clearOrder();

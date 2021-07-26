@@ -41,18 +41,6 @@ class OrdersRepoTests {
       });
     });
 
-    test('Getting Orders - No response Content (Empty)', () {
-      when(_injectRepo.getOrders()).thenAnswer((_) async => []);
-      _injectRepo.getOrders().then((value) {
-        expect(value, isEmpty);
-      });
-    });
-
-    // test('Updating a Product(Inject) - status 500', () {
-    //   when(_injectRepo.getOrders()).thenAnswer((_) async => 500);
-    //   _injectRepo.getOrders().then((value) => {expect(value, 500)});
-    // });
-
     test('Adding Order', () {
       var id = Faker().randomGenerator.string(20, min: 20);
       _repo.addOrder(_orderWithoutId).then((response) {
@@ -63,3 +51,14 @@ class OrdersRepoTests {
     });
   }
 }
+// test('Getting Orders - No response Content (Empty)', () {
+//   when(_injectRepo.getOrders()).thenAnswer((_) async => []);
+//   _injectRepo.getOrders().then((value) {
+//     expect(value, isEmpty);
+//   });
+// });
+
+// test('Updating a Product(Inject) - status 500', () {
+//   when(_injectRepo.getOrders()).thenAnswer((_) async => 500);
+//   _injectRepo.getOrders().then((value) => {expect(value, 500)});
+// });

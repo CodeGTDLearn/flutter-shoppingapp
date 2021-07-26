@@ -58,23 +58,22 @@ class OverviewRepoTests {
     test('Updating a Product - Response Status 200', () {
       _repo.updateProduct(_productFail).then((value) => expect(value, 200));
     });
-
-    test('Getting products - Fail hence Empty', () {
-      when(_injectRepo.getProducts()).thenAnswer((_) async => []);
-
-      _injectRepo.getProducts().then((value) {
-        expect(value, isEmpty);
-      });
-    });
-
-    test('Updating a Product - Response Status 404', () {
-      when(_injectRepo.updateProduct(_productFail)).thenAnswer((_) async => 404);
-      _injectRepo.updateProduct(_productFail).then((value) => {expect(value, 404)});
-    });
-
-    test('Getting products - Response Status >500', () {
-      when(_injectRepo.updateProduct(_productFail)).thenAnswer((_) async => 500);
-      _injectRepo.updateProduct(_productFail).then((value) => {expect(value, 500)});
-    });
   }
 }
+// test('Getting products - Fail hence Empty', () {
+//   when(_injectRepo.getProducts()).thenAnswer((_) async => []);
+//
+//   _injectRepo.getProducts().then((value) {
+//     expect(value, isEmpty);
+//   });
+// });
+//
+// test('Updating a Product - Response Status 404', () {
+//   when(_injectRepo.updateProduct(_productFail)).thenAnswer((_) async => 404);
+//   _injectRepo.updateProduct(_productFail).then((value) => {expect(value, 404)});
+// });
+//
+// test('Getting products - Response Status >500', () {
+//   when(_injectRepo.updateProduct(_productFail)).thenAnswer((_) async => 500);
+//   _injectRepo.updateProduct(_productFail).then((value) => {expect(value, 500)});
+// });

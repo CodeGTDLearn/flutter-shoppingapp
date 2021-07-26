@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../config/inventory_test_config.dart';
 import '../../../../data_builders/product_databuilder.dart';
-import '../../../../mocked_datasource/products_mocked_datasource.dart';
+import '../../../../test_datasource/test_products_datasource.dart';
 import 'inventory_mocked_service.dart';
 
 class InventoryServiceTests {
@@ -15,9 +15,9 @@ class InventoryServiceTests {
     late IOverviewService _overviewService;
     late IInventoryService _service, _injectService;
 
-    var _product0 = ProductsMockedDatasource().products().elementAt(0);
-    var _product1 = ProductsMockedDatasource().products().elementAt(1);
-    var _products = ProductsMockedDatasource().products();
+    var _product0 = TestProductsDatasource().products().elementAt(0);
+    var _product1 = TestProductsDatasource().products().elementAt(1);
+    var _products = TestProductsDatasource().products();
     var _newProduct = ProductDataBuilder().ProductFull();
 
     setUp(() {
@@ -62,7 +62,7 @@ class InventoryServiceTests {
     });
 
     test('Adding Product in LocalDataManagedProducts', () {
-      var productTest = ProductsMockedDatasource().product();
+      var productTest = TestProductsDatasource().product();
 
       _service.getProducts().then((_) {
         expect(_service.getLocalDataInventoryProducts().length, 4);
@@ -134,21 +134,6 @@ class InventoryServiceTests {
       });
     });
 
-    test('Deleting a Product(Inject) - Optimistic (Mocked)', () {
-      when(_injectService.deleteProduct(_newProduct.id!))
-          .thenAnswer((_) async => Future.value(404));
-
-      when(_injectService.getLocalDataInventoryProducts()).thenReturn(_products);
-
-      expect(_injectService.getLocalDataInventoryProducts(), _products);
-
-      _injectService.deleteProduct(_newProduct.id!).then((response) {
-        expect(response, 404);
-      });
-      //Rollback the localDataManagedProducts 'cause unsuccessful deleteProduct
-      expect(_injectService.getLocalDataInventoryProducts(), _products);
-    });
-
     test('Deleting a Product - Not found - Exception', () {
       _service.getProducts().then((_) {
         expect(_service.getProductById(_product1.id!),
@@ -166,3 +151,17 @@ class InventoryServiceTests {
     });
   }
 }
+// test('Deleting a Product(Inject) - Optimistic (Mocked)', () {
+//   when(_injectService.deleteProduct(_newProduct.id!))
+//       .thenAnswer((_) async => Future.value(404));
+//
+//   when(_injectService.getLocalDataInventoryProducts()).thenReturn(_products);
+//
+//   expect(_injectService.getLocalDataInventoryProducts(), _products);
+//
+//   _injectService.deleteProduct(_newProduct.id!).then((response) {
+//     expect(response, 404);
+//   });
+//   //Rollback the localDataManagedProducts 'cause unsuccessful deleteProduct
+//   expect(_injectService.getLocalDataInventoryProducts(), _products);
+// });

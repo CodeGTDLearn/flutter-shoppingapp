@@ -2,7 +2,7 @@ import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 
-import '../../../../mocked_datasource/products_mocked_datasource.dart';
+import '../../../../test_datasource/test_products_datasource.dart';
 
 /* **************************************************
   *--> TIPOS DE MOCK
@@ -28,7 +28,7 @@ import '../../../../mocked_datasource/products_mocked_datasource.dart';
 class OverviewMockedRepo extends Mock implements IOverviewRepo {
   @override
   Future<List<Product>> getProducts() async {
-    return Future.value(ProductsMockedDatasource().products());
+    return Future.value(TestProductsDatasource().products());
   }
 
   @override
@@ -40,7 +40,7 @@ class OverviewMockedRepo extends Mock implements IOverviewRepo {
 class OverviewMockRepoEmptyDb extends Mock implements IOverviewRepo {
   @override
   Future<List<Product>> getProducts() async {
-    return Future.value(ProductsMockedDatasource().productsEmpty());
+    return Future.value(TestProductsDatasource().productsEmpty());
   }
 
   @override

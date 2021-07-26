@@ -5,14 +5,14 @@ import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../config/inventory_test_config.dart';
-import '../../../../mocked_datasource/products_mocked_datasource.dart';
+import '../../../../test_datasource/test_products_datasource.dart';
 import 'inventory_mocked_repo.dart';
 
 class InventoryRepoTests {
   static void unit() {
     late IInventoryRepo _repo, _injectRepo;
-    var _product0 = ProductsMockedDatasource().products().elementAt(0);
-    var _product1 = ProductsMockedDatasource().products().elementAt(1);
+    var _product0 = TestProductsDatasource().products().elementAt(0);
+    var _product1 = TestProductsDatasource().products().elementAt(1);
 
     setUp(() {
       InventoryTestConfig().bindingsBuilderMockedRepo(isUnitTest: true);
@@ -58,27 +58,10 @@ class InventoryRepoTests {
       });
     });
 
-    test('Adding a Product(Inject)  - Empty Response', () {
-      when(_injectRepo.getProducts()).thenAnswer((_) async => []);
-      _injectRepo.getProducts().then((value) {
-        expect(value, isEmpty);
-      });
-    });
-
     test('Updating a Product - status 200', () {
       _repo.updateProduct(_product0).then((value) {
         expect(value, 200);
       });
-    });
-
-    test('Updating a Product(Inject) - status 500', () {
-      when(_injectRepo.updateProduct(_product0)).thenAnswer((_) async => 500);
-      _injectRepo.updateProduct(_product0).then((value) => {expect(value, 500)});
-    });
-
-    test('Updating a Product(Inject) - status 404', () {
-      when(_injectRepo.updateProduct(_product0)).thenAnswer((_) async => 404);
-      _injectRepo.updateProduct(_product0).then((value) => {expect(value, 404)});
     });
 
     test('Deleting a Product - status 200', () {
@@ -93,10 +76,26 @@ class InventoryRepoTests {
         });
       });
     });
-
-    test('Deleting a Product(Inject) - status 404', () {
-      when(_injectRepo.deleteProduct(_product0.id!)).thenAnswer((_) async => 404);
-      _injectRepo.deleteProduct(_product0.id!).then((value) => {expect(value, 404)});
-    });
   }
 }
+
+// test('Deleting a Product(Inject) - status 404', () {
+//   when(_injectRepo.deleteProduct(_product0.id!)).thenAnswer((_) async => 404);
+//   _injectRepo.deleteProduct(_product0.id!).then((value) => {expect(value, 404)});
+// });
+// test('Adding a Product(Inject)  - Empty Response', () {
+//   when(_injectRepo.getProducts()).thenAnswer((_) async => []);
+//   _injectRepo.getProducts().then((value) {
+//     expect(value, isEmpty);
+//   });
+// });
+
+// test('Updating a Product(Inject) - status 500', () {
+//   when(_injectRepo.updateProduct(_product0)).thenAnswer((_) async => 500);
+//   _injectRepo.updateProduct(_product0).then((value) => {expect(value, 500)});
+// });
+//
+// test('Updating a Product(Inject) - status 404', () {
+//   when(_injectRepo.updateProduct(_product0)).thenAnswer((_) async => 404);
+//   _injectRepo.updateProduct(_product0).then((value) => {expect(value, 404)});
+// });

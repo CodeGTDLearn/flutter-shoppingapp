@@ -4,13 +4,12 @@ import 'dart:io';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/components/filter_favorite_enum.dart';
 
-class ProductsMockedDatasource {
-  // C:\Users\SERVIDOR\Projects\flutter-shoppingapp\test\mocked_datasource
-  final MOCKED_DATASOURCE = "C:\\Users\\SERVIDOR\\Projects"
-      "\\flutter-shoppingapp\\test\\mocked_datasource\\mocked_datasource.json";
+class TestProductsDatasource {
+  final MOCKED_DATASOURCE =
+      "C:/Users/SERVIDOR/Projects/flutter-shoppingapp/test/test_datasource/mocked_datasource.json";
   late String _MockedDatasource;
 
-  ProductsMockedDatasource() {
+  TestProductsDatasource() {
     _MockedDatasource = MOCKED_DATASOURCE;
   }
 
@@ -48,8 +47,8 @@ class ProductsMockedDatasource {
 
   List<Product> productsByFilter(EnumFilter filter) {
     return filter == EnumFilter.All
-        ? ProductsMockedDatasource().products()
-        : ProductsMockedDatasource().favoritesProducts();
+        ? TestProductsDatasource().products()
+        : TestProductsDatasource().favoritesProducts();
   }
 
   List<Product> productsEmpty() {

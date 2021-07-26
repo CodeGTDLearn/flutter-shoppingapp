@@ -69,21 +69,21 @@ class OrdersServiceTests {
       });
     });
 
-    test('Adding Order', () {
-      var _id = "-${Faker().randomGenerator.string(21, min: 20)}";
-      var _amountOrder =
-          double.parse(Faker().randomGenerator.decimal(min: 22.0).toStringAsFixed(2));
-
-      // @formatter:off
-      when(_injectService.addOrder(_cartItems, _amountOrder))
-          .thenAnswer((_) async => OrderDatabuilder.OrderParam(_cartItems, _id));
-
-      _injectService.addOrder(_cartItems, _amountOrder).then((orderReturned) {
-        expect(orderReturned.id, _id);
-        expect(orderReturned.cartItems[0].id, _cartItems[0].id);
-        expect(orderReturned.cartItems[1].id, _cartItems[1].id);
-      });
-    });
     // @formatter:on
   }
 }
+// test('Adding Order', () {
+//   var _id = "-${Faker().randomGenerator.string(21, min: 20)}";
+//   var _amountOrder =
+//       double.parse(Faker().randomGenerator.decimal(min: 22.0).toStringAsFixed(2));
+//
+//   // @formatter:off
+//   when(_injectService.addOrder(_cartItems, _amountOrder))
+//       .thenAnswer((_) async => OrderDatabuilder.OrderParam(_cartItems, _id));
+//
+//   _injectService.addOrder(_cartItems, _amountOrder).then((orderReturned) {
+//     expect(orderReturned.id, _id);
+//     expect(orderReturned.cartItems[0].id, _cartItems[0].id);
+//     expect(orderReturned.cartItems[1].id, _cartItems[1].id);
+//   });
+// });
