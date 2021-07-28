@@ -1,18 +1,17 @@
+import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
-import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../config/inventory_test_config.dart';
-import '../../../../test_datasource/test_products_datasource.dart';
+import '../../../../mocked_datasource/mocked_products_datasource.dart';
 import 'inventory_mocked_repo.dart';
 
 class InventoryRepoTests {
   static void unit() {
     late IInventoryRepo _repo, _injectRepo;
-    var _product0 = TestProductsDatasource().products().elementAt(0);
-    var _product1 = TestProductsDatasource().products().elementAt(1);
+    var _product0 = MockedProductsDatasource().products().elementAt(0);
+    var _product1 = MockedProductsDatasource().products().elementAt(1);
 
     setUp(() {
       InventoryTestConfig().bindingsBuilderMockedRepo(isUnitTest: true);

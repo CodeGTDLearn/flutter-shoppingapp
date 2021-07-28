@@ -15,9 +15,9 @@ class OrdersRepoHttp extends IOrdersRepo {
   Future<Order> addOrder(Order order) async {
     // @formatter:off
     return http
-        .post(Uri.parse(ORDERS_URL), body: order.toJson())
-        .then((jsonReturnedOrder) {
-      order.id = json.decode(jsonReturnedOrder.body)['name'];
+        .post(Uri.parse(ORDERS_URL), body: jsonEncode(order.toJson()))
+        .then((response) {
+      order.id = json.decode(response.body)['name'];
       return order;
     }).catchError((onError) => throw onError);
     // @formatter:on
@@ -29,18 +29,16 @@ class OrdersRepoHttp extends IOrdersRepo {
     return http.get(Uri.parse(ORDERS_URL)).then((jsonResponse) {
       var _orders = <Order>[];
 
-      final MapOrdersDecodedFromJsonResponse =
-          json.decode(jsonResponse.body) as Map<String, dynamic>;
+      if (jsonResponse.body == 'null' || jsonResponse.statusCode >= 400) return _orders;
 
-      MapOrdersDecodedFromJsonResponse != null || jsonResponse.statusCode >= 400
-          ? MapOrdersDecodedFromJsonResponse.forEach((idMap, dataMap) {
-              var orderCreatedFromDataMap = Order.fromJson(dataMap);
+      var ordersDecoded = json.decode(jsonResponse.body) as Map<String, dynamic>;
 
-              orderCreatedFromDataMap.id = idMap;
+      ordersDecoded.forEach((id, orderMapped) {
+        var orderCreatedFromDataMap = Order.fromJson(orderMapped);
+        orderCreatedFromDataMap.id = id;
+        _orders.add(orderCreatedFromDataMap);
+      });
 
-              _orders.add(orderCreatedFromDataMap);
-            })
-          : _orders = [];
       return _orders;
     }).catchError((onError) => throw onError);
     // @formatter:on

@@ -30,13 +30,13 @@ class OverviewTestGroups {
 
     group(
       OverviewTestConfig().VIEW_TEST_TITLE,
-      OverviewViewFunctionalTest(testType: WIDGET_TEST).functional,
+      OverviewViewTest(testType: WIDGET_TEST).functional,
       skip: skipGroup,
     );
 
     group(
       OverviewTestConfig().DETAIL_VIEW_TEST_TITLE,
-      OverviewDetailsFunctionalTest(testType: WIDGET_TEST).functional,
+      OverviewDetailsTest(testType: WIDGET_TEST).functional,
       skip: skipGroup,
     );
   }

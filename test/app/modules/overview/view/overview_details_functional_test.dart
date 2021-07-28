@@ -8,14 +8,14 @@ import '../../../../utils/test_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 import 'overview_tests.dart';
 
-class OverviewDetailsFunctionalTest {
+class OverviewDetailsTest {
   late bool _isWidgetTest;
   final TestUtils _utils = Get.put(TestUtils());
   final UiTestUtils _uiUtils = Get.put(UiTestUtils());
   final DbTestUtils _dbUtils = Get.put(DbTestUtils());
   final OverviewTestConfig _config = Get.put(OverviewTestConfig());
 
-  OverviewDetailsFunctionalTest({required String testType}) {
+  OverviewDetailsTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
   }
 

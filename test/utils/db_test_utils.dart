@@ -6,6 +6,10 @@ import 'package:http/http.dart' as http;
 
 import 'test_utils.dart';
 
+//Examples:
+// db = 'test-app-dev-e6ee1-default-rtdb';
+// url = "https://db.firebaseio.com/.json";
+// collectionUrl = "https://test-app-dev-e6ee1-default-rtdb.firebaseio.com/products.json";
 class DbTestUtils {
   final _utils = Get.put(TestUtils());
 
@@ -13,26 +17,19 @@ class DbTestUtils {
     required String dbUrl,
     required String dbName,
   }) async {
-    //Examples:
-    // db = 'test-app-dev-e6ee1-default-rtdb';
-    // url = "https://db.firebaseio.com/.json";
     await http.delete(Uri.parse(dbUrl)).then((response) {
-      print(' Removing All Collections in Db:\n'
-          ' - DB_Name: $dbName\n'
-          ' - Status: ${response.statusCode}\n \n \n');
+      _cleanDbMessage(dbName, response);
     });
   }
 
-  Future<void> Collection(
+  Future<void> removeCollection(
     tester, {
     required String url,
     required int interval,
   }) async {
     await tester.pumpAndSettle(_utils.delay(interval));
     http.delete(Uri.parse("$url")).then((response) {
-      print('  \n Removing Db Collection:\n'
-          ' - URL: $url\n'
-          ' - Status: ${response.statusCode}\n');
+      _removeCollectionMessage(url, response);
     });
   }
 
@@ -46,10 +43,7 @@ class DbTestUtils {
     final noExtensionInDeletions = url.replaceAll('.json', '/');
 
     return http.delete(Uri.parse("$noExtensionInDeletions$id.json")).then((response) {
-      print('  \n Removing Db Object:\n'
-          ' - URL: $noExtensionInDeletions$id.json\n'
-          ' - ID: $id\n'
-          ' - Status: ${response.statusCode}\n');
+      _removeObjectMessage(noExtensionInDeletions, id, response);
       return response.statusCode;
     });
   }
@@ -62,7 +56,6 @@ class DbTestUtils {
   }) async {
     await tester.pumpAndSettle(_utils.delay(interval));
 
-    // @formatter:off
     return http
         .post(Uri.parse(collectionUrl), body: jsonEncode(object.toJson()))
         .then((response) {
@@ -70,11 +63,7 @@ class DbTestUtils {
       Map<String, dynamic> json = jsonDecode(plainText);
       object.id = json['name'];
 
-      print('  \n Adding Object in Db:\n'
-          ' - URL: $collectionUrl\n'
-          ' - ID: ${object.id}\n'
-          ' - Type: ${object.runtimeType.toString()}\n'
-          ' - Status: ${response.statusCode}\n ');
+      _addObjMessage(collectionUrl, object, response);
 
       return object;
     }).catchError((onError) => throw onError);
@@ -88,8 +77,6 @@ class DbTestUtils {
     required String collectionUrl,
     required int interval,
   }) async {
-    // Example:
-    // collectionUrl = "https://test-app-dev-e6ee1-default-rtdb.firebaseio.com/products.json";
     var listReturn = <Object>[];
 
     for (var item = 1; item <= qtdeObjects; item++) {
@@ -100,6 +87,11 @@ class DbTestUtils {
         collectionUrl: collectionUrl,
       ).then((responseObject) {
         listReturn.add(responseObject);
+        // _addObjectMessage(
+        //   collectionUrl: collectionUrl,
+        //   response: responseObject,
+        //   object: object,
+        // );
       });
     }
 
@@ -130,11 +122,12 @@ class DbTestUtils {
         Map<String, dynamic> json = jsonDecode(plainText);
         object.id = json['name'];
 
-        print('  \n Adding Object in Db:\n'
-            ' - URL: $collectionUrl\n'
-            ' - ID: ${object.id}\n'
-            ' - Type: ${object.runtimeType.toString()}\n'
-            ' - Status: ${responseObject.statusCode}\n ');
+        // _addObjectMessage(collectionUrl, object, responseObject);
+        _addObjectMessage(
+          collectionUrl: collectionUrl,
+          response: responseObject,
+          object: object,
+        );
 
         listReturn.add(responseObject);
       }).catchError((onError) => throw onError);
@@ -142,5 +135,59 @@ class DbTestUtils {
     }
 
     return Future.value(listReturn);
+  }
+
+  String superiorLineMsg = "||>===============> DB ACTION >===============>\n";
+  String inferiorLineMsg = "   >==============> DB ACTION >===============><||\n\n\n";
+
+  void _removeObjectMessage(
+      String noExtensionInDeletions, String id, http.Response response) {
+    print('$superiorLineMsg'
+        ' Removing Object:\n'
+        ' - URL: $noExtensionInDeletions$id.json\n'
+        ' - ID: $id\n'
+        ' - Type: ${response.runtimeType.toString()}\n'
+        ' - Status: ${response.statusCode}\n'
+        '$inferiorLineMsg');
+  }
+
+  void _cleanDbMessage(String dbName, http.Response response) {
+    print('$superiorLineMsg'
+        '   Removing All Collections:\n'
+        '   - DB_Name: $dbName\n'
+        '   - Status: ${response.statusCode}\n'
+        '$inferiorLineMsg');
+  }
+
+  void _removeCollectionMessage(String url, http.Response response) {
+    print('$superiorLineMsg'
+        '   Removing Collection:\n'
+        '   - URL: $url\n'
+        '   - Status: ${response.statusCode}\n'
+        '$inferiorLineMsg');
+  }
+
+  void _addObjMessage(String collectionUrl, object, http.Response response) {
+    print('$superiorLineMsg'
+        '   Adding Object:\n'
+        '   - URL: $collectionUrl\n'
+        '   - ID: ${object.id}\n'
+        '   - Type: ${object.runtimeType.toString()}\n'
+        '   - Status: ${response.statusCode}\n'
+        '$inferiorLineMsg');
+  }
+
+  void _addObjectMessage({
+    required String collectionUrl,
+    required Object object,
+    required http.Response response,
+  }) {
+    print('$superiorLineMsg'
+        '   Adding Object in Db:\n'
+        '   - URL: $collectionUrl\n'
+        // '   - ID: ${object.id}\n'
+        '   - Type: ${object.runtimeType.toString()}\n'
+        '   - Status: ${response.statusCode}\n'
+        '$inferiorLineMsg');
   }
 }

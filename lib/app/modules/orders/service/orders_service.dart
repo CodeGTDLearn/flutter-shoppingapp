@@ -13,6 +13,7 @@ class OrdersService implements IOrdersService {
   @override
   Future<Order> addOrder(List<CartItem> cartItems, double amount) {
     var orderTimeStamp = DateTime.now();
+
     var order = Order(
       null,
       amount.toStringAsFixed(2),

@@ -10,14 +10,14 @@ import '../../../../utils/test_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 import 'inventory_tests.dart';
 
-class InventoryViewFunctionalTest {
+class InventoryViewTest {
   late bool _isWidgetTest;
   final _utils = Get.put(TestUtils());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
   final _config = Get.put(InventoryTestConfig());
 
-  InventoryViewFunctionalTest({required String testType}) {
+  InventoryViewTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
   }
 
@@ -42,7 +42,7 @@ class InventoryViewFunctionalTest {
 
     testWidgets(_config.check_ProductsAbsence, (tester) async {
       if (!_isWidgetTest) {
-        await _dbUtils.cleanDb(dbUrl: TEST_URL, dbName: DB_NAME);
+        await _dbUtils.cleanDb(dbUrl: TEST_DB_URL, dbName: TEST_DB_NAME);
       }
 
       _config.bindingsBuilderMockedRepoEmptyDb(isWidgetTest: _isWidgetTest);

@@ -104,8 +104,8 @@ class OrdersTestConfig {
   get VIEW_TEST_TITLE => '${repoName()}|View: Functional';
 
   //TEST-TITLES ----------------------------------------------------------------
-  get check_oneOrderInDB => 'Opening View ONE ORDER in DB';
-  get check_emptyDB => 'Opening View NONE Order in DB';
+  get check_emptyOrderCollection => 'Opening View NONE Order in DB';
+  get check_Orders_with_oneOrderInDB => 'Opening View ONE ORDER in DB';
   get tap_ViewBackButton => 'Testing View BackButton';
   get ordering_InCartView_tapOrderNowBtn =>
       'Ordering from CartView - Taping OrderNow Button';

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/components/keys/snackbarr_keys.dart';
-import 'package:shopingapp/app/core/components/snackbarr.dart';
-import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/components/overview_grid_item.dart';
@@ -229,7 +227,7 @@ class OverviewTests {
     await tester.tap(keyProduct1);
 
     // check if the page has changed
-    await tester.pumpAndSettle(testUtils.delay(3));
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(testUtils.text(_products()[0].title.toString()), findsOneWidget);
 
     testUtils.checkImageTotalInAView(1);
@@ -245,11 +243,11 @@ class OverviewTests {
 
     var keyProduct1 = testUtils.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
 
-    await tester.pumpAndSettle(testUtils.delay(3));
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
     // @formatter:off
     tester
         .tap(keyProduct1)
-        .then((value) => tester.pumpAndSettle(testUtils.delay(1)))
+        .then((value) => tester.pumpAndSettle(testUtils.delay(DELAY)))
         .then((value) {
       expect(testUtils.text(_products()[0].title.toString()), findsOneWidget);
       expect(testUtils.text('\$${_products()[0].price}'), findsOneWidget);

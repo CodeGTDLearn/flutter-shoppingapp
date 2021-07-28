@@ -1,26 +1,20 @@
-import 'package:faker/faker.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/orders/entities/order.dart';
 import 'package:shopingapp/app/modules/orders/service/i_orders_service.dart';
-import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../config/orders_test_config.dart';
-import '../../../../data_builders/cartitem_databuilder.dart';
-import '../../../../data_builders/order_databuilder.dart';
-import 'orders_mocked_service.dart';
 
 class OrdersServiceTests {
   static void unit() {
-    late IOrdersService _service, _injectService;
-    late var _cartItems;
+    late IOrdersService _service;
     var testConfig = Get.put(OrdersTestConfig());
 
     setUp(() {
       testConfig.bindingsBuilderMockedRepo(isWidgetTest: true);
       _service = Get.find<IOrdersService>();
-      _injectService = OrdersInjectMockedService();
-      _cartItems = CartItemDatabuilder.cartItems();
+      // _injectService = OrdersInjectMockedService();
+      // _cartItems = CartItemDatabuilder.cartItems();
     });
 
     tearDown(Get.reset);
@@ -72,18 +66,3 @@ class OrdersServiceTests {
     // @formatter:on
   }
 }
-// test('Adding Order', () {
-//   var _id = "-${Faker().randomGenerator.string(21, min: 20)}";
-//   var _amountOrder =
-//       double.parse(Faker().randomGenerator.decimal(min: 22.0).toStringAsFixed(2));
-//
-//   // @formatter:off
-//   when(_injectService.addOrder(_cartItems, _amountOrder))
-//       .thenAnswer((_) async => OrderDatabuilder.OrderParam(_cartItems, _id));
-//
-//   _injectService.addOrder(_cartItems, _amountOrder).then((orderReturned) {
-//     expect(orderReturned.id, _id);
-//     expect(orderReturned.cartItems[0].id, _cartItems[0].id);
-//     expect(orderReturned.cartItems[1].id, _cartItems[1].id);
-//   });
-// });

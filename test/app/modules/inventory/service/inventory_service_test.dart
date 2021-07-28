@@ -1,30 +1,28 @@
+import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/inventory/service/i_inventory_service.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
-import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../config/inventory_test_config.dart';
 import '../../../../data_builders/product_databuilder.dart';
-import '../../../../test_datasource/test_products_datasource.dart';
-import 'inventory_mocked_service.dart';
+import '../../../../mocked_datasource/mocked_products_datasource.dart';
 
 class InventoryServiceTests {
   static void unit() {
     late IOverviewService _overviewService;
-    late IInventoryService _service, _injectService;
+    late IInventoryService _service;
 
-    var _product0 = TestProductsDatasource().products().elementAt(0);
-    var _product1 = TestProductsDatasource().products().elementAt(1);
-    var _products = TestProductsDatasource().products();
+    var _product0 = MockedProductsDatasource().products().elementAt(0);
+    var _product1 = MockedProductsDatasource().products().elementAt(1);
+    var _products = MockedProductsDatasource().products();
     var _newProduct = ProductDataBuilder().ProductFull();
 
     setUp(() {
       InventoryTestConfig().bindingsBuilderMockedRepo(isUnitTest: true);
       _overviewService = Get.find<IOverviewService>();
       _service = Get.find<IInventoryService>();
-      _injectService = InventoryInjectMockedService();
+      // _injectService = InventoryInjectMockedService();
     });
 
     test('Getting Products - ResponseType', () {
@@ -62,7 +60,7 @@ class InventoryServiceTests {
     });
 
     test('Adding Product in LocalDataManagedProducts', () {
-      var productTest = TestProductsDatasource().product();
+      var productTest = MockedProductsDatasource().product();
 
       _service.getProducts().then((_) {
         expect(_service.getLocalDataInventoryProducts().length, 4);
@@ -151,17 +149,3 @@ class InventoryServiceTests {
     });
   }
 }
-// test('Deleting a Product(Inject) - Optimistic (Mocked)', () {
-//   when(_injectService.deleteProduct(_newProduct.id!))
-//       .thenAnswer((_) async => Future.value(404));
-//
-//   when(_injectService.getLocalDataInventoryProducts()).thenReturn(_products);
-//
-//   expect(_injectService.getLocalDataInventoryProducts(), _products);
-//
-//   _injectService.deleteProduct(_newProduct.id!).then((response) {
-//     expect(response, 404);
-//   });
-//   //Rollback the localDataManagedProducts 'cause unsuccessful deleteProduct
-//   expect(_injectService.getLocalDataInventoryProducts(), _products);
-// });

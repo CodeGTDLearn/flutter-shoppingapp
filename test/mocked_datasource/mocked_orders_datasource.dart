@@ -3,23 +3,25 @@ import 'dart:io';
 
 import 'package:shopingapp/app/modules/orders/entities/order.dart';
 
-class TestOrdersDatasource {
-  final MOCKED_DATASOURCE = "test/test_datasource/mocked_datasource.json";
-  late String _MockedDatasource;
+import '../config/app_tests_config.dart';
 
-  TestOrdersDatasource() {
-    _MockedDatasource = MOCKED_DATASOURCE;
+class MockedOrdersDatasource {
+  final _datasource = MOCKED_DATASOURCE;
+  late String _mockedDatasource;
+
+  MockedOrdersDatasource() {
+    _mockedDatasource = _datasource;
   }
 
   List<Order> orders() {
-    final file = File(_MockedDatasource);
+    final file = File(_mockedDatasource);
     final json = jsonDecode(file.readAsStringSync())["orders"];
     List<Order> result = json.map<Order>((json) => Order.fromJson(json)).toList();
     return result;
   }
 
   Order order() {
-    final file = File(_MockedDatasource);
+    final file = File(_mockedDatasource);
     final json = jsonDecode(file.readAsStringSync())["orders"];
     List<Order> result = json.map<Order>((json) => Order.fromJson(json)).toList();
     return result.elementAt(0);

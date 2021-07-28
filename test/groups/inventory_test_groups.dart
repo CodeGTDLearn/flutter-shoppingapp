@@ -31,7 +31,7 @@ class InventoryTestGroups {
 
     group(
       "${InventoryTestConfig().VIEW_TEST_TITLE}",
-      InventoryViewFunctionalTest(testType: WIDGET_TEST).functional,
+      InventoryViewTest(testType: WIDGET_TEST).functional,
       skip: skipGroup,
     );
 
@@ -43,7 +43,7 @@ class InventoryTestGroups {
 
     group(
       InventoryTestConfig().VIEW_EDIT_TEST_TITLE,
-      InventoryViewEditFunctionalTest(testType: WIDGET_TEST).functional,
+      InventoryViewEditTest(testType: WIDGET_TEST).functional,
       skip: skipGroup,
     );
   }

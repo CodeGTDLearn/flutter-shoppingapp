@@ -26,7 +26,7 @@ class OrdersTestGroups {
     );
     group(
       OrdersTestConfig().VIEW_TEST_TITLE,
-      OrdersViewFunctionalTest(testType: WIDGET_TEST).functional,
+      OrdersViewTest(testType: WIDGET_TEST).functional,
       skip: skipGroup,
     );
   }

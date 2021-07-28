@@ -1,24 +1,22 @@
 import 'package:faker/faker.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/orders/entities/order.dart';
 import 'package:shopingapp/app/modules/orders/repo/i_orders_repo.dart';
-import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../config/orders_test_config.dart';
 import '../../../../data_builders/order_databuilder.dart';
-import 'orders_mocked_repo.dart';
 
 class OrdersRepoTests {
   static void unit() {
     var testConfig = Get.put(OrdersTestConfig());
-    late IOrdersRepo _repo, _injectRepo;
+    late IOrdersRepo _repo;
     var _orderWithoutId;
 
     setUp(() {
       testConfig.bindingsBuilderMockedRepo(isWidgetTest: true);
       _repo = Get.find<IOrdersRepo>();
-      _injectRepo = OrdersInjectMockedRepo();
+      // _injectRepo = OrdersInjectMockedRepo();
       _orderWithoutId = OrderDatabuilder.OrderFull();
     });
 

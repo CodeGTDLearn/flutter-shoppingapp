@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/properties/app_form_field_sizes.dart';
-import '../field_validators/validator_abstraction.dart';
 import 'properties_abstraction.dart';
 
 class TitleProperties extends PropertiesAbstraction {

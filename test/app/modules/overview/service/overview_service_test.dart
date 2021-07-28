@@ -1,15 +1,13 @@
+import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/components/filter_favorite_enum.dart';
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
-import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../config/overview_test_config.dart';
-import '../../../../data_builders/product_databuilder.dart';
-import '../../../../test_datasource/test_products_datasource.dart';
+import '../../../../mocked_datasource/mocked_products_datasource.dart';
 import '../../../../utils/test_utils.dart';
 import 'overview_mocked_service.dart';
 
@@ -59,7 +57,7 @@ class OverviewServiceTests {
     });
 
     test('Adding Product in LocalDataAllProducts', () {
-      var productTest = TestProductsDatasource().product();
+      var productTest = MockedProductsDatasource().product();
 
       _service.getProducts().then((_) {
         expect(_service.getLocalDataAllProducts().length, 4);

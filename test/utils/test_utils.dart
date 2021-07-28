@@ -6,7 +6,7 @@ import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 
 import '../config/app_tests_config.dart';
 import '../data_builders/product_databuilder.dart';
-import '../test_datasource/test_products_datasource.dart';
+import '../mocked_datasource/mocked_products_datasource.dart';
 import 'db_test_utils.dart';
 
 class TestUtils {
@@ -49,7 +49,7 @@ class TestUtils {
     var _product;
     var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
     if (!isWidgetTest) {
-      await dbTestUtils.cleanDb(dbUrl: TEST_URL, dbName: DB_NAME);
+      await dbTestUtils.cleanDb(dbUrl: TEST_DB_URL, dbName: TEST_DB_NAME);
       await dbTestUtils
           .addMultipleObjects(
             tester,
@@ -62,7 +62,7 @@ class TestUtils {
     }
     Get.delete(tag: 'dbInstance');
     return isWidgetTest
-        ? Future.value(TestProductsDatasource().products()[0])
+        ? Future.value(MockedProductsDatasource().products()[0])
         : Future.value(_product);
   }
 
@@ -73,7 +73,7 @@ class TestUtils {
     var _listProducts;
     var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
     if (!isWidgetTest) {
-      await dbTestUtils.cleanDb(dbUrl: TEST_URL, dbName: DB_NAME);
+      await dbTestUtils.cleanDb(dbUrl: TEST_DB_URL, dbName: TEST_DB_NAME);
       await dbTestUtils
           .addMultipleObjects(
             tester,
@@ -86,7 +86,7 @@ class TestUtils {
     }
     Get.delete(tag: 'dbInstance');
     return isWidgetTest
-        ? Future.value(TestProductsDatasource().products())
+        ? Future.value(MockedProductsDatasource().products())
         : Future.value(_listProducts.cast<Product>());
   }
 
@@ -100,7 +100,7 @@ class TestUtils {
       lineCharacter: '=',
     ));
 
-    await Get.put(DbTestUtils()).cleanDb(dbUrl: TEST_URL, dbName: DB_NAME);
+    await Get.put(DbTestUtils()).cleanDb(dbUrl: TEST_DB_URL, dbName: TEST_DB_NAME);
   }
 
   void globalTearDownAll(String testModuleName) async {

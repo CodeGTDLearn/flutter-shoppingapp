@@ -1,11 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
-import 'package:shopingapp/app/modules/orders/components/order_collapsable_tile.dart';
 import 'package:shopingapp/app/modules/orders/view/orders_view.dart';
-import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
-import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/app_tests_config.dart';
 import '../../../../config/orders_test_config.dart';
@@ -14,14 +10,14 @@ import '../../../../utils/test_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 import 'orders_tests.dart';
 
-class OrdersViewFunctionalTest {
+class OrdersViewTest {
   late bool _isWidgetTest;
   final _utils = Get.put(TestUtils());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
   final _config = Get.put(OrdersTestConfig());
 
-  OrdersViewFunctionalTest({required String testType}) {
+  OrdersViewTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
   }
 
@@ -44,37 +40,21 @@ class OrdersViewFunctionalTest {
 
     tearDown(() => _utils.globalTearDown("...Ending"));
 
-    testWidgets(_config.check_oneOrderInDB, (tester) async {
+    testWidgets(_config.check_emptyOrderCollection, (tester) async {
       if (!_isWidgetTest) {
-        await _dbUtils.cleanDb(dbUrl: TEST_URL, dbName: DB_NAME);
+        await _dbUtils.cleanDb(dbUrl: TEST_DB_URL, dbName: TEST_DB_NAME);
       }
       _config.bindingsBuilderMockRepoEmptyDb(isWidgetTest: _isWidgetTest);
-      await _tests.checkOrders_OrdersAbsence(tester, DELAY);
+
+      await _tests.check_emptyOrderCollection(tester, DELAY);
     });
 
     testWidgets(_config.ordering_InCartView_tapOrderNowBtn, (tester) async {
-      await _tests.OrderingFromCartView_TapButtonOrderNow(tester, DELAY);
+      await _tests.Ordering_InCartView_TapOrderNowButton(tester, DELAY);
     });
 
-    testWidgets(_config.check_oneOrderInDB, (tester) async {
-      await _uiUtils.testInitialization(
-        tester,
-        isWidgetTest: _isWidgetTest,
-        driver: app.AppDriver(),
-      );
-
-      await _uiUtils.openDrawerAndClickAnOption(
-        tester,
-        interval: DELAY,
-        optionKey: DRAWER_ORDER_OPTION_KEY,
-        scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
-      );
-
-      _uiUtils.checkWidgetsTypesQtdeInAView(
-        widgetView: OrdersView,
-        widgetType: OrderCollapsableTile,
-        widgetQtde: 1,
-      );
+    testWidgets(_config.check_Orders_with_oneOrderInDB, (tester) async {
+      await _tests.check_oneOrderInDB(tester, DELAY);
     });
 
     testWidgets(_config.tap_ViewBackButton, (tester) async {

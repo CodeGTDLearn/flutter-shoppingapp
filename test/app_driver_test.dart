@@ -17,9 +17,9 @@ import 'groups/orders_test_groups.dart';
 import 'groups/overview_test_groups.dart';
 
 void main() {
-  // String.fromEnvironment => MUST BE CONSTANT!!!
+  // NO ERASE: String.fromEnvironment => MUST BE CONSTANT!!!
   const _env = String.fromEnvironment("testType", defaultValue: WIDGET_TEST);
-  print("ENV_VAR: ${_env.toString()}");
+  print("ENV_VAR_TEST_TYPE: ${_env.toString()}");
   if (_env == WIDGET_TEST) _unitTests();
   if (_env == INTEGRATION_TEST) _integrationTests();
   if (_env != WIDGET_TEST && _env != INTEGRATION_TEST) print('TestType not Found.');
@@ -44,38 +44,38 @@ void _integrationTests() {
 
   group(
     OrdersTestConfig.ORDERS_GROUP_TITLE,
-    OrdersViewFunctionalTest(testType: INTEGRATION_TEST).functional,
-    skip: true, //'skip-group' overrides the internal 'skip-methods'
+    OrdersViewTest(testType: INTEGRATION_TEST).functional,
+    skip: skipGroup, // no erase: 'skip-group' overrides the internal 'skip-methods'
   );
 
   group(
     InventoryTestConfig.INVENTORY_GROUP_TITLE,
-    InventoryViewFunctionalTest(testType: INTEGRATION_TEST).functional,
-    skip: true,
+    InventoryViewTest(testType: INTEGRATION_TEST).functional,
+    skip: skipGroup,
   );
 
   group(
     InventoryTestConfig.INVENTORY_EDIT_GROUP_TITLE,
-    InventoryViewEditFunctionalTest(testType: INTEGRATION_TEST).functional,
-    skip: true,
+    InventoryViewEditTest(testType: INTEGRATION_TEST).functional,
+    skip: skipGroup,
   );
 
   group(
     InventoryTestConfig.INVENTORY_VALIDATION_GROUP_TITLE,
     InventoryViewValidationTest(testType: INTEGRATION_TEST).functional,
-    skip: true,
+    skip: skipGroup,
   );
 
   //------------------------------------------------------
   group(
     OverviewTestConfig.OVERVIEW_GROUP_TITLE,
-    OverviewViewFunctionalTest(testType: INTEGRATION_TEST).functional,
+    OverviewViewTest(testType: INTEGRATION_TEST).functional,
     skip: skipGroup,
   );
 
   group(
     OverviewTestConfig.OVERVIEW_DETAIL_GROUP_TITLE,
-    OverviewDetailsFunctionalTest(testType: INTEGRATION_TEST).functional,
-    skip: true,
+    OverviewDetailsTest(testType: INTEGRATION_TEST).functional,
+    skip: skipGroup,
   );
 }

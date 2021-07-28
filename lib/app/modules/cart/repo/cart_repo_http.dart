@@ -17,23 +17,12 @@ class CartRepoHttp implements ICartRepo {
   @override
   void addCartItem(Product product) {
     if (_cartItems.containsKey(product.id)) {
-      _cartItems.update(product.id!, (itemFound) {
-        return CartItem(
-          itemFound.id,
-          itemFound.title,
-          itemFound.qtde + 1,
-          itemFound.price,
-        );
+      _cartItems.update(product.id!, (item) {
+        return CartItem(item.id, item.title, item.qtde + 1, item.price);
       });
     } else {
       _cartItems.putIfAbsent(
-          product.id!,
-          () => CartItem(
-                product.id!,
-                product.title,
-                1,
-                product.price,
-              ));
+          product.id!, () => CartItem(product.id!, product.title, 1, product.price));
     }
   }
 
