@@ -22,32 +22,32 @@ class InventoryRepoHttp implements IInventoryRepo {
   Future<Product> addProduct(Product product) {
     // @formatter:off
     return http
-            .post(Uri.parse(PRODUCTS_URL), body: jsonEncode(product.toJson()))
-            .then((response) {
-              var plainText = response.body;
-                Map<String, dynamic> json = jsonDecode(plainText);
-                product.id = json['name'];
-                return product;})
-            .catchError((onError) => throw onError);
+        .post(Uri.parse(PRODUCTS_URL), body: jsonEncode(product.toJson()))
+        .then((response) {
+      var plainText = response.body;
+      Map<String, dynamic> json = jsonDecode(plainText);
+      product.id = json['name'];
+      return product;
+    }).catchError((onError) => throw onError);
     // @formatter:on
   }
 
   Future<int> updateProduct(Product product) {
-    final noExtensionInUpdates = PRODUCTS_URL.replaceAll('.json', '/');
+    final noExtensionInUrlForUpdates = PRODUCTS_URL.replaceAll('.json', '/');
+    var objectMappedInJsonFormat = product.toJson();
+    objectMappedInJsonFormat.remove('id');
     return http
-        .patch(Uri.parse("$noExtensionInUpdates${product.id}.json"),
-            body: jsonEncode(product.toJson()))
+        .patch(Uri.parse("$noExtensionInUrlForUpdates${product.id}.json"),
+            body: jsonEncode(objectMappedInJsonFormat))
         .then((response) => response.statusCode);
   }
 
   Future<int> deleteProduct(String id) {
     // @formatter:off
     final noExtensionInDeletions = PRODUCTS_URL.replaceAll('.json', '/');
-    return http
-             .delete(Uri.parse("$noExtensionInDeletions$id.json"))
-             .then((response) {
-               return response.statusCode;
-             });
+    return http.delete(Uri.parse("$noExtensionInDeletions$id.json")).then((response) {
+      return response.statusCode;
+    });
     // @formatter:on
   }
 

@@ -17,7 +17,7 @@ import 'package:shopingapp/app_driver.dart';
 import '../../../config/cart_test_config.dart';
 import '../../../utils/test_utils.dart';
 
-class CartViewTests {
+class CartViewFunctionalTests {
   static void functional() {
     late TestUtils _seek;
 

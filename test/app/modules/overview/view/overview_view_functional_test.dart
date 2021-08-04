@@ -47,6 +47,7 @@ class OverviewViewTest {
 
     testWidgets(_config.toggle_favorite_status, (tester) async {
       await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
+
       _isWidgetTest
           ? await _tests.toggleProductFavoriteButton(
               tester,
@@ -59,12 +60,15 @@ class OverviewViewTest {
     });
 
     testWidgets(_config.add_prod_snackbar, (tester) async {
+      await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
       await _tests.addProductCheckShopCartIconAndSnackbar(tester);
     });
 
-    testWidgets(_config.add_prod_snackbar_undo, (tester) async {
+    testWidgets(_config.add_prod_and_click_snackbar_undo, (tester) async {
+      await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
       await _tests.addProductAndClickUndoInSnackbar(tester);
     });
+    // }, skip: false);
 
     testWidgets(_config.add_prod1_3x_check_shopCartIcon, (tester) async {
       var products = await _utils.loadFourProductsListInDb(

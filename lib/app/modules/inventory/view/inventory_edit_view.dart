@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/components/progres_indicator.dart';
-import '../../../core/components/snackbarr.dart';
+import '../../../core/components/snackbar/simple_snackbar.dart';
 import '../../../core/properties/app_owasp_regex.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
 import '../../overview/controller/overview_controller.dart';

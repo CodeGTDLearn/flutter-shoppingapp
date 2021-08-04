@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 
 import 'test_utils.dart';
 
@@ -63,7 +64,11 @@ class DbTestUtils {
       Map<String, dynamic> json = jsonDecode(plainText);
       object.id = json['name'];
 
-      _addObjMessage(collectionUrl, object, response);
+      // _addProductMessage(
+      //   collectionUrl: collectionUrl,
+      //   product: object,
+      //   statusCode: response.statusCode,
+      // );
 
       return object;
     }).catchError((onError) => throw onError);
@@ -87,107 +92,103 @@ class DbTestUtils {
         collectionUrl: collectionUrl,
       ).then((responseObject) {
         listReturn.add(responseObject);
-        // _addObjectMessage(
-        //   collectionUrl: collectionUrl,
-        //   response: responseObject,
-        //   object: object,
-        // );
+        _addProductMessage(
+          collectionUrl: collectionUrl,
+          product: responseObject,
+        );
       });
     }
 
     return Future.value(listReturn);
   }
 
-  Future<dynamic> addObjectsInDbManually({
-    required int qtdeObjects,
-    required var object,
-    required String collectionUrl,
-    required String dbUrl,
-    required String dbName,
-  }) async {
-    // Example:
-    // dbName = 'test-app-dev-e6ee1-default-rtdb';
-    // dbUrl = "https://$dbName.firebaseio.com/.json";
-    await cleanDb(dbUrl: dbUrl, dbName: dbName);
-
-    // Example:
-    // collectionUrl = "https://test-app-dev-e6ee1-default-rtdb.firebaseio.com/products.json";
-    var listReturn = <Object>[];
-    for (var item = 1; item <= qtdeObjects; item++) {
-      // @formatter:off
-      return http
-          .post(Uri.parse(collectionUrl), body: jsonEncode(object.toJson()))
-          .then((responseObject) {
-        var plainText = responseObject.body;
-        Map<String, dynamic> json = jsonDecode(plainText);
-        object.id = json['name'];
-
-        // _addObjectMessage(collectionUrl, object, responseObject);
-        _addObjectMessage(
-          collectionUrl: collectionUrl,
-          response: responseObject,
-          object: object,
-        );
-
-        listReturn.add(responseObject);
-      }).catchError((onError) => throw onError);
-      // @formatter:on
-    }
-
-    return Future.value(listReturn);
-  }
-
-  String superiorLineMsg = "||>===============> DB ACTION >===============>\n";
-  String inferiorLineMsg = "   >==============> DB ACTION >===============><||\n\n\n";
+  final _headerLineMsg =
+      "||> >=======================> DB ACTION >========================>\n";
+  final _footerLineMsg =
+      "    <=======================< DB ACTION <========================< <||\n\n\n";
 
   void _removeObjectMessage(
-      String noExtensionInDeletions, String id, http.Response response) {
-    print('$superiorLineMsg'
+    String url_NoExtensionInDeletions,
+    String id,
+    http.Response response,
+  ) {
+    print('$_headerLineMsg'
         ' Removing Object:\n'
-        ' - URL: $noExtensionInDeletions$id.json\n'
+        ' - URL: $url_NoExtensionInDeletions$id.json\n'
         ' - ID: $id\n'
         ' - Type: ${response.runtimeType.toString()}\n'
         ' - Status: ${response.statusCode}\n'
-        '$inferiorLineMsg');
+        '$_footerLineMsg');
   }
 
   void _cleanDbMessage(String dbName, http.Response response) {
-    print('$superiorLineMsg'
-        '   Removing All Collections:\n'
-        '   - DB_Name: $dbName\n'
-        '   - Status: ${response.statusCode}\n'
-        '$inferiorLineMsg');
+    print('$_headerLineMsg'
+        '    Removing All Collections:\n'
+        '    - DB_Name: $dbName\n'
+        '    - Status: ${response.statusCode}\n'
+        '$_footerLineMsg');
   }
 
   void _removeCollectionMessage(String url, http.Response response) {
-    print('$superiorLineMsg'
-        '   Removing Collection:\n'
-        '   - URL: $url\n'
-        '   - Status: ${response.statusCode}\n'
-        '$inferiorLineMsg');
+    print('$_headerLineMsg'
+        '    Removing Collection:\n'
+        '    - URL: $url\n'
+        '    - Status: ${response.statusCode}\n'
+        '$_footerLineMsg');
   }
 
-  void _addObjMessage(String collectionUrl, object, http.Response response) {
-    print('$superiorLineMsg'
-        '   Adding Object:\n'
-        '   - URL: $collectionUrl\n'
-        '   - ID: ${object.id}\n'
-        '   - Type: ${object.runtimeType.toString()}\n'
-        '   - Status: ${response.statusCode}\n'
-        '$inferiorLineMsg');
-  }
-
-  void _addObjectMessage({
+  void _addProductMessage({
     required String collectionUrl,
-    required Object object,
-    required http.Response response,
+    required Product product,
+    int? statusCode,
   }) {
-    print('$superiorLineMsg'
-        '   Adding Object in Db:\n'
-        '   - URL: $collectionUrl\n'
-        // '   - ID: ${object.id}\n'
-        '   - Type: ${object.runtimeType.toString()}\n'
-        '   - Status: ${response.statusCode}\n'
-        '$inferiorLineMsg');
+    var statusTxt = statusCode == null ? '' : '    - Status: $statusCode\n';
+
+    print('$_headerLineMsg'
+        '    Adding Object:\n'
+        '    - URL: $collectionUrl\n'
+        '    - ID: ${product.id}\n'
+        '    - Type: ${product.runtimeType.toString()}\n'
+        '$statusTxt'
+        '$_footerLineMsg');
   }
 }
+
+// Future<dynamic> addObjectsInDbManually({
+//   required int qtdeObjects,
+//   required var object,
+//   required String collectionUrl,
+//   required String dbUrl,
+//   required String dbName,
+// }) async {
+//   // Example:
+//   // dbName = 'test-app-dev-e6ee1-default-rtdb';
+//   // dbUrl = "https://$dbName.firebaseio.com/.json";
+//   await cleanDb(dbUrl: dbUrl, dbName: dbName);
+//
+//   // Example:
+//   // collectionUrl = "https://test-app-dev-e6ee1-default-rtdb.firebaseio.com/products.json";
+//   var listReturn = <Object>[];
+//   for (var item = 1; item <= qtdeObjects; item++) {
+//     // @formatter:off
+//     return http
+//         .post(Uri.parse(collectionUrl), body: jsonEncode(object.toJson()))
+//         .then((responseObject) {
+//       var plainText = responseObject.body;
+//       Map<String, dynamic> json = jsonDecode(plainText);
+//       object.id = json['name'];
+//
+//       // _addObjectMessage(collectionUrl, object, responseObject);
+//       _addObjectMessage(
+//         collectionUrl: collectionUrl,
+//         response: responseObject,
+//         object: object,
+//       );
+//
+//       listReturn.add(responseObject);
+//     }).catchError((onError) => throw onError);
+//     // @formatter:on
+//   }
+//
+//   return Future.value(listReturn);
+// }

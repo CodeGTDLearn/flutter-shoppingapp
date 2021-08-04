@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/components/snackbarr.dart';
+import '../../../core/components/snackbar/simple_snackbar.dart';
 import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
 import '../../cart/controller/cart_controller.dart';
@@ -17,6 +17,7 @@ class BadgeShopCart extends StatelessWidget {
   final CartController _controller = Get.find<CartController>();
 
   BadgeShopCart({this.color});
+
   // BadgeShopCart({this.child, this.value, this.color});
 
   @override

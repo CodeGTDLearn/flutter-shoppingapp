@@ -23,20 +23,12 @@ class OverviewRepoHttp implements IOverviewRepo {
 
   @override
   Future<int> updateProduct(Product product) {
-    // final noExtensionInUpdates = PRODUCTS_URL.replaceAll('.json', '/');
-    // return http
-    //     .patch(Uri.parse("$noExtensionInUpdates${product.id}.json"),
-    //         body: jsonEncode(product.toJson()))
-    //     .then((response) => response.statusCode);
-    final noExtensionInUpdates = PRODUCTS_URL.replaceAll('.json', '/');
-    product.id = null;
+    final noExtensionInUrlForUpdates = PRODUCTS_URL.replaceAll('.json', '/');
+    var objectMappedInJsonFormat = product.toJson();
+    objectMappedInJsonFormat.remove('id');
     return http
-        .patch(
-          Uri.parse("$noExtensionInUpdates${product.id}.json"),
-          // Uri.parse("$PRODUCTS_URL/${product.id}.json"),
-          headers: HEADER_ACCEPT_JSON,
-          body: jsonEncode(product.toJson()),
-        )
+        .patch(Uri.parse("$noExtensionInUrlForUpdates${product.id}.json"),
+            body: jsonEncode(objectMappedInJsonFormat))
         .then((response) => response.statusCode);
   }
 

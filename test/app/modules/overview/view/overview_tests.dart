@@ -29,7 +29,7 @@ class OverviewTests {
     required this.dbTestUtils,
   });
 
-  Future<void> addProductCheckShopCartIconAndSnackbar(tester) async {
+  Future addProductCheckShopCartIconAndSnackbar(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -47,7 +47,7 @@ class OverviewTests {
     expect(snackbarText, findsWidgets);
   }
 
-  Future<void> addProductAndClickUndoInSnackbar(tester) async {
+  Future addProductAndClickUndoInSnackbar(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -68,7 +68,7 @@ class OverviewTests {
     expect(testUtils.text("0"), findsOneWidget);
   }
 
-  Future<void> tapFavoritesFilterNoFavoritesFound(tester) async {
+  Future tapFavoritesFilterNoFavoritesFound(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -94,7 +94,7 @@ class OverviewTests {
     expect(testUtils.text(OVERVIEW_TITLE_PAGE_FAVORITE), findsNothing);
   }
 
-  Future<void> tapFavoriteFilter(tester) async {
+  Future tapFavoriteFilter(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -130,7 +130,7 @@ class OverviewTests {
     expect(testUtils.type(OverviewGridItem), findsNWidgets(4));
   }
 
-  Future<void> closeFavoriteFilter(tester) async {
+  Future closeFavoriteFilter(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -152,7 +152,7 @@ class OverviewTests {
     expect(popupItemAll, findsNothing);
   }
 
-  Future<void> addProduct1_3x_CheckingShopCartIcon(
+  Future addProduct1_3x_CheckingShopCartIcon(
     tester, {
     required List<Product> listProducts,
   }) async {
@@ -173,7 +173,7 @@ class OverviewTests {
     expect(snackTitle, findsOneWidget);
   }
 
-  Future<void> addMultipleProductsAndCheckShopCartIcon(tester) async {
+  Future addMultipleProductsAndCheckShopCartIcon(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -214,7 +214,7 @@ class OverviewTests {
     expect(testUtils.text("4"), findsOneWidget);
   }
 
-  Future<void> clickProductCheckDetailsImage(tester) async {
+  Future clickProductCheckDetailsImage(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -233,7 +233,7 @@ class OverviewTests {
     testUtils.checkImageTotalInAView(1);
   }
 
-  Future<void> clickProductCheckDetailsText(tester) async {
+  Future clickProductCheckDetailsText(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -288,7 +288,7 @@ class OverviewTests {
     );
   }
 
-  Future<void> toggleProductFavoriteButton(
+  Future toggleProductFavoriteButton(
     tester, {
     required int favoritesAfterToggle,
   }) async {

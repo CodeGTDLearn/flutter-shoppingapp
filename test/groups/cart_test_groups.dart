@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../app/modules/cart/cart_controller_test.dart';
 import '../app/modules/cart/cart_repo_test.dart';
 import '../app/modules/cart/cart_service_test.dart';
-import '../app/modules/cart/cart_view_test.dart';
+import '../app/modules/cart/cart_view_functional_test.dart';
 import '../config/cart_test_config.dart';
 
 class CartTestGroups {
@@ -25,7 +25,7 @@ class CartTestGroups {
     );
     group(
       CartTestConfig().VIEW_TEST_TITLE,
-      CartViewTests.functional,
+      CartViewFunctionalTests.functional,
       skip: skipGroup,
     );
   }

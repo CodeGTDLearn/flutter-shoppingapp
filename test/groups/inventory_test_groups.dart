@@ -5,7 +5,7 @@ import '../app/modules/inventory/repo/inventory_repo_test.dart';
 import '../app/modules/inventory/service/inventory_service_test.dart';
 import '../app/modules/inventory/view/inventory_view_edit_functional_test.dart';
 import '../app/modules/inventory/view/inventory_view_functional_test.dart';
-import '../app/modules/inventory/view/inventory_view_validation_test.dart';
+import '../app/modules/inventory/view/inventory_view_validation_funtional_test.dart';
 import '../config/app_tests_config.dart';
 import '../config/inventory_test_config.dart';
 
@@ -37,7 +37,7 @@ class InventoryTestGroups {
 
     group(
       InventoryTestConfig().VIEW_TEST_VALID_TITLE,
-      InventoryViewValidationTest(testType: WIDGET_TEST).functional,
+      InventoryViewValidationFunctionalTest(testType: WIDGET_TEST).functional,
       skip: skipGroup,
     );
 

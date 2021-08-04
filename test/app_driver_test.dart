@@ -3,7 +3,7 @@ import 'package:integration_test/integration_test.dart';
 
 import 'app/modules/inventory/view/inventory_view_edit_functional_test.dart';
 import 'app/modules/inventory/view/inventory_view_functional_test.dart';
-import 'app/modules/inventory/view/inventory_view_validation_test.dart';
+import 'app/modules/inventory/view/inventory_view_validation_funtional_test.dart';
 import 'app/modules/orders/view/orders_view_functional_test.dart';
 import 'app/modules/overview/view/overview_details_functional_test.dart';
 import 'app/modules/overview/view/overview_view_functional_test.dart';
@@ -40,7 +40,7 @@ void _unitTests() {
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final skipGroup = false;
+  final skipGroup = true;
 
   group(
     OrdersTestConfig.ORDERS_GROUP_TITLE,
@@ -62,7 +62,7 @@ void _integrationTests() {
 
   group(
     InventoryTestConfig.INVENTORY_VALIDATION_GROUP_TITLE,
-    InventoryViewValidationTest(testType: INTEGRATION_TEST).functional,
+    InventoryViewValidationFunctionalTest(testType: INTEGRATION_TEST).functional,
     skip: skipGroup,
   );
 
@@ -70,7 +70,8 @@ void _integrationTests() {
   group(
     OverviewTestConfig.OVERVIEW_GROUP_TITLE,
     OverviewViewTest(testType: INTEGRATION_TEST).functional,
-    skip: skipGroup,
+    // skip: skipGroup,
+    skip: false,
   );
 
   group(

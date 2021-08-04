@@ -9,7 +9,7 @@ import '../properties/theme/dark_theme_controller.dart';
 import '../texts_icons_provider/generic_words.dart';
 import 'app_messages_provided.dart';
 import 'keys/drawwer_keys.dart';
-import 'snackbarr.dart';
+import 'snackbar/simple_snackbar.dart';
 import 'texts_icons/drawwer_texts_icons_provided.dart';
 
 // ignore: must_be_immutable

@@ -34,7 +34,6 @@ class InventoryMockedRepo extends Mock implements IInventoryRepo {
         MockedProductsDatasource().products().firstWhere((item) => item.id == id);
     return found == null ? Future.value(400) : Future.value(200);
     // @formatter:on
-    // return Future.value(200);
   }
 
   @override

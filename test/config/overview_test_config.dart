@@ -87,7 +87,7 @@ class OverviewTestConfig {
   get check_products => 'Checking products';
   get toggle_favorite_status => 'Toggling FavoritesIconButton in a product';
   get add_prod_snackbar => 'Adding product + Check: ShopCartIcon|Snackbar';
-  get add_prod_snackbar_undo => 'Adding product + Clicking Snackbar Undo';
+  get add_prod_and_click_snackbar_undo => 'Adding product + Clicking Snackbar Undo';
   get add_prod1_3x_check_shopCartIcon => 'Adding a product 3x + Check ShopCartIcon';
   get add_4products_check_shopCartIcon => 'Adding 4 products + Check ShopCartIcon';
   get add_prods3And4_check_shopCartIcon => 'Adding products 3/4 + Checking ShopCartIcon';
