@@ -1,5 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/core/components/keys/snackbarr_keys.dart';
+import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 
 import '../../../../config/app_tests_config.dart';
 import '../../../../config/overview_test_config.dart';
@@ -38,68 +40,95 @@ class OverviewViewTest {
 
     tearDown(() => _utils.globalTearDown("...Ending"));
 
-    testWidgets(_config.check_products, (tester) async {
-      await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
+    testWidgets(_config.check_OverviewGridItemsInOverviewView, (tester) async {
+      await _utils.load_2ProductsInDb_ReturnAProduct(tester, isWidgetTest: _isWidgetTest);
       _isWidgetTest
-          ? await _tests.checkOverviewGridItemInOverviewView(tester, itemsQtde: 4)
-          : await _tests.checkOverviewGridItemInOverviewView(tester, itemsQtde: 2);
-    });
-
-    testWidgets(_config.toggle_favorite_status, (tester) async {
-      await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
-
-      _isWidgetTest
-          ? await _tests.toggleProductFavoriteButton(
-              tester,
-              favoritesAfterToggle: 2,
-            )
-          : await _tests.toggleProductFavoriteButton(
-              tester,
-              favoritesAfterToggle: 1,
-            );
-    });
-
-    testWidgets(_config.add_prod_snackbar, (tester) async {
-      await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
-      await _tests.addProductCheckShopCartIconAndSnackbar(tester);
-    });
-
-    testWidgets(_config.add_prod_and_click_snackbar_undo, (tester) async {
-      await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
-      await _tests.addProductAndClickUndoInSnackbar(tester);
+          ? await _tests.check_OverviewGridItemsInOverviewView(tester, itemsQtde: 4)
+          : await _tests.check_OverviewGridItemsInOverviewView(tester, itemsQtde: 2);
     });
     // }, skip: false);
 
-    testWidgets(_config.add_prod1_3x_check_shopCartIcon, (tester) async {
-      var products = await _utils.loadFourProductsListInDb(
+    testWidgets(_config.toggle_ProductFavoriteButton, (tester) async {
+      _isWidgetTest
+          ? await _tests.toggle_ProductFavoriteButton(
+              tester,
+              favoritesAfterToggle: 2,
+              toggleButtonKey: "$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0",
+            )
+          : await _tests.toggle_ProductFavoriteButton(
+              tester,
+              favoritesAfterToggle: 1,
+              toggleButtonKey: "$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0",
+            );
+    });
+    // }, skip: false);
+
+    testWidgets(_config.addProduct_CheckShopCartIconAndSnackbar, (tester) async {
+      var product = await _utils.load_2ProductsInDb_ReturnAProduct(
         tester,
         isWidgetTest: _isWidgetTest,
       );
-      await _tests.addProduct1_3x_CheckingShopCartIcon(tester, listProducts: products);
+      await _tests.addProduct_CheckShopCartIconAndSnackbar(
+        tester,
+        addProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
+        productTitle: product.title,
+      );
     });
+    // }, skip: false);
 
-    testWidgets(_config.add_4products_check_shopCartIcon, (tester) async {
-      var products = await _utils.loadFourProductsListInDb(
+    testWidgets(_config.addProduct_ClickUndoInSnackbar, (tester) async {
+      var product = await _utils.load_2ProductsInDb_ReturnAProduct(
         tester,
         isWidgetTest: _isWidgetTest,
       );
-      await _tests.addMultipleProductsAndCheckShopCartIcon(tester);
+      await _tests.addProduct_ClickUndoInSnackbar(
+        tester,
+        addProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
+        productTitle: product.title,
+        snackbarUndoButtonKey: CUSTOM_SNACKBAR_BUTTON_KEY,
+      );
     });
+    // }, skip: false);
 
-    testWidgets(_config.tap_fav_filter_no_favorites_found, (tester) async {
-      await _utils.loadFourProductsListInDb(
+    testWidgets(_config.add_SameProduct_3x_CheckingShopCartIcon, (tester) async {
+      var prods = await _utils.load_4ProductsInDb_ReturnAProductList(
         tester,
         isWidgetTest: _isWidgetTest,
       );
-      await _tests.tapFavoritesFilterNoFavoritesFound(tester);
+
+      await _tests.add_SameProduct_3x_CheckingShopCartIcon(
+        tester,
+        listProducts: prods,
+        addProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
+      );
     });
 
-    testWidgets(_config.tap_fav_filter, (tester) async {
-      await _tests.tapFavoriteFilter(tester);
+    testWidgets(_config.add_4DifferentProducts_CheckingShopCartIcon, (tester) async {
+      // await _utils.load_4ProductsInDb_ReturnAProductList(
+      //   tester,
+      //   isWidgetTest: _isWidgetTest,
+      // );
+
+      await _tests.add_4DifferentProducts_CheckingShopCartIcon(
+        tester,
+        addOnlyTheFirstProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
+      );
     });
 
-    testWidgets(_config.close_fav_filter, (tester) async {
-      await _tests.closeFavoriteFilter(tester);
+    testWidgets(_config.tap_FavoritesFilter_NoFavoritesFound, (tester) async {
+      await _utils.load_4ProductsInDb_ReturnAProductList(
+        tester,
+        isWidgetTest: _isWidgetTest,
+      );
+      await _tests.tap_FavoritesFilter_NoFavoritesFound(tester);
+    });
+
+    testWidgets(_config.tap_FavoriteFilterPopup, (tester) async {
+      await _tests.tap_FavoriteFilterPopup(tester);
+    });
+
+    testWidgets(_config.close_FavoriteFilterPopup, (tester) async {
+      await _tests.close_FavoriteFilterPopup(tester);
     });
   }
 }

@@ -23,6 +23,7 @@ dependencies:
   faker: 2.0.0
   currency_textfield: 2.0.0
   json_annotation: 4.0.1
+  flutter_phoenix: ^1.0.0
 
 dev_dependencies:
   integration_test:

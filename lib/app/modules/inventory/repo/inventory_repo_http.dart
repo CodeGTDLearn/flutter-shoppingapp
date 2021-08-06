@@ -54,7 +54,6 @@ class InventoryRepoHttp implements IInventoryRepo {
   List<Product> _decodeResponse(Response response) {
     var _products = <Product>[];
 
-    //PlainText/Firebase(jsonEncode) ==> Json(Map) ==> List[Product](List - forEach)
     var plainText = response.body;
     final json = jsonDecode(plainText);
     json == null

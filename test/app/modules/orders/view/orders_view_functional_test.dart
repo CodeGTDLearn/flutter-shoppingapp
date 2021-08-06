@@ -42,7 +42,7 @@ class OrdersViewTest {
 
     testWidgets(_config.check_emptyOrderCollection, (tester) async {
       if (!_isWidgetTest) {
-        await _dbUtils.cleanDb(dbUrl: TEST_DB_URL, dbName: TEST_DB_NAME);
+        await _dbUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
       }
       _config.bindingsBuilderMockRepoEmptyDb(isWidgetTest: _isWidgetTest);
 

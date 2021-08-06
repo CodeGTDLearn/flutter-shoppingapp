@@ -45,11 +45,16 @@ class TestUtils {
     // });
   }
 
-  Future<Product> loadTwoProductsInDb(tester, {required bool isWidgetTest}) async {
+  Future<Product> load_2ProductsInDb_ReturnAProduct(
+    tester, {
+    required bool isWidgetTest,
+  }) async {
     var _product;
     var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
+    var testUtils = Get.put(TestUtils(), tag: 'testUtilsInstance');
     if (!isWidgetTest) {
-      await dbTestUtils.cleanDb(dbUrl: TEST_DB_URL, dbName: TEST_DB_NAME);
+      await dbTestUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
+      await Future.delayed(testUtils.delay(DELAY));
       await dbTestUtils
           .addMultipleObjects(
             tester,
@@ -61,19 +66,22 @@ class TestUtils {
           .then((value) => _product = value[0]);
     }
     Get.delete(tag: 'dbInstance');
+    Get.delete(tag: 'testUtilsInstance');
     return isWidgetTest
         ? Future.value(MockedProductsDatasource().products()[0])
         : Future.value(_product);
   }
 
-  Future<List<Product>> loadFourProductsListInDb(
+  Future<List<Product>> load_4ProductsInDb_ReturnAProductList(
     tester, {
     required bool isWidgetTest,
   }) async {
     var _listProducts;
     var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
+    var testUtils = Get.put(TestUtils(), tag: 'testUtilsInstance');
     if (!isWidgetTest) {
-      await dbTestUtils.cleanDb(dbUrl: TEST_DB_URL, dbName: TEST_DB_NAME);
+      await dbTestUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
+      await Future.delayed(testUtils.delay(DELAY));
       await dbTestUtils
           .addMultipleObjects(
             tester,
@@ -85,9 +93,23 @@ class TestUtils {
           .then((value) => _listProducts = value);
     }
     Get.delete(tag: 'dbInstance');
+    Get.delete(tag: 'testUtilsInstance');
     return isWidgetTest
         ? Future.value(MockedProductsDatasource().products())
         : Future.value(_listProducts.cast<Product>());
+  }
+
+  void checkCollectionSize({
+    required bool isWidgetTest,
+    required String collectionUrl,
+    required int totalItems,
+  }) async {
+    var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
+    if (!isWidgetTest) {
+      var items = await dbTestUtils.countCollectionItems(collectionUrl: collectionUrl);
+      expect(items, totalItems);
+    }
+    Get.delete(tag: 'dbInstance');
   }
 
   void globalSetUpAll(String testModuleName) async {
@@ -95,19 +117,17 @@ class TestUtils {
       module: testModuleName,
       label: 'Starting FunctionalTests: ',
       fullLength: 63,
-      arrowChar: '>',
       qtdeSuperiorLine: 2,
       lineCharacter: '=',
     ));
-
-    await Get.put(DbTestUtils()).cleanDb(dbUrl: TEST_DB_URL, dbName: TEST_DB_NAME);
+    // await Get.put(DbTestUtils()).cleanDb(dbUrl: TEST_DB_URL, dbName: TEST_DB_NAME);
   }
 
   void globalTearDownAll(String testModuleName) async {
     print('\n'
         '<<=============================================================<<\n'
         '<<=============================================================<<\n'
-        '<========<< Concluding FunctionalTests: $testModuleName \n'
+        '<<========<< Concluding FunctionalTests: $testModuleName \n'
         '<<=============================================================<<\n'
         '<<=============================================================<<\n'
         '\n \n \n');
@@ -115,30 +135,29 @@ class TestUtils {
   }
 
   void globalSetUp(String testModuleName) {
-    print(''
+    print('\n'
         '>--------------------------------------------------------------->\n'
-        '>---------> $testModuleName >---------> \n \n');
-    // '>---------> Test: $testModuleName >---------> \n \n');
+        '>----------------> $testModuleName >---------------->\n'
+        '>--------->\n');
   }
 
   void globalTearDown(String testModuleName) {
-    print('\n \n'
-        // '<---------< Test: $testModuleName <---------< \n'
-        '<---------< $testModuleName <---------< \n'
-        '<---------------------------------------------------------------<'
-        '\n \n \n');
+    print('\n'
+        '<---------<\n'
+        '<----------------< $testModuleName <----------------<\n'
+        '<---------------------------------------------------------------<\n\n\n');
     Get.reset;
   }
 
   String _headerGenerator({
     required String module,
     required String label,
-    required String arrowChar,
     required String lineCharacter,
     required int fullLength,
     required int qtdeSuperiorLine,
   }) {
     var title = '$label $module';
+    var arrowChar = '>';
     var superiorLine = arrowChar;
     var middleLine = arrowChar;
     for (var i = 0; i < fullLength; i++) {
@@ -146,7 +165,6 @@ class TestUtils {
     }
 
     superiorLine = '$superiorLine$arrowChar\n';
-    // var middleLength = (superiorLine.length - title.length) / 3;
     var middleLength = fullLength / 8;
 
     for (var i = 0; i < middleLength.toInt(); i++) {
@@ -158,7 +176,6 @@ class TestUtils {
       superiorLine = "$superiorLine${"$superiorLine"}";
     }
     var middle = '$middleLine $title $middleLine';
-    // var footer = '\n$superiorLine\n \n \n \n';
     var footer = '\n$superiorLine\n \n';
 
     return '$superiorLine$middle$footer';

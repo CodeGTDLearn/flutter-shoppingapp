@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:shopingapp/app_driver.dart' as app;
 
 import 'test_utils.dart';
 
@@ -68,11 +70,34 @@ class UiTestUtils {
     });
   }
 
-  Future<void> testInitialization(
+  Future<void> testBootstrapPreserveStateOld(
     tester, {
     required bool isWidgetTest,
-    required Widget driver,
+    required Widget appDriver,
   }) async {
-    isWidgetTest ? await tester.pumpWidget(driver) : runApp(driver);
+    isWidgetTest ? await tester.pumpWidget(appDriver) : runApp(appDriver);
+  }
+
+  Future<void> testBootstrapPreserveState(
+    tester, {
+    required bool isWidgetTest,
+  }) async {
+    isWidgetTest
+        ? await tester.pumpWidget(app.AppDriver())
+        : runApp(
+            app.AppDriver(),
+          );
+  }
+
+  Future<void> testBootstrapRestartState(
+    tester, {
+    required bool isWidgetTest,
+  }) async {
+    isWidgetTest
+        ? await tester.pumpWidget(app.AppDriver())
+        : runApp(
+            Phoenix(child: app.AppDriver()), //<<<<<<<<<< trabalhar no reinicio de
+            // estado a aplicacao em cada ciclo de test de integracao
+          );
   }
 }

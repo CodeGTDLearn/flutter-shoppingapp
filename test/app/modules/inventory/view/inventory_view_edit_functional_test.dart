@@ -50,10 +50,10 @@ class InventoryViewEditTest {
     });
 
     testWidgets(_config.edit_preview_url_in_form, (tester) async {
-      await _uiUtils.testInitialization(
+      await _uiUtils.testBootstrapPreserveStateOld(
         tester,
         isWidgetTest: _isWidgetTest,
-        driver: app.AppDriver(),
+        appDriver: app.AppDriver(),
       );
 
       await _tests.openInventoryEditView(tester);

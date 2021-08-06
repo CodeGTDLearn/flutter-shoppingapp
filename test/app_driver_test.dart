@@ -70,7 +70,6 @@ void _integrationTests() {
   group(
     OverviewTestConfig.OVERVIEW_GROUP_TITLE,
     OverviewViewTest(testType: INTEGRATION_TEST).functional,
-    // skip: skipGroup,
     skip: false,
   );
 

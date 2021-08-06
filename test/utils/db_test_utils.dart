@@ -14,6 +14,21 @@ import 'test_utils.dart';
 class DbTestUtils {
   final _utils = Get.put(TestUtils());
 
+  Future<int> countCollectionItems({required String collectionUrl}) async {
+    var totalItems = 0;
+    return http.get(Uri.parse(collectionUrl),
+        headers: {"Accept": "application/json"}).then((response) {
+      var plainText = response.body;
+      final json = jsonDecode(plainText);
+      json == null
+          ? totalItems
+          : json.forEach((key, value) {
+              totalItems++;
+            });
+      return totalItems;
+    }).catchError((onError) => throw onError);
+  }
+
   Future<void> cleanDb({
     required String dbUrl,
     required String dbName,
@@ -63,13 +78,6 @@ class DbTestUtils {
       var plainText = response.body;
       Map<String, dynamic> json = jsonDecode(plainText);
       object.id = json['name'];
-
-      // _addProductMessage(
-      //   collectionUrl: collectionUrl,
-      //   product: object,
-      //   statusCode: response.statusCode,
-      // );
-
       return object;
     }).catchError((onError) => throw onError);
     // @formatter:on
@@ -102,39 +110,39 @@ class DbTestUtils {
     return Future.value(listReturn);
   }
 
-  final _headerLineMsg =
+  final _headerLine =
       "||> >=======================> DB ACTION >========================>\n";
-  final _footerLineMsg =
-      "    <=======================< DB ACTION <========================< <||\n\n\n";
+  final _footerLine =
+      "    <=======================< DB ACTION <========================< <||\n";
 
   void _removeObjectMessage(
     String url_NoExtensionInDeletions,
     String id,
     http.Response response,
   ) {
-    print('$_headerLineMsg'
+    print('$_headerLine'
         ' Removing Object:\n'
         ' - URL: $url_NoExtensionInDeletions$id.json\n'
         ' - ID: $id\n'
         ' - Type: ${response.runtimeType.toString()}\n'
         ' - Status: ${response.statusCode}\n'
-        '$_footerLineMsg');
+        '$_footerLine');
   }
 
   void _cleanDbMessage(String dbName, http.Response response) {
-    print('$_headerLineMsg'
+    print('$_headerLine'
         '    Removing All Collections:\n'
         '    - DB_Name: $dbName\n'
         '    - Status: ${response.statusCode}\n'
-        '$_footerLineMsg');
+        '$_footerLine');
   }
 
   void _removeCollectionMessage(String url, http.Response response) {
-    print('$_headerLineMsg'
+    print('$_headerLine'
         '    Removing Collection:\n'
         '    - URL: $url\n'
         '    - Status: ${response.statusCode}\n'
-        '$_footerLineMsg');
+        '$_footerLine');
   }
 
   void _addProductMessage({
@@ -144,51 +152,12 @@ class DbTestUtils {
   }) {
     var statusTxt = statusCode == null ? '' : '    - Status: $statusCode\n';
 
-    print('$_headerLineMsg'
+    print('$_headerLine'
         '    Adding Object:\n'
         '    - URL: $collectionUrl\n'
         '    - ID: ${product.id}\n'
         '    - Type: ${product.runtimeType.toString()}\n'
         '$statusTxt'
-        '$_footerLineMsg');
+        '$_footerLine');
   }
 }
-
-// Future<dynamic> addObjectsInDbManually({
-//   required int qtdeObjects,
-//   required var object,
-//   required String collectionUrl,
-//   required String dbUrl,
-//   required String dbName,
-// }) async {
-//   // Example:
-//   // dbName = 'test-app-dev-e6ee1-default-rtdb';
-//   // dbUrl = "https://$dbName.firebaseio.com/.json";
-//   await cleanDb(dbUrl: dbUrl, dbName: dbName);
-//
-//   // Example:
-//   // collectionUrl = "https://test-app-dev-e6ee1-default-rtdb.firebaseio.com/products.json";
-//   var listReturn = <Object>[];
-//   for (var item = 1; item <= qtdeObjects; item++) {
-//     // @formatter:off
-//     return http
-//         .post(Uri.parse(collectionUrl), body: jsonEncode(object.toJson()))
-//         .then((responseObject) {
-//       var plainText = responseObject.body;
-//       Map<String, dynamic> json = jsonDecode(plainText);
-//       object.id = json['name'];
-//
-//       // _addObjectMessage(collectionUrl, object, responseObject);
-//       _addObjectMessage(
-//         collectionUrl: collectionUrl,
-//         response: responseObject,
-//         object: object,
-//       );
-//
-//       listReturn.add(responseObject);
-//     }).catchError((onError) => throw onError);
-//     // @formatter:on
-//   }
-//
-//   return Future.value(listReturn);
-// }

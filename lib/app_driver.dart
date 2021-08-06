@@ -12,6 +12,9 @@ void main() {
 }
 
 class AppDriver extends StatelessWidget {
+  AppDriver();
+  AppDriver.restartAppState({required Key key}) : super(key: key);
+
   final _appTheme = Get.put(AppTheme());
   final _darkTheme = Get.put(DarkThemeController());
   final _repo = Get.put<ISharedPrefsRepo>(SharedPrefsRepo());

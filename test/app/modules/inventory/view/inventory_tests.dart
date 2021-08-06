@@ -35,10 +35,10 @@ class InventoryTests {
   });
 
   Future<void> tappingBackButtonInInventoryView(tester) async {
-    await uiTestUtils.testInitialization(
+    await uiTestUtils.testBootstrapPreserveStateOld(
       tester,
       isWidgetTest: isWidgetTest,
-      driver: app.AppDriver(),
+      appDriver: app.AppDriver(),
     );
 
     await uiTestUtils.openDrawerAndClickAnOption(
@@ -58,10 +58,10 @@ class InventoryTests {
   }
 
   Future<void> checkInventoryProductsAbsence(tester, int interval) async {
-    await uiTestUtils.testInitialization(
+    await uiTestUtils.testBootstrapPreserveStateOld(
       tester,
       isWidgetTest: isWidgetTest,
-      driver: app.AppDriver(),
+      appDriver: app.AppDriver(),
     );
 
     await uiTestUtils.openDrawerAndClickAnOption(
@@ -89,10 +89,10 @@ class InventoryTests {
   }
 
   Future<void> refreshingInventoryView(tester, {required Product draggerWidget}) async {
-    await uiTestUtils.testInitialization(
+    await uiTestUtils.testBootstrapPreserveStateOld(
       tester,
       isWidgetTest: isWidgetTest,
-      driver: app.AppDriver(),
+      appDriver: app.AppDriver(),
     );
 
     await tester.pump();
@@ -131,10 +131,10 @@ class InventoryTests {
     required String fieldKey,
     required Product productToUpdate,
   }) async {
-    await uiTestUtils.testInitialization(
+    await uiTestUtils.testBootstrapPreserveStateOld(
       tester,
       isWidgetTest: isWidgetTest,
-      driver: app.AppDriver(),
+      appDriver: app.AppDriver(),
     );
 
     var keyUpdateButton =
@@ -210,10 +210,10 @@ class InventoryTests {
     required String validationErrorMessage,
     required Product productToUpdate,
   }) async {
-    await uiTestUtils.testInitialization(
+    await uiTestUtils.testBootstrapPreserveStateOld(
       tester,
       isWidgetTest: isWidgetTest,
-      driver: app.AppDriver(),
+      appDriver: app.AppDriver(),
     );
 
     var keyUpdateButton =
@@ -304,10 +304,10 @@ class InventoryTests {
     required String keyDeleteButton,
     required Type widgetTypeToDelete,
   }) async {
-    await uiTestUtils.testInitialization(
+    await uiTestUtils.testBootstrapPreserveStateOld(
       tester,
       isWidgetTest: isWidgetTest,
-      driver: app.AppDriver(),
+      appDriver: app.AppDriver(),
     );
 
     await tester.pump();
@@ -351,10 +351,10 @@ class InventoryTests {
   }
 
   Future<void> checkInventoryItemsInInventoryView(tester, int itemsQtde) async {
-    await uiTestUtils.testInitialization(
+    await uiTestUtils.testBootstrapPreserveStateOld(
       tester,
       isWidgetTest: isWidgetTest,
-      driver: app.AppDriver(),
+      appDriver: app.AppDriver(),
     );
 
     await tester.pump();
@@ -476,10 +476,10 @@ class InventoryTests {
     required Product product,
     required bool useValidTexts,
   }) async {
-    await uiTestUtils.testInitialization(
+    await uiTestUtils.testBootstrapPreserveStateOld(
       tester,
       isWidgetTest: isWidgetTest,
-      driver: app.AppDriver(),
+      appDriver: app.AppDriver(),
     );
 
     await openInventoryEditView(tester);
@@ -529,10 +529,10 @@ class InventoryTests {
   }
 
   Future<void> tapBackButtonInInventoryEditView(tester) async {
-    await uiTestUtils.testInitialization(
+    await uiTestUtils.testBootstrapPreserveStateOld(
       tester,
       isWidgetTest: isWidgetTest,
-      driver: app.AppDriver(),
+      appDriver: app.AppDriver(),
     );
 
     await openInventoryEditView(tester);

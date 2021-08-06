@@ -63,7 +63,7 @@ class OrdersTests {
 
   Future<void> check_oneOrderInDB(WidgetTester tester, int interval) async {
     if (isWidgetTest == false) {
-      await dbTestUtils.cleanDb(dbUrl: TEST_DB_URL, dbName: TEST_DB_NAME);
+      await dbTestUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
       await dbTestUtils.addObject(
         tester,
         object: ProductDataBuilder().ProductFullStaticNoId(),
@@ -72,10 +72,10 @@ class OrdersTests {
       );
     }
 
-    await uiTestUtils.testInitialization(
+    await uiTestUtils.testBootstrapPreserveStateOld(
       tester,
       isWidgetTest: isWidgetTest,
-      driver: app.AppDriver(),
+      appDriver: app.AppDriver(),
     );
 
     //A) ADDING ONE PRODUCT IN THE CART
@@ -103,10 +103,10 @@ class OrdersTests {
     WidgetTester tester,
     int interval,
   ) async {
-    await uiTestUtils.testInitialization(
+    await uiTestUtils.testBootstrapPreserveStateOld(
       tester,
       isWidgetTest: isWidgetTest,
-      driver: app.AppDriver(),
+      appDriver: app.AppDriver(),
     );
 
     await uiTestUtils.openDrawerAndClickAnOption(
@@ -135,10 +135,10 @@ class OrdersTests {
     required Type from,
     required Type to,
   }) async {
-    await uiTestUtils.testInitialization(
+    await uiTestUtils.testBootstrapPreserveStateOld(
       tester,
       isWidgetTest: isWidgetTest,
-      driver: app.AppDriver(),
+      appDriver: app.AppDriver(),
     );
 
     await uiTestUtils.openDrawerAndClickAnOption(

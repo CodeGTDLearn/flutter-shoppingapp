@@ -42,7 +42,7 @@ class InventoryViewTest {
 
     testWidgets(_config.check_ProductsAbsence, (tester) async {
       if (!_isWidgetTest) {
-        await _dbUtils.cleanDb(dbUrl: TEST_DB_URL, dbName: TEST_DB_NAME);
+        await _dbUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
       }
 
       _config.bindingsBuilderMockedRepoEmptyDb(isWidgetTest: _isWidgetTest);
@@ -50,14 +50,15 @@ class InventoryViewTest {
     });
 
     testWidgets(_config.check_Products, (tester) async {
-      await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
+      await _utils.load_2ProductsInDb_ReturnAProduct(tester, isWidgetTest: _isWidgetTest);
       _isWidgetTest
           ? await _tests.checkInventoryItemsInInventoryView(tester, 4)
           : await _tests.checkInventoryItemsInInventoryView(tester, 2);
     });
 
     testWidgets(_config.delete_Product, (tester) async {
-      var product = await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
+      var product = await _utils.load_2ProductsInDb_ReturnAProduct(tester,
+          isWidgetTest: _isWidgetTest);
       await _tests.deleteInventoryProduct(
         tester,
         initialQtde: 2,
@@ -68,7 +69,8 @@ class InventoryViewTest {
     });
 
     testWidgets(_config.update_Product, (tester) async {
-      var product = await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
+      var product = await _utils.load_2ProductsInDb_ReturnAProduct(tester,
+          isWidgetTest: _isWidgetTest);
       await _tests.updateInventoryProduct(
         tester,
         inputValidText: "XXXXXX",
@@ -78,7 +80,8 @@ class InventoryViewTest {
     });
 
     testWidgets(_config.refresh_View, (tester) async {
-      var product = await _utils.loadTwoProductsInDb(tester, isWidgetTest: _isWidgetTest);
+      var product = await _utils.load_2ProductsInDb_ReturnAProduct(tester,
+          isWidgetTest: _isWidgetTest);
       await _tests.refreshingInventoryView(tester, draggerWidget: product);
     });
 
