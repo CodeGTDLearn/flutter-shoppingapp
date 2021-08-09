@@ -1,10 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/properties/app_urls.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 
-import '../config/app_tests_config.dart';
+import '../config/tests_config.dart';
 import '../data_builders/product_databuilder.dart';
 import '../mocked_datasource/mocked_products_datasource.dart';
 import 'db_test_utils.dart';
@@ -45,8 +47,7 @@ class TestUtils {
     // });
   }
 
-  Future<Product> load_2ProductsInDb_ReturnAProduct(
-    tester, {
+  Future<Product> load_2ProductsInDb({
     required bool isWidgetTest,
   }) async {
     var _product;
@@ -57,10 +58,9 @@ class TestUtils {
       await Future.delayed(testUtils.delay(DELAY));
       await dbTestUtils
           .addMultipleObjects(
-            tester,
             qtdeObjects: 2,
             collectionUrl: PRODUCTS_URL,
-            object: ProductDataBuilder().ProductFullStaticNoId(),
+            object: ProductDataBuilder().ProductWithoutId(),
             interval: DELAY,
           )
           .then((value) => _product = value[0]);
@@ -72,10 +72,8 @@ class TestUtils {
         : Future.value(_product);
   }
 
-  Future<List<Product>> load_4ProductsInDb_ReturnAProductList(
-    tester, {
-    required bool isWidgetTest,
-  }) async {
+  //todo:this method should ad differents objects instead the same
+  Future<List<Product>> load_4ProductsInDb({required bool isWidgetTest}) async {
     var _listProducts;
     var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
     var testUtils = Get.put(TestUtils(), tag: 'testUtilsInstance');
@@ -84,10 +82,9 @@ class TestUtils {
       await Future.delayed(testUtils.delay(DELAY));
       await dbTestUtils
           .addMultipleObjects(
-            tester,
             qtdeObjects: 4,
             collectionUrl: PRODUCTS_URL,
-            object: ProductDataBuilder().ProductFullStaticNoId(),
+            object: ProductDataBuilder().ProductWithoutId(),
             interval: DELAY,
           )
           .then((value) => _listProducts = value);

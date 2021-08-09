@@ -5,7 +5,7 @@ import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/inventory/service/i_inventory_service.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 
-import '../../../config/inventory_test_config.dart';
+import '../../../config/bindings/inventory_test_bindings.dart';
 import '../../../data_builders/product_databuilder.dart';
 import '../../../mocked_datasource/mocked_products_datasource.dart';
 
@@ -18,10 +18,10 @@ class InventoryControllerTests {
     var _product0 = MockedProductsDatasource().products().elementAt(0);
     var _product1 = MockedProductsDatasource().products().elementAt(1);
     var _products = MockedProductsDatasource().products();
-    var _newProduct = ProductDataBuilder().ProductFull();
+    var _newProduct = ProductDataBuilder().ProductWithId();
 
     setUp(() {
-      InventoryTestConfig().bindingsBuilderMockedRepo(isUnitTest: true);
+      InventoryTestBindings().bindingsBuilderMockedRepo(isUnitTest: true);
       _overviewService = Get.find<IOverviewService>();
 
       _service = Get.find<IInventoryService>();

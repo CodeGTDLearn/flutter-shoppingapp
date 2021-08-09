@@ -2,23 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:shopingapp/app_driver.dart' as app;
 
+import '../config/tests_config.dart';
 import 'test_utils.dart';
 
 class UiTestUtils {
   final TestUtils _seek = Get.put(TestUtils());
 
-  Future<void> navigationBetweenViews(
+  Future<void> navigateBetweenViews(
     WidgetTester tester, {
     required int interval,
     required Type from,
     required Type to,
-    required Type triggerWidget,
+    required Type trigger,
   }) async {
     expect(_seek.type(from), findsOneWidget);
-    await tester.tap(_seek.type(triggerWidget));
+    await tester.tap(_seek.type(trigger));
     await tester.pump();
     await tester.pumpAndSettle(_seek.delay(interval));
     expect(_seek.type(to), findsOneWidget);
@@ -45,13 +44,13 @@ class UiTestUtils {
   }) async {
     await tester.pumpAndSettle();
     scaffoldGlobalKey.currentState!.openDrawer();
-    await tester.pumpAndSettle(Duration(milliseconds: interval * 1000 + 1700));
+    await tester.pumpAndSettle(Duration(milliseconds: interval * 1000 + EXTRA_DELAY));
     await tester.tap(_seek.key(optionKey));
     await tester.pumpAndSettle();
-    await tester.pump(Duration(milliseconds: interval * 1000 + 1700));
+    await tester.pump(Duration(milliseconds: interval * 1000 + EXTRA_DELAY));
   }
 
-  void checkWidgetsTypesQtdeInAView({
+  void checkWidgetsQuantityInAView({
     required Type widgetView,
     required Type widgetType,
     required int widgetQtde,
@@ -70,34 +69,15 @@ class UiTestUtils {
     });
   }
 
-  Future<void> testBootstrapPreserveStateOld(
+  Future<void> testInitialization(
     tester, {
     required bool isWidgetTest,
     required Widget appDriver,
   }) async {
-    isWidgetTest ? await tester.pumpWidget(appDriver) : runApp(appDriver);
-  }
-
-  Future<void> testBootstrapPreserveState(
-    tester, {
-    required bool isWidgetTest,
-  }) async {
     isWidgetTest
-        ? await tester.pumpWidget(app.AppDriver())
+        ? await tester.pumpWidget(appDriver)
         : runApp(
-            app.AppDriver(),
-          );
-  }
-
-  Future<void> testBootstrapRestartState(
-    tester, {
-    required bool isWidgetTest,
-  }) async {
-    isWidgetTest
-        ? await tester.pumpWidget(app.AppDriver())
-        : runApp(
-            Phoenix(child: app.AppDriver()), //<<<<<<<<<< trabalhar no reinicio de
-            // estado a aplicacao em cada ciclo de test de integracao
+            appDriver,
           );
   }
 }

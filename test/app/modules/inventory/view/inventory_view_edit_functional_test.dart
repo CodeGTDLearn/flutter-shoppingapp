@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
-import '../../../../config/app_tests_config.dart';
-import '../../../../config/inventory_test_config.dart';
+import '../../../../config/tests_config.dart';
+import '../../../../config/bindings/inventory_test_bindings.dart';
+import '../../../../config/titles/inventory_test_titles.dart';
 import '../../../../data_builders/product_databuilder.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/test_utils.dart';
@@ -16,7 +17,8 @@ class InventoryViewEditTest {
   final _utils = Get.put(TestUtils());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
-  final _config = Get.put(InventoryTestConfig());
+  final _bindings = Get.put(InventoryTestBindings());
+  final _titles = Get.put(InventoryTestTitles());
 
   InventoryViewEditTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
@@ -35,22 +37,22 @@ class InventoryViewEditTest {
     tearDownAll(() => _utils.globalTearDownAll(_tests.runtimeType.toString()));
 
     setUp(() {
-      _utils.globalSetUp("Starting...");
-      _config.bindingsBuilderMockedRepo(isUnitTest: _isWidgetTest);
+      _utils.globalSetUp("Starting Test...");
+      _bindings.bindingsBuilderMockedRepo(isUnitTest: _isWidgetTest);
     });
 
-    tearDown(() => _utils.globalTearDown("...Ending"));
+    tearDown(() => _utils.globalTearDown("...Ending Test"));
 
-    testWidgets(_config.edit_add_product_in_form, (tester) async {
+    testWidgets(_titles.edit_add_product_in_form, (tester) async {
       await _tests.addProductFillingFormInInventoryEditView(
         tester,
-        product: ProductDataBuilder().ProductFullStaticNoId(),
+        product: ProductDataBuilder().ProductWithoutId(),
         useValidTexts: true,
       );
     });
 
-    testWidgets(_config.edit_preview_url_in_form, (tester) async {
-      await _uiUtils.testBootstrapPreserveStateOld(
+    testWidgets(_titles.edit_preview_url_in_form, (tester) async {
+      await _uiUtils.testInitialization(
         tester,
         isWidgetTest: _isWidgetTest,
         appDriver: app.AppDriver(),
@@ -68,15 +70,15 @@ class InventoryViewEditTest {
       _utils.checkImageTotalInAView(1);
     });
 
-    testWidgets(_config.edit_fill_form_invalid, (tester) async {
+    testWidgets(_titles.edit_fill_form_invalid, (tester) async {
       await _tests.addProductFillingFormInInventoryEditView(
         tester,
-        product: ProductDataBuilder().ProductFullStaticNoId(),
+        product: ProductDataBuilder().ProductWithoutId(),
         useValidTexts: false,
       );
     });
 
-    testWidgets(_config.edit_back_button, (tester) async {
+    testWidgets(_titles.edit_back_button, (tester) async {
       await _tests.tapBackButtonInInventoryEditView(tester);
     });
   }

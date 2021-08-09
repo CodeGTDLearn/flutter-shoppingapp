@@ -12,7 +12,7 @@ import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
-import '../../../config/components_test_config.dart';
+import '../../../config/bindings/components_test_bindings.dart';
 import '../../../utils/test_utils.dart';
 
 class DrawwerTest {
@@ -20,7 +20,7 @@ class DrawwerTest {
     var _seek = Get.put(TestUtils());
 
     setUp(() {
-      ComponentsTestConfig().bindingsBuilderMockedRepo();
+      ComponentsTestBindings().bindingsBuilderMockedRepo();
       // _seek = TestUtils();
     });
 

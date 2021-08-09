@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 import 'package:shopingapp/app/modules/inventory/core/messages/field_form_validation_provided.dart';
 
-import '../../../../config/app_tests_config.dart';
-import '../../../../config/inventory_test_config.dart';
+import '../../../../config/tests_config.dart';
+import '../../../../config/bindings/inventory_test_bindings.dart';
+import '../../../../config/titles/inventory_test_titles.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/test_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
@@ -15,7 +16,8 @@ class InventoryViewValidationFunctionalTest {
   final _utils = Get.put(TestUtils());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
-  final _config = Get.put(InventoryTestConfig());
+  final _bindings = Get.put(InventoryTestBindings());
+  final _titles = Get.put(InventoryTestTitles());
 
   InventoryViewValidationFunctionalTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
@@ -34,16 +36,15 @@ class InventoryViewValidationFunctionalTest {
     tearDownAll(() => _utils.globalTearDownAll(_tests.runtimeType.toString()));
 
     setUp(() {
-      _utils.globalSetUp("Starting...");
-      _config.bindingsBuilderMockedRepo(isUnitTest: _isWidgetTest);
+      _utils.globalSetUp("Starting Test...");
+      _bindings.bindingsBuilderMockedRepo(isUnitTest: _isWidgetTest);
     });
 
-    tearDown(() => _utils.globalTearDown("...Ending"));
+    tearDown(() => _utils.globalTearDown("...Ending Test"));
 
     //TITLE CHECK VALIDATIONS + CHECK INJECTIONS -------------------------------
-    testWidgets(_config.validation_title_size, (tester) async {
-      var product = await _utils.load_2ProductsInDb_ReturnAProduct(tester,
-          isWidgetTest: _isWidgetTest);
+    testWidgets(_titles.validation_title_size, (tester) async {
+      var product = await _utils.load_2ProductsInDb(isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -54,9 +55,8 @@ class InventoryViewValidationFunctionalTest {
       );
     });
 
-    testWidgets(_config.validation_title_empty, (tester) async {
-      var product = await _utils.load_2ProductsInDb_ReturnAProduct(tester,
-          isWidgetTest: _isWidgetTest);
+    testWidgets(_titles.validation_title_empty, (tester) async {
+      var product = await _utils.load_2ProductsInDb(isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -67,9 +67,8 @@ class InventoryViewValidationFunctionalTest {
       );
     });
 
-    testWidgets(_config.validation_title_inject, (tester) async {
-      var product = await _utils.load_2ProductsInDb_ReturnAProduct(tester,
-          isWidgetTest: _isWidgetTest);
+    testWidgets(_titles.validation_title_inject, (tester) async {
+      var product = await _utils.load_2ProductsInDb(isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -81,9 +80,8 @@ class InventoryViewValidationFunctionalTest {
     });
 
     //DESCRIPTION CHECK VALIDATIONS + CHECK INJECTIONS -------------------------
-    testWidgets(_config.validation_descript_size, (tester) async {
-      var product = await _utils.load_2ProductsInDb_ReturnAProduct(tester,
-          isWidgetTest: _isWidgetTest);
+    testWidgets(_titles.validation_descript_size, (tester) async {
+      var product = await _utils.load_2ProductsInDb(isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -94,9 +92,8 @@ class InventoryViewValidationFunctionalTest {
       );
     });
 
-    testWidgets(_config.validation_descript_empty, (tester) async {
-      var product = await _utils.load_2ProductsInDb_ReturnAProduct(tester,
-          isWidgetTest: _isWidgetTest);
+    testWidgets(_titles.validation_descript_empty, (tester) async {
+      var product = await _utils.load_2ProductsInDb(isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -107,9 +104,8 @@ class InventoryViewValidationFunctionalTest {
       );
     });
 
-    testWidgets(_config.validation_descript_inject, (tester) async {
-      var product = await _utils.load_2ProductsInDb_ReturnAProduct(tester,
-          isWidgetTest: _isWidgetTest);
+    testWidgets(_titles.validation_descript_inject, (tester) async {
+      var product = await _utils.load_2ProductsInDb(isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -121,9 +117,8 @@ class InventoryViewValidationFunctionalTest {
     });
 
     //PRICE CHECK VALIDATIONS + CHECK INJECTIONS -------------------------------
-    testWidgets(_config.validation_price_size, (tester) async {
-      var product = await _utils.load_2ProductsInDb_ReturnAProduct(tester,
-          isWidgetTest: _isWidgetTest);
+    testWidgets(_titles.validation_price_size, (tester) async {
+      var product = await _utils.load_2ProductsInDb(isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -134,9 +129,8 @@ class InventoryViewValidationFunctionalTest {
       );
     });
 
-    testWidgets(_config.validation_price_empty, (tester) async {
-      var product = await _utils.load_2ProductsInDb_ReturnAProduct(tester,
-          isWidgetTest: _isWidgetTest);
+    testWidgets(_titles.validation_price_empty, (tester) async {
+      var product = await _utils.load_2ProductsInDb(isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -147,9 +141,8 @@ class InventoryViewValidationFunctionalTest {
       );
     });
 
-    testWidgets(_config.validation_price_inject, (tester) async {
-      var product = await _utils.load_2ProductsInDb_ReturnAProduct(tester,
-          isWidgetTest: _isWidgetTest);
+    testWidgets(_titles.validation_price_inject, (tester) async {
+      var product = await _utils.load_2ProductsInDb(isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -161,9 +154,8 @@ class InventoryViewValidationFunctionalTest {
     });
 
     //URL CHECK VALIDATIONS + CHECK INJECTIONS ---------------------------------
-    testWidgets(_config.validation_url_size, (tester) async {
-      var product = await _utils.load_2ProductsInDb_ReturnAProduct(tester,
-          isWidgetTest: _isWidgetTest);
+    testWidgets(_titles.validation_url_size, (tester) async {
+      var product = await _utils.load_2ProductsInDb(isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -174,9 +166,8 @@ class InventoryViewValidationFunctionalTest {
       );
     });
 
-    testWidgets(_config.validation_url_empty, (tester) async {
-      var product = await _utils.load_2ProductsInDb_ReturnAProduct(tester,
-          isWidgetTest: _isWidgetTest);
+    testWidgets(_titles.validation_url_empty, (tester) async {
+      var product = await _utils.load_2ProductsInDb(isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,
@@ -187,9 +178,8 @@ class InventoryViewValidationFunctionalTest {
       );
     });
 
-    testWidgets(_config.validation_url_inject, (tester) async {
-      var product = await _utils.load_2ProductsInDb_ReturnAProduct(tester,
-          isWidgetTest: _isWidgetTest);
+    testWidgets(_titles.validation_url_inject, (tester) async {
+      var product = await _utils.load_2ProductsInDb(isWidgetTest: _isWidgetTest);
 
       await _tests.checkInputInjectionOrInputValidation(
         tester,

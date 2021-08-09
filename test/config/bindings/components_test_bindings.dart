@@ -10,9 +10,9 @@ import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart'
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../app/modules/overview/repo/overview_mocked_repo.dart';
+import '../../app/modules/overview/repo/overview_mocked_repo.dart';
 
-class ComponentsTestConfig {
+class ComponentsTestBindings {
   final IOverviewRepo _mocked_repo_used_in_this_module_tests = OverviewMockedRepo();
 
   void _bindingsBuilder(IOverviewRepo repo) {
@@ -55,10 +55,4 @@ class ComponentsTestConfig {
   void bindingsBuilderMockRepoEmptyDb() {
     _bindingsBuilder(OverviewMockRepoEmptyDb());
   }
-
-  // String repoName() => _mocked_repo_used_in_this_module_tests.runtimeType.toString();
-
-  get DRAWWER_TEST_TITLE => 'Components|Drawer: Functional';
-
-  get PROGR_IND_TEST_TITLE => 'Components|ProgresIndic: Functional';
 }

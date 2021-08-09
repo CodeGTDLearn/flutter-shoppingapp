@@ -2,13 +2,13 @@ import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/orders/controller/orders_controller.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../config/orders_test_config.dart';
+import '../../../config/bindings/orders_test_bindings.dart';
 import '../../../mocked_datasource/mocked_orders_datasource.dart';
 
 class OrdersControllerTests {
   static void integration() {
     late OrdersController _controller;
-    var testConfig = Get.put(OrdersTestConfig());
+    var testConfig = Get.put(OrdersTestBindings());
 
     setUp(() {
       testConfig.bindingsBuilderMockedRepo(isWidgetTest: true);

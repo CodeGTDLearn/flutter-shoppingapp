@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/components/filter_favorite_enum.dart';
 
-import '../config/app_tests_config.dart';
+import '../config/tests_config.dart';
 
 class MockedProductsDatasource {
   final datasource = MOCKED_DATASOURCE;

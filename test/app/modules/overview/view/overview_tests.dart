@@ -4,12 +4,12 @@ import 'package:get/get.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/components/overview_grid_item.dart';
-import 'package:shopingapp/app/modules/overview/core/messages_snackbars_provided.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
+import 'package:shopingapp/app_driver.dart' as app;
 
-import '../../../../config/app_tests_config.dart';
+import '../../../../config/tests_config.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/test_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
@@ -27,43 +27,56 @@ class OverviewTests {
     required this.dbTestUtils,
   });
 
-  Future addProduct_CheckShopCartIconAndSnackbar(
+  Future add_identicalProduct2x_Check_ShopCartIcon(
     tester, {
     required String addProductButtonKey,
     required String productTitle,
+    required int finalTotal,
   }) async {
-    await uiTestUtils.testBootstrapRestartState(tester, isWidgetTest: isWidgetTest);
+    await uiTestUtils.testInitialization(
+      tester,
+      isWidgetTest: isWidgetTest,
+      appDriver: app.AppDriver(),
+    );
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     var firstProductCartIconKey = testUtils.key(addProductButtonKey);
-
     await tester.tap(firstProductCartIconKey);
     await tester.tap(firstProductCartIconKey);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(testUtils.text("2"), findsOneWidget);
+    expect(testUtils.text(finalTotal.toString()), findsOneWidget);
     expect(testUtils.text(productTitle), findsWidgets);
   }
 
-  Future addProduct_ClickUndoInSnackbar(
+  Future addProduct_click_UndoSnackbar_Check_ShopCartIcon(
     tester, {
     required String addProductButtonKey,
     required String productTitle,
     required String snackbarUndoButtonKey,
+    required int finalTotal,
   }) async {
-    await uiTestUtils.testBootstrapRestartState(tester, isWidgetTest: isWidgetTest);
+    await uiTestUtils.testInitialization(
+      tester,
+      isWidgetTest: isWidgetTest,
+      appDriver: app.AppDriver(),
+    );
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     await tester.tap(testUtils.key(addProductButtonKey));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(testUtils.text("1"), findsOneWidget);
     expect(testUtils.text(productTitle), findsWidgets);
     await tester.tap(testUtils.key(snackbarUndoButtonKey));
     await tester.pump();
-    expect(testUtils.text("0"), findsOneWidget);
+    expect(testUtils.text(finalTotal.toString()), findsOneWidget);
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
   }
 
   Future tap_FavoritesFilter_NoFavoritesFound(tester) async {
-    await uiTestUtils.testBootstrapRestartState(tester, isWidgetTest: isWidgetTest);
+    await uiTestUtils.testInitialization(
+      tester,
+      isWidgetTest: isWidgetTest,
+      appDriver: app.AppDriver(),
+    );
 
     await tester.pump();
     var favoriteFilterOption = testUtils.key(OVERVIEW_FAVORITE_FILTER_FAV_KEY);
@@ -84,7 +97,11 @@ class OverviewTests {
   }
 
   Future tap_FavoriteFilterPopup(tester) async {
-    await uiTestUtils.testBootstrapRestartState(tester, isWidgetTest: isWidgetTest);
+    await uiTestUtils.testInitialization(
+      tester,
+      isWidgetTest: isWidgetTest,
+      appDriver: app.AppDriver(),
+    );
 
     var productFavoriteBtn = testUtils.key('$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\1');
     var popup = testUtils.key(OVERVIEW_FAVORITE_FILTER_APPBAR_BUTTON_KEY);
@@ -116,7 +133,11 @@ class OverviewTests {
   }
 
   Future close_FavoriteFilterPopup(tester) async {
-    await uiTestUtils.testBootstrapRestartState(tester, isWidgetTest: isWidgetTest);
+    await uiTestUtils.testInitialization(
+      tester,
+      isWidgetTest: isWidgetTest,
+      appDriver: app.AppDriver(),
+    );
 
     var popup = testUtils.key(OVERVIEW_FAVORITE_FILTER_APPBAR_BUTTON_KEY);
     var popupItemFav = testUtils.key(OVERVIEW_FAVORITE_FILTER_FAV_KEY);
@@ -133,37 +154,41 @@ class OverviewTests {
     expect(popupItemAll, findsNothing);
   }
 
-  Future add_SameProduct_3x_CheckingShopCartIcon(
+  Future add_identicalProduct3x_Check_ShopCartIcon(
     tester, {
-    required List<Product> listProducts,
-    required String addProductButtonKey,
+    required String productAddButtonKey,
+    required int finalTotal,
   }) async {
-    await uiTestUtils.testBootstrapRestartState(tester, isWidgetTest: isWidgetTest);
+    await uiTestUtils.testInitialization(
+      tester,
+      isWidgetTest: isWidgetTest,
+      appDriver: app.AppDriver(),
+    );
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    var addProductKey = testUtils.key(addProductButtonKey);
-    var snackTitle = testUtils.text("${listProducts[0].title}$ITEMCART_ADDED");
+    var addProductKey = testUtils.key(productAddButtonKey);
     await tester.tap(addProductKey);
     await tester.tap(addProductKey);
     await tester.tap(addProductKey);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(testUtils.text("3"), findsOneWidget);
-    expect(snackTitle, findsOneWidget);
+    expect(testUtils.text(finalTotal.toString()), findsOneWidget);
   }
 
-  Future add_4DifferentProducts_CheckingShopCartIcon(
+  Future add_4differentProducts_Check_ShopCartIcon(
     tester, {
-    required String addOnlyTheFirstProductButtonKey,
+    required String firstProductAddButtonKey,
+    required int finalTotal,
   }) async {
-    await uiTestUtils.testBootstrapRestartState(tester, isWidgetTest: isWidgetTest);
+    await uiTestUtils.testInitialization(
+      tester,
+      isWidgetTest: isWidgetTest,
+      appDriver: app.AppDriver(),
+    );
 
-    var cartIconProduct0 = testUtils.key(addOnlyTheFirstProductButtonKey);
-    var cartIconProduct1 =
-        testUtils.key(addOnlyTheFirstProductButtonKey.replaceFirst('0', '1'));
-    var cartIconProduct2 =
-        testUtils.key(addOnlyTheFirstProductButtonKey.replaceFirst('0', '2'));
-    var cartIconProduct3 =
-        testUtils.key(addOnlyTheFirstProductButtonKey.replaceFirst('0', '3'));
+    var cartIconProduct0 = testUtils.key(firstProductAddButtonKey);
+    var cartIconProduct1 = testUtils.key(firstProductAddButtonKey.replaceFirst('0', '1'));
+    var cartIconProduct2 = testUtils.key(firstProductAddButtonKey.replaceFirst('0', '2'));
+    var cartIconProduct3 = testUtils.key(firstProductAddButtonKey.replaceFirst('0', '3'));
 
     //POSSIBLE TAP-ERROR:
     // "To silence this warning, pass "warnIfMissed: false" to "tap()".
@@ -175,27 +200,24 @@ class OverviewTests {
     //   - 'await tester.pumpAndSettle(testUtils.delay(DELAY));' TO
     //   - 'await tester.pump();'
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(testUtils.text("0"), findsOneWidget);
-
     await tester.tap(cartIconProduct0);
     await tester.pump();
-    expect(testUtils.text("1"), findsOneWidget);
-
     await tester.tap(cartIconProduct1);
     await tester.pump();
-    expect(testUtils.text("2"), findsOneWidget);
-
     await tester.tap(cartIconProduct2);
     await tester.pump();
-    expect(testUtils.text("3"), findsOneWidget);
-
     await tester.tap(cartIconProduct3);
     await tester.pump();
-    expect(testUtils.text("4"), findsOneWidget);
+    expect(testUtils.text(finalTotal.toString()), findsOneWidget);
   }
 
   Future clickProductCheckDetailsImage(tester) async {
-    await uiTestUtils.testBootstrapRestartState(tester, isWidgetTest: isWidgetTest);
+    await uiTestUtils.testInitialization(
+      tester,
+      isWidgetTest: isWidgetTest,
+      appDriver: app.AppDriver(),
+    );
+
     await tester.pump();
 
     var keyProduct1 = testUtils.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
@@ -210,7 +232,12 @@ class OverviewTests {
   }
 
   Future clickProductCheckDetailsText(tester) async {
-    await uiTestUtils.testBootstrapRestartState(tester, isWidgetTest: isWidgetTest);
+    await uiTestUtils.testInitialization(
+      tester,
+      isWidgetTest: isWidgetTest,
+      appDriver: app.AppDriver(),
+    );
+
     await tester.pump();
 
     var keyProduct1 = testUtils.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
@@ -228,12 +255,16 @@ class OverviewTests {
     // @formatter:on
   }
 
-  Future check_OverviewGridItemsInOverviewView(tester, {required int itemsQtde}) async {
-    await uiTestUtils.testBootstrapRestartState(tester, isWidgetTest: isWidgetTest);
+  Future check_OverviewGridItems_In_OverviewView(tester, {required int itemsQtde}) async {
+    await uiTestUtils.testInitialization(
+      tester,
+      isWidgetTest: isWidgetTest,
+      appDriver: app.AppDriver(),
+    );
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
-    uiTestUtils.checkWidgetsTypesQtdeInAView(
+    uiTestUtils.checkWidgetsQuantityInAView(
       widgetView: OverviewView,
       widgetType: OverviewGridItem,
       widgetQtde: itemsQtde,
@@ -241,11 +272,15 @@ class OverviewTests {
   }
 
   void checkOverviewFavorites(tester, int itemsQtde) async {
-    await uiTestUtils.testBootstrapRestartState(tester, isWidgetTest: isWidgetTest);
+    await uiTestUtils.testInitialization(
+      tester,
+      isWidgetTest: isWidgetTest,
+      appDriver: app.AppDriver(),
+    );
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
-    uiTestUtils.checkWidgetsTypesQtdeInAView(
+    uiTestUtils.checkWidgetsQuantityInAView(
       widgetView: OverviewView,
       widgetType: OverviewGridItem,
       widgetQtde: itemsQtde,
@@ -257,7 +292,11 @@ class OverviewTests {
     required int favoritesAfterToggle,
     required String toggleButtonKey,
   }) async {
-    await uiTestUtils.testBootstrapRestartState(tester, isWidgetTest: isWidgetTest);
+    await uiTestUtils.testInitialization(
+      tester,
+      isWidgetTest: isWidgetTest,
+      appDriver: app.AppDriver(),
+    );
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     var button = testUtils.key(toggleButtonKey);

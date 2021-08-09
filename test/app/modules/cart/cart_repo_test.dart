@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/cart/repo/i_cart_repo.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 
-import '../../../config/cart_test_config.dart';
+import '../../../config/bindings/cart_test_config.dart';
 import '../../../data_builders/cartitem_databuilder.dart';
 import '../../../data_builders/product_databuilder.dart';
 
@@ -20,8 +20,8 @@ class CartRepoTests {
 
     setUp(() {
       CartTestConfig().bindingsBuilder();
-      _product1 = ProductDataBuilder().ProductFull();
-      _product2 = ProductDataBuilder().ProductFull();
+      _product1 = ProductDataBuilder().ProductWithId();
+      _product2 = ProductDataBuilder().ProductWithId();
       _repo = Get.find<ICartRepo>();
     });
 

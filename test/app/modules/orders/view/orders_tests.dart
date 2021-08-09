@@ -12,16 +12,16 @@ import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
-import '../../../../config/app_tests_config.dart';
+import '../../../../config/tests_config.dart';
 import '../../../../data_builders/product_databuilder.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/test_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 
 class OrdersTests {
-  final TestUtils testUtils;
-  final UiTestUtils uiTestUtils;
-  final DbTestUtils dbTestUtils;
+  final testUtils;
+  final uiTestUtils;
+  final dbTestUtils;
   final isWidgetTest;
 
   OrdersTests({
@@ -35,7 +35,7 @@ class OrdersTests {
     WidgetTester tester,
     int interval,
   ) async {
-    await check_oneOrderInDB(tester, interval);
+    await create_order_from_cartView(tester, interval);
 
     //D) OPEN ORDERS-DRAWER-OPTION AND CHECK THE ORDER DONE ABOVE
     await uiTestUtils.openDrawerAndClickAnOption(
@@ -45,34 +45,33 @@ class OrdersTests {
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
-    uiTestUtils.checkWidgetsTypesQtdeInAView(
+    uiTestUtils.checkWidgetsQuantityInAView(
       widgetView: OrdersView,
       widgetType: OrderCollapsableTile,
       widgetQtde: 1,
     );
 
-    //E) PRESS BACK-BUTTON AND GOBACK TO OVERVIEW-PAGE
-    await uiTestUtils.navigationBetweenViews(
+    //E) PRESS BACK-BUTTON AND GO-BACK TO OVERVIEW-PAGE
+    await uiTestUtils.navigateBetweenViews(
       tester,
       interval: interval,
       from: OrdersView,
       to: OverviewView,
-      triggerWidget: BackButton,
+      trigger: BackButton,
     );
   }
 
-  Future<void> check_oneOrderInDB(WidgetTester tester, int interval) async {
-    if (isWidgetTest == false) {
+  Future<void> create_order_from_cartView(tester, int interval) async {
+    if (!isWidgetTest) {
       await dbTestUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
       await dbTestUtils.addObject(
-        tester,
-        object: ProductDataBuilder().ProductFullStaticNoId(),
+        object: ProductDataBuilder().ProductWithoutId(),
         interval: DELAY,
         collectionUrl: PRODUCTS_URL,
       );
     }
 
-    await uiTestUtils.testBootstrapPreserveStateOld(
+    await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
@@ -83,7 +82,6 @@ class OrdersTests {
     expect(testUtils.type(OverviewView), findsOneWidget);
     await tester.tap(testUtils.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0"));
     await tester.pumpAndSettle(testUtils.delay(interval));
-    expect(testUtils.text("1"), findsOneWidget);
 
     //B) CLICKING CART-BUTTON-PAGE AND CHECK THE AMOUNT CART
     await tester.tap(testUtils.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
@@ -93,7 +91,6 @@ class OrdersTests {
     //C) CLICKING ORDER-NOW-BUTTON AND GO BACK TO THE PREVIOUS PAGE
     await tester.tap(testUtils.key(CART_PAGE_ORDERSNOW_BUTTON_KEY));
     await tester.pump(testUtils.delay(interval));
-    expect(testUtils.key(CART_PAGE_ORDERSNOW_BUTTON_KEY), findsNothing);
     expect(testUtils.type(ProgresIndicator), findsOneWidget);
     await tester.pumpAndSettle(testUtils.delay(interval));
     expect(testUtils.type(OverviewView), findsOneWidget);
@@ -103,7 +100,10 @@ class OrdersTests {
     WidgetTester tester,
     int interval,
   ) async {
-    await uiTestUtils.testBootstrapPreserveStateOld(
+    if (!isWidgetTest) {
+      await dbTestUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
+    }
+    await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
@@ -120,12 +120,12 @@ class OrdersTests {
     expect(testUtils.type(CircularProgressIndicator), findsNothing);
     expect(testUtils.text(NO_ORDERS_FOUND_YET), findsOneWidget);
 
-    await uiTestUtils.navigationBetweenViews(
+    await uiTestUtils.navigateBetweenViews(
       tester,
       interval: interval,
       from: OrdersView,
       to: OverviewView,
-      triggerWidget: BackButton,
+      trigger: BackButton,
     );
   }
 
@@ -135,7 +135,7 @@ class OrdersTests {
     required Type from,
     required Type to,
   }) async {
-    await uiTestUtils.testBootstrapPreserveStateOld(
+    await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
@@ -150,12 +150,12 @@ class OrdersTests {
 
     await tester.pumpAndSettle();
 
-    await uiTestUtils.navigationBetweenViews(
+    await uiTestUtils.navigateBetweenViews(
       tester,
       interval: interval,
       from: OrdersView,
       to: OverviewView,
-      triggerWidget: BackButton,
+      trigger: BackButton,
     );
   }
 }

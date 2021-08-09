@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/orders/entities/order.dart';
 import 'package:shopingapp/app/modules/orders/service/i_orders_service.dart';
 
-import '../../../../config/orders_test_config.dart';
+import '../../../../config/bindings/orders_test_bindings.dart';
 
 class OrdersServiceTests {
   static void unit() {
     late IOrdersService _service;
-    var testConfig = Get.put(OrdersTestConfig());
+    var testConfig = Get.put(OrdersTestBindings());
 
     setUp(() {
       testConfig.bindingsBuilderMockedRepo(isWidgetTest: true);

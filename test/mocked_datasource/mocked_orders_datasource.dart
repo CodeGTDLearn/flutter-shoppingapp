@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:shopingapp/app/modules/orders/entities/order.dart';
 
-import '../config/app_tests_config.dart';
+import '../config/tests_config.dart';
 
 class MockedOrdersDatasource {
   final _datasource = MOCKED_DATASOURCE;

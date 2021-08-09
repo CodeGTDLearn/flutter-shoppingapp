@@ -1,4 +1,5 @@
 const DELAY = 2;
+const EXTRA_DELAY = 2;
 
 const WIDGET_TEST = 'widget_test';
 const INTEGRATION_TEST = 'integration';

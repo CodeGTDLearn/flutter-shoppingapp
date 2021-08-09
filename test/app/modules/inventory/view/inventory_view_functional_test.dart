@@ -2,9 +2,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/inventory/components/inventory_item.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
+import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 
-import '../../../../config/app_tests_config.dart';
-import '../../../../config/inventory_test_config.dart';
+import '../../../../config/tests_config.dart';
+import '../../../../config/bindings/inventory_test_bindings.dart';
+import '../../../../config/titles/inventory_test_titles.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/test_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
@@ -15,13 +17,16 @@ class InventoryViewTest {
   final _utils = Get.put(TestUtils());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
-  final _config = Get.put(InventoryTestConfig());
+  final _bindings = Get.put(InventoryTestBindings());
+  final _titles = Get.put(InventoryTestTitles());
 
   InventoryViewTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
   }
 
   void functional() {
+    var _products = <Product>[];
+
     final _tests = Get.put(InventoryTests(
       testUtils: _utils,
       dbTestUtils: _dbUtils,
@@ -29,64 +34,59 @@ class InventoryViewTest {
       isWidgetTest: _isWidgetTest,
     ));
 
-    setUpAll(() async => _utils.globalSetUpAll(_tests.runtimeType.toString()));
+    setUpAll(() async {
+      _utils.globalSetUpAll(_tests.runtimeType.toString());
+      _products = await _utils.load_4ProductsInDb(isWidgetTest: _isWidgetTest);
+    });
 
     tearDownAll(() => _utils.globalTearDownAll(_tests.runtimeType.toString()));
 
     setUp(() {
-      _config.bindingsBuilderMockedRepo(isUnitTest: _isWidgetTest);
-      _utils.globalSetUp("Starting...");
+      _bindings.bindingsBuilderMockedRepo(isUnitTest: _isWidgetTest);
+      _utils.globalSetUp("Starting Test...");
     });
 
-    tearDown(() => _utils.globalTearDown("...Ending"));
+    tearDown(() => _utils.globalTearDown("...Ending Test"));
 
-    testWidgets(_config.check_ProductsAbsence, (tester) async {
-      if (!_isWidgetTest) {
-        await _dbUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
-      }
-
-      _config.bindingsBuilderMockedRepoEmptyDb(isWidgetTest: _isWidgetTest);
-      await _tests.checkInventoryProductsAbsence(tester, DELAY);
-    });
-
-    testWidgets(_config.check_Products, (tester) async {
-      await _utils.load_2ProductsInDb_ReturnAProduct(tester, isWidgetTest: _isWidgetTest);
+    testWidgets(_titles.check_products, (tester) async {
       _isWidgetTest
-          ? await _tests.checkInventoryItemsInInventoryView(tester, 4)
-          : await _tests.checkInventoryItemsInInventoryView(tester, 2);
+          ? await _tests.check_products(tester, 4)
+          : await _tests.check_products(tester, 4);
     });
 
-    testWidgets(_config.delete_Product, (tester) async {
-      var product = await _utils.load_2ProductsInDb_ReturnAProduct(tester,
-          isWidgetTest: _isWidgetTest);
-      await _tests.deleteInventoryProduct(
+    testWidgets(_titles.delete_product, (tester) async {
+      await _tests.delete_product(
         tester,
         initialQtde: 2,
         finalQtde: 1,
-        keyDeleteButton: '$INVENTORY_DELETEITEM_BUTTON_KEY${product.id}',
+        keyDeleteButton: '$INVENTORY_DELETEITEM_BUTTON_KEY${_products[3].id}',
         widgetTypeToDelete: InventoryItem,
       );
     });
 
-    testWidgets(_config.update_Product, (tester) async {
-      var product = await _utils.load_2ProductsInDb_ReturnAProduct(tester,
-          isWidgetTest: _isWidgetTest);
-      await _tests.updateInventoryProduct(
+    testWidgets(_titles.update_product, (tester) async {
+      await _tests.update_product(
         tester,
         inputValidText: "XXXXXX",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
-        productToUpdate: product,
+        productToUpdate: _products[0],
       );
     });
 
-    testWidgets(_config.refresh_View, (tester) async {
-      var product = await _utils.load_2ProductsInDb_ReturnAProduct(tester,
-          isWidgetTest: _isWidgetTest);
-      await _tests.refreshingInventoryView(tester, draggerWidget: product);
+    testWidgets(_titles.refresh_view, (tester) async {
+      await _tests.refresh_view(
+        tester,
+        draggerWidget: _products[0],
+      );
     });
 
-    testWidgets(_config.view_BackButton, (tester) async {
-      await _tests.tappingBackButtonInInventoryView(tester);
+    testWidgets(_titles.tap_viewBackButton, (tester) async {
+      await _tests.tap_viewBackButton(tester);
+    });
+
+    testWidgets(_titles.check_emptyView_noProductInDb, (tester) async {
+      _bindings.bindingsBuilderMockedRepoEmptyDb(isWidgetTest: _isWidgetTest);
+      await _tests.check_emptyView_noProductInDb(tester, DELAY);
     });
   }
 }

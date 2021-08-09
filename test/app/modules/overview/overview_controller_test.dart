@@ -7,7 +7,7 @@ import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 
-import '../../../config/overview_test_config.dart';
+import '../../../config/bindings/overview_test_bindings.dart';
 import '../../../mocked_datasource/mocked_products_datasource.dart';
 
 class OverviewControllerTests {
@@ -15,7 +15,7 @@ class OverviewControllerTests {
     late IOverviewRepo _repo;
     late IOverviewService _service;
     late OverviewController _controller;
-    var testConfig = Get.put(OverviewTestConfig());
+    var testConfig = Get.put(OverviewTestBindings());
 
     setUp(() {
       testConfig.bindingsBuilderMockedRepo(isWidgetTest: true);

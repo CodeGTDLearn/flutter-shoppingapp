@@ -14,7 +14,7 @@ import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
-import '../../../config/cart_test_config.dart';
+import '../../../config/bindings/cart_test_config.dart';
 import '../../../utils/test_utils.dart';
 
 class CartViewFunctionalTests {

@@ -10,7 +10,7 @@ import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart'
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../app/modules/overview/repo/overview_mocked_repo.dart';
+import '../../app/modules/overview/repo/overview_mocked_repo.dart';
 
 /* INSTRUCTIONS ABOUT 'REPO-REAL-DE-PRODUCAO' E 'REPO-REAL-DE-PRODUCAO'
   https://timm.preetz.name/articles/http-request-flutter-test
@@ -24,7 +24,7 @@ import '../app/modules/overview/repo/overview_mocked_repo.dart';
   C) SO, THE TESTS ONLY WILL USE
      'REPO-REAL-DE-PRODUCAO'MockedRepoClass(no external calls)
    */
-class OverviewTestConfig {
+class OverviewTestBindings {
   final IOverviewRepo _mocked_repo_used_in_this_module_tests = OverviewMockedRepo();
 
   void _bindingsBuilder(IOverviewRepo overviewRepo) {
@@ -38,7 +38,6 @@ class OverviewTestConfig {
 
     var binding = BindingsBuilder(() {
       Get.lazyPut<IOverviewRepo>(() => overviewRepo);
-      // Get.lazyPut<IOverviewRepo>(() => _mocked_repo_used_in_this_module_tests);
 
       Get.lazyPut<IOverviewService>(
           () => OverviewService(repo: Get.find<IOverviewRepo>()));
@@ -68,42 +67,4 @@ class OverviewTestConfig {
   void bindingsBuilderMockRepoEmptyDb({required bool isWidgetTest}) {
     if (isWidgetTest) _bindingsBuilder(OverviewMockRepoEmptyDb());
   }
-
-  String repoName() => _mocked_repo_used_in_this_module_tests.runtimeType.toString();
-
-  // @formatter:off
-  //GROUP-TITLES ---------------------------------------------------------------
-  static get OVERVIEW_GROUP_TITLE => 'OverView|Integration-Tests:';
-  static get OVERVIEW_DETAIL_GROUP_TITLE => 'OverView-Details|Integration-Tests:';
-
-  //MVC-TITLES -----------------------------------------------------------------
-  get REPO_TEST_TITLE => '${repoName()}|Repo: Unit';
-  get SERVICE_TEST_TITLE => '${repoName()}|Service: Unit';
-  get CONTROLLER_TEST_TITLE => '${repoName()}|Controller: Integr';
-  get VIEW_TEST_TITLE => '${repoName()}|View: Functional';
-  get DETAIL_VIEW_TEST_TITLE => '${repoName()}|View|Details: Functional';
-
-  //OVERVIEW-TEST-TITLES -------------------------------------------------------
-  get check_OverviewGridItemsInOverviewView => 'Checking products';
-  get toggle_ProductFavoriteButton => 'Toggling FavoritesIconButton in a product';
-  get addProduct_CheckShopCartIconAndSnackbar =>
-      'Adding product + Check: ShopCartIcon|Snackbar';
-  get addProduct_ClickUndoInSnackbar => 'Adding product + Clicking Snackbar Undo';
-  get add_SameProduct_3x_CheckingShopCartIcon =>
-      'Adding a product 3x + Check ShopCartIcon';
-  get add_4DifferentProducts_CheckingShopCartIcon =>
-      'Adding 4 products + Check ShopCartIcon';
-  get add_prods3And4_check_shopCartIcon => 'Adding products 3/4 + Checking ShopCartIcon';
-  get tap_FavoritesFilter_NoFavoritesFound =>
-      'Tapping FavoriteFilter - Not favorites found';
-  get tap_FavoriteFilterPopup => 'Tapping FavoriteFilter';
-  get close_FavoriteFilterPopup => 'Closing Favorite_Filter (tap OUTSIDE)';
-
-  //OVERVIEW-DETAILS-TEST-TITLES -----------------------------------------------
-  get click_product_check_details_texts =>
-      'Clicking Product 01 + Show Details Page: Checking texts';
-
-  get click_product_check_details_image =>
-      'Clicking Product 01 + Show Details Page: Checking image';
-  // @formatter:on
 }

@@ -1,14 +1,16 @@
+import 'dart:math';
+
 import 'package:faker/faker.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 
-import '../config/app_tests_config.dart';
+import '../config/tests_config.dart';
 
 class ProductDataBuilder {
   // Product ProductId() {
   //   return Product(id: Faker().randomGenerator.string(3, min: 2));
   // }
 
-  Product ProductFull() {
+  Product ProductWithId() {
     return Product(
       id: Faker().randomGenerator.string(3, min: 2),
       title: Faker().food.dish(),
@@ -20,10 +22,9 @@ class ProductDataBuilder {
     );
   }
 
-  Product ProductFullStaticNoId() {
+  Product ProductWithoutId() {
     return Product(
-      // id: Faker().randomGenerator.string(3, min: 2),
-      title: 'Red Tomatoes',
+      title: '${Random().nextInt(9).toString()}Red Tomatoes',
       description: "The best Red tomatoes ever.",
       price: 99.99,
       imageUrl: IMAGE1_TEST_URL,

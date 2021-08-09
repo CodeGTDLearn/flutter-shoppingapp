@@ -7,7 +7,7 @@ import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app_driver.dart';
 
-import '../../../config/components_test_config.dart';
+import '../../../config/bindings/components_test_bindings.dart';
 import '../../../utils/test_utils.dart';
 
 class ProgresIndicatorTest {
@@ -23,7 +23,7 @@ class ProgresIndicatorTest {
     }
 
     testWidgets('Checking CustomProgrIndicator', (tester) async {
-      ComponentsTestConfig().bindingsBuilderMockedRepo();
+      ComponentsTestBindings().bindingsBuilderMockedRepo();
 
       await tester.pumpWidget(AppDriver());
 
@@ -40,7 +40,7 @@ class ProgresIndicatorTest {
     });
 
     testWidgets('Checking CustomProgrIndicator EmptyDB', (tester) async {
-      ComponentsTestConfig().bindingsBuilderMockRepoEmptyDb();
+      ComponentsTestBindings().bindingsBuilderMockRepoEmptyDb();
 
       await tester.pumpWidget(AppDriver());
 

@@ -5,37 +5,38 @@ import '../app/modules/overview/repo/overview_repo_test.dart';
 import '../app/modules/overview/service/overview_service_test.dart';
 import '../app/modules/overview/view/overview_details_functional_test.dart';
 import '../app/modules/overview/view/overview_view_functional_test.dart';
-import '../config/app_tests_config.dart';
-import '../config/overview_test_config.dart';
+import '../config/tests_config.dart';
+import '../config/bindings/overview_test_bindings.dart';
+import '../config/titles/overview_test_titles.dart';
 
 class OverviewTestGroups {
   void groups(bool skipGroup) {
     group(
-      OverviewTestConfig().REPO_TEST_TITLE,
+      OverviewTestTitles().REPO_TEST_TITLE,
       OverviewRepoTests.unit,
       skip: skipGroup, //'skip-group' overrides the internal 'skip-methods'
     );
 
     group(
-      OverviewTestConfig().SERVICE_TEST_TITLE,
+      OverviewTestTitles().SERVICE_TEST_TITLE,
       OverviewServiceTests.unit,
       skip: skipGroup,
     );
 
     group(
-      OverviewTestConfig().CONTROLLER_TEST_TITLE,
+      OverviewTestTitles().CONTROLLER_TEST_TITLE,
       OverviewControllerTests.integration,
       skip: skipGroup,
     );
 
     group(
-      OverviewTestConfig().VIEW_TEST_TITLE,
+      OverviewTestTitles().VIEW_TEST_TITLE,
       OverviewViewTest(testType: WIDGET_TEST).functional,
       skip: skipGroup,
     );
 
     group(
-      OverviewTestConfig().DETAIL_VIEW_TEST_TITLE,
+      OverviewTestTitles().DETAIL_VIEW_TEST_TITLE,
       OverviewDetailsTest(testType: WIDGET_TEST).functional,
       skip: skipGroup,
     );

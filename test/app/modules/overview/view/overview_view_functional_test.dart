@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import 'package:shopingapp/app/core/components/keys/snackbarr_keys.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 
-import '../../../../config/app_tests_config.dart';
-import '../../../../config/overview_test_config.dart';
+import '../../../../config/tests_config.dart';
+import '../../../../config/bindings/overview_test_bindings.dart';
+import '../../../../config/titles/overview_test_titles.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/test_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
@@ -12,10 +13,12 @@ import 'overview_tests.dart';
 
 class OverviewViewTest {
   late bool _isWidgetTest;
-  final TestUtils _utils = Get.put(TestUtils());
-  final UiTestUtils _uiUtils = Get.put(UiTestUtils());
-  final DbTestUtils _dbUtils = Get.put(DbTestUtils());
-  final OverviewTestConfig _config = Get.put(OverviewTestConfig());
+  final _utils = Get.put(TestUtils());
+  final _uiUtils = Get.put(UiTestUtils());
+  final _dbUtils = Get.put(DbTestUtils());
+  final _bindings = Get.put(OverviewTestBindings());
+  final _titles = Get.put(OverviewTestTitles());
+  var _products;
 
   OverviewViewTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
@@ -29,26 +32,25 @@ class OverviewViewTest {
       isWidgetTest: _isWidgetTest,
     ));
 
-    setUpAll(() async => _utils.globalSetUpAll(_tests.runtimeType.toString()));
+    setUpAll(() async {
+      _utils.globalSetUpAll(_tests.runtimeType.toString());
+      _products = await _utils.load_4ProductsInDb(isWidgetTest: _isWidgetTest);
+      _bindings.bindingsBuilderMockedRepo(isWidgetTest: _isWidgetTest);
+    });
 
     tearDownAll(() => _utils.globalTearDownAll(_tests.runtimeType.toString()));
 
-    setUp(() {
-      _utils.globalSetUp("Starting...");
-      _config.bindingsBuilderMockedRepo(isWidgetTest: _isWidgetTest);
-    });
+    setUp(() => _utils.globalSetUp("Starting..."));
 
-    tearDown(() => _utils.globalTearDown("...Ending"));
+    tearDown(() => _utils.globalTearDown("...Ending Test"));
 
-    testWidgets(_config.check_OverviewGridItemsInOverviewView, (tester) async {
-      await _utils.load_2ProductsInDb_ReturnAProduct(tester, isWidgetTest: _isWidgetTest);
+    testWidgets(_titles.check_overviewGridItems_in_overviewview, (tester) async {
       _isWidgetTest
-          ? await _tests.check_OverviewGridItemsInOverviewView(tester, itemsQtde: 4)
-          : await _tests.check_OverviewGridItemsInOverviewView(tester, itemsQtde: 2);
+          ? await _tests.check_OverviewGridItems_In_OverviewView(tester, itemsQtde: 4)
+          : await _tests.check_OverviewGridItems_In_OverviewView(tester, itemsQtde: 4);
     });
-    // }, skip: false);
 
-    testWidgets(_config.toggle_ProductFavoriteButton, (tester) async {
+    testWidgets(_titles.toggle_productFavoriteButton, (tester) async {
       _isWidgetTest
           ? await _tests.toggle_ProductFavoriteButton(
               tester,
@@ -61,73 +63,51 @@ class OverviewViewTest {
               toggleButtonKey: "$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0",
             );
     });
-    // }, skip: false);
 
-    testWidgets(_config.addProduct_CheckShopCartIconAndSnackbar, (tester) async {
-      var product = await _utils.load_2ProductsInDb_ReturnAProduct(
-        tester,
-        isWidgetTest: _isWidgetTest,
-      );
-      await _tests.addProduct_CheckShopCartIconAndSnackbar(
+    testWidgets(_titles.add_identicalProduct2x_Check_ShopCartIcon, (tester) async {
+      await _tests.add_identicalProduct2x_Check_ShopCartIcon(
         tester,
         addProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
-        productTitle: product.title,
+        productTitle: _products[0].title,
+        finalTotal: 2,
       );
     });
-    // }, skip: false);
 
-    testWidgets(_config.addProduct_ClickUndoInSnackbar, (tester) async {
-      var product = await _utils.load_2ProductsInDb_ReturnAProduct(
-        tester,
-        isWidgetTest: _isWidgetTest,
-      );
-      await _tests.addProduct_ClickUndoInSnackbar(
+    testWidgets(_titles.addProduct_click_undoSnackbar_check_shopCartIcon, (tester) async {
+      await _tests.addProduct_click_UndoSnackbar_Check_ShopCartIcon(
         tester,
         addProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
-        productTitle: product.title,
+        productTitle: _products[0].title,
         snackbarUndoButtonKey: CUSTOM_SNACKBAR_BUTTON_KEY,
-      );
-    });
-    // }, skip: false);
-
-    testWidgets(_config.add_SameProduct_3x_CheckingShopCartIcon, (tester) async {
-      var prods = await _utils.load_4ProductsInDb_ReturnAProductList(
-        tester,
-        isWidgetTest: _isWidgetTest,
-      );
-
-      await _tests.add_SameProduct_3x_CheckingShopCartIcon(
-        tester,
-        listProducts: prods,
-        addProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
+        finalTotal: 2,
       );
     });
 
-    testWidgets(_config.add_4DifferentProducts_CheckingShopCartIcon, (tester) async {
-      // await _utils.load_4ProductsInDb_ReturnAProductList(
-      //   tester,
-      //   isWidgetTest: _isWidgetTest,
-      // );
-
-      await _tests.add_4DifferentProducts_CheckingShopCartIcon(
+    testWidgets(_titles.add_identicalProduct3x_check_shopCartIcon, (tester) async {
+      await _tests.add_identicalProduct3x_Check_ShopCartIcon(
         tester,
-        addOnlyTheFirstProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
+        productAddButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
+        finalTotal: 5,
       );
     });
 
-    testWidgets(_config.tap_FavoritesFilter_NoFavoritesFound, (tester) async {
-      await _utils.load_4ProductsInDb_ReturnAProductList(
+    testWidgets(_titles.add_4differentProducts_check_shopCartIcon, (tester) async {
+      await _tests.add_4differentProducts_Check_ShopCartIcon(
         tester,
-        isWidgetTest: _isWidgetTest,
+        firstProductAddButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
+        finalTotal: 9,
       );
+    });
+
+    testWidgets(_titles.tap_favoritesFilter_noFavoritesFound, (tester) async {
       await _tests.tap_FavoritesFilter_NoFavoritesFound(tester);
     });
 
-    testWidgets(_config.tap_FavoriteFilterPopup, (tester) async {
+    testWidgets(_titles.tap_favoriteFilterPopup, (tester) async {
       await _tests.tap_FavoriteFilterPopup(tester);
     });
 
-    testWidgets(_config.close_FavoriteFilterPopup, (tester) async {
+    testWidgets(_titles.close_favoriteFilterPopup, (tester) async {
       await _tests.close_FavoriteFilterPopup(tester);
     });
   }

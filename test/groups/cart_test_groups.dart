@@ -4,7 +4,7 @@ import '../app/modules/cart/cart_controller_test.dart';
 import '../app/modules/cart/cart_repo_test.dart';
 import '../app/modules/cart/cart_service_test.dart';
 import '../app/modules/cart/cart_view_functional_test.dart';
-import '../config/cart_test_config.dart';
+import '../config/bindings/cart_test_config.dart';
 
 class CartTestGroups {
   void groups(bool skipGroup) {

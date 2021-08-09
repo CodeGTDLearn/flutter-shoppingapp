@@ -4,12 +4,12 @@ import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/orders/entities/order.dart';
 import 'package:shopingapp/app/modules/orders/repo/i_orders_repo.dart';
 
-import '../../../../config/orders_test_config.dart';
+import '../../../../config/bindings/orders_test_bindings.dart';
 import '../../../../data_builders/order_databuilder.dart';
 
 class OrdersRepoTests {
   static void unit() {
-    var testConfig = Get.put(OrdersTestConfig());
+    var testConfig = Get.put(OrdersTestBindings());
     late IOrdersRepo _repo;
     var _orderWithoutId;
 

@@ -4,7 +4,7 @@ import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/orders/entities/order.dart';
 
-import '../../../config/cart_test_config.dart';
+import '../../../config/bindings/cart_test_config.dart';
 import '../../../data_builders/cartitem_databuilder.dart';
 import '../../../data_builders/product_databuilder.dart';
 import '../../../mocked_datasource/mocked_orders_datasource.dart';
@@ -16,8 +16,8 @@ class CartControllerTests {
     late Order _order1;
 
     setUp(() {
-      _product1 = ProductDataBuilder().ProductFull();
-      _product2 = ProductDataBuilder().ProductFull();
+      _product1 = ProductDataBuilder().ProductWithId();
+      _product2 = ProductDataBuilder().ProductWithId();
       _order1 = MockedOrdersDatasource().orders().elementAt(0);
 
       CartTestConfig().bindingsBuilder();

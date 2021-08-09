@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 
-import '../../../../config/overview_test_config.dart';
+import '../../../../config/bindings/overview_test_bindings.dart';
 import '../../../../data_builders/product_databuilder.dart';
 import 'overview_mocked_repo.dart';
 
@@ -11,13 +11,13 @@ class OverviewRepoTests {
   static void unit() {
     late IOverviewRepo _repo, _injectRepo;
     late var _productFail;
-    var testConfig = Get.put(OverviewTestConfig());
+    var testConfig = Get.put(OverviewTestBindings());
 
     setUp(() {
       testConfig.bindingsBuilderMockedRepo(isWidgetTest: true);
       _repo = Get.find<IOverviewRepo>();
       _injectRepo = OverviewInjectMockedRepo();
-      _productFail = ProductDataBuilder().ProductFull();
+      _productFail = ProductDataBuilder().ProductWithId();
     });
 
     test('Checking Instances', () {

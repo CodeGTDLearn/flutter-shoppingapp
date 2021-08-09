@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/cart/service/i_cart_service.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 
-import '../../../config/cart_test_config.dart';
+import '../../../config/bindings/cart_test_config.dart';
 import '../../../data_builders/cartitem_databuilder.dart';
 import '../../../data_builders/product_databuilder.dart';
 
@@ -14,8 +14,8 @@ class CartServiceTests {
 
     setUp(() {
       CartTestConfig().bindingsBuilder();
-      _product1 = ProductDataBuilder().ProductFull();
-      _product2 = ProductDataBuilder().ProductFull();
+      _product1 = ProductDataBuilder().ProductWithId();
+      _product2 = ProductDataBuilder().ProductWithId();
       _service = Get.find<ICartService>();
     });
 

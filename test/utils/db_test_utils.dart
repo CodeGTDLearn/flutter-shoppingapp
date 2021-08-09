@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 
+import '../config/tests_config.dart';
 import 'test_utils.dart';
 
 //Examples:
@@ -64,14 +65,12 @@ class DbTestUtils {
     });
   }
 
-  Future<dynamic> addObject(
-    tester, {
+  Future<dynamic> addObject({
     required var object,
     required String collectionUrl,
     required int interval,
   }) async {
-    await tester.pumpAndSettle(_utils.delay(interval));
-
+    await Future.delayed(_utils.delay(DELAY));
     return http
         .post(Uri.parse(collectionUrl), body: jsonEncode(object.toJson()))
         .then((response) {
@@ -83,8 +82,7 @@ class DbTestUtils {
     // @formatter:on
   }
 
-  Future<List<dynamic>> addMultipleObjects(
-    tester, {
+  Future<List<dynamic>> addMultipleObjects({
     required int qtdeObjects,
     required Object object,
     required String collectionUrl,
@@ -94,16 +92,12 @@ class DbTestUtils {
 
     for (var item = 1; item <= qtdeObjects; item++) {
       await addObject(
-        tester,
         object: object,
         interval: interval,
         collectionUrl: collectionUrl,
-      ).then((responseObject) {
-        listReturn.add(responseObject);
-        _addProductMessage(
-          collectionUrl: collectionUrl,
-          product: responseObject,
-        );
+      ).then((response) {
+        listReturn.add(response);
+        _addProductMessage(collectionUrl: collectionUrl, product: response);
       });
     }
 

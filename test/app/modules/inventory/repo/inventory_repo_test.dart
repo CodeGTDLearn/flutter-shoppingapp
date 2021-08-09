@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
 
-import '../../../../config/inventory_test_config.dart';
+import '../../../../config/bindings/inventory_test_bindings.dart';
 import '../../../../mocked_datasource/mocked_products_datasource.dart';
 import 'inventory_mocked_repo.dart';
 
@@ -14,7 +14,7 @@ class InventoryRepoTests {
     var _product1 = MockedProductsDatasource().products().elementAt(1);
 
     setUp(() {
-      InventoryTestConfig().bindingsBuilderMockedRepo(isUnitTest: true);
+      InventoryTestBindings().bindingsBuilderMockedRepo(isUnitTest: true);
       _repo = Get.find<IInventoryRepo>();
       _injectRepo = InventoryInjectMockedRepo();
     });

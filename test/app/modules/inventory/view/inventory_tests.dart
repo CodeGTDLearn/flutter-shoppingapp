@@ -16,7 +16,7 @@ import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
-import '../../../../config/app_tests_config.dart';
+import '../../../../config/tests_config.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/test_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
@@ -34,8 +34,8 @@ class InventoryTests {
     required this.dbTestUtils,
   });
 
-  Future<void> tappingBackButtonInInventoryView(tester) async {
-    await uiTestUtils.testBootstrapPreserveStateOld(
+  Future<void> tap_viewBackButton(tester) async {
+    await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
@@ -48,17 +48,21 @@ class InventoryTests {
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
-    await uiTestUtils.navigationBetweenViews(
+    await uiTestUtils.navigateBetweenViews(
       tester,
       from: InventoryView,
       to: OverviewView,
-      triggerWidget: BackButton,
+      trigger: BackButton,
       interval: DELAY,
     );
   }
 
-  Future<void> checkInventoryProductsAbsence(tester, int interval) async {
-    await uiTestUtils.testBootstrapPreserveStateOld(
+  Future<void> check_emptyView_noProductInDb(tester, int interval) async {
+    if (!isWidgetTest) {
+      await dbTestUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
+    }
+
+    await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
@@ -71,7 +75,7 @@ class InventoryTests {
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
-    uiTestUtils.checkWidgetsTypesQtdeInAView(
+    uiTestUtils.checkWidgetsQuantityInAView(
       widgetView: InventoryView,
       widgetQtde: 0,
       widgetType: InventoryItem,
@@ -79,17 +83,17 @@ class InventoryTests {
 
     expect(testUtils.text(NO_INVENTORY_PRODUCTS_FOUND_YET), findsOneWidget);
 
-    await uiTestUtils.navigationBetweenViews(
+    await uiTestUtils.navigateBetweenViews(
       tester,
       interval: interval,
       from: InventoryView,
       to: OverviewView,
-      triggerWidget: BackButton,
+      trigger: BackButton,
     );
   }
 
-  Future<void> refreshingInventoryView(tester, {required Product draggerWidget}) async {
-    await uiTestUtils.testBootstrapPreserveStateOld(
+  Future<void> refresh_view(tester, {required Product draggerWidget}) async {
+    await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
@@ -104,8 +108,8 @@ class InventoryTests {
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
-    if (isWidgetTest == false) {
-      expect(testUtils.type(InventoryItem), findsNWidgets(2));
+    if (!isWidgetTest) {
+      expect(testUtils.type(InventoryItem), findsWidgets);
       await dbTestUtils.removeObject(
         tester,
         url: PRODUCTS_URL,
@@ -125,13 +129,13 @@ class InventoryTests {
     if (isWidgetTest == false) expect(testUtils.type(InventoryItem), findsNWidgets(1));
   }
 
-  Future<void> updateInventoryProduct(
+  Future<void> update_product(
     tester, {
     required String inputValidText,
     required String fieldKey,
     required Product productToUpdate,
   }) async {
-    await uiTestUtils.testBootstrapPreserveStateOld(
+    await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
@@ -148,7 +152,7 @@ class InventoryTests {
     );
 
     // 1) InventoryView
-    //   -> Check 'CurrentTitle'
+    //   -> Check 'InventoryView'
     //   -> Click in 'UpdateButton'
     //   -> Open InventoryAddEditView
     expect(testUtils.type(InventoryView), findsOneWidget);
@@ -192,12 +196,12 @@ class InventoryTests {
 
       // 5) Click InventoryView-BackButton
       //   -> Go to OverviewView + UpdatedValue
-      await uiTestUtils.navigationBetweenViews(
+      await uiTestUtils.navigateBetweenViews(
         tester,
         interval: DELAY,
         from: InventoryView,
         to: OverviewView,
-        triggerWidget: BackButton,
+        trigger: BackButton,
       );
       expect(testUtils.text(inputValidText), findsOneWidget);
     }
@@ -210,7 +214,7 @@ class InventoryTests {
     required String validationErrorMessage,
     required Product productToUpdate,
   }) async {
-    await uiTestUtils.testBootstrapPreserveStateOld(
+    await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
@@ -287,24 +291,24 @@ class InventoryTests {
 
       // 5) Click InventoryView-BackButton
       //   -> Go to OverviewView + UpdatedValue
-      await uiTestUtils.navigationBetweenViews(
+      await uiTestUtils.navigateBetweenViews(
         tester,
         interval: DELAY,
         from: InventoryView,
         to: OverviewView,
-        triggerWidget: BackButton,
+        trigger: BackButton,
       );
     }
   }
 
-  Future<void> deleteInventoryProduct(
+  Future<void> delete_product(
     tester, {
     required int initialQtde,
     required int finalQtde,
     required String keyDeleteButton,
     required Type widgetTypeToDelete,
   }) async {
-    await uiTestUtils.testBootstrapPreserveStateOld(
+    await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
@@ -319,7 +323,7 @@ class InventoryTests {
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
-    uiTestUtils.checkWidgetsTypesQtdeInAView(
+    uiTestUtils.checkWidgetsQuantityInAView(
       widgetView: InventoryView,
       widgetQtde: initialQtde,
       widgetType: widgetTypeToDelete,
@@ -329,29 +333,29 @@ class InventoryTests {
     await tester.pump();
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
-    uiTestUtils.checkWidgetsTypesQtdeInAView(
+    uiTestUtils.checkWidgetsQuantityInAView(
       widgetView: InventoryView,
       widgetQtde: finalQtde,
       widgetType: widgetTypeToDelete,
     );
 
-    await uiTestUtils.navigationBetweenViews(
+    await uiTestUtils.navigateBetweenViews(
       tester,
       interval: DELAY,
       from: InventoryView,
       to: OverviewView,
-      triggerWidget: BackButton,
+      trigger: BackButton,
     );
 
-    uiTestUtils.checkWidgetsTypesQtdeInAView(
+    uiTestUtils.checkWidgetsQuantityInAView(
       widgetView: OverviewView,
       widgetQtde: 1,
       widgetType: OverviewGridItem,
     );
   }
 
-  Future<void> checkInventoryItemsInInventoryView(tester, int itemsQtde) async {
-    await uiTestUtils.testBootstrapPreserveStateOld(
+  Future<void> check_products(tester, int itemsQtde) async {
+    await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
@@ -366,7 +370,7 @@ class InventoryTests {
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
-    uiTestUtils.checkWidgetsTypesQtdeInAView(
+    uiTestUtils.checkWidgetsQuantityInAView(
       widgetView: InventoryView,
       widgetType: InventoryItem,
       widgetQtde: itemsQtde,
@@ -460,12 +464,12 @@ class InventoryTests {
     }
 
     // F) CLICK IN BACK-BUTTON + RETURN FROM INVENTORY-VIEW TO OVERVIEW-VIEW
-    await UiTestUtils().navigationBetweenViews(
+    await UiTestUtils().navigateBetweenViews(
       tester,
       interval: interval,
       from: InventoryView,
       to: OverviewView,
-      triggerWidget: BackButton,
+      trigger: BackButton,
     );
 
     Get.delete(tag: 'localTestUtilsInstance');
@@ -476,7 +480,7 @@ class InventoryTests {
     required Product product,
     required bool useValidTexts,
   }) async {
-    await uiTestUtils.testBootstrapPreserveStateOld(
+    await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
@@ -529,7 +533,7 @@ class InventoryTests {
   }
 
   Future<void> tapBackButtonInInventoryEditView(tester) async {
-    await uiTestUtils.testBootstrapPreserveStateOld(
+    await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
@@ -537,11 +541,11 @@ class InventoryTests {
 
     await openInventoryEditView(tester);
 
-    await uiTestUtils.navigationBetweenViews(
+    await uiTestUtils.navigateBetweenViews(
       tester,
       from: InventoryEditView,
       to: InventoryView,
-      triggerWidget: BackButton,
+      trigger: BackButton,
       interval: DELAY,
     );
   }
