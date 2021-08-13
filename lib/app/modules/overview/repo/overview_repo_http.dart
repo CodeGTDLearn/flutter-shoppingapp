@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
-import '../../../core/properties/app_properties.dart';
 import '../../../core/properties/app_urls.dart';
 import '../../inventory/entities/product.dart';
 import 'i_overview_repo.dart';

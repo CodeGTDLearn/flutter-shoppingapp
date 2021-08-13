@@ -28,9 +28,9 @@ class InventoryTests {
   final DbTestUtils dbTestUtils;
 
   InventoryTests({
+    required this.isWidgetTest,
     required this.testUtils,
     required this.uiTestUtils,
-    required this.isWidgetTest,
     required this.dbTestUtils,
   });
 
@@ -92,7 +92,11 @@ class InventoryTests {
     );
   }
 
-  Future<void> refresh_view(tester, {required Product draggerWidget}) async {
+  Future<void> refresh_view(
+    tester, {
+    required Product draggerWidget,
+    required int widgetsQtdeAfterRefresh,
+  }) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -126,7 +130,9 @@ class InventoryTests {
     await tester.pump();
     await tester.pumpAndSettle(testUtils.delay(1));
     expect(testUtils.type(RefreshIndicator), findsNWidgets(1));
-    if (isWidgetTest == false) expect(testUtils.type(InventoryItem), findsNWidgets(1));
+    if (!isWidgetTest) {
+      expect(testUtils.type(InventoryItem), findsNWidgets(widgetsQtdeAfterRefresh));
+    }
   }
 
   Future<void> update_product(
@@ -235,7 +241,6 @@ class InventoryTests {
     //   -> Click in 'UpdateButton'
     //   -> Open InventoryAddEditView
     expect(testUtils.type(InventoryView), findsOneWidget);
-    expect(testUtils.text(productToUpdate.title), findsWidgets);
     await tester.tap(keyUpdateButton);
     await tester.pump(testUtils.delay(DELAY));
 
@@ -243,7 +248,6 @@ class InventoryTests {
     //   -> Checking View + Title-Form-Field
     await tester.pump();
     expect(testUtils.type(InventoryEditView), findsOneWidget);
-    expect(testUtils.text(productToUpdate.title), findsWidgets);
 
     for (var i = 1; i <= 2; i++) {
       var isPriceField = fieldKey == INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY;
@@ -303,10 +307,9 @@ class InventoryTests {
 
   Future<void> delete_product(
     tester, {
-    required int initialQtde,
-    required int finalQtde,
-    required String keyDeleteButton,
-    required Type widgetTypeToDelete,
+    required int widgetsQtdeAfterDelete,
+    required String deleteButtonKey,
+    required Type widgetTypetoBeDeleted,
   }) async {
     await uiTestUtils.testInitialization(
       tester,
@@ -323,21 +326,14 @@ class InventoryTests {
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
-    uiTestUtils.checkWidgetsQuantityInAView(
-      widgetView: InventoryView,
-      widgetQtde: initialQtde,
-      widgetType: widgetTypeToDelete,
-    );
-
-    await tester.tap(testUtils.key(keyDeleteButton));
+    await tester.tap(testUtils.key(deleteButtonKey));
     await tester.pump();
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
     uiTestUtils.checkWidgetsQuantityInAView(
-      widgetView: InventoryView,
-      widgetQtde: finalQtde,
-      widgetType: widgetTypeToDelete,
-    );
+        widgetView: InventoryView,
+        widgetQtde: widgetsQtdeAfterDelete,
+        widgetType: widgetTypetoBeDeleted);
 
     await uiTestUtils.navigateBetweenViews(
       tester,
@@ -349,7 +345,7 @@ class InventoryTests {
 
     uiTestUtils.checkWidgetsQuantityInAView(
       widgetView: OverviewView,
-      widgetQtde: 1,
+      widgetQtde: widgetsQtdeAfterDelete,
       widgetType: OverviewGridItem,
     );
   }
@@ -475,7 +471,7 @@ class InventoryTests {
     Get.delete(tag: 'localTestUtilsInstance');
   }
 
-  Future<void> addProductFillingFormInInventoryEditView(
+  Future<void> edit_add_product_in_form(
     tester, {
     required Product product,
     required bool useValidTexts,
@@ -517,11 +513,10 @@ class InventoryTests {
       useValidTexts ? validImgUrl : invalidText,
     );
 
-    await tester.pumpAndSettle(testUtils.delay(2));
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
 
     await tester.tap(testUtils.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
-    await tester.pump();
-    await tester.pump(testUtils.delay(2));
+    await tester.pump(testUtils.delay(DELAY));
 
     useValidTexts
         ? expect(testUtils.type(RefreshIndicator), findsNWidgets(1))
@@ -532,7 +527,7 @@ class InventoryTests {
         : expect(testUtils.type(InventoryEditView), findsOneWidget);
   }
 
-  Future<void> tapBackButtonInInventoryEditView(tester) async {
+  Future<void> edit_back_button(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -552,7 +547,6 @@ class InventoryTests {
 
   void _expectTestingINValidationMessages(Matcher matcher) {
     expect(testUtils.text(SIZE_05_INVALID_ERROR_MSG), matcher);
-    // expect(_testUtils.text(PRICE_INVALID_MSG), matcher);
     expect(testUtils.text(SIZE_10_INVALID_ERROR_MSG), matcher);
     expect(testUtils.text(URL_INVALID_ERROR_MSG), matcher);
   }

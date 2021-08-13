@@ -58,7 +58,7 @@ class UiTestUtils {
     expect(_seek.type(widgetView), findsOneWidget);
     expect(
       _seek.type(widgetType),
-      widgetQtde == 0 ? findsNothing : findsWidgets,
+      widgetQtde == 0 ? findsNothing : findsNWidgets(widgetQtde),
     );
   }
 

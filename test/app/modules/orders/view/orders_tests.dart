@@ -19,10 +19,10 @@ import '../../../../utils/test_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 
 class OrdersTests {
-  final testUtils;
-  final uiTestUtils;
-  final dbTestUtils;
-  final isWidgetTest;
+  final bool isWidgetTest;
+  final TestUtils testUtils;
+  final UiTestUtils uiTestUtils;
+  final DbTestUtils dbTestUtils;
 
   OrdersTests({
     required this.isWidgetTest,
@@ -31,10 +31,11 @@ class OrdersTests {
     required this.dbTestUtils,
   });
 
-  Future<void> Ordering_InCartView_TapOrderNowButton(
+  Future<void> orderingAProduct_inCartView_tapping_OrderNowButton(
     WidgetTester tester,
-    int interval,
-  ) async {
+    int interval, {
+    required int ordersDoneQtde,
+  }) async {
     await create_order_from_cartView(tester, interval);
 
     //D) OPEN ORDERS-DRAWER-OPTION AND CHECK THE ORDER DONE ABOVE
@@ -48,7 +49,7 @@ class OrdersTests {
     uiTestUtils.checkWidgetsQuantityInAView(
       widgetView: OrdersView,
       widgetType: OrderCollapsableTile,
-      widgetQtde: 1,
+      widgetQtde: ordersDoneQtde,
     );
 
     //E) PRESS BACK-BUTTON AND GO-BACK TO OVERVIEW-PAGE
@@ -66,7 +67,6 @@ class OrdersTests {
       await dbTestUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
       await dbTestUtils.addObject(
         object: ProductDataBuilder().ProductWithoutId(),
-        interval: DELAY,
         collectionUrl: PRODUCTS_URL,
       );
     }

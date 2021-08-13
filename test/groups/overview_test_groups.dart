@@ -6,7 +6,6 @@ import '../app/modules/overview/service/overview_service_test.dart';
 import '../app/modules/overview/view/overview_details_functional_test.dart';
 import '../app/modules/overview/view/overview_view_functional_test.dart';
 import '../config/tests_config.dart';
-import '../config/bindings/overview_test_bindings.dart';
 import '../config/titles/overview_test_titles.dart';
 
 class OverviewTestGroups {

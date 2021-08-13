@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:shopingapp/app/core/components/keys/snackbarr_keys.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 
-import '../../../../config/tests_config.dart';
 import '../../../../config/bindings/overview_test_bindings.dart';
+import '../../../../config/tests_config.dart';
 import '../../../../config/titles/overview_test_titles.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/test_utils.dart';
@@ -38,11 +38,12 @@ class OverviewViewTest {
       _bindings.bindingsBuilderMockedRepo(isWidgetTest: _isWidgetTest);
     });
 
-    tearDownAll(() => _utils.globalTearDownAll(_tests.runtimeType.toString()));
+    tearDownAll(
+        () => _utils.globalTearDownAll(_tests.runtimeType.toString(), _isWidgetTest));
 
-    setUp(() => _utils.globalSetUp("Starting..."));
+    setUp(_utils.globalSetUp);
 
-    tearDown(() => _utils.globalTearDown("...Ending Test"));
+    tearDown(_utils.globalTearDown);
 
     testWidgets(_titles.check_overviewGridItems_in_overviewview, (tester) async {
       _isWidgetTest
@@ -99,6 +100,7 @@ class OverviewViewTest {
       );
     });
 
+    //------------------------dak pra frente tem bug
     testWidgets(_titles.tap_favoritesFilter_noFavoritesFound, (tester) async {
       await _tests.tap_FavoritesFilter_NoFavoritesFound(tester);
     });

@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
-import '../../../../config/tests_config.dart';
 import '../../../../config/bindings/inventory_test_bindings.dart';
+import '../../../../config/tests_config.dart';
 import '../../../../config/titles/inventory_test_titles.dart';
 import '../../../../data_builders/product_databuilder.dart';
 import '../../../../utils/db_test_utils.dart';
@@ -34,17 +34,18 @@ class InventoryViewEditTest {
 
     setUpAll(() async => _utils.globalSetUpAll(_tests.runtimeType.toString()));
 
-    tearDownAll(() => _utils.globalTearDownAll(_tests.runtimeType.toString()));
+    tearDownAll(
+        () => _utils.globalTearDownAll(_tests.runtimeType.toString(), _isWidgetTest));
 
     setUp(() {
-      _utils.globalSetUp("Starting Test...");
+      _utils.globalSetUp();
       _bindings.bindingsBuilderMockedRepo(isUnitTest: _isWidgetTest);
     });
 
-    tearDown(() => _utils.globalTearDown("...Ending Test"));
+    tearDown(_utils.globalTearDown);
 
     testWidgets(_titles.edit_add_product_in_form, (tester) async {
-      await _tests.addProductFillingFormInInventoryEditView(
+      await _tests.edit_add_product_in_form(
         tester,
         product: ProductDataBuilder().ProductWithoutId(),
         useValidTexts: true,
@@ -70,8 +71,8 @@ class InventoryViewEditTest {
       _utils.checkImageTotalInAView(1);
     });
 
-    testWidgets(_titles.edit_fill_form_invalid, (tester) async {
-      await _tests.addProductFillingFormInInventoryEditView(
+    testWidgets(_titles.edit_fill_form_with_invalid_content, (tester) async {
+      await _tests.edit_add_product_in_form(
         tester,
         product: ProductDataBuilder().ProductWithoutId(),
         useValidTexts: false,
@@ -79,7 +80,7 @@ class InventoryViewEditTest {
     });
 
     testWidgets(_titles.edit_back_button, (tester) async {
-      await _tests.tapBackButtonInInventoryEditView(tester);
+      await _tests.edit_back_button(tester);
     });
   }
 }

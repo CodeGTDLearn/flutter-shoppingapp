@@ -28,7 +28,7 @@ void main() {
 void _unitTests() {
   final _skipGroup = false;
 
-  // CartTestGroups().groups(_skipGroup); //<<<<<<<<<<<<< BUG 01
+  // CartTestGroups().groups(_skipGroup); // <<<<<<<<<<<<< BUG 01
   InventoryTestGroups().groups(_skipGroup);
   OrdersTestGroups().groups(false);
   ComponentsTestGroups().groups(_skipGroup);
@@ -51,7 +51,7 @@ void _integrationTests() {
   group(
     InventoryTestTitles.INVENTORY_GROUP_TITLE,
     InventoryViewTest(testType: INTEGRATION_TEST).functional,
-    skip: false,
+    skip: _skipGroup,
   );
 
   group(
@@ -61,7 +61,7 @@ void _integrationTests() {
   );
 
   group(
-    InventoryTestTitles.INVENTORY_VALIDATION_GROUP_TITLE,
+    InventoryTestTitles.INVENTORY_VALID_GROUP_TITLE,
     InventoryViewValidationFunctionalTest(testType: INTEGRATION_TEST).functional,
     skip: _skipGroup,
   );
@@ -70,7 +70,7 @@ void _integrationTests() {
   group(
     OverviewTestTitles.OVERVIEW_GROUP_TITLE,
     OverviewViewTest(testType: INTEGRATION_TEST).functional,
-    skip: _skipGroup,
+    skip: false,
   );
 
   group(

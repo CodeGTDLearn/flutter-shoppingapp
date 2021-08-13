@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
@@ -57,12 +55,11 @@ class TestUtils {
       await dbTestUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
       await Future.delayed(testUtils.delay(DELAY));
       await dbTestUtils
-          .addMultipleObjects(
-            qtdeObjects: 2,
-            collectionUrl: PRODUCTS_URL,
-            object: ProductDataBuilder().ProductWithoutId(),
-            interval: DELAY,
-          )
+          .add_sameObject_multipleTimes_inDb(
+              qtdeObjects: 2,
+              collectionUrl: PRODUCTS_URL,
+              object: ProductDataBuilder().ProductWithoutId(),
+              interval: DELAY)
           .then((value) => _product = value[0]);
     }
     Get.delete(tag: 'dbInstance');
@@ -72,7 +69,6 @@ class TestUtils {
         : Future.value(_product);
   }
 
-  //todo:this method should ad differents objects instead the same
   Future<List<Product>> load_4ProductsInDb({required bool isWidgetTest}) async {
     var _listProducts;
     var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
@@ -80,14 +76,15 @@ class TestUtils {
     if (!isWidgetTest) {
       await dbTestUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
       await Future.delayed(testUtils.delay(DELAY));
-      await dbTestUtils
-          .addMultipleObjects(
-            qtdeObjects: 4,
-            collectionUrl: PRODUCTS_URL,
-            object: ProductDataBuilder().ProductWithoutId(),
-            interval: DELAY,
-          )
-          .then((value) => _listProducts = value);
+      await dbTestUtils.add_objectsList_inDb(
+        collectionUrl: PRODUCTS_URL,
+        objectList: [
+          ProductDataBuilder().ProductWithoutId(),
+          ProductDataBuilder().ProductWithoutId(),
+          ProductDataBuilder().ProductWithoutId(),
+          ProductDataBuilder().ProductWithoutId()
+        ],
+      ).then((value) => _listProducts = value);
     }
     Get.delete(tag: 'dbInstance');
     Get.delete(tag: 'testUtilsInstance');
@@ -117,10 +114,9 @@ class TestUtils {
       qtdeSuperiorLine: 2,
       lineCharacter: '=',
     ));
-    // await Get.put(DbTestUtils()).cleanDb(dbUrl: TEST_DB_URL, dbName: TEST_DB_NAME);
   }
 
-  void globalTearDownAll(String testModuleName) async {
+  void globalTearDownAll(String testModuleName, bool isWidgetTest) async {
     print('\n'
         '<<=============================================================<<\n'
         '<<=============================================================<<\n'
@@ -128,21 +124,29 @@ class TestUtils {
         '<<=============================================================<<\n'
         '<<=============================================================<<\n'
         '\n \n \n');
+
+    if (!isWidgetTest) {
+      var dbTestUtils = Get.put(DbTestUtils());
+      await dbTestUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
+    }
+
     Get.reset;
   }
 
-  void globalSetUp(String testModuleName) {
+  void globalSetUp() {
+    var label = "Starting Test...";
     print('\n'
-        '>--------------------------------------------------------------->\n'
-        '>----------------> $testModuleName >---------------->\n'
-        '>--------->\n');
+        '>---------------------------------------------------------------->\n'
+        '>----------------->    $label >----------------->\n\n');
+    // '>--------->\n');
   }
 
-  void globalTearDown(String testModuleName) {
+  void globalTearDown() {
+    var label = "...Ending Test";
     print('\n'
-        '<---------<\n'
-        '<----------------< $testModuleName <----------------<\n'
-        '<---------------------------------------------------------------<\n\n\n');
+        // '<---------<\n'
+        '<-----------------< $label      <-----------------<\n'
+        '<----------------------------------------------------------------<\n\n\n');
     Get.reset;
   }
 

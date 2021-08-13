@@ -4,8 +4,8 @@ import 'package:shopingapp/app/modules/inventory/components/inventory_item.dart'
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 
-import '../../../../config/tests_config.dart';
 import '../../../../config/bindings/inventory_test_bindings.dart';
+import '../../../../config/tests_config.dart';
 import '../../../../config/titles/inventory_test_titles.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/test_utils.dart';
@@ -39,14 +39,15 @@ class InventoryViewTest {
       _products = await _utils.load_4ProductsInDb(isWidgetTest: _isWidgetTest);
     });
 
-    tearDownAll(() => _utils.globalTearDownAll(_tests.runtimeType.toString()));
+    tearDownAll(
+        () => _utils.globalTearDownAll(_tests.runtimeType.toString(), _isWidgetTest));
 
     setUp(() {
       _bindings.bindingsBuilderMockedRepo(isUnitTest: _isWidgetTest);
-      _utils.globalSetUp("Starting Test...");
+      _utils.globalSetUp();
     });
 
-    tearDown(() => _utils.globalTearDown("...Ending Test"));
+    tearDown(_utils.globalTearDown);
 
     testWidgets(_titles.check_products, (tester) async {
       _isWidgetTest
@@ -57,10 +58,9 @@ class InventoryViewTest {
     testWidgets(_titles.delete_product, (tester) async {
       await _tests.delete_product(
         tester,
-        initialQtde: 2,
-        finalQtde: 1,
-        keyDeleteButton: '$INVENTORY_DELETEITEM_BUTTON_KEY${_products[3].id}',
-        widgetTypeToDelete: InventoryItem,
+        widgetsQtdeAfterDelete: 3,
+        deleteButtonKey: '$INVENTORY_DELETEITEM_BUTTON_KEY${_products[3].id}',
+        widgetTypetoBeDeleted: InventoryItem,
       );
     });
 
@@ -77,6 +77,7 @@ class InventoryViewTest {
       await _tests.refresh_view(
         tester,
         draggerWidget: _products[0],
+        widgetsQtdeAfterRefresh: 2,
       );
     });
 

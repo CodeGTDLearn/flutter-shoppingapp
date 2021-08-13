@@ -5,7 +5,6 @@ import '../app/modules/orders/repo/orders_repo_test.dart';
 import '../app/modules/orders/service/orders_service_test.dart';
 import '../app/modules/orders/view/orders_view_functional_test.dart';
 import '../config/tests_config.dart';
-import '../config/bindings/orders_test_bindings.dart';
 import '../config/titles/orders_test_titles.dart';
 
 class OrdersTestGroups {

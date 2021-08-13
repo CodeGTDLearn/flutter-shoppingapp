@@ -25,7 +25,7 @@ class OverviewServiceTests {
       _injectService = OverviewInjectMockedService();
     });
 
-    tearDown(() => _utils.globalTearDown("...Ending Test"));
+    tearDown(_utils.globalTearDown);
 
     test('Checking Instances to be used in the Tests', () {
       expect(_repo, isA<IOverviewRepo>());

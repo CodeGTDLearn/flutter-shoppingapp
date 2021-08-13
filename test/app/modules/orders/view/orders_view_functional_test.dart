@@ -33,17 +33,23 @@ class OrdersViewTest {
 
     setUpAll(() async => _utils.globalSetUpAll(_tests.runtimeType.toString()));
 
-    tearDownAll(() => _utils.globalTearDownAll(_tests.runtimeType.toString()));
+    tearDownAll(
+        () => _utils.globalTearDownAll(_tests.runtimeType.toString(), _isWidgetTest));
 
     setUp(() {
-      _utils.globalSetUp("Starting Test...");
+      _utils.globalSetUp();
       _bindings.bindingsBuilderMockedRepo(isWidgetTest: _isWidgetTest);
     });
 
-    tearDown(() => _utils.globalTearDown("...Ending Test"));
+    tearDown(_utils.globalTearDown);
 
-    testWidgets(_titles.ordering_inCartView_tapping_OrderNowButton, (tester) async {
-      await _tests.Ordering_InCartView_TapOrderNowButton(tester, DELAY);
+    testWidgets(_titles.orderingAProduct_inCartView_tapping_OrderNowButton,
+        (tester) async {
+      await _tests.orderingAProduct_inCartView_tapping_OrderNowButton(
+        tester,
+        DELAY,
+        ordersDoneQtde: 1,
+      );
     });
 
     testWidgets(_titles.check_orders_with_one_orderInDB, (tester) async {

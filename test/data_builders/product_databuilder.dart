@@ -6,10 +6,6 @@ import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import '../config/tests_config.dart';
 
 class ProductDataBuilder {
-  // Product ProductId() {
-  //   return Product(id: Faker().randomGenerator.string(3, min: 2));
-  // }
-
   Product ProductWithId() {
     return Product(
       id: Faker().randomGenerator.string(3, min: 2),
@@ -24,7 +20,7 @@ class ProductDataBuilder {
 
   Product ProductWithoutId() {
     return Product(
-      title: '${Random().nextInt(9).toString()}Red Tomatoes',
+      title: '${Random().nextInt(9).toString()} Red Tomatoes',
       description: "The best Red tomatoes ever.",
       price: 99.99,
       imageUrl: IMAGE1_TEST_URL,

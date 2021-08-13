@@ -7,7 +7,6 @@ import '../app/modules/inventory/view/inventory_view_edit_functional_test.dart';
 import '../app/modules/inventory/view/inventory_view_functional_test.dart';
 import '../app/modules/inventory/view/inventory_view_validation_funtional_test.dart';
 import '../config/tests_config.dart';
-import '../config/bindings/inventory_test_bindings.dart';
 import '../config/titles/inventory_test_titles.dart';
 
 class InventoryTestGroups {

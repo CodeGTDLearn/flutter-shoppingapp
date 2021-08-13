@@ -30,14 +30,15 @@ class OverviewDetailsTest {
 
     setUpAll(() async => _utils.globalSetUpAll(_tests.runtimeType.toString()));
 
-    tearDownAll(() => _utils.globalTearDownAll(_tests.runtimeType.toString()));
+    tearDownAll(
+        () => _utils.globalTearDownAll(_tests.runtimeType.toString(), _isWidgetTest));
 
     setUp(() {
-      _utils.globalSetUp("Starting Test...");
+      _utils.globalSetUp();
       _bindings.bindingsBuilderMockedRepo(isWidgetTest: _isWidgetTest);
     });
 
-    tearDown(() => _utils.globalTearDown("...Ending Test"));
+    tearDown(_utils.globalTearDown);
 
     testWidgets(_titles.click_product_check_details_texts, (tester) async {
       await _tests.clickProductCheckDetailsText(tester);
