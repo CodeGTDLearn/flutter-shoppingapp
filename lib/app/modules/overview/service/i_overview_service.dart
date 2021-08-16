@@ -10,7 +10,7 @@ abstract class IOverviewService {
 
   List<Product> getLocalDataFavoritesProducts();
 
-  List<Product> getProductsByFilter(EnumFilter filter);
+  List<Product> setProductsByFilter(EnumFilter filter);
 
   Future<bool> toggleFavoriteStatus(String id);
 

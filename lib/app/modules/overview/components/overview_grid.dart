@@ -18,7 +18,7 @@ class OverviewGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    controller.getProductsByFilter(enumFilter);
+    controller.setProductsByFilter(enumFilter);
 
     return Obx(() => controller.filteredProductsObs.isEmpty
         ? SingleChildScrollView(
@@ -29,9 +29,9 @@ class OverviewGrid extends StatelessWidget {
         : GridView.builder(
             padding: EdgeInsets.all(10),
             itemCount: controller.filteredProductsObs.length,
-            itemBuilder: (ctx, index) => OverviewGridItem(
-                  controller.filteredProductsObs[index],
-                  index.toString(),
+            itemBuilder: (_, item) => OverviewGridItem(
+                  controller.filteredProductsObs[item],
+                  item.toString(),
                 ),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,

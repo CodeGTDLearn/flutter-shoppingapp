@@ -100,7 +100,6 @@ class OverviewViewTest {
       );
     });
 
-    //------------------------dak pra frente tem bug
     testWidgets(_titles.tap_favoritesFilter_noFavoritesFound, (tester) async {
       await _tests.tap_FavoritesFilter_NoFavoritesFound(tester);
     });

@@ -111,7 +111,7 @@ class OverviewService implements IOverviewService {
   }
 
   @override
-  List<Product> getProductsByFilter(EnumFilter filter) {
+  List<Product> setProductsByFilter(EnumFilter filter) {
     _updateLocalDataFavoritesProducts();
     if (filter == EnumFilter.Fav) {
       return getFavoritesQtde() == 0 ? [] : getLocalDataFavoritesProducts();

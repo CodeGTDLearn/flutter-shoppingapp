@@ -121,10 +121,14 @@ class DbTestUtils {
     return Future.value(listReturn);
   }
 
-  final _headerLine =
-      "||> >=======================> DB ACTION >========================>\n";
-  final _footerLine =
-      "    <=======================< DB ACTION <========================< <||\n";
+  final _headerLine = "||> >=====================================> DB ACTION "
+      ">======================================>\n";
+
+  final _footerLine = "    <=====================================< DB ACTION "
+      "<======================================< \n\n";
+
+  // "    <=================================< DB ACTION
+  // <==================================< <|| \n";
 
   void _removeObject_Message(
     String url_NoExtensionInDeletions,
@@ -132,19 +136,19 @@ class DbTestUtils {
     http.Response response,
   ) {
     print('$_headerLine'
-        ' Removing Object:\n'
-        ' - URL: $url_NoExtensionInDeletions$id.json\n'
-        ' - ID: $id\n'
-        ' - Type: ${response.runtimeType.toString()}\n'
-        ' - Status: ${response.statusCode}\n'
+        '  Removing Object:\n'
+        '  - URL: $url_NoExtensionInDeletions$id.json\n'
+        '  - ID: $id\n'
+        '  - Type: ${response.runtimeType.toString()}\n'
+        '  - Status: ${response.statusCode}\n'
         '$_footerLine');
   }
 
   void _cleanDb_Message(String dbName, http.Response response) {
     print('$_headerLine'
-        '    Removing All Collections:\n'
-        '    - DB_Name: $dbName\n'
-        '    - Status: ${response.statusCode}\n'
+        '     Removing All Collections:\n'
+        '     - DB_Name: $dbName\n'
+        '     - Status: ${response.statusCode}\n'
         '$_footerLine');
   }
 
@@ -153,9 +157,9 @@ class DbTestUtils {
     http.Response response,
   ) {
     print('$_headerLine'
-        '    Removing Collection:\n'
-        '    - URL: $collectionUrl\n'
-        '    - Status: ${response.statusCode}\n'
+        '     Removing Collection:\n'
+        '     - URL: $collectionUrl\n'
+        '     - Status: ${response.statusCode}\n'
         '$_footerLine');
   }
 
@@ -167,10 +171,10 @@ class DbTestUtils {
     var statusTxt = statusCode == null ? '' : '    - Status: $statusCode\n';
 
     print('$_headerLine'
-        '    Adding Object:\n'
-        '    - URL: $collectionUrl\n'
-        '    - ID: ${product.id}\n'
-        '    - Type: ${product.runtimeType.toString()}\n'
+        '     Adding Object:\n'
+        '     - URL: $collectionUrl\n'
+        '     - ID: ${product.id}\n'
+        '     - Type: ${product.runtimeType.toString()}\n'
         '$statusTxt'
         '$_footerLine');
   }

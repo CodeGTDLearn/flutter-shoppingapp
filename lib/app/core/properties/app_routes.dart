@@ -15,22 +15,22 @@ import '../../modules/overview/view/overview_view.dart';
 // ignore: avoid_classes_with_only_static_members
 class AppRoutes {
   static const OVERVIEW_ALL = '/';
-  static const OVERVIEW_FAV = '/item-overview-favorites';
   static const OVERVIEW_DETAIL = '/item-details/';
   static const CART = '/cart';
   static const ORDERS = '/orders';
   static const INVENTORY = '/inventory';
   static const INVENTORY_ADDEDIT_PRODUCT = '/inventory-add-edit';
+  // static const OVERVIEW_FAV = '/item-overview-favorites';
 
   static List<GetPage> getAppRoutes = [
     GetPage(
         name: OVERVIEW_ALL,
         page: () => OverviewView(enumFilter: EnumFilter.All),
         binding: OverviewBindings()),
-    GetPage(
-        name: OVERVIEW_FAV,
-        page: () => OverviewView(enumFilter: EnumFilter.Fav),
-        binding: OverviewBindings()),
+    // GetPage(
+    //     name: OVERVIEW_FAV,
+    //     page: () => OverviewView(enumFilter: EnumFilter.Fav),
+    //     binding: OverviewBindings()),
     GetPage(
         name: ORDERS,
         page: () => OrdersView(controller: Get.find()),

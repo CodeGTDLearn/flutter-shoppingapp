@@ -8,6 +8,7 @@ class OverviewController extends GetxController {
   final IOverviewService service;
   var filteredProductsObs = <Product>[].obs;
   var favoriteStatusObs = false.obs;
+  var overviewViewTitleObs = EnumFilter.All.obs;
 
   OverviewController({required this.service});
 
@@ -26,10 +27,13 @@ class OverviewController extends GetxController {
     service.deleteProductInLocalDataLists(productId);
   }
 
-  void getProductsByFilter(EnumFilter filter) {
+  void setProductsByFilter(EnumFilter filter) {
+    overviewViewTitleObs.value =
+        filter == EnumFilter.Fav ? EnumFilter.Fav : EnumFilter.All;
+
     filteredProductsObs.assignAll(filter == EnumFilter.Fav
-        ? service.getProductsByFilter(EnumFilter.Fav)
-        : service.getProductsByFilter(EnumFilter.All));
+        ? service.setProductsByFilter(EnumFilter.Fav)
+        : service.setProductsByFilter(EnumFilter.All));
   }
 
   Future<bool> toggleFavoriteStatus(String id) {

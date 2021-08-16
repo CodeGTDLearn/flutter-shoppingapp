@@ -48,7 +48,7 @@ class OrdersViewTest {
       await _tests.orderingAProduct_inCartView_tapping_OrderNowButton(
         tester,
         DELAY,
-        ordersDoneQtde: 1,
+        ordersDoneQtde: _isWidgetTest ? 2 : 1,
       );
     });
 

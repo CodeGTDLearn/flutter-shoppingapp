@@ -78,22 +78,28 @@ class OverviewTests {
       appDriver: app.AppDriver(),
     );
 
+    var favPopupOption = testUtils.key(OVERVIEW_POPUP_FAVORITE_OPTION_KEY);
+    var gridItemFavBtnKey = OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY;
+
     await tester.pump();
-    var favoriteFilterOption = testUtils.key(OVERVIEW_FAVORITE_FILTER_FAV_KEY);
-
     if (isWidgetTest) {
-      await tester.tap(testUtils.key('$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\2'));
+      await tester.tap(testUtils.key('$gridItemFavBtnKey\0'));
+      await tester.pump();
+      await tester.tap(testUtils.key('$gridItemFavBtnKey\2'));
     }
-    await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(testUtils.iconType(IconButton, Icons.favorite), findsNothing);
+    if (!isWidgetTest) await tester.tap(testUtils.key('$gridItemFavBtnKey\0'));
 
-    await tester.tap(testUtils.key(OVERVIEW_FAVORITE_FILTER_APPBAR_BUTTON_KEY));
-    await tester.pump(testUtils.delay(DELAY));
-
-    await tester.ensureVisible(favoriteFilterOption);
-    await tester.tap(favoriteFilterOption);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
+    expect(testUtils.iconType(Icons, Icons.favorite), findsNothing);
+
+    await tester.tap(testUtils.key(OVERVIEW_POPUP_FILTER_APPBAR_BUTTON_KEY));
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+
+    await tester.ensureVisible(favPopupOption);
+    await tester.tap(favPopupOption);
+    await tester.pump();
     expect(testUtils.text(OVERVIEW_TITLE_PAGE_FAVORITE), findsNothing);
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
   }
 
   Future tap_FavoriteFilterPopup(tester) async {
@@ -102,34 +108,29 @@ class OverviewTests {
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
     );
+    var gridItemFavBtnKey = OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY;
+    var appbarPopup = OVERVIEW_POPUP_FILTER_APPBAR_BUTTON_KEY;
 
-    var productFavoriteBtn = testUtils.key('$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\1');
-    var popup = testUtils.key(OVERVIEW_FAVORITE_FILTER_APPBAR_BUTTON_KEY);
-    var popupItemFav = testUtils.key(OVERVIEW_FAVORITE_FILTER_FAV_KEY);
-    var popupItemAll = testUtils.key(OVERVIEW_FAVORITE_FILTER_ALL_KEY);
+    await tester.pump();
+    if (isWidgetTest) await tester.tap(testUtils.key('$gridItemFavBtnKey\2'));
+    if (!isWidgetTest) await tester.tap(testUtils.key('$gridItemFavBtnKey\0'));
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(testUtils.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
-    if (!isWidgetTest) await tester.tap(productFavoriteBtn);
+    await tester.tap(testUtils.key(appbarPopup));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(testUtils.iconType(IconButton, Icons.favorite), findsNWidgets(1));
 
-    await tester.tap(popup);
-    await tester.pumpAndSettle(testUtils.delay(DELAY));
-    await tester.tap(popupItemFav);
+    await tester.pump();
+    await tester.tap(testUtils.key(OVERVIEW_POPUP_FAVORITE_OPTION_KEY));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
     expect(testUtils.text(OVERVIEW_TITLE_PAGE_FAVORITE), findsOneWidget);
     expect(testUtils.type(OverviewGridItem), findsOneWidget);
-    // expect(testUtils.iconType(IconButton, Icons.favorite), findsNWidgets(1));
 
-    await tester.tap(popup);
+    await tester.tap(testUtils.key(appbarPopup));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    await tester.tap(popupItemAll);
+    await tester.tap(testUtils.key(OVERVIEW_POPUP_ALL_OPTION_KEY));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-
-    expect(testUtils.iconType(IconButton, Icons.favorite), findsNWidgets(1));
-    expect(testUtils.type(OverviewGridItem), findsNWidgets(4));
+    expect(testUtils.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
   }
 
   Future close_FavoriteFilterPopup(tester) async {
@@ -139,16 +140,15 @@ class OverviewTests {
       appDriver: app.AppDriver(),
     );
 
-    var popup = testUtils.key(OVERVIEW_FAVORITE_FILTER_APPBAR_BUTTON_KEY);
-    var popupItemFav = testUtils.key(OVERVIEW_FAVORITE_FILTER_FAV_KEY);
-    var popupItemAll = testUtils.key(OVERVIEW_FAVORITE_FILTER_ALL_KEY);
+    var popupItemFav = testUtils.key(OVERVIEW_POPUP_FAVORITE_OPTION_KEY);
+    var popupItemAll = testUtils.key(OVERVIEW_POPUP_ALL_OPTION_KEY);
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    await tester.tap(popup);
+    await tester.tap(testUtils.key(OVERVIEW_POPUP_FILTER_APPBAR_BUTTON_KEY));
     await tester.pumpAndSettle();
     expect(popupItemFav, findsOneWidget);
     expect(popupItemAll, findsOneWidget);
-    await tester.tapAt(const Offset(0.0, 0.0));
+    await tester.tapAt(const Offset(0.0, 300.0));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(popupItemFav, findsNothing);
     expect(popupItemAll, findsNothing);

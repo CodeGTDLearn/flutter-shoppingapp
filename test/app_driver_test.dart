@@ -30,7 +30,7 @@ void _unitTests() {
 
   // CartTestGroups().groups(_skipGroup); // <<<<<<<<<<<<< BUG 01
   InventoryTestGroups().groups(_skipGroup);
-  OrdersTestGroups().groups(false);
+  OrdersTestGroups().groups(_skipGroup);
   ComponentsTestGroups().groups(_skipGroup);
 
   //-----------------------------------------------------
@@ -40,7 +40,7 @@ void _unitTests() {
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final _skipGroup = true;
+  final _skipGroup = false;
 
   group(
     OrdersTestTitles.ORDERS_GROUP_TITLE,
@@ -49,19 +49,19 @@ void _integrationTests() {
   );
 
   group(
-    InventoryTestTitles.INVENTORY_GROUP_TITLE,
+    InventoryTestTitles.INV_GROUP_TITLE,
     InventoryViewTest(testType: INTEGRATION_TEST).functional,
     skip: _skipGroup,
   );
 
   group(
-    InventoryTestTitles.INVENTORY_EDIT_GROUP_TITLE,
+    InventoryTestTitles.INV_EDIT_GROUP_TITLE,
     InventoryViewEditTest(testType: INTEGRATION_TEST).functional,
     skip: _skipGroup,
   );
 
   group(
-    InventoryTestTitles.INVENTORY_VALID_GROUP_TITLE,
+    InventoryTestTitles.INV_VALID_GROUP_TITLE,
     InventoryViewValidationFunctionalTest(testType: INTEGRATION_TEST).functional,
     skip: _skipGroup,
   );
@@ -70,12 +70,12 @@ void _integrationTests() {
   group(
     OverviewTestTitles.OVERVIEW_GROUP_TITLE,
     OverviewViewTest(testType: INTEGRATION_TEST).functional,
-    skip: false,
+    skip: _skipGroup,
   );
 
   group(
     OverviewTestTitles.OVERVIEW_DETAIL_GROUP_TITLE,
     OverviewDetailsTest(testType: INTEGRATION_TEST).functional,
-    skip: _skipGroup,
+    skip: true,
   );
 }

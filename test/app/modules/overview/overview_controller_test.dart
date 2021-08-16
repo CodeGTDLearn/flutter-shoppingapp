@@ -86,12 +86,12 @@ class OverviewControllerTests {
 
     test('Getting products by Filters', () {
       _controller.getProducts().then((_) {
-        var listAll = _service.getProductsByFilter(EnumFilter.All);
-        _controller.getProductsByFilter(EnumFilter.All);
+        var listAll = _service.setProductsByFilter(EnumFilter.All);
+        _controller.setProductsByFilter(EnumFilter.All);
         expect(_controller.getFilteredProductsObs(), listAll);
 
-        var listFav = _service.getProductsByFilter(EnumFilter.Fav);
-        _controller.getProductsByFilter(EnumFilter.Fav);
+        var listFav = _service.setProductsByFilter(EnumFilter.Fav);
+        _controller.setProductsByFilter(EnumFilter.Fav);
         expect(_controller.getFilteredProductsObs(), listFav);
       });
     });

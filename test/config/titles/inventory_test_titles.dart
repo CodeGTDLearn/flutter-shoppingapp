@@ -1,9 +1,9 @@
 class InventoryTestTitles {
   // @formatter:off
   //GROUP-TITLES ---------------------------------------------------------------
-  static get INVENTORY_GROUP_TITLE => 'Inventory|Integration-Tests:';
-  static get INVENTORY_EDIT_GROUP_TITLE => 'Inventory-Edit|Integration-Tests:';
-  static get INVENTORY_VALID_GROUP_TITLE => 'Inventory-Validation|Integration-Tests:';
+  static get INV_GROUP_TITLE => 'Inventory|Integration-Tests:';
+  static get INV_EDIT_GROUP_TITLE => 'Inventory-Edit|Integration-Tests:';
+  static get INV_VALID_GROUP_TITLE => 'Inventory-Validation|Integration-Tests:';
 
   //MVC-TITLES -----------------------------------------------------------------
   String REPO_NAME = 'InventoryMockedRepo';
