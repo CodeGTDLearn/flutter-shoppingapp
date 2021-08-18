@@ -1,18 +1,18 @@
 class InventoryTestTitles {
   // @formatter:off
   //GROUP-TITLES ---------------------------------------------------------------
-  static get INV_GROUP_TITLE => 'Inventory|Integration-Tests:';
-  static get INV_EDIT_GROUP_TITLE => 'Inventory-Edit|Integration-Tests:';
-  static get INV_VALID_GROUP_TITLE => 'Inventory-Validation|Integration-Tests:';
+  static get GROUP_TITLE => 'Inventory|Integration-Tests:';
+  static get EDIT_GROUP_TITLE => 'Inventory-Edit|Integration-Tests:';
+  static get VALID_GROUP_TITLE => 'Inventory-Validation|Integration-Tests:';
 
   //MVC-TITLES -----------------------------------------------------------------
   String REPO_NAME = 'InventoryMockedRepo';
-  get REPO_TEST_TITLE => '$REPO_NAME|Repo: Unit';
-  get SERVICE_TEST_TITLE => '$REPO_NAME|Service: Unit';
-  get CONTROLLER_TEST_TITLE => '$REPO_NAME|Controller: Integr';
-  get VIEW_TEST_TITLE => '$REPO_NAME|View: Functional';
-  get VIEW_TEST_VALID_TITLE => '$REPO_NAME|View-Edit|Validation: Functional';
-  get VIEW_EDIT_TEST_TITLE => '$REPO_NAME|View-Edit: Functional';
+  get REPO_TITLE => '$REPO_NAME|Repo: Unit';
+  get SERVICE_TITLE => '$REPO_NAME|Service: Unit';
+  get CONTROLLER_TITLE => '$REPO_NAME|Controller: Integr';
+  get VIEW_TITLE => '$REPO_NAME|View: Functional';
+  get VIEW_VALID_TITLE => '$REPO_NAME|View-Edit|Validation: Functional';
+  get VIEW_EDIT_TITLE => '$REPO_NAME|View-Edit: Functional';
 
   //TEST-TITLES ----------------------------------------------------------------
   get check_emptyView_noProductInDb => 'Checking products (empty DB)';

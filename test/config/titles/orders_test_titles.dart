@@ -3,13 +3,13 @@ class OrdersTestTitles {
 
   // @formatter:off
   //GROUP-TITLES ---------------------------------------------------------------
-  static get ORDERS_GROUP_TITLE => 'Orders|Integration-Tests:';
+  static get GROUP_TITLE => 'Orders|Integration-Tests:';
 
   //MVC-TITLES -----------------------------------------------------------------
-  get REPO_TEST_TITLE => '$REPO_NAME|Repo: Unit';
-  get SERVICE_TEST_TITLE => '$REPO_NAME|Service: Unit';
-  get CONTROLLER_TEST_TITLE => '$REPO_NAME|Controller: Integr';
-  get VIEW_TEST_TITLE => '$REPO_NAME|View: Functional';
+  get REPO_TITLE => '$REPO_NAME|Repo: Unit';
+  get SERVICE_TITLE => '$REPO_NAME|Service: Unit';
+  get CONTROLLER_TITLE => '$REPO_NAME|Controller: Integr';
+  get VIEW_TITLE => '$REPO_NAME|View: Functional';
 
   //TEST-TITLES ----------------------------------------------------------------
   get check_emptyView_noOrderInDb => 'Empty View - No Orders in DB';

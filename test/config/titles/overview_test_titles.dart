@@ -15,15 +15,15 @@ class OverviewTestTitles {
 
   // @formatter:off
   //GROUP-TITLES ---------------------------------------------------------------
-  static get OVERVIEW_GROUP_TITLE => 'OverView|Integration-Tests:';
-  static get OVERVIEW_DETAIL_GROUP_TITLE => 'OverView-Details|Integration-Tests:';
+  static get GROUP_TITLE => 'OverView|Integration-Tests:';
+  static get DETAIL_GROUP_TITLE => 'OverView-Details|Integration-Tests:';
 
   //MVC-TITLES -----------------------------------------------------------------
-  get REPO_TEST_TITLE => '$REPO_NAME|Repo: Unit';
-  get SERVICE_TEST_TITLE => '$REPO_NAME|Service: Unit';
-  get CONTROLLER_TEST_TITLE => '$REPO_NAME|Controller: Integr';
-  get VIEW_TEST_TITLE => '$REPO_NAME|View: Functional';
-  get DETAIL_VIEW_TEST_TITLE => '$REPO_NAME|View|Details: Functional';
+  get REPO_TITLE => '$REPO_NAME|Repo: Unit';
+  get SERVICE_TITLE => '$REPO_NAME|Service: Unit';
+  get CONTROLLER_TITLE => '$REPO_NAME|Controller: Integr';
+  get VIEW_TITLE => '$REPO_NAME|View: Functional';
+  get DETAIL_VIEW_TITLE => '$REPO_NAME|View|Details: Functional';
 
   //OVERVIEW-TEST-TITLES -------------------------------------------------------
   get check_overviewGridItems_in_overviewview => 'Checking products';

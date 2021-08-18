@@ -11,31 +11,31 @@ import '../config/titles/overview_test_titles.dart';
 class OverviewTestGroups {
   void groups(bool skipGroup) {
     group(
-      OverviewTestTitles().REPO_TEST_TITLE,
+      OverviewTestTitles().REPO_TITLE,
       OverviewRepoTests.unit,
       skip: skipGroup, //'skip-group' overrides the internal 'skip-methods'
     );
 
     group(
-      OverviewTestTitles().SERVICE_TEST_TITLE,
+      OverviewTestTitles().SERVICE_TITLE,
       OverviewServiceTests.unit,
       skip: skipGroup,
     );
 
     group(
-      OverviewTestTitles().CONTROLLER_TEST_TITLE,
+      OverviewTestTitles().CONTROLLER_TITLE,
       OverviewControllerTests.integration,
       skip: skipGroup,
     );
 
     group(
-      OverviewTestTitles().VIEW_TEST_TITLE,
+      OverviewTestTitles().VIEW_TITLE,
       OverviewViewTest(testType: WIDGET_TEST).functional,
       skip: skipGroup,
     );
 
     group(
-      OverviewTestTitles().DETAIL_VIEW_TEST_TITLE,
+      OverviewTestTitles().DETAIL_VIEW_TITLE,
       OverviewDetailsTest(testType: WIDGET_TEST).functional,
       skip: skipGroup,
     );

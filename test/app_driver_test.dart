@@ -43,38 +43,38 @@ void _integrationTests() {
   final _skipGroup = false;
 
   group(
-    OrdersTestTitles.ORDERS_GROUP_TITLE,
+    OrdersTestTitles.GROUP_TITLE,
     OrdersViewTest(testType: INTEGRATION_TEST).functional,
     skip: _skipGroup, // no erase: 'skip-group' overrides the internal 'skip-methods'
   );
 
   group(
-    InventoryTestTitles.INV_GROUP_TITLE,
+    InventoryTestTitles.GROUP_TITLE,
     InventoryViewTest(testType: INTEGRATION_TEST).functional,
     skip: _skipGroup,
   );
 
   group(
-    InventoryTestTitles.INV_EDIT_GROUP_TITLE,
+    InventoryTestTitles.EDIT_GROUP_TITLE,
     InventoryViewEditTest(testType: INTEGRATION_TEST).functional,
     skip: _skipGroup,
   );
 
   group(
-    InventoryTestTitles.INV_VALID_GROUP_TITLE,
+    InventoryTestTitles.VALID_GROUP_TITLE,
     InventoryViewValidationFunctionalTest(testType: INTEGRATION_TEST).functional,
+    skip: _skipGroup,
+  );
+
+  group(
+    OverviewTestTitles.GROUP_TITLE,
+    OverviewViewTest(testType: INTEGRATION_TEST).functional,
     skip: _skipGroup,
   );
 
   //------------------------------------------------------
   group(
-    OverviewTestTitles.OVERVIEW_GROUP_TITLE,
-    OverviewViewTest(testType: INTEGRATION_TEST).functional,
-    skip: _skipGroup,
-  );
-
-  group(
-    OverviewTestTitles.OVERVIEW_DETAIL_GROUP_TITLE,
+    OverviewTestTitles.DETAIL_GROUP_TITLE,
     OverviewDetailsTest(testType: INTEGRATION_TEST).functional,
     skip: true,
   );

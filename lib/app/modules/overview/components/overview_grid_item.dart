@@ -25,9 +25,8 @@ class OverviewGridItem extends StatelessWidget {
     _controller.favoriteStatusObs.value = _product.isFavorite;
     return Container(
         decoration: BoxDecoration(
-          border: Border.all(color: Color.fromRGBO(220, 220, 220, 10)),
-          borderRadius: BorderRadius.circular(10.0),
-        ),
+            border: Border.all(color: Color.fromRGBO(220, 220, 220, 10)),
+            borderRadius: BorderRadius.circular(10.0)),
         child: ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             child: GridTile(
@@ -37,28 +36,23 @@ class OverviewGridItem extends StatelessWidget {
                         Get.toNamed(AppRoutes.OVERVIEW_DETAIL, arguments: _product.id),
                     child: Image.network(_product.imageUrl, fit: BoxFit.cover)),
                 footer: GridTileBar(
-                    leading: Obx(
-                      () => IconButton(
-                          key: Key("$K_OV_GRD_FAV_BTN$index"),
-                          icon: _controller.favoriteStatusObs.value
-                              ? OV_ICO_FAV
-                              : OV_ICO_NOFAV,
-                          onPressed: () {
-                            _controller
-                                .toggleFavoriteStatus(_product.id!)
-                                .then((favoriteStatus) {
-                              // favoriteStatus
-                              //     ? SimpleSnackbar(SUCES, TOGGL_STATUS_SUCES).show()
-                              //     : SimpleSnackbar(OPS, TOGGL_STATUS_ERROR).show();
-                              if (favoriteStatus) {
-                                SimpleSnackbar(SUCES, TOGGL_STATUS_SUCES).show();
-                              } else {
-                                SimpleSnackbar(OPS, TOGGL_STATUS_ERROR).show();
-                              }
-                            });
-                          },
-                          color: Theme.of(context).accentColor),
-                    ),
+                    leading: Obx(() => IconButton(
+                        key: Key("$K_OV_GRD_FAV_BTN$index"),
+                        icon: _controller.favoriteStatusObs.value
+                            ? OV_ICO_FAV
+                            : OV_ICO_NOFAV,
+                        onPressed: () {
+                          _controller
+                              .toggleFavoriteStatus(_product.id!)
+                              .then((favoriteStatus) {
+                            if (favoriteStatus) {
+                              SimpleSnackbar(SUCES, TOGGL_STATUS_SUCES).show();
+                            } else {
+                              SimpleSnackbar(OPS, TOGGL_STATUS_ERROR).show();
+                            }
+                          });
+                        },
+                        color: Theme.of(context).accentColor)),
                     title: Text(_product.title, key: Key("$K_OV_GRD_PRD_TIT$index")),
                     trailing: IconButton(
                         key: Key("$K_OV_GRD_CRT_BTN$index"),

@@ -10,22 +10,22 @@ import '../config/titles/orders_test_titles.dart';
 class OrdersTestGroups {
   void groups(bool skipGroup) {
     group(
-      OrdersTestTitles().REPO_TEST_TITLE,
+      OrdersTestTitles().REPO_TITLE,
       OrdersRepoTests.unit,
       skip: skipGroup, // 'skip-group' overrides the internal 'skip-methods'
     );
     group(
-      OrdersTestTitles().SERVICE_TEST_TITLE,
+      OrdersTestTitles().SERVICE_TITLE,
       OrdersServiceTests.unit,
       skip: skipGroup,
     );
     group(
-      OrdersTestTitles().CONTROLLER_TEST_TITLE,
+      OrdersTestTitles().CONTROLLER_TITLE,
       OrdersControllerTests.integration,
       skip: skipGroup,
     );
     group(
-      OrdersTestTitles().VIEW_TEST_TITLE,
+      OrdersTestTitles().VIEW_TITLE,
       OrdersViewTest(testType: WIDGET_TEST).functional,
       skip: skipGroup,
     );
