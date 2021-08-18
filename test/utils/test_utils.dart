@@ -38,14 +38,14 @@ class TestUtils {
     return Duration(seconds: seconds);
   }
 
-  //todo null-safety - resolver o problema do package: image_test_utils: 1.0.0
+  //todo null-safety - https://pub.dev/packages/network_image_mock
   void checkImageTotalInAView(int numberOfImages) {
     // provideMockedNetworkImages(() async {
     //   expect(find.byType(Image), findsNWidgets(numberOfImages));
     // });
   }
 
-  Future<Product> load_2ProductsInDb({
+  Future<Product> load_2Products_InDb({
     required bool isWidgetTest,
   }) async {
     var _product;
@@ -69,21 +69,40 @@ class TestUtils {
         : Future.value(_product);
   }
 
-  Future<List<Product>> load_4ProductsInDb({required bool isWidgetTest}) async {
+  Future<List<Product>> load_4Products_InDb({required bool isWidgetTest}) async {
     var _listProducts;
     var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
     var testUtils = Get.put(TestUtils(), tag: 'testUtilsInstance');
     if (!isWidgetTest) {
       await dbTestUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
       await Future.delayed(testUtils.delay(DELAY));
-      await dbTestUtils.add_objectsList_inDb(
+      await dbTestUtils.add_objectList_inDb(
         collectionUrl: PRODUCTS_URL,
         objectList: [
-          ProductDataBuilder().ProductWithoutId(),
-          ProductDataBuilder().ProductWithoutId(),
-          ProductDataBuilder().ProductWithoutId(),
-          ProductDataBuilder().ProductWithoutId()
+          ProductDataBuilder().ProductWithoutIdCustomUrlImage(position_From1_To4: 1),
+          ProductDataBuilder().ProductWithoutIdCustomUrlImage(position_From1_To4: 2),
+          ProductDataBuilder().ProductWithoutIdCustomUrlImage(position_From1_To4: 3),
+          ProductDataBuilder().ProductWithoutIdCustomUrlImage(position_From1_To4: 4),
         ],
+      ).then((value) => _listProducts = value);
+    }
+    Get.delete(tag: 'dbInstance');
+    Get.delete(tag: 'testUtilsInstance');
+    return isWidgetTest
+        ? Future.value(MockedProductsDatasource().products())
+        : Future.value(_listProducts.cast<Product>());
+  }
+
+  Future<List<Product>> load_1Product_InDb({required bool isWidgetTest}) async {
+    var _listProducts;
+    var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
+    var testUtils = Get.put(TestUtils(), tag: 'testUtilsInstance');
+    if (!isWidgetTest) {
+      await dbTestUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
+      await Future.delayed(testUtils.delay(DELAY));
+      await dbTestUtils.add_objectList_inDb(
+        collectionUrl: PRODUCTS_URL,
+        objectList: [ProductDataBuilder().ProductWithoutId()],
       ).then((value) => _listProducts = value);
     }
     Get.delete(tag: 'dbInstance');
@@ -110,7 +129,7 @@ class TestUtils {
     print(_headerGenerator(
       module: testModuleName,
       label: 'Starting FunctionalTests: ',
-      fullLength: 63,
+      fullLength: 73,
       qtdeSuperiorLine: 2,
       lineCharacter: '=',
     ));
@@ -120,14 +139,15 @@ class TestUtils {
     print('\n'
         '<<=============================================================<<\n'
         '<<=============================================================<<\n'
-        '<<========<< Concluding FunctionalTests: $testModuleName \n'
+        '<<==<< FunctionalTests Finished: $testModuleName \n'
         '<<=============================================================<<\n'
         '<<=============================================================<<\n'
         '\n \n \n');
 
     if (!isWidgetTest) {
-      var dbTestUtils = Get.put(DbTestUtils());
+      var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
       await dbTestUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
+      Get.delete(tag: 'dbInstance');
     }
 
     Get.reset;
@@ -177,7 +197,8 @@ class TestUtils {
     for (var i = 1; i < qtdeSuperiorLine; i++) {
       superiorLine = "$superiorLine${"$superiorLine"}";
     }
-    var middle = '$middleLine $title $middleLine';
+    // var middle = '$middleLine $title $middleLine';
+    var middle = '$middleLine $title';
     var footer = '\n$superiorLine\n \n';
 
     return '$superiorLine$middle$footer';

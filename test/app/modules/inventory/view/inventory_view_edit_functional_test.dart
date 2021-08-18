@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:network_image_mock/network_image_mock.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
@@ -52,6 +54,8 @@ class InventoryViewEditTest {
       );
     });
 
+    //todo null-safety - https://pub.dev/packages/network_image_mock
+    Widget makeTestableWidget() => MaterialApp(home: Image.network(''));
     testWidgets(_titles.edit_preview_url_in_form, (tester) async {
       await _uiUtils.testInitialization(
         tester,
@@ -69,6 +73,7 @@ class InventoryViewEditTest {
       await tester.tap(_utils.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY));
       await tester.pumpAndSettle(_utils.delay(DELAY));
       _utils.checkImageTotalInAView(1);
+      // mockNetworkImagesFor(() => tester.pumpWidget(makeTestableWidget()));
     });
 
     testWidgets(_titles.edit_fill_form_with_invalid_content, (tester) async {

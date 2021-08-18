@@ -34,7 +34,7 @@ class OverviewViewTest {
 
     setUpAll(() async {
       _utils.globalSetUpAll(_tests.runtimeType.toString());
-      _products = await _utils.load_4ProductsInDb(isWidgetTest: _isWidgetTest);
+      _products = await _utils.load_4Products_InDb(isWidgetTest: _isWidgetTest);
       _bindings.bindingsBuilderMockedRepo(isWidgetTest: _isWidgetTest);
     });
 
@@ -47,8 +47,8 @@ class OverviewViewTest {
 
     testWidgets(_titles.check_overviewGridItems_in_overviewview, (tester) async {
       _isWidgetTest
-          ? await _tests.check_OverviewGridItems_In_OverviewView(tester, itemsQtde: 4)
-          : await _tests.check_OverviewGridItems_In_OverviewView(tester, itemsQtde: 4);
+          ? await _tests.check_overviewGridItems_in_overview(tester, itemsQtde: 4)
+          : await _tests.check_overviewGridItems_in_overview(tester, itemsQtde: 4);
     });
 
     testWidgets(_titles.toggle_productFavoriteButton, (tester) async {
@@ -85,7 +85,7 @@ class OverviewViewTest {
     });
 
     testWidgets(_titles.add_identicalProduct3x_check_shopCartIcon, (tester) async {
-      await _tests.add_identicalProduct3x_Check_ShopCartIcon(
+      await _tests.add_identicalProduct3x_check_shopCartIcon(
         tester,
         productAddButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
         finalTotal: 5,
@@ -93,7 +93,7 @@ class OverviewViewTest {
     });
 
     testWidgets(_titles.add_4differentProducts_check_shopCartIcon, (tester) async {
-      await _tests.add_4differentProducts_Check_ShopCartIcon(
+      await _tests.add_4differentProducts_check_shopCartIcon(
         tester,
         firstProductAddButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
         finalTotal: 9,

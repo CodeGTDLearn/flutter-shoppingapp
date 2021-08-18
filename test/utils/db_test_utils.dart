@@ -102,7 +102,7 @@ class DbTestUtils {
     return Future.value(listReturn);
   }
 
-  Future<List<dynamic>> add_objectsList_inDb({
+  Future<List<dynamic>> add_objectList_inDb({
     required List<Object> objectList,
     required String collectionUrl,
   }) async {

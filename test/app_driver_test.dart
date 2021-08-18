@@ -38,7 +38,7 @@ void _unitTests() {
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final _skipGroup = false;
+  final _skipGroup = true;
 
   group(
     OrdersTestTitles.GROUP_TITLE,
@@ -74,6 +74,6 @@ void _integrationTests() {
   group(
     OverviewTestTitles.DETAIL_GROUP_TITLE,
     OverviewDetailsTest(testType: INTEGRATION_TEST).functional,
-    skip: true,
+    skip: false,
   );
 }

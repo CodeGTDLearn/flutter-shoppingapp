@@ -6,6 +6,7 @@ import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/components/overview_grid_item.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
+import 'package:shopingapp/app/modules/overview/view/overview_item_details_view.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
@@ -154,7 +155,7 @@ class OverviewTests {
     expect(popupItemAll, findsNothing);
   }
 
-  Future add_identicalProduct3x_Check_ShopCartIcon(
+  Future add_identicalProduct3x_check_shopCartIcon(
     tester, {
     required String productAddButtonKey,
     required int finalTotal,
@@ -174,7 +175,7 @@ class OverviewTests {
     expect(testUtils.text(finalTotal.toString()), findsOneWidget);
   }
 
-  Future add_4differentProducts_Check_ShopCartIcon(
+  Future add_4differentProducts_check_shopCartIcon(
     tester, {
     required String firstProductAddButtonKey,
     required int finalTotal,
@@ -211,7 +212,11 @@ class OverviewTests {
     expect(testUtils.text(finalTotal.toString()), findsOneWidget);
   }
 
-  Future clickProductCheckDetailsImage(tester) async {
+  Future check_product_details_image(
+    tester, {
+    required String productButtonKey,
+    required Product detailedProduct,
+  }) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -219,19 +224,27 @@ class OverviewTests {
     );
 
     await tester.pump();
-
-    var keyProduct1 = testUtils.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
-
-    await tester.tap(keyProduct1);
-
-    // check if the page has changed
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(testUtils.text(_products()[0].title.toString()), findsOneWidget);
+    await tester.tap(testUtils.key(productButtonKey));
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
 
+    //todo null-safety - https://pub.dev/packages/network_image_mock
     testUtils.checkImageTotalInAView(1);
+
+    await uiTestUtils.navigateBetweenViews(
+      tester,
+      from: OverviewItemDetailsView,
+      to: OverviewView,
+      trigger: BackButton,
+      interval: DELAY,
+    );
   }
 
-  Future clickProductCheckDetailsText(tester) async {
+  Future check_product_details(
+    tester, {
+    required String productButtonKey,
+    required Product detailedProduct,
+  }) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -239,23 +252,26 @@ class OverviewTests {
     );
 
     await tester.pump();
-
-    var keyProduct1 = testUtils.key("$OVERVIEW_ITEM_DETAILS_PAGE_KEY\0");
-
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    // @formatter:off
-    tester
-        .tap(keyProduct1)
-        .then((value) => tester.pumpAndSettle(testUtils.delay(DELAY)))
-        .then((value) {
-      expect(testUtils.text(_products()[0].title.toString()), findsOneWidget);
-      expect(testUtils.text('\$${_products()[0].price}'), findsOneWidget);
-      expect(testUtils.text(_products()[0].description.toString()), findsOneWidget);
-    });
-    // @formatter:on
+    await tester.tap(testUtils.key(productButtonKey));
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+    expect(testUtils.text(detailedProduct.title), findsOneWidget);
+    expect(testUtils.text('\$${detailedProduct.price}'), findsOneWidget);
+    expect(testUtils.text(detailedProduct.description), findsOneWidget);
+
+    await uiTestUtils.navigateBetweenViews(
+      tester,
+      from: OverviewItemDetailsView,
+      to: OverviewView,
+      trigger: BackButton,
+      interval: DELAY,
+    );
   }
 
-  Future check_OverviewGridItems_In_OverviewView(tester, {required int itemsQtde}) async {
+  Future check_overviewGridItems_in_overview(
+    tester, {
+    required int itemsQtde,
+  }) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -271,7 +287,10 @@ class OverviewTests {
     );
   }
 
-  void checkOverviewFavorites(tester, int itemsQtde) async {
+  void check_overview_favorites(
+    tester,
+    int itemsQtde,
+  ) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -284,6 +303,30 @@ class OverviewTests {
       widgetView: OverviewView,
       widgetType: OverviewGridItem,
       widgetQtde: itemsQtde,
+    );
+  }
+
+  Future tap_viewBackButton(
+    tester, {
+    required String productButtonKey,
+  }) async {
+    await uiTestUtils.testInitialization(
+      tester,
+      isWidgetTest: isWidgetTest,
+      appDriver: app.AppDriver(),
+    );
+
+    await tester.pump();
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+    await tester.tap(testUtils.key(productButtonKey));
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+
+    await uiTestUtils.navigateBetweenViews(
+      tester,
+      from: OverviewItemDetailsView,
+      to: OverviewView,
+      trigger: BackButton,
+      interval: DELAY,
     );
   }
 
@@ -307,9 +350,5 @@ class OverviewTests {
       testUtils.iconType(IconButton, Icons.favorite),
       findsNWidgets(favoritesAfterToggle),
     );
-  }
-
-  List<Product> _products() {
-    return Get.find<IOverviewService>().getLocalDataAllProducts();
   }
 }

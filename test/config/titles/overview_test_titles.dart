@@ -43,10 +43,8 @@ class OverviewTestTitles {
   get close_favoriteFilterPopup => 'Closing Favorite_Filter (tap OUTSIDE)';
 
   //OVERVIEW-DETAILS-TEST-TITLES -----------------------------------------------
-  get click_product_check_details_texts =>
-      'Clicking Product 01 + Show Details Page: Checking texts';
-
-  get click_product_check_details_image =>
-      'Clicking Product 01 + Show Details Page: Checking image';
+  get click_product_check_details_texts => 'Click Product + Check Details View (texts)';
+  get click_product_check_details_image => 'Click Product + Check Details View (image)';
+  get click_product_details_back_button => 'Testing BackButton';
   // @formatter:on
 }

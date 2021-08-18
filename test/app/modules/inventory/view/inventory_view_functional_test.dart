@@ -36,7 +36,7 @@ class InventoryViewTest {
 
     setUpAll(() async {
       _utils.globalSetUpAll(_tests.runtimeType.toString());
-      _products = await _utils.load_4ProductsInDb(isWidgetTest: _isWidgetTest);
+      _products = await _utils.load_4Products_InDb(isWidgetTest: _isWidgetTest);
     });
 
     tearDownAll(
