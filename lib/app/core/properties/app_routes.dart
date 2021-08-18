@@ -7,7 +7,6 @@ import '../../modules/inventory/view/inventory_edit_view.dart';
 import '../../modules/inventory/view/inventory_view.dart';
 import '../../modules/orders/core/orders_bindings.dart';
 import '../../modules/orders/view/orders_view.dart';
-import '../../modules/overview/components/filter_favorite_enum.dart';
 import '../../modules/overview/core/overview_bindings.dart';
 import '../../modules/overview/view/overview_item_details_view.dart';
 import '../../modules/overview/view/overview_view.dart';
@@ -20,12 +19,14 @@ class AppRoutes {
   static const ORDERS = '/orders';
   static const INVENTORY = '/inventory';
   static const INVENTORY_ADDEDIT_PRODUCT = '/inventory-add-edit';
+
   // static const OVERVIEW_FAV = '/item-overview-favorites';
 
   static List<GetPage> getAppRoutes = [
     GetPage(
         name: OVERVIEW_ALL,
-        page: () => OverviewView(enumFilter: EnumFilter.All),
+        // page: () => OverviewView(enumFilter: EnumFilter.All),
+        page: () => OverviewView(),
         binding: OverviewBindings()),
     // GetPage(
     //     name: OVERVIEW_FAV,

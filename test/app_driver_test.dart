@@ -29,12 +29,10 @@ void _unitTests() {
   final _skipGroup = false;
 
   // CartTestGroups().groups(_skipGroup); // <<<<<<<<<<<<< BUG 01
-  InventoryTestGroups().groups(_skipGroup);
   OrdersTestGroups().groups(_skipGroup);
-  ComponentsTestGroups().groups(_skipGroup);
-
-  //-----------------------------------------------------
   OverviewTestGroups().groups(_skipGroup);
+  InventoryTestGroups().groups(_skipGroup);
+  ComponentsTestGroups().groups(_skipGroup);
 }
 
 void _integrationTests() {
