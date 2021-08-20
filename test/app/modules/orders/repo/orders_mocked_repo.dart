@@ -2,7 +2,7 @@ import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/orders/entities/order.dart';
 import 'package:shopingapp/app/modules/orders/repo/i_orders_repo.dart';
 
-import '../../../../mocked_datasource/mocked_orders_datasource.dart';
+import '../../../../mocked_datasource/mocked_datasource.dart';
 
 /* **************************************************
   *--> TIPOS DE MOCK
@@ -28,24 +28,24 @@ import '../../../../mocked_datasource/mocked_orders_datasource.dart';
 class OrdersMockedRepo extends Mock implements IOrdersRepo {
   @override
   Future<Order> addOrder(Order order) async {
-    return Future.value(MockedOrdersDatasource().order());
+    return Future.value(MockedDatasource().order());
   }
 
   @override
   Future<List<Order>> getOrders() {
-    return Future.value(MockedOrdersDatasource().orders());
+    return Future.value(MockedDatasource().orders());
   }
 }
 
 class OrdersMockedRepoEmptyDb extends Mock implements IOrdersRepo {
   @override
   Future<Order> addOrder(Order order) async {
-    return Future.value(MockedOrdersDatasource().order());
+    return Future.value(MockedDatasource().order());
   }
 
   @override
   Future<List<Order>> getOrders() {
-    return Future.value(MockedOrdersDatasource().ordersEmpty());
+    return Future.value(MockedDatasource().ordersEmpty());
   }
 }
 

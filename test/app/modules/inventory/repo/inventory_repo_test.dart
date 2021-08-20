@@ -4,14 +4,14 @@ import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
 
 import '../../../../config/bindings/inventory_test_bindings.dart';
-import '../../../../mocked_datasource/mocked_products_datasource.dart';
+import '../../../../mocked_datasource/mocked_datasource.dart';
 import 'inventory_mocked_repo.dart';
 
 class InventoryRepoTests {
   static void unit() {
     late IInventoryRepo _repo, _injectRepo;
-    var _product0 = MockedProductsDatasource().products().elementAt(0);
-    var _product1 = MockedProductsDatasource().products().elementAt(1);
+    var _product0 = MockedDatasource().products().elementAt(0);
+    var _product1 = MockedDatasource().products().elementAt(1);
 
     setUp(() {
       InventoryTestBindings().bindingsBuilderMockedRepo(isUnitTest: true);

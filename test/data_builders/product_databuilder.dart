@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:faker/faker.dart';
-import 'package:flutter/material.dart';
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 
 import '../config/tests_config.dart';
@@ -24,26 +23,17 @@ class ProductDataBuilder {
       title: '${Random().nextInt(9).toString()} Red Tomatoes',
       description: "The best Red tomatoes ever.",
       price: 99.99,
-      imageUrl: IMAGE1_TEST_URL,
+      imageUrl: TEST_IMAGE_URL_LIST[0],
       isFavorite: false,
     );
   }
 
-  Product ProductWithoutIdCustomUrlImage({required int position_From1_To4}) {
-    var list = [
-      IMAGE1_TEST_URL,
-      IMAGE2_TEST_URL,
-      IMAGE3_TEST_URL,
-      IMAGE4_TEST_URL,
-      IMAGE5_TEST_URL,
-    ];
-
+  Product ProductWithoutId_randomUrlImage() {
     return Product(
       title: '${Random().nextInt(9).toString()} Red Tomatoes',
       description: "The best Red tomatoes ever.",
       price: 99.99,
-      // imageUrl: IMAGE1_TEST_URL,
-      imageUrl: list[position_From1_To4],
+      imageUrl: TEST_IMAGE_URL_LIST[Random().nextInt(TEST_IMAGE_URL_LIST.length)],
       isFavorite: false,
     );
   }

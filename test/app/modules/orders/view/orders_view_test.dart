@@ -7,17 +7,21 @@ import '../../../../config/bindings/orders_test_bindings.dart';
 import '../../../../config/tests_config.dart';
 import '../../../../config/titles/orders_test_titles.dart';
 import '../../../../utils/db_test_utils.dart';
-import '../../../../utils/test_utils.dart';
+import '../../../../utils/finder_utils.dart';
+import '../../../../utils/test_global_methods.dart';
+import '../../../../utils/test_methods_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 import 'orders_tests.dart';
 
 class OrdersViewTest {
   late bool _isWidgetTest;
-  final _utils = Get.put(TestUtils());
+  final _finder = Get.put(FinderUtils());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
   final _titles = Get.put(OrdersTestTitles());
   final _bindings = Get.put(OrdersTestBindings());
+  final _globalMethods = Get.put(TestGlobalMethods());
+  final _testUtils = Get.put(TestMethodsUtils());
 
   OrdersViewTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
@@ -25,23 +29,25 @@ class OrdersViewTest {
 
   void functional() {
     final _tests = Get.put(OrdersTests(
-      testUtils: _utils,
+      finder: _finder,
       dbTestUtils: _dbUtils,
       uiTestUtils: _uiUtils,
       isWidgetTest: _isWidgetTest,
+      testUtils: _testUtils,
     ));
 
-    setUpAll(() async => _utils.globalSetUpAll(_tests.runtimeType.toString()));
+    setUpAll(() async => _globalMethods
+        .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE'));
 
-    tearDownAll(
-        () => _utils.globalTearDownAll(_tests.runtimeType.toString(), _isWidgetTest));
+    tearDownAll(() =>
+        _globalMethods.globalTearDownAll(_tests.runtimeType.toString(), _isWidgetTest));
 
     setUp(() {
-      _utils.globalSetUp();
+      _globalMethods.globalSetUp();
       _bindings.bindingsBuilderMockedRepo(isWidgetTest: _isWidgetTest);
     });
 
-    tearDown(_utils.globalTearDown);
+    tearDown(_globalMethods.globalTearDown);
 
     testWidgets(_titles.orderingAProduct_inCartView_tapping_OrderNowButton,
         (tester) async {

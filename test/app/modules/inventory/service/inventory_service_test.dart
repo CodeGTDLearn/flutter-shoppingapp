@@ -6,16 +6,16 @@ import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart'
 
 import '../../../../config/bindings/inventory_test_bindings.dart';
 import '../../../../data_builders/product_databuilder.dart';
-import '../../../../mocked_datasource/mocked_products_datasource.dart';
+import '../../../../mocked_datasource/mocked_datasource.dart';
 
 class InventoryServiceTests {
   static void unit() {
     late IOverviewService _overviewService;
     late IInventoryService _service;
 
-    var _product0 = MockedProductsDatasource().products().elementAt(0);
-    var _product1 = MockedProductsDatasource().products().elementAt(1);
-    var _products = MockedProductsDatasource().products();
+    var _product0 = MockedDatasource().products().elementAt(0);
+    var _product1 = MockedDatasource().products().elementAt(1);
+    var _products = MockedDatasource().products();
     var _newProduct = ProductDataBuilder().ProductWithId();
 
     setUp(() {
@@ -60,7 +60,7 @@ class InventoryServiceTests {
     });
 
     test('Adding Product in LocalDataManagedProducts', () {
-      var productTest = MockedProductsDatasource().product();
+      var productTest = MockedDatasource().product();
 
       _service.getProducts().then((_) {
         expect(_service.getLocalDataInventoryProducts().length, 4);

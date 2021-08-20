@@ -18,20 +18,23 @@ import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/tests_config.dart';
 import '../../../../utils/db_test_utils.dart';
-import '../../../../utils/test_utils.dart';
+import '../../../../utils/finder_utils.dart';
+import '../../../../utils/test_methods_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 
 class InventoryTests {
   final bool isWidgetTest;
-  final TestUtils testUtils;
+  final FinderUtils finder;
   final UiTestUtils uiTestUtils;
   final DbTestUtils dbTestUtils;
+  final TestMethodsUtils testUtils;
 
   InventoryTests({
     required this.isWidgetTest,
-    required this.testUtils,
+    required this.finder,
     required this.uiTestUtils,
     required this.dbTestUtils,
+    required this.testUtils,
   });
 
   Future<void> tap_viewBackButton(tester) async {
@@ -41,7 +44,7 @@ class InventoryTests {
       appDriver: app.AppDriver(),
     );
 
-    await uiTestUtils.openDrawerAndClickAnOption(
+    await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: DELAY,
       optionKey: DRAWER_INVENTORY_OPTION_KEY,
@@ -68,20 +71,20 @@ class InventoryTests {
       appDriver: app.AppDriver(),
     );
 
-    await uiTestUtils.openDrawerAndClickAnOption(
+    await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: interval,
       optionKey: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
-    uiTestUtils.checkWidgetsQuantityInAView(
+    uiTestUtils.check_widgetQuantityInAView(
       widgetView: InventoryView,
       widgetQtde: 0,
       widgetType: InventoryItem,
     );
 
-    expect(testUtils.text(NO_INVENTORY_PRODUCTS_FOUND_YET), findsOneWidget);
+    expect(finder.text(NO_INVENTORY_PRODUCTS_FOUND_YET), findsOneWidget);
 
     await uiTestUtils.navigateBetweenViews(
       tester,
@@ -95,7 +98,7 @@ class InventoryTests {
   Future<void> refresh_view(
     tester, {
     required Product draggerWidget,
-    required int widgetsQtdeAfterRefresh,
+    required int qtdeAfterRefresh,
   }) async {
     await uiTestUtils.testInitialization(
       tester,
@@ -105,7 +108,7 @@ class InventoryTests {
 
     await tester.pump();
 
-    await uiTestUtils.openDrawerAndClickAnOption(
+    await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: DELAY,
       optionKey: DRAWER_INVENTORY_OPTION_KEY,
@@ -113,7 +116,7 @@ class InventoryTests {
     );
 
     if (!isWidgetTest) {
-      expect(testUtils.type(InventoryItem), findsWidgets);
+      expect(finder.type(InventoryItem), findsWidgets);
       await dbTestUtils.removeObject(
         tester,
         url: PRODUCTS_URL,
@@ -123,15 +126,15 @@ class InventoryTests {
     }
 
     await tester.drag(
-      testUtils.key('$INVENTORY_ITEM_KEY${draggerWidget.id}'),
+      finder.key('$INVENTORY_ITEM_KEY${draggerWidget.id}'),
       Offset(0.0, 150.0),
     );
 
     await tester.pump();
-    await tester.pumpAndSettle(testUtils.delay(1));
-    expect(testUtils.type(RefreshIndicator), findsNWidgets(1));
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+    expect(finder.type(RefreshIndicator), findsNWidgets(1));
     if (!isWidgetTest) {
-      expect(testUtils.type(InventoryItem), findsNWidgets(widgetsQtdeAfterRefresh));
+      expect(finder.type(InventoryItem), findsNWidgets(qtdeAfterRefresh));
     }
   }
 
@@ -148,9 +151,9 @@ class InventoryTests {
     );
 
     var keyUpdateButton =
-        testUtils.key('$INVENTORY_UPDATEITEM_BUTTON_KEY${productToUpdate.id}');
+        finder.key('$INVENTORY_UPDATEITEM_BUTTON_KEY${productToUpdate.id}');
 
-    await uiTestUtils.openDrawerAndClickAnOption(
+    await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: DELAY,
       optionKey: DRAWER_INVENTORY_OPTION_KEY,
@@ -161,23 +164,23 @@ class InventoryTests {
     //   -> Check 'InventoryView'
     //   -> Click in 'UpdateButton'
     //   -> Open InventoryAddEditView
-    expect(testUtils.type(InventoryView), findsOneWidget);
-    expect(testUtils.text(productToUpdate.title), findsWidgets);
+    expect(finder.type(InventoryView), findsOneWidget);
+    expect(finder.text(productToUpdate.title), findsWidgets);
     await tester.tap(keyUpdateButton);
     await tester.pump(testUtils.delay(DELAY));
 
     // 2) InventoryAddEditView
     //   -> Checking View + Title-Form-Field
     await tester.pump();
-    expect(testUtils.type(InventoryEditView), findsOneWidget);
-    expect(testUtils.text(productToUpdate.title), findsWidgets);
+    expect(finder.type(InventoryEditView), findsOneWidget);
+    expect(finder.text(productToUpdate.title), findsWidgets);
 
     // 3) InventoryAddEditView
     //   -> Insert 'UpdatedValue' in Page-Form-Field
     //   -> Checking the change
     // await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY));
-    await tester.tap(testUtils.key(fieldKey));
-    await tester.enterText(testUtils.key(fieldKey), inputValidText);
+    await tester.tap(finder.key(fieldKey));
+    await tester.enterText(finder.key(fieldKey), inputValidText);
     await tester.pump(testUtils.delay(DELAY));
 
     // 4) Save form
@@ -185,7 +188,7 @@ class InventoryTests {
     //      - ONLY IN FUNCTIONAL-TESTS: Backing to InventoryView automatically
     //   -> Test existence of INValidation messages
     //   -> Go to InventoryView + Checking UpdatedValue
-    await tester.tap(testUtils.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
+    await tester.tap(finder.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
     await tester.pump(testUtils.delay(DELAY));
 
     // 4.1) Save form
@@ -197,8 +200,8 @@ class InventoryTests {
     //          InventoryView automatically
     if (isWidgetTest == false) {
       await tester.pump(testUtils.delay(DELAY));
-      expect(testUtils.type(InventoryView), findsOneWidget);
-      expect(testUtils.text(inputValidText), findsOneWidget);
+      expect(finder.type(InventoryView), findsOneWidget);
+      expect(finder.text(inputValidText), findsOneWidget);
 
       // 5) Click InventoryView-BackButton
       //   -> Go to OverviewView + UpdatedValue
@@ -209,7 +212,7 @@ class InventoryTests {
         to: OverviewView,
         trigger: BackButton,
       );
-      expect(testUtils.text(inputValidText), findsOneWidget);
+      expect(finder.text(inputValidText), findsOneWidget);
     }
   }
 
@@ -227,9 +230,9 @@ class InventoryTests {
     );
 
     var keyUpdateButton =
-        testUtils.key('$INVENTORY_UPDATEITEM_BUTTON_KEY${productToUpdate.id}');
+        finder.key('$INVENTORY_UPDATEITEM_BUTTON_KEY${productToUpdate.id}');
 
-    await uiTestUtils.openDrawerAndClickAnOption(
+    await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: DELAY,
       optionKey: DRAWER_INVENTORY_OPTION_KEY,
@@ -240,14 +243,14 @@ class InventoryTests {
     //   -> Check 'CurrentTitle'
     //   -> Click in 'UpdateButton'
     //   -> Open InventoryAddEditView
-    expect(testUtils.type(InventoryView), findsOneWidget);
+    expect(finder.type(InventoryView), findsOneWidget);
     await tester.tap(keyUpdateButton);
     await tester.pump(testUtils.delay(DELAY));
 
     // 2) InventoryAddEditView
     //   -> Checking View + Title-Form-Field
     await tester.pump();
-    expect(testUtils.type(InventoryEditView), findsOneWidget);
+    expect(finder.type(InventoryEditView), findsOneWidget);
 
     for (var i = 1; i <= 2; i++) {
       var isPriceField = fieldKey == INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY;
@@ -258,15 +261,16 @@ class InventoryTests {
           : isPriceField
               ? '99.99'
               : isUrlField
-                  ? IMAGE1_TEST_URL
+                  // ? IMAGE1_TEST_URL
+                  ? TEST_IMAGE_URL_LIST[0]
                   : 'validTexts';
 
       // 3) InventoryAddEditView
       //   -> Insert 'UpdatedValue' in Page-Form-Field
       //   -> Checking the change
       // await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY));
-      await tester.tap(testUtils.key(fieldKey));
-      await tester.enterText(testUtils.key(fieldKey), inputText);
+      await tester.tap(finder.key(fieldKey));
+      await tester.enterText(finder.key(fieldKey), inputText);
       await tester.pump(testUtils.delay(DELAY));
 
       // 4) Save form
@@ -274,10 +278,10 @@ class InventoryTests {
       //      - ONLY IN FUNCTIONAL-TESTS: Backing to InventoryView automatically
       //   -> Test existence of INValidation messages
       //   -> Go to InventoryView + Checking UpdatedValue
-      await tester.tap(testUtils.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
+      await tester.tap(finder.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
       await tester.pump(testUtils.delay(DELAY));
 
-      if (i == 1) expect(testUtils.text(validationErrorMessage), findsWidgets);
+      if (i == 1) expect(finder.text(validationErrorMessage), findsWidgets);
 
       await tester.pump(testUtils.delay(DELAY));
     }
@@ -291,7 +295,7 @@ class InventoryTests {
     //          InventoryView automatically
     if (isWidgetTest == false) {
       await tester.pump(testUtils.delay(DELAY));
-      expect(testUtils.type(InventoryView), findsOneWidget);
+      expect(finder.type(InventoryView), findsOneWidget);
 
       // 5) Click InventoryView-BackButton
       //   -> Go to OverviewView + UpdatedValue
@@ -307,7 +311,7 @@ class InventoryTests {
 
   Future<void> delete_product(
     tester, {
-    required int widgetsQtdeAfterDelete,
+    required int qtdeAfterDelete,
     required String deleteButtonKey,
     required Type widgetTypetoBeDeleted,
   }) async {
@@ -319,20 +323,20 @@ class InventoryTests {
 
     await tester.pump();
 
-    await uiTestUtils.openDrawerAndClickAnOption(
+    await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: DELAY,
       optionKey: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
-    await tester.tap(testUtils.key(deleteButtonKey));
+    await tester.tap(finder.key(deleteButtonKey));
     await tester.pump();
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
-    uiTestUtils.checkWidgetsQuantityInAView(
+    uiTestUtils.check_widgetQuantityInAView(
         widgetView: InventoryView,
-        widgetQtde: widgetsQtdeAfterDelete,
+        widgetQtde: qtdeAfterDelete,
         widgetType: widgetTypetoBeDeleted);
 
     await uiTestUtils.navigateBetweenViews(
@@ -343,9 +347,9 @@ class InventoryTests {
       trigger: BackButton,
     );
 
-    uiTestUtils.checkWidgetsQuantityInAView(
+    uiTestUtils.check_widgetQuantityInAView(
       widgetView: OverviewView,
-      widgetQtde: widgetsQtdeAfterDelete,
+      widgetQtde: qtdeAfterDelete,
       widgetType: OverviewGridItem,
     );
   }
@@ -359,14 +363,14 @@ class InventoryTests {
 
     await tester.pump();
 
-    await uiTestUtils.openDrawerAndClickAnOption(
+    await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: DELAY,
       optionKey: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
-    uiTestUtils.checkWidgetsQuantityInAView(
+    uiTestUtils.check_widgetQuantityInAView(
       widgetView: InventoryView,
       widgetType: InventoryItem,
       widgetQtde: itemsQtde,
@@ -375,7 +379,7 @@ class InventoryTests {
 
   //-------------------------TEST-METHODS-INVENTORY-EDIT-VIEW------------------------
   Future<void> openInventoryEditView(tester) async {
-    await uiTestUtils.openDrawerAndClickAnOption(
+    await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: DELAY,
       optionKey: DRAWER_INVENTORY_OPTION_KEY,
@@ -383,9 +387,9 @@ class InventoryTests {
     );
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    await tester.tap(testUtils.key(INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY));
+    await tester.tap(finder.key(INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(testUtils.type(InventoryEditView), findsOneWidget);
+    expect(finder.type(InventoryEditView), findsOneWidget);
   }
 
   Future<void> AddProductInDb(
@@ -395,23 +399,23 @@ class InventoryTests {
     required int qtde,
   }) async {
     var invalidText;
-    var _seek = Get.put(TestUtils(), tag: 'localTestUtilsInstance');
+    var _finder = Get.put(FinderUtils(), tag: 'localTestUtilsInstance');
 
     // A) OPEN DRAWER
     // B) CLICK IN INVENTORY-DRAWER-OPTION
-    await UiTestUtils().openDrawerAndClickAnOption(
+    await UiTestUtils().openDrawer_SelectAnOption(
       tester,
       interval: interval,
       optionKey: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
-    expect(_seek.type(InventoryView), findsOneWidget);
+    expect(_finder.type(InventoryView), findsOneWidget);
 
     // qtde ??= 1;
     for (var i = 1; i <= qtde; i++) {
       // C) CLICK IN INVENTORY-ADD-PRODUCT-BUTTON
-      await UiTestUtils().tapButtonWithResult(
+      await UiTestUtils().tapButton_CheckResult(
         tester,
         interval: interval,
         triggerKey: INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY,
@@ -419,44 +423,44 @@ class InventoryTests {
       );
 
       // D) GENERATE PRE-BUIT CONTENT + CLICK IN THE TEXT-FIELDS + ADD CONTENT
-      expect(_seek.text(INVENTORY_ADDEDIT_FIELD_TITLE), findsOneWidget);
-      expect(_seek.text(INVENTORY_ADDEDIT_FIELD_PRICE), findsOneWidget);
-      expect(_seek.text(INVENTORY_ADDEDIT_FIELD_DESCRIPT), findsOneWidget);
-      expect(_seek.text(INVENTORY_ADDEDIT_FIELD_IMAGE_URL), findsOneWidget);
-      expect(_seek.text(INVENTORY_ADDEDIT_IMAGE_TITLE), findsOneWidget);
+      expect(_finder.text(INVENTORY_ADDEDIT_FIELD_TITLE), findsOneWidget);
+      expect(_finder.text(INVENTORY_ADDEDIT_FIELD_PRICE), findsOneWidget);
+      expect(_finder.text(INVENTORY_ADDEDIT_FIELD_DESCRIPT), findsOneWidget);
+      expect(_finder.text(INVENTORY_ADDEDIT_FIELD_IMAGE_URL), findsOneWidget);
+      expect(_finder.text(INVENTORY_ADDEDIT_IMAGE_TITLE), findsOneWidget);
 
       invalidText = "d";
       await tester.enterText(
-        _seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY),
+        _finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY),
         validTexts ? "Red Tomatoes" : invalidText,
       );
 
       await tester.enterText(
-        _seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY),
+        _finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY),
         validTexts ? (99.99).toString() : invalidText,
       );
 
       await tester.enterText(
-        _seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY),
+        _finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY),
         validTexts ? "The best Red tomatoes ever. It is super red!" : invalidText,
       );
 
       await tester.enterText(
-        _seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY),
-        validTexts ? IMAGE1_TEST_URL : invalidText,
+        _finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY),
+        validTexts ? TEST_IMAGE_URL_LIST[0] : invalidText,
       );
 
-      await tester.pumpAndSettle(_seek.delay(interval));
+      await tester.pumpAndSettle(testUtils.delay(interval));
 
       // E) CLICK IN SAVE-BUTTON + RETURN TO INVENTORY-VIEW + CHECK INVENTORY-ITEM ADDED
-      await UiTestUtils().tapButtonWithResult(
+      await UiTestUtils().tapButton_CheckResult(
         tester,
         interval: interval,
         triggerKey: INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY,
         resultWidget: InventoryItem,
       );
 
-      await tester.pumpAndSettle(_seek.delay(interval));
+      await tester.pumpAndSettle(testUtils.delay(interval));
     }
 
     // F) CLICK IN BACK-BUTTON + RETURN FROM INVENTORY-VIEW TO OVERVIEW-VIEW
@@ -492,39 +496,39 @@ class InventoryTests {
     validDesc = product.description;
     validImgUrl = product.imageUrl;
 
-    expect(testUtils.text(INVENTORY_ADDEDIT_FIELD_TITLE), findsOneWidget);
-    expect(testUtils.text(INVENTORY_ADDEDIT_FIELD_PRICE), findsOneWidget);
-    expect(testUtils.text(INVENTORY_ADDEDIT_FIELD_DESCRIPT), findsOneWidget);
-    expect(testUtils.text(INVENTORY_ADDEDIT_FIELD_IMAGE_URL), findsOneWidget);
+    expect(finder.text(INVENTORY_ADDEDIT_FIELD_TITLE), findsOneWidget);
+    expect(finder.text(INVENTORY_ADDEDIT_FIELD_PRICE), findsOneWidget);
+    expect(finder.text(INVENTORY_ADDEDIT_FIELD_DESCRIPT), findsOneWidget);
+    expect(finder.text(INVENTORY_ADDEDIT_FIELD_IMAGE_URL), findsOneWidget);
 
     await tester.enterText(
-      testUtils.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY),
+      finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY),
       useValidTexts ? validTitle : invalidText,
     );
     //Price is blocked against INVALID CONTENT, so there is no need to test it.
     await tester.enterText(
-        testUtils.key(INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY), validPrice);
+        finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY), validPrice);
     await tester.enterText(
-      testUtils.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY),
+      finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY),
       useValidTexts ? validDesc : invalidText,
     );
     await tester.enterText(
-      testUtils.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY),
+      finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY),
       useValidTexts ? validImgUrl : invalidText,
     );
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
-    await tester.tap(testUtils.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
+    await tester.tap(finder.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
     await tester.pump(testUtils.delay(DELAY));
 
     useValidTexts
-        ? expect(testUtils.type(RefreshIndicator), findsNWidgets(1))
+        ? expect(finder.type(RefreshIndicator), findsNWidgets(1))
         : _expectTestingINValidationMessages(findsOneWidget);
 
     useValidTexts
-        ? expect(testUtils.type(InventoryView), findsOneWidget)
-        : expect(testUtils.type(InventoryEditView), findsOneWidget);
+        ? expect(finder.type(InventoryView), findsOneWidget)
+        : expect(finder.type(InventoryEditView), findsOneWidget);
   }
 
   Future<void> edit_back_button(tester) async {
@@ -546,8 +550,8 @@ class InventoryTests {
   }
 
   void _expectTestingINValidationMessages(Matcher matcher) {
-    expect(testUtils.text(SIZE_05_INVALID_ERROR_MSG), matcher);
-    expect(testUtils.text(SIZE_10_INVALID_ERROR_MSG), matcher);
-    expect(testUtils.text(URL_INVALID_ERROR_MSG), matcher);
+    expect(finder.text(SIZE_05_INVALID_ERROR_MSG), matcher);
+    expect(finder.text(SIZE_10_INVALID_ERROR_MSG), matcher);
+    expect(finder.text(URL_INVALID_ERROR_MSG), matcher);
   }
 }

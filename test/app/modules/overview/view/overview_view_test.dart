@@ -7,17 +7,21 @@ import '../../../../config/bindings/overview_test_bindings.dart';
 import '../../../../config/tests_config.dart';
 import '../../../../config/titles/overview_test_titles.dart';
 import '../../../../utils/db_test_utils.dart';
-import '../../../../utils/test_utils.dart';
+import '../../../../utils/finder_utils.dart';
+import '../../../../utils/test_global_methods.dart';
+import '../../../../utils/test_methods_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 import 'overview_tests.dart';
 
 class OverviewViewTest {
   late bool _isWidgetTest;
-  final _utils = Get.put(TestUtils());
+  final _finder = Get.put(FinderUtils());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
   final _bindings = Get.put(OverviewTestBindings());
   final _titles = Get.put(OverviewTestTitles());
+  final _testUtils = Get.put(TestMethodsUtils());
+  final _globalMethods = Get.put(TestGlobalMethods());
   var _products;
 
   OverviewViewTest({required String testType}) {
@@ -26,29 +30,29 @@ class OverviewViewTest {
 
   void functional() {
     final _tests = Get.put(OverviewTests(
-      testUtils: _utils,
+      finder: _finder,
       dbTestUtils: _dbUtils,
       uiTestUtils: _uiUtils,
       isWidgetTest: _isWidgetTest,
+      testUtils: _testUtils,
     ));
 
     setUpAll(() async {
-      _utils.globalSetUpAll(_tests.runtimeType.toString());
-      _products = await _utils.load_4Products_InDb(isWidgetTest: _isWidgetTest);
+      _globalMethods
+          .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
+      _products = await _testUtils.load_ProductList_InDb(isWidgetTest: _isWidgetTest);
       _bindings.bindingsBuilderMockedRepo(isWidgetTest: _isWidgetTest);
     });
 
-    tearDownAll(
-        () => _utils.globalTearDownAll(_tests.runtimeType.toString(), _isWidgetTest));
+    tearDownAll(() =>
+        _globalMethods.globalTearDownAll(_tests.runtimeType.toString(), _isWidgetTest));
 
-    setUp(_utils.globalSetUp);
+    setUp(_globalMethods.globalSetUp);
 
-    tearDown(_utils.globalTearDown);
+    tearDown(_globalMethods.globalTearDown);
 
-    testWidgets(_titles.check_overviewGridItems_in_overviewview, (tester) async {
-      _isWidgetTest
-          ? await _tests.check_overviewGridItems_in_overview(tester, itemsQtde: 4)
-          : await _tests.check_overviewGridItems_in_overview(tester, itemsQtde: 4);
+    testWidgets(_titles.check_overviewGridItems, (tester) async {
+      await _tests.check_overviewGridItems(tester, itemsQtde: _products.length);
     });
 
     testWidgets(_titles.toggle_productFavoriteButton, (tester) async {

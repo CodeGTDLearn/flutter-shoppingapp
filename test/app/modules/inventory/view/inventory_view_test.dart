@@ -8,17 +8,21 @@ import '../../../../config/bindings/inventory_test_bindings.dart';
 import '../../../../config/tests_config.dart';
 import '../../../../config/titles/inventory_test_titles.dart';
 import '../../../../utils/db_test_utils.dart';
-import '../../../../utils/test_utils.dart';
+import '../../../../utils/finder_utils.dart';
+import '../../../../utils/test_global_methods.dart';
+import '../../../../utils/test_methods_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 import 'inventory_tests.dart';
 
 class InventoryViewTest {
   late bool _isWidgetTest;
-  final _utils = Get.put(TestUtils());
+  final _finder = Get.put(FinderUtils());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
   final _bindings = Get.put(InventoryTestBindings());
   final _titles = Get.put(InventoryTestTitles());
+  final _globalMethods = Get.put(TestGlobalMethods());
+  final _testUtils = Get.put(TestMethodsUtils());
 
   InventoryViewTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
@@ -28,39 +32,41 @@ class InventoryViewTest {
     var _products = <Product>[];
 
     final _tests = Get.put(InventoryTests(
-      testUtils: _utils,
+      finder: _finder,
       dbTestUtils: _dbUtils,
       uiTestUtils: _uiUtils,
       isWidgetTest: _isWidgetTest,
+      testUtils: _testUtils,
     ));
 
     setUpAll(() async {
-      _utils.globalSetUpAll(_tests.runtimeType.toString());
-      _products = await _utils.load_4Products_InDb(isWidgetTest: _isWidgetTest);
+      _globalMethods
+          .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
+      _products = await _testUtils.load_ProductList_InDb(isWidgetTest: _isWidgetTest);
     });
 
-    tearDownAll(
-        () => _utils.globalTearDownAll(_tests.runtimeType.toString(), _isWidgetTest));
+    tearDownAll(() => _globalMethods.globalTearDownAll(
+          _tests.runtimeType.toString(),
+          _isWidgetTest,
+        ));
 
     setUp(() {
       _bindings.bindingsBuilderMockedRepo(isUnitTest: _isWidgetTest);
-      _utils.globalSetUp();
+      _globalMethods.globalSetUp();
     });
 
-    tearDown(_utils.globalTearDown);
+    tearDown(_globalMethods.globalTearDown);
 
     testWidgets(_titles.check_products, (tester) async {
-      _isWidgetTest
-          ? await _tests.check_products(tester, 4)
-          : await _tests.check_products(tester, 4);
+      await _tests.check_products(tester, _products.length);
     });
 
     testWidgets(_titles.delete_product, (tester) async {
       await _tests.delete_product(
         tester,
-        widgetsQtdeAfterDelete: 3,
         deleteButtonKey: '$INVENTORY_DELETEITEM_BUTTON_KEY${_products[3].id}',
         widgetTypetoBeDeleted: InventoryItem,
+        qtdeAfterDelete: _products.length - 1,
       );
     });
 
@@ -77,7 +83,7 @@ class InventoryViewTest {
       await _tests.refresh_view(
         tester,
         draggerWidget: _products[0],
-        widgetsQtdeAfterRefresh: 2,
+        qtdeAfterRefresh: _products.length - 2,
       );
     });
 

@@ -15,20 +15,23 @@ import 'package:shopingapp/app_driver.dart' as app;
 import '../../../../config/tests_config.dart';
 import '../../../../data_builders/product_databuilder.dart';
 import '../../../../utils/db_test_utils.dart';
-import '../../../../utils/test_utils.dart';
+import '../../../../utils/finder_utils.dart';
+import '../../../../utils/test_methods_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 
 class OrdersTests {
   final bool isWidgetTest;
-  final TestUtils testUtils;
+  final FinderUtils finder;
   final UiTestUtils uiTestUtils;
   final DbTestUtils dbTestUtils;
+  final TestMethodsUtils testUtils;
 
   OrdersTests({
     required this.isWidgetTest,
-    required this.testUtils,
+    required this.finder,
     required this.uiTestUtils,
     required this.dbTestUtils,
+    required this.testUtils,
   });
 
   Future<void> orderingAProduct_inCartView_tapping_OrderNowButton(
@@ -39,14 +42,14 @@ class OrdersTests {
     await create_order_from_cartView(tester, interval);
 
     //D) OPEN ORDERS-DRAWER-OPTION AND CHECK THE ORDER DONE ABOVE
-    await uiTestUtils.openDrawerAndClickAnOption(
+    await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: interval,
       optionKey: DRAWER_ORDER_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
-    uiTestUtils.checkWidgetsQuantityInAView(
+    uiTestUtils.check_widgetQuantityInAView(
       widgetView: OrdersView,
       widgetType: OrderCollapsableTile,
       widgetQtde: ordersDoneQtde,
@@ -79,21 +82,21 @@ class OrdersTests {
 
     //A) ADDING ONE PRODUCT IN THE CART
     await tester.pumpAndSettle(testUtils.delay(interval));
-    expect(testUtils.type(OverviewView), findsOneWidget);
-    await tester.tap(testUtils.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0"));
+    expect(finder.type(OverviewView), findsOneWidget);
+    await tester.tap(finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0"));
     await tester.pumpAndSettle(testUtils.delay(interval));
 
     //B) CLICKING CART-BUTTON-PAGE AND CHECK THE AMOUNT CART
-    await tester.tap(testUtils.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
+    await tester.tap(finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
     await tester.pumpAndSettle(testUtils.delay(interval));
-    expect(testUtils.type(CartView), findsOneWidget);
+    expect(finder.type(CartView), findsOneWidget);
 
     //C) CLICKING ORDER-NOW-BUTTON AND GO BACK TO THE PREVIOUS PAGE
-    await tester.tap(testUtils.key(CART_PAGE_ORDERSNOW_BUTTON_KEY));
+    await tester.tap(finder.key(CART_PAGE_ORDERSNOW_BUTTON_KEY));
     await tester.pump(testUtils.delay(interval));
-    expect(testUtils.type(ProgresIndicator), findsOneWidget);
+    expect(finder.type(ProgresIndicator), findsOneWidget);
     await tester.pumpAndSettle(testUtils.delay(interval));
-    expect(testUtils.type(OverviewView), findsOneWidget);
+    expect(finder.type(OverviewView), findsOneWidget);
   }
 
   Future<void> check_emptyOrderCollection(
@@ -109,16 +112,16 @@ class OrdersTests {
       appDriver: app.AppDriver(),
     );
 
-    await uiTestUtils.openDrawerAndClickAnOption(
+    await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: interval,
       optionKey: DRAWER_ORDER_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
 
-    expect(testUtils.type(OrdersView), findsOneWidget);
-    expect(testUtils.type(CircularProgressIndicator), findsNothing);
-    expect(testUtils.text(NO_ORDERS_FOUND_YET), findsOneWidget);
+    expect(finder.type(OrdersView), findsOneWidget);
+    expect(finder.type(CircularProgressIndicator), findsNothing);
+    expect(finder.text(NO_ORDERS_FOUND_YET), findsOneWidget);
 
     await uiTestUtils.navigateBetweenViews(
       tester,
@@ -141,7 +144,7 @@ class OrdersTests {
       appDriver: app.AppDriver(),
     );
 
-    await uiTestUtils.openDrawerAndClickAnOption(
+    await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: DELAY,
       optionKey: DRAWER_ORDER_OPTION_KEY,

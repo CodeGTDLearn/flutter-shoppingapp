@@ -6,17 +6,21 @@ import '../../../../config/bindings/overview_test_bindings.dart';
 import '../../../../config/tests_config.dart';
 import '../../../../config/titles/overview_test_titles.dart';
 import '../../../../utils/db_test_utils.dart';
-import '../../../../utils/test_utils.dart';
+import '../../../../utils/finder_utils.dart';
+import '../../../../utils/test_global_methods.dart';
+import '../../../../utils/test_methods_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 import 'overview_tests.dart';
 
 class OverviewDetailsTest {
   late bool _isWidgetTest;
-  final _utils = Get.put(TestUtils());
+  final _finder = Get.put(FinderUtils());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
   final _bindings = Get.put(OverviewTestBindings());
   final _titles = Get.put(OverviewTestTitles());
+  final _globalMethods = Get.put(TestGlobalMethods());
+  final _testUtils = Get.put(TestMethodsUtils());
   var _products;
 
   OverviewDetailsTest({required String testType}) {
@@ -25,27 +29,26 @@ class OverviewDetailsTest {
 
   void functional() {
     final _tests = Get.put(OverviewTests(
-        testUtils: _utils,
-        uiTestUtils: _uiUtils,
-        dbTestUtils: _dbUtils,
-        isWidgetTest: _isWidgetTest));
+      finder: _finder,
+      uiTestUtils: _uiUtils,
+      dbTestUtils: _dbUtils,
+      isWidgetTest: _isWidgetTest,
+      testUtils: _testUtils,
+    ));
 
-    setUpAll(
-      () => _utils.globalSetUpAll('${_tests.runtimeType.toString()} - State Isolated'),
-    );
+    setUpAll(() => _globalMethods.globalSetUpAll('${_tests.runtimeType.toString()} '
+        '$ISOLATED_STATE_TITLE'));
 
-    tearDownAll(() => _utils.globalTearDownAll(
-          '${_tests.runtimeType.toString()} - State Isolated',
-          _isWidgetTest,
-        ));
+    tearDownAll(() => _globalMethods.globalTearDownAll(
+        '${_tests.runtimeType.toString()} $ISOLATED_STATE_TITLE', _isWidgetTest));
 
     setUp(() async {
-      _utils.globalSetUp;
-      _products = await _utils.load_1Product_InDb(isWidgetTest: _isWidgetTest);
+      _globalMethods.globalSetUp;
+      _products = await _testUtils.load_1Product_InDb(isWidgetTest: _isWidgetTest);
       _bindings.bindingsBuilderMockedRepo(isWidgetTest: _isWidgetTest);
     });
 
-    tearDown(_utils.globalTearDown);
+    tearDown(_globalMethods.globalTearDown);
 
     testWidgets(_titles.click_product_check_details_texts, (tester) async {
       await _tests.check_product_details(

@@ -7,7 +7,7 @@ import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart'
 
 import '../../../config/bindings/inventory_test_bindings.dart';
 import '../../../data_builders/product_databuilder.dart';
-import '../../../mocked_datasource/mocked_products_datasource.dart';
+import '../../../mocked_datasource/mocked_datasource.dart';
 
 class InventoryControllerTests {
   static void integration() {
@@ -15,9 +15,9 @@ class InventoryControllerTests {
     late IInventoryService _service;
     late InventoryController _controller;
 
-    var _product0 = MockedProductsDatasource().products().elementAt(0);
-    var _product1 = MockedProductsDatasource().products().elementAt(1);
-    var _products = MockedProductsDatasource().products();
+    var _product0 = MockedDatasource().products().elementAt(0);
+    var _product1 = MockedDatasource().products().elementAt(1);
+    var _products = MockedDatasource().products();
     var _newProduct = ProductDataBuilder().ProductWithId();
 
     setUp(() {
@@ -116,7 +116,7 @@ class InventoryControllerTests {
     });
 
     test('Updating ManagedProductsObs', () {
-      var productTest = MockedProductsDatasource().product();
+      var productTest = MockedDatasource().product();
 
       _controller.getProducts().then((value) {
         expect(_service.getLocalDataInventoryProducts().length, 4);

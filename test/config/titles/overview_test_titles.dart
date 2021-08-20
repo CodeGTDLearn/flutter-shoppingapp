@@ -26,7 +26,7 @@ class OverviewTestTitles {
   get DETAIL_VIEW_TITLE => '$REPO_NAME|View|Details: Functional';
 
   //OVERVIEW-TEST-TITLES -------------------------------------------------------
-  get check_overviewGridItems_in_overviewview => 'Checking products';
+  get check_overviewGridItems => 'Checking products';
   get toggle_productFavoriteButton => 'Toggling FavoritesIconButton in a product';
   get add_identicalProduct2x_Check_ShopCartIcon =>
       'Adding same product 2x + Check: ShopCartIcon|Snackbar';

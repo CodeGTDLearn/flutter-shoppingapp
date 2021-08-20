@@ -3,9 +3,9 @@ import 'package:flutter_test/flutter_test.dart';
 import '../app/modules/inventory/inventory_controller_test.dart';
 import '../app/modules/inventory/repo/inventory_repo_test.dart';
 import '../app/modules/inventory/service/inventory_service_test.dart';
-import '../app/modules/inventory/view/inventory_view_edit_functional_test.dart';
-import '../app/modules/inventory/view/inventory_view_functional_test.dart';
-import '../app/modules/inventory/view/inventory_view_validation_funtional_test.dart';
+import '../app/modules/inventory/view/inventory_view_edit_test.dart';
+import '../app/modules/inventory/view/inventory_view_test.dart';
+import '../app/modules/inventory/view/inventory_view_validation_test.dart';
 import '../config/tests_config.dart';
 import '../config/titles/inventory_test_titles.dart';
 
@@ -37,7 +37,7 @@ class InventoryTestGroups {
 
     group(
       InventoryTestTitles().VIEW_VALID_TITLE,
-      InventoryViewValidationFunctionalTest(testType: WIDGET_TEST).functional,
+      InventoryViewValidationTest(isWidgetTest: WIDGET_TEST).functional,
       skip: skipGroup,
     );
 

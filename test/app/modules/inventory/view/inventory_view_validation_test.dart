@@ -8,46 +8,52 @@ import '../../../../config/bindings/inventory_test_bindings.dart';
 import '../../../../config/tests_config.dart';
 import '../../../../config/titles/inventory_test_titles.dart';
 import '../../../../utils/db_test_utils.dart';
-import '../../../../utils/test_utils.dart';
+import '../../../../utils/finder_utils.dart';
+import '../../../../utils/test_global_methods.dart';
+import '../../../../utils/test_methods_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 import 'inventory_tests.dart';
 
-class InventoryViewValidationFunctionalTest {
+class InventoryViewValidationTest {
   late bool _isWidgetTest;
-  final _utils = Get.put(TestUtils());
+  final _finder = Get.put(FinderUtils());
+  final _globalMethods = Get.put(TestGlobalMethods());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
   final _bindings = Get.put(InventoryTestBindings());
   final _titles = Get.put(InventoryTestTitles());
+  final _testUtils = Get.put(TestMethodsUtils());
 
-  InventoryViewValidationFunctionalTest({required String testType}) {
-    _isWidgetTest = testType == WIDGET_TEST;
+  InventoryViewValidationTest({required String isWidgetTest}) {
+    _isWidgetTest = isWidgetTest == WIDGET_TEST;
   }
 
   void functional() {
     var _products = <Product>[];
 
     final _tests = Get.put(InventoryTests(
-      testUtils: _utils,
+      finder: _finder,
       dbTestUtils: _dbUtils,
       uiTestUtils: _uiUtils,
       isWidgetTest: _isWidgetTest,
+      testUtils: _testUtils,
     ));
 
     setUpAll(() async {
-      _utils.globalSetUpAll(_tests.runtimeType.toString());
-      _products = await _utils.load_4Products_InDb(isWidgetTest: _isWidgetTest);
+      _globalMethods
+          .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
+      _products = await _testUtils.load_ProductList_InDb(isWidgetTest: _isWidgetTest);
     });
 
-    tearDownAll(
-        () => _utils.globalTearDownAll(_tests.runtimeType.toString(), _isWidgetTest));
+    tearDownAll(() =>
+        _globalMethods.globalTearDownAll(_tests.runtimeType.toString(), _isWidgetTest));
 
     setUp(() {
-      _utils.globalSetUp();
+      _globalMethods.globalSetUp();
       _bindings.bindingsBuilderMockedRepo(isUnitTest: _isWidgetTest);
     });
 
-    tearDown(_utils.globalTearDown);
+    tearDown(_globalMethods.globalTearDown);
 
     //TITLE CHECK VALIDATIONS + CHECK INJECTIONS -------------------------------
     testWidgets(_titles.validation_title_size, (tester) async {

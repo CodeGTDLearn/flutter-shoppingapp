@@ -6,15 +6,14 @@ import 'package:http/http.dart' as http;
 import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 
 import '../config/tests_config.dart';
-import 'test_utils.dart';
+import 'test_methods_utils.dart';
 
 //Examples:
 // db = 'test-app-dev-e6ee1-default-rtdb';
 // url = "https://db.firebaseio.com/.json";
 // collectionUrl = "https://test-app-dev-e6ee1-default-rtdb.firebaseio.com/products.json";
 class DbTestUtils {
-  final _utils = Get.put(TestUtils());
-
+  final _utils = Get.put(TestMethodsUtils());
   Future<int> countCollectionItems({required String collectionUrl}) async {
     var totalItems = 0;
     return http.get(Uri.parse(collectionUrl),
@@ -35,7 +34,7 @@ class DbTestUtils {
     required String dbName,
   }) async {
     await http.delete(Uri.parse(dbUrl)).then((response) {
-      _cleanDb_Message(dbName, response);
+      _cleanDb_message(dbName, response);
     });
   }
 
@@ -46,7 +45,7 @@ class DbTestUtils {
   }) async {
     await tester.pumpAndSettle(_utils.delay(interval));
     http.delete(Uri.parse("$url")).then((response) {
-      _removeCollection_Message(url, response);
+      _removeCollection_message(url, response);
     });
   }
 
@@ -60,7 +59,7 @@ class DbTestUtils {
     final noExtensionInDeletions = url.replaceAll('.json', '/');
 
     return http.delete(Uri.parse("$noExtensionInDeletions$id.json")).then((response) {
-      _removeObject_Message(noExtensionInDeletions, id, response);
+      _removeObject_message(noExtensionInDeletions, id, response);
       return response.statusCode;
     });
   }
@@ -81,7 +80,7 @@ class DbTestUtils {
     // @formatter:on
   }
 
-  Future<List<dynamic>> add_sameObject_multipleTimes_inDb({
+  Future<List<dynamic>> add_sameObject_multipleTimes({
     required Object object,
     required int qtdeObjects,
     required String collectionUrl,
@@ -95,14 +94,14 @@ class DbTestUtils {
         collectionUrl: collectionUrl,
       ).then((response) {
         listReturn.add(response);
-        _addProduct_Message(collectionUrl: collectionUrl, product: response);
+        _addProduct_message(collectionUrl: collectionUrl, product: response);
       });
     }
 
     return Future.value(listReturn);
   }
 
-  Future<List<dynamic>> add_objectList_inDb({
+  Future<List<dynamic>> add_objectList({
     required List<Object> objectList,
     required String collectionUrl,
   }) async {
@@ -114,7 +113,7 @@ class DbTestUtils {
         collectionUrl: collectionUrl,
       ).then((response) {
         listReturn.add(response);
-        _addProduct_Message(collectionUrl: collectionUrl, product: response);
+        _addProduct_message(collectionUrl: collectionUrl, product: response);
       });
     }
 
@@ -130,7 +129,7 @@ class DbTestUtils {
   // "    <=================================< DB ACTION
   // <==================================< <|| \n";
 
-  void _removeObject_Message(
+  void _removeObject_message(
     String url_NoExtensionInDeletions,
     String id,
     http.Response response,
@@ -144,7 +143,7 @@ class DbTestUtils {
         '$_footerLine');
   }
 
-  void _cleanDb_Message(String dbName, http.Response response) {
+  void _cleanDb_message(String dbName, http.Response response) {
     print('$_headerLine'
         '     Removing All Collections:\n'
         '     - DB_Name: $dbName\n'
@@ -152,7 +151,7 @@ class DbTestUtils {
         '$_footerLine');
   }
 
-  void _removeCollection_Message(
+  void _removeCollection_message(
     String collectionUrl,
     http.Response response,
   ) {
@@ -163,7 +162,7 @@ class DbTestUtils {
         '$_footerLine');
   }
 
-  void _addProduct_Message({
+  void _addProduct_message({
     required String collectionUrl,
     required Product product,
     int? statusCode,

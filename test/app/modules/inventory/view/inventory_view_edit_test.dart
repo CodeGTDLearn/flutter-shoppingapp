@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:network_image_mock/network_image_mock.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
@@ -10,13 +9,17 @@ import '../../../../config/tests_config.dart';
 import '../../../../config/titles/inventory_test_titles.dart';
 import '../../../../data_builders/product_databuilder.dart';
 import '../../../../utils/db_test_utils.dart';
-import '../../../../utils/test_utils.dart';
+import '../../../../utils/finder_utils.dart';
+import '../../../../utils/test_global_methods.dart';
+import '../../../../utils/test_methods_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 import 'inventory_tests.dart';
 
 class InventoryViewEditTest {
   late bool _isWidgetTest;
-  final _utils = Get.put(TestUtils());
+  final _globalMethods = Get.put(TestGlobalMethods());
+  final _testUtils = Get.put(TestMethodsUtils());
+  final _finder = Get.put(FinderUtils());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
   final _bindings = Get.put(InventoryTestBindings());
@@ -28,23 +31,25 @@ class InventoryViewEditTest {
 
   void functional() {
     final _tests = Get.put(InventoryTests(
-      testUtils: _utils,
+      finder: _finder,
       dbTestUtils: _dbUtils,
       uiTestUtils: _uiUtils,
       isWidgetTest: _isWidgetTest,
+      testUtils: _testUtils,
     ));
 
-    setUpAll(() async => _utils.globalSetUpAll(_tests.runtimeType.toString()));
+    setUpAll(() async => _globalMethods
+        .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE'));
 
-    tearDownAll(
-        () => _utils.globalTearDownAll(_tests.runtimeType.toString(), _isWidgetTest));
+    tearDownAll(() =>
+        _globalMethods.globalTearDownAll(_tests.runtimeType.toString(), _isWidgetTest));
 
     setUp(() {
-      _utils.globalSetUp();
+      _globalMethods.globalSetUp();
       _bindings.bindingsBuilderMockedRepo(isUnitTest: _isWidgetTest);
     });
 
-    tearDown(_utils.globalTearDown);
+    tearDown(_globalMethods.globalTearDown);
 
     testWidgets(_titles.edit_add_product_in_form, (tester) async {
       await _tests.edit_add_product_in_form(
@@ -54,8 +59,6 @@ class InventoryViewEditTest {
       );
     });
 
-    //todo null-safety - https://pub.dev/packages/network_image_mock
-    Widget makeTestableWidget() => MaterialApp(home: Image.network(''));
     testWidgets(_titles.edit_preview_url_in_form, (tester) async {
       await _uiUtils.testInitialization(
         tester,
@@ -65,14 +68,14 @@ class InventoryViewEditTest {
 
       await _tests.openInventoryEditView(tester);
 
-      _utils.checkImageTotalInAView(0);
-      await tester.tap(_utils.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY));
+      _testUtils.checkImageTotalInAView(0);
+      await tester.tap(_finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY));
       await tester.enterText(
-          _utils.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY), IMAGE2_TEST_URL);
-      await tester.pumpAndSettle(_utils.delay(DELAY));
-      await tester.tap(_utils.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY));
-      await tester.pumpAndSettle(_utils.delay(DELAY));
-      _utils.checkImageTotalInAView(1);
+          _finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY), TEST_IMAGE_URL_LIST[1]);
+      await tester.pumpAndSettle(_testUtils.delay(DELAY));
+      await tester.tap(_finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY));
+      await tester.pumpAndSettle(_testUtils.delay(DELAY));
+      _testUtils.checkImageTotalInAView(1);
       // mockNetworkImagesFor(() => tester.pumpWidget(makeTestableWidget()));
     });
 

@@ -8,13 +8,15 @@ import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart'
 import 'package:shopingapp/app_driver.dart';
 
 import '../../../config/bindings/components_test_bindings.dart';
-import '../../../utils/test_utils.dart';
+import '../../../utils/finder_utils.dart';
+import '../../../utils/test_methods_utils.dart';
 
 class ProgresIndicatorTest {
   static void functional() {
-    late TestUtils _seek;
+    late FinderUtils _finder;
+    var _testMethodsUtils = Get.put(TestMethodsUtils());
 
-    setUp(() => _seek = Get.put(TestUtils(), tag: 'tempInstance'));
+    setUp(() => _finder = Get.put(FinderUtils(), tag: 'tempInstance'));
 
     tearDown(() => Get.delete(tag: 'tempInstance'));
 
@@ -27,16 +29,16 @@ class ProgresIndicatorTest {
 
       await tester.pumpWidget(AppDriver());
 
-      expect(_seek.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
+      expect(_finder.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
 
       await tester.pump();
-      await tester.pump(_seek.delay(3));
+      await tester.pump(_testMethodsUtils.delay(3));
 
-      expect(_seek.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsNothing);
-      expect(_seek.text(NO_PRODUCTS_FOUND_YET), findsNothing);
+      expect(_finder.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsNothing);
+      expect(_finder.text(NO_PRODUCTS_FOUND_YET), findsNothing);
 
-      expect(_seek.text(_products()[0].title.toString()), findsOneWidget);
-      expect(_seek.text(_products()[1].title.toString()), findsOneWidget);
+      expect(_finder.text(_products()[0].title.toString()), findsOneWidget);
+      expect(_finder.text(_products()[1].title.toString()), findsOneWidget);
     });
 
     testWidgets('Checking CustomProgrIndicator EmptyDB', (tester) async {
@@ -44,16 +46,16 @@ class ProgresIndicatorTest {
 
       await tester.pumpWidget(AppDriver());
 
-      expect(_seek.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
-      expect(_seek.type(CircularProgressIndicator), findsOneWidget);
-      expect(_seek.text(NO_PRODUCTS_FOUND_YET), findsNothing);
+      expect(_finder.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
+      expect(_finder.type(CircularProgressIndicator), findsOneWidget);
+      expect(_finder.text(NO_PRODUCTS_FOUND_YET), findsNothing);
 
       await tester.pump();
-      await tester.pump(_seek.delay(3));
+      await tester.pump(_testMethodsUtils.delay(3));
 
-      expect(_seek.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
-      expect(_seek.type(CircularProgressIndicator), findsNothing);
-      expect(_seek.text(NO_PRODUCTS_FOUND_YET), findsOneWidget);
+      expect(_finder.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
+      expect(_finder.type(CircularProgressIndicator), findsNothing);
+      expect(_finder.text(NO_PRODUCTS_FOUND_YET), findsOneWidget);
     });
   }
 }

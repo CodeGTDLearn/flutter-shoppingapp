@@ -7,16 +7,16 @@ import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart'
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 
 import '../../../../config/bindings/overview_test_bindings.dart';
-import '../../../../mocked_datasource/mocked_products_datasource.dart';
-import '../../../../utils/test_utils.dart';
+import '../../../../mocked_datasource/mocked_datasource.dart';
+import '../../../../utils/test_global_methods.dart';
 import 'overview_mocked_service.dart';
 
 class OverviewServiceTests {
   static void unit() {
     late IOverviewRepo _repo;
     late IOverviewService _service, _injectService;
-    final _utils = Get.put(TestUtils());
     var testConfig = Get.put(OverviewTestBindings());
+    final _globalMethods = Get.put(TestGlobalMethods());
 
     setUp(() {
       testConfig.bindingsBuilderMockedRepo(isWidgetTest: true);
@@ -25,7 +25,7 @@ class OverviewServiceTests {
       _injectService = OverviewInjectMockedService();
     });
 
-    tearDown(_utils.globalTearDown);
+    tearDown(_globalMethods.globalTearDown);
 
     test('Checking Instances to be used in the Tests', () {
       expect(_repo, isA<IOverviewRepo>());
@@ -57,7 +57,7 @@ class OverviewServiceTests {
     });
 
     test('Adding Product in LocalDataAllProducts', () {
-      var productTest = MockedProductsDatasource().product();
+      var productTest = MockedDatasource().product();
 
       _service.getProducts().then((_) {
         expect(_service.getLocalDataAllProducts().length, 4);
@@ -142,33 +142,5 @@ class OverviewServiceTests {
         expect(listFav.length, 0);
       });
     });
-
-    // });
   }
 }
-// test('Getting products - Fail hence Empty', () {
-//   // @formatter:off
-//   when(_injectService.getProducts()).thenAnswer(
-//       (_) async => Future.value(TestProductsDatasource().productsEmpty()));
-//
-//   _injectService.getProducts().then((value) {
-//     expect(value, List.empty());
-//   });
-//   // @formatter:on
-// });
-//
-// test('Toggle FavoriteStatus in a product - Fail 404', () {
-//   //INJECTABLE FOR SIMPLE-RETURNS
-//   when(_injectService.getProductById("p3"))
-//       .thenReturn(ProductDataBuilder().ProductFull());
-//
-//   //INJECTABLE FOR FUTURES-RETURNS
-//   when(_injectService.toggleFavoriteStatus("p3"))
-//       .thenAnswer((_) async => Future.value(true));
-//
-//   var previousToggleStatus = _injectService.getProductById("p3").isFavorite;
-//
-//   _injectService.toggleFavoriteStatus("p3").then((value) {
-//     expect(true, previousToggleStatus);
-//   });
-// });

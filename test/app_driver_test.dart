@@ -1,12 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
-import 'app/modules/inventory/view/inventory_view_edit_functional_test.dart';
-import 'app/modules/inventory/view/inventory_view_functional_test.dart';
-import 'app/modules/inventory/view/inventory_view_validation_funtional_test.dart';
-import 'app/modules/orders/view/orders_view_functional_test.dart';
-import 'app/modules/overview/view/overview_details_functional_test.dart';
-import 'app/modules/overview/view/overview_view_functional_test.dart';
+import 'app/modules/inventory/view/inventory_view_edit_test.dart';
+import 'app/modules/inventory/view/inventory_view_test.dart';
+import 'app/modules/inventory/view/inventory_view_validation_test.dart';
+import 'app/modules/orders/view/orders_view_test.dart';
+import 'app/modules/overview/view/overview_details_test.dart';
+import 'app/modules/overview/view/overview_view_test.dart';
 import 'config/tests_config.dart';
 import 'config/titles/inventory_test_titles.dart';
 import 'config/titles/orders_test_titles.dart';
@@ -38,7 +38,7 @@ void _unitTests() {
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final _skipGroup = true;
+  final _skipGroup = false;
 
   group(
     OrdersTestTitles.GROUP_TITLE,
@@ -60,7 +60,7 @@ void _integrationTests() {
 
   group(
     InventoryTestTitles.VALID_GROUP_TITLE,
-    InventoryViewValidationFunctionalTest(testType: INTEGRATION_TEST).functional,
+    InventoryViewValidationTest(isWidgetTest: INTEGRATION_TEST).functional,
     skip: _skipGroup,
   );
 
@@ -70,10 +70,9 @@ void _integrationTests() {
     skip: _skipGroup,
   );
 
-  //------------------------------------------------------
   group(
     OverviewTestTitles.DETAIL_GROUP_TITLE,
     OverviewDetailsTest(testType: INTEGRATION_TEST).functional,
-    skip: false,
+    skip: _skipGroup,
   );
 }
