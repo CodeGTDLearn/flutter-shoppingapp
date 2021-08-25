@@ -262,7 +262,7 @@ class InventoryTests {
               ? '99.99'
               : isUrlField
                   // ? IMAGE1_TEST_URL
-                  ? TEST_IMAGE_URL_LIST[0]
+                  ? TEST_IMAGE_URL_MAP.values.elementAt(0)
                   : 'validTexts';
 
       // 3) InventoryAddEditView
@@ -447,7 +447,7 @@ class InventoryTests {
 
       await tester.enterText(
         _finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY),
-        validTexts ? TEST_IMAGE_URL_LIST[0] : invalidText,
+        validTexts ? TEST_IMAGE_URL_MAP.values.elementAt(0) : invalidText,
       );
 
       await tester.pumpAndSettle(testUtils.delay(interval));

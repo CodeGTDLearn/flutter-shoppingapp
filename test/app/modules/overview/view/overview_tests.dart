@@ -238,6 +238,7 @@ class OverviewTests {
       trigger: BackButton,
       interval: DELAY,
     );
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
   }
 
   Future check_product_details(
@@ -266,6 +267,7 @@ class OverviewTests {
       trigger: BackButton,
       interval: DELAY,
     );
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
   }
 
   Future check_overviewGridItems(
@@ -328,6 +330,7 @@ class OverviewTests {
       trigger: BackButton,
       interval: DELAY,
     );
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
   }
 
   Future toggle_ProductFavoriteButton(

@@ -5,7 +5,6 @@ import 'app/modules/inventory/view/inventory_view_edit_test.dart';
 import 'app/modules/inventory/view/inventory_view_test.dart';
 import 'app/modules/inventory/view/inventory_view_validation_test.dart';
 import 'app/modules/orders/view/orders_view_test.dart';
-import 'app/modules/overview/view/overview_details_test.dart';
 import 'app/modules/overview/view/overview_view_test.dart';
 import 'config/tests_config.dart';
 import 'config/titles/inventory_test_titles.dart';
@@ -67,12 +66,6 @@ void _integrationTests() {
   group(
     OverviewTestTitles.GROUP_TITLE,
     OverviewViewTest(testType: INTEGRATION_TEST).functional,
-    skip: _skipGroup,
-  );
-
-  group(
-    OverviewTestTitles.DETAIL_GROUP_TITLE,
-    OverviewDetailsTest(testType: INTEGRATION_TEST).functional,
     skip: _skipGroup,
   );
 }

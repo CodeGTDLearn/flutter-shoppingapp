@@ -29,12 +29,11 @@ class OrdersViewTest {
 
   void functional() {
     final _tests = Get.put(OrdersTests(
-      finder: _finder,
-      dbTestUtils: _dbUtils,
-      uiTestUtils: _uiUtils,
-      isWidgetTest: _isWidgetTest,
-      testUtils: _testUtils,
-    ));
+        finder: _finder,
+        dbTestUtils: _dbUtils,
+        uiTestUtils: _uiUtils,
+        isWidgetTest: _isWidgetTest,
+        testUtils: _testUtils));
 
     setUpAll(() async => _globalMethods
         .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE'));

@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/components/keys/snackbarr_keys.dart';
+import 'package:shopingapp/app/modules/inventory/entities/product.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 
 import '../../../../config/bindings/overview_test_bindings.dart';
@@ -22,7 +23,7 @@ class OverviewViewTest {
   final _titles = Get.put(OverviewTestTitles());
   final _testUtils = Get.put(TestMethodsUtils());
   final _globalMethods = Get.put(TestGlobalMethods());
-  var _products;
+  List<Product> _products = [];
 
   OverviewViewTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
@@ -30,17 +31,19 @@ class OverviewViewTest {
 
   void functional() {
     final _tests = Get.put(OverviewTests(
-      finder: _finder,
-      dbTestUtils: _dbUtils,
-      uiTestUtils: _uiUtils,
-      isWidgetTest: _isWidgetTest,
-      testUtils: _testUtils,
-    ));
+        finder: _finder,
+        dbTestUtils: _dbUtils,
+        uiTestUtils: _uiUtils,
+        isWidgetTest: _isWidgetTest,
+        testUtils: _testUtils));
 
     setUpAll(() async {
       _globalMethods
           .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
-      _products = await _testUtils.load_ProductList_InDb(isWidgetTest: _isWidgetTest);
+      _products = await _testUtils.load_ProductList_InDb(
+        isWidgetTest: _isWidgetTest,
+        totalProducts: 6,
+      );
       _bindings.bindingsBuilderMockedRepo(isWidgetTest: _isWidgetTest);
     });
 
@@ -55,7 +58,7 @@ class OverviewViewTest {
       await _tests.check_overviewGridItems(tester, itemsQtde: _products.length);
     });
 
-    testWidgets(_titles.toggle_productFavoriteButton, (tester) async {
+    testWidgets(_titles.toggle_productFavButton, (tester) async {
       _isWidgetTest
           ? await _tests.toggle_ProductFavoriteButton(
               tester,
@@ -69,7 +72,7 @@ class OverviewViewTest {
             );
     });
 
-    testWidgets(_titles.add_identicalProduct2x_Check_ShopCartIcon, (tester) async {
+    testWidgets(_titles.add_sameProduct2x_Check_ShopCartIcon, (tester) async {
       await _tests.add_identicalProduct2x_Check_ShopCartIcon(
         tester,
         addProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
@@ -88,7 +91,7 @@ class OverviewViewTest {
       );
     });
 
-    testWidgets(_titles.add_identicalProduct3x_check_shopCartIcon, (tester) async {
+    testWidgets(_titles.add_sameProduct3x_check_shopCartIcon, (tester) async {
       await _tests.add_identicalProduct3x_check_shopCartIcon(
         tester,
         productAddButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
@@ -104,16 +107,39 @@ class OverviewViewTest {
       );
     });
 
-    testWidgets(_titles.tap_favoritesFilter_noFavoritesFound, (tester) async {
+    testWidgets(_titles.tap_favFilter_noFavoritesFound, (tester) async {
       await _tests.tap_FavoritesFilter_NoFavoritesFound(tester);
     });
 
-    testWidgets(_titles.tap_favoriteFilterPopup, (tester) async {
+    testWidgets(_titles.tap_favFilterPopup, (tester) async {
       await _tests.tap_FavoriteFilterPopup(tester);
     });
 
-    testWidgets(_titles.close_favoriteFilterPopup, (tester) async {
+    testWidgets(_titles.close_favFilterPopup_tapOutside, (tester) async {
       await _tests.close_FavoriteFilterPopup(tester);
+    });
+
+    testWidgets(_titles.tap_product_details_check_texts, (tester) async {
+      await _tests.check_product_details(
+        tester,
+        productButtonKey: "$OVERVIEW_GRID_ITEM_DETAILS_KEY\0",
+        detailedProduct: _products[0],
+      );
+    });
+
+    testWidgets(_titles.tap_product_details_check_image, (tester) async {
+      await _tests.check_product_details_image(
+        tester,
+        productButtonKey: "$OVERVIEW_GRID_ITEM_DETAILS_KEY\0",
+        detailedProduct: _products[0],
+      );
+    });
+
+    testWidgets(_titles.tap_product_details_click_back_button, (tester) async {
+      await _tests.tap_viewBackButton(
+        tester,
+        productButtonKey: "$OVERVIEW_GRID_ITEM_DETAILS_KEY\0",
+      );
     });
   }
 }

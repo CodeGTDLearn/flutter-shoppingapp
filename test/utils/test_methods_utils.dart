@@ -39,7 +39,10 @@ class TestMethodsUtils {
         : Future.value(_product);
   }
 
-  Future<List<Product>> load_ProductList_InDb({required bool isWidgetTest}) async {
+  Future<List<Product>> load_ProductList_InDb({
+    required bool isWidgetTest,
+    required int totalProducts,
+  }) async {
     var _onlineTestDb_products_datasource;
     var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
     if (!isWidgetTest) {
@@ -48,7 +51,7 @@ class TestMethodsUtils {
       await dbTestUtils
           .add_objectList(
             collectionUrl: PRODUCTS_URL,
-            objectList: productList_for_onlineTestDb(6),
+            objectList: productList_for_onlineTestDb(totalProducts),
           )
           .then((value) => _onlineTestDb_products_datasource = value);
     }
@@ -56,25 +59,6 @@ class TestMethodsUtils {
     return isWidgetTest
         ? Future.value(MockedDatasource().products())
         : Future.value(_onlineTestDb_products_datasource.cast<Product>());
-  }
-
-  Future<List<Product>> load_1Product_InDb({required bool isWidgetTest}) async {
-    var _listProducts;
-    var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
-    if (!isWidgetTest) {
-      await dbTestUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
-      await Future.delayed(delay(DELAY));
-      await dbTestUtils
-          .add_objectList(
-            collectionUrl: PRODUCTS_URL,
-            objectList: productList_for_onlineTestDb(1),
-          )
-          .then((value) => _listProducts = value);
-    }
-    Get.delete(tag: 'dbInstance');
-    return isWidgetTest
-        ? Future.value(MockedDatasource().products())
-        : Future.value(_listProducts.cast<Product>());
   }
 
   void checkCollectionSize({
@@ -93,7 +77,7 @@ class TestMethodsUtils {
   List<Object> productList_for_onlineTestDb(int totalItems) {
     var listObject = <Object>[];
     for (var i = 0; i < totalItems; i++) {
-      listObject.add(ProductDataBuilder().ProductWithoutId_randomUrlImage());
+      listObject.add(ProductDataBuilder().ProductWithoutId_imageMap());
     }
     return listObject;
   }

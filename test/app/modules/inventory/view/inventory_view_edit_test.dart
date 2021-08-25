@@ -31,12 +31,11 @@ class InventoryViewEditTest {
 
   void functional() {
     final _tests = Get.put(InventoryTests(
-      finder: _finder,
-      dbTestUtils: _dbUtils,
-      uiTestUtils: _uiUtils,
-      isWidgetTest: _isWidgetTest,
-      testUtils: _testUtils,
-    ));
+        finder: _finder,
+        dbTestUtils: _dbUtils,
+        uiTestUtils: _uiUtils,
+        isWidgetTest: _isWidgetTest,
+        testUtils: _testUtils));
 
     setUpAll(() async => _globalMethods
         .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE'));
@@ -71,7 +70,9 @@ class InventoryViewEditTest {
       _testUtils.checkImageTotalInAView(0);
       await tester.tap(_finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY));
       await tester.enterText(
-          _finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY), TEST_IMAGE_URL_LIST[1]);
+        _finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY),
+        TEST_IMAGE_URL_MAP.values.elementAt(1),
+      );
       await tester.pumpAndSettle(_testUtils.delay(DELAY));
       await tester.tap(_finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY));
       await tester.pumpAndSettle(_testUtils.delay(DELAY));

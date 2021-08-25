@@ -14,6 +14,7 @@ import 'test_methods_utils.dart';
 // collectionUrl = "https://test-app-dev-e6ee1-default-rtdb.firebaseio.com/products.json";
 class DbTestUtils {
   final _utils = Get.put(TestMethodsUtils());
+
   Future<int> countCollectionItems({required String collectionUrl}) async {
     var totalItems = 0;
     return http.get(Uri.parse(collectionUrl),
@@ -113,18 +114,20 @@ class DbTestUtils {
         collectionUrl: collectionUrl,
       ).then((response) {
         listReturn.add(response);
-        _addProduct_message(collectionUrl: collectionUrl, product: response);
+        _addProduct_message(
+          collectionUrl: collectionUrl,
+          product: response,
+        );
       });
     }
-
-    return Future.value(listReturn);
+    return await Future.value(listReturn);
   }
 
   final _headerLine = "||> >=====================================> DB ACTION "
       ">======================================>\n";
 
-  final _footerLine = "    <=====================================< DB ACTION "
-      "<======================================< \n\n";
+  final _footerLine = "    <================================================="
+      "=======================================< \n\n";
 
   // "    <=================================< DB ACTION
   // <==================================< <|| \n";

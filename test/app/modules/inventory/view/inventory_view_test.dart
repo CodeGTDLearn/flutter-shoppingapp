@@ -32,17 +32,19 @@ class InventoryViewTest {
     var _products = <Product>[];
 
     final _tests = Get.put(InventoryTests(
-      finder: _finder,
-      dbTestUtils: _dbUtils,
-      uiTestUtils: _uiUtils,
-      isWidgetTest: _isWidgetTest,
-      testUtils: _testUtils,
-    ));
+        finder: _finder,
+        dbTestUtils: _dbUtils,
+        uiTestUtils: _uiUtils,
+        isWidgetTest: _isWidgetTest,
+        testUtils: _testUtils));
 
     setUpAll(() async {
       _globalMethods
           .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
-      _products = await _testUtils.load_ProductList_InDb(isWidgetTest: _isWidgetTest);
+      _products = await _testUtils.load_ProductList_InDb(
+        isWidgetTest: _isWidgetTest,
+        totalProducts: 6,
+      );
     });
 
     tearDownAll(() => _globalMethods.globalTearDownAll(
