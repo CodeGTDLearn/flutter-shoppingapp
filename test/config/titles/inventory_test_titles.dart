@@ -45,6 +45,7 @@ class InventoryTestTitles {
   //TEST-TITLES: URL CHECK VALIDATIONS + CHECK INJECTIONS ----------------------
   get edit_back_button => 'Testing BackButton';
   get edit_add_product_in_form => 'Adding a product';
+  get test_auto_currency_in_form => 'Check auto currency';
   get edit_preview_url_in_form => 'Check previewImageUrl';
   get edit_fill_form_with_invalid_content => 'Filling fields testing INValidation';
   // @formatter:on

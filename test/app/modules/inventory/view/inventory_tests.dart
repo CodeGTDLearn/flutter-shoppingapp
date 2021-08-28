@@ -531,6 +531,76 @@ class InventoryTests {
         : expect(finder.type(InventoryEditView), findsOneWidget);
   }
 
+  Future<void> test_auto_currency_in_form(
+    tester, {
+    required Product product,
+    required bool useValidTexts,
+  }) async {
+    await uiTestUtils.testInitialization(
+      tester,
+      isWidgetTest: isWidgetTest,
+      appDriver: app.AppDriver(),
+    );
+
+    await openInventoryEditView(tester);
+
+    var validTitle, validPrice, validDesc, validImgUrl, invalidText;
+
+    invalidText = "d";
+    validTitle = product.title;
+    validPrice = product.price.toString();
+    validDesc = product.description;
+    validImgUrl = product.imageUrl;
+
+    expect(finder.text(INVENTORY_ADDEDIT_FIELD_TITLE), findsOneWidget);
+    expect(finder.text(INVENTORY_ADDEDIT_FIELD_PRICE), findsOneWidget);
+    expect(finder.text(INVENTORY_ADDEDIT_FIELD_DESCRIPT), findsOneWidget);
+    expect(finder.text(INVENTORY_ADDEDIT_FIELD_IMAGE_URL), findsOneWidget);
+
+    await tester.enterText(
+      finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY),
+      useValidTexts ? validTitle : invalidText,
+    );
+    //Price is blocked against INVALID CONTENT, so there is no need to test it.
+    await tester.enterText(finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY), '2');
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+    expect(finder.text('\$0.02'), findsOneWidget);
+
+    await tester.enterText(finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY), '22');
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+    expect(finder.text('\$0.22'), findsOneWidget);
+
+    await tester.enterText(finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY), '222');
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+    expect(finder.text('\$2.22'), findsOneWidget);
+
+    await tester.enterText(finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY), '2222');
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+    expect(finder.text('\$22.22'), findsOneWidget);
+
+    await tester.enterText(
+      finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY),
+      useValidTexts ? validDesc : invalidText,
+    );
+    await tester.enterText(
+      finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY),
+      useValidTexts ? validImgUrl : invalidText,
+    );
+
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+
+    await tester.tap(finder.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
+    await tester.pump(testUtils.delay(DELAY));
+
+    useValidTexts
+        ? expect(finder.type(RefreshIndicator), findsNWidgets(1))
+        : _expectTestingINValidationMessages(findsOneWidget);
+
+    useValidTexts
+        ? expect(finder.type(InventoryView), findsOneWidget)
+        : expect(finder.type(InventoryEditView), findsOneWidget);
+  }
+
   Future<void> edit_back_button(tester) async {
     await uiTestUtils.testInitialization(
       tester,

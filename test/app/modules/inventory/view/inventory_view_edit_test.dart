@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
@@ -52,6 +51,14 @@ class InventoryViewEditTest {
 
     testWidgets(_titles.edit_add_product_in_form, (tester) async {
       await _tests.edit_add_product_in_form(
+        tester,
+        product: ProductDataBuilder().ProductWithoutId(),
+        useValidTexts: true,
+      );
+    });
+
+    testWidgets(_titles.test_auto_currency_in_form, (tester) async {
+      await _tests.test_auto_currency_in_form(
         tester,
         product: ProductDataBuilder().ProductWithoutId(),
         useValidTexts: true,

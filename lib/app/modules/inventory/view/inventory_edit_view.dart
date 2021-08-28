@@ -1,5 +1,7 @@
+import 'package:currency_textfield/currency_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/core/properties/app_properties.dart';
 
 import '../../../core/components/progres_indicator.dart';
 import '../../../core/components/snackbar/simple_snackbar.dart';
@@ -105,7 +107,7 @@ class _InventoryEditViewState extends State<InventoryEditView> {
                           label: INV_EDT_LBL_TITLE,
                           key: K_INV_ADDEDIT_FLD_TITLE,
                           validator: TitleValidator().validate(),
-                          onFieldSubmitted: (_) => _sendFocusTo(_nodePrice, context)),
+                          onFieldSubmitted: (_) => _setFocus(_nodePrice, context)),
                       CustomFormField(PriceProperties()).create(
                           product: _product,
                           initialValue: _product.price.toString(),
@@ -113,8 +115,11 @@ class _InventoryEditViewState extends State<InventoryEditView> {
                           label: INV_EDT_LBL_PRICE,
                           key: K_INV_ADDEDIT_FLD_PRICE,
                           validator: PriceValidator().validate(),
-                          onFieldSubmitted: (_) => _sendFocusTo(_nodeDescr, context),
-                          node: _nodePrice),
+                          onFieldSubmitted: (_) => _setFocus(_nodeDescr, context),
+                          node: _nodePrice,
+                          controller: _product.price.toString() == '0.0'
+                              ? _priceController()
+                              : null),
                       CustomFormField(DescripProperties()).create(
                           product: _product,
                           initialValue: _product.description,
@@ -122,7 +127,7 @@ class _InventoryEditViewState extends State<InventoryEditView> {
                           label: INV_EDT_LBL_DESCR,
                           key: K_INV_ADDEDIT_FLD_DESCR,
                           validator: DescriptionValidator().validate(),
-                          onFieldSubmitted: (_) => _sendFocusTo(_nodeImgUrl, context),
+                          onFieldSubmitted: (_) => _setFocus(_nodeImgUrl, context),
                           node: _nodeDescr),
                       Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
                         Container(
@@ -215,7 +220,14 @@ class _InventoryEditViewState extends State<InventoryEditView> {
     // @formatter:on
   }
 
-  void _sendFocusTo(FocusNode node, BuildContext _context) {
+  void _setFocus(FocusNode node, BuildContext _context) {
     return FocusScope.of(_context).requestFocus(node);
+  }
+
+  CurrencyTextFieldController _priceController() {
+    return CurrencyTextFieldController(
+        rightSymbol: CURRENCY_FORMAT,
+        decimalSymbol: DECIMAL_SYMBOL,
+        thousandSymbol: THOUSAND_SYMBOL);
   }
 }
