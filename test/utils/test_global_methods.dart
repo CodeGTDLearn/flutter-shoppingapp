@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../config/tests_config.dart';
+import '../config/tests_properties.dart';
 import 'db_test_utils.dart';
 
 class TestGlobalMethods {

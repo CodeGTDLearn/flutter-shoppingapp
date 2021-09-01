@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../entities/product.dart';
+import '../entity/product.dart';
 import '../service/i_inventory_service.dart';
 
 class InventoryController extends GetxController {

@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:shopingapp/app/modules/inventory/entities/product.dart';
-import 'package:shopingapp/app/modules/orders/entities/order.dart';
+import 'package:shopingapp/app/modules/inventory/entity/product.dart';
+import 'package:shopingapp/app/modules/orders/entity/order.dart';
 import 'package:shopingapp/app/modules/overview/components/filter_favorite_enum.dart';
 
-import '../config/tests_config.dart';
+import '../config/tests_properties.dart';
 
 class MockedDatasource {
   final _MockedDataMassPathFile = MOCKED_DATA_MASS_PATH_FILE;

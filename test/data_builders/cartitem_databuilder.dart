@@ -1,6 +1,6 @@
 import 'package:faker/faker.dart';
-import 'package:shopingapp/app/modules/cart/entities/cart_item.dart';
-import 'package:shopingapp/app/modules/inventory/entities/product.dart';
+import 'package:shopingapp/app/modules/cart/entity/cart_item.dart';
+import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
 class CartItemDatabuilder {
   static CartItem CartItemFromProduct(Product product) {

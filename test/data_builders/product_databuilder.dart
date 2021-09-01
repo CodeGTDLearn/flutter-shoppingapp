@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:faker/faker.dart';
-import 'package:shopingapp/app/modules/inventory/entities/product.dart';
+import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
-import '../config/tests_config.dart';
+import '../config/tests_properties.dart';
 
 class ProductDataBuilder {
   final _randomPosition = Random().nextInt(TEST_IMAGE_URL_MAP.length);

@@ -1,16 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import '../app/modules/inventory/inventory_controller_test.dart';
-import '../app/modules/inventory/repo/inventory_repo_test.dart';
-import '../app/modules/inventory/service/inventory_service_test.dart';
-import '../app/modules/inventory/view/inventory_view_edit_test.dart';
-import '../app/modules/inventory/view/inventory_view_test.dart';
-import '../app/modules/inventory/view/inventory_view_validation_test.dart';
-import '../config/tests_config.dart';
-import '../config/titles/inventory_test_titles.dart';
+import '../../app/modules/inventory/inventory_controller_test.dart';
+import '../../app/modules/inventory/repo/inventory_repo_test.dart';
+import '../../app/modules/inventory/service/inventory_service_test.dart';
+import '../../app/modules/inventory/view/inventory_view_edit_test.dart';
+import '../../app/modules/inventory/view/inventory_view_test.dart';
+import '../../app/modules/inventory/view/inventory_view_validation_test.dart';
+import '../tests_properties.dart';
+import '../titles/inventory_test_titles.dart';
 
 class InventoryTestGroups {
-  void groups(bool skipGroup) {
+  void groups({required bool skipGroup}) {
     group(
       InventoryTestTitles().REPO_TITLE,
       InventoryRepoTests.unit,

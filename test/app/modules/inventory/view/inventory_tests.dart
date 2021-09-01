@@ -8,7 +8,7 @@ import 'package:shopingapp/app/core/texts_icons_provider/pages/inventory/invento
 import 'package:shopingapp/app/modules/inventory/components/inventory_item.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 import 'package:shopingapp/app/modules/inventory/core/messages/field_form_validation_provided.dart';
-import 'package:shopingapp/app/modules/inventory/entities/product.dart';
+import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/inventory/view/inventory_edit_view.dart';
 import 'package:shopingapp/app/modules/inventory/view/inventory_view.dart';
 import 'package:shopingapp/app/modules/overview/components/overview_grid_item.dart';
@@ -16,7 +16,7 @@ import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
-import '../../../../config/tests_config.dart';
+import '../../../../config/tests_properties.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/finder_utils.dart';
 import '../../../../utils/test_methods_utils.dart';
@@ -544,11 +544,11 @@ class InventoryTests {
 
     await openInventoryEditView(tester);
 
-    var validTitle, validPrice, validDesc, validImgUrl, invalidText;
+    var validTitle, validDesc, validImgUrl, invalidText;
 
     invalidText = "d";
     validTitle = product.title;
-    validPrice = product.price.toString();
+    // validPrice = product.price.toString();
     validDesc = product.description;
     validImgUrl = product.imageUrl;
 

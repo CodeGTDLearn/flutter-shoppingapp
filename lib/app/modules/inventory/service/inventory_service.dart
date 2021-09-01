@@ -1,5 +1,5 @@
 import '../../overview/service/i_overview_service.dart';
-import '../entities/product.dart';
+import '../entity/product.dart';
 import '../repo/i_inventory_repo.dart';
 import 'i_inventory_service.dart';
 

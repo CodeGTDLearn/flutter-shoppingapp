@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
-import 'package:shopingapp/app/modules/inventory/entities/product.dart';
+import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/overview/components/overview_grid_item.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_item_details_view.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
-import '../../../../config/tests_config.dart';
+import '../../../../config/tests_properties.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/finder_utils.dart';
 import '../../../../utils/test_methods_utils.dart';
@@ -29,7 +29,7 @@ class OverviewTests {
     required this.testUtils,
   });
 
-  Future add_identicalProduct2x_Check_ShopCartIcon(
+  Future<void> add_identicalProduct2x_Check_ShopCartIcon(
     tester, {
     required String addProductButtonKey,
     required String productTitle,
@@ -50,7 +50,7 @@ class OverviewTests {
     expect(finder.text(productTitle), findsWidgets);
   }
 
-  Future addProduct_click_UndoSnackbar_Check_ShopCartIcon(
+  Future<void> addProduct_click_UndoSnackbar_Check_ShopCartIcon(
     tester, {
     required String addProductButtonKey,
     required String productTitle,
@@ -73,7 +73,7 @@ class OverviewTests {
     await tester.pumpAndSettle(testUtils.delay(DELAY));
   }
 
-  Future tap_FavoritesFilter_NoFavoritesFound(tester) async {
+  Future<void> tap_FavoritesFilter_NoFavoritesFound(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -104,7 +104,7 @@ class OverviewTests {
     await tester.pumpAndSettle(testUtils.delay(DELAY));
   }
 
-  Future tap_FavoriteFilterPopup(tester) async {
+  Future<void> tap_FavoriteFilterPopup(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -135,7 +135,7 @@ class OverviewTests {
     expect(finder.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
   }
 
-  Future close_FavoriteFilterPopup(tester) async {
+  Future<void> close_FavoriteFilterPopup(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -156,7 +156,7 @@ class OverviewTests {
     expect(popupItemAll, findsNothing);
   }
 
-  Future add_identicalProduct3x_check_shopCartIcon(
+  Future<void> add_identicalProduct3x_check_shopCartIcon(
     tester, {
     required String productAddButtonKey,
     required int finalTotal,
@@ -176,7 +176,7 @@ class OverviewTests {
     expect(finder.text(finalTotal.toString()), findsOneWidget);
   }
 
-  Future add_4differentProducts_check_shopCartIcon(
+  Future<void> add_4differentProducts_check_shopCartIcon(
     tester, {
     required String firstProductAddButtonKey,
     required int finalTotal,
@@ -213,7 +213,7 @@ class OverviewTests {
     expect(finder.text(finalTotal.toString()), findsOneWidget);
   }
 
-  Future check_product_details_image(
+  Future<void> check_product_details_image(
     tester, {
     required String productButtonKey,
     required Product detailedProduct,
@@ -241,7 +241,7 @@ class OverviewTests {
     await tester.pumpAndSettle(testUtils.delay(DELAY));
   }
 
-  Future check_product_details(
+  Future<void> check_product_details(
     tester, {
     required String productButtonKey,
     required Product detailedProduct,
@@ -270,7 +270,7 @@ class OverviewTests {
     await tester.pumpAndSettle(testUtils.delay(DELAY));
   }
 
-  Future check_overviewGridItems(
+  Future<void> check_overviewGridItems(
     tester, {
     required int itemsQtde,
   }) async {
@@ -289,7 +289,7 @@ class OverviewTests {
     );
   }
 
-  void check_overview_favorites(
+  Future<void> check_overview_favorites(
     tester,
     int itemsQtde,
   ) async {
@@ -308,7 +308,7 @@ class OverviewTests {
     );
   }
 
-  Future tap_viewBackButton(
+  Future<void> tap_viewBackButton(
     tester, {
     required String productButtonKey,
   }) async {
@@ -333,7 +333,7 @@ class OverviewTests {
     await tester.pumpAndSettle(testUtils.delay(DELAY));
   }
 
-  Future toggle_ProductFavoriteButton(
+  Future<void> toggle_ProductFavoriteButton(
     tester, {
     required int favoritesAfterToggle,
     required String toggleButtonKey,

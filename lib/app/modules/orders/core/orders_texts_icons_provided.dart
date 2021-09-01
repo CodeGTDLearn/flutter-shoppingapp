@@ -1,5 +1,3 @@
-
-
 import '../../../core/texts_icons_provider/pages/orders.dart';
 
 const ORD_TIT_PAGE = ORDERS_TITLE_PAGE;

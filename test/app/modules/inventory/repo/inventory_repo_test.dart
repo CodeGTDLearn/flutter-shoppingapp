@@ -1,11 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/modules/inventory/entities/product.dart';
+import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
 
 import '../../../../config/bindings/inventory_test_bindings.dart';
 import '../../../../mocked_datasource/mocked_datasource.dart';
-import 'inventory_mocked_repo.dart';
+import 'inventory_mocked_repo_inject.dart';
 
 class InventoryRepoTests {
   static void unit() {
@@ -16,12 +16,12 @@ class InventoryRepoTests {
     setUp(() {
       InventoryTestBindings().bindingsBuilderMockedRepo(isUnitTest: true);
       _repo = Get.find<IInventoryRepo>();
-      _injectRepo = InventoryInjectMockedRepo();
+      _injectRepo = InventoryMockedRepoInject();
     });
 
     test('Checking Test Instances', () {
       expect(_repo, isA<IInventoryRepo>());
-      expect(_injectRepo, isA<InventoryInjectMockedRepo>());
+      expect(_injectRepo, isA<InventoryMockedRepoInject>());
       expect(_product0, isA<Product>());
       expect(_product1, isA<Product>());
     });

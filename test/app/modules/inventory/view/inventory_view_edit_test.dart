@@ -4,7 +4,7 @@ import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/bindings/inventory_test_bindings.dart';
-import '../../../../config/tests_config.dart';
+import '../../../../config/tests_properties.dart';
 import '../../../../config/titles/inventory_test_titles.dart';
 import '../../../../data_builders/product_databuilder.dart';
 import '../../../../utils/db_test_utils.dart';

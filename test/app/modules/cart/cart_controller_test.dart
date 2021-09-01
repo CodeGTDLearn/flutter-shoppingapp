@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
-import 'package:shopingapp/app/modules/inventory/entities/product.dart';
-import 'package:shopingapp/app/modules/orders/entities/order.dart';
+import 'package:shopingapp/app/modules/inventory/entity/product.dart';
+import 'package:shopingapp/app/modules/orders/entity/order.dart';
 
-import '../../../config/bindings/cart_test_config.dart';
+import '../../../config/bindings/cart_test_bindings.dart';
 import '../../../data_builders/cartitem_databuilder.dart';
 import '../../../data_builders/product_databuilder.dart';
 import '../../../mocked_datasource/mocked_datasource.dart';
@@ -20,7 +20,7 @@ class CartControllerTests {
       _product2 = ProductDataBuilder().ProductWithId();
       _order1 = MockedDatasource().orders().elementAt(0);
 
-      CartTestConfig().bindingsBuilder();
+      CartTestBindings().bindingsBuilderMockedRepo(isWidgetTest: true);
       _controller = Get.find<CartController>();
     });
 

@@ -4,7 +4,7 @@ import 'package:shopingapp/app/modules/orders/view/orders_view.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 
 import '../../../../config/bindings/orders_test_bindings.dart';
-import '../../../../config/tests_config.dart';
+import '../../../../config/tests_properties.dart';
 import '../../../../config/titles/orders_test_titles.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/finder_utils.dart';

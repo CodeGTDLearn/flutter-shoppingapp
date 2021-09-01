@@ -1,11 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/components/keys/snackbarr_keys.dart';
-import 'package:shopingapp/app/modules/inventory/entities/product.dart';
+import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 
 import '../../../../config/bindings/overview_test_bindings.dart';
-import '../../../../config/tests_config.dart';
+import '../../../../config/tests_properties.dart';
 import '../../../../config/titles/overview_test_titles.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/finder_utils.dart';
@@ -40,10 +40,12 @@ class OverviewViewTest {
     setUpAll(() async {
       _globalMethods
           .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
+
       _products = await _testUtils.load_ProductList_InDb(
         isWidgetTest: _isWidgetTest,
         totalProducts: 6,
       );
+
       _bindings.bindingsBuilderMockedRepo(isWidgetTest: _isWidgetTest);
     });
 

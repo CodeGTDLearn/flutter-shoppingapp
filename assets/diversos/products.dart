@@ -1,4 +1,4 @@
-import 'package:shopingapp/app/modules/inventory/entities/product.dart';
+import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
 List<Product> PRODUCTS = [
   Product(

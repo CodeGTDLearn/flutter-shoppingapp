@@ -1,9 +1,7 @@
-import 'package:currency_textfield/currency_textfield.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/properties/app_properties.dart';
 import '../../core/texts_icons/inventory_edit_texts_icons_provided.dart';
-import '../../entities/product.dart';
+import '../../entity/product.dart';
 import 'field_properties/properties_abstraction.dart';
 
 class CustomFormField {

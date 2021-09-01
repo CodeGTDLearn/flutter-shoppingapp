@@ -1,7 +1,7 @@
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/modules/orders/entities/order.dart';
+import 'package:shopingapp/app/modules/orders/entity/order.dart';
 import 'package:shopingapp/app/modules/orders/repo/i_orders_repo.dart';
 
 import '../../../../config/bindings/orders_test_bindings.dart';
@@ -16,7 +16,6 @@ class OrdersRepoTests {
     setUp(() {
       testConfig.bindingsBuilderMockedRepo(isWidgetTest: true);
       _repo = Get.find<IOrdersRepo>();
-      // _injectRepo = OrdersInjectMockedRepo();
       _orderWithoutId = OrderDatabuilder.OrderFull();
     });
 
@@ -49,14 +48,3 @@ class OrdersRepoTests {
     });
   }
 }
-// test('Getting Orders - No response Content (Empty)', () {
-//   when(_injectRepo.getOrders()).thenAnswer((_) async => []);
-//   _injectRepo.getOrders().then((value) {
-//     expect(value, isEmpty);
-//   });
-// });
-
-// test('Updating a Product(Inject) - status 500', () {
-//   when(_injectRepo.getOrders()).thenAnswer((_) async => 500);
-//   _injectRepo.getOrders().then((value) => {expect(value, 500)});
-// });

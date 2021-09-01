@@ -1,4 +1,3 @@
-
 import '../../../core/texts_icons_provider/pages/cart.dart';
 
 const CRT_TIT_APPBAR = CART_TITLE_PAGE;

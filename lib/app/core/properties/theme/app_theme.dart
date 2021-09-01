@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'theme_features.dart';
 
 class AppTheme {
-
   ThemeData theme(bool isDark) {
     return ThemeData(
         primarySwatch: PRIMARY_SWATCH,

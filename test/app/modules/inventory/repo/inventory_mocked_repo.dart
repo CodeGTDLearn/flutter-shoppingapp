@@ -1,7 +1,7 @@
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:shopingapp/app/modules/inventory/entities/product.dart';
+import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
 
 import '../../../../mocked_datasource/mocked_datasource.dart';
@@ -55,29 +55,5 @@ class InventoryMockedRepo extends Mock implements IInventoryRepo {
       if (item.id == product.id) result = 200;
     });
     return Future.value(result);
-  }
-}
-
-class InventoryInjectMockedRepo extends Mock implements IInventoryRepo {}
-
-class InventoryMockedRepoEmptyDb extends Mock implements IInventoryRepo {
-  @override
-  Future<int> deleteProduct(String id) {
-    return Future.value(400);
-  }
-
-  @override
-  Future<List<Product>> getProducts() {
-    return Future.value(MockedDatasource().productsEmpty());
-  }
-
-  @override
-  Future<Product> addProduct(Product product) {
-    return Future.value(MockedDatasource().product());
-  }
-
-  @override
-  Future<int> updateProduct(Product product) {
-    return Future.value(400);
   }
 }

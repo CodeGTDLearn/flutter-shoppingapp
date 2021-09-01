@@ -1,5 +1,3 @@
-
-
 import '../../../core/texts_icons_provider/messages.dart';
 
 const ITEMCART_ADDED = ITEM_CART_ADDED_IN_THE_SHOPCART;
@@ -15,4 +13,3 @@ const OVERV_NO_DATA = DATABASE_EMPTY_NO_DATA_YET;
 
 const TOGGL_STATUS_ERROR = ERROR_TRY_AGAIN_LATER;
 const TOGGL_STATUS_SUCES = SUCESS_PRODUCTS_UPDATING;
-

@@ -1,14 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import '../app/modules/orders/orders_controller_test.dart';
-import '../app/modules/orders/repo/orders_repo_test.dart';
-import '../app/modules/orders/service/orders_service_test.dart';
-import '../app/modules/orders/view/orders_view_test.dart';
-import '../config/tests_config.dart';
-import '../config/titles/orders_test_titles.dart';
+import '../../app/modules/orders/orders_controller_test.dart';
+import '../../app/modules/orders/repo/orders_repo_test.dart';
+import '../../app/modules/orders/service/orders_service_test.dart';
+import '../../app/modules/orders/view/orders_view_test.dart';
+import '../tests_properties.dart';
+import '../titles/orders_test_titles.dart';
 
 class OrdersTestGroups {
-  void groups(bool skipGroup) {
+  void groups({required bool skipGroup}) {
     group(
       OrdersTestTitles().REPO_TITLE,
       OrdersRepoTests.unit,

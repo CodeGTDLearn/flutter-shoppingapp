@@ -5,9 +5,8 @@ import 'package:intl/intl.dart';
 import '../../../core/properties/app_properties.dart';
 import '../../../core/texts_icons_provider/pages/orders.dart';
 import '../core/orders_texts_icons_provided.dart';
-import '../entities/order.dart';
+import '../entity/order.dart';
 import 'order_collapsable_tile_controller.dart';
-
 
 class OrderCollapsableTile extends StatelessWidget {
   final Order _order;
@@ -51,21 +50,16 @@ class OrderCollapsableTile extends StatelessWidget {
                     child: LayoutBuilder(builder: (_, specs) {
                       return ListView(
                           padding: EdgeInsets.all(5),
-                          children: _order
-                              .cartItems
+                          children: _order.cartItems
                               .map((item) => Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                                       children: [
-                                        _rowContainer('${item.title}', 18,
-                                            specs.maxWidth * 0.55),
-                                        _rowContainer('x${item.qtde}', 18,
-                                            specs.maxWidth * 0.15),
                                         _rowContainer(
-                                            '${item.price.toString()}',
-                                            18,
+                                            '${item.title}', 18, specs.maxWidth * 0.55),
+                                        _rowContainer(
+                                            'x${item.qtde}', 18, specs.maxWidth * 0.15),
+                                        _rowContainer('${item.price.toString()}', 18,
                                             specs.maxWidth * 0.2)
                                       ]))
                               .toList());
@@ -75,8 +69,7 @@ class OrderCollapsableTile extends StatelessWidget {
   }
 
   BoxShadow _boxShadow(Color color, double radius) {
-    return BoxShadow(
-        color: color, offset: Offset(1.0, 1.0), blurRadius: radius);
+    return BoxShadow(color: color, offset: Offset(1.0, 1.0), blurRadius: radius);
   }
 
   Container _rowContainer(String text, int fonSize, double width) {
@@ -85,7 +78,6 @@ class OrderCollapsableTile extends StatelessWidget {
         alignment: Alignment.centerLeft,
         width: width,
         child: Text(text,
-            style: TextStyle(
-                fontSize: fonSize.toDouble(), fontWeight: FontWeight.bold)));
+            style: TextStyle(fontSize: fonSize.toDouble(), fontWeight: FontWeight.bold)));
   }
 }

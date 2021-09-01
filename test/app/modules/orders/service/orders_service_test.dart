@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/modules/orders/entities/order.dart';
+import 'package:shopingapp/app/modules/orders/entity/order.dart';
 import 'package:shopingapp/app/modules/orders/service/i_orders_service.dart';
 
 import '../../../../config/bindings/orders_test_bindings.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/cart/service/i_cart_service.dart';
-import 'package:shopingapp/app/modules/inventory/entities/product.dart';
+import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
-import '../../../config/bindings/cart_test_config.dart';
+import '../../../config/bindings/cart_test_bindings.dart';
 import '../../../data_builders/cartitem_databuilder.dart';
 import '../../../data_builders/product_databuilder.dart';
 
@@ -13,7 +13,7 @@ class CartServiceTests {
     late Product _product1, _product2;
 
     setUp(() {
-      CartTestConfig().bindingsBuilder();
+      CartTestBindings().bindingsBuilderMockedRepo(isWidgetTest: true);
       _product1 = ProductDataBuilder().ProductWithId();
       _product2 = ProductDataBuilder().ProductWithId();
       _service = Get.find<ICartService>();

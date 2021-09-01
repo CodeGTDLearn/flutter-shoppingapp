@@ -1,7 +1,5 @@
-
-
-import '../../inventory/entities/product.dart';
-import '../entities/cart_item.dart';
+import '../../inventory/entity/product.dart';
+import '../entity/cart_item.dart';
 
 abstract class ICartService {
   Map<String, CartItem> getAllCartItems();

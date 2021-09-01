@@ -1,11 +1,11 @@
 import 'package:currency_textfield/currency_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/core/properties/app_properties.dart';
 
 import '../../../core/components/progres_indicator.dart';
 import '../../../core/components/snackbar/simple_snackbar.dart';
 import '../../../core/properties/app_owasp_regex.dart';
+import '../../../core/properties/app_properties.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
 import '../../overview/controller/overview_controller.dart';
 import '../components/custom_form_field/custom_form_field.dart';
@@ -21,7 +21,7 @@ import '../controller/inventory_controller.dart';
 import '../core/inventory_keys.dart';
 import '../core/messages/messages_snackbars_provided.dart';
 import '../core/texts_icons/inventory_edit_texts_icons_provided.dart';
-import '../entities/product.dart';
+import '../entity/product.dart';
 
 class InventoryEditView extends StatefulWidget {
   @override

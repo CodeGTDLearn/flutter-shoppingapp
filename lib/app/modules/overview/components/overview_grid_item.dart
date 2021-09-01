@@ -6,7 +6,7 @@ import '../../../core/components/snackbar/simple_snackbar.dart';
 import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
 import '../../cart/controller/cart_controller.dart';
-import '../../inventory/entities/product.dart';
+import '../../inventory/entity/product.dart';
 import '../controller/overview_controller.dart';
 import '../core/messages_snackbars_provided.dart';
 import '../core/overview_texts_icons_provided.dart';

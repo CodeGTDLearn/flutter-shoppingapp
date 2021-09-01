@@ -1,11 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/modules/inventory/entities/product.dart';
+import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 
 import '../../../../config/bindings/overview_test_bindings.dart';
 import '../../../../data_builders/product_databuilder.dart';
-import 'overview_mocked_repo.dart';
+import 'overview_mocked_repo_inject.dart';
 
 class OverviewRepoTests {
   static void unit() {
@@ -16,14 +16,14 @@ class OverviewRepoTests {
     setUp(() {
       testConfig.bindingsBuilderMockedRepo(isWidgetTest: true);
       _repo = Get.find<IOverviewRepo>();
-      _injectRepo = OverviewInjectMockedRepo();
+      _injectRepo = OverviewMockedRepoInject();
       _productFail = ProductDataBuilder().ProductWithId();
     });
 
     test('Checking Instances', () {
       expect(_repo, isA<IOverviewRepo>());
       expect(_productFail, isA<Product>());
-      expect(_injectRepo, isA<OverviewInjectMockedRepo>());
+      expect(_injectRepo, isA<OverviewMockedRepoInject>());
     });
 
     test('Checking Response Type in GetProducts', () {

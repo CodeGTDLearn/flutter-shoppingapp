@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:shopingapp/app/core/properties/theme/dark_theme_controller.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
-import 'package:shopingapp/app/modules/cart/repo/cart_repo_http.dart';
+import 'package:shopingapp/app/modules/cart/repo/cart_repo_firebase.dart';
 import 'package:shopingapp/app/modules/cart/repo/i_cart_repo.dart';
 import 'package:shopingapp/app/modules/cart/service/cart_service.dart';
 import 'package:shopingapp/app/modules/cart/service/i_cart_service.dart';
@@ -19,10 +19,10 @@ import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 import '../../app/modules/orders/repo/orders_mocked_repo.dart';
 import '../../app/modules/overview/repo/overview_mocked_repo.dart';
 
-class CartTestConfig {
-  final ICartRepo _mocked_repo_used_in_this_module_tests = CartRepoHttp();
+class CartTestBindings {
+  final ICartRepo _mocked_repo_used_in_this_module_tests = CartRepoFirebase();
 
-  void bindingsBuilder() {
+  void _bindingsBuilder(ICartRepo cartRepo) {
     Get.reset();
 
     expect(Get.isPrepared<DarkThemeController>(), isFalse);
@@ -50,7 +50,7 @@ class CartTestConfig {
       Get.lazyPut<IOrdersRepo>(() => OrdersMockedRepo());
       Get.lazyPut<IOrdersService>(() => OrdersService(repo: Get.find<IOrdersRepo>()));
 
-      Get.lazyPut<ICartRepo>(() => _mocked_repo_used_in_this_module_tests);
+      Get.lazyPut<ICartRepo>(() => cartRepo);
 
       Get.lazyPut<ICartService>(() => CartService(repo: Get.find<ICartRepo>()));
       Get.lazyPut<CartController>(() => CartController(
@@ -76,19 +76,7 @@ class CartTestConfig {
     HttpOverrides.global = null;
   }
 
-  String repoName() => _mocked_repo_used_in_this_module_tests.runtimeType.toString();
-
-  // @formatter:off
-  //GROUP-TITLES ---------------------------------------------------------------
-  static get CART_GROUP_TITLE => 'Cart|Integration-Tests:';
-
-  //MVC-TITLES -----------------------------------------------------------------
-  get REPO_TEST_TITLE => '${repoName()}|Repo: Unit';
-
-  get SERVICE_TEST_TITLE => '${repoName()}|Service: Unit';
-
-  get CONTROLLER_TEST_TITLE => '${repoName()}|Controller: Integr';
-
-  get VIEW_TEST_TITLE => '${repoName()}|View: Functional';
-  // @formatter:on
+  void bindingsBuilderMockedRepo({required bool isWidgetTest}) {
+    if (isWidgetTest) _bindingsBuilder(_mocked_repo_used_in_this_module_tests);
+  }
 }

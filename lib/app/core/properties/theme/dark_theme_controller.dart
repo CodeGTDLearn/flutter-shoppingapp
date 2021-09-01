@@ -12,7 +12,6 @@ class DarkThemeController extends GetxController {
   void toggleDarkTheme(bool value) {
     _repo.put('isDarkOption', value);
     isDark.value = value;
-    Get.changeTheme(
-        Get.isDarkMode ? AppTheme().theme(false) : AppTheme().theme(true));
+    Get.changeTheme(Get.isDarkMode ? AppTheme().theme(false) : AppTheme().theme(true));
   }
 }

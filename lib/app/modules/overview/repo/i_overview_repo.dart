@@ -1,4 +1,4 @@
-import '../../inventory/entities/product.dart';
+import '../../inventory/entity/product.dart';
 
 abstract class IOverviewRepo {
   Future<List<Product>> getProducts();

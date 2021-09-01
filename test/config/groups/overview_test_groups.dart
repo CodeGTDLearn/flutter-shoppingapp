@@ -1,14 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import '../app/modules/overview/overview_controller_test.dart';
-import '../app/modules/overview/repo/overview_repo_test.dart';
-import '../app/modules/overview/service/overview_service_test.dart';
-import '../app/modules/overview/view/overview_view_test.dart';
-import '../config/tests_config.dart';
-import '../config/titles/overview_test_titles.dart';
+import '../../app/modules/overview/overview_controller_test.dart';
+import '../../app/modules/overview/repo/overview_repo_test.dart';
+import '../../app/modules/overview/service/overview_service_test.dart';
+import '../../app/modules/overview/view/overview_view_test.dart';
+import '../tests_properties.dart';
+import '../titles/overview_test_titles.dart';
 
 class OverviewTestGroups {
-  void groups(bool skipGroup) {
+  void groups({required bool skipGroup}) {
     group(
       OverviewTestTitles().REPO_TITLE,
       OverviewRepoTests.unit,

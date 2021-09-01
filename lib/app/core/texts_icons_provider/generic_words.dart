@@ -8,6 +8,3 @@ const UNDO = "Undo";
 const SORRY = "Sorry...";
 const DONE = "Done";
 const SUCES = "Sucess";
-
-
-

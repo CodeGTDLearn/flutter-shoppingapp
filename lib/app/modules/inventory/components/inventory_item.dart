@@ -9,7 +9,7 @@ import '../controller/inventory_controller.dart';
 import '../core/inventory_keys.dart';
 import '../core/messages/messages_snackbars_provided.dart';
 import '../core/texts_icons/inventory_item_icons_provided.dart';
-import '../entities/product.dart';
+import '../entity/product.dart';
 
 class InventoryItem extends StatelessWidget {
   final Product product;

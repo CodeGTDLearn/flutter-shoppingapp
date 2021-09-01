@@ -15,6 +15,7 @@ import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart'
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 
 import '../../app/modules/inventory/repo/inventory_mocked_repo.dart';
+import '../../app/modules/inventory/repo/inventory_mocked_repo_emptydb.dart';
 import '../../app/modules/overview/repo/overview_mocked_repo.dart';
 
 class InventoryTestBindings {

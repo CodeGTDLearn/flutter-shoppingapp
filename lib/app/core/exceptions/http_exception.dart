@@ -3,7 +3,6 @@ class HttpException implements Exception {
 
   HttpException(this.message);
 
-
   String toString() {
     return message;
   }

@@ -1,4 +1,4 @@
-import '../entities/product.dart';
+import '../entity/product.dart';
 
 abstract class IInventoryRepo {
   Future<List<Product>> getProducts();
@@ -8,5 +8,4 @@ abstract class IInventoryRepo {
   Future<int> updateProduct(Product product);
 
   Future<int> deleteProduct(String id);
-
 }

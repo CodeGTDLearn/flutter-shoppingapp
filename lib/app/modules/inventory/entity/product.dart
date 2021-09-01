@@ -2,8 +2,9 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'product.g.dart';
 
-//flutter pub run build_runner watch
-//flutter pub run build_runner build
+// flutter pub run build_runner watch
+// flutter pub run build_runner build
+// flutter pub run build_runner build --delete-conflicting-outputs
 @JsonSerializable()
 class Product {
   String? id;

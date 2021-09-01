@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 
-import '../config/tests_config.dart';
+import '../config/tests_properties.dart';
 import 'finder_utils.dart';
 import 'test_methods_utils.dart';
 

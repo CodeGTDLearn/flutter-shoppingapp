@@ -1,11 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../cart/entities/cart_item.dart';
+import '../../cart/entity/cart_item.dart';
 
 part 'order.g.dart';
 
-//flutter pub run build_runner watch
-//flutter pub run build_runner build
+// flutter pub run build_runner watch
+// flutter pub run build_runner build
+// flutter pub run build_runner build --delete-conflicting-outputs
 @JsonSerializable()
 class Order {
   String? id;

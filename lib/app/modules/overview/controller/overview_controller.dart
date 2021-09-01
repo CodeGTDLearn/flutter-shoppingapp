@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../../inventory/entities/product.dart';
+import '../../inventory/entity/product.dart';
 import '../components/filter_favorite_enum.dart';
 import '../service/i_overview_service.dart';
 

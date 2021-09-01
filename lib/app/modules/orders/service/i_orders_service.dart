@@ -1,5 +1,5 @@
-import '../../cart/entities/cart_item.dart';
-import '../entities/order.dart';
+import '../../cart/entity/cart_item.dart';
+import '../entity/order.dart';
 
 abstract class IOrdersService {
   Future<List<Order>> getOrders();
@@ -11,5 +11,4 @@ abstract class IOrdersService {
   Future<Order> addOrder(List<CartItem> cartItemsList, double amount);
 
   List<Order> getLocalDataOrders();
-
 }
