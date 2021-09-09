@@ -12,17 +12,17 @@ class CartTestTitles {
   get VIEW_TITLE => '$REPO_NAME|View: Functional';
 
   //TEST-TITLES ----------------------------------------------------------------
-  get add_product_check_appbar_shopCart => 'Adding products + Check Appbar CartIcon Qtde';
-  get add_product_check_cartPage => 'Adding product + Check in CartPage';
-  get add_product_check_snackbar => 'Adding product + Check Snackbar';
-  get deny_first_product_dismissing => 'Denying FIRST product Dismissing';
-  get dismissing_first_product_added => 'Dismissing FIRST added product';
-  get dismissing_second_last_product_added => 'Dismissing SECOND/LAST added product';
-  get no_products_no_access_cartPage => 'No products in Cart, No access to Cart Page';
-  get test_2_products_in_cartPage => 'Acessing Cart Page + Testing two product added';
+  get add_product_check_appbar_shopCart => 'Adding 2 products|Check Appbar CartIcon qtde';
+  get check_2products_inCartPage => 'Check  2 products in CartPage';
+  get add_product_check_snackbar => 'Adding product|Check Snackbar';
+  get denying_dismissingCartItem => 'Denying FIRST product Dismissing';
+  get dismissing_first_added_product => 'Dismissing FIRST added product';
+  get dismissing_all_added_products => 'Dismissing ALL products';
+  get emptyCart_blockAccessCartPage => 'Empty Cart|block Access to Cart Page';
+  get open_cartPage_check2Products => 'Opening CartView|Checking 2 products';
   get check_amount_cart => 'Checking Amount Cart';
-  get order_cart_products_order_now_button => 'Ordering Cart Products - Order Now button';
-  get clear_cart_products => 'Clearing Cart Products - ClearCart IconButton';
+  get order_cartProducts_tapOrderNowButton => 'Ordering Products|Order Now button';
+  get clearCart_tapClearButton => 'Clearing Products|ClearCart IconButton';
   get test_page_backbutton => 'Testing Page BackButton';
 
   // @formatter:on

@@ -1,8 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
-import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 
 import '../../../../config/bindings/cart_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
@@ -21,8 +19,8 @@ class CartViewTest {
   final _dbUtils = Get.put(DbTestUtils());
   final _titles = Get.put(CartTestTitles());
   final _bindings = Get.put(CartTestBindings());
-  final _globalMethods = Get.put(TestGlobalMethods());
   final _testUtils = Get.put(TestMethodsUtils());
+  final _globalMethods = Get.put(TestGlobalMethods());
 
   CartViewTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
@@ -43,7 +41,7 @@ class CartViewTest {
           .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
       _products = await _testUtils.load_ProductList_InDb(
         isWidgetTest: _isWidgetTest,
-        totalProducts: 6,
+        totalProducts: 3,
       );
     });
 
@@ -57,60 +55,52 @@ class CartViewTest {
 
     tearDown(_globalMethods.globalTearDown);
 
-    List<Product> _prods() {
-      return Get.find<IOverviewService>().getLocalDataAllProducts();
-    }
-
-    double totalCart() {
-      return Get.find<CartController>().getAmountCartItemsObs();
-    }
-
     testWidgets(_titles.add_product_check_appbar_shopCart, (tester) async {
       await _tests.Add2Products_checkAppbarCartIconQtde(tester);
     });
 
-    testWidgets(_titles.add_product_check_cartPage, (tester) async {
-      await _tests.AddProductCheckProductInCartPage(tester, _products);
+    testWidgets(_titles.check_2products_inCartPage, (tester) async {
+      await _tests.Check_2Products_inCartPage(tester, _products);
     });
 
     testWidgets(_titles.add_product_check_snackbar, (tester) async {
-      await _tests.AddProductCheckSnackbarInfo(tester, _prods);
+      await _tests.AddProduct_checkSnackbar(tester, _products);
     });
 
-    // testWidgets(_titles.deny_first_product_dismissing, (tester) async {
-    //   await _tests.DenyingFirstProductDismissing(tester, _prods);
-    // });
+    testWidgets(_titles.denying_dismissingCartItem, (tester) async {
+      await _tests.Denying_dismissingCartItem(tester, _products);
+    });
 
-    // testWidgets(_titles.dismissing_first_product_added, (tester) async {
-    //   await _tests.DismissingFirstAddedProduct(tester, _prods);
-    // });
-    //
-    // testWidgets(_titles.dismissing_second_last_product_added, (tester) async {
-    //   await _tests.DismissingSecondLastAddedProduct(tester, _prods);
-    // });
-    //
-    // testWidgets(_titles.no_products_no_access_cartPage, (tester) async {
-    //   await _tests.NoProductsInTheCartNoAccessCartPage(tester);
-    // });
-    //
-    // testWidgets(_titles.test_2_products_in_cartPage, (tester) async {
-    //   await _tests.AccessingCartPageTestingTwoAddedProducts(tester, _prods);
-    // });
-    //
-    // testWidgets(_titles.check_amount_cart, (tester) async {
-    //   await _tests.CheckAmountCart(tester, _prods);
-    // });
-    //
-    // testWidgets(_titles.order_cart_products_order_now_button, (tester) async {
-    //   await _tests.OrderCartProductsOrderNowButton(tester, _prods, totalCart);
-    // });
-    //
-    // testWidgets(_titles.clear_cart_products, (tester) async {
-    //   await _tests.ClearCartProductsClearButton(tester, _prods, totalCart);
-    // });
-    //
-    // testWidgets(_titles.test_page_backbutton, (tester) async {
-    //   await _tests.TestingPageBackButton(tester);
-    // });
+    testWidgets(_titles.dismissing_first_added_product, (tester) async {
+      await _tests.Dismissing_firstAddedProduct(tester, _products);
+    });
+
+    testWidgets(_titles.dismissing_all_added_products, (tester) async {
+      await _tests.Dismissing_allAddedProducts(tester, _products);
+    });
+
+    testWidgets(_titles.emptyCart_blockAccessCartPage, (tester) async {
+      await _tests.EmptyCart_blockAccessCartPage(tester);
+    });
+
+    testWidgets(_titles.open_cartPage_check2Products, (tester) async {
+      await _tests.Opening_cartPage_check2Products(tester, _products);
+    });
+
+    testWidgets(_titles.clearCart_tapClearButton, (tester) async {
+      await _tests.ClearingCart_tappingClearButton(tester, _products);
+    });
+
+    testWidgets(_titles.check_amount_cart, (tester) async {
+      await _tests.Check_amountCart(tester, _products);
+    });
+
+    testWidgets(_titles.order_cartProducts_tapOrderNowButton, (tester) async {
+      await _tests.Ordering_cartProducts_tappingOrderNowButton(tester, _products);
+    });
+
+    testWidgets(_titles.test_page_backbutton, (tester) async {
+      await _tests.Testing_pageBackButton(tester);
+    });
   }
 }

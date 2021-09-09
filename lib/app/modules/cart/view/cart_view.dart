@@ -6,7 +6,7 @@ import '../../../core/components/snackbar/simple_snackbar.dart';
 import '../../../core/properties/app_properties.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
 import '../../orders/core/messages_snackbars_provided.dart';
-import '../components/dismis_cart_item.dart';
+import '../components/dismissible_cart_item.dart';
 import '../controller/cart_controller.dart';
 import '../core/cart_texts_icons_provided.dart';
 import '../core/cart_widget_keys.dart';
@@ -22,7 +22,7 @@ class CartView extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(CRT_TIT_APPBAR),
-          actions: [_clearCartIconButton(controller)],
+          actions: [_clearCart(controller)],
         ),
         body: Container(
             width: fullSizeLessAppbar.width,
@@ -61,23 +61,33 @@ class CartView extends StatelessWidget {
                             ])))),
                 SizedBox(height: lbHeight * 0.01),
                 Expanded(
-                  child: ListView.builder(
-                      itemCount: controller.getAllCartItems().length,
-                      itemBuilder: (ctx, item) {
-                        return DismisCartItem.DimissCartItem(
-                            controller.getAllCartItems().values.elementAt(item));
-                      }),
+                  child: Obx(
+                    () => controller.qtdeCartItemsObs().isEqual(0)
+                        // ? Text(CRT_LBL_ORD)
+                        ? _xx
+                        : ListView.builder(
+                            itemCount: controller.getAllCartItems().length,
+                            itemBuilder: (ctx, item) {
+                              return DismissibleCartItem.Create(
+                                  controller.getAllCartItems().values.elementAt(item));
+                            }),
+                  ),
                 )
               ]);
             })));
   }
 
-  IconButton _clearCartIconButton(CartController controller) {
+  void _xx() {
+    SimpleSnackbar(SUCES, SUCES_ORD_CLEAN).show();
+    Future.delayed(Duration(milliseconds: DURATION)).whenComplete(Get.back);
+  }
+
+  IconButton _clearCart(CartController controller) {
     return IconButton(
         key: Key(K_CRT_CLR_CART_BTN),
         icon: CRT_ICO_CLEAR,
         onPressed: () {
-          controller.clearCart.call();
+          controller.clearCart;
           SimpleSnackbar(SUCES, SUCES_ORD_CLEAN).show();
           Future.delayed(Duration(milliseconds: DURATION)).whenComplete(Get.back);
         },
@@ -86,7 +96,6 @@ class CartView extends StatelessWidget {
 
   Builder _addOrderButton(CartController controller) {
     return Builder(builder: (_context) {
-      // return FlatButton(
       return TextButton(
           key: Key(K_CRT_ORD_NOW_BTN),
           child:
@@ -98,7 +107,9 @@ class CartView extends StatelessWidget {
                   controller.amountCartItemsObs.value,
                 )
                 .then((_) {
-                  controller.clearCart();
+                  // controller.clearCart();
+                  // controller.clearCart.call();
+                  _clearCartItems_fromScreen(controller);
                   SimpleSnackbar(SUCES, SUCES_ORD_ADD).show();
                 })
                 .whenComplete(() => Future.delayed(Duration(milliseconds: DURATION))

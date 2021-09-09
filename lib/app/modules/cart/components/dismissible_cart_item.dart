@@ -9,11 +9,11 @@ import '../controller/cart_controller.dart';
 import '../core/cart_texts_icons_provided.dart';
 import '../entity/cart_item.dart';
 
-class DismisCartItem extends StatelessWidget {
+class DismissibleCartItem extends StatelessWidget {
   final CartItem _cartItem;
   final CartController controller = Get.find();
 
-  DismisCartItem.DimissCartItem(this._cartItem);
+  DismissibleCartItem.Create(this._cartItem);
 
   Widget build(BuildContext context) {
     return Dismissible(
@@ -31,7 +31,6 @@ class DismisCartItem extends StatelessWidget {
         onDismissed: (direction) {
           controller.removeCartItem(_cartItem);
           if (controller.getQtdeCartItemsObs().isEqual(0)) {
-            // Get.snackbar(SUCES, QUIT_AFTER_DELS);
             SimpleSnackbar(SUCES, QUIT_AFTER_DELS).show();
             Future.delayed(Duration(milliseconds: DURATION)).then((value) => Get.back());
           }
@@ -58,17 +57,14 @@ class DismisCartItem extends StatelessWidget {
                       content: Text('$CRT_MSG_CONF_DISM${_cartItem.title}'
                           ' from the cart?'),
                       actions: <Widget>[
-                        _flatButton(YES, true, context),
-                        _flatButton(NO, false, context)
+                        _textButton(YES, true, context),
+                        _textButton(NO, false, context)
                       ]));
         });
   }
 
-  // FlatButton _flatButton(String label, bool remove, BuildContext context) {
-  TextButton _flatButton(String label, bool remove, BuildContext context) {
-    // return FlatButton(
+  TextButton _textButton(String label, bool remove, BuildContext context) {
     return TextButton(
-      key: Key('btn${_cartItem.id}'),
       onPressed: () => Navigator.of(context).pop(remove),
       child: Text(label),
     );

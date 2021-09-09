@@ -28,9 +28,9 @@ void main() {
 }
 
 void _unitTests() {
-  final _skip = true;
+  final _skip = false;
 
-  CartTestGroups().groups(skipGroup: false);
+  CartTestGroups().groups(skipGroup: _skip);
   OrdersTestGroups().groups(skipGroup: _skip);
   OverviewTestGroups().groups(skipGroup: _skip);
   InventoryTestGroups().groups(skipGroup: _skip);
