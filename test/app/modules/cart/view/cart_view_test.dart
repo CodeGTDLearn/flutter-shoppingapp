@@ -4,7 +4,7 @@ import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
 import '../../../../config/bindings/cart_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
-import '../../../../config/titles/cart_test_titles.dart';
+import '../../../../config/titles/cart_tests_titles.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/finder_utils.dart';
 import '../../../../utils/test_global_methods.dart';
@@ -17,7 +17,7 @@ class CartViewTest {
   final _finder = Get.put(FinderUtils());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
-  final _titles = Get.put(CartTestTitles());
+  final _titles = Get.put(CartTestsTitles());
   final _bindings = Get.put(CartTestBindings());
   final _testUtils = Get.put(TestMethodsUtils());
   final _globalMethods = Get.put(TestGlobalMethods());
@@ -41,7 +41,7 @@ class CartViewTest {
           .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
       _products = await _testUtils.load_ProductList_InDb(
         isWidgetTest: _isWidgetTest,
-        totalProducts: 3,
+        totalProductsLoadedInDb: TOTAL_ITEMS_LOADED_IN_DB_TO_RUN_THE_TESTS_MINIMAL02ITEMS,
       );
     });
 
@@ -54,6 +54,10 @@ class CartViewTest {
     });
 
     tearDown(_globalMethods.globalTearDown);
+
+    testWidgets(_titles.clearCart_tapClearButton, (tester) async {
+      await _tests.ClearingCart_tappingClearButton(tester, _products);
+    });
 
     testWidgets(_titles.add_product_check_appbar_shopCart, (tester) async {
       await _tests.Add2Products_checkAppbarCartIconQtde(tester);
@@ -87,9 +91,9 @@ class CartViewTest {
       await _tests.Opening_cartPage_check2Products(tester, _products);
     });
 
-    testWidgets(_titles.clearCart_tapClearButton, (tester) async {
-      await _tests.ClearingCart_tappingClearButton(tester, _products);
-    });
+    // testWidgets(_titles.clearCart_tapClearButton, (tester) async {
+    //   await _tests.ClearingCart_tappingClearButton(tester, _products);
+    // });
 
     testWidgets(_titles.check_amount_cart, (tester) async {
       await _tests.Check_amountCart(tester, _products);

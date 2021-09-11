@@ -6,7 +6,7 @@ import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
 import '../../../../config/bindings/inventory_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
-import '../../../../config/titles/inventory_test_titles.dart';
+import '../../../../config/titles/inventory_tests_titles.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/finder_utils.dart';
 import '../../../../utils/test_global_methods.dart';
@@ -20,7 +20,7 @@ class InventoryViewTest {
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
   final _bindings = Get.put(InventoryTestBindings());
-  final _titles = Get.put(InventoryTestTitles());
+  final _titles = Get.put(InventoryTestsTitles());
   final _globalMethods = Get.put(TestGlobalMethods());
   final _testUtils = Get.put(TestMethodsUtils());
 
@@ -43,7 +43,7 @@ class InventoryViewTest {
           .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
       _products = await _testUtils.load_ProductList_InDb(
         isWidgetTest: _isWidgetTest,
-        totalProducts: 6,
+        totalProductsLoadedInDb: TOTAL_ITEMS_LOADED_IN_DB_TO_RUN_THE_TESTS_MINIMAL02ITEMS,
       );
     });
 
@@ -58,16 +58,7 @@ class InventoryViewTest {
     tearDown(_globalMethods.globalTearDown);
 
     testWidgets(_titles.check_products, (tester) async {
-      await _tests.check_products(tester, _products.length);
-    });
-
-    testWidgets(_titles.delete_product, (tester) async {
-      await _tests.delete_product(
-        tester,
-        deleteButtonKey: '$INVENTORY_DELETEITEM_BUTTON_KEY${_products[3].id}',
-        widgetTypetoBeDeleted: InventoryItem,
-        qtdeAfterDelete: _products.length - 1,
-      );
+      await _tests.check_qtde_products(tester, _products.length);
     });
 
     testWidgets(_titles.update_product, (tester) async {
@@ -79,10 +70,21 @@ class InventoryViewTest {
       );
     });
 
+    testWidgets(_titles.delete_product, (tester) async {
+      await _tests.delete_product(
+        tester,
+        deleteButtonKey:
+            '$INVENTORY_DELETEITEM_BUTTON_KEY${_products[_products.length - 1].id}',
+        widgetTypetoBeDeleted: InventoryItem,
+        qtdeAfterDelete: _products.length - 1,
+      );
+    });
+
     testWidgets(_titles.refresh_view, (tester) async {
       await _tests.refresh_view(
         tester,
         draggerWidget: _products[0],
+        //a) delete above; b) deleted from DB manually
         qtdeAfterRefresh: _products.length - 2,
       );
     });

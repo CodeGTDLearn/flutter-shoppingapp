@@ -1,4 +1,4 @@
-class InventoryTestTitles {
+class InventoryTestsTitles {
   // @formatter:off
   //GROUP-TITLES ---------------------------------------------------------------
   static get GROUP_TITLE => 'Inventory|Integration-Tests:';

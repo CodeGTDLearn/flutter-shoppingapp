@@ -1,4 +1,4 @@
-/* INSTRUCTIONS ABOUT 'REPO-REAL-DE-PRODUCAO' E 'REPO-REAL-DE-PRODUCAO'
+/* INSTRUCTIONS ABOUT 'REPO-REAL-DE-PRODUCAO'
   https://timm.preetz.name/articles/http-request-flutter-test
   By DEFAULT, HTTP request made in tests invoked BY flutter test
   result in an empty response (400).
@@ -6,11 +6,10 @@
   dependencies and hence reduce flakyness(FRAGILE) tests.
   THEREFORE:
   A) TESTS CAN NOT DO EXTERNAL-HTTP REQUESTS/CALLS;
-  B) HENCE, THE TESTS CAN NOT USE 'REPO-REAL-DE-PRODUCAO'
-  C) SO, THE TESTS ONLY WILL USE
-     'REPO-REAL-DE-PRODUCAO'MockedRepoClass(no external calls)
+  B) HENCE, THE TESTS CAN NOT USE 'REPO-REAL-DE-PRODUCAO'(no external calls)
+  C) SO, THE TESTS ONLY WILL USE MockedRepoClass/MockedDatasource
    */
-class OverviewTestTitles {
+class OverviewTestsTitles {
   String REPO_NAME = 'OverviewMockedRepo';
 
   // @formatter:off
@@ -26,22 +25,22 @@ class OverviewTestTitles {
   //OVERVIEW-TEST-TITLES -------------------------------------------------------
   get check_overviewGridItems => 'Checking products';
   get toggle_productFavButton => 'Toggling FavoritesIconButton in a product';
-  get add_sameProduct2x_Check_ShopCartIcon =>
-      'Adding same product 2x + Check: ShopCartIcon|Snackbar';
-  get addProduct_click_undoSnackbar_check_shopCartIcon =>
-      'Adding product + Clicking Snackbar Undo';
-  get add_sameProduct3x_check_shopCartIcon => 'Adding same product 3x + Check '
-      'ShopCartIcon';
-  get add_4differentProducts_check_shopCartIcon =>
-      'Adding 4 different products + Check ShopCartIcon';
-  get add_prods3And4_check_shopCartIcon => 'Adding products 3/4 + Checking ShopCartIcon';
-  get tap_favFilter_noFavoritesFound => 'Tapping FavoriteFilter - Not favorites found';
+  get add_sameProduct2x_Check_ShopCartIconTotal =>
+      'Adding a product 2x|Check ShopCartIcon|Snackbar';
+  get addProduct_click_undoSnackbar_check_shopCartIconTotal =>
+      'Adding product|Clicking SnackbarUndo (rollback)';
+  get add_sameProduct3x_check_shopCartIconTotal =>
+      'Adding same product 3x|Check ShopCartIcon';
+  get add_AllDbProducts_check_shopCartIconTotal =>
+      'Adding All DB products|Check ShopCartIcon';
+  get add_prods3And4_check_shopCartIcon => 'Adding products 3/4|Checking ShopCartIcon';
+  get tap_favFilter_noFavoritesFound => 'Tapping FavoriteFilter|Not favorites found';
   get tap_favFilterPopup => 'Tapping FavoriteFilter';
-  get close_favFilterPopup_tapOutside => 'Closing Favorite_Filter (tap OUTSIDE)';
+  get close_favFilterPopup_tapOutside => 'Closing Favorite_Filter|tap OUTSIDE';
 
   //OVERVIEW-DETAILS-TEST-TITLES -----------------------------------------------
-  get tap_product_details_check_texts => 'Tap Product + Check Product Details (texts)';
-  get tap_product_details_check_image => 'Tap Product + Check Product Details (image)';
+  get tap_product_details_check_texts => 'Tap Product|Check Product Details (texts)';
+  get tap_product_details_check_image => 'Tap Product|Check Product Details (image)';
   get tap_product_details_click_back_button => 'Testing Product Details BackButton';
   // @formatter:on
 }

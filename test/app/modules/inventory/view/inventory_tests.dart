@@ -165,33 +165,28 @@ class InventoryTests {
     //   -> Click in 'UpdateButton'
     //   -> Open InventoryAddEditView
     expect(finder.type(InventoryView), findsOneWidget);
-    expect(finder.text(productToUpdate.title), findsWidgets);
+    expect(finder.text(inputValidText), findsNothing);
     await tester.tap(keyUpdateButton);
     await tester.pump(testUtils.delay(DELAY));
 
     // 2) InventoryAddEditView
     //   -> Checking View + Title-Form-Field
-    await tester.pump();
-    expect(finder.type(InventoryEditView), findsOneWidget);
-    expect(finder.text(productToUpdate.title), findsWidgets);
-
-    // 3) InventoryAddEditView
     //   -> Insert 'UpdatedValue' in Page-Form-Field
     //   -> Checking the change
-    // await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY));
-    await tester.tap(finder.key(fieldKey));
-    await tester.enterText(finder.key(fieldKey), inputValidText);
-    await tester.pump(testUtils.delay(DELAY));
-
-    // 4) Save form
     //   -> Tap Saving:
     //      - ONLY IN FUNCTIONAL-TESTS: Backing to InventoryView automatically
     //   -> Test existence of INValidation messages
     //   -> Go to InventoryView + Checking UpdatedValue
+    // await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY));
+    await tester.pump();
+    expect(finder.type(InventoryEditView), findsOneWidget);
+    await tester.tap(finder.key(fieldKey));
+    await tester.enterText(finder.key(fieldKey), inputValidText);
+    await tester.pump(testUtils.delay(DELAY));
     await tester.tap(finder.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
     await tester.pump(testUtils.delay(DELAY));
 
-    // 4.1) Save form
+    // 3.1) Save form
     //   -> Tap Saving:
     //      - UNIT-TESTS: DO NOT Backing to InventoryView automatically
     //        - THEREFORE: _unitTests DOES NOT EXECUTE THIS 'TEST-PHASE', because:
@@ -203,7 +198,7 @@ class InventoryTests {
       expect(finder.type(InventoryView), findsOneWidget);
       expect(finder.text(inputValidText), findsOneWidget);
 
-      // 5) Click InventoryView-BackButton
+      // 4) Click InventoryView-BackButton
       //   -> Go to OverviewView + UpdatedValue
       await uiTestUtils.navigateBetweenViews(
         tester,
@@ -354,7 +349,10 @@ class InventoryTests {
     );
   }
 
-  Future<void> check_products(tester, int itemsQtde) async {
+  Future<void> check_qtde_products(
+    tester,
+    int itemsQtde,
+  ) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,

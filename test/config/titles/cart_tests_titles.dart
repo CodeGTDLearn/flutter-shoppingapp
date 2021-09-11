@@ -1,4 +1,4 @@
-class CartTestTitles {
+class CartTestsTitles {
   String REPO_NAME = 'CartMockedRepo';
 
   // @formatter:off

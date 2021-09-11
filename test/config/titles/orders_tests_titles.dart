@@ -1,4 +1,4 @@
-class OrdersTestTitles {
+class OrdersTestsTitles {
   String REPO_NAME = 'OrdersMockedRepo';
 
   // @formatter:off

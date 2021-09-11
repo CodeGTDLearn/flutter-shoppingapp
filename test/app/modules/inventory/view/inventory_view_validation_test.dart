@@ -6,7 +6,7 @@ import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
 import '../../../../config/bindings/inventory_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
-import '../../../../config/titles/inventory_test_titles.dart';
+import '../../../../config/titles/inventory_tests_titles.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/finder_utils.dart';
 import '../../../../utils/test_global_methods.dart';
@@ -21,7 +21,7 @@ class InventoryViewValidationTest {
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
   final _bindings = Get.put(InventoryTestBindings());
-  final _titles = Get.put(InventoryTestTitles());
+  final _titles = Get.put(InventoryTestsTitles());
   final _testUtils = Get.put(TestMethodsUtils());
 
   InventoryViewValidationTest({required String isWidgetTest}) {
@@ -43,7 +43,7 @@ class InventoryViewValidationTest {
           .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
       _products = await _testUtils.load_ProductList_InDb(
         isWidgetTest: _isWidgetTest,
-        totalProducts: 6,
+        totalProductsLoadedInDb: TOTAL_ITEMS_LOADED_IN_DB_TO_RUN_THE_TESTS_MINIMAL02ITEMS,
       );
     });
 

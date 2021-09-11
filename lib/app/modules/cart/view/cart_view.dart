@@ -22,7 +22,7 @@ class CartView extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(CRT_TIT_APPBAR),
-          actions: [_clearCart(controller)],
+          actions: [_clearCartItemsButton(controller)],
         ),
         body: Container(
             width: fullSizeLessAppbar.width,
@@ -63,8 +63,7 @@ class CartView extends StatelessWidget {
                 Expanded(
                   child: Obx(
                     () => controller.qtdeCartItemsObs().isEqual(0)
-                        // ? Text(CRT_LBL_ORD)
-                        ? _xx
+                        ? Container()
                         : ListView.builder(
                             itemCount: controller.getAllCartItems().length,
                             itemBuilder: (ctx, item) {
@@ -77,17 +76,12 @@ class CartView extends StatelessWidget {
             })));
   }
 
-  void _xx() {
-    SimpleSnackbar(SUCES, SUCES_ORD_CLEAN).show();
-    Future.delayed(Duration(milliseconds: DURATION)).whenComplete(Get.back);
-  }
-
-  IconButton _clearCart(CartController controller) {
+  IconButton _clearCartItemsButton(CartController controller) {
     return IconButton(
         key: Key(K_CRT_CLR_CART_BTN),
         icon: CRT_ICO_CLEAR,
         onPressed: () {
-          controller.clearCart;
+          controller.clearCart.call();
           SimpleSnackbar(SUCES, SUCES_ORD_CLEAN).show();
           Future.delayed(Duration(milliseconds: DURATION)).whenComplete(Get.back);
         },
@@ -107,9 +101,9 @@ class CartView extends StatelessWidget {
                   controller.amountCartItemsObs.value,
                 )
                 .then((_) {
-                  // controller.clearCart();
+                  controller.clearCart();
                   // controller.clearCart.call();
-                  _clearCartItems_fromScreen(controller);
+                  // _clearCartItems_fromScreen(controller);
                   SimpleSnackbar(SUCES, SUCES_ORD_ADD).show();
                 })
                 .whenComplete(() => Future.delayed(Duration(milliseconds: DURATION))

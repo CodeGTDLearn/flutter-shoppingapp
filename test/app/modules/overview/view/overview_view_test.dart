@@ -6,7 +6,7 @@ import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 
 import '../../../../config/bindings/overview_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
-import '../../../../config/titles/overview_test_titles.dart';
+import '../../../../config/titles/overview_tests_titles.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/finder_utils.dart';
 import '../../../../utils/test_global_methods.dart';
@@ -20,7 +20,7 @@ class OverviewViewTest {
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
   final _bindings = Get.put(OverviewTestBindings());
-  final _titles = Get.put(OverviewTestTitles());
+  final _titles = Get.put(OverviewTestsTitles());
   final _testUtils = Get.put(TestMethodsUtils());
   final _globalMethods = Get.put(TestGlobalMethods());
   List<Product> _products = [];
@@ -43,7 +43,7 @@ class OverviewViewTest {
 
       _products = await _testUtils.load_ProductList_InDb(
         isWidgetTest: _isWidgetTest,
-        totalProducts: 6,
+        totalProductsLoadedInDb: TOTAL_ITEMS_LOADED_IN_DB_TO_RUN_THE_TESTS_MINIMAL02ITEMS,
       );
 
       _bindings.bindingsBuilderMockedRepo(isWidgetTest: _isWidgetTest);
@@ -57,7 +57,7 @@ class OverviewViewTest {
     tearDown(_globalMethods.globalTearDown);
 
     testWidgets(_titles.check_overviewGridItems, (tester) async {
-      await _tests.check_overviewGridItems(tester, itemsQtde: _products.length);
+      await _tests.check_overviewGridItems_qtde(tester, qtde: _products.length);
     });
 
     testWidgets(_titles.toggle_productFavButton, (tester) async {
@@ -74,38 +74,42 @@ class OverviewViewTest {
             );
     });
 
-    testWidgets(_titles.add_sameProduct2x_Check_ShopCartIcon, (tester) async {
-      await _tests.add_identicalProduct2x_Check_ShopCartIcon(
+    testWidgets(_titles.add_sameProduct2x_Check_ShopCartIconTotal, (tester) async {
+      await _tests.add_identicalProduct2x_Check_ShopCartIconTotal(
         tester,
         addProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
         productTitle: _products[0].title,
-        finalTotal: 2,
+        totalBeforeAdding: 0,
+        totalAfterAdding: 2,
       );
     });
 
-    testWidgets(_titles.addProduct_click_undoSnackbar_check_shopCartIcon, (tester) async {
-      await _tests.addProduct_click_UndoSnackbar_Check_ShopCartIcon(
+    testWidgets(_titles.addProduct_click_undoSnackbar_check_shopCartIconTotal,
+        (tester) async {
+      await _tests.addProduct_click_UndoSnackbar_Check_ShopCartIconTotal(
         tester,
         addProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
         productTitle: _products[0].title,
         snackbarUndoButtonKey: CUSTOM_SNACKBAR_BUTTON_KEY,
-        finalTotal: 2,
+        total: 2,
       );
     });
 
-    testWidgets(_titles.add_sameProduct3x_check_shopCartIcon, (tester) async {
-      await _tests.add_identicalProduct3x_check_shopCartIcon(
+    testWidgets(_titles.add_sameProduct3x_check_shopCartIconTotal, (tester) async {
+      await _tests.add_identicalProduct3x_check_shopCartIconTotal(
         tester,
         productAddButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
-        finalTotal: 5,
+        totalBeforeAdding: 2,
+        totalAfterAdding: 5,
       );
     });
 
-    testWidgets(_titles.add_4differentProducts_check_shopCartIcon, (tester) async {
-      await _tests.add_4differentProducts_check_shopCartIcon(
+    testWidgets(_titles.add_AllDbProducts_check_shopCartIconTotal, (tester) async {
+      await _tests.add_AllDbProducts_check_shopCartIconTotal(
         tester,
-        firstProductAddButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
-        finalTotal: 9,
+        firstProduct_addButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
+        totalBeforeAdding: 5,
+        totalAfterAdding: _products.length + 5,
       );
     });
 

@@ -70,11 +70,11 @@ class CartTests {
     expect(customCircProgrIndic, findsNothing);
 
     await tester.tap(clearCartButton);
-
     await tester.pump();
     await tester.pump(testUtils.delay(DELAY));
-    expect(customCircProgrIndic, findsOneWidget);
+
     expect(Get.find<CartController>().getAmountCartItemsObs() == 0, isTrue);
+    expect(customCircProgrIndic, findsOneWidget);
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(OverviewView), findsOneWidget);

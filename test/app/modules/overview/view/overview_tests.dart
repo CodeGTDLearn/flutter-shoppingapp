@@ -29,11 +29,12 @@ class OverviewTests {
     required this.testUtils,
   });
 
-  Future<void> add_identicalProduct2x_Check_ShopCartIcon(
+  Future<void> add_identicalProduct2x_Check_ShopCartIconTotal(
     tester, {
     required String addProductButtonKey,
     required String productTitle,
-    required int finalTotal,
+    required int totalBeforeAdding,
+    required int totalAfterAdding,
   }) async {
     await uiTestUtils.testInitialization(
       tester,
@@ -42,20 +43,23 @@ class OverviewTests {
     );
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    var firstProductCartIconKey = finder.key(addProductButtonKey);
-    await tester.tap(firstProductCartIconKey);
-    await tester.tap(firstProductCartIconKey);
+
+    for (var i = 0; i < (totalAfterAdding - totalBeforeAdding); i++) {
+      await tester.tap(finder.key(addProductButtonKey));
+      await tester.pumpAndSettle(testUtils.delay(DELAY));
+    }
+
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(finder.text(finalTotal.toString()), findsOneWidget);
+    expect(finder.text(totalAfterAdding.toString()), findsOneWidget);
     expect(finder.text(productTitle), findsWidgets);
   }
 
-  Future<void> addProduct_click_UndoSnackbar_Check_ShopCartIcon(
+  Future<void> addProduct_click_UndoSnackbar_Check_ShopCartIconTotal(
     tester, {
     required String addProductButtonKey,
     required String productTitle,
     required String snackbarUndoButtonKey,
-    required int finalTotal,
+    required int total,
   }) async {
     await uiTestUtils.testInitialization(
       tester,
@@ -69,7 +73,7 @@ class OverviewTests {
     expect(finder.text(productTitle), findsWidgets);
     await tester.tap(finder.key(snackbarUndoButtonKey));
     await tester.pump();
-    expect(finder.text(finalTotal.toString()), findsOneWidget);
+    expect(finder.text(total.toString()), findsOneWidget);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
   }
 
@@ -156,10 +160,11 @@ class OverviewTests {
     expect(popupItemAll, findsNothing);
   }
 
-  Future<void> add_identicalProduct3x_check_shopCartIcon(
+  Future<void> add_identicalProduct3x_check_shopCartIconTotal(
     tester, {
     required String productAddButtonKey,
-    required int finalTotal,
+    required int totalBeforeAdding,
+    required int totalAfterAdding,
   }) async {
     await uiTestUtils.testInitialization(
       tester,
@@ -168,29 +173,27 @@ class OverviewTests {
     );
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    var addProductKey = finder.key(productAddButtonKey);
-    await tester.tap(addProductKey);
-    await tester.tap(addProductKey);
-    await tester.tap(addProductKey);
+
+    for (var i = 0; i < (totalAfterAdding - totalBeforeAdding); i++) {
+      await tester.tap(finder.key(productAddButtonKey));
+      await tester.pumpAndSettle(testUtils.delay(DELAY));
+    }
+
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(finder.text(finalTotal.toString()), findsOneWidget);
+    expect(finder.text(totalAfterAdding.toString()), findsOneWidget);
   }
 
-  Future<void> add_4differentProducts_check_shopCartIcon(
+  Future<void> add_AllDbProducts_check_shopCartIconTotal(
     tester, {
-    required String firstProductAddButtonKey,
-    required int finalTotal,
+    required String firstProduct_addButtonKey,
+    required int totalAfterAdding,
+    required int totalBeforeAdding,
   }) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
     );
-
-    var cartIconProduct0 = finder.key(firstProductAddButtonKey);
-    var cartIconProduct1 = finder.key(firstProductAddButtonKey.replaceFirst('0', '1'));
-    var cartIconProduct2 = finder.key(firstProductAddButtonKey.replaceFirst('0', '2'));
-    var cartIconProduct3 = finder.key(firstProductAddButtonKey.replaceFirst('0', '3'));
 
     //POSSIBLE TAP-ERROR:
     // "To silence this warning, pass "warnIfMissed: false" to "tap()".
@@ -202,15 +205,13 @@ class OverviewTests {
     //   - 'await tester.pumpAndSettle(testUtils.delay(DELAY));' TO
     //   - 'await tester.pump();'
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    await tester.tap(cartIconProduct0);
-    await tester.pump();
-    await tester.tap(cartIconProduct1);
-    await tester.pump();
-    await tester.tap(cartIconProduct2);
-    await tester.pump();
-    await tester.tap(cartIconProduct3);
-    await tester.pump();
-    expect(finder.text(finalTotal.toString()), findsOneWidget);
+    for (var i = 0; i < (totalAfterAdding - totalBeforeAdding); i++) {
+      await tester
+          .tap(finder.key(firstProduct_addButtonKey.replaceFirst('0', i.toString())));
+      await tester.pump();
+    }
+
+    expect(finder.text(totalAfterAdding.toString()), findsOneWidget);
   }
 
   Future<void> check_product_details_image(
@@ -270,9 +271,9 @@ class OverviewTests {
     await tester.pumpAndSettle(testUtils.delay(DELAY));
   }
 
-  Future<void> check_overviewGridItems(
+  Future<void> check_overviewGridItems_qtde(
     tester, {
-    required int itemsQtde,
+    required int qtde,
   }) async {
     await uiTestUtils.testInitialization(
       tester,
@@ -285,7 +286,7 @@ class OverviewTests {
     uiTestUtils.check_widgetQuantityInAView(
       widgetView: OverviewView,
       widgetType: OverviewGridItem,
-      widgetQtde: itemsQtde,
+      widgetQtde: qtde,
     );
   }
 

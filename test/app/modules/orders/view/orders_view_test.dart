@@ -5,7 +5,7 @@ import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 
 import '../../../../config/bindings/orders_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
-import '../../../../config/titles/orders_test_titles.dart';
+import '../../../../config/titles/orders_tests_titles.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/finder_utils.dart';
 import '../../../../utils/test_global_methods.dart';
@@ -18,7 +18,7 @@ class OrdersViewTest {
   final _finder = Get.put(FinderUtils());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
-  final _titles = Get.put(OrdersTestTitles());
+  final _titles = Get.put(OrdersTestsTitles());
   final _bindings = Get.put(OrdersTestBindings());
   final _globalMethods = Get.put(TestGlobalMethods());
   final _testUtils = Get.put(TestMethodsUtils());

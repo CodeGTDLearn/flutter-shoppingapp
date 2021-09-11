@@ -41,8 +41,9 @@ class TestMethodsUtils {
 
   Future<List<Product>> load_ProductList_InDb({
     required bool isWidgetTest,
-    required int totalProducts,
+    required int totalProductsLoadedInDb,
   }) async {
+    var totalProducts = totalProductsLoadedInDb < 2 ? 2 : totalProductsLoadedInDb;
     var _onlineTestDb_products_datasource;
     var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
     if (!isWidgetTest) {

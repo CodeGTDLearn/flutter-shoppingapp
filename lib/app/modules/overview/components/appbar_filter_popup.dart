@@ -30,7 +30,7 @@ class AppbarFilterPopup extends StatelessWidget {
             ],
         onSelected: (value) {
           _controller.getFavoritesQtde() == 0
-              ? SimpleSnackbar(OPS, NO_FAVS_YET).show()
+              ? SimpleSnackbar(OPS, OVERVIEW_NO_ITEMS_FAVS_YET).show()
               : value == EnumFilter.All
                   ? _controller.setProductsByFilter(EnumFilter.All)
                   : _controller.setProductsByFilter(EnumFilter.Fav);

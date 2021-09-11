@@ -13,10 +13,10 @@ import 'config/groups/inventory_test_groups.dart';
 import 'config/groups/orders_test_groups.dart';
 import 'config/groups/overview_test_groups.dart';
 import 'config/tests_properties.dart';
-import 'config/titles/cart_test_titles.dart';
-import 'config/titles/inventory_test_titles.dart';
-import 'config/titles/orders_test_titles.dart';
-import 'config/titles/overview_test_titles.dart';
+import 'config/titles/cart_tests_titles.dart';
+import 'config/titles/inventory_tests_titles.dart';
+import 'config/titles/orders_tests_titles.dart';
+import 'config/titles/overview_tests_titles.dart';
 
 void main() {
   // NO ERASE: String.fromEnvironment => MUST BE CONSTANT!!!
@@ -40,41 +40,41 @@ void _unitTests() {
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final _skip = true;
+  final _skip = false;
 
   group(
-    OrdersTestTitles.GROUP_TITLE,
+    OrdersTestsTitles.GROUP_TITLE,
     OrdersViewTest(testType: INTEGRATION_TEST).functional,
     skip: _skip, // no erase: 'skip-group' overrides the internal 'skip-methods'
   );
 
   group(
-    InventoryTestTitles.GROUP_TITLE,
+    InventoryTestsTitles.GROUP_TITLE,
     InventoryViewTest(testType: INTEGRATION_TEST).functional,
     skip: _skip,
   );
 
   group(
-    InventoryTestTitles.EDIT_GROUP_TITLE,
+    InventoryTestsTitles.EDIT_GROUP_TITLE,
     InventoryViewEditTest(testType: INTEGRATION_TEST).functional,
     skip: _skip,
   );
 
   group(
-    InventoryTestTitles.VALID_GROUP_TITLE,
+    InventoryTestsTitles.VALID_GROUP_TITLE,
     InventoryViewValidationTest(isWidgetTest: INTEGRATION_TEST).functional,
     skip: _skip,
   );
 
   group(
-    OverviewTestTitles.GROUP_TITLE,
+    OverviewTestsTitles.GROUP_TITLE,
     OverviewViewTest(testType: INTEGRATION_TEST).functional,
     skip: _skip,
   );
 
   group(
-    CartTestTitles.GROUP_TITLE,
+    CartTestsTitles.GROUP_TITLE,
     CartViewTest(testType: INTEGRATION_TEST).functional,
-    skip: false,
+    skip: _skip,
   );
 }

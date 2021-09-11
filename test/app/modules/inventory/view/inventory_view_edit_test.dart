@@ -5,7 +5,7 @@ import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/bindings/inventory_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
-import '../../../../config/titles/inventory_test_titles.dart';
+import '../../../../config/titles/inventory_tests_titles.dart';
 import '../../../../data_builders/product_databuilder.dart';
 import '../../../../utils/db_test_utils.dart';
 import '../../../../utils/finder_utils.dart';
@@ -22,7 +22,7 @@ class InventoryViewEditTest {
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
   final _bindings = Get.put(InventoryTestBindings());
-  final _titles = Get.put(InventoryTestTitles());
+  final _titles = Get.put(InventoryTestsTitles());
 
   InventoryViewEditTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
@@ -84,7 +84,6 @@ class InventoryViewEditTest {
       await tester.tap(_finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY));
       await tester.pumpAndSettle(_testUtils.delay(DELAY));
       _testUtils.checkImageTotalInAView(1);
-      // mockNetworkImagesFor(() => tester.pumpWidget(makeTestableWidget()));
     });
 
     testWidgets(_titles.edit_fill_form_with_invalid_content, (tester) async {
