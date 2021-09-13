@@ -9,15 +9,14 @@ import 'package:shopingapp/app/modules/cart/components/dismissible_cart_item.dar
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/cart/core/cart_widget_keys.dart';
 import 'package:shopingapp/app/modules/cart/view/cart_view.dart';
-import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/tests_properties.dart';
-import '../../../../utils/db_test_utils.dart';
+import '../../../../utils/dbtest_utils.dart';
 import '../../../../utils/finder_utils.dart';
-import '../../../../utils/test_methods_utils.dart';
+import '../../../../utils/tests_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 
 class CartTests {
@@ -25,7 +24,7 @@ class CartTests {
   final FinderUtils finder;
   final UiTestUtils uiTestUtils;
   final DbTestUtils dbTestUtils;
-  final TestMethodsUtils testUtils;
+  final TestsUtils testUtils;
 
   CartTests({
     required this.isWidgetTest,
@@ -38,9 +37,10 @@ class CartTests {
   Future<void> Testing_pageBackButton(tester) async {
     await _startApp_OpenOverviewView(tester);
 
-    await tester.tap(finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0"));
-    await tester.tap(finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
-    await tester.pumpAndSettle(testUtils.delay(DELAY));
+    await _addProduct_tappingOverviewItem_openShopCartView(
+      tester,
+      itemToAdd: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
+    );
 
     expect(finder.type(CartView), findsOneWidget);
     await tester.tap(finder.type(BackButton));
@@ -51,14 +51,14 @@ class CartTests {
 
   Future<void> ClearingCart_tappingClearButton(
     WidgetTester tester,
-    List<Product> _productsList,
+    List<dynamic> _productsList,
   ) async {
     await _startApp_OpenOverviewView(tester);
 
     var cartIconProduct0 = finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
     var cartButtonPage = finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
-    var clearCartButton = finder.key(CART_PAGE_CLEARCART_BUTTON_KEY);
     var customCircProgrIndic = finder.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY);
+    var clearCartButton = finder.key(CART_PAGE_CLEARCART_BUTTON_KEY);
 
     await tester.tap(cartIconProduct0);
     await tester.tap(cartButtonPage);
@@ -69,9 +69,7 @@ class CartTests {
     expect(Get.find<CartController>().getAmountCartItemsObs() > 0.0, isTrue);
     expect(customCircProgrIndic, findsNothing);
 
-    await tester.tap(clearCartButton);
-    await tester.pump();
-    await tester.pump(testUtils.delay(DELAY));
+    await _clearCart_quitCartView(tester, clearCartButton);
 
     expect(Get.find<CartController>().getAmountCartItemsObs() == 0, isTrue);
     expect(customCircProgrIndic, findsOneWidget);
@@ -82,18 +80,26 @@ class CartTests {
 
   Future<void> Ordering_cartProducts_tappingOrderNowButton(
     WidgetTester tester,
-    List<Product> _productsList,
+    List<dynamic> _productsList,
   ) async {
     await _startApp_OpenOverviewView(tester);
 
     var orderNowButton = finder.key(CART_PAGE_ORDERSNOW_BUTTON_KEY);
     var customCircProgrIndic = finder.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY);
 
-    // await tester.tap(finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0"));
-    await tester.tap(finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
-    await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(finder.type(CartView), findsOneWidget);
+    await _addProduct_tappingOverviewItem_openShopCartView(
+      tester,
+      itemToAdd: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
+    );
 
+    expect(finder.type(CartView), findsOneWidget);
+    await _clearCart_quitCartView(tester, finder.key(CART_PAGE_CLEARCART_BUTTON_KEY));
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+
+    await _addProduct_tappingOverviewItem_openShopCartView(
+      tester,
+      itemToAdd: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
+    );
     expect(Get.find<CartController>().getAmountCartItemsObs() > 0, isTrue);
     expect(orderNowButton, findsOneWidget);
     expect(customCircProgrIndic, findsNothing);
@@ -113,7 +119,7 @@ class CartTests {
 
   Future<void> Check_amountCart(
     tester,
-    List<Product> _productsList,
+    List<dynamic> _productsList,
   ) async {
     await _startApp_OpenOverviewView(tester);
 
@@ -134,7 +140,7 @@ class CartTests {
 
   Future<void> Opening_cartPage_check2Products(
     WidgetTester tester,
-    List<Product> _productsList,
+    List<dynamic> _productsList,
   ) async {
     await _startApp_OpenOverviewView(tester);
 
@@ -166,7 +172,7 @@ class CartTests {
 
   Future<void> Dismissing_allAddedProducts(
     WidgetTester tester,
-    List<Product> _productsList,
+    List<dynamic> _productsList,
   ) async {
     await _startApp_OpenOverviewView(tester);
 
@@ -202,7 +208,7 @@ class CartTests {
 
   Future<void> Dismissing_firstAddedProduct(
     tester,
-    List<Product> _productsList,
+    List<dynamic> _productsList,
   ) async {
     await _startApp_OpenOverviewView(tester);
 
@@ -229,7 +235,7 @@ class CartTests {
 
   Future<void> Denying_dismissingCartItem(
     tester,
-    List<Product> _productsList,
+    List<dynamic> _productsList,
   ) async {
     await _startApp_OpenOverviewView(tester);
 
@@ -256,7 +262,7 @@ class CartTests {
 
   Future<void> AddProduct_checkSnackbar(
     tester,
-    List<Product> _productsList,
+    List<dynamic> _productsList,
   ) async {
     await _startApp_OpenOverviewView(tester);
 
@@ -271,7 +277,7 @@ class CartTests {
 
   Future<void> Check_2Products_inCartPage(
     WidgetTester tester,
-    List<Product> _productsList,
+    List<dynamic> _productsList,
   ) async {
     await _startApp_OpenOverviewView(tester);
 
@@ -307,5 +313,20 @@ class CartTests {
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(OverviewView), findsOneWidget);
     await tester.pump();
+  }
+
+  Future<void> _clearCart_quitCartView(tester, Finder clearCartButton) async {
+    await tester.tap(clearCartButton);
+    await tester.pump();
+    await tester.pump(testUtils.delay(DELAY));
+  }
+
+  Future<void> _addProduct_tappingOverviewItem_openShopCartView(
+    tester, {
+    required String itemToAdd,
+  }) async {
+    await tester.tap(finder.key(itemToAdd));
+    await tester.tap(finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
   }
 }

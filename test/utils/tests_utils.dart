@@ -7,17 +7,17 @@ import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
 import '../config/tests_properties.dart';
 import '../data_builders/product_databuilder.dart';
-import '../mocked_datasource/mocked_datasource.dart';
-import 'db_test_utils.dart';
+import '../tests_datasource/mocked_datasource.dart';
+import 'dbtest_utils.dart';
 
-class TestMethodsUtils {
+class TestsUtils {
   void checkImageTotalInAView(int numberOfImages) {
     mockNetworkImagesFor(() async {
       expect(find.byType(Image), findsNWidgets(numberOfImages));
     });
   }
 
-  Future<Product> load_2Products_InDb({
+  Future<Product> post_2databuilderProducts_InDb({
     required bool isWidgetTest,
   }) async {
     var _product;
@@ -39,11 +39,11 @@ class TestMethodsUtils {
         : Future.value(_product);
   }
 
-  Future<List<Product>> load_ProductList_InDb({
+  Future<List<Product>> post_databuilderProductList_InDb({
     required bool isWidgetTest,
-    required int totalProductsLoadedInDb,
+    required int numberOfProducts,
   }) async {
-    var totalProducts = totalProductsLoadedInDb < 2 ? 2 : totalProductsLoadedInDb;
+    var totalProducts = numberOfProducts < 2 ? 2 : numberOfProducts;
     var _onlineTestDb_products_datasource;
     var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
     if (!isWidgetTest) {
@@ -52,7 +52,7 @@ class TestMethodsUtils {
       await dbTestUtils
           .add_objectList(
             collectionUrl: PRODUCTS_URL,
-            objectList: productList_for_onlineTestDb(totalProducts),
+            objectList: generate_databuilder_listItems(totalProducts),
           )
           .then((value) => _onlineTestDb_products_datasource = value);
     }
@@ -64,18 +64,18 @@ class TestMethodsUtils {
 
   void checkCollectionSize({
     required bool isWidgetTest,
-    required String collectionUrl,
+    required String url,
     required int totalItems,
   }) async {
     var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
     if (!isWidgetTest) {
-      var items = await dbTestUtils.countCollectionItems(collectionUrl: collectionUrl);
+      var items = await dbTestUtils.countCollectionItems(url: url);
       expect(items, totalItems);
     }
     Get.delete(tag: 'dbInstance');
   }
 
-  List<Object> productList_for_onlineTestDb(int totalItems) {
+  List<Object> generate_databuilder_listItems(int totalItems) {
     var listObject = <Object>[];
     for (var i = 0; i < totalItems; i++) {
       listObject.add(ProductDataBuilder().ProductWithoutId_imageMap());

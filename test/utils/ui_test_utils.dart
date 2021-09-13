@@ -5,11 +5,11 @@ import 'package:get/get.dart';
 
 import '../config/tests_properties.dart';
 import 'finder_utils.dart';
-import 'test_methods_utils.dart';
+import 'tests_utils.dart';
 
 class UiTestUtils {
   final _finder = Get.put(FinderUtils());
-  final _methodUtils = Get.put(TestMethodsUtils());
+  final _methodUtils = Get.put(TestsUtils());
 
   Future<void> navigateBetweenViews(
     WidgetTester tester, {

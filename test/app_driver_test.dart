@@ -17,6 +17,8 @@ import 'config/titles/cart_tests_titles.dart';
 import 'config/titles/inventory_tests_titles.dart';
 import 'config/titles/orders_tests_titles.dart';
 import 'config/titles/overview_tests_titles.dart';
+import 'config/titles/testdb_check_titles.dart';
+import 'tests_datasource/prepare_db_test.dart';
 
 void main() {
   // NO ERASE: String.fromEnvironment => MUST BE CONSTANT!!!
@@ -41,6 +43,12 @@ void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   final _skip = false;
+
+  group(
+    TestDbCheckTitles.GROUP_TITLE,
+    PrepareDbTest().executing,
+    skip: _skip,
+  );
 
   group(
     OrdersTestsTitles.GROUP_TITLE,
@@ -75,6 +83,6 @@ void _integrationTests() {
   group(
     CartTestsTitles.GROUP_TITLE,
     CartViewTest(testType: INTEGRATION_TEST).functional,
-    skip: _skip,
+    skip: true,
   );
 }

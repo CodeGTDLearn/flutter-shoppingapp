@@ -6,10 +6,10 @@ import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import '../../../../config/bindings/orders_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
 import '../../../../config/titles/orders_tests_titles.dart';
-import '../../../../utils/db_test_utils.dart';
+import '../../../../utils/dbtest_utils.dart';
 import '../../../../utils/finder_utils.dart';
-import '../../../../utils/test_global_methods.dart';
-import '../../../../utils/test_methods_utils.dart';
+import '../../../../utils/tests_global_utils.dart';
+import '../../../../utils/tests_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 import 'orders_tests.dart';
 
@@ -20,8 +20,8 @@ class OrdersViewTest {
   final _dbUtils = Get.put(DbTestUtils());
   final _titles = Get.put(OrdersTestsTitles());
   final _bindings = Get.put(OrdersTestBindings());
-  final _globalMethods = Get.put(TestGlobalMethods());
-  final _testUtils = Get.put(TestMethodsUtils());
+  final _globalMethods = Get.put(TestsGlobalUtils());
+  final _testUtils = Get.put(TestsUtils());
 
   OrdersViewTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
@@ -38,8 +38,10 @@ class OrdersViewTest {
     setUpAll(() async => _globalMethods
         .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE'));
 
-    tearDownAll(() =>
-        _globalMethods.globalTearDownAll(_tests.runtimeType.toString(), _isWidgetTest));
+    tearDownAll(() => _globalMethods.globalTearDownAll(
+          _tests.runtimeType.toString(),
+          isWidgetTest: _isWidgetTest,
+        ));
 
     setUp(() {
       _globalMethods.globalSetUp();
@@ -50,7 +52,7 @@ class OrdersViewTest {
 
     testWidgets(_titles.orderingAProduct_inCartView_tapping_OrderNowButton,
         (tester) async {
-      await _tests.orderingAProduct_inCartView_tapping_OrderNowButton(
+      await _tests.orderProduct_inCartView_tapOrderNowButton(
         tester,
         DELAY,
         ordersDoneQtde: _isWidgetTest ? 2 : 1,
@@ -70,9 +72,9 @@ class OrdersViewTest {
       );
     });
 
-    testWidgets(_titles.check_emptyView_noOrderInDb, (tester) async {
-      _bindings.bindingsBuilderMockRepoEmptyDb(isWidgetTest: _isWidgetTest);
-      await _tests.check_emptyOrderCollection(tester, DELAY);
-    });
+    // testWidgets(_titles.check_emptyView_noOrderInDb, (tester) async {
+    //   _bindings.bindingsBuilderMockRepoEmptyDb(isWidgetTest: _isWidgetTest);
+    //   await _tests.check_emptyOrderCollection(tester, DELAY);
+    // });
   }
 }

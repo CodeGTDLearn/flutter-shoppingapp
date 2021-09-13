@@ -1,33 +1,39 @@
 import 'package:get/get.dart';
 
-import '../config/tests_properties.dart';
-import 'db_test_utils.dart';
-
-class TestGlobalMethods {
-  void globalSetUpAll(String testModuleName) async {
+class TestsGlobalUtils {
+  void globalSetUpAll(
+    String testModuleName, {
+    String label = 'Starting FunctionalTests: ',
+  }) async {
     print(_headerGenerator(
       module: testModuleName,
-      label: 'Starting FunctionalTests: ',
+      // label: 'Starting FunctionalTests: ',
+      label: label,
       fullLength: 73,
       qtdeSuperiorLine: 2,
       lineCharacter: '=',
     ));
   }
 
-  void globalTearDownAll(String testModuleName, bool isWidgetTest) async {
+  void globalTearDownAll(
+    String testModuleName, {
+    bool? isWidgetTest,
+    String label = 'FunctionalTests Finished: ',
+  }) async {
+    isWidgetTest = isWidgetTest ?? true;
     print('\n'
         '<<=============================================================<<\n'
         '<<=============================================================<<\n'
-        '<<==<< FunctionalTests Finished: $testModuleName \n'
+        '<<==<< $label $testModuleName \n'
         '<<=============================================================<<\n'
         '<<=============================================================<<\n'
         '\n \n \n');
 
-    if (!isWidgetTest) {
-      var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
-      await dbTestUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
-      Get.delete(tag: 'dbInstance');
-    }
+    // if (isWidgetTest == false) {
+    //   var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
+    //   await dbTestUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
+    //   Get.delete(tag: 'dbInstance');
+    // }
 
     Get.reset;
   }

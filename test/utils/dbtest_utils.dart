@@ -6,19 +6,21 @@ import 'package:http/http.dart' as http;
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
 import '../config/tests_properties.dart';
-import 'test_methods_utils.dart';
+import 'tests_utils.dart';
 
 //Examples:
 // db = 'test-app-dev-e6ee1-default-rtdb';
 // url = "https://db.firebaseio.com/.json";
 // collectionUrl = "https://test-app-dev-e6ee1-default-rtdb.firebaseio.com/products.json";
 class DbTestUtils {
-  final _utils = Get.put(TestMethodsUtils());
+  final _utils = Get.put(TestsUtils());
 
-  Future<int> countCollectionItems({required String collectionUrl}) async {
+  Future<int> countCollectionItems({
+    required String url,
+  }) async {
     var totalItems = 0;
-    return http.get(Uri.parse(collectionUrl),
-        headers: {"Accept": "application/json"}).then((response) {
+    return http
+        .get(Uri.parse(url), headers: {"Accept": "application/json"}).then((response) {
       var plainText = response.body;
       final json = jsonDecode(plainText);
       json == null
@@ -27,6 +29,36 @@ class DbTestUtils {
               totalItems++;
             });
       return totalItems;
+    }).catchError((onError) => throw onError);
+  }
+
+  // List<dynamic> getCollection({
+  Future<List<dynamic>> getCollection({
+    required String url,
+  }) {
+    var _products = <Product>[];
+    return http.get(Uri.parse(url)).then((response) {
+      var plainText = response.body;
+      final json = jsonDecode(plainText);
+      json == null
+          ? _products = []
+          : json.forEach((key, value) {
+              var product = Product.fromJson(value);
+              product.id = key;
+              _products.add(product);
+            });
+      return _products;
+    }).catchError((onError) => throw onError);
+    // return _products;
+  }
+
+  Future<bool> isDbOnline({
+    required String dbUrl,
+    required String dbName,
+  }) async {
+    return http.get(Uri.parse(dbUrl)).then((response) {
+      _isDbOnlineMessage(dbUrl, response);
+      return response.statusCode == 200 ? true : false;
     }).catchError((onError) => throw onError);
   }
 
@@ -129,20 +161,17 @@ class DbTestUtils {
   final _footerLine = "    <================================================="
       "=======================================< \n\n";
 
-  // "    <=================================< DB ACTION
-  // <==================================< <|| \n";
-
   void _removeObject_message(
     String url_NoExtensionInDeletions,
     String id,
     http.Response response,
   ) {
     print('$_headerLine'
-        '  Removing Object:\n'
-        '  - URL: $url_NoExtensionInDeletions$id.json\n'
-        '  - ID: $id\n'
-        '  - Type: ${response.runtimeType.toString()}\n'
-        '  - Status: ${response.statusCode}\n'
+        '     Removing Object:\n'
+        '     - URL: $url_NoExtensionInDeletions$id.json\n'
+        '     - ID: $id\n'
+        '     - Type: ${response.runtimeType.toString()}\n'
+        '     - Status: ${response.statusCode}\n'
         '$_footerLine');
   }
 
@@ -151,6 +180,15 @@ class DbTestUtils {
         '     Removing All Collections:\n'
         '     - DB_Name: $dbName\n'
         '     - Status: ${response.statusCode}\n'
+        '$_footerLine');
+  }
+
+  void _isDbOnlineMessage(String dbUrl, http.Response response) {
+    print('$_headerLine'
+        '     Checking Db status:\n'
+        '     - URL: $dbUrl\n'
+        '     - Status: ${response.statusCode == 200 ? 'ON-LINE' : 'OFF-LINE'}\n'
+        '     - Code: ${response.statusCode}\n'
         '$_footerLine');
   }
 

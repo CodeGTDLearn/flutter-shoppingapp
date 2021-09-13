@@ -7,17 +7,17 @@ import '../../../../config/bindings/inventory_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
 import '../../../../config/titles/inventory_tests_titles.dart';
 import '../../../../data_builders/product_databuilder.dart';
-import '../../../../utils/db_test_utils.dart';
+import '../../../../utils/dbtest_utils.dart';
 import '../../../../utils/finder_utils.dart';
-import '../../../../utils/test_global_methods.dart';
-import '../../../../utils/test_methods_utils.dart';
+import '../../../../utils/tests_global_utils.dart';
+import '../../../../utils/tests_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 import 'inventory_tests.dart';
 
 class InventoryViewEditTest {
   late bool _isWidgetTest;
-  final _globalMethods = Get.put(TestGlobalMethods());
-  final _testUtils = Get.put(TestMethodsUtils());
+  final _globalMethods = Get.put(TestsGlobalUtils());
+  final _testUtils = Get.put(TestsUtils());
   final _finder = Get.put(FinderUtils());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(DbTestUtils());
@@ -39,8 +39,10 @@ class InventoryViewEditTest {
     setUpAll(() async => _globalMethods
         .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE'));
 
-    tearDownAll(() =>
-        _globalMethods.globalTearDownAll(_tests.runtimeType.toString(), _isWidgetTest));
+    tearDownAll(() => _globalMethods.globalTearDownAll(
+          _tests.runtimeType.toString(),
+          isWidgetTest: _isWidgetTest,
+        ));
 
     setUp(() {
       _globalMethods.globalSetUp();
@@ -49,10 +51,10 @@ class InventoryViewEditTest {
 
     tearDown(_globalMethods.globalTearDown);
 
-    testWidgets(_titles.edit_add_product_in_form, (tester) async {
-      await _tests.edit_add_product_in_form(
+    testWidgets(_titles.add_product_in_edit_form, (tester) async {
+      await _tests.add_product_using_edit_form(
         tester,
-        product: ProductDataBuilder().ProductWithoutId(),
+        product: ProductDataBuilder().ProductWithoutId_imageMap(),
         useValidTexts: true,
       );
     });
@@ -60,7 +62,7 @@ class InventoryViewEditTest {
     testWidgets(_titles.test_auto_currency_in_form, (tester) async {
       await _tests.test_auto_currency_in_form(
         tester,
-        product: ProductDataBuilder().ProductWithoutId(),
+        product: ProductDataBuilder().ProductWithoutId_imageMap(),
         useValidTexts: true,
       );
     });
@@ -87,9 +89,9 @@ class InventoryViewEditTest {
     });
 
     testWidgets(_titles.edit_fill_form_with_invalid_content, (tester) async {
-      await _tests.edit_add_product_in_form(
+      await _tests.add_product_using_edit_form(
         tester,
-        product: ProductDataBuilder().ProductWithoutId(),
+        product: ProductDataBuilder().ProductWithoutId_imageMap(),
         useValidTexts: false,
       );
     });

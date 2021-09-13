@@ -1,16 +1,17 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/core/properties/app_urls.dart';
 import 'package:shopingapp/app/modules/inventory/components/inventory_item.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
-import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
 import '../../../../config/bindings/inventory_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
 import '../../../../config/titles/inventory_tests_titles.dart';
-import '../../../../utils/db_test_utils.dart';
+import '../../../../tests_datasource/mocked_datasource.dart';
+import '../../../../utils/dbtest_utils.dart';
 import '../../../../utils/finder_utils.dart';
-import '../../../../utils/test_global_methods.dart';
-import '../../../../utils/test_methods_utils.dart';
+import '../../../../utils/tests_global_utils.dart';
+import '../../../../utils/tests_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 import 'inventory_tests.dart';
 
@@ -21,15 +22,15 @@ class InventoryViewTest {
   final _dbUtils = Get.put(DbTestUtils());
   final _bindings = Get.put(InventoryTestBindings());
   final _titles = Get.put(InventoryTestsTitles());
-  final _globalMethods = Get.put(TestGlobalMethods());
-  final _testUtils = Get.put(TestMethodsUtils());
+  final _globalMethods = Get.put(TestsGlobalUtils());
+  final _testUtils = Get.put(TestsUtils());
 
   InventoryViewTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
   }
 
   void functional() {
-    var _products = <Product>[];
+    var _products = <dynamic>[];
 
     final _tests = Get.put(InventoryTests(
         finder: _finder,
@@ -41,14 +42,20 @@ class InventoryViewTest {
     setUpAll(() async {
       _globalMethods
           .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
-      _products = await _testUtils.load_ProductList_InDb(
-        isWidgetTest: _isWidgetTest,
-        totalProductsLoadedInDb: TOTAL_ITEMS_LOADED_IN_DB_TO_RUN_THE_TESTS_MINIMAL02ITEMS,
-      );
+      _products = _isWidgetTest
+          ? await Future.value(MockedDatasource().products())
+          : await _dbUtils.getCollection(url: PRODUCTS_URL);
+      // _products = await _testUtils.post_DatabuilderProductList_InDb(
+      //   isWidgetTest: _isWidgetTest,
+      //   numberOfProducts: TOTAL_SAMPLEDATA_ITEMS_LOADED_IN_TESTDB,
+      // );
+      // _products = await _dbUtils.getCollection(url: PRODUCTS_URL).cast<Product>();
     });
 
-    tearDownAll(() =>
-        _globalMethods.globalTearDownAll(_tests.runtimeType.toString(), _isWidgetTest));
+    tearDownAll(() => _globalMethods.globalTearDownAll(
+          _tests.runtimeType.toString(),
+          isWidgetTest: _isWidgetTest,
+        ));
 
     setUp(() {
       _globalMethods.globalSetUp();

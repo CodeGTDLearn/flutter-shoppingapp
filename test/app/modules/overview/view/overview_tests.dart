@@ -9,9 +9,9 @@ import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/tests_properties.dart';
-import '../../../../utils/db_test_utils.dart';
+import '../../../../utils/dbtest_utils.dart';
 import '../../../../utils/finder_utils.dart';
-import '../../../../utils/test_methods_utils.dart';
+import '../../../../utils/tests_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 
 class OverviewTests {
@@ -19,7 +19,7 @@ class OverviewTests {
   final FinderUtils finder;
   final UiTestUtils uiTestUtils;
   final DbTestUtils dbTestUtils;
-  final TestMethodsUtils testUtils;
+  final TestsUtils testUtils;
 
   OverviewTests({
     required this.finder,

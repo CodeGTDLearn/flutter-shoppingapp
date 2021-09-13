@@ -17,9 +17,9 @@ import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/tests_properties.dart';
-import '../../../../utils/db_test_utils.dart';
+import '../../../../utils/dbtest_utils.dart';
 import '../../../../utils/finder_utils.dart';
-import '../../../../utils/test_methods_utils.dart';
+import '../../../../utils/tests_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 
 class InventoryTests {
@@ -27,7 +27,7 @@ class InventoryTests {
   final FinderUtils finder;
   final UiTestUtils uiTestUtils;
   final DbTestUtils dbTestUtils;
-  final TestMethodsUtils testUtils;
+  final TestsUtils testUtils;
 
   InventoryTests({
     required this.isWidgetTest,
@@ -473,7 +473,7 @@ class InventoryTests {
     Get.delete(tag: 'localTestUtilsInstance');
   }
 
-  Future<void> edit_add_product_in_form(
+  Future<void> add_product_using_edit_form(
     tester, {
     required Product product,
     required bool useValidTexts,

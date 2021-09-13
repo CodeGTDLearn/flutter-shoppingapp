@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
 import 'package:shopingapp/app/core/components/progres_indicator.dart';
-import 'package:shopingapp/app/core/properties/app_urls.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
 import 'package:shopingapp/app/modules/cart/core/cart_widget_keys.dart';
 import 'package:shopingapp/app/modules/cart/view/cart_view.dart';
@@ -13,10 +12,9 @@ import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/tests_properties.dart';
-import '../../../../data_builders/product_databuilder.dart';
-import '../../../../utils/db_test_utils.dart';
+import '../../../../utils/dbtest_utils.dart';
 import '../../../../utils/finder_utils.dart';
-import '../../../../utils/test_methods_utils.dart';
+import '../../../../utils/tests_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 
 class OrdersTests {
@@ -24,7 +22,7 @@ class OrdersTests {
   final FinderUtils finder;
   final UiTestUtils uiTestUtils;
   final DbTestUtils dbTestUtils;
-  final TestMethodsUtils testUtils;
+  final TestsUtils testUtils;
 
   OrdersTests({
     required this.isWidgetTest,
@@ -34,11 +32,17 @@ class OrdersTests {
     required this.testUtils,
   });
 
-  Future<void> orderingAProduct_inCartView_tapping_OrderNowButton(
+  Future<void> orderProduct_inCartView_tapOrderNowButton(
     WidgetTester tester,
     int interval, {
     required int ordersDoneQtde,
   }) async {
+    // await uiTestUtils.testInitialization(
+    //   tester,
+    //   isWidgetTest: isWidgetTest,
+    //   appDriver: app.AppDriver(),
+    // );
+
     await create_order_from_cartView(tester, interval);
 
     //D) OPEN ORDERS-DRAWER-OPTION AND CHECK THE ORDER DONE ABOVE
@@ -66,14 +70,6 @@ class OrdersTests {
   }
 
   Future<void> create_order_from_cartView(tester, int interval) async {
-    if (!isWidgetTest) {
-      await dbTestUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
-      await dbTestUtils.addObject(
-        object: ProductDataBuilder().ProductWithoutId(),
-        collectionUrl: PRODUCTS_URL,
-      );
-    }
-
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,

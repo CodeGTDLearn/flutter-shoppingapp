@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:shopingapp/app/modules/orders/controller/orders_controller.dart';
 
 import '../../../config/bindings/orders_test_bindings.dart';
-import '../../../mocked_datasource/mocked_datasource.dart';
+import '../../../tests_datasource/mocked_datasource.dart';
 
 class OrdersControllerTests {
   static void integration() {

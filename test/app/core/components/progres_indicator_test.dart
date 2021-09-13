@@ -9,12 +9,12 @@ import 'package:shopingapp/app_driver.dart';
 
 import '../../../config/bindings/components_test_bindings.dart';
 import '../../../utils/finder_utils.dart';
-import '../../../utils/test_methods_utils.dart';
+import '../../../utils/tests_utils.dart';
 
 class ProgresIndicatorTest {
   static void functional() {
     late FinderUtils _finder;
-    var _testMethodsUtils = Get.put(TestMethodsUtils());
+    var _testMethodsUtils = Get.put(TestsUtils());
 
     setUp(() => _finder = Get.put(FinderUtils(), tag: 'tempInstance'));
 

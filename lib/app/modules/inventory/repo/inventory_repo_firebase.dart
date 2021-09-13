@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
+// import 'package:http/http.dart';
 
 import '../../../core/properties/app_urls.dart';
 import '../entity/product.dart';
@@ -51,7 +51,7 @@ class InventoryRepoFirebase implements IInventoryRepo {
     // @formatter:on
   }
 
-  List<Product> _decodeResponse(Response response) {
+  List<Product> _decodeResponse(http.Response response) {
     var _products = <Product>[];
 
     var plainText = response.body;

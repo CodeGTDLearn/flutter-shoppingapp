@@ -36,7 +36,7 @@ class ProductDataBuilder {
 
     return Product(
       title: _title,
-      description: "The best Description Product ever.",
+      description: "The best ever Description Product.",
       price: 99.99,
       imageUrl: _url,
       isFavorite: false,
