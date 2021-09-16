@@ -62,7 +62,7 @@ class CartViewTest {
     tearDown(_globalMethods.globalTearDown);
 
     testWidgets(_titles.clearCart_tapClearButton, (tester) async {
-      await _tests.ClearingCart_tappingClearButton(tester, _products);
+      await _tests.ClearingCart_tappingClearButton(tester);
     });
 
     testWidgets(_titles.add_product_check_appbar_shopCart, (tester) async {

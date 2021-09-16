@@ -9,7 +9,7 @@ import 'tests_utils.dart';
 
 class UiTestUtils {
   final _finder = Get.put(FinderUtils());
-  final _methodUtils = Get.put(TestsUtils());
+  final _testUtils = Get.put(TestsUtils());
 
   Future<void> navigateBetweenViews(
     WidgetTester tester, {
@@ -21,7 +21,7 @@ class UiTestUtils {
     expect(_finder.type(from), findsOneWidget);
     await tester.tap(_finder.type(trigger));
     await tester.pump();
-    await tester.pumpAndSettle(_methodUtils.delay(interval));
+    await tester.pumpAndSettle(_testUtils.delay(interval));
     expect(_finder.type(to), findsOneWidget);
   }
 
@@ -33,7 +33,7 @@ class UiTestUtils {
   }) async {
     await tester.tap(_finder.key(triggerKey));
     await tester.pump();
-    await tester.pump(_methodUtils.delay(interval));
+    await tester.pump(_testUtils.delay(interval));
     await tester.pumpAndSettle();
     expect(_finder.type(resultWidget), findsWidgets);
   }
@@ -81,5 +81,6 @@ class UiTestUtils {
         : runApp(
             appDriver,
           );
+    await tester.pumpAndSettle(_testUtils.delay(DELAY));
   }
 }

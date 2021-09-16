@@ -25,4 +25,23 @@ class FinderUtils {
   Finder icon(Icon icon) {
     return find.byWidgetPredicate((widget) => widget is Icon && widget.icon == icon.icon);
   }
+
+  int countItemsFromFinder(Finder finder) {
+    // exactly one widget with type "IconButton"
+    // zero widgets with type "IconButton"
+    // 2 widgets with type "IconButton"
+
+    var wordList = finder.toString().split(" ");
+
+    switch (wordList[0]) {
+      case 'exactly':
+        return 1;
+
+      case 'zero':
+        return 0;
+
+      default:
+        return int.parse(wordList[0].toString());
+    }
+  }
 }

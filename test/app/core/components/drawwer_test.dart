@@ -23,10 +23,7 @@ class DrawwerTest {
 
     setUp(() {
       ComponentsTestBindings().bindingsBuilderMockedRepo();
-      // _finder = TestUtils();
     });
-
-    // tearDown(() => _finder = null);
 
     List<Product> _products() {
       return Get.find<IOverviewService>().getLocalDataAllProducts();

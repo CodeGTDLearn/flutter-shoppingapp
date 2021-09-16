@@ -256,14 +256,12 @@ class InventoryTests {
           : isPriceField
               ? '99.99'
               : isUrlField
-                  // ? IMAGE1_TEST_URL
                   ? TEST_IMAGE_URL_MAP.values.elementAt(0)
                   : 'validTexts';
 
       // 3) InventoryAddEditView
       //   -> Insert 'UpdatedValue' in Page-Form-Field
       //   -> Checking the change
-      // await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY));
       await tester.tap(finder.key(fieldKey));
       await tester.enterText(finder.key(fieldKey), inputText);
       await tester.pump(testUtils.delay(DELAY));

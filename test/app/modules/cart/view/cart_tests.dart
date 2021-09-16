@@ -49,10 +49,7 @@ class CartTests {
     expect(finder.type(OverviewView), findsOneWidget);
   }
 
-  Future<void> ClearingCart_tappingClearButton(
-    WidgetTester tester,
-    List<dynamic> _productsList,
-  ) async {
+  Future<void> ClearingCart_tappingClearButton(tester) async {
     await _startApp_OpenOverviewView(tester);
 
     var cartIconProduct0 = finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
@@ -64,14 +61,12 @@ class CartTests {
     await tester.tap(cartButtonPage);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(CartView), findsOneWidget);
-    expect(finder.text(_productsList[0].title), findsOneWidget);
-
     expect(Get.find<CartController>().getAmountCartItemsObs() > 0.0, isTrue);
-    expect(customCircProgrIndic, findsNothing);
 
     await _clearCart_quitCartView(tester, clearCartButton);
 
     expect(Get.find<CartController>().getAmountCartItemsObs() == 0, isTrue);
+    expect(finder.type(DismissibleCartItem), findsNothing);
     expect(customCircProgrIndic, findsOneWidget);
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));

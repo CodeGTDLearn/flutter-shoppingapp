@@ -42,11 +42,6 @@ class OverviewViewTest {
       _globalMethods
           .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
 
-      // _products = await _testUtils.post_databuilderProductList_InDb(
-      //   isWidgetTest: _isWidgetTest,
-      //   numberOfProducts: TOTAL_SAMPLEDATA_ITEMS_LOADED_IN_TESTDB,
-      // );
-
       _products = _isWidgetTest
           ? await Future.value(MockedDatasource().products())
           : await _dbUtils.getCollection(url: PRODUCTS_URL);
@@ -67,22 +62,15 @@ class OverviewViewTest {
       await _tests.check_overviewGridItems_qtde(tester, qtde: _products.length);
     });
 
-    testWidgets(_titles.toggle_productFavButton, (tester) async {
-      _isWidgetTest
-          ? await _tests.toggle_ProductFavoriteButton(
-              tester,
-              favoritesAfterToggle: 2,
-              toggleButtonKey: "$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0",
-            )
-          : await _tests.toggle_ProductFavoriteButton(
-              tester,
-              favoritesAfterToggle: 1,
-              toggleButtonKey: "$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0",
-            );
+    testWidgets(_titles.toggle_ProductFavoriteButton, (tester) async {
+      await _tests.toggle_ProductFavoriteButton(
+        tester,
+        toggleButtonKey: "$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0",
+      );
     });
 
-    testWidgets(_titles.add_sameProduct2x_Check_ShopCartIconTotal, (tester) async {
-      await _tests.add_identicalProduct2x_Check_ShopCartIconTotal(
+    testWidgets(_titles.add_sameProduct2x_Check_ShopCartIcon, (tester) async {
+      await _tests.add_identicalProduct2x_Check_ShopCartIcon(
         tester,
         addProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
         productTitle: _products[0].title,
@@ -91,9 +79,8 @@ class OverviewViewTest {
       );
     });
 
-    testWidgets(_titles.addProduct_click_undoSnackbar_check_shopCartIconTotal,
-        (tester) async {
-      await _tests.addProduct_click_UndoSnackbar_Check_ShopCartIconTotal(
+    testWidgets(_titles.addProduct_click_undoSnackbar_check_shopCartIcon, (tester) async {
+      await _tests.addProduct_click_UndoSnackbar_Check_ShopCartIcon(
         tester,
         addProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
         productTitle: _products[0].title,
@@ -102,8 +89,8 @@ class OverviewViewTest {
       );
     });
 
-    testWidgets(_titles.add_sameProduct3x_check_shopCartIconTotal, (tester) async {
-      await _tests.add_identicalProduct3x_check_shopCartIconTotal(
+    testWidgets(_titles.add_sameProduct3x_check_shopCartIcon, (tester) async {
+      await _tests.add_identicalProduct3x_check_shopCartIcon(
         tester,
         productAddButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
         totalBeforeAdding: 2,
@@ -111,8 +98,8 @@ class OverviewViewTest {
       );
     });
 
-    testWidgets(_titles.add_AllDbProducts_check_shopCartIconTotal, (tester) async {
-      await _tests.add_AllDbProducts_check_shopCartIconTotal(
+    testWidgets(_titles.add_AllDbProducts_check_shopCartIcon, (tester) async {
+      await _tests.add_AllDbProducts_check_shopCartIcon(
         tester,
         firstProduct_addButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
         totalBeforeAdding: 5,
@@ -133,26 +120,41 @@ class OverviewViewTest {
     });
 
     testWidgets(_titles.tap_product_details_check_texts, (tester) async {
-      await _tests.check_product_details(
+      await _tests.check_product_details_backbutton_overview(
         tester,
-        productButtonKey: "$OVERVIEW_GRID_ITEM_DETAILS_KEY\0",
-        detailedProduct: _products[0],
+        productButtonKey: "$OVERVIEW_GRID_ITEM_DETAILS_KEY\1",
+        detailedProduct: _products[1],
       );
     });
 
     testWidgets(_titles.tap_product_details_check_image, (tester) async {
-      await _tests.check_product_details_image(
+      await _tests.check_product_details_image_backbutton_overview(
         tester,
         productButtonKey: "$OVERVIEW_GRID_ITEM_DETAILS_KEY\0",
         detailedProduct: _products[0],
       );
     });
-
-    testWidgets(_titles.tap_product_details_click_back_button, (tester) async {
-      await _tests.tap_viewBackButton(
-        tester,
-        productButtonKey: "$OVERVIEW_GRID_ITEM_DETAILS_KEY\0",
-      );
-    });
   }
 }
+
+// _isWidgetTest
+//     ? await _tests.toggle_ProductFavoriteButton(
+//         tester,
+//         toggleButtonKey: "$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0",
+//       )
+//     : await _tests.toggle_ProductFavoriteButton(
+//         tester,
+//         toggleButtonKey: "$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0",
+//       );
+
+// _isWidgetTest
+//     ? await _tests.toggle_ProductFavoriteButton(
+//         tester,
+//         favoritesAfterToggle: 2,
+//         toggleButtonKey: "$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0",
+//       )
+//     : await _tests.toggle_ProductFavoriteButton(
+//         tester,
+//         favoritesAfterToggle: 1,
+//         toggleButtonKey: "$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0",
+//       );

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../../core/components/drawwer.dart';
-import '../../../core/properties/theme/dark_theme_controller.dart';
+import '../../../core/properties/theme/app_theme_controller.dart';
 import '../../cart/core/cart_bindings.dart';
 import '../../inventory/core/inventory_bindings.dart';
 import '../../orders/core/orders_bindings.dart';
@@ -13,7 +13,7 @@ import '../service/overview_service.dart';
 
 class OverviewBindings extends Bindings {
   void dependencies() {
-    Get.lazyPut<DarkThemeController>(() => DarkThemeController());
+    Get.lazyPut<AppThemeController>(() => AppThemeController());
 
     Get.lazyPut<Drawwer>(() => Drawwer());
 

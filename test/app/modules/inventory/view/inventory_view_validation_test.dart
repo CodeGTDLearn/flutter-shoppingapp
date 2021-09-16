@@ -45,10 +45,6 @@ class InventoryViewValidationTest {
       _products = _isWidgetTest
           ? await Future.value(MockedDatasource().products())
           : await _dbUtils.getCollection(url: PRODUCTS_URL);
-      // _products = await _testUtils.post_databuilderProductList_InDb(
-      //   isWidgetTest: _isWidgetTest,
-      //   numberOfProducts: TOTAL_SAMPLEDATA_ITEMS_LOADED_IN_TESTDB,
-      // );
     });
 
     tearDownAll(() => _globalMethods.globalTearDownAll(

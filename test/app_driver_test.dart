@@ -42,7 +42,7 @@ void _unitTests() {
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final _skip = false;
+  final _skip = false; //skip-group overrides the internal skip-methods
 
   group(
     TestDbCheckTitles.GROUP_TITLE,
@@ -53,7 +53,7 @@ void _integrationTests() {
   group(
     OrdersTestsTitles.GROUP_TITLE,
     OrdersViewTest(testType: INTEGRATION_TEST).functional,
-    skip: _skip, // no erase: 'skip-group' overrides the internal 'skip-methods'
+    skip: _skip,
   );
 
   group(
@@ -83,6 +83,6 @@ void _integrationTests() {
   group(
     CartTestsTitles.GROUP_TITLE,
     CartViewTest(testType: INTEGRATION_TEST).functional,
-    skip: true,
+    skip: _skip,
   );
 }

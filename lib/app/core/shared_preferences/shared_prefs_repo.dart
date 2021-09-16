@@ -13,7 +13,6 @@ class SharedPrefsRepo implements ISharedPrefsRepo {
     SharedPreferences.getInstance().then((shared) {
       switch (value.runtimeType) {
         case bool:
-          // return shared.setBool(key, value);
           shared.setBool(key, value);
           break;
         case int:

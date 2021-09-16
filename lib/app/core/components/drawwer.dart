@@ -5,7 +5,7 @@ import '../../modules/cart/service/i_cart_service.dart';
 import '../../modules/inventory/controller/inventory_controller.dart';
 import '../../modules/orders/service/i_orders_service.dart';
 import '../properties/app_routes.dart';
-import '../properties/theme/dark_theme_controller.dart';
+import '../properties/theme/app_theme_controller.dart';
 import '../texts_icons_provider/generic_words.dart';
 import 'app_messages_provided.dart';
 import 'keys/drawwer_keys.dart';
@@ -17,7 +17,7 @@ class Drawwer extends StatelessWidget {
   final ICartService _cart = Get.find();
   final IOrdersService _orders = Get.find();
   final InventoryController _inventory = Get.find();
-  final DarkThemeController _darkThemeController = Get.find();
+  final AppThemeController _darkThemeController = Get.find();
 
   @override
   Widget build(BuildContext context) {
