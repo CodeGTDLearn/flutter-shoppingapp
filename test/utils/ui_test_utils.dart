@@ -76,11 +76,24 @@ class UiTestUtils {
     required bool isWidgetTest,
     required Widget appDriver,
   }) async {
-    isWidgetTest
-        ? await tester.pumpWidget(appDriver)
-        : runApp(
-            appDriver,
-          );
+    isWidgetTest ? await tester.pumpWidget(appDriver) : runApp(appDriver);
     await tester.pumpAndSettle(_testUtils.delay(DELAY));
+  }
+
+  void resetScreenSizeAfterTest(tester) {
+    // resets the screen to its original size after the test end
+    addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+  }
+
+  Future<void> defineScreenSizeForTest(
+    tester, {
+    required double dx,
+    required double dy,
+  }) async {
+    // define the screen-size for this test
+    var _screenSizeDefinition = Size(dx, dy);
+    await tester.binding.setSurfaceSize(_screenSizeDefinition);
+    tester.binding.window.physicalSizeTestValue = _screenSizeDefinition;
+    tester.binding.window.devicePixelRatioTestValue = 1.0;
   }
 }

@@ -20,7 +20,7 @@ import '../../app/modules/orders/repo/orders_mocked_repo.dart';
 import '../../app/modules/overview/repo/overview_mocked_repo.dart';
 
 class CartTestBindings {
-  final ICartRepo _mocked_repo_used_in_this_module_tests = CartRepoFirebase();
+  final ICartRepo _mocked_repo_tobe_used = CartRepoFirebase();
 
   void _bindingsBuilder(ICartRepo cartRepo) {
     Get.reset();
@@ -77,6 +77,6 @@ class CartTestBindings {
   }
 
   void bindingsBuilderMockedRepo({required bool isWidgetTest}) {
-    if (isWidgetTest) _bindingsBuilder(_mocked_repo_used_in_this_module_tests);
+    if (isWidgetTest) _bindingsBuilder(_mocked_repo_tobe_used);
   }
 }

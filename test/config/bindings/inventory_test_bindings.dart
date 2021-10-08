@@ -20,7 +20,7 @@ import '../../app/modules/overview/repo/overview_mocked_repo.dart';
 
 class InventoryTestBindings {
   //REPO-USED-IN-THIS-TEST-MODULE:
-  final IInventoryRepo _mocked_repo_used_in_this_module_test = InventoryMockedRepo();
+  final IInventoryRepo _mocked_repo_tobe_used = InventoryMockedRepo();
 
   void _bindingsBuilder(IInventoryRepo mockRepo) {
     Get.reset();
@@ -72,7 +72,7 @@ class InventoryTestBindings {
   }
 
   void bindingsBuilderMockedRepo({required bool isUnitTest}) {
-    if (isUnitTest) _bindingsBuilder(_mocked_repo_used_in_this_module_test);
+    if (isUnitTest) _bindingsBuilder(_mocked_repo_tobe_used);
   }
 
   void bindingsBuilderMockedRepoEmptyDb({required bool isWidgetTest}) {

@@ -22,7 +22,7 @@ import '../../app/modules/orders/repo/orders_mocked_repo_emptydb.dart';
 import '../../app/modules/overview/repo/overview_mocked_repo.dart';
 
 class OrdersTestBindings {
-  final IOrdersRepo _mocked_repo_used_in_this_module_test = OrdersMockedRepo();
+  final IOrdersRepo _mocked_repo_tobe_used = OrdersMockedRepo();
 
   void _bindingsBuilder(IOrdersRepo ordersRepo) {
     Get.reset();
@@ -85,7 +85,7 @@ class OrdersTestBindings {
   }
 
   void bindingsBuilderMockedRepo({required bool isWidgetTest}) {
-    if (isWidgetTest) _bindingsBuilder(_mocked_repo_used_in_this_module_test);
+    if (isWidgetTest) _bindingsBuilder(_mocked_repo_tobe_used);
   }
 
   void bindingsBuilderMockRepoEmptyDb({required bool isWidgetTest}) {

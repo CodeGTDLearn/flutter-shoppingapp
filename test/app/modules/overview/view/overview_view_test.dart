@@ -136,25 +136,3 @@ class OverviewViewTest {
     });
   }
 }
-
-// _isWidgetTest
-//     ? await _tests.toggle_ProductFavoriteButton(
-//         tester,
-//         toggleButtonKey: "$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0",
-//       )
-//     : await _tests.toggle_ProductFavoriteButton(
-//         tester,
-//         toggleButtonKey: "$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0",
-//       );
-
-// _isWidgetTest
-//     ? await _tests.toggle_ProductFavoriteButton(
-//         tester,
-//         favoritesAfterToggle: 2,
-//         toggleButtonKey: "$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0",
-//       )
-//     : await _tests.toggle_ProductFavoriteButton(
-//         tester,
-//         favoritesAfterToggle: 1,
-//         toggleButtonKey: "$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0",
-//       );

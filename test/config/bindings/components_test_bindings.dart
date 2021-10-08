@@ -14,7 +14,7 @@ import '../../app/modules/overview/repo/overview_mocked_repo.dart';
 import '../../app/modules/overview/repo/overview_mocked_repo_emptydb.dart';
 
 class ComponentsTestBindings {
-  final IOverviewRepo _mocked_repo_used_in_this_module_tests = OverviewMockedRepo();
+  final IOverviewRepo _mocked_repo_tobe_used = OverviewMockedRepo();
 
   void _bindingsBuilder(IOverviewRepo repo) {
     Get.reset();
@@ -49,11 +49,8 @@ class ComponentsTestBindings {
     HttpOverrides.global = null;
   }
 
-  void bindingsBuilderMockedRepo() {
-    _bindingsBuilder(_mocked_repo_used_in_this_module_tests);
-  }
-
-  void bindingsBuilderMockRepoEmptyDb() {
-    _bindingsBuilder(OverviewMockRepoEmptyDb());
+  void bindingsBuilder({required bool isWidgetTest, required bool isEmptyDb}) {
+    if (isWidgetTest && !isEmptyDb) _bindingsBuilder(_mocked_repo_tobe_used);
+    if (isWidgetTest && isEmptyDb) _bindingsBuilder(OverviewMockRepoEmptyDb());
   }
 }

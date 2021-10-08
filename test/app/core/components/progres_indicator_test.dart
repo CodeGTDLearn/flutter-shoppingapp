@@ -8,6 +8,7 @@ import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart'
 import 'package:shopingapp/app_driver.dart';
 
 import '../../../config/bindings/components_test_bindings.dart';
+import '../../../config/titles/components_tests_titles.dart';
 import '../../../utils/finder_utils.dart';
 import '../../../utils/tests_utils.dart';
 
@@ -24,8 +25,8 @@ class ProgresIndicatorTest {
       return Get.find<IOverviewService>().getLocalDataAllProducts();
     }
 
-    testWidgets('Checking CustomProgrIndicator', (tester) async {
-      ComponentsTestBindings().bindingsBuilderMockedRepo();
+    testWidgets(ComponentsTestsTitles().check_custom_progr_indic, (tester) async {
+      ComponentsTestBindings().bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
 
       await tester.pumpWidget(AppDriver());
 
@@ -41,8 +42,9 @@ class ProgresIndicatorTest {
       expect(_finder.text(_products()[1].title.toString()), findsOneWidget);
     });
 
-    testWidgets('Checking CustomProgrIndicator EmptyDB', (tester) async {
-      ComponentsTestBindings().bindingsBuilderMockRepoEmptyDb();
+    testWidgets(ComponentsTestsTitles().check_custom_progr_indic_emptydb, (tester) async {
+      // ComponentsTestBindings().bindingsBuilderMockRepoEmptyDb();
+      ComponentsTestBindings().bindingsBuilder(isWidgetTest: true, isEmptyDb: true);
 
       await tester.pumpWidget(AppDriver());
 

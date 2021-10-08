@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
+import 'app/core/components/drawwer_test.dart';
 import 'app/modules/cart/view/cart_view_test.dart';
 import 'app/modules/inventory/view/inventory_view_edit_test.dart';
 import 'app/modules/inventory/view/inventory_view_test.dart';
@@ -14,11 +15,12 @@ import 'config/groups/orders_test_groups.dart';
 import 'config/groups/overview_test_groups.dart';
 import 'config/tests_properties.dart';
 import 'config/titles/cart_tests_titles.dart';
+import 'config/titles/components_tests_titles.dart';
 import 'config/titles/inventory_tests_titles.dart';
 import 'config/titles/orders_tests_titles.dart';
 import 'config/titles/overview_tests_titles.dart';
 import 'config/titles/testdb_check_titles.dart';
-import 'tests_datasource/prepare_db_test.dart';
+import 'tests_datasource/load_db_test.dart';
 
 void main() {
   // NO ERASE: String.fromEnvironment => MUST BE CONSTANT!!!
@@ -30,59 +32,65 @@ void main() {
 }
 
 void _unitTests() {
-  final _skip = false;
+  final skip_group = true;
 
-  CartTestGroups().groups(skipGroup: _skip);
-  OrdersTestGroups().groups(skipGroup: _skip);
-  OverviewTestGroups().groups(skipGroup: _skip);
-  InventoryTestGroups().groups(skipGroup: _skip);
-  ComponentsTestGroups().groups(skipGroup: _skip);
+  CartTestGroups().groups(skipGroup: skip_group);
+  OrdersTestGroups().groups(skipGroup: skip_group);
+  OverviewTestGroups().groups(skipGroup: skip_group);
+  InventoryTestGroups().groups(skipGroup: skip_group);
+  ComponentsTestGroups().groups(skipGroup: false);
 }
 
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final _skip = false; //skip-group overrides the internal skip-methods
+  final skip_group = true; //skip-group overrides the internal skip-methods
 
   group(
     TestDbCheckTitles.GROUP_TITLE,
-    PrepareDbTest().executing,
-    skip: _skip,
+    DbTest().loading,
+    skip: skip_group,
   );
 
   group(
     OrdersTestsTitles.GROUP_TITLE,
     OrdersViewTest(testType: INTEGRATION_TEST).functional,
-    skip: _skip,
+    skip: skip_group,
   );
 
   group(
     InventoryTestsTitles.GROUP_TITLE,
     InventoryViewTest(testType: INTEGRATION_TEST).functional,
-    skip: _skip,
+    skip: skip_group,
   );
 
   group(
     InventoryTestsTitles.EDIT_GROUP_TITLE,
     InventoryViewEditTest(testType: INTEGRATION_TEST).functional,
-    skip: _skip,
+    skip: skip_group,
   );
 
   group(
     InventoryTestsTitles.VALID_GROUP_TITLE,
     InventoryViewValidationTest(isWidgetTest: INTEGRATION_TEST).functional,
-    skip: _skip,
+    skip: skip_group,
   );
 
   group(
     OverviewTestsTitles.GROUP_TITLE,
     OverviewViewTest(testType: INTEGRATION_TEST).functional,
-    skip: _skip,
+    skip: skip_group,
   );
 
   group(
     CartTestsTitles.GROUP_TITLE,
     CartViewTest(testType: INTEGRATION_TEST).functional,
-    skip: _skip,
+    skip: skip_group,
+  );
+
+  group(
+    ComponentsTestsTitles.GROUP_TITLE_DRAWWER,
+    DrawwerTest(testType: INTEGRATION_TEST).functional,
+    skip: false,
   );
 }

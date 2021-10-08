@@ -1,127 +1,81 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
-import 'package:shopingapp/app/core/components/keys/progres_indicator_keys.dart';
-import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
-import 'package:shopingapp/app/core/texts_icons_provider/pages/components/drawwer.dart';
-import 'package:shopingapp/app/core/texts_icons_provider/pages/inventory/inventory.dart';
-import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
-import 'package:shopingapp/app/modules/inventory/entity/product.dart';
-import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
-import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
-import 'package:shopingapp/app_driver.dart';
+import 'package:shopingapp/app/core/properties/app_urls.dart';
 
 import '../../../config/bindings/components_test_bindings.dart';
+import '../../../config/tests_properties.dart';
+import '../../../config/titles/components_tests_titles.dart';
+import '../../../tests_datasource/mocked_datasource.dart';
+import '../../../utils/dbtest_utils.dart';
 import '../../../utils/finder_utils.dart';
+import '../../../utils/tests_global_utils.dart';
 import '../../../utils/tests_utils.dart';
+import '../../../utils/ui_test_utils.dart';
+import 'drawwer_tests.dart';
 
 class DrawwerTest {
-  static void functional() {
-    var _finder = Get.put(FinderUtils());
-    var _testMethodsUtils = Get.put(TestsUtils());
+  late bool _isWidgetTest;
+  final _finder = Get.put(FinderUtils());
+  final _uiUtils = Get.put(UiTestUtils());
+  final _dbUtils = Get.put(DbTestUtils());
 
-    setUp(() {
-      ComponentsTestBindings().bindingsBuilderMockedRepo();
+  // final _bindings = Get.put(OverviewTestBindings());
+  final _bindings = Get.put(ComponentsTestBindings());
+  final _titles = Get.put(ComponentsTestsTitles());
+  final _testUtils = Get.put(TestsUtils());
+  final _globalMethods = Get.put(TestsGlobalUtils());
+
+  DrawwerTest({required String testType}) {
+    _isWidgetTest = testType == WIDGET_TEST;
+  }
+
+  void functional() {
+    var _products = <dynamic>[];
+    final _tests = Get.put(DrawwerTests(
+        finder: _finder,
+        dbTestUtils: _dbUtils,
+        uiTestUtils: _uiUtils,
+        isWidgetTest: _isWidgetTest,
+        testUtils: _testUtils));
+
+    setUpAll(() async {
+      _globalMethods
+          .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
+
+      _products = _isWidgetTest
+          ? await Future.value(MockedDatasource().products())
+          : await _dbUtils.getCollection(url: PRODUCTS_URL);
+
+      // todo: new bindingsBuilder to be implemented in other groups
+      _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest, isEmptyDb: false);
     });
 
-    List<Product> _products() {
-      return Get.find<IOverviewService>().getLocalDataAllProducts();
-    }
+    tearDownAll(() => _globalMethods.globalTearDownAll(
+          _tests.runtimeType.toString(),
+          isWidgetTest: _isWidgetTest,
+        ));
 
-    testWidgets('Checking Overview BEFORE open Drawer', (tester) async {
-      await tester.pumpWidget(AppDriver());
-
-      expect(_finder.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
-      expect(_finder.text(NO_PRODUCTS_FOUND_YET), findsNothing);
-
-      await tester.pump();
-      await tester.pump(_testMethodsUtils.delay(3));
-      expect(_finder.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
-      expect(_finder.text(_products()[0].title.toString()), findsOneWidget);
-      expect(_finder.text(_products()[1].title.toString()), findsOneWidget);
-      expect(_finder.text(_products()[2].title.toString()), findsOneWidget);
-      expect(_finder.text(_products()[3].title.toString()), findsOneWidget);
-      expect(_finder.iconType(IconButton, Icons.favorite), findsOneWidget);
-      expect(_finder.iconType(IconButton, Icons.favorite_border), findsNWidgets(3));
-      expect(_finder.iconType(IconButton, Icons.shopping_cart), findsNWidgets(5));
-      expect(_finder.iconData(Icons.more_vert), findsOneWidget);
-      expect(_finder.key(K_DRW_APPBAR_BTN), findsOneWidget);
+    tearDownAll(() {
+      _globalMethods.globalTearDownAll(
+        _tests.runtimeType.toString(),
+        isWidgetTest: _isWidgetTest,
+      );
     });
 
-    testWidgets('Tapping Drawer', (tester) async {
-      await tester.pumpWidget(AppDriver());
-      await tester.pump();
+    setUp(_globalMethods.globalSetUp);
 
-      var scaffoldKey = DRAWWER_SCAFFOLD_GLOBALKEY;
-      var scaffState = scaffoldKey.currentState!;
-      var titleDrawer = DRAWER_COMPONENT_TITLE_APPBAR;
+    tearDown(_globalMethods.globalTearDown);
 
-      // Tapping three times
-      for (var counter = 0; counter <= 2; counter++) {
-        expect(_finder.text(titleDrawer), findsNothing);
-        expect(scaffState.isDrawerOpen, isFalse);
-        scaffState.openDrawer();
-        await tester.pump();
-        await tester.pump(_testMethodsUtils.delay(1));
-        expect(scaffState.isDrawerOpen, isTrue);
-        expect(_finder.text(titleDrawer), findsOneWidget);
-        await tester.tapAt(const Offset(750.0, 100.0)); // on the mask
-        await tester.pump();
-        await tester.pump(_testMethodsUtils.delay(1)); // animation done
-        expect(_finder.text(titleDrawer), findsNothing);
-        expect(scaffState.isDrawerOpen, isFalse);
-      }
+    testWidgets(_titles.open_and_close_drawer, (tester) async {
+      await _tests.open_and_close_drawer(tester);
     });
 
-    testWidgets('Tapping Drawer, closing tapping outside', (tester) async {
-      await tester.pumpWidget(AppDriver());
-      await tester.pump();
-
-      var scaffoldKey = DRAWWER_SCAFFOLD_GLOBALKEY;
-      var scaffState = scaffoldKey.currentState!;
-      var titleDrawer = DRAWER_COMPONENT_TITLE_APPBAR;
-
-      expect(_finder.text(titleDrawer), findsNothing);
-      expect(scaffState.isDrawerOpen, isFalse);
-      scaffState.openDrawer();
-      await tester.pump();
-      await tester.pump(_testMethodsUtils.delay(3));
-      expect(scaffState.isDrawerOpen, isTrue);
-      expect(_finder.text(titleDrawer), findsOneWidget);
-      await tester.tapAt(const Offset(750.0, 100.0)); // on the mask
-      await tester.pump();
-      await tester.pump(_testMethodsUtils.delay(3)); // animation done
-      expect(_finder.text(titleDrawer), findsNothing);
-    });
-
-    testWidgets('Tapping Two Drawer Options', (tester) async {
-      await tester.pumpWidget(AppDriver());
-      await tester.pump();
-
-      var scaffoldKey = DRAWWER_SCAFFOLD_GLOBALKEY;
-      var scaffState = scaffoldKey.currentState!;
-      var titleDrawer = DRAWER_COMPONENT_TITLE_APPBAR;
-      var ovViewPageTitle = OVERVIEW_TITLE_PAGE_ALL;
-      var manProdPageTitle = INVENTORY_PAGE_TITLE;
-      var manProdDrawerOption = _finder.key(DRAWER_INVENTORY_OPTION_KEY);
-      var ovViewDrawerOption = _finder.key(DRAWER_OVERVIEW_OPTION_KEY);
-
-      for (var counter = 1; counter <= 2; counter++) {
-        expect(_finder.text(titleDrawer), findsNothing);
-        scaffState.openDrawer();
-        await tester.pump();
-        await tester.pump(_testMethodsUtils.delay(3));
-        expect(_finder.text(titleDrawer), findsOneWidget);
-        counter == 1
-            ? await tester.tap(ovViewDrawerOption)
-            : await tester.tap(manProdDrawerOption);
-        await tester.pump();
-        await tester.pump(_testMethodsUtils.delay(3));
-        counter == 1
-            ? expect(_finder.text(ovViewPageTitle), findsOneWidget)
-            : expect(_finder.text(manProdPageTitle), findsOneWidget);
-      }
-    });
+    testWidgets(
+      _titles.tap_two_different_options_in_drawer,
+      (tester) async {
+        await _tests.tap_twoDifferent_options_InDrawer(tester);
+      },
+      skip: true,
+    );
   }
 }

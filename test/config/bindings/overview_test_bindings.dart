@@ -26,7 +26,7 @@ import '../../app/modules/overview/repo/overview_mocked_repo_emptydb.dart';
      'REPO-REAL-DE-PRODUCAO'MockedRepoClass(no external calls)
    */
 class OverviewTestBindings {
-  final IOverviewRepo _mocked_repo_used_in_this_module_tests = OverviewMockedRepo();
+  final IOverviewRepo _mocked_repo_tobe_used = OverviewMockedRepo();
 
   void _bindingsBuilder(IOverviewRepo overviewRepo) {
     Get.reset();
@@ -62,7 +62,7 @@ class OverviewTestBindings {
   }
 
   void bindingsBuilderMockedRepo({required bool isWidgetTest}) {
-    if (isWidgetTest) _bindingsBuilder(_mocked_repo_used_in_this_module_tests);
+    if (isWidgetTest) _bindingsBuilder(_mocked_repo_tobe_used);
   }
 
   void bindingsBuilderMockRepoEmptyDb({required bool isWidgetTest}) {

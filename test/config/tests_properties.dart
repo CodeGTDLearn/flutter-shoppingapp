@@ -1,5 +1,10 @@
+import 'dart:ui';
+
 const DELAY = 2;
 const EXTRA_DELAY = 2;
+
+const TEST_SCREEN_SIZE_DX = 414.0;
+const TEST_SCREEN_SIZE_DY = 896.0;
 
 const WIDGET_TEST = 'widget_test';
 const INTEGRATION_TEST = 'integration';
@@ -11,7 +16,7 @@ final MOCKED_DATA_MASS_PATH_FILE = "test/tests_datasource/mocked_data_mass.json"
 const TESTDB_NAME = 'test-app-dev-e6ee1-default-rtdb';
 const TESTDB_URL = "https://$TESTDB_NAME.firebaseio.com/.json";
 
-const TOTAL_SAMPLEDATA_ITEMS_LOADED_IN_TESTDB = 3;
+const TOTAL_SAMPLEDATA_ITEMS_TOBE_LOADED_IN_TESTDB = 3;
 const IMAGE_CORE_URL = 'https://images.freeimages.com/images/large-previews/';
 const TEST_IMAGE_URL_MAP = {
   "Tomatoes": "${IMAGE_CORE_URL}294/tomatoes-1326096.jpg",
