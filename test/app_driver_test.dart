@@ -23,7 +23,7 @@ import 'config/titles/testdb_check_titles.dart';
 import 'tests_datasource/load_db_test.dart';
 
 void main() {
-  // NO ERASE: String.fromEnvironment => MUST BE CONSTANT!!!
+  // NO ERASE:  String.fromEnvironment => MUST BE CONSTANT!!!
   const _env = String.fromEnvironment("testType", defaultValue: WIDGET_TEST);
   print("ENV_VAR_TEST_TYPE: ${_env.toString()}");
   if (_env == WIDGET_TEST) _unitTests();
@@ -32,7 +32,7 @@ void main() {
 }
 
 void _unitTests() {
-  final skip_group = true;
+  final skip_group = false;
 
   CartTestGroups().groups(skipGroup: skip_group);
   OrdersTestGroups().groups(skipGroup: skip_group);
@@ -44,7 +44,7 @@ void _unitTests() {
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final skip_group = true; //skip-group overrides the internal skip-methods
+  final skip_group = false; //skip-group overrides the internal skip-methods
 
   group(
     TestDbCheckTitles.GROUP_TITLE,
@@ -91,6 +91,6 @@ void _integrationTests() {
   group(
     ComponentsTestsTitles.GROUP_TITLE_DRAWWER,
     DrawwerTest(testType: INTEGRATION_TEST).functional,
-    skip: false,
+    skip: true,
   );
 }

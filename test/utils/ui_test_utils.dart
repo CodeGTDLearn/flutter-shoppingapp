@@ -80,12 +80,12 @@ class UiTestUtils {
     await tester.pumpAndSettle(_testUtils.delay(DELAY));
   }
 
-  void resetScreenSizeAfterTest(tester) {
+  void resetTestDeviceScreen(tester) {
     // resets the screen to its original size after the test end
     addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
   }
 
-  Future<void> defineScreenSizeForTest(
+  Future<void> setTestDeviceScreen(
     tester, {
     required double dx,
     required double dy,
@@ -96,4 +96,10 @@ class UiTestUtils {
     tester.binding.window.physicalSizeTestValue = _screenSizeDefinition;
     tester.binding.window.devicePixelRatioTestValue = 1.0;
   }
+
+  double testDeviceScreenWidth(WidgetTester tester) =>
+      tester.binding.window.physicalSize.width;
+
+  double testDeviceScreenHeight(WidgetTester tester) =>
+      tester.binding.window.physicalSize.height;
 }

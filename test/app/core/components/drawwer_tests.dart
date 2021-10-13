@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
-import 'package:shopingapp/app_driver.dart' as app;
 import 'package:shopingapp/app/modules/inventory/view/inventory_view.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
+import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../config/tests_properties.dart';
 import '../../../utils/dbtest_utils.dart';
@@ -28,6 +28,12 @@ class DrawwerTests {
   });
 
   Future<void> tap_twoDifferent_options_InDrawer(tester) async {
+    await uiTestUtils.setTestDeviceScreen(
+      tester,
+      dx: TEST_SCREEN_SIZE_DX,
+      dy: TEST_SCREEN_SIZE_DY,
+    );
+
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -40,6 +46,7 @@ class DrawwerTests {
       await tester.pumpAndSettle(testUtils.delay(DELAY));
       expect(scaffoldState.isDrawerOpen, isTrue);
 
+      await tester.pumpAndSettle(testUtils.delay(DELAY)); // animation done
       if (i == 0) await tester.tap(finder.key(DRAWER_OVERVIEW_OPTION_KEY));
       if (i == 1) await tester.tap(finder.key(DRAWER_INVENTORY_OPTION_KEY));
       await tester.pumpAndSettle(testUtils.delay(DELAY));
@@ -48,15 +55,14 @@ class DrawwerTests {
       await tester.tapAt(const Offset(750.0, 100.0)); // on the mask
       await tester.pumpAndSettle(testUtils.delay(DELAY)); // animation done
     }
+    uiTestUtils.resetTestDeviceScreen(tester);
   }
 
-  Future<void> open_and_close_drawer(tester) async {
-    // todo: IT WORKS.. DEFINE THE SCREEN SIZE IN THE FLUTTER-DRIVE.
-    await uiTestUtils.defineScreenSizeForTest(
-      tester,
-      dx: TEST_SCREEN_SIZE_DX,
-      dy: TEST_SCREEN_SIZE_DY,
-    );
+  Future<void> open_and_close_drawer(WidgetTester tester) async {
+    var height = uiTestUtils.testDeviceScreenHeight(tester);
+    var width = uiTestUtils.testDeviceScreenWidth(tester);
+
+    // print('>>>>>>>>>>>>>>>>>>>>>>> ${height.toString()}/////${width.toString()}');
 
     await uiTestUtils.testInitialization(
       tester,
@@ -69,17 +75,14 @@ class DrawwerTests {
     expect(scaffoldState.isDrawerOpen, isFalse);
 
     scaffoldState.openDrawer();
+    await tester.pump();
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(scaffoldState.isDrawerOpen, isTrue);
 
-    // todo: PROBLEM..IT DOES WORKS.. OFFSET WORKS IN 6.3POL BUT NOT IN 3.7POL.
-    const offset = Offset(TEST_SCREEN_SIZE_DX * 0.9, (TEST_SCREEN_SIZE_DY * 0.9));
-    print('${TEST_SCREEN_SIZE_DX * 0.75}, ${-(TEST_SCREEN_SIZE_DY * 0.75)}');
-    print('$TEST_SCREEN_SIZE_DX, ${-(TEST_SCREEN_SIZE_DY)}');
-    await tester.tapAt(offset); // on the mask
+    await tester.tapAt(Offset(width * 0.90, height * 0.50)); // on the mask
+    await tester.pump();
     await tester.pumpAndSettle(testUtils.delay(DELAY)); // animation done
-    expect(scaffoldState.isDrawerOpen, isFalse);
 
-    uiTestUtils.resetScreenSizeAfterTest(tester);
+    expect(scaffoldState.isDrawerOpen, isFalse);
   }
 }
