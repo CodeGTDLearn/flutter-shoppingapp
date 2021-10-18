@@ -8,6 +8,8 @@ import 'app/core/properties/theme/app_theme_controller.dart';
 import 'app/core/shared_preferences/i_shared_prefs_repo.dart';
 import 'app/core/shared_preferences/shared_prefs_repo.dart';
 
+void main() => runApp(AppDriver());
+
 class AppDriver extends StatelessWidget {
   final _appTheme = Get.put(AppTheme());
   final _darkTheme = Get.put(AppThemeController());

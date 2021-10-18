@@ -32,24 +32,26 @@ class DbTestUtils {
     }).catchError((onError) => throw onError);
   }
 
-  // List<dynamic> getCollection({
-  Future<List<dynamic>> getCollection({
-    required String url,
-  }) {
+  Future<List<Product>> getCollection({required String url}) {
+    return http
+        .get(Uri.parse(url))
+        .then(_decodeResponse)
+        .catchError((onError) => throw onError);
+  }
+
+  List<Product> _decodeResponse(http.Response response) {
     var _products = <Product>[];
-    return http.get(Uri.parse(url)).then((response) {
-      var plainText = response.body;
-      final json = jsonDecode(plainText);
-      json == null
-          ? _products = []
-          : json.forEach((key, value) {
-              var product = Product.fromJson(value);
-              product.id = key;
-              _products.add(product);
-            });
-      return _products;
-    }).catchError((onError) => throw onError);
-    // return _products;
+
+    var plainText = response.body;
+    final json = jsonDecode(plainText);
+    json == null
+        ? _products = []
+        : json.forEach((key, value) {
+            var product = Product.fromJson(value);
+            product.id = key;
+            _products.add(product);
+          });
+    return _products;
   }
 
   Future<bool> isDbOnline({

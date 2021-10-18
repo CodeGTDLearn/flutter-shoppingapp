@@ -31,6 +31,7 @@ class OverviewViewTest {
 
   void functional() {
     var _products = <dynamic>[];
+
     final _tests = Get.put(OverviewTests(
         finder: _finder,
         dbTestUtils: _dbUtils,

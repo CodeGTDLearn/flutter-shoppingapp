@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:shopingapp/app/core/properties/app_urls.dart';
 import 'package:shopingapp/app/modules/inventory/components/inventory_item.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
+import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
 import '../../../../config/bindings/inventory_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
@@ -30,7 +31,7 @@ class InventoryViewTest {
   }
 
   void functional() {
-    var _products = <dynamic>[];
+    var _products = <Product>[];
 
     final _tests = Get.put(InventoryTests(
         finder: _finder,
@@ -42,14 +43,10 @@ class InventoryViewTest {
     setUpAll(() async {
       _globalMethods
           .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
-      _products = _isWidgetTest
-          ? await Future.value(MockedDatasource().products())
-          : await _dbUtils.getCollection(url: PRODUCTS_URL);
-      // _products = await _testUtils.post_DatabuilderProductList_InDb(
-      //   isWidgetTest: _isWidgetTest,
-      //   numberOfProducts: TOTAL_SAMPLEDATA_ITEMS_LOADED_IN_TESTDB,
-      // );
-      // _products = await _dbUtils.getCollection(url: PRODUCTS_URL).cast<Product>();
+
+      // _products = _isWidgetTest
+      //     ? await Future.value(MockedDatasource().products())
+      //     : await _dbUtils.getCollection(url: PRODUCTS_URL);
     });
 
     tearDownAll(() => _globalMethods.globalTearDownAll(
@@ -58,24 +55,28 @@ class InventoryViewTest {
         ));
 
     setUp(() {
-      _globalMethods.globalSetUp();
       _bindings.bindingsBuilderMockedRepo(isUnitTest: _isWidgetTest);
+      _globalMethods.globalSetUp();
     });
 
     tearDown(_globalMethods.globalTearDown);
 
     testWidgets(_titles.check_products, (tester) async {
+      _products = _isWidgetTest
+          ? await Future.value(MockedDatasource().products())
+          : await _dbUtils.getCollection(url: PRODUCTS_URL);
+
       await _tests.check_qtde_products(tester, _products.length);
-    });
+    }, skip: false);
 
     testWidgets(_titles.update_product, (tester) async {
       await _tests.update_product(
         tester,
         inputValidText: "XXXXXX",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
-        productToUpdate: _products[0],
+        productToUpdate: _products.elementAt(0),
       );
-    });
+    }, skip: false);
 
     testWidgets(_titles.delete_product, (tester) async {
       await _tests.delete_product(

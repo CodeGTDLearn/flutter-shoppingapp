@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 const DELAY = 2;
 const EXTRA_DELAY = 2;
 

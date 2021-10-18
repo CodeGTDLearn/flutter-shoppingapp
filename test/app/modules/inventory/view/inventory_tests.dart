@@ -193,7 +193,7 @@ class InventoryTests {
     //          - They uses MOCK-OBJECTS which are not 'PERSISTED' IN DB
     //          - Without 'PERSISTENCE' in DB InventoryAddEditView does not GO-BACK
     //          InventoryView automatically
-    if (isWidgetTest == false) {
+    if (!isWidgetTest) {
       await tester.pump(testUtils.delay(DELAY));
       expect(finder.type(InventoryView), findsOneWidget);
       expect(finder.text(inputValidText), findsOneWidget);
