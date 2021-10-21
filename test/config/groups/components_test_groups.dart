@@ -9,7 +9,7 @@ class ComponentsTestGroups {
   void groups({required skipGroup}) {
     group(
       ComponentsTestsTitles.GROUP_TITLE_PROGR_INDIC,
-      ProgresIndicatorTest.functional,
+      ProgresIndicatorTest().functional,
       skip: skipGroup,
     );
 

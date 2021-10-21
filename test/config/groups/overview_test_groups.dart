@@ -11,19 +11,19 @@ class OverviewTestGroups {
   void groups({required bool skipGroup}) {
     group(
       OverviewTestsTitles().REPO_TITLE,
-      OverviewRepoTests.unit,
+      OverviewRepoTests().unit,
       skip: skipGroup, //'skip-group' overrides the internal 'skip-methods'
     );
 
     group(
       OverviewTestsTitles().SERVICE_TITLE,
-      OverviewServiceTests.unit,
+      OverviewServiceTests().unit,
       skip: skipGroup,
     );
 
     group(
       OverviewTestsTitles().CONTROLLER_TITLE,
-      OverviewControllerTests.integration,
+      OverviewControllerTests().integration,
       skip: skipGroup,
     );
 

@@ -10,7 +10,7 @@ import '../../../data_builders/product_databuilder.dart';
 import '../../../tests_datasource/mocked_datasource.dart';
 
 class CartControllerTests {
-  static void integration() {
+  void integration() {
     late CartController _controller;
     late Product _product1, _product2;
     late Order _order1;
@@ -49,14 +49,14 @@ class CartControllerTests {
       expect(_product2.id.toString(), isIn(listProductsInserted));
 
       //TESTING ABSENCE: STYLE 01 - ISNOT+ISIN
-      var cartItem1 = CartItemDatabuilder.CartItemFromProduct(_product1);
+      var cartItem1 = CartItemDatabuilder().CartItemFromProduct(_product1);
       _controller.removeCartItem(cartItem1);
       expect(_controller.getAllCartItems().length, 1);
       expect(_controller.getQtdeCartItemsObs(), 1);
       expect(_product1.id.toString(), isNot(isIn(listProductsInserted)));
 
       //TESTING ABSENCE: STYLE 02 - FOREACH+FAIL
-      var cartItem2 = CartItemDatabuilder.CartItemFromProduct(_product2);
+      var cartItem2 = CartItemDatabuilder().CartItemFromProduct(_product2);
       _controller.removeCartItem(cartItem2);
       expect(_controller.getAllCartItems().length, isZero);
       expect(_controller.getQtdeCartItemsObs(), isZero);

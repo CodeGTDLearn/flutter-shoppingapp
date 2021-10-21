@@ -13,7 +13,7 @@ import '../../../tests_datasource/mocked_datasource.dart';
  POIS NAO EXISTEM 'CALLBACKS' DE DATABASE OU CHAMADAS-HTTP)
  */
 class CartRepoTests {
-  static void unit() {
+  void unit() {
     late ICartRepo _repo;
     var _product0 = MockedDatasource().products().elementAt(0);
     var _product1 = MockedDatasource().products().elementAt(1);
@@ -38,13 +38,13 @@ class CartRepoTests {
       expect(_product1.id.toString(), isIn(listProductsInserted));
 
       //TESTING ABSENCE: STYLE 01 - ISNOT+ISIN
-      var cartItem1 = CartItemDatabuilder.CartItemFromProduct(_product0);
+      var cartItem1 = CartItemDatabuilder().CartItemFromProduct(_product0);
       _repo.removeCartItem(cartItem1);
       expect(_repo.getAllCartItems().length, 1);
       expect(_product0.id.toString(), isNot(isIn(listProductsInserted)));
 
       //TESTING ABSENCE: STYLE 02 - FOREACH+FAIL
-      var cartItem2 = CartItemDatabuilder.CartItemFromProduct(_product1);
+      var cartItem2 = CartItemDatabuilder().CartItemFromProduct(_product1);
       _repo.removeCartItem(cartItem2);
       expect(_repo.getAllCartItems().length, isZero);
       _repo.getAllCartItems().forEach((key, value) {

@@ -11,7 +11,7 @@ import '../../../config/bindings/overview_test_bindings.dart';
 import '../../../tests_datasource/mocked_datasource.dart';
 
 class OverviewControllerTests {
-  static void integration() {
+  void integration() {
     late IOverviewRepo _repo;
     late IOverviewService _service;
     late OverviewController _controller;

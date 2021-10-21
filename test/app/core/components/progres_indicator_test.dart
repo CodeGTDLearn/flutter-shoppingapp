@@ -13,7 +13,7 @@ import '../../../utils/finder_utils.dart';
 import '../../../utils/tests_utils.dart';
 
 class ProgresIndicatorTest {
-  static void functional() {
+  void functional() {
     late FinderUtils _finder;
     var _testMethodsUtils = Get.put(TestsUtils());
 

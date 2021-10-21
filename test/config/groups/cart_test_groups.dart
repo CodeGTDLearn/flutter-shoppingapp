@@ -11,19 +11,19 @@ class CartTestGroups {
   void groups({required bool skipGroup}) {
     group(
       CartTestsTitles().REPO_TITLE,
-      CartRepoTests.unit,
+      CartRepoTests().unit,
       skip: skipGroup, // 'skip-group' overrides the internal 'skip-methods'
     );
 
     group(
       CartTestsTitles().SERVICE_TITLE,
-      CartServiceTests.unit,
+      CartServiceTests().unit,
       skip: skipGroup,
     );
 
     group(
       CartTestsTitles().CONTROLLER_TITLE,
-      CartControllerTests.integration,
+      CartControllerTests().integration,
       skip: skipGroup,
     );
 

@@ -3,11 +3,11 @@ import 'package:shopingapp/app/modules/cart/entity/cart_item.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
 class CartItemDatabuilder {
-  static CartItem CartItemFromProduct(Product product) {
+  CartItem CartItemFromProduct(Product product) {
     return CartItem(product.id!, product.title, 1, 22.22);
   }
 
-  static CartItem CartItemFull() {
+  CartItem CartItemFull() {
     var _price =
         double.parse(Faker().randomGenerator.decimal(min: 22.0).toStringAsFixed(2));
 
@@ -15,7 +15,7 @@ class CartItemDatabuilder {
         Faker().food.dish(), Faker().randomGenerator.integer(5, min: 1), _price);
   }
 
-  static List<CartItem> cartItems() {
+  List<CartItem> cartItems() {
     List<CartItem> listCartItems;
     listCartItems = [CartItemFull(), CartItemFull()];
     return listCartItems;

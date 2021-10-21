@@ -8,7 +8,7 @@ import '../../../data_builders/cartitem_databuilder.dart';
 import '../../../data_builders/product_databuilder.dart';
 
 class CartServiceTests {
-  static void unit() {
+  void unit() {
     late ICartService _service;
     late Product _product1, _product2;
 
@@ -46,13 +46,13 @@ class CartServiceTests {
       expect(_product2.id.toString(), isIn(listProductsInserted));
 
       //TESTING ABSENCE: STYLE 01 - ISNOT+ISIN
-      var cartItem1 = CartItemDatabuilder.CartItemFromProduct(_product1);
+      var cartItem1 = CartItemDatabuilder().CartItemFromProduct(_product1);
       _service.removeCartItem(cartItem1);
       expect(_service.getAllCartItems().length, 1);
       expect(_product1.id.toString(), isNot(isIn(listProductsInserted)));
 
       //TESTING ABSENCE: STYLE 02 - FOREACH+FAIL
-      var cartItem2 = CartItemDatabuilder.CartItemFromProduct(_product2);
+      var cartItem2 = CartItemDatabuilder().CartItemFromProduct(_product2);
       _service.removeCartItem(cartItem2);
       expect(_service.getAllCartItems().length, isZero);
       _service.getAllCartItems().forEach((key, value) {

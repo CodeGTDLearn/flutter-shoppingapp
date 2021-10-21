@@ -5,11 +5,11 @@ import 'package:shopingapp/app/modules/orders/entity/order.dart';
 import 'cartitem_databuilder.dart';
 
 class OrderDatabuilder {
-  static Order OrderFull() {
+  Order OrderFull() {
     var ListCartItemsFake = <CartItem>[];
 
-    var carItem1 = CartItemDatabuilder.CartItemFull();
-    var carItem2 = CartItemDatabuilder.CartItemFull();
+    var carItem1 = CartItemDatabuilder().CartItemFull();
+    var carItem2 = CartItemDatabuilder().CartItemFull();
 
     ListCartItemsFake.add(carItem1);
     ListCartItemsFake.add(carItem2);

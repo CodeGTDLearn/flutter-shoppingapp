@@ -56,7 +56,7 @@ class InventoryViewValidationTest {
 
     setUp(() {
       _globalMethods.globalSetUp();
-      InventoryTestBindings().bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
+      _bindings.bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
     });
 
     tearDown(_globalMethods.globalTearDown);

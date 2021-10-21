@@ -55,7 +55,7 @@ class InventoryViewTest {
         ));
 
     setUp(() {
-      InventoryTestBindings().bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
+      _bindings.bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
       _globalMethods.globalSetUp();
     });
 
@@ -115,7 +115,7 @@ class InventoryViewTest {
     testWidgets(
       _titles.check_emptyView_noProductInDb,
       (tester) async {
-        InventoryTestBindings().bindingsBuilder(isWidgetTest: true, isEmptyDb: true);
+        _bindings.bindingsBuilder(isWidgetTest: true, isEmptyDb: true);
         await _tests.check_emptyView_noProductInDb(tester, DELAY);
       },
     );

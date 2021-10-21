@@ -11,7 +11,7 @@ class OrdersTestGroups {
   void groups({required bool skipGroup}) {
     group(
       OrdersTestsTitles().REPO_TITLE,
-      OrdersRepoTests.unit,
+      OrdersRepoTests().unit,
       skip: skipGroup, // 'skip-group' overrides the internal 'skip-methods'
     );
     group(
@@ -21,7 +21,7 @@ class OrdersTestGroups {
     );
     group(
       OrdersTestsTitles().CONTROLLER_TITLE,
-      OrdersControllerTests.integration,
+      OrdersControllerTests().integration,
       skip: skipGroup,
     );
     group(

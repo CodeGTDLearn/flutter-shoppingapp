@@ -8,7 +8,7 @@ import '../../../../config/bindings/orders_test_bindings.dart';
 import '../../../../data_builders/order_databuilder.dart';
 
 class OrdersRepoTests {
-  static void unit() {
+  void unit() {
     var testConfig = Get.put(OrdersTestBindings());
     late IOrdersRepo _repo;
     var _orderWithoutId;
@@ -16,7 +16,7 @@ class OrdersRepoTests {
     setUp(() {
       testConfig.bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
       _repo = Get.find<IOrdersRepo>();
-      _orderWithoutId = OrderDatabuilder.OrderFull();
+      _orderWithoutId = OrderDatabuilder().OrderFull();
     });
 
     tearDown(Get.reset);

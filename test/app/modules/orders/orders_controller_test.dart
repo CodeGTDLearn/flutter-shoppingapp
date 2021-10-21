@@ -6,7 +6,7 @@ import '../../../config/bindings/orders_test_bindings.dart';
 import '../../../tests_datasource/mocked_datasource.dart';
 
 class OrdersControllerTests {
-  static void integration() {
+  void integration() {
     late OrdersController _controller;
     var testConfig = Get.put(OrdersTestBindings());
 

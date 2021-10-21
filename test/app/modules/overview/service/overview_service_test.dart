@@ -12,7 +12,7 @@ import '../../../../utils/tests_global_utils.dart';
 import 'overview_mocked_service.dart';
 
 class OverviewServiceTests {
-  static void unit() {
+  void unit() {
     late IOverviewRepo _repo;
     late IOverviewService _service, _injectService;
     var testConfig = Get.put(OverviewTestBindings());
