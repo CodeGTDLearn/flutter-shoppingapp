@@ -1,33 +1,33 @@
 import 'package:get/get.dart';
 
 class TestsGlobalUtils {
-  void globalSetUpAll(
-    String testModuleName, {
-    String label = 'Starting FunctionalTests: ',
+  void globalSetUpAll({
+    required String testModuleName,
+    String label = 'Functional-Test | Starting | ',
   }) async {
     print(_headerGenerator(
       module: testModuleName,
-      // label: 'Starting FunctionalTests: ',
       label: label,
-      fullLength: 73,
-      qtdeSuperiorLine: 2,
+      fullLength: 150,
+      qtdeMarginLines: 2,
       lineCharacter: '=',
     ));
   }
 
-  void globalTearDownAll(
-    String testModuleName, {
+  void globalTearDownAll({
+    required String testModuleName,
+    String label = 'Functional-Test | Finished | ',
     bool? isWidgetTest,
-    String label = 'FunctionalTests Finished: ',
   }) async {
     isWidgetTest = isWidgetTest ?? true;
-    print('\n'
-        '<<=============================================================<<\n'
-        '<<=============================================================<<\n'
-        '<<==<< $label $testModuleName \n'
-        '<<=============================================================<<\n'
-        '<<=============================================================<<\n'
-        '\n \n \n');
+
+    print(_headerGenerator(
+      module: testModuleName,
+      label: label,
+      fullLength: 150,
+      qtdeMarginLines: 2,
+      lineCharacter: '=',
+    ));
 
     // if (isWidgetTest == false) {
     //   var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
@@ -39,6 +39,7 @@ class TestsGlobalUtils {
   }
 
   void globalSetUp() {
+    // todo: Automatize such as _headerGenerator
     var label = "Test Starting...";
     print('\n'
         '>---------------------------------------------------------------------------'
@@ -47,6 +48,7 @@ class TestsGlobalUtils {
   }
 
   void globalTearDown() {
+    // todo: Automatize such as _headerGenerator
     var label = "...Test Finished";
     print('\n'
         '<-----------------< $label    <-----------------<\n'
@@ -61,7 +63,7 @@ class TestsGlobalUtils {
     required String label,
     required String lineCharacter,
     required int fullLength,
-    required int qtdeSuperiorLine,
+    required int qtdeMarginLines,
   }) {
     var title = '$label $module';
     var arrowChar = '>';
@@ -79,7 +81,7 @@ class TestsGlobalUtils {
     }
     middleLine = middleLine + arrowChar;
 
-    for (var i = 1; i < qtdeSuperiorLine; i++) {
+    for (var i = 1; i < qtdeMarginLines; i++) {
       superiorLine = "$superiorLine${"$superiorLine"}";
     }
     // var middle = '$middleLine $title $middleLine';

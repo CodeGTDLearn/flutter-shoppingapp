@@ -14,7 +14,7 @@ class OverviewRepoTests {
     var testConfig = Get.put(OverviewTestBindings());
 
     setUp(() {
-      testConfig.bindingsBuilderMockedRepo(isWidgetTest: true);
+      testConfig.bindingsBuilder(isWidgetTest: true);
       _repo = Get.find<IOverviewRepo>();
       _injectRepo = OverviewMockedRepoInject();
       _productFail = ProductDataBuilder().ProductWithId();

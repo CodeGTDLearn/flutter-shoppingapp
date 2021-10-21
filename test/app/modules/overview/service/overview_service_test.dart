@@ -19,7 +19,7 @@ class OverviewServiceTests {
     final _globalMethods = Get.put(TestsGlobalUtils());
 
     setUp(() {
-      testConfig.bindingsBuilderMockedRepo(isWidgetTest: true);
+      testConfig.bindingsBuilder(isWidgetTest: true);
       _repo = Get.find<IOverviewRepo>();
       _service = OverviewService(repo: _repo);
       _injectService = OverviewInjectMockedService();

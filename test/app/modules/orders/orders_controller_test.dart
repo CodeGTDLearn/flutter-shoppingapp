@@ -11,7 +11,7 @@ class OrdersControllerTests {
     var testConfig = Get.put(OrdersTestBindings());
 
     setUp(() {
-      testConfig.bindingsBuilderMockedRepo(isWidgetTest: true);
+      testConfig.bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
       _controller = Get.find<OrdersController>();
     });
 

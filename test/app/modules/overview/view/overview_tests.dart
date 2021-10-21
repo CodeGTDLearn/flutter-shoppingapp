@@ -30,7 +30,7 @@ class OverviewTests {
   });
 
   Future<void> add_identicalProduct2x_Check_ShopCartIcon(
-    tester, {
+    WidgetTester tester, {
     required String addProductButtonKey,
     required String productTitle,
     required int totalBeforeAdding,
@@ -54,7 +54,7 @@ class OverviewTests {
   }
 
   Future<void> addProduct_click_UndoSnackbar_Check_ShopCartIcon(
-    tester, {
+    WidgetTester tester, {
     required String addProductButtonKey,
     required String productTitle,
     required String snackbarUndoButtonKey,
@@ -163,7 +163,7 @@ class OverviewTests {
   }
 
   Future<void> add_identicalProduct3x_check_shopCartIcon(
-    tester, {
+    WidgetTester tester, {
     required String productAddButtonKey,
     required int totalBeforeAdding,
     required int totalAfterAdding,
@@ -184,7 +184,7 @@ class OverviewTests {
   }
 
   Future<void> add_AllDbProducts_check_shopCartIcon(
-    tester, {
+    WidgetTester tester, {
     required String firstProduct_addButtonKey,
     required int totalAfterAdding,
     required int totalBeforeAdding,
@@ -216,7 +216,7 @@ class OverviewTests {
   }
 
   Future<void> check_product_details_image_backbutton_overview(
-    tester, {
+    WidgetTester tester, {
     required String productButtonKey,
     required Product detailedProduct,
   }) async {
@@ -244,7 +244,7 @@ class OverviewTests {
   }
 
   Future<void> check_product_details_backbutton_overview(
-    tester, {
+    WidgetTester tester, {
     required String productButtonKey,
     required Product detailedProduct,
   }) async {
@@ -274,7 +274,7 @@ class OverviewTests {
   }
 
   Future<void> check_overviewGridItems_qtde(
-    tester, {
+    WidgetTester tester, {
     required int qtde,
   }) async {
     await uiTestUtils.testInitialization(
@@ -310,7 +310,7 @@ class OverviewTests {
   }
 
   Future<void> tap_viewBackButton(
-    tester, {
+    WidgetTester tester, {
     required String productButtonKey,
   }) async {
     await uiTestUtils.testInitialization(
@@ -335,7 +335,7 @@ class OverviewTests {
   }
 
   Future<void> toggle_ProductFavoriteButton(
-    tester, {
+    WidgetTester tester, {
     required String toggleButtonKey,
   }) async {
     await uiTestUtils.testInitialization(

@@ -62,8 +62,6 @@ class DrawwerTests {
     var height = uiTestUtils.testDeviceScreenHeight(tester);
     var width = uiTestUtils.testDeviceScreenWidth(tester);
 
-    // print('>>>>>>>>>>>>>>>>>>>>>>> ${height.toString()}/////${width.toString()}');
-
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,

@@ -317,7 +317,7 @@ class CartTests {
   }
 
   Future<void> _addProduct_tappingOverviewItem_openShopCartView(
-    tester, {
+    WidgetTester tester, {
     required String itemToAdd,
   }) async {
     await tester.tap(finder.key(itemToAdd));

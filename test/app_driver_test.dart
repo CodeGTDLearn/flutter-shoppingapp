@@ -44,12 +44,12 @@ void _unitTests() {
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final skip_group = true; //skip-group overrides the internal skip-methods
+  final skip_group = false; //skip-group overrides the internal skip-methods
 
   group(
     TestDbCheckTitles.GROUP_TITLE,
     DbTest().loading,
-    skip: false,
+    skip: false, // false everytime
   );
 
   group(
@@ -61,7 +61,7 @@ void _integrationTests() {
   group(
     InventoryTestsTitles.GROUP_TITLE,
     InventoryViewTest(testType: INTEGRATION_TEST).functional,
-    skip: true,
+    skip: skip_group,
   );
 
   group(
@@ -73,7 +73,7 @@ void _integrationTests() {
   group(
     InventoryTestsTitles.VALID_GROUP_TITLE,
     InventoryViewValidationTest(isWidgetTest: INTEGRATION_TEST).functional,
-    skip: true,
+    skip: skip_group,
   );
 
   group(
@@ -91,6 +91,6 @@ void _integrationTests() {
   group(
     ComponentsTestsTitles.GROUP_TITLE_DRAWWER,
     DrawwerTest(testType: INTEGRATION_TEST).functional,
-    skip: true,
+    skip: true, // TODO 01:PROBLEM 03
   );
 }

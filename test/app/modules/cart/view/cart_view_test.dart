@@ -38,8 +38,9 @@ class CartViewTest {
         testUtils: _testUtils));
 
     setUpAll(() async {
-      _globalMethods
-          .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
+      _globalMethods.globalSetUpAll(
+        testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE',
+      );
       // _products = await _testUtils.post_databuilderProductList_InDb(
       //   isWidgetTest: _isWidgetTest,
       //   numberOfProducts: TOTAL_SAMPLEDATA_ITEMS_LOADED_IN_TESTDB,
@@ -50,13 +51,13 @@ class CartViewTest {
     });
 
     tearDownAll(() => _globalMethods.globalTearDownAll(
-          _tests.runtimeType.toString(),
+          testModuleName: _tests.runtimeType.toString(),
           isWidgetTest: _isWidgetTest,
         ));
 
     setUp(() {
       _globalMethods.globalSetUp();
-      _bindings.bindingsBuilderMockedRepo(isWidgetTest: _isWidgetTest);
+      _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest);
     });
 
     tearDown(_globalMethods.globalTearDown);

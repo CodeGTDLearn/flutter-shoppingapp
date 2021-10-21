@@ -11,7 +11,6 @@ import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart'
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 
 import '../../app/modules/overview/repo/overview_mocked_repo.dart';
-import '../../app/modules/overview/repo/overview_mocked_repo_emptydb.dart';
 
 /* INSTRUCTIONS ABOUT 'REPO-REAL-DE-PRODUCAO' E 'REPO-REAL-DE-PRODUCAO'
   https://timm.preetz.name/articles/http-request-flutter-test
@@ -61,11 +60,7 @@ class OverviewTestBindings {
     HttpOverrides.global = null;
   }
 
-  void bindingsBuilderMockedRepo({required bool isWidgetTest}) {
+  void bindingsBuilder({required bool isWidgetTest}) {
     if (isWidgetTest) _bindingsBuilder(_mocked_repo_tobe_used);
-  }
-
-  void bindingsBuilderMockRepoEmptyDb({required bool isWidgetTest}) {
-    if (isWidgetTest) _bindingsBuilder(OverviewMockRepoEmptyDb());
   }
 }

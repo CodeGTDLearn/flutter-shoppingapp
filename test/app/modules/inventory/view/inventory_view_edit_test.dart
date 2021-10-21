@@ -36,17 +36,19 @@ class InventoryViewEditTest {
         isWidgetTest: _isWidgetTest,
         testUtils: _testUtils));
 
-    setUpAll(() async => _globalMethods
-        .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE'));
+    setUpAll(
+      () async => _globalMethods.globalSetUpAll(
+          testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE'),
+    );
 
     tearDownAll(() => _globalMethods.globalTearDownAll(
-          _tests.runtimeType.toString(),
+          testModuleName: _tests.runtimeType.toString(),
           isWidgetTest: _isWidgetTest,
         ));
 
     setUp(() {
       _globalMethods.globalSetUp();
-      _bindings.bindingsBuilderMockedRepo(isUnitTest: _isWidgetTest);
+      InventoryTestBindings().bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
     });
 
     tearDown(_globalMethods.globalTearDown);

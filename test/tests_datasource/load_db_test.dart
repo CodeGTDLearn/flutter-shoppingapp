@@ -14,13 +14,13 @@ class DbTest {
   final _globalMethods = Get.put(TestsGlobalUtils());
 
   void loading() {
-    setUpAll(() async => _globalMethods.globalSetUpAll(
-          '${_dbUtils.runtimeType.toString()}',
+    setUpAll(() => _globalMethods.globalSetUpAll(
+          testModuleName: '${_dbUtils.runtimeType.toString()}',
           label: 'Starting TestDb Checking: ',
         ));
 
     tearDownAll(() => _globalMethods.globalTearDownAll(
-          _dbUtils.runtimeType.toString(),
+          testModuleName: _dbUtils.runtimeType.toString(),
           label: 'TestDb Checking Finished: ',
         ));
 

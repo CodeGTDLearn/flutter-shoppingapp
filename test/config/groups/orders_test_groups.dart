@@ -16,7 +16,7 @@ class OrdersTestGroups {
     );
     group(
       OrdersTestsTitles().SERVICE_TITLE,
-      OrdersServiceTests.unit,
+      OrdersServiceTests().unit,
       skip: skipGroup,
     );
     group(

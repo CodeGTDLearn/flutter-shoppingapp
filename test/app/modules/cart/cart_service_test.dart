@@ -13,7 +13,7 @@ class CartServiceTests {
     late Product _product1, _product2;
 
     setUp(() {
-      CartTestBindings().bindingsBuilderMockedRepo(isWidgetTest: true);
+      CartTestBindings().bindingsBuilder(isWidgetTest: true);
       _product1 = ProductDataBuilder().ProductWithId();
       _product2 = ProductDataBuilder().ProductWithId();
       _service = Get.find<ICartService>();

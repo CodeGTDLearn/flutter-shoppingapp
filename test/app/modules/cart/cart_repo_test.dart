@@ -19,7 +19,7 @@ class CartRepoTests {
     var _product1 = MockedDatasource().products().elementAt(1);
 
     setUp(() {
-      CartTestBindings().bindingsBuilderMockedRepo(isWidgetTest: true);
+      CartTestBindings().bindingsBuilder(isWidgetTest: true);
       _repo = Get.find<ICartRepo>();
       _repo.addCartItem(_product0);
       _repo.addCartItem(_product1);

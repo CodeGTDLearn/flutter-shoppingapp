@@ -96,7 +96,7 @@ class InventoryTests {
   }
 
   Future<void> refresh_view(
-    tester, {
+    WidgetTester tester, {
     required Product draggerWidget,
     required int qtdeAfterRefresh,
   }) async {
@@ -139,7 +139,7 @@ class InventoryTests {
   }
 
   Future<void> update_product(
-    tester, {
+    WidgetTester tester, {
     required String inputValidText,
     required String fieldKey,
     required Product productToUpdate,
@@ -153,23 +153,23 @@ class InventoryTests {
     var keyUpdateButton =
         finder.key('$INVENTORY_UPDATEITEM_BUTTON_KEY${productToUpdate.id}');
 
+    // 1) InventoryView
+    //   -> Check 'InventoryView'
     await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: DELAY,
       optionKey: DRAWER_INVENTORY_OPTION_KEY,
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
+    expect(finder.type(InventoryView), findsOneWidget);
 
-    // 1) InventoryView
-    //   -> Check 'InventoryView'
+    // 2) UpdateButton
     //   -> Click in 'UpdateButton'
     //   -> Open InventoryAddEditView
-    expect(finder.type(InventoryView), findsOneWidget);
-    expect(finder.text(inputValidText), findsNothing);
     await tester.tap(keyUpdateButton);
     await tester.pump(testUtils.delay(DELAY));
 
-    // 2) InventoryAddEditView
+    // 3) InventoryAddEditView
     //   -> Checking View + Title-Form-Field
     //   -> Insert 'UpdatedValue' in Page-Form-Field
     //   -> Checking the change
@@ -177,14 +177,17 @@ class InventoryTests {
     //      - ONLY IN FUNCTIONAL-TESTS: Backing to InventoryView automatically
     //   -> Test existence of INValidation messages
     //   -> Go to InventoryView + Checking UpdatedValue
-    // await tester.tap(_seek.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY));
-    await tester.pump();
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(InventoryEditView), findsOneWidget);
+
     await tester.tap(finder.key(fieldKey));
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+
     await tester.enterText(finder.key(fieldKey), inputValidText);
-    await tester.pump(testUtils.delay(DELAY));
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+
     await tester.tap(finder.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
-    await tester.pump(testUtils.delay(DELAY));
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
 
     // 3.1) Save form
     //   -> Tap Saving:
@@ -211,8 +214,8 @@ class InventoryTests {
     }
   }
 
-  Future<void> checkInputInjectionOrInputValidation(
-    tester, {
+  Future<void> check_Injection_Validation(
+    WidgetTester tester, {
     required String inputText,
     required String fieldKey,
     required String validationErrorMessage,
@@ -235,17 +238,16 @@ class InventoryTests {
     );
 
     // 1) InventoryView
-    //   -> Check 'CurrentTitle'
     //   -> Click in 'UpdateButton'
     //   -> Open InventoryAddEditView
     expect(finder.type(InventoryView), findsOneWidget);
     await tester.tap(keyUpdateButton);
-    await tester.pump(testUtils.delay(DELAY));
+    // await tester.pump();
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+    expect(finder.type(InventoryEditView), findsOneWidget);
 
     // 2) InventoryAddEditView
     //   -> Checking View + Title-Form-Field
-    await tester.pump();
-    expect(finder.type(InventoryEditView), findsOneWidget);
 
     for (var i = 1; i <= 2; i++) {
       var isPriceField = fieldKey == INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY;
@@ -263,8 +265,11 @@ class InventoryTests {
       //   -> Insert 'UpdatedValue' in Page-Form-Field
       //   -> Checking the change
       await tester.tap(finder.key(fieldKey));
+      // await tester.pump();
+      await tester.pumpAndSettle(testUtils.delay(DELAY));
       await tester.enterText(finder.key(fieldKey), inputText);
-      await tester.pump(testUtils.delay(DELAY));
+      // await tester.pump();
+      await tester.pumpAndSettle(testUtils.delay(DELAY));
 
       // 4) Save form
       //   -> Tap Saving:
@@ -272,11 +277,13 @@ class InventoryTests {
       //   -> Test existence of INValidation messages
       //   -> Go to InventoryView + Checking UpdatedValue
       await tester.tap(finder.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
-      await tester.pump(testUtils.delay(DELAY));
+      // await tester.pump();
+      await tester.pumpAndSettle(testUtils.delay(DELAY));
 
       if (i == 1) expect(finder.text(validationErrorMessage), findsWidgets);
 
-      await tester.pump(testUtils.delay(DELAY));
+      // await tester.pump();
+      await tester.pumpAndSettle(testUtils.delay(DELAY));
     }
 
     // 4.1) Save form
@@ -287,7 +294,8 @@ class InventoryTests {
     //          - Without 'PERSISTENCE' in DB, InventoryEditView does not GO-BACK TO
     //          InventoryView automatically
     if (isWidgetTest == false) {
-      await tester.pump(testUtils.delay(DELAY));
+      // await tester.pump();
+      await tester.pumpAndSettle(testUtils.delay(DELAY));
       expect(finder.type(InventoryView), findsOneWidget);
 
       // 5) Click InventoryView-BackButton
@@ -303,7 +311,7 @@ class InventoryTests {
   }
 
   Future<void> delete_product(
-    tester, {
+    WidgetTester tester, {
     required int qtdeAfterDelete,
     required String deleteButtonKey,
     required Type widgetTypetoBeDeleted,
@@ -472,7 +480,7 @@ class InventoryTests {
   }
 
   Future<void> add_product_using_edit_form(
-    tester, {
+    WidgetTester tester, {
     required Product product,
     required bool useValidTexts,
   }) async {
@@ -528,7 +536,7 @@ class InventoryTests {
   }
 
   Future<void> test_auto_currency_in_form(
-    tester, {
+    WidgetTester tester, {
     required Product product,
     required bool useValidTexts,
   }) async {

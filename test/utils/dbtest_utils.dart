@@ -74,7 +74,7 @@ class DbTestUtils {
   }
 
   Future<void> removeCollection(
-    tester, {
+    WidgetTester tester, {
     required String url,
     required int interval,
   }) async {
@@ -85,7 +85,7 @@ class DbTestUtils {
   }
 
   Future<void> removeObject(
-    tester, {
+    WidgetTester tester, {
     required String url,
     required int interval,
     required String id,

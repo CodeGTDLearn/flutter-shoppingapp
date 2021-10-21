@@ -40,146 +40,148 @@ class InventoryViewValidationTest {
         testUtils: _testUtils));
 
     setUpAll(() async {
-      _globalMethods
-          .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
+      _globalMethods.globalSetUpAll(
+        testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE',
+      );
+
       _products = _isWidgetTest
           ? await Future.value(MockedDatasource().products())
           : await _dbUtils.getCollection(url: PRODUCTS_URL);
     });
 
     tearDownAll(() => _globalMethods.globalTearDownAll(
-          _tests.runtimeType.toString(),
+          testModuleName: _tests.runtimeType.toString(),
           isWidgetTest: _isWidgetTest,
         ));
 
     setUp(() {
       _globalMethods.globalSetUp();
-      _bindings.bindingsBuilderMockedRepo(isUnitTest: _isWidgetTest);
+      InventoryTestBindings().bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
     });
 
     tearDown(_globalMethods.globalTearDown);
 
     //TITLE CHECK VALIDATIONS + CHECK INJECTIONS -------------------------------
     testWidgets(_titles.validation_title_size, (tester) async {
-      await _tests.checkInputInjectionOrInputValidation(
+      await _tests.check_Injection_Validation(
         tester,
         inputText: "Size",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
         validationErrorMessage: SIZE_05_INVALID_ERROR_MSG,
-        productToUpdate: _products[0],
+        productToUpdate: _products.elementAt(0),
       );
     });
 
     testWidgets(_titles.validation_title_empty, (tester) async {
-      await _tests.checkInputInjectionOrInputValidation(
+      await _tests.check_Injection_Validation(
         tester,
         inputText: "",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
         validationErrorMessage: EMPTY_FIELD_INVALID_ERROR_MSG,
-        productToUpdate: _products[0],
+        productToUpdate: _products.elementAt(0),
       );
     });
 
     testWidgets(_titles.validation_title_inject, (tester) async {
-      await _tests.checkInputInjectionOrInputValidation(
+      await _tests.check_Injection_Validation(
         tester,
         inputText: "<SCRIPT>",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
         validationErrorMessage: TEXT_NUMBER_INVALID_ERROR_MSG,
-        productToUpdate: _products[0],
+        productToUpdate: _products.elementAt(0),
       );
     });
 
     //DESCRIPTION CHECK VALIDATIONS + CHECK INJECTIONS -------------------------
     testWidgets(_titles.validation_descript_size, (tester) async {
-      await _tests.checkInputInjectionOrInputValidation(
+      await _tests.check_Injection_Validation(
         tester,
         inputText: "Size",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY,
         validationErrorMessage: SIZE_10_INVALID_ERROR_MSG,
-        productToUpdate: _products[0],
+        productToUpdate: _products.elementAt(0),
       );
     });
 
     testWidgets(_titles.validation_descript_empty, (tester) async {
-      await _tests.checkInputInjectionOrInputValidation(
+      await _tests.check_Injection_Validation(
         tester,
         inputText: "",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY,
         validationErrorMessage: EMPTY_FIELD_INVALID_ERROR_MSG,
-        productToUpdate: _products[0],
+        productToUpdate: _products.elementAt(0),
       );
     });
 
     testWidgets(_titles.validation_descript_inject, (tester) async {
-      await _tests.checkInputInjectionOrInputValidation(
+      await _tests.check_Injection_Validation(
         tester,
         inputText: "<SCRIPT>",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY,
         validationErrorMessage: TEXT_NUMBER_INVALID_ERROR_MSG,
-        productToUpdate: _products[0],
+        productToUpdate: _products.elementAt(0),
       );
     });
 
     //PRICE CHECK VALIDATIONS + CHECK INJECTIONS -------------------------------
     testWidgets(_titles.validation_price_size, (tester) async {
-      await _tests.checkInputInjectionOrInputValidation(
+      await _tests.check_Injection_Validation(
         tester,
         inputText: "evilLetterrr",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY,
         validationErrorMessage: PRICE_INVALID_ERROR_MSG,
-        productToUpdate: _products[0],
+        productToUpdate: _products.elementAt(0),
       );
     });
 
     testWidgets(_titles.validation_price_empty, (tester) async {
-      await _tests.checkInputInjectionOrInputValidation(
+      await _tests.check_Injection_Validation(
         tester,
         inputText: "",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY,
         validationErrorMessage: EMPTY_FIELD_INVALID_ERROR_MSG,
-        productToUpdate: _products[0],
+        productToUpdate: _products.elementAt(0),
       );
     });
 
     testWidgets(_titles.validation_price_inject, (tester) async {
-      await _tests.checkInputInjectionOrInputValidation(
+      await _tests.check_Injection_Validation(
         tester,
         inputText: "<SCRIPT>",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY,
         validationErrorMessage: PRICE_INVALID_ERROR_MSG,
-        productToUpdate: _products[0],
+        productToUpdate: _products.elementAt(0),
       );
     });
 
     //URL CHECK VALIDATIONS + CHECK INJECTIONS ---------------------------------
     testWidgets(_titles.validation_url_size, (tester) async {
-      await _tests.checkInputInjectionOrInputValidation(
+      await _tests.check_Injection_Validation(
         tester,
         inputText: "evilLetter",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY,
         validationErrorMessage: URL_INVALID_ERROR_MSG,
-        productToUpdate: _products[0],
+        productToUpdate: _products.elementAt(0),
       );
     });
 
     testWidgets(_titles.validation_url_empty, (tester) async {
-      await _tests.checkInputInjectionOrInputValidation(
+      await _tests.check_Injection_Validation(
         tester,
         inputText: "",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY,
         validationErrorMessage: EMPTY_FIELD_INVALID_ERROR_MSG,
-        productToUpdate: _products[0],
+        productToUpdate: _products.elementAt(0),
       );
     });
 
     testWidgets(_titles.validation_url_inject, (tester) async {
-      await _tests.checkInputInjectionOrInputValidation(
+      await _tests.check_Injection_Validation(
         tester,
         inputText: "<SCRIPT>",
         fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY,
         validationErrorMessage: URL_INVALID_ERROR_MSG,
-        productToUpdate: _products[0],
+        productToUpdate: _products.elementAt(0),
       );
     });
   }

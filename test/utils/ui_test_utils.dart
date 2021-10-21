@@ -72,7 +72,7 @@ class UiTestUtils {
   }
 
   Future<void> testInitialization(
-    tester, {
+    WidgetTester tester, {
     required bool isWidgetTest,
     required Widget appDriver,
   }) async {
@@ -86,7 +86,7 @@ class UiTestUtils {
   }
 
   Future<void> setTestDeviceScreen(
-    tester, {
+    WidgetTester tester, {
     required double dx,
     required double dy,
   }) async {

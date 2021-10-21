@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:shopingapp/app/core/properties/app_urls.dart';
 import 'package:shopingapp/app/modules/inventory/components/inventory_item.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
-import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
 import '../../../../config/bindings/inventory_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
@@ -31,7 +30,7 @@ class InventoryViewTest {
   }
 
   void functional() {
-    var _products = <Product>[];
+    var _products = <dynamic>[];
 
     final _tests = Get.put(InventoryTests(
         finder: _finder,
@@ -41,69 +40,84 @@ class InventoryViewTest {
         testUtils: _testUtils));
 
     setUpAll(() async {
-      _globalMethods
-          .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
+      _globalMethods.globalSetUpAll(
+        testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE',
+      );
 
-      // _products = _isWidgetTest
-      //     ? await Future.value(MockedDatasource().products())
-      //     : await _dbUtils.getCollection(url: PRODUCTS_URL);
+      _products = _isWidgetTest
+          ? await Future.value(MockedDatasource().products())
+          : await _dbUtils.getCollection(url: PRODUCTS_URL);
     });
 
     tearDownAll(() => _globalMethods.globalTearDownAll(
-          _tests.runtimeType.toString(),
+          testModuleName: _tests.runtimeType.toString(),
           isWidgetTest: _isWidgetTest,
         ));
 
     setUp(() {
-      _bindings.bindingsBuilderMockedRepo(isUnitTest: _isWidgetTest);
+      InventoryTestBindings().bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
       _globalMethods.globalSetUp();
     });
 
     tearDown(_globalMethods.globalTearDown);
 
-    testWidgets(_titles.check_products, (tester) async {
-      _products = _isWidgetTest
-          ? await Future.value(MockedDatasource().products())
-          : await _dbUtils.getCollection(url: PRODUCTS_URL);
+    testWidgets(
+      _titles.check_products,
+      (tester) async {
+        await _tests.check_qtde_products(tester, _products.length);
+      },
+    );
 
-      await _tests.check_qtde_products(tester, _products.length);
-    }, skip: false);
+    testWidgets(
+      _titles.update_product,
+      (tester) async {
+        await _tests.update_product(
+          tester,
+          inputValidText: "XXXXXX",
+          fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
+          productToUpdate: _products.elementAt(0),
+        );
+      },
+    );
 
-    testWidgets(_titles.update_product, (tester) async {
-      await _tests.update_product(
-        tester,
-        inputValidText: "XXXXXX",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
-        productToUpdate: _products.elementAt(0),
-      );
-    }, skip: false);
+    testWidgets(
+      _titles.delete_product,
+      (tester) async {
+        await _tests.delete_product(
+          tester,
+          deleteButtonKey:
+              '$INVENTORY_DELETEITEM_BUTTON_KEY${_products[_products.length - 1].id}',
+          widgetTypetoBeDeleted: InventoryItem,
+          qtdeAfterDelete: _products.length - 1,
+        );
+      },
+    );
 
-    testWidgets(_titles.delete_product, (tester) async {
-      await _tests.delete_product(
-        tester,
-        deleteButtonKey:
-            '$INVENTORY_DELETEITEM_BUTTON_KEY${_products[_products.length - 1].id}',
-        widgetTypetoBeDeleted: InventoryItem,
-        qtdeAfterDelete: _products.length - 1,
-      );
-    });
+    testWidgets(
+      _titles.refresh_view,
+      (tester) async {
+        await _tests.refresh_view(
+          tester,
+          draggerWidget: _products.elementAt(0),
+          //a) delete above; b) deleted from DB manually
+          qtdeAfterRefresh: _products.length - 2,
+        );
+      },
+    );
 
-    testWidgets(_titles.refresh_view, (tester) async {
-      await _tests.refresh_view(
-        tester,
-        draggerWidget: _products[0],
-        //a) delete above; b) deleted from DB manually
-        qtdeAfterRefresh: _products.length - 2,
-      );
-    });
+    testWidgets(
+      _titles.tap_viewBackButton,
+      (tester) async {
+        await _tests.tap_viewBackButton(tester);
+      },
+    );
 
-    testWidgets(_titles.tap_viewBackButton, (tester) async {
-      await _tests.tap_viewBackButton(tester);
-    });
-
-    testWidgets(_titles.check_emptyView_noProductInDb, (tester) async {
-      _bindings.bindingsBuilderMockedRepoEmptyDb(isWidgetTest: _isWidgetTest);
-      await _tests.check_emptyView_noProductInDb(tester, DELAY);
-    });
+    testWidgets(
+      _titles.check_emptyView_noProductInDb,
+      (tester) async {
+        InventoryTestBindings().bindingsBuilder(isWidgetTest: true, isEmptyDb: true);
+        await _tests.check_emptyView_noProductInDb(tester, DELAY);
+      },
+    );
   }
 }

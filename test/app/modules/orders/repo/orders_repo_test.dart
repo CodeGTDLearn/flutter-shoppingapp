@@ -14,7 +14,7 @@ class OrdersRepoTests {
     var _orderWithoutId;
 
     setUp(() {
-      testConfig.bindingsBuilderMockedRepo(isWidgetTest: true);
+      testConfig.bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
       _repo = Get.find<IOrdersRepo>();
       _orderWithoutId = OrderDatabuilder.OrderFull();
     });

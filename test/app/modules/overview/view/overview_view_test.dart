@@ -40,18 +40,18 @@ class OverviewViewTest {
         testUtils: _testUtils));
 
     setUpAll(() async {
-      _globalMethods
-          .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
+      _globalMethods.globalSetUpAll(
+          testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
 
       _products = _isWidgetTest
           ? await Future.value(MockedDatasource().products())
           : await _dbUtils.getCollection(url: PRODUCTS_URL);
 
-      _bindings.bindingsBuilderMockedRepo(isWidgetTest: _isWidgetTest);
+      _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest);
     });
 
     tearDownAll(() => _globalMethods.globalTearDownAll(
-          _tests.runtimeType.toString(),
+          testModuleName: _tests.runtimeType.toString(),
           isWidgetTest: _isWidgetTest,
         ));
 
@@ -74,7 +74,7 @@ class OverviewViewTest {
       await _tests.add_identicalProduct2x_Check_ShopCartIcon(
         tester,
         addProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
-        productTitle: _products[0].title,
+        productTitle: _products.elementAt(0).title,
         totalBeforeAdding: 0,
         totalAfterAdding: 2,
       );
@@ -84,7 +84,7 @@ class OverviewViewTest {
       await _tests.addProduct_click_UndoSnackbar_Check_ShopCartIcon(
         tester,
         addProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
-        productTitle: _products[0].title,
+        productTitle: _products.elementAt(0).title,
         snackbarUndoButtonKey: CUSTOM_SNACKBAR_BUTTON_KEY,
         total: 2,
       );
@@ -124,7 +124,7 @@ class OverviewViewTest {
       await _tests.check_product_details_backbutton_overview(
         tester,
         productButtonKey: "$OVERVIEW_GRID_ITEM_DETAILS_KEY\1",
-        detailedProduct: _products[1],
+        detailedProduct: _products.elementAt(1),
       );
     });
 
@@ -132,7 +132,7 @@ class OverviewViewTest {
       await _tests.check_product_details_image_backbutton_overview(
         tester,
         productButtonKey: "$OVERVIEW_GRID_ITEM_DETAILS_KEY\0",
-        detailedProduct: _products[0],
+        detailedProduct: _products.elementAt(0),
       );
     });
   }

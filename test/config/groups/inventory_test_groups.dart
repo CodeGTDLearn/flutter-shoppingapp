@@ -13,19 +13,19 @@ class InventoryTestGroups {
   void groups({required bool skipGroup}) {
     group(
       InventoryTestsTitles().REPO_TITLE,
-      InventoryRepoTests.unit,
+      InventoryRepoTests().unit,
       skip: skipGroup, // 'skip-group' overrides the internal 'skip-methods'
     );
 
     group(
       InventoryTestsTitles().SERVICE_TITLE,
-      InventoryServiceTests.unit,
+      InventoryServiceTests().unit,
       skip: skipGroup,
     );
 
     group(
       InventoryTestsTitles().CONTROLLER_TITLE,
-      InventoryControllerTests.integration,
+      InventoryControllerTests().integration,
       skip: skipGroup,
     );
 

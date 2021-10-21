@@ -10,7 +10,7 @@ import '../../../data_builders/product_databuilder.dart';
 import '../../../tests_datasource/mocked_datasource.dart';
 
 class InventoryControllerTests {
-  static void integration() {
+  void integration() {
     late IOverviewService _overviewService;
     late IInventoryService _service;
     late InventoryController _controller;
@@ -21,7 +21,7 @@ class InventoryControllerTests {
     var _newProduct = ProductDataBuilder().ProductWithId();
 
     setUp(() {
-      InventoryTestBindings().bindingsBuilderMockedRepo(isUnitTest: true);
+      InventoryTestBindings().bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
       _overviewService = Get.find<IOverviewService>();
 
       _service = Get.find<IInventoryService>();

@@ -35,17 +35,17 @@ class OrdersViewTest {
         isWidgetTest: _isWidgetTest,
         testUtils: _testUtils));
 
-    setUpAll(() async => _globalMethods
-        .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE'));
+    setUpAll(() async => _globalMethods.globalSetUpAll(
+        testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE'));
 
     tearDownAll(() => _globalMethods.globalTearDownAll(
-          _tests.runtimeType.toString(),
+          testModuleName: _tests.runtimeType.toString(),
           isWidgetTest: _isWidgetTest,
         ));
 
     setUp(() {
       _globalMethods.globalSetUp();
-      _bindings.bindingsBuilderMockedRepo(isWidgetTest: _isWidgetTest);
+      _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest, isEmptyDb: false);
     });
 
     tearDown(_globalMethods.globalTearDown);
@@ -72,9 +72,9 @@ class OrdersViewTest {
       );
     });
 
-    // testWidgets(_titles.check_emptyView_noOrderInDb, (tester) async {
-    //   _bindings.bindingsBuilderMockRepoEmptyDb(isWidgetTest: _isWidgetTest);
-    //   await _tests.check_emptyOrderCollection(tester, DELAY);
-    // });
+    testWidgets(_titles.check_emptyView_noOrderInDb, (tester) async {
+      _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest, isEmptyDb: true);
+      await _tests.check_emptyOrderCollection(tester, DELAY);
+    });
   }
 }

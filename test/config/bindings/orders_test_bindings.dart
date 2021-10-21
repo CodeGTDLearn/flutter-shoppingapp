@@ -84,11 +84,16 @@ class OrdersTestBindings {
     HttpOverrides.global = null;
   }
 
-  void bindingsBuilderMockedRepo({required bool isWidgetTest}) {
-    if (isWidgetTest) _bindingsBuilder(_mocked_repo_tobe_used);
-  }
+  // void bindingsBuilderMockedRepo({required bool isWidgetTest}) {
+  //   if (isWidgetTest) _bindingsBuilder(_mocked_repo_tobe_used);
+  // }
+  //
+  // void bindingsBuilderMockRepoEmptyDb({required bool isWidgetTest}) {
+  //   if (isWidgetTest) _bindingsBuilder(OrdersMockedRepoEmptyDb());
+  // }
 
-  void bindingsBuilderMockRepoEmptyDb({required bool isWidgetTest}) {
-    if (isWidgetTest) _bindingsBuilder(OrdersMockedRepoEmptyDb());
+  void bindingsBuilder({required bool isWidgetTest, required bool isEmptyDb}) {
+    if (isWidgetTest && !isEmptyDb) _bindingsBuilder(_mocked_repo_tobe_used);
+    if (isWidgetTest && isEmptyDb) _bindingsBuilder(OrdersMockedRepoEmptyDb());
   }
 }

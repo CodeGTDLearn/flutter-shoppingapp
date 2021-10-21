@@ -6,12 +6,12 @@ import 'package:shopingapp/app/modules/orders/service/i_orders_service.dart';
 import '../../../../config/bindings/orders_test_bindings.dart';
 
 class OrdersServiceTests {
-  static void unit() {
+  void unit() {
     late IOrdersService _service;
     var testConfig = Get.put(OrdersTestBindings());
 
     setUp(() {
-      testConfig.bindingsBuilderMockedRepo(isWidgetTest: true);
+      testConfig.bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
       _service = Get.find<IOrdersService>();
       // _injectService = OrdersInjectMockedService();
       // _cartItems = CartItemDatabuilder.cartItems();

@@ -76,7 +76,7 @@ class CartTestBindings {
     HttpOverrides.global = null;
   }
 
-  void bindingsBuilderMockedRepo({required bool isWidgetTest}) {
+  void bindingsBuilder({required bool isWidgetTest}) {
     if (isWidgetTest) _bindingsBuilder(_mocked_repo_tobe_used);
   }
 }

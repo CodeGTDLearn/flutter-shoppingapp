@@ -20,7 +20,7 @@ class CartControllerTests {
       _product2 = ProductDataBuilder().ProductWithId();
       _order1 = MockedDatasource().orders().elementAt(0);
 
-      CartTestBindings().bindingsBuilderMockedRepo(isWidgetTest: true);
+      CartTestBindings().bindingsBuilder(isWidgetTest: true);
       _controller = Get.find<CartController>();
     });
 

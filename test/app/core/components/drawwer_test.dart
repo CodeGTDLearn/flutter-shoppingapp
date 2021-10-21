@@ -39,25 +39,24 @@ class DrawwerTest {
         testUtils: _testUtils));
 
     setUpAll(() async {
-      _globalMethods
-          .globalSetUpAll('${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
+      _globalMethods.globalSetUpAll(
+          testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
 
       _products = _isWidgetTest
           ? await Future.value(MockedDatasource().products())
           : await _dbUtils.getCollection(url: PRODUCTS_URL);
 
-      // todo: new bindingsBuilder to be implemented in other groups
       _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest, isEmptyDb: false);
     });
 
     tearDownAll(() => _globalMethods.globalTearDownAll(
-          _tests.runtimeType.toString(),
+          testModuleName: _tests.runtimeType.toString(),
           isWidgetTest: _isWidgetTest,
         ));
 
     tearDownAll(() {
       _globalMethods.globalTearDownAll(
-        _tests.runtimeType.toString(),
+        testModuleName: _tests.runtimeType.toString(),
         isWidgetTest: _isWidgetTest,
       );
     });

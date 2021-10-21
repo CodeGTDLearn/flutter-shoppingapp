@@ -9,7 +9,7 @@ import '../../../../data_builders/product_databuilder.dart';
 import '../../../../tests_datasource/mocked_datasource.dart';
 
 class InventoryServiceTests {
-  static void unit() {
+  void unit() {
     late IOverviewService _overviewService;
     late IInventoryService _service;
 
@@ -19,7 +19,7 @@ class InventoryServiceTests {
     var _newProduct = ProductDataBuilder().ProductWithId();
 
     setUp(() {
-      InventoryTestBindings().bindingsBuilderMockedRepo(isUnitTest: true);
+      InventoryTestBindings().bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
       _overviewService = Get.find<IOverviewService>();
       _service = Get.find<IInventoryService>();
       // _injectService = InventoryInjectMockedService();

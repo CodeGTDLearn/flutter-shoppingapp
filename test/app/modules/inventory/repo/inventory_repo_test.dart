@@ -8,13 +8,13 @@ import '../../../../tests_datasource/mocked_datasource.dart';
 import 'inventory_mocked_repo_inject.dart';
 
 class InventoryRepoTests {
-  static void unit() {
+  void unit() {
     late IInventoryRepo _repo, _injectRepo;
     var _product0 = MockedDatasource().products().elementAt(0);
     var _product1 = MockedDatasource().products().elementAt(1);
 
     setUp(() {
-      InventoryTestBindings().bindingsBuilderMockedRepo(isUnitTest: true);
+      InventoryTestBindings().bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
       _repo = Get.find<IInventoryRepo>();
       _injectRepo = InventoryMockedRepoInject();
     });
@@ -77,24 +77,3 @@ class InventoryRepoTests {
     });
   }
 }
-
-// test('Deleting a Product(Inject) - status 404', () {
-//   when(_injectRepo.deleteProduct(_product0.id!)).thenAnswer((_) async => 404);
-//   _injectRepo.deleteProduct(_product0.id!).then((value) => {expect(value, 404)});
-// });
-// test('Adding a Product(Inject)  - Empty Response', () {
-//   when(_injectRepo.getProducts()).thenAnswer((_) async => []);
-//   _injectRepo.getProducts().then((value) {
-//     expect(value, isEmpty);
-//   });
-// });
-
-// test('Updating a Product(Inject) - status 500', () {
-//   when(_injectRepo.updateProduct(_product0)).thenAnswer((_) async => 500);
-//   _injectRepo.updateProduct(_product0).then((value) => {expect(value, 500)});
-// });
-//
-// test('Updating a Product(Inject) - status 404', () {
-//   when(_injectRepo.updateProduct(_product0)).thenAnswer((_) async => 404);
-//   _injectRepo.updateProduct(_product0).then((value) => {expect(value, 404)});
-// });
