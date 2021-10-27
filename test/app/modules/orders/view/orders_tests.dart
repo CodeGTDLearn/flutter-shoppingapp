@@ -100,7 +100,7 @@ class OrdersTests {
     int interval,
   ) async {
     if (!isWidgetTest) {
-      await dbTestUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
+      await dbTestUtils.removeCollection(tester, url: TESTDB_ORDERS_URL, interval: DELAY);
     }
     await uiTestUtils.testInitialization(
       tester,

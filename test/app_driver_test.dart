@@ -20,7 +20,7 @@ import 'config/titles/inventory_tests_titles.dart';
 import 'config/titles/orders_tests_titles.dart';
 import 'config/titles/overview_tests_titles.dart';
 import 'config/titles/testdb_check_titles.dart';
-import 'tests_datasource/load_db_test.dart';
+import 'datasource/load_db_test.dart';
 
 void main() {
   // NO ERASE:  String.fromEnvironment => MUST BE CONSTANT!!!
@@ -49,7 +49,7 @@ void _integrationTests() {
   group(
     TestDbCheckTitles.GROUP_TITLE,
     DbTest().loading,
-    skip: false, // false everytime
+    skip: false, // false all-the-time
   );
 
   group(
@@ -72,7 +72,7 @@ void _integrationTests() {
 
   group(
     InventoryTestsTitles.VALID_GROUP_TITLE,
-    InventoryViewValidationTest(isWidgetTest: INTEGRATION_TEST).functional,
+    InventoryViewValidationTest(testType: INTEGRATION_TEST).functional,
     skip: skip_group,
   );
 

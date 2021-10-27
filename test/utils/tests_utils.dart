@@ -7,7 +7,7 @@ import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
 import '../config/tests_properties.dart';
 import '../data_builders/product_databuilder.dart';
-import '../tests_datasource/mocked_datasource.dart';
+import '../datasource/mocked_datasource.dart';
 import 'dbtest_utils.dart';
 
 class TestsUtils {
@@ -23,7 +23,7 @@ class TestsUtils {
     var _product;
     var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
     if (!isWidgetTest) {
-      await dbTestUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
+      await dbTestUtils.cleanDb(url: TESTDB_ROOT_URL, dbName: TESTDB_NAME);
       await Future.delayed(delay(DELAY));
       await dbTestUtils
           .add_sameObject_multipleTimes(
@@ -47,7 +47,7 @@ class TestsUtils {
     var _onlineTestDb_products_datasource;
     var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
     if (!isWidgetTest) {
-      await dbTestUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
+      await dbTestUtils.cleanDb(url: TESTDB_ROOT_URL, dbName: TESTDB_NAME);
       await Future.delayed(delay(DELAY));
       await dbTestUtils
           .add_objectList(

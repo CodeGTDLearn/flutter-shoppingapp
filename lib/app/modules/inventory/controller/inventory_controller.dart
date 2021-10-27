@@ -22,9 +22,10 @@ class InventoryController extends GetxController {
 
   Future<List<Product>> getProducts() {
     return service.getProducts().then((response) {
-      response == null
-          ? inventoryProductsObs.assignAll([])
-          : inventoryProductsObs.assignAll(response);
+      inventoryProductsObs.assignAll(response);
+      // response == null
+      //     ? inventoryProductsObs.assignAll([])
+      //     : inventoryProductsObs.assignAll(response);
       return inventoryProductsObs.toList();
     }).catchError((onError) => throw onError);
   }

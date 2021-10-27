@@ -5,7 +5,7 @@ import 'package:shopingapp/app/core/properties/app_urls.dart';
 import '../../../../config/bindings/cart_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
 import '../../../../config/titles/cart_tests_titles.dart';
-import '../../../../tests_datasource/mocked_datasource.dart';
+import '../../../../datasource/mocked_datasource.dart';
 import '../../../../utils/dbtest_utils.dart';
 import '../../../../utils/finder_utils.dart';
 import '../../../../utils/tests_global_utils.dart';

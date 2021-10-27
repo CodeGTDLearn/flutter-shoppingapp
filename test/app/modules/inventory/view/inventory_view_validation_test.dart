@@ -7,7 +7,7 @@ import 'package:shopingapp/app/modules/inventory/core/messages/field_form_valida
 import '../../../../config/bindings/inventory_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
 import '../../../../config/titles/inventory_tests_titles.dart';
-import '../../../../tests_datasource/mocked_datasource.dart';
+import '../../../../datasource/mocked_datasource.dart';
 import '../../../../utils/dbtest_utils.dart';
 import '../../../../utils/finder_utils.dart';
 import '../../../../utils/tests_global_utils.dart';
@@ -25,8 +25,8 @@ class InventoryViewValidationTest {
   final _titles = Get.put(InventoryTestsTitles());
   final _testUtils = Get.put(TestsUtils());
 
-  InventoryViewValidationTest({required String isWidgetTest}) {
-    _isWidgetTest = isWidgetTest == WIDGET_TEST;
+  InventoryViewValidationTest({required String testType}) {
+    _isWidgetTest = testType == WIDGET_TEST;
   }
 
   void functional() {
@@ -56,7 +56,7 @@ class InventoryViewValidationTest {
 
     setUp(() {
       _globalMethods.globalSetUp();
-      _bindings.bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
+      _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest, isEmptyDb: false);
     });
 
     tearDown(_globalMethods.globalTearDown);

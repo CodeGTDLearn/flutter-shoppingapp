@@ -52,7 +52,7 @@ class OverviewGridItem extends StatelessWidget {
                             }
                           });
                         },
-                        color: Theme.of(context).accentColor)),
+                        color: Theme.of(context).colorScheme.secondary)),
                     title: Text(_product.title, key: Key("$K_OV_GRD_PRD_TIT$index")),
                     trailing: IconButton(
                         key: Key("$K_OV_GRD_CRT_BTN$index"),
@@ -67,16 +67,7 @@ class OverviewGridItem extends StatelessWidget {
                             function: () => _cartController.addCartItemUndo(_product),
                           ).show();
                         },
-                        color: Theme.of(context).accentColor),
+                        color: Theme.of(context).colorScheme.secondary),
                     backgroundColor: Colors.black87))));
   }
 }
-
-// Get.snackbar(
-//   SUCESS,
-//   TOGGLE_STATUS_SUCESS,
-//   duration: Duration(milliseconds: 1000),
-//   snackPosition: SnackPosition.TOP,
-//   backgroundColor: Colors.black,
-//   colorText: Colors.white,
-// );

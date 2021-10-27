@@ -7,7 +7,7 @@ import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import '../../../../config/bindings/overview_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
 import '../../../../config/titles/overview_tests_titles.dart';
-import '../../../../tests_datasource/mocked_datasource.dart';
+import '../../../../datasource/mocked_datasource.dart';
 import '../../../../utils/dbtest_utils.dart';
 import '../../../../utils/finder_utils.dart';
 import '../../../../utils/tests_global_utils.dart';

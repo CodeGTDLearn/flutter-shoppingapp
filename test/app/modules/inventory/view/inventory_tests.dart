@@ -62,7 +62,8 @@ class InventoryTests {
 
   Future<void> check_emptyView_noProductInDb(tester, int interval) async {
     if (!isWidgetTest) {
-      await dbTestUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
+      await dbTestUtils.removeCollection(tester,
+          url: TESTDB_PRODUCTS_URL, interval: DELAY);
     }
 
     await uiTestUtils.testInitialization(
@@ -154,7 +155,7 @@ class InventoryTests {
         finder.key('$INVENTORY_UPDATEITEM_BUTTON_KEY${productToUpdate.id}');
 
     // 1) InventoryView
-    //   -> Check 'InventoryView'
+    //   -> Check 'InventoryView' + 'InventoryItem'
     await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: DELAY,
@@ -162,6 +163,7 @@ class InventoryTests {
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
     expect(finder.type(InventoryView), findsOneWidget);
+    expect(finder.type(InventoryItem), findsWidgets);
 
     // 2) UpdateButton
     //   -> Click in 'UpdateButton'

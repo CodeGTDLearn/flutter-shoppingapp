@@ -55,20 +55,20 @@ class DbTestUtils {
   }
 
   Future<bool> isDbOnline({
-    required String dbUrl,
+    required String url,
     required String dbName,
   }) async {
-    return http.get(Uri.parse(dbUrl)).then((response) {
-      _isDbOnlineMessage(dbUrl, response);
+    return http.get(Uri.parse(url)).then((response) {
+      _isDbOnlineMessage(url, response);
       return response.statusCode == 200 ? true : false;
     }).catchError((onError) => throw onError);
   }
 
   Future<void> cleanDb({
-    required String dbUrl,
+    required String url,
     required String dbName,
   }) async {
-    await http.delete(Uri.parse(dbUrl)).then((response) {
+    await http.delete(Uri.parse(url)).then((response) {
       _cleanDb_message(dbName, response);
     });
   }
@@ -173,7 +173,7 @@ class DbTestUtils {
         '     - URL: $url_NoExtensionInDeletions$id.json\n'
         '     - ID: $id\n'
         '     - Type: ${response.runtimeType.toString()}\n'
-        '     - Status: ${response.statusCode}\n'
+        '     - Status: ${response.statusCode} | ${response.statusCode == 200 ? 'SUCCESS' : 'FAIL'}\n'
         '$_footerLine');
   }
 
@@ -181,27 +181,27 @@ class DbTestUtils {
     print('$_headerLine'
         '     Removing All Collections:\n'
         '     - DB_Name: $dbName\n'
-        '     - Status: ${response.statusCode}\n'
+        '     - Status: ${response.statusCode} | ${response.statusCode == 200 ? 'SUCCESS' : 'FAIL'}\n'
         '$_footerLine');
   }
 
-  void _isDbOnlineMessage(String dbUrl, http.Response response) {
+  void _isDbOnlineMessage(String url, http.Response response) {
     print('$_headerLine'
         '     Checking Db status:\n'
-        '     - URL: $dbUrl\n'
+        '     - URL: $url\n'
         '     - Status: ${response.statusCode == 200 ? 'ON-LINE' : 'OFF-LINE'}\n'
         '     - Code: ${response.statusCode}\n'
         '$_footerLine');
   }
 
   void _removeCollection_message(
-    String collectionUrl,
+    String url,
     http.Response response,
   ) {
     print('$_headerLine'
         '     Removing Collection:\n'
-        '     - URL: $collectionUrl\n'
-        '     - Status: ${response.statusCode}\n'
+        '     - URL: $url\n'
+        '     - Status: ${response.statusCode} | ${response.statusCode == 200 ? 'SUCCESS' : 'FAIL'}\n'
         '$_footerLine');
   }
 

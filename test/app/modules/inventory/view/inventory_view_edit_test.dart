@@ -48,7 +48,7 @@ class InventoryViewEditTest {
 
     setUp(() {
       _globalMethods.globalSetUp();
-      _bindings.bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
+      _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest, isEmptyDb: false);
     });
 
     tearDown(_globalMethods.globalTearDown);

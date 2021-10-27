@@ -7,7 +7,7 @@ import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart'
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 
 import '../../../../config/bindings/overview_test_bindings.dart';
-import '../../../../tests_datasource/mocked_datasource.dart';
+import '../../../../datasource/mocked_datasource.dart';
 import '../../../../utils/tests_global_utils.dart';
 import 'overview_mocked_service.dart';
 
@@ -24,8 +24,6 @@ class OverviewServiceTests {
       _service = OverviewService(repo: _repo);
       _injectService = OverviewInjectMockedService();
     });
-
-    tearDown(_globalMethods.globalTearDown);
 
     test('Checking Instances to be used in the Tests', () {
       expect(_repo, isA<IOverviewRepo>());

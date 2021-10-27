@@ -164,10 +164,11 @@ class _InventoryEditViewState extends State<InventoryEditView> {
     var isUnsafeUrl = RegExp(OWASP_SAFE_URL, caseSensitive: false)
             .firstMatch(_imgUrlController.text.trim()) ==
         null;
-    var isImgUrlNull = _imgUrlController.text == null;
+    // var isImgUrlNull = _imgUrlController.text == null;
     var lostFocus = !_nodeImgUrl.hasFocus;
 
-    if (lostFocus && (isImgUrlNull || isUnsafeUrl)) return null;
+    // if (lostFocus && (isImgUrlNull || isUnsafeUrl)) return null;
+    if (lostFocus && isUnsafeUrl) return null;
     if (lostFocus) _imgUrlPreviewObs.value = true;
   }
 

@@ -71,14 +71,6 @@ class InventoryTestBindings {
     HttpOverrides.global = null;
   }
 
-  // void bindingsBuilderMockedRepo({required bool isWidgetTest}) {
-  //   if (isWidgetTest) _bindingsBuilder(_mocked_repo_tobe_used);
-  // }
-  //
-  // void bindingsBuilderMockedRepoEmptyDb({required bool isWidgetTest}) {
-  //   if (isWidgetTest) _bindingsBuilder(InventoryMockedRepoEmptyDb());
-  // }
-
   void bindingsBuilder({required bool isWidgetTest, required bool isEmptyDb}) {
     if (isWidgetTest && !isEmptyDb) _bindingsBuilder(_mocked_repo_tobe_used);
     if (isWidgetTest && isEmptyDb) _bindingsBuilder(InventoryMockedRepoEmptyDb());

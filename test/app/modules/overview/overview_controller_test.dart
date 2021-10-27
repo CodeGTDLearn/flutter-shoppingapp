@@ -8,7 +8,7 @@ import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart'
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 
 import '../../../config/bindings/overview_test_bindings.dart';
-import '../../../tests_datasource/mocked_datasource.dart';
+import '../../../datasource/mocked_datasource.dart';
 
 class OverviewControllerTests {
   void integration() {

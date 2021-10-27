@@ -28,12 +28,12 @@ class DbTest {
 
     tearDown(_globalMethods.globalTearDown);
 
-    testWidgets(_titles.check_online_status_db, (tester) async {
-      await _dbUtils.isDbOnline(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
+    testWidgets(_titles.check_db_status, (tester) async {
+      await _dbUtils.isDbOnline(url: TESTDB_ROOT_URL, dbName: TESTDB_NAME);
     });
 
     testWidgets(_titles.clean_db_completelly, (tester) async {
-      await _dbUtils.cleanDb(dbUrl: TESTDB_URL, dbName: TESTDB_NAME);
+      await _dbUtils.cleanDb(url: TESTDB_ROOT_URL, dbName: TESTDB_NAME);
     });
 
     testWidgets(_titles.load_db_with_sample_data, (tester) async {

@@ -4,7 +4,7 @@ import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
 
-import '../../../../tests_datasource/mocked_datasource.dart';
+import '../../../../datasource/mocked_datasource.dart';
 
 /* **************************************************
   *--> TIPOS DE MOCK
@@ -30,10 +30,10 @@ import '../../../../tests_datasource/mocked_datasource.dart';
 class InventoryMockedRepo extends Mock implements IInventoryRepo {
   @override
   Future<int> deleteProduct(String id) {
-    // @formatter:off
-    final found = MockedDatasource().products().firstWhere((item) => item.id == id);
-    return found == null ? Future.value(400) : Future.value(200);
-    // @formatter:on
+    // final found = MockedDatasource().products().firstWhere((item) => item.id == id);
+    // return found == null ? Future.value(400) : Future.value(200);
+
+    return Future.value(200);
   }
 
   @override

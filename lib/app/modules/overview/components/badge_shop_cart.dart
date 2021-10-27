@@ -41,7 +41,7 @@ class BadgeShopCart extends StatelessWidget {
               padding: EdgeInsets.all(2.0),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  color: color != null ? color : Theme.of(context).accentColor),
+                  color: color != null ? color : Theme.of(context).colorScheme.secondary),
               constraints: BoxConstraints(minWidth: 16, minHeight: 16),
               child: Obx(
                 () => Text(_controller.getQtdeCartItemsObs().toString(),

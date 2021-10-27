@@ -7,7 +7,7 @@ import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart'
 
 import '../../../config/bindings/inventory_test_bindings.dart';
 import '../../../data_builders/product_databuilder.dart';
-import '../../../tests_datasource/mocked_datasource.dart';
+import '../../../datasource/mocked_datasource.dart';
 
 class InventoryControllerTests {
   void integration() {

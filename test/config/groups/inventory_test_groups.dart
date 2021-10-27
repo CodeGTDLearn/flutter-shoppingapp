@@ -37,7 +37,7 @@ class InventoryTestGroups {
 
     group(
       InventoryTestsTitles().VIEW_VALID_TITLE,
-      InventoryViewValidationTest(isWidgetTest: WIDGET_TEST).functional,
+      InventoryViewValidationTest(testType: WIDGET_TEST).functional,
       skip: skipGroup,
     );
 

@@ -7,7 +7,7 @@ import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 import '../../../../config/bindings/inventory_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
 import '../../../../config/titles/inventory_tests_titles.dart';
-import '../../../../tests_datasource/mocked_datasource.dart';
+import '../../../../datasource/mocked_datasource.dart';
 import '../../../../utils/dbtest_utils.dart';
 import '../../../../utils/finder_utils.dart';
 import '../../../../utils/tests_global_utils.dart';
@@ -55,7 +55,7 @@ class InventoryViewTest {
         ));
 
     setUp(() {
-      _bindings.bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
+      _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest, isEmptyDb: false);
       _globalMethods.globalSetUp();
     });
 
@@ -115,7 +115,7 @@ class InventoryViewTest {
     testWidgets(
       _titles.check_emptyView_noProductInDb,
       (tester) async {
-        _bindings.bindingsBuilder(isWidgetTest: true, isEmptyDb: true);
+        _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest, isEmptyDb: true);
         await _tests.check_emptyView_noProductInDb(tester, DELAY);
       },
     );

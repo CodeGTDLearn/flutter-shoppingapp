@@ -10,9 +10,13 @@ const INTEGRATION_TEST = 'integration';
 const ISOLATED_STATE_TITLE = ' - Isolated State';
 const SHARED_STATE_TITLE = ' - Shared State';
 
-final MOCKED_DATA_MASS_PATH_FILE = "test/tests_datasource/mocked_data_mass.json";
+final MOCKED_DATA_MASS_PATH_FILE = "test/datasource/mocked_data_mass.json";
 const TESTDB_NAME = 'test-app-dev-e6ee1-default-rtdb';
-const TESTDB_URL = "https://$TESTDB_NAME.firebaseio.com/.json";
+const TESTDB_URL = "https://$TESTDB_NAME.firebaseio.com";
+const TESTDB_ROOT_URL = "$TESTDB_URL/.json";
+const TESTDB_PRODUCTS_URL = "$TESTDB_URL/products.json";
+const TESTDB_ORDERS_URL = "$TESTDB_URL/orders.json";
+const TESTDB_CART_ITEM_URL = "$TESTDB_URL/cart-items.json";
 
 const TOTAL_SAMPLEDATA_ITEMS_TOBE_LOADED_IN_TESTDB = 3;
 const IMAGE_CORE_URL = 'https://images.freeimages.com/images/large-previews/';

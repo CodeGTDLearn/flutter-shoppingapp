@@ -7,7 +7,7 @@ import 'package:shopingapp/app/modules/orders/entity/order.dart';
 import '../../../config/bindings/cart_test_bindings.dart';
 import '../../../data_builders/cartitem_databuilder.dart';
 import '../../../data_builders/product_databuilder.dart';
-import '../../../tests_datasource/mocked_datasource.dart';
+import '../../../datasource/mocked_datasource.dart';
 
 class CartControllerTests {
   void integration() {
