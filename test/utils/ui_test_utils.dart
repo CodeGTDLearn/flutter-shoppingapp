@@ -80,12 +80,46 @@ class UiTestUtils {
     await tester.pumpAndSettle(_testUtils.delay(DELAY));
   }
 
+  Future<void> testInitialization222(
+    WidgetTester tester, {
+    required bool isWidgetTest,
+    required Widget appDriver,
+    required bool applyDelay,
+  }) async {
+    isWidgetTest ? await tester.pumpWidget(appDriver) : runApp(appDriver);
+    if (applyDelay) await tester.pumpAndSettle(_testUtils.delay(DELAY));
+  }
+
+  // UI-TEST-DIMENSIONS CONSIDERATIONS
+  //
+  // * EXPLANATIONS:
+  //   - FLUTTER:
+  //     + Uses "Logical Pixels" (not physical pixels)
+  //       -> LOGICAL PIXEL = 38 Pixel/centimeter
+  //       -> Flutter USES "LOGICAL PIXEL" in "ALL DEVICES/SCREENS"
+  //          => LOGICAL PIXEL allow find the same dimensions ALL SCREEN SIZES
+  //       -> Flutter "DOES NOT USES" physical pixels
+  //
+  //   - DevicePixelRatio:
+  //     + given in "Device Specs"
+  //
+  // * FORMULAS:
+  //   - DevicePixelRatio:
+  //     + Physical Pixels / Logical Pixels
+  //   - Find the Logical Pixels (FLUTTER):
+  //     + Physical Pixels (Size)  / DevicePixelRatio
+  double deviceWidth(WidgetTester tester) =>
+      tester.binding.window.physicalSize.width / tester.binding.window.devicePixelRatio;
+
+  double deviceHeight(WidgetTester tester) =>
+      tester.binding.window.physicalSize.height / tester.binding.window.devicePixelRatio;
+
   void resetTestDeviceScreen(tester) {
     // resets the screen to its original size after the test end
     addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
   }
 
-  Future<void> setTestDeviceScreen(
+  Future<void> setTestDevicePhysicalSize(
     WidgetTester tester, {
     required double dx,
     required double dy,
@@ -96,10 +130,4 @@ class UiTestUtils {
     tester.binding.window.physicalSizeTestValue = _screenSizeDefinition;
     tester.binding.window.devicePixelRatioTestValue = 1.0;
   }
-
-  double testDeviceScreenWidth(WidgetTester tester) =>
-      tester.binding.window.physicalSize.width;
-
-  double testDeviceScreenHeight(WidgetTester tester) =>
-      tester.binding.window.physicalSize.height;
 }

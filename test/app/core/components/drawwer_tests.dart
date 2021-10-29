@@ -7,7 +7,6 @@ import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../config/tests_properties.dart';
-import '../../../utils/dbtest_utils.dart';
 import '../../../utils/finder_utils.dart';
 import '../../../utils/tests_utils.dart';
 import '../../../utils/ui_test_utils.dart';
@@ -16,24 +15,16 @@ class DrawwerTests {
   final bool isWidgetTest;
   final FinderUtils finder;
   final UiTestUtils uiTestUtils;
-  final DbTestUtils dbTestUtils;
   final TestsUtils testUtils;
 
   DrawwerTests({
     required this.finder,
     required this.uiTestUtils,
     required this.isWidgetTest,
-    required this.dbTestUtils,
     required this.testUtils,
   });
 
   Future<void> tap_twoDifferent_options_InDrawer(tester) async {
-    await uiTestUtils.setTestDeviceScreen(
-      tester,
-      dx: TEST_SCREEN_SIZE_DX,
-      dy: TEST_SCREEN_SIZE_DY,
-    );
-
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -52,16 +43,17 @@ class DrawwerTests {
       await tester.pumpAndSettle(testUtils.delay(DELAY));
       expect(finder.type(i == 0 ? OverviewView : InventoryView), findsOneWidget);
 
-      await tester.tapAt(const Offset(750.0, 100.0)); // on the mask
-      await tester.pumpAndSettle(testUtils.delay(DELAY)); // animation done
+      await tester.tapAt(Offset(
+        uiTestUtils.deviceWidth(tester) * 0.97,
+        uiTestUtils.deviceHeight(tester) * 0.97,
+      ));
+      await tester.pump();
+      await tester.pumpAndSettle(testUtils.delay(DELAY));
+      expect(scaffoldState.isDrawerOpen, isFalse);
     }
-    uiTestUtils.resetTestDeviceScreen(tester);
   }
 
-  Future<void> open_and_close_drawer(WidgetTester tester) async {
-    var height = uiTestUtils.testDeviceScreenHeight(tester);
-    var width = uiTestUtils.testDeviceScreenWidth(tester);
-
+  Future<void> close_drawer_tap_outside(WidgetTester tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -69,7 +61,6 @@ class DrawwerTests {
     );
 
     var scaffoldState = DRAWWER_SCAFFOLD_GLOBALKEY.currentState!;
-
     expect(scaffoldState.isDrawerOpen, isFalse);
 
     scaffoldState.openDrawer();
@@ -77,10 +68,12 @@ class DrawwerTests {
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(scaffoldState.isDrawerOpen, isTrue);
 
-    await tester.tapAt(Offset(width * 0.90, height * 0.50)); // on the mask
+    await tester.tapAt(Offset(
+      uiTestUtils.deviceWidth(tester) * 0.97,
+      uiTestUtils.deviceHeight(tester) * 0.97,
+    ));
     await tester.pump();
-    await tester.pumpAndSettle(testUtils.delay(DELAY)); // animation done
-
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(scaffoldState.isDrawerOpen, isFalse);
   }
 }

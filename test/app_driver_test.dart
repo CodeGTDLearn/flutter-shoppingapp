@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'app/core/components/drawwer_test.dart';
+import 'app/core/components/progr_indicator_test.dart';
 import 'app/modules/cart/view/cart_view_test.dart';
 import 'app/modules/inventory/view/inventory_view_edit_test.dart';
 import 'app/modules/inventory/view/inventory_view_test.dart';
@@ -32,19 +33,19 @@ void main() {
 }
 
 void _unitTests() {
-  final skip_group = false;
+  final skip_group = true;
 
   CartTestGroups().groups(skipGroup: skip_group);
   OrdersTestGroups().groups(skipGroup: skip_group);
   OverviewTestGroups().groups(skipGroup: skip_group);
   InventoryTestGroups().groups(skipGroup: skip_group);
-  ComponentsTestGroups().groups(skipGroup: true);
+  ComponentsTestGroups().groups(skipGroup: false);
 }
 
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final skip_group = false; //skip-group overrides the internal skip-methods
+  final skip_group = true; //skip-group overrides the internal skip-methods
 
   group(
     TestDbCheckTitles.GROUP_TITLE,
@@ -91,6 +92,12 @@ void _integrationTests() {
   group(
     ComponentsTestsTitles.GROUP_TITLE_DRAWWER,
     DrawwerTest(testType: INTEGRATION_TEST).functional,
-    skip: true, // TODO 01:PROBLEM 03
+    skip: skip_group,
+  );
+
+  group(
+    ComponentsTestsTitles.GROUP_TITLE_PROGR_INDIC,
+    ProgrIndicatorTest(testType: INTEGRATION_TEST).functional,
+    skip: false,
   );
 }

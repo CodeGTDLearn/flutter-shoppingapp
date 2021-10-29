@@ -22,7 +22,7 @@ class ComponentsTestsTitles {
   //DRAWWER-TEST-TITLES -------------------------------------------------------
   get DRAWER_TITLE => '$_DRAWER|View: Functional';
   get check_overview_before_openDrawer => 'Checking Overview BEFORE open Drawer';
-  get open_and_close_drawer => 'Tapping Drawer: Opening+Closing';
+  get close_drawer_tap_outside => 'Closing Drawer: Tapping Outside';
   get close_drawer_tapping_outside => 'Closing drawer tapping outside';
   get tap_two_different_options_in_drawer => 'Tapping Two Drawer Options';
 

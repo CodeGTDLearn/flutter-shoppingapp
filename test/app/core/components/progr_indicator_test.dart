@@ -8,9 +8,9 @@ import '../../../utils/finder_utils.dart';
 import '../../../utils/tests_global_utils.dart';
 import '../../../utils/tests_utils.dart';
 import '../../../utils/ui_test_utils.dart';
-import 'drawwer_tests.dart';
+import 'progr_indicator_tests.dart';
 
-class DrawwerTest {
+class ProgrIndicatorTest {
   late bool _isWidgetTest;
   final _finder = Get.put(FinderUtils());
   final _uiUtils = Get.put(UiTestUtils());
@@ -20,47 +20,41 @@ class DrawwerTest {
   final _testUtils = Get.put(TestsUtils());
   final _globalMethods = Get.put(TestsGlobalUtils());
 
-  DrawwerTest({required String testType}) {
+  ProgrIndicatorTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
   }
 
   void functional() {
-    // var _products = <dynamic>[];
-    final _tests = Get.put(DrawwerTests(
+    final _tests = Get.put(ProgrIndicatorTests(
         finder: _finder,
         uiTestUtils: _uiUtils,
         isWidgetTest: _isWidgetTest,
         testUtils: _testUtils));
+
+    // var _products = <dynamic>[];
 
     setUpAll(() async {
       _globalMethods.globalSetUpAll(
           testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
 
       // _products = _isWidgetTest
-      // _isWidgetTest
       //     ? await Future.value(MockedDatasource().products())
       //     : await _dbUtils.getCollection(url: PRODUCTS_URL);
 
       _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest, isEmptyDb: false);
     });
 
-    tearDownAll(() {
-      _globalMethods.globalTearDownAll(
-        testModuleName: _tests.runtimeType.toString(),
-        isWidgetTest: _isWidgetTest,
-      );
-    });
-
     setUp(_globalMethods.globalSetUp);
 
     tearDown(_globalMethods.globalTearDown);
 
-    testWidgets(_titles.close_drawer_tap_outside, (tester) async {
-      await _tests.close_drawer_tap_outside(tester);
-    });
+    testWidgets(_titles.check_custom_progr_indic, (tester) async {
+      await _tests.check_custom_progr_indic(tester);
+    }, skip: false);
 
-    testWidgets(_titles.tap_two_different_options_in_drawer, (tester) async {
-      await _tests.tap_twoDifferent_options_InDrawer(tester);
-    });
+    testWidgets(_titles.check_custom_progr_indic_emptydb, (tester) async {
+      ComponentsTestBindings().bindingsBuilder(isWidgetTest: true, isEmptyDb: true);
+      await _tests.check_custom_progr_indic_emptydb(tester);
+    }, skip: false);
   }
 }

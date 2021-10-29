@@ -283,7 +283,7 @@ class OverviewTests {
       appDriver: app.AppDriver(),
     );
 
-    // await tester.pumpAndSettle(testUtils.delay(DELAY));
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
     uiTestUtils.check_widgetQuantityInAView(
       widgetView: OverviewView,
       widgetType: OverviewGridItem,
