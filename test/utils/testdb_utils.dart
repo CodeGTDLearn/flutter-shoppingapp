@@ -12,7 +12,7 @@ import 'tests_utils.dart';
 // db = 'test-app-dev-e6ee1-default-rtdb';
 // url = "https://db.firebaseio.com/.json";
 // collectionUrl = "https://test-app-dev-e6ee1-default-rtdb.firebaseio.com/products.json";
-class DbTestUtils {
+class TestDbUtils {
   final _utils = Get.put(TestsUtils());
 
   Future<int> countCollectionItems({

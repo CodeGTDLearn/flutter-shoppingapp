@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../properties/app_properties.dart';
-import 'abstract_snackbar.dart';
+import 'abstract_custom_snackbar.dart';
 
-class SimpleSnackbar implements AbstractSnackbar {
+class SimpleSnackbar implements AbstractCustomSnackbar {
   String title;
   String message;
   int? durationMilis;

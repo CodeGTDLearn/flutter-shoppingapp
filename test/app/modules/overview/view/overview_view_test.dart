@@ -8,8 +8,8 @@ import '../../../../config/bindings/overview_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
 import '../../../../config/titles/overview_tests_titles.dart';
 import '../../../../datasource/mocked_datasource.dart';
-import '../../../../utils/dbtest_utils.dart';
 import '../../../../utils/finder_utils.dart';
+import '../../../../utils/testdb_utils.dart';
 import '../../../../utils/tests_global_utils.dart';
 import '../../../../utils/tests_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
@@ -19,11 +19,11 @@ class OverviewViewTest {
   late bool _isWidgetTest;
   final _finder = Get.put(FinderUtils());
   final _uiUtils = Get.put(UiTestUtils());
-  final _dbUtils = Get.put(DbTestUtils());
+  final _dbUtils = Get.put(TestDbUtils());
   final _bindings = Get.put(OverviewTestBindings());
   final _titles = Get.put(OverviewTestsTitles());
   final _testUtils = Get.put(TestsUtils());
-  final _globalMethods = Get.put(TestsGlobalUtils());
+  final _globalUtils = Get.put(TestsGlobalUtils());
 
   OverviewViewTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
@@ -40,8 +40,18 @@ class OverviewViewTest {
         testUtils: _testUtils));
 
     setUpAll(() async {
-      _globalMethods.globalSetUpAll(
+      _globalUtils.globalSetUpAll(
           testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
+    });
+
+    tearDownAll(() => _globalUtils.globalTearDownAll(
+          testModuleName: _tests.runtimeType.toString(),
+          isWidgetTest: _isWidgetTest,
+        ));
+
+    // setUp(_globalUtils.globalSetUp);
+    setUp(() async {
+      _globalUtils.globalSetUp();
 
       _products = _isWidgetTest
           ? await Future.value(MockedDatasource().products())
@@ -50,75 +60,71 @@ class OverviewViewTest {
       _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest);
     });
 
-    tearDownAll(() => _globalMethods.globalTearDownAll(
-          testModuleName: _tests.runtimeType.toString(),
-          isWidgetTest: _isWidgetTest,
-        ));
-
-    setUp(_globalMethods.globalSetUp);
-
-    tearDown(_globalMethods.globalTearDown);
+    tearDown(_globalUtils.globalTearDown);
 
     testWidgets(_titles.check_overviewGridItems, (tester) async {
-      await _tests.check_overviewGridItems_qtde(tester, qtde: _products.length);
-    });
+      await _tests.check_overviewGridItems_qtde(
+        tester,
+        qtde: _products.length,
+      );
+    }, skip: false);
 
     testWidgets(_titles.toggle_ProductFavoriteButton, (tester) async {
-      await _tests.toggle_ProductFavoriteButton(
+      await _tests.toggle_FavoriteButton_in_product(
         tester,
         toggleButtonKey: "$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0",
       );
-    });
+    }, skip: false);
 
     testWidgets(_titles.add_sameProduct2x_Check_ShopCartIcon, (tester) async {
-      await _tests.add_identicalProduct2x_Check_ShopCartIcon(
+      await _tests.add_sameProduct2x_Check_ShopCartIcon(
         tester,
         addProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
         productTitle: _products.elementAt(0).title,
-        totalBeforeAdding: 0,
-        totalAfterAdding: 2,
+        initialQtde: 0,
+        qtdeToAdded: 2,
       );
-    });
+    }, skip: false);
 
     testWidgets(_titles.addProduct_click_undoSnackbar_check_shopCartIcon, (tester) async {
-      await _tests.addProduct_click_UndoSnackbar_Check_ShopCartIcon(
+      await _tests.add_product_click_UndoSnackbar_check_ShopCartIcon(
         tester,
         addProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
         productTitle: _products.elementAt(0).title,
         snackbarUndoButtonKey: CUSTOM_SNACKBAR_BUTTON_KEY,
-        total: 2,
+        total: 0,
       );
-    });
+    }, skip: false);
 
     testWidgets(_titles.add_sameProduct3x_check_shopCartIcon, (tester) async {
-      await _tests.add_identicalProduct3x_check_shopCartIcon(
+      await _tests.add_sameProduct3x_check_shopCartIcon(
         tester,
         productAddButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
-        totalBeforeAdding: 2,
-        totalAfterAdding: 5,
+        initialQtde: 0,
+        qtdeToAdded: 3,
       );
-    });
+    }, skip: false);
 
-    testWidgets(_titles.add_AllDbProducts_check_shopCartIcon, (tester) async {
-      await _tests.add_AllDbProducts_check_shopCartIcon(
+    testWidgets(_titles.add_AllProducts_check_shopCartIcon, (tester) async {
+      await _tests.add_AllProducts_check_shopCartIcon(
         tester,
         firstProduct_addButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
-        totalBeforeAdding: 5,
-        totalAfterAdding: _products.length + 5,
+        initialQtde: 0,
+        qtdeToAdded: _products.length,
       );
-    });
+    }, skip: false);
 
     testWidgets(_titles.tap_favFilter_noFavoritesFound, (tester) async {
       await _tests.tap_FavoritesFilter_NoFavoritesFound(tester);
-    });
+    }, skip: false);
 
     testWidgets(_titles.tap_favFilterPopup, (tester) async {
       await _tests.tap_FavoriteFilterPopup(tester);
-    });
+    }, skip: false);
 
     testWidgets(_titles.close_favFilterPopup_tapOutside, (tester) async {
       await _tests.close_FavoriteFilterPopup(tester);
-    });
+    }, skip: false);
 
     testWidgets(_titles.tap_product_details_check_texts, (tester) async {
       await _tests.check_product_details_backbutton_overview(
@@ -126,7 +132,7 @@ class OverviewViewTest {
         productButtonKey: "$OVERVIEW_GRID_ITEM_DETAILS_KEY\1",
         detailedProduct: _products.elementAt(1),
       );
-    });
+    }, skip: false);
 
     testWidgets(_titles.tap_product_details_check_image, (tester) async {
       await _tests.check_product_details_image_backbutton_overview(
@@ -134,6 +140,6 @@ class OverviewViewTest {
         productButtonKey: "$OVERVIEW_GRID_ITEM_DETAILS_KEY\0",
         detailedProduct: _products.elementAt(0),
       );
-    });
+    }, skip: false);
   }
 }

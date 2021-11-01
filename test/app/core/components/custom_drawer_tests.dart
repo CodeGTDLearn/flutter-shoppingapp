@@ -11,13 +11,13 @@ import '../../../utils/finder_utils.dart';
 import '../../../utils/tests_utils.dart';
 import '../../../utils/ui_test_utils.dart';
 
-class DrawwerTests {
+class CustomDrawerTests {
   final bool isWidgetTest;
   final FinderUtils finder;
   final UiTestUtils uiTestUtils;
   final TestsUtils testUtils;
 
-  DrawwerTests({
+  CustomDrawerTests({
     required this.finder,
     required this.uiTestUtils,
     required this.isWidgetTest,
@@ -29,6 +29,7 @@ class DrawwerTests {
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
+      applyDelay: true,
     );
     var scaffoldState = DRAWWER_SCAFFOLD_GLOBALKEY.currentState!;
 
@@ -58,6 +59,7 @@ class DrawwerTests {
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
+      applyDelay: true,
     );
 
     var scaffoldState = DRAWWER_SCAFFOLD_GLOBALKEY.currentState!;

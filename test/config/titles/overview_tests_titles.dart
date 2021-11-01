@@ -24,21 +24,21 @@ class OverviewTestsTitles {
 
   //OVERVIEW-TEST-TITLES -------------------------------------------------------
   get check_overviewGridItems => 'Checking products';
-  get toggle_ProductFavoriteButton => 'Toggling FavoritesIconButton in a product';
   get add_sameProduct2x_Check_ShopCartIcon =>
-      'Adding a product 2x|Check ShopCartIcon|Snackbar';
+      'Adding same product 2x|Check ShopCartIcon+Snackbar';
   get addProduct_click_undoSnackbar_check_shopCartIcon =>
       'Adding product|Clicking SnackbarUndo (rollback)';
   get add_sameProduct3x_check_shopCartIcon => 'Adding same product 3x|Check ShopCartIcon';
-  get add_AllDbProducts_check_shopCartIcon => 'Adding All DB products|Check ShopCartIcon';
-  get add_prods3And4_check_shopCartIcon => 'Adding products 3/4|Checking ShopCartIcon';
-  get tap_favFilter_noFavoritesFound => 'Tapping FavoriteFilter|Not favorites found';
+  get add_AllProducts_check_shopCartIcon => 'Adding All products|Check ShopCartIcon';
+  get add_prods3And4_check_shopCartIcon => 'Adding Last 2 products|Checking ShopCartIcon';
   get tap_favFilterPopup => 'Tapping FavoriteFilter';
+  get tap_favFilter_noFavoritesFound => 'Tapping FavoriteFilter|Not favorites found';
+  get toggle_ProductFavoriteButton => 'Toggling FavoritesIconButton in a product';
   get close_favFilterPopup_tapOutside => 'Closing Favorite_Filter|tap OUTSIDE';
 
   //OVERVIEW-DETAILS-TEST-TITLES -----------------------------------------------
-  get tap_product_details_check_texts => 'Tap Product|Check Details (texts)|Backbutton';
-  get tap_product_details_check_image => 'Tap Product|Check Details (image)|Backbutton';
-  get tap_product_details_click_back_button => 'Testing Product Details BackButton';
+  get tap_product_details_check_texts => 'Tap Product|Check Details(texts)|Backbutton';
+  get tap_product_details_check_image => 'Tap Product|Check Details(image)|Backbutton';
+  get tap_product_details_click_back_button => 'Testing Details-View BackButton';
   // @formatter:on
 }

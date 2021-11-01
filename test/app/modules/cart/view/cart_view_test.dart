@@ -6,8 +6,8 @@ import '../../../../config/bindings/cart_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
 import '../../../../config/titles/cart_tests_titles.dart';
 import '../../../../datasource/mocked_datasource.dart';
-import '../../../../utils/dbtest_utils.dart';
 import '../../../../utils/finder_utils.dart';
+import '../../../../utils/testdb_utils.dart';
 import '../../../../utils/tests_global_utils.dart';
 import '../../../../utils/tests_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
@@ -17,11 +17,11 @@ class CartViewTest {
   late bool _isWidgetTest;
   final _finder = Get.put(FinderUtils());
   final _uiUtils = Get.put(UiTestUtils());
-  final _dbUtils = Get.put(DbTestUtils());
+  final _dbUtils = Get.put(TestDbUtils());
   final _titles = Get.put(CartTestsTitles());
   final _bindings = Get.put(CartTestBindings());
   final _testUtils = Get.put(TestsUtils());
-  final _globalMethods = Get.put(TestsGlobalUtils());
+  final _globalUtils = Get.put(TestsGlobalUtils());
 
   CartViewTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
@@ -38,29 +38,34 @@ class CartViewTest {
         testUtils: _testUtils));
 
     setUpAll(() async {
-      _globalMethods.globalSetUpAll(
+      _globalUtils.globalSetUpAll(
         testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE',
       );
       // _products = await _testUtils.post_databuilderProductList_InDb(
       //   isWidgetTest: _isWidgetTest,
       //   numberOfProducts: TOTAL_SAMPLEDATA_ITEMS_LOADED_IN_TESTDB,
       // );
-      _products = _isWidgetTest
-          ? await Future.value(MockedDatasource().products())
-          : await _dbUtils.getCollection(url: PRODUCTS_URL);
+      // _products = _isWidgetTest
+      //     ? await Future.value(MockedDatasource().products())
+      //     : await _dbUtils.getCollection(url: PRODUCTS_URL);
     });
 
-    tearDownAll(() => _globalMethods.globalTearDownAll(
+    tearDownAll(() => _globalUtils.globalTearDownAll(
           testModuleName: _tests.runtimeType.toString(),
           isWidgetTest: _isWidgetTest,
         ));
 
-    setUp(() {
-      _globalMethods.globalSetUp();
+    setUp(() async {
+      _globalUtils.globalSetUp();
+
+      _products = _isWidgetTest
+          ? await Future.value(MockedDatasource().products())
+          : await _dbUtils.getCollection(url: PRODUCTS_URL);
+
       _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest);
     });
 
-    tearDown(_globalMethods.globalTearDown);
+    tearDown(_globalUtils.globalTearDown);
 
     testWidgets(_titles.clearCart_tapClearButton, (tester) async {
       await _tests.ClearingCart_tappingClearButton(tester);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/components/snackbar/simple_snackbar.dart';
+import '../../../core/components/custom_snackbar/simple_snackbar.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
 import '../controller/overview_controller.dart';
 import '../core/messages_snackbars_provided.dart';

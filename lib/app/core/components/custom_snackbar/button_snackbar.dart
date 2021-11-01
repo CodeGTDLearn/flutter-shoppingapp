@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../keys/snackbarr_keys.dart';
-import 'abstract_snackbar.dart';
+import 'abstract_custom_snackbar.dart';
 
-class ButtonSnackbar implements AbstractSnackbar {
+class ButtonSnackbar implements AbstractCustomSnackbar {
   String title;
   String message;
   String labelButton;

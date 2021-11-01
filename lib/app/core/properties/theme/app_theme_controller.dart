@@ -5,7 +5,7 @@ import '../../shared_preferences/shared_prefs_repo.dart';
 import 'app_theme.dart';
 
 class AppThemeController extends GetxController {
-  final _sharedPreferencesRepo = Get.put<ISharedPrefsRepo>(SharedPrefsRepo());
+  final ISharedPrefsRepo _sharedPreferencesRepo = Get.put(SharedPrefsRepo());
 
   var isDark = false.obs;
 

@@ -5,23 +5,23 @@ import '../properties/app_properties.dart';
 import 'keys/progres_indicator_keys.dart';
 
 // ignore: must_be_immutable
-class ProgresIndicator extends StatefulWidget {
+class CustomIndicator extends StatefulWidget {
   double? radius;
   String? message;
   double? fontSize;
   bool _showCircularProgressIndicator = true;
 
-  ProgresIndicator.message({required this.message, required this.fontSize});
+  CustomIndicator.message({required this.message, required this.fontSize});
 
-  ProgresIndicator.radius([this.radius]);
+  CustomIndicator.radius([this.radius]);
 
-  ProgresIndicator();
+  CustomIndicator();
 
   @override
-  _ProgresIndicatorState createState() => _ProgresIndicatorState();
+  _CustomIndicatorState createState() => _CustomIndicatorState();
 }
 
-class _ProgresIndicatorState extends State<ProgresIndicator> {
+class _CustomIndicatorState extends State<CustomIndicator> {
   @override
   void initState() {
     super.initState();

@@ -10,13 +10,13 @@ import '../../../utils/finder_utils.dart';
 import '../../../utils/tests_utils.dart';
 import '../../../utils/ui_test_utils.dart';
 
-class ProgrIndicatorTests {
+class CustomIndicatorTests {
   final bool isWidgetTest;
   final FinderUtils finder;
   final UiTestUtils uiTestUtils;
   final TestsUtils testUtils;
 
-  ProgrIndicatorTests({
+  CustomIndicatorTests({
     required this.finder,
     required this.uiTestUtils,
     required this.isWidgetTest,
@@ -24,21 +24,24 @@ class ProgrIndicatorTests {
   });
 
   Future<void> check_custom_progr_indic(WidgetTester tester) async {
-    await uiTestUtils.testInitialization222(
+    await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
       applyDelay: false,
     );
-    await tester.pump();
-    expect(finder.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
-    expect(finder.type(CircularProgressIndicator), findsOneWidget);
 
-    await tester.pump();
-    await tester.pump(testUtils.delay(DELAY));
+    // await tester.pump();
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+    // expect(finder.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
+    // expect(finder.type(CircularProgressIndicator), findsOneWidget);
+
+    // await tester.pump();
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
 
     expect(finder.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsNothing);
     expect(finder.type(CircularProgressIndicator), findsNothing);
+
     expect(finder.type(OverviewGridItem), findsWidgets);
   }
 
@@ -47,16 +50,21 @@ class ProgrIndicatorTests {
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
+      applyDelay: false,
     );
 
+    await tester.pump();
     expect(finder.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
     expect(finder.type(CircularProgressIndicator), findsOneWidget);
-    await tester.pump();
-    await tester.pump(testUtils.delay(DELAY));
 
-    // expect(finder.type(CircularProgressIndicator), findsNothing);
-    // expect(finder.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsNothing);
-    expect(finder.text(NO_PRODUCTS_FOUND_YET), findsOneWidget);
+    await tester.pump();
+    await tester.pump(testUtils.delay(DELAY + EXTRA_DELAY));
+
+    expect(finder.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
+    expect(finder.type(CircularProgressIndicator), findsNothing);
+
     expect(finder.type(OverviewGridItem), findsNothing);
+
+    expect(finder.text(NO_PRODUCTS_FOUND_YET), findsOneWidget);
   }
 }

@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../../../core/components/drawwer.dart';
+import '../../../core/components/custom_drawer.dart';
 import '../../../core/properties/theme/app_theme_controller.dart';
 import '../../cart/core/cart_bindings.dart';
 import '../../inventory/core/inventory_bindings.dart';
@@ -15,7 +15,7 @@ class OverviewBindings extends Bindings {
   void dependencies() {
     Get.lazyPut<AppThemeController>(() => AppThemeController());
 
-    Get.lazyPut<Drawwer>(() => Drawwer());
+    Get.lazyPut<CustomDrawer>(() => CustomDrawer());
 
     Get.lazyPut<IOverviewRepo>(() => OverviewRepoFirebase());
 

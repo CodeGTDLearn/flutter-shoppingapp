@@ -8,7 +8,7 @@ import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import '../config/tests_properties.dart';
 import '../data_builders/product_databuilder.dart';
 import '../datasource/mocked_datasource.dart';
-import 'dbtest_utils.dart';
+import 'testdb_utils.dart';
 
 class TestsUtils {
   void checkImageTotalInAView(int numberOfImages) {
@@ -21,7 +21,7 @@ class TestsUtils {
     required bool isWidgetTest,
   }) async {
     var _product;
-    var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
+    var dbTestUtils = Get.put(TestDbUtils(), tag: 'dbInstance');
     if (!isWidgetTest) {
       await dbTestUtils.cleanDb(url: TESTDB_ROOT_URL, dbName: TESTDB_NAME);
       await Future.delayed(delay(DELAY));
@@ -45,7 +45,7 @@ class TestsUtils {
   }) async {
     var totalProducts = numberOfProducts < 2 ? 2 : numberOfProducts;
     var _onlineTestDb_products_datasource;
-    var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
+    var dbTestUtils = Get.put(TestDbUtils(), tag: 'dbInstance');
     if (!isWidgetTest) {
       await dbTestUtils.cleanDb(url: TESTDB_ROOT_URL, dbName: TESTDB_NAME);
       await Future.delayed(delay(DELAY));
@@ -67,7 +67,7 @@ class TestsUtils {
     required String url,
     required int totalItems,
   }) async {
-    var dbTestUtils = Get.put(DbTestUtils(), tag: 'dbInstance');
+    var dbTestUtils = Get.put(TestDbUtils(), tag: 'dbInstance');
     if (!isWidgetTest) {
       var items = await dbTestUtils.countCollectionItems(url: url);
       expect(items, totalItems);

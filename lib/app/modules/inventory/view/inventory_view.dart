@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 
 import '../../../core/components/app_messages_provided.dart';
-import '../../../core/components/progres_indicator.dart';
+import '../../../core/components/custom_indicator.dart';
 import '../../../core/properties/app_routes.dart';
 import '../components/inventory_item.dart';
 import '../controller/inventory_controller.dart';
@@ -28,7 +28,7 @@ class InventoryView extends StatelessWidget {
       // GERENCIA DE ESTADO REATIVA - COM O GET
       // body: Obx(() => (controller.getInventoryProductsObs().length == 0
       body: Obx(() => (controller.getInventoryProductsObs().isEmpty
-          ? ProgresIndicator.message(message: NO_INV_PROD, fontSize: 20)
+          ? CustomIndicator.message(message: NO_INV_PROD, fontSize: 20)
           : RefreshIndicator(
               onRefresh: controller.getProducts,
               // child: controller.getInventoryProductsObs().length == 0

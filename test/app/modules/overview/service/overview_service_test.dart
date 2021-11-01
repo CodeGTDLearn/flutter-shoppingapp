@@ -8,7 +8,6 @@ import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 
 import '../../../../config/bindings/overview_test_bindings.dart';
 import '../../../../datasource/mocked_datasource.dart';
-import '../../../../utils/tests_global_utils.dart';
 import 'overview_mocked_service.dart';
 
 class OverviewServiceTests {
@@ -16,7 +15,6 @@ class OverviewServiceTests {
     late IOverviewRepo _repo;
     late IOverviewService _service, _injectService;
     var testConfig = Get.put(OverviewTestBindings());
-    final _globalMethods = Get.put(TestsGlobalUtils());
 
     setUp(() {
       testConfig.bindingsBuilder(isWidgetTest: true);

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/components/progres_indicator.dart';
-import '../../../core/components/snackbar/simple_snackbar.dart';
+import '../../../core/components/custom_indicator.dart';
+import '../../../core/components/custom_snackbar/simple_snackbar.dart';
 import '../../../core/properties/app_properties.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
 import '../../orders/core/messages_snackbars_provided.dart';
@@ -56,7 +56,7 @@ class CartView extends StatelessWidget {
                                   height: lbHeight * 0.08,
                                   child: Obx(() =>
                                       controller.qtdeCartItemsObs().isEqual(0)
-                                          ? ProgresIndicator.radius(lbWidth * 0.3)
+                                          ? CustomIndicator.radius(lbWidth * 0.3)
                                           : _addOrderButton(controller)))
                             ])))),
                 SizedBox(height: lbHeight * 0.01),

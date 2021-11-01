@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../../../core/components/drawwer.dart';
+import '../../../core/components/custom_drawer.dart';
 import '../../overview/service/i_overview_service.dart';
 import '../controller/inventory_controller.dart';
 import '../repo/i_inventory_repo.dart';
@@ -10,7 +10,7 @@ import '../service/inventory_service.dart';
 
 class InventoryBindings extends Bindings {
   void dependencies() {
-    Get.lazyPut<Drawwer>(() => Drawwer());
+    Get.lazyPut<CustomDrawer>(() => CustomDrawer());
 
     Get.lazyPut<IInventoryRepo>(() => InventoryRepoFirebase());
 

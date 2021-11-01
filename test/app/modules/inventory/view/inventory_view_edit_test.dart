@@ -7,8 +7,8 @@ import '../../../../config/bindings/inventory_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
 import '../../../../config/titles/inventory_tests_titles.dart';
 import '../../../../data_builders/product_databuilder.dart';
-import '../../../../utils/dbtest_utils.dart';
 import '../../../../utils/finder_utils.dart';
+import '../../../../utils/testdb_utils.dart';
 import '../../../../utils/tests_global_utils.dart';
 import '../../../../utils/tests_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
@@ -16,11 +16,11 @@ import 'inventory_tests.dart';
 
 class InventoryViewEditTest {
   late bool _isWidgetTest;
-  final _globalMethods = Get.put(TestsGlobalUtils());
+  final _globalUtils = Get.put(TestsGlobalUtils());
   final _testUtils = Get.put(TestsUtils());
   final _finder = Get.put(FinderUtils());
   final _uiUtils = Get.put(UiTestUtils());
-  final _dbUtils = Get.put(DbTestUtils());
+  final _dbUtils = Get.put(TestDbUtils());
   final _bindings = Get.put(InventoryTestBindings());
   final _titles = Get.put(InventoryTestsTitles());
 
@@ -37,21 +37,21 @@ class InventoryViewEditTest {
         testUtils: _testUtils));
 
     setUpAll(
-      () async => _globalMethods.globalSetUpAll(
+      () async => _globalUtils.globalSetUpAll(
           testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE'),
     );
 
-    tearDownAll(() => _globalMethods.globalTearDownAll(
+    tearDownAll(() => _globalUtils.globalTearDownAll(
           testModuleName: _tests.runtimeType.toString(),
           isWidgetTest: _isWidgetTest,
         ));
 
     setUp(() {
-      _globalMethods.globalSetUp();
+      _globalUtils.globalSetUp();
       _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest, isEmptyDb: false);
     });
 
-    tearDown(_globalMethods.globalTearDown);
+    tearDown(_globalUtils.globalTearDown);
 
     testWidgets(_titles.add_product_in_edit_form, (tester) async {
       await _tests.add_product_using_edit_form(
@@ -74,6 +74,7 @@ class InventoryViewEditTest {
         tester,
         isWidgetTest: _isWidgetTest,
         appDriver: app.AppDriver(),
+        applyDelay: true,
       );
 
       await _tests.openInventoryEditView(tester);

@@ -2,8 +2,8 @@ import 'package:currency_textfield/currency_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/components/progres_indicator.dart';
-import '../../../core/components/snackbar/simple_snackbar.dart';
+import '../../../core/components/custom_indicator.dart';
+import '../../../core/components/custom_snackbar/simple_snackbar.dart';
 import '../../../core/properties/app_owasp_regex.dart';
 import '../../../core/properties/app_properties.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
@@ -93,7 +93,7 @@ class _InventoryEditViewState extends State<InventoryEditView> {
                   onPressed: () => _saveForm(context))
             ]),
         body: Obx(() => _invController.reloadInventoryEditPageObs.value
-            ? ProgresIndicator()
+            ? CustomIndicator()
             : Padding(
                 padding: EdgeInsets.all(16),
                 child: Form(

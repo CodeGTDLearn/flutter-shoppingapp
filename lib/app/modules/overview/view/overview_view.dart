@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 
 import '../../../core/components/app_messages_provided.dart';
 import '../../../core/components/custom_appbar.dart';
-import '../../../core/components/drawwer.dart';
-import '../../../core/components/progres_indicator.dart';
+import '../../../core/components/custom_drawer.dart';
+import '../../../core/components/custom_indicator.dart';
 import '../components/filter_favorite_enum.dart';
 import '../components/overview_grid_item.dart';
 import '../controller/overview_controller.dart';
@@ -18,12 +18,12 @@ class OverviewView extends StatelessWidget {
     return Scaffold(
         key: K_OV_SCFLD_GLOB_KEY,
         appBar: CustomAppBar(enumFilter: EnumFilter.All),
-        drawer: Get.find<Drawwer>(),
+        drawer: Get.find<CustomDrawer>(),
         body: Obx(() => controller.filteredProductsObs.isEmpty
             ? SingleChildScrollView(
                 child: Center(
                     child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                ProgresIndicator.message(message: NO_PROD, fontSize: 20)
+                CustomIndicator.message(message: NO_PROD, fontSize: 20)
               ])))
             : GridView.builder(
                 padding: EdgeInsets.all(10),

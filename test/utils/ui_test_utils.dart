@@ -75,15 +75,6 @@ class UiTestUtils {
     WidgetTester tester, {
     required bool isWidgetTest,
     required Widget appDriver,
-  }) async {
-    isWidgetTest ? await tester.pumpWidget(appDriver) : runApp(appDriver);
-    await tester.pumpAndSettle(_testUtils.delay(DELAY));
-  }
-
-  Future<void> testInitialization222(
-    WidgetTester tester, {
-    required bool isWidgetTest,
-    required Widget appDriver,
     required bool applyDelay,
   }) async {
     isWidgetTest ? await tester.pumpWidget(appDriver) : runApp(appDriver);

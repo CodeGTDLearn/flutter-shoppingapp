@@ -8,8 +8,8 @@ import '../../../../config/bindings/inventory_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
 import '../../../../config/titles/inventory_tests_titles.dart';
 import '../../../../datasource/mocked_datasource.dart';
-import '../../../../utils/dbtest_utils.dart';
 import '../../../../utils/finder_utils.dart';
+import '../../../../utils/testdb_utils.dart';
 import '../../../../utils/tests_global_utils.dart';
 import '../../../../utils/tests_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
@@ -19,10 +19,10 @@ class InventoryViewTest {
   late bool _isWidgetTest;
   final _finder = Get.put(FinderUtils());
   final _uiUtils = Get.put(UiTestUtils());
-  final _dbUtils = Get.put(DbTestUtils());
+  final _dbUtils = Get.put(TestDbUtils());
   final _bindings = Get.put(InventoryTestBindings());
   final _titles = Get.put(InventoryTestsTitles());
-  final _globalMethods = Get.put(TestsGlobalUtils());
+  final _globalUtils = Get.put(TestsGlobalUtils());
   final _testUtils = Get.put(TestsUtils());
 
   InventoryViewTest({required String testType}) {
@@ -40,7 +40,7 @@ class InventoryViewTest {
         testUtils: _testUtils));
 
     setUpAll(() async {
-      _globalMethods.globalSetUpAll(
+      _globalUtils.globalSetUpAll(
         testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE',
       );
 
@@ -49,17 +49,17 @@ class InventoryViewTest {
           : await _dbUtils.getCollection(url: PRODUCTS_URL);
     });
 
-    tearDownAll(() => _globalMethods.globalTearDownAll(
+    tearDownAll(() => _globalUtils.globalTearDownAll(
           testModuleName: _tests.runtimeType.toString(),
           isWidgetTest: _isWidgetTest,
         ));
 
     setUp(() {
       _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest, isEmptyDb: false);
-      _globalMethods.globalSetUp();
+      _globalUtils.globalSetUp();
     });
 
-    tearDown(_globalMethods.globalTearDown);
+    tearDown(_globalUtils.globalTearDown);
 
     testWidgets(
       _titles.check_products,

@@ -5,28 +5,28 @@ import 'package:shopingapp/app/core/properties/app_urls.dart';
 import '../config/tests_properties.dart';
 import '../config/titles/testdb_check_titles.dart';
 import '../data_builders/product_databuilder.dart';
-import '../utils/dbtest_utils.dart';
+import '../utils/testdb_utils.dart';
 import '../utils/tests_global_utils.dart';
 
-class DbTest {
-  final _dbUtils = Get.put(DbTestUtils());
+class DatasourceLoader {
+  final _dbUtils = Get.put(TestDbUtils());
   final _titles = Get.put(TestDbCheckTitles());
-  final _globalMethods = Get.put(TestsGlobalUtils());
+  final _globalUtils = Get.put(TestsGlobalUtils());
 
   void loading() {
-    setUpAll(() => _globalMethods.globalSetUpAll(
+    setUpAll(() => _globalUtils.globalSetUpAll(
           testModuleName: '${_dbUtils.runtimeType.toString()}',
           label: 'Starting TestDb Checking: ',
         ));
 
-    tearDownAll(() => _globalMethods.globalTearDownAll(
+    tearDownAll(() => _globalUtils.globalTearDownAll(
           testModuleName: _dbUtils.runtimeType.toString(),
           label: 'TestDb Checking Finished: ',
         ));
 
-    setUp(_globalMethods.globalSetUp);
+    setUp(_globalUtils.globalSetUp);
 
-    tearDown(_globalMethods.globalTearDown);
+    tearDown(_globalUtils.globalTearDown);
 
     testWidgets(_titles.check_db_status, (tester) async {
       await _dbUtils.isDbOnline(url: TESTDB_ROOT_URL, dbName: TESTDB_NAME);

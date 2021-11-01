@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
-import 'app/core/components/drawwer_test.dart';
-import 'app/core/components/progr_indicator_test.dart';
+import 'app/core/components/custom_drawer_test.dart';
+import 'app/core/components/custom_indicator_test.dart';
 import 'app/modules/cart/view/cart_view_test.dart';
 import 'app/modules/inventory/view/inventory_view_edit_test.dart';
 import 'app/modules/inventory/view/inventory_view_test.dart';
@@ -23,7 +23,7 @@ import 'config/titles/inventory_tests_titles.dart';
 import 'config/titles/orders_tests_titles.dart';
 import 'config/titles/overview_tests_titles.dart';
 import 'config/titles/testdb_check_titles.dart';
-import 'datasource/load_db_test.dart';
+import 'datasource/datasource_loader.dart';
 
 void main() {
   // NO ERASE:  String.fromEnvironment => MUST BE CONSTANT!!!
@@ -42,17 +42,17 @@ void _unitTests() {
   OverviewTestGroups().groups(skipGroup: SKIP_GROUP);
   InventoryTestGroups().groups(skipGroup: SKIP_GROUP);
   ComponentsTestGroupsDrawwer().groups(skipGroup: SKIP_GROUP);
-  ComponentsTestGroupsProgresIndicator().groups(skipGroup: false);
+  ComponentsTestGroupsProgresIndicator().groups(skipGroup: SKIP_GROUP);
 }
 
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final SKIP_GROUP = false; //skip-group overrides the internal skip-methods
+  final SKIP_GROUP = true; //skip-group overrides the internal skip-methods
 
   group(
     TestDbCheckTitles.GROUP_TITLE,
-    DbTest().loading,
+    DatasourceLoader().loading,
     skip: false, // false all-the-time
   );
 
@@ -89,18 +89,18 @@ void _integrationTests() {
   group(
     CartTestsTitles.GROUP_TITLE,
     CartViewTest(testType: INTEGRATION_TEST).functional,
-    skip: SKIP_GROUP,
+    skip: false,
   );
 
   group(
     ComponentsTestsDrawwerTitles.GROUP_TITLE,
-    DrawwerTest(testType: INTEGRATION_TEST).functional,
+    CustomDrawerTest(testType: INTEGRATION_TEST).functional,
     skip: SKIP_GROUP,
   );
 
   group(
     ComponentsTestsProgresIndicTitles.GROUP_TITLE,
-    ProgrIndicatorTest(testType: INTEGRATION_TEST).functional,
-    skip: true,
+    CustomIndicatorTest(testType: INTEGRATION_TEST).functional,
+    skip: SKIP_GROUP,
   );
 }

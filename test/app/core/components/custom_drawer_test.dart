@@ -8,9 +8,9 @@ import '../../../utils/finder_utils.dart';
 import '../../../utils/tests_global_utils.dart';
 import '../../../utils/tests_utils.dart';
 import '../../../utils/ui_test_utils.dart';
-import 'drawwer_tests.dart';
+import 'custom_drawer_tests.dart';
 
-class DrawwerTest {
+class CustomDrawerTest {
   late bool _isWidgetTest;
   final _finder = Get.put(FinderUtils());
   final _uiUtils = Get.put(UiTestUtils());
@@ -18,22 +18,22 @@ class DrawwerTest {
   final _bindings = Get.put(ComponentsTestBindings());
   final _titles = Get.put(ComponentsTestsDrawwerTitles());
   final _testUtils = Get.put(TestsUtils());
-  final _globalMethods = Get.put(TestsGlobalUtils());
+  final _globalUtils = Get.put(TestsGlobalUtils());
 
-  DrawwerTest({required String testType}) {
+  CustomDrawerTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
   }
 
   void functional() {
     // var _products = <dynamic>[];
-    final _tests = Get.put(DrawwerTests(
+    final _tests = Get.put(CustomDrawerTests(
         finder: _finder,
         uiTestUtils: _uiUtils,
         isWidgetTest: _isWidgetTest,
         testUtils: _testUtils));
 
     setUpAll(() async {
-      _globalMethods.globalSetUpAll(
+      _globalUtils.globalSetUpAll(
           testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
 
       // _products = _isWidgetTest
@@ -45,15 +45,15 @@ class DrawwerTest {
     });
 
     tearDownAll(() {
-      _globalMethods.globalTearDownAll(
+      _globalUtils.globalTearDownAll(
         testModuleName: _tests.runtimeType.toString(),
         isWidgetTest: _isWidgetTest,
       );
     });
 
-    setUp(_globalMethods.globalSetUp);
+    setUp(_globalUtils.globalSetUp);
 
-    tearDown(_globalMethods.globalTearDown);
+    tearDown(_globalUtils.globalTearDown);
 
     testWidgets(_titles.close_drawer_tap_outside, (tester) async {
       await _tests.close_drawer_tap_outside(tester);

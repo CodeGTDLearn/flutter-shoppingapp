@@ -8,12 +8,12 @@ import '../properties/app_routes.dart';
 import '../properties/theme/app_theme_controller.dart';
 import '../texts_icons_provider/generic_words.dart';
 import 'app_messages_provided.dart';
+import 'custom_snackbar/simple_snackbar.dart';
 import 'keys/drawwer_keys.dart';
-import 'snackbar/simple_snackbar.dart';
 import 'texts_icons/drawwer_texts_icons_provided.dart';
 
 // ignore: must_be_immutable
-class Drawwer extends StatelessWidget {
+class CustomDrawer extends StatelessWidget {
   final ICartService _cart = Get.find();
   final IOrdersService _orders = Get.find();
   final InventoryController _inventory = Get.find();

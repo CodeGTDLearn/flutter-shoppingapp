@@ -6,8 +6,8 @@ import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import '../../../../config/bindings/orders_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
 import '../../../../config/titles/orders_tests_titles.dart';
-import '../../../../utils/dbtest_utils.dart';
 import '../../../../utils/finder_utils.dart';
+import '../../../../utils/testdb_utils.dart';
 import '../../../../utils/tests_global_utils.dart';
 import '../../../../utils/tests_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
@@ -17,10 +17,10 @@ class OrdersViewTest {
   late bool _isWidgetTest;
   final _finder = Get.put(FinderUtils());
   final _uiUtils = Get.put(UiTestUtils());
-  final _dbUtils = Get.put(DbTestUtils());
+  final _dbUtils = Get.put(TestDbUtils());
   final _titles = Get.put(OrdersTestsTitles());
   final _bindings = Get.put(OrdersTestBindings());
-  final _globalMethods = Get.put(TestsGlobalUtils());
+  final _globalUtils = Get.put(TestsGlobalUtils());
   final _testUtils = Get.put(TestsUtils());
 
   OrdersViewTest({required String testType}) {
@@ -35,20 +35,20 @@ class OrdersViewTest {
         isWidgetTest: _isWidgetTest,
         testUtils: _testUtils));
 
-    setUpAll(() async => _globalMethods.globalSetUpAll(
+    setUpAll(() async => _globalUtils.globalSetUpAll(
         testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE'));
 
-    tearDownAll(() => _globalMethods.globalTearDownAll(
+    tearDownAll(() => _globalUtils.globalTearDownAll(
           testModuleName: _tests.runtimeType.toString(),
           isWidgetTest: _isWidgetTest,
         ));
 
     setUp(() {
-      _globalMethods.globalSetUp();
+      _globalUtils.globalSetUp();
       _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest, isEmptyDb: false);
     });
 
-    tearDown(_globalMethods.globalTearDown);
+    tearDown(_globalUtils.globalTearDown);
 
     testWidgets(_titles.orderingAProduct_inCartView_tapping_OrderNowButton,
         (tester) async {

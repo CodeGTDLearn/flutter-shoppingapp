@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shopingapp/app/core/components/custom_indicator.dart';
 import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
-import 'package:shopingapp/app/core/components/progres_indicator.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
 import 'package:shopingapp/app/modules/cart/core/cart_widget_keys.dart';
 import 'package:shopingapp/app/modules/cart/view/cart_view.dart';
@@ -12,8 +12,8 @@ import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/tests_properties.dart';
-import '../../../../utils/dbtest_utils.dart';
 import '../../../../utils/finder_utils.dart';
+import '../../../../utils/testdb_utils.dart';
 import '../../../../utils/tests_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 
@@ -21,7 +21,7 @@ class OrdersTests {
   final bool isWidgetTest;
   final FinderUtils finder;
   final UiTestUtils uiTestUtils;
-  final DbTestUtils dbTestUtils;
+  final TestDbUtils dbTestUtils;
   final TestsUtils testUtils;
 
   OrdersTests({
@@ -74,6 +74,7 @@ class OrdersTests {
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
+      applyDelay: true,
     );
 
     //A) ADDING ONE PRODUCT IN THE CART
@@ -90,7 +91,7 @@ class OrdersTests {
     //C) CLICKING ORDER-NOW-BUTTON AND GO BACK TO THE PREVIOUS PAGE
     await tester.tap(finder.key(CART_PAGE_ORDERSNOW_BUTTON_KEY));
     await tester.pump(testUtils.delay(interval));
-    expect(finder.type(ProgresIndicator), findsOneWidget);
+    expect(finder.type(CustomIndicator), findsOneWidget);
     await tester.pumpAndSettle(testUtils.delay(interval));
     expect(finder.type(OverviewView), findsOneWidget);
   }
@@ -106,6 +107,7 @@ class OrdersTests {
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
+      applyDelay: true,
     );
 
     await uiTestUtils.openDrawer_SelectAnOption(
@@ -138,6 +140,7 @@ class OrdersTests {
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
+      applyDelay: true,
     );
 
     await uiTestUtils.openDrawer_SelectAnOption(

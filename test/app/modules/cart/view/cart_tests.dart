@@ -14,8 +14,8 @@ import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/tests_properties.dart';
-import '../../../../utils/dbtest_utils.dart';
 import '../../../../utils/finder_utils.dart';
+import '../../../../utils/testdb_utils.dart';
 import '../../../../utils/tests_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
 
@@ -23,7 +23,7 @@ class CartTests {
   final bool isWidgetTest;
   final FinderUtils finder;
   final UiTestUtils uiTestUtils;
-  final DbTestUtils dbTestUtils;
+  final TestDbUtils dbTestUtils;
   final TestsUtils testUtils;
 
   CartTests({
@@ -303,6 +303,7 @@ class CartTests {
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
+      applyDelay: true,
     );
     await tester.pump();
     await tester.pumpAndSettle(testUtils.delay(DELAY));
