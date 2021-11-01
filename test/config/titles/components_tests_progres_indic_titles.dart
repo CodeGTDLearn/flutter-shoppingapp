@@ -9,25 +9,16 @@
   B) HENCE, THE TESTS CAN NOT USE 'REPO-REAL-DE-PRODUCAO'(no external calls)
   C) SO, THE TESTS ONLY WILL USE MockedRepoClass/MockedDatasource
    */
-class ComponentsTestsTitles {
+class ComponentsTestsProgresIndicTitles {
   static final String _GROUP_TITLE = 'Components';
-  static final String _DRAWER = 'Drawwer';
   static final String _PROGR_INDIC = 'ProgresIndic';
 
   // @formatter:off
   //COMPONENTS-GROUP-TITLES----------------------------------------------------
-  static get GROUP_TITLE_DRAWWER => '$_GROUP_TITLE|$_DRAWER|Integration:';
-  static get GROUP_TITLE_PROGR_INDIC => '$_GROUP_TITLE|$_PROGR_INDIC: Functional';
-
-  //DRAWWER-TEST-TITLES -------------------------------------------------------
-  get DRAWER_TITLE => '$_DRAWER|View: Functional';
-  get check_overview_before_openDrawer => 'Checking Overview BEFORE open Drawer';
-  get close_drawer_tap_outside => 'Closing Drawer: Tapping Outside';
-  get close_drawer_tapping_outside => 'Closing drawer tapping outside';
-  get tap_two_different_options_in_drawer => 'Tapping Two Drawer Options';
+  static get GROUP_TITLE => '$_GROUP_TITLE|$_PROGR_INDIC: Functional';
 
   //PROGRESS-INDICATOR-TEST-TITLES --------------------------------------------
-  get PROGR_INDIC_TITLE => '$_DRAWER|View: Functional';
+  get PROGR_INDIC_TITLE => '$_PROGR_INDIC|View: Functional';
   get check_custom_progr_indic => 'Checking ProgrIndicator';
   get check_custom_progr_indic_emptydb => 'Checking ProgrIndicator with EmptyDB';
   // @formatter:on

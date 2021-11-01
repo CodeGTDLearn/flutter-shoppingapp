@@ -10,13 +10,15 @@ import 'app/modules/inventory/view/inventory_view_validation_test.dart';
 import 'app/modules/orders/view/orders_view_test.dart';
 import 'app/modules/overview/view/overview_view_test.dart';
 import 'config/groups/cart_test_groups.dart';
-import 'config/groups/components_test_groups.dart';
+import 'config/groups/components_test_groups_drawwer.dart';
+import 'config/groups/components_test_groups_progres_indic.dart';
 import 'config/groups/inventory_test_groups.dart';
 import 'config/groups/orders_test_groups.dart';
 import 'config/groups/overview_test_groups.dart';
 import 'config/tests_properties.dart';
 import 'config/titles/cart_tests_titles.dart';
-import 'config/titles/components_tests_titles.dart';
+import 'config/titles/components_tests_drawwer_titles.dart';
+import 'config/titles/components_tests_progres_indic_titles.dart';
 import 'config/titles/inventory_tests_titles.dart';
 import 'config/titles/orders_tests_titles.dart';
 import 'config/titles/overview_tests_titles.dart';
@@ -33,19 +35,20 @@ void main() {
 }
 
 void _unitTests() {
-  final skip_group = true;
+  final SKIP_GROUP = false;
 
-  CartTestGroups().groups(skipGroup: skip_group);
-  OrdersTestGroups().groups(skipGroup: skip_group);
-  OverviewTestGroups().groups(skipGroup: skip_group);
-  InventoryTestGroups().groups(skipGroup: skip_group);
-  ComponentsTestGroups().groups(skipGroup: false);
+  CartTestGroups().groups(skipGroup: SKIP_GROUP);
+  OrdersTestGroups().groups(skipGroup: SKIP_GROUP);
+  OverviewTestGroups().groups(skipGroup: SKIP_GROUP);
+  InventoryTestGroups().groups(skipGroup: SKIP_GROUP);
+  ComponentsTestGroupsDrawwer().groups(skipGroup: SKIP_GROUP);
+  ComponentsTestGroupsProgresIndicator().groups(skipGroup: false);
 }
 
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final skip_group = true; //skip-group overrides the internal skip-methods
+  final SKIP_GROUP = false; //skip-group overrides the internal skip-methods
 
   group(
     TestDbCheckTitles.GROUP_TITLE,
@@ -56,48 +59,48 @@ void _integrationTests() {
   group(
     OrdersTestsTitles.GROUP_TITLE,
     OrdersViewTest(testType: INTEGRATION_TEST).functional,
-    skip: skip_group,
+    skip: SKIP_GROUP,
   );
 
   group(
     InventoryTestsTitles.GROUP_TITLE,
     InventoryViewTest(testType: INTEGRATION_TEST).functional,
-    skip: skip_group,
+    skip: SKIP_GROUP,
   );
 
   group(
     InventoryTestsTitles.EDIT_GROUP_TITLE,
     InventoryViewEditTest(testType: INTEGRATION_TEST).functional,
-    skip: skip_group,
+    skip: SKIP_GROUP,
   );
 
   group(
     InventoryTestsTitles.VALID_GROUP_TITLE,
     InventoryViewValidationTest(testType: INTEGRATION_TEST).functional,
-    skip: skip_group,
+    skip: SKIP_GROUP,
   );
 
   group(
     OverviewTestsTitles.GROUP_TITLE,
     OverviewViewTest(testType: INTEGRATION_TEST).functional,
-    skip: skip_group,
+    skip: SKIP_GROUP,
   );
 
   group(
     CartTestsTitles.GROUP_TITLE,
     CartViewTest(testType: INTEGRATION_TEST).functional,
-    skip: skip_group,
+    skip: SKIP_GROUP,
   );
 
   group(
-    ComponentsTestsTitles.GROUP_TITLE_DRAWWER,
+    ComponentsTestsDrawwerTitles.GROUP_TITLE,
     DrawwerTest(testType: INTEGRATION_TEST).functional,
-    skip: skip_group,
+    skip: SKIP_GROUP,
   );
 
   group(
-    ComponentsTestsTitles.GROUP_TITLE_PROGR_INDIC,
+    ComponentsTestsProgresIndicTitles.GROUP_TITLE,
     ProgrIndicatorTest(testType: INTEGRATION_TEST).functional,
-    skip: false,
+    skip: true,
   );
 }

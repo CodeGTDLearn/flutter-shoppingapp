@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../config/bindings/components_test_bindings.dart';
 import '../../../config/tests_properties.dart';
-import '../../../config/titles/components_tests_titles.dart';
+import '../../../config/titles/components_tests_drawwer_titles.dart';
 import '../../../utils/finder_utils.dart';
 import '../../../utils/tests_global_utils.dart';
 import '../../../utils/tests_utils.dart';
@@ -16,7 +16,7 @@ class DrawwerTest {
   final _uiUtils = Get.put(UiTestUtils());
 
   final _bindings = Get.put(ComponentsTestBindings());
-  final _titles = Get.put(ComponentsTestsTitles());
+  final _titles = Get.put(ComponentsTestsDrawwerTitles());
   final _testUtils = Get.put(TestsUtils());
   final _globalMethods = Get.put(TestsGlobalUtils());
 
