@@ -5,30 +5,30 @@ import '../../app/modules/cart/cart_repo_test.dart';
 import '../../app/modules/cart/cart_service_test.dart';
 import '../../app/modules/cart/view/cart_view_test.dart';
 import '../tests_properties.dart';
-import '../titles/cart_tests_titles.dart';
+import '../titles/cart_test_titles.dart';
 
 class CartTestGroups {
   void groups({required bool skipGroup}) {
     group(
-      CartTestsTitles().REPO_TITLE,
+      CartTestTitles().REPO_TITLE,
       CartRepoTests().unit,
       skip: skipGroup, // 'skip-group' overrides the internal 'skip-methods'
     );
 
     group(
-      CartTestsTitles().SERVICE_TITLE,
+      CartTestTitles().SERVICE_TITLE,
       CartServiceTests().unit,
       skip: skipGroup,
     );
 
     group(
-      CartTestsTitles().CONTROLLER_TITLE,
+      CartTestTitles().CONTROLLER_TITLE,
       CartControllerTests().integration,
       skip: skipGroup,
     );
 
     group(
-      CartTestsTitles().VIEW_TITLE,
+      CartTestTitles().VIEW_TITLE,
       CartViewTest(testType: WIDGET_TEST).functional,
       skip: skipGroup,
     );

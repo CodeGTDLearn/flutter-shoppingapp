@@ -6,7 +6,7 @@ import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 
 import '../../../../config/bindings/overview_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
-import '../../../../config/titles/overview_tests_titles.dart';
+import '../../../../config/titles/overview_test_titles.dart';
 import '../../../../datasource/mocked_datasource.dart';
 import '../../../../utils/finder_utils.dart';
 import '../../../../utils/testdb_utils.dart';
@@ -21,7 +21,7 @@ class OverviewViewTest {
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(TestDbUtils());
   final _bindings = Get.put(OverviewTestBindings());
-  final _titles = Get.put(OverviewTestsTitles());
+  final _titles = Get.put(OverviewTestTitles());
   final _testUtils = Get.put(TestsUtils());
   final _globalUtils = Get.put(TestsGlobalUtils());
 
@@ -41,7 +41,8 @@ class OverviewViewTest {
 
     setUpAll(() async {
       _globalUtils.globalSetUpAll(
-          testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
+          testModuleName:
+              '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
     });
 
     tearDownAll(() => _globalUtils.globalTearDownAll(
@@ -67,14 +68,14 @@ class OverviewViewTest {
         tester,
         qtde: _products.length,
       );
-    }, skip: false);
+    });
 
     testWidgets(_titles.toggle_ProductFavoriteButton, (tester) async {
       await _tests.toggle_FavoriteButton_in_product(
         tester,
         toggleButtonKey: "$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0",
       );
-    }, skip: false);
+    });
 
     testWidgets(_titles.add_sameProduct2x_Check_ShopCartIcon, (tester) async {
       await _tests.add_sameProduct2x_Check_ShopCartIcon(
@@ -84,9 +85,10 @@ class OverviewViewTest {
         initialQtde: 0,
         qtdeToAdded: 2,
       );
-    }, skip: false);
+    });
 
-    testWidgets(_titles.addProduct_click_undoSnackbar_check_shopCartIcon, (tester) async {
+    testWidgets(_titles.addProduct_click_undoSnackbar_check_shopCartIcon,
+        (tester) async {
       await _tests.add_product_click_UndoSnackbar_check_ShopCartIcon(
         tester,
         addProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
@@ -94,7 +96,7 @@ class OverviewViewTest {
         snackbarUndoButtonKey: CUSTOM_SNACKBAR_BUTTON_KEY,
         total: 0,
       );
-    }, skip: false);
+    });
 
     testWidgets(_titles.add_sameProduct3x_check_shopCartIcon, (tester) async {
       await _tests.add_sameProduct3x_check_shopCartIcon(
@@ -103,7 +105,7 @@ class OverviewViewTest {
         initialQtde: 0,
         qtdeToAdded: 3,
       );
-    }, skip: false);
+    });
 
     testWidgets(_titles.add_AllProducts_check_shopCartIcon, (tester) async {
       await _tests.add_AllProducts_check_shopCartIcon(
@@ -112,19 +114,19 @@ class OverviewViewTest {
         initialQtde: 0,
         qtdeToAdded: _products.length,
       );
-    }, skip: false);
+    });
 
     testWidgets(_titles.tap_favFilter_noFavoritesFound, (tester) async {
       await _tests.tap_FavoritesFilter_NoFavoritesFound(tester);
-    }, skip: false);
+    });
 
     testWidgets(_titles.tap_favFilterPopup, (tester) async {
       await _tests.tap_FavoriteFilterPopup(tester);
-    }, skip: false);
+    });
 
     testWidgets(_titles.close_favFilterPopup_tapOutside, (tester) async {
       await _tests.close_FavoriteFilterPopup(tester);
-    }, skip: false);
+    });
 
     testWidgets(_titles.tap_product_details_check_texts, (tester) async {
       await _tests.check_product_details_backbutton_overview(
@@ -132,7 +134,7 @@ class OverviewViewTest {
         productButtonKey: "$OVERVIEW_GRID_ITEM_DETAILS_KEY\1",
         detailedProduct: _products.elementAt(1),
       );
-    }, skip: false);
+    });
 
     testWidgets(_titles.tap_product_details_check_image, (tester) async {
       await _tests.check_product_details_image_backbutton_overview(
@@ -140,6 +142,6 @@ class OverviewViewTest {
         productButtonKey: "$OVERVIEW_GRID_ITEM_DETAILS_KEY\0",
         detailedProduct: _products.elementAt(0),
       );
-    }, skip: false);
+    });
   }
 }

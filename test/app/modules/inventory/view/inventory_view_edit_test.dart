@@ -5,7 +5,7 @@ import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/bindings/inventory_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
-import '../../../../config/titles/inventory_tests_titles.dart';
+import '../../../../config/titles/inventory_test_titles.dart';
 import '../../../../data_builders/product_databuilder.dart';
 import '../../../../utils/finder_utils.dart';
 import '../../../../utils/testdb_utils.dart';
@@ -22,7 +22,7 @@ class InventoryViewEditTest {
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(TestDbUtils());
   final _bindings = Get.put(InventoryTestBindings());
-  final _titles = Get.put(InventoryTestsTitles());
+  final _titles = Get.put(InventoryTestTitles());
 
   InventoryViewEditTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
@@ -38,7 +38,8 @@ class InventoryViewEditTest {
 
     setUpAll(
       () async => _globalUtils.globalSetUpAll(
-          testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE'),
+          testModuleName:
+              '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE'),
     );
 
     tearDownAll(() => _globalUtils.globalTearDownAll(

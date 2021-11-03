@@ -4,7 +4,7 @@ import 'package:shopingapp/app/core/properties/app_urls.dart';
 
 import '../../../../config/bindings/cart_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
-import '../../../../config/titles/cart_tests_titles.dart';
+import '../../../../config/titles/cart_test_titles.dart';
 import '../../../../datasource/mocked_datasource.dart';
 import '../../../../utils/finder_utils.dart';
 import '../../../../utils/testdb_utils.dart';
@@ -18,7 +18,7 @@ class CartViewTest {
   final _finder = Get.put(FinderUtils());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(TestDbUtils());
-  final _titles = Get.put(CartTestsTitles());
+  final _titles = Get.put(CartTestTitles());
   final _bindings = Get.put(CartTestBindings());
   final _testUtils = Get.put(TestsUtils());
   final _globalUtils = Get.put(TestsGlobalUtils());
@@ -71,12 +71,11 @@ class CartViewTest {
       await _tests.ClearingCart_tappingClearButton(tester);
     });
 
-    testWidgets(_titles.add_product_check_appbar_shopCart, (tester) async {
-      await _tests.Add2Products_checkAppbarCartIconQtde(tester);
-    });
-
-    testWidgets(_titles.check_2products_inCartPage, (tester) async {
-      await _tests.Check_2Products_inCartPage(tester, _products);
+    testWidgets(_titles.add_products_check_cartPage, (tester) async {
+      await _tests.Add_products_check_cartPage(
+        tester,
+        qtdeProducts: 2,
+      );
     });
 
     testWidgets(_titles.add_product_check_snackbar, (tester) async {
@@ -103,16 +102,13 @@ class CartViewTest {
       await _tests.Opening_cartPage_check2Products(tester, _products);
     });
 
-    // testWidgets(_titles.clearCart_tapClearButton, (tester) async {
-    //   await _tests.ClearingCart_tappingClearButton(tester, _products);
-    // });
-
     testWidgets(_titles.check_amount_cart, (tester) async {
       await _tests.Check_amountCart(tester, _products);
     });
 
     testWidgets(_titles.order_cartProducts_tapOrderNowButton, (tester) async {
-      await _tests.Ordering_cartProducts_tappingOrderNowButton(tester, _products);
+      await _tests.Ordering_cartProducts_tappingOrderNowButton(
+          tester, _products);
     });
 
     testWidgets(_titles.test_page_backbutton, (tester) async {

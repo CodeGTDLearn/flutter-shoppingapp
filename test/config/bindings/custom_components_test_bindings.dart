@@ -13,7 +13,7 @@ import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 import '../../app/modules/overview/repo/overview_mocked_repo.dart';
 import '../../app/modules/overview/repo/overview_mocked_repo_emptydb.dart';
 
-class ComponentsTestBindings {
+class CustomComponentsTestBindings {
   final IOverviewRepo _mocked_repo_tobe_used = OverviewMockedRepo();
 
   void _bindingsBuilder(IOverviewRepo repo) {
@@ -29,9 +29,9 @@ class ComponentsTestBindings {
       Get.lazyPut<IOverviewRepo>(() => repo);
 
       Get.lazyPut<IOverviewService>(
-          () => OverviewService(repo: Get.find<IOverviewRepo>()));
+              () => OverviewService(repo: Get.find<IOverviewRepo>()));
       Get.lazyPut<OverviewController>(
-          () => OverviewController(service: Get.find<IOverviewService>()));
+              () => OverviewController(service: Get.find<IOverviewService>()));
 
       Get.lazyPut<AppThemeController>(() => AppThemeController());
 

@@ -6,7 +6,7 @@ import 'package:shopingapp/app/modules/inventory/core/messages/field_form_valida
 
 import '../../../../config/bindings/inventory_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
-import '../../../../config/titles/inventory_tests_titles.dart';
+import '../../../../config/titles/inventory_test_titles.dart';
 import '../../../../datasource/mocked_datasource.dart';
 import '../../../../utils/finder_utils.dart';
 import '../../../../utils/testdb_utils.dart';
@@ -22,7 +22,7 @@ class InventoryViewValidationTest {
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(TestDbUtils());
   final _bindings = Get.put(InventoryTestBindings());
-  final _titles = Get.put(InventoryTestsTitles());
+  final _titles = Get.put(InventoryTestTitles());
   final _testUtils = Get.put(TestsUtils());
 
   InventoryViewValidationTest({required String testType}) {

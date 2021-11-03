@@ -52,22 +52,19 @@ class CartTests {
   Future<void> ClearingCart_tappingClearButton(tester) async {
     await _startApp_OpenOverviewView(tester);
 
-    var cartIconProduct0 = finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
-    var cartButtonPage = finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
-    var customCircProgrIndic = finder.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY);
-    var clearCartButton = finder.key(CART_PAGE_CLEARCART_BUTTON_KEY);
-
-    await tester.tap(cartIconProduct0);
-    await tester.tap(cartButtonPage);
+    await tester.tap(finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0"));
+    await tester.tap(finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
+    await tester.pump();
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(CartView), findsOneWidget);
     expect(Get.find<CartController>().getAmountCartItemsObs() > 0.0, isTrue);
 
-    await _clearCart_quitCartView(tester, clearCartButton);
+    await _clearCart_quitCartView(
+        tester, finder.key(CART_PAGE_CLEARCART_BUTTON_KEY));
 
     expect(Get.find<CartController>().getAmountCartItemsObs() == 0, isTrue);
     expect(finder.type(DismissibleCartItem), findsNothing);
-    expect(customCircProgrIndic, findsOneWidget);
+    expect(finder.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(OverviewView), findsOneWidget);
@@ -88,7 +85,8 @@ class CartTests {
     );
 
     expect(finder.type(CartView), findsOneWidget);
-    await _clearCart_quitCartView(tester, finder.key(CART_PAGE_CLEARCART_BUTTON_KEY));
+    await _clearCart_quitCartView(
+        tester, finder.key(CART_PAGE_CLEARCART_BUTTON_KEY));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
     await _addProduct_tappingOverviewItem_openShopCartView(
@@ -128,7 +126,9 @@ class CartTests {
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(CartView), findsOneWidget);
     expect(
-      finder.text(Get.find<CartController>().getAmountCartItemsObs().toStringAsFixed(2)),
+      finder.text(Get.find<CartController>()
+          .getAmountCartItemsObs()
+          .toStringAsFixed(2)),
       findsOneWidget,
     );
   }
@@ -183,7 +183,8 @@ class CartTests {
     expect(typeDismisCartItem, findsNWidgets(2));
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    await tester.drag(finder.key('${_productsList[0].id}'), Offset(-500.0, 0.0));
+    await tester.drag(
+        finder.key('${_productsList[0].id}'), Offset(-500.0, 0.0));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(AlertDialog), findsOneWidget);
     expect(finder.text(CART_LABEL_ALERTDIALOG_DISMIS_CONFIRM), findsOneWidget);
@@ -192,7 +193,8 @@ class CartTests {
     expect(typeDismisCartItem, findsOneWidget);
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    await tester.drag(finder.key('${_productsList[1].id}'), Offset(-500.0, 0.0));
+    await tester.drag(
+        finder.key('${_productsList[1].id}'), Offset(-500.0, 0.0));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(AlertDialog), findsOneWidget);
     expect(finder.text(CART_LABEL_ALERTDIALOG_DISMIS_CONFIRM), findsOneWidget);
@@ -262,7 +264,8 @@ class CartTests {
     await _startApp_OpenOverviewView(tester);
 
     var cartIconProduct0 = finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
-    var snackbarInfo = '${_productsList[0].title}$ITEM_CART_ADDED_IN_THE_SHOPCART';
+    var snackbarInfo =
+        '${_productsList[0].title}$ITEM_CART_ADDED_IN_THE_SHOPCART';
 
     await tester.tap(cartIconProduct0);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
@@ -270,32 +273,30 @@ class CartTests {
     expect(finder.text(snackbarInfo), findsOneWidget);
   }
 
-  Future<void> Check_2Products_inCartPage(
-    WidgetTester tester,
-    List<dynamic> _productsList,
-  ) async {
-    await _startApp_OpenOverviewView(tester);
-
-    var cartButtonView = finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
-    await tester.tap(cartButtonView);
-    await tester.pump();
-    await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(finder.type(CartView), findsOneWidget);
-    expect(finder.text(_productsList[0].title), findsOneWidget);
-    expect(finder.text('x2'), findsOneWidget);
-  }
-
-  Future<void> Add2Products_checkAppbarCartIconQtde(tester) async {
+  Future<void> Add_products_check_cartPage(
+    tester, {
+    required int qtdeProducts,
+  }) async {
     await _startApp_OpenOverviewView(tester);
 
     var CartIconProduct0 = finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
-    await tester.tap(CartIconProduct0);
-    await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(finder.text("1"), findsOneWidget);
 
-    await tester.tap(CartIconProduct0);
+    for (var i = 0; i < qtdeProducts; i++) {
+      await tester.tap(CartIconProduct0);
+      await tester.pumpAndSettle(testUtils.delay(DELAY));
+      expect(finder.text((i + 1).toString()), findsOneWidget);
+    }
+
+    // await tester.tap(CartIconProduct0);
+    // await tester.pumpAndSettle(testUtils.delay(DELAY));
+    // expect(finder.text("2"), findsOneWidget);
+
+    // var cartButtonView = finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
+    await tester.tap(finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
+    await tester.pump();
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(finder.text("2"), findsOneWidget);
+    expect(finder.type(CartView), findsOneWidget);
+    expect(finder.text('x$qtdeProducts'), findsOneWidget);
   }
 
   Future<void> _startApp_OpenOverviewView(tester) async {

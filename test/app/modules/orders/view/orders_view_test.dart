@@ -5,7 +5,7 @@ import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 
 import '../../../../config/bindings/orders_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
-import '../../../../config/titles/orders_tests_titles.dart';
+import '../../../../config/titles/orders_test_titles.dart';
 import '../../../../utils/finder_utils.dart';
 import '../../../../utils/testdb_utils.dart';
 import '../../../../utils/tests_global_utils.dart';
@@ -18,7 +18,7 @@ class OrdersViewTest {
   final _finder = Get.put(FinderUtils());
   final _uiUtils = Get.put(UiTestUtils());
   final _dbUtils = Get.put(TestDbUtils());
-  final _titles = Get.put(OrdersTestsTitles());
+  final _titles = Get.put(OrdersTestTitles());
   final _bindings = Get.put(OrdersTestBindings());
   final _globalUtils = Get.put(TestsGlobalUtils());
   final _testUtils = Get.put(TestsUtils());
@@ -36,7 +36,8 @@ class OrdersViewTest {
         testUtils: _testUtils));
 
     setUpAll(() async => _globalUtils.globalSetUpAll(
-        testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE'));
+        testModuleName:
+            '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE'));
 
     tearDownAll(() => _globalUtils.globalTearDownAll(
           testModuleName: _tests.runtimeType.toString(),
