@@ -1,3 +1,4 @@
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +15,6 @@ class CustomDrawerTest {
   late bool _isWidgetTest;
   final _finder = Get.put(FinderUtils());
   final _uiUtils = Get.put(UiTestUtils());
-
   final _bindings = Get.put(CustomComponentsTestBindings());
   final _titles = Get.put(CustomDrawerTestTitles());
   final _testUtils = Get.put(TestsUtils());
@@ -25,7 +25,6 @@ class CustomDrawerTest {
   }
 
   void functional() {
-    // var _products = <dynamic>[];
     final _tests = Get.put(CustomDrawerTests(
         finder: _finder,
         uiTestUtils: _uiUtils,
@@ -34,13 +33,7 @@ class CustomDrawerTest {
 
     setUpAll(() async {
       _globalUtils.globalSetUpAll(
-          testModuleName:
-              '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
-
-      // _products = _isWidgetTest
-      // _isWidgetTest
-      //     ? await Future.value(MockedDatasource().products())
-      //     : await _dbUtils.getCollection(url: PRODUCTS_URL);
+          testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
 
       _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest, isEmptyDb: false);
     });
@@ -60,8 +53,15 @@ class CustomDrawerTest {
       await _tests.close_drawer_tap_outside(tester);
     });
 
-    testWidgets(_titles.tap_two_different_options_in_drawer, (tester) async {
-      await _tests.tap_twoDifferent_options_InDrawer(tester);
+    testWidgets(_titles.tap_drawer_darkmode_option, (tester) async {
+      await _tests.tap_drawer_darkmode_option(tester);
+
+      //https://stackoverflow.com/questions/68720967/best-approach-to-testing-app-appearance-in-flutter-while-app-is-in-dark-light-th
+      expect(
+        SchedulerBinding.instance.window.platformBrightness,
+        Brightness.dark,
+        reason: "The test suite should now be testing with app theme set to dark theme.",
+      );
     });
   }
 }

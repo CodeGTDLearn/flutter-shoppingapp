@@ -41,13 +41,6 @@ class CartViewTest {
       _globalUtils.globalSetUpAll(
         testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE',
       );
-      // _products = await _testUtils.post_databuilderProductList_InDb(
-      //   isWidgetTest: _isWidgetTest,
-      //   numberOfProducts: TOTAL_SAMPLEDATA_ITEMS_LOADED_IN_TESTDB,
-      // );
-      // _products = _isWidgetTest
-      //     ? await Future.value(MockedDatasource().products())
-      //     : await _dbUtils.getCollection(url: PRODUCTS_URL);
     });
 
     tearDownAll(() => _globalUtils.globalTearDownAll(
@@ -107,8 +100,7 @@ class CartViewTest {
     });
 
     testWidgets(_titles.order_cartProducts_tapOrderNowButton, (tester) async {
-      await _tests.Ordering_cartProducts_tappingOrderNowButton(
-          tester, _products);
+      await _tests.Ordering_cartProducts_tappingOrderNowButton(tester, _products);
     });
 
     testWidgets(_titles.test_page_backbutton, (tester) async {

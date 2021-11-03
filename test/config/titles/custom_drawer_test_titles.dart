@@ -13,20 +13,17 @@ class CustomDrawerTestTitles {
   static final String _GROUP_TITLE = 'Components';
   static final String _DRAWER = 'Drawwer';
 
-  // @formatter:off
-  //COMPONENTS-GROUP-TITLES----------------------------------------------------
   static get GROUP_TITLE => '$_GROUP_TITLE|$_DRAWER|Integration:';
 
-  //DRAWWER-TEST-TITLES -------------------------------------------------------
   get DRAWER_TITLE => '$_DRAWER|View: Functional';
 
-  get check_overview_before_openDrawer =>
-      'Checking Overview BEFORE open Drawer';
+  get check_overview_before_openDrawer => 'Checking Overview BEFORE open Drawer';
 
   get close_drawer_tap_outside => 'Closing Drawer: Tapping Outside';
 
   get close_drawer_tapping_outside => 'Closing drawer tapping outside';
 
   get tap_two_different_options_in_drawer => 'Tapping Two Drawer Options';
-// @formatter:on
+
+  get tap_drawer_darkmode_option => 'Tapping DarkMode Drawer Option';
 }

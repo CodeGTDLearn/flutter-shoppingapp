@@ -78,4 +78,29 @@ class CustomDrawerTests {
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(scaffoldState.isDrawerOpen, isFalse);
   }
+
+  Future<void> tap_drawer_darkmode_option(WidgetTester tester) async {
+    await uiTestUtils.testInitialization(
+      tester,
+      isWidgetTest: isWidgetTest,
+      appDriver: app.AppDriver(),
+      applyDelay: true,
+    );
+
+    var scaffoldState = DRAWWER_SCAFFOLD_GLOBALKEY.currentState!;
+    expect(scaffoldState.isDrawerOpen, isFalse);
+
+    scaffoldState.openDrawer();
+    await tester.pump();
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+    expect(scaffoldState.isDrawerOpen, isTrue);
+
+    await tester.tapAt(Offset(
+      uiTestUtils.deviceWidth(tester) * 0.97,
+      uiTestUtils.deviceHeight(tester) * 0.97,
+    ));
+    await tester.pump();
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+    expect(scaffoldState.isDrawerOpen, isFalse);
+  }
 }

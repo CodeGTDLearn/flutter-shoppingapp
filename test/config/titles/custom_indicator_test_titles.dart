@@ -13,16 +13,11 @@ class CustomIndicatorTestTitles {
   static final String _GROUP_TITLE = 'Components';
   static final String _PROGR_INDIC = 'ProgresIndic';
 
-  // @formatter:off
-  //COMPONENTS-GROUP-TITLES----------------------------------------------------
   static get GROUP_TITLE => '$_GROUP_TITLE|$_PROGR_INDIC: Functional';
 
-  //PROGRESS-INDICATOR-TEST-TITLES --------------------------------------------
   get PROGR_INDIC_TITLE => '$_PROGR_INDIC|View: Functional';
 
   get check_custom_progr_indic => 'Checking ProgrIndicator';
 
-  get check_custom_progr_indic_emptydb =>
-      'Checking ProgrIndicator with EmptyDB';
-// @formatter:on
+  get check_custom_progr_indic_emptydb => 'Checking ProgrIndicator with EmptyDB';
 }
