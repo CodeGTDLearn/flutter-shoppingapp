@@ -1,4 +1,3 @@
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 
@@ -49,19 +48,16 @@ class CustomDrawerTest {
 
     tearDown(_globalUtils.globalTearDown);
 
+    testWidgets(_titles.tap_two_different_options_in_drawer, (tester) async {
+      await _tests.tap_two_different_options_in_drawer(tester);
+    });
+
     testWidgets(_titles.close_drawer_tap_outside, (tester) async {
       await _tests.close_drawer_tap_outside(tester);
     });
 
     testWidgets(_titles.tap_drawer_darkmode_option, (tester) async {
       await _tests.tap_drawer_darkmode_option(tester);
-
-      //https://stackoverflow.com/questions/68720967/best-approach-to-testing-app-appearance-in-flutter-while-app-is-in-dark-light-th
-      expect(
-        SchedulerBinding.instance.window.platformBrightness,
-        Brightness.dark,
-        reason: "The test suite should now be testing with app theme set to dark theme.",
-      );
     });
   }
 }

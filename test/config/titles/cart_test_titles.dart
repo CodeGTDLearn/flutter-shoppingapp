@@ -19,22 +19,22 @@ class CartTestTitles {
 
   get add_product_check_snackbar => 'Adding product|Check Snackbar';
 
-  get denying_dismissingCartItem => 'Denying FIRST product Dismissing';
+  get denying_dismissing_cartitem => 'Denying FIRST product Dismissing';
 
   get dismissing_first_added_product => 'Dismissing FIRST added product';
 
   get dismissing_all_added_products => 'Dismissing ALL products';
 
-  get emptyCart_blockAccessCartPage => 'Empty Cart|block Access to Cart Page';
+  get emptycart_block_access_to_cartpage => 'Empty Cart|block Access to Cart Page';
 
-  get open_cartPage_check2Products => 'Opening CartView|Checking 2 products';
+  get open_cartpage_check2products => 'Opening CartView|Checking 2 products';
 
   get check_amount_cart => 'Checking Amount Cart';
 
-  get order_cartProducts_tapOrderNowButton =>
-      'Ordering Products|Order Now button';
+  get order_cartProducts_tap_orderNowButton =>
+      'Ordering Products|Tapping Order-Now-Button';
 
-  get clearCart_tapClearButton => 'Clearing Products|ClearCart IconButton';
+  get clear_cart_tap_clear_button => 'Clearing Products|ClearCart IconButton';
 
   get test_page_backbutton => 'Testing Page BackButton';
 

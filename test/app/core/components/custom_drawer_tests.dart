@@ -24,7 +24,7 @@ class CustomDrawerTests {
     required this.testUtils,
   });
 
-  Future<void> tap_twoDifferent_options_InDrawer(tester) async {
+  Future<void> tap_two_different_options_in_drawer(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -88,12 +88,16 @@ class CustomDrawerTests {
     );
 
     var scaffoldState = DRAWWER_SCAFFOLD_GLOBALKEY.currentState!;
-    expect(scaffoldState.isDrawerOpen, isFalse);
 
     scaffoldState.openDrawer();
     await tester.pump();
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(scaffoldState.isDrawerOpen, isTrue);
+
+    await uiTestUtils.checkDarkModeTheme(tester,
+        keyDarkmodeSwitcher: DRAWER_DARK_MODE_OPTION_KEY,
+        keyElementToCheckDarkmodeIn: OVERVIEW_PAGE_TITLE_APPBAR_KEY,
+        finalBrightnessOption: BrightnessOption.dark);
 
     await tester.tapAt(Offset(
       uiTestUtils.deviceWidth(tester) * 0.97,

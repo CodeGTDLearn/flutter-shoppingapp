@@ -19,9 +19,9 @@ class OrdersTestTitles {
 
   get check_orders_with_one_orderInDB => 'Opening View with One ORDER in DB';
 
-  get tap_viewBackButton => 'Testing View BackButton';
+  get test_page_backbutton => 'Testing View BackButton';
 
-  get orderingAProduct_inCartView_tapping_OrderNowButton =>
+  get orderProduct_using_cartView_tapping_orderNowButton =>
       'Ordering from CartView - Taping OrderNow Button';
 // @formatter:on
 }

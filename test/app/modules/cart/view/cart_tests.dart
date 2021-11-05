@@ -34,7 +34,7 @@ class CartTests {
     required this.testUtils,
   });
 
-  Future<void> Testing_pageBackButton(tester) async {
+  Future<void> test_page_backbutton(tester) async {
     await _startApp_OpenOverviewView(tester);
 
     await _addProduct_tappingOverviewItem_openShopCartView(
@@ -49,7 +49,7 @@ class CartTests {
     expect(finder.type(OverviewView), findsOneWidget);
   }
 
-  Future<void> ClearingCart_tappingClearButton(tester) async {
+  Future<void> clear_cart_tap_clear_button(tester) async {
     await _startApp_OpenOverviewView(tester);
 
     await tester.tap(finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0"));
@@ -59,8 +59,7 @@ class CartTests {
     expect(finder.type(CartView), findsOneWidget);
     expect(Get.find<CartController>().getAmountCartItemsObs() > 0.0, isTrue);
 
-    await _clearCart_quitCartView(
-        tester, finder.key(CART_PAGE_CLEARCART_BUTTON_KEY));
+    await _clearCart_quitCartView(tester, finder.key(CART_PAGE_CLEARCART_BUTTON_KEY));
 
     expect(Get.find<CartController>().getAmountCartItemsObs() == 0, isTrue);
     expect(finder.type(DismissibleCartItem), findsNothing);
@@ -70,7 +69,7 @@ class CartTests {
     expect(finder.type(OverviewView), findsOneWidget);
   }
 
-  Future<void> Ordering_cartProducts_tappingOrderNowButton(
+  Future<void> order_cartProducts_tap_orderNowButton(
     WidgetTester tester,
     List<dynamic> _productsList,
   ) async {
@@ -110,7 +109,7 @@ class CartTests {
     expect(finder.type(OverviewView), findsOneWidget);
   }
 
-  Future<void> Check_amountCart(
+  Future<void> check_amount_cart(
     tester,
     List<dynamic> _productsList,
   ) async {
@@ -133,7 +132,7 @@ class CartTests {
     );
   }
 
-  Future<void> Opening_cartPage_check2Products(
+  Future<void> open_cartpage_check2products(
     WidgetTester tester,
     List<dynamic> _productsList,
   ) async {
@@ -158,14 +157,14 @@ class CartTests {
     expect(finder.type(DismissibleCartItem), findsNWidgets(2));
   }
 
-  Future<void> EmptyCart_blockAccessCartPage(tester) async {
+  Future<void> emptycart_block_access_to_cartpage(tester) async {
     await _startApp_OpenOverviewView(tester);
     await tester.tap(finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(OverviewView), findsOneWidget);
   }
 
-  Future<void> Dismissing_allAddedProducts(
+  Future<void> dismissing_all_added_products(
     WidgetTester tester,
     List<dynamic> _productsList,
   ) async {
@@ -203,7 +202,7 @@ class CartTests {
     expect(typeDismisCartItem, findsNothing);
   }
 
-  Future<void> Dismissing_firstAddedProduct(
+  Future<void> dismissing_first_added_product(
     tester,
     List<dynamic> _productsList,
   ) async {
@@ -230,7 +229,7 @@ class CartTests {
     expect(typeCardCartItem, findsNothing);
   }
 
-  Future<void> Denying_dismissingCartItem(
+  Future<void> denying_dismissing_cartitem(
     tester,
     List<dynamic> _productsList,
   ) async {
@@ -257,15 +256,14 @@ class CartTests {
     expect(typeCardCartItem, findsOneWidget);
   }
 
-  Future<void> AddProduct_checkSnackbar(
+  Future<void> add_product_check_snackbar(
     tester,
     List<dynamic> _productsList,
   ) async {
     await _startApp_OpenOverviewView(tester);
 
     var cartIconProduct0 = finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
-    var snackbarInfo =
-        '${_productsList[0].title}$ITEM_CART_ADDED_IN_THE_SHOPCART';
+    var snackbarInfo = '${_productsList[0].title}$ITEM_CART_ADDED_IN_THE_SHOPCART';
 
     await tester.tap(cartIconProduct0);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
@@ -273,7 +271,7 @@ class CartTests {
     expect(finder.text(snackbarInfo), findsOneWidget);
   }
 
-  Future<void> Add_products_check_cartPage(
+  Future<void> add_products_check_cartPage(
     tester, {
     required int qtdeProducts,
   }) async {

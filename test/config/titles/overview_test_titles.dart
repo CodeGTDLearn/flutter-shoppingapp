@@ -26,7 +26,7 @@ class OverviewTestTitles {
   get VIEW_TITLE => '$REPO_NAME|View: Functional';
 
   //OVERVIEW-TEST-TITLES -------------------------------------------------------
-  get check_overviewGridItems => 'Checking products';
+  get check_overviewGridItems_qtde => 'Checking products';
 
   get add_sameProduct2x_Check_ShopCartIcon =>
       'Adding same product 2x|Check ShopCartIcon+Snackbar';
@@ -48,7 +48,7 @@ class OverviewTestTitles {
   get tap_favFilter_noFavoritesFound =>
       'Tapping FavoriteFilter|Not favorites found';
 
-  get toggle_ProductFavoriteButton =>
+  get toggle_FavoriteButton_in_product =>
       'Toggling FavoritesIconButton in a product';
 
   get close_favFilterPopup_tapOutside => 'Closing Favorite_Filter|tap OUTSIDE';

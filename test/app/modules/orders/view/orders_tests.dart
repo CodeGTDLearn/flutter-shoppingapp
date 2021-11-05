@@ -32,7 +32,7 @@ class OrdersTests {
     required this.testUtils,
   });
 
-  Future<void> orderProduct_inCartView_tapOrderNowButton(
+  Future<void> orderProduct_using_cartView_tapping_orderNowButton(
     WidgetTester tester,
     int interval, {
     required int ordersDoneQtde,
@@ -96,7 +96,7 @@ class OrdersTests {
     expect(finder.type(OverviewView), findsOneWidget);
   }
 
-  Future<void> check_emptyOrderCollection(
+  Future<void> check_emptyView_noOrderInDb(
     WidgetTester tester,
     int interval,
   ) async {
@@ -130,7 +130,7 @@ class OrdersTests {
     );
   }
 
-  Future<void> tappingBackButtonInOrdersView(
+  Future<void> test_page_backbutton(
     WidgetTester tester,
     int interval, {
     required Type from,

@@ -43,14 +43,13 @@ class CustomIndicatorTest {
 
     tearDown(_globalUtils.globalTearDown);
 
-    testWidgets(_titles.check_custom_progr_indic, (tester) async {
+    testWidgets(_titles.check_custom_indicator, (tester) async {
       await _tests.check_custom_progr_indic(tester);
     });
 
-    testWidgets(_titles.check_custom_progr_indic_emptydb, (tester) async {
-      CustomComponentsTestBindings()
-          .bindingsBuilder(isWidgetTest: true, isEmptyDb: true);
-      await _tests.check_custom_progr_indic_emptydb(tester);
+    testWidgets(_titles.check_custom_indicator_emptydb, (tester) async {
+      CustomComponentsTestBindings().bindingsBuilder(isWidgetTest: true, isEmptyDb: true);
+      await _tests.check_custom_indicator_emptydb(tester);
     });
   }
 }

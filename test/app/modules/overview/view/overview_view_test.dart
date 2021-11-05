@@ -50,7 +50,6 @@ class OverviewViewTest {
           isWidgetTest: _isWidgetTest,
         ));
 
-    // setUp(_globalUtils.globalSetUp);
     setUp(() async {
       _globalUtils.globalSetUp();
 
@@ -63,14 +62,14 @@ class OverviewViewTest {
 
     tearDown(_globalUtils.globalTearDown);
 
-    testWidgets(_titles.check_overviewGridItems, (tester) async {
+    testWidgets(_titles.check_overviewGridItems_qtde, (tester) async {
       await _tests.check_overviewGridItems_qtde(
         tester,
         qtde: _products.length,
       );
     });
 
-    testWidgets(_titles.toggle_ProductFavoriteButton, (tester) async {
+    testWidgets(_titles.toggle_FavoriteButton_in_product, (tester) async {
       await _tests.toggle_FavoriteButton_in_product(
         tester,
         toggleButtonKey: "$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0",
@@ -89,7 +88,7 @@ class OverviewViewTest {
 
     testWidgets(_titles.addProduct_click_undoSnackbar_check_shopCartIcon,
         (tester) async {
-      await _tests.add_product_click_UndoSnackbar_check_ShopCartIcon(
+          await _tests.addProduct_click_undoSnackbar_check_shopCartIcon(
         tester,
         addProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
         productTitle: _products.elementAt(0).title,

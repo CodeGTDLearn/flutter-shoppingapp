@@ -51,9 +51,9 @@ class OrdersViewTest {
 
     tearDown(_globalUtils.globalTearDown);
 
-    testWidgets(_titles.orderingAProduct_inCartView_tapping_OrderNowButton,
+    testWidgets(_titles.orderProduct_using_cartView_tapping_orderNowButton,
         (tester) async {
-      await _tests.orderProduct_inCartView_tapOrderNowButton(
+      await _tests.orderProduct_using_cartView_tapping_orderNowButton(
         tester,
         DELAY,
         ordersDoneQtde: _isWidgetTest ? 2 : 1,
@@ -64,8 +64,8 @@ class OrdersViewTest {
       await _tests.create_order_from_cartView(tester, DELAY);
     });
 
-    testWidgets(_titles.tap_viewBackButton, (tester) async {
-      await _tests.tappingBackButtonInOrdersView(
+    testWidgets(_titles.test_page_backbutton, (tester) async {
+      await _tests.test_page_backbutton(
         tester,
         DELAY,
         from: OrdersView,
@@ -75,7 +75,7 @@ class OrdersViewTest {
 
     testWidgets(_titles.check_emptyView_noOrderInDb, (tester) async {
       _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest, isEmptyDb: true);
-      await _tests.check_emptyOrderCollection(tester, DELAY);
+      await _tests.check_emptyView_noOrderInDb(tester, DELAY);
     });
   }
 }

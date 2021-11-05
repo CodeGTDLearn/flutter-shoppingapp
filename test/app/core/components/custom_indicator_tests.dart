@@ -45,7 +45,7 @@ class CustomIndicatorTests {
     expect(finder.type(OverviewGridItem), findsWidgets);
   }
 
-  Future<void> check_custom_progr_indic_emptydb(WidgetTester tester) async {
+  Future<void> check_custom_indicator_emptydb(WidgetTester tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,

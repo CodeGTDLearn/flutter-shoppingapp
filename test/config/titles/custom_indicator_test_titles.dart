@@ -17,7 +17,7 @@ class CustomIndicatorTestTitles {
 
   get PROGR_INDIC_TITLE => '$_PROGR_INDIC|View: Functional';
 
-  get check_custom_progr_indic => 'Checking ProgrIndicator';
+  get check_custom_indicator => 'Checking ProgrIndicator';
 
-  get check_custom_progr_indic_emptydb => 'Checking ProgrIndicator with EmptyDB';
+  get check_custom_indicator_emptydb => 'Checking ProgrIndicator with EmptyDB';
 }

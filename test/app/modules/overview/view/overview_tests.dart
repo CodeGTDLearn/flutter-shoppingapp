@@ -73,7 +73,7 @@ class OverviewTests {
     expect(finder.text(productTitle), findsWidgets);
   }
 
-  Future<void> add_product_click_UndoSnackbar_check_ShopCartIcon(
+  Future<void> addProduct_click_undoSnackbar_check_shopCartIcon(
     WidgetTester tester, {
     required String addProductButtonKey,
     required String productTitle,

@@ -60,51 +60,48 @@ class CartViewTest {
 
     tearDown(_globalUtils.globalTearDown);
 
-    testWidgets(_titles.clearCart_tapClearButton, (tester) async {
-      await _tests.ClearingCart_tappingClearButton(tester);
+    testWidgets(_titles.clear_cart_tap_clear_button, (tester) async {
+      await _tests.clear_cart_tap_clear_button(tester);
     });
 
     testWidgets(_titles.add_products_check_cartPage, (tester) async {
-      await _tests.Add_products_check_cartPage(
-        tester,
-        qtdeProducts: 2,
-      );
+      await _tests.add_products_check_cartPage(tester, qtdeProducts: 2);
     });
 
     testWidgets(_titles.add_product_check_snackbar, (tester) async {
-      await _tests.AddProduct_checkSnackbar(tester, _products);
+      await _tests.add_product_check_snackbar(tester, _products);
     });
 
-    testWidgets(_titles.denying_dismissingCartItem, (tester) async {
-      await _tests.Denying_dismissingCartItem(tester, _products);
+    testWidgets(_titles.denying_dismissing_cartitem, (tester) async {
+      await _tests.denying_dismissing_cartitem(tester, _products);
     });
 
     testWidgets(_titles.dismissing_first_added_product, (tester) async {
-      await _tests.Dismissing_firstAddedProduct(tester, _products);
+      await _tests.dismissing_first_added_product(tester, _products);
     });
 
     testWidgets(_titles.dismissing_all_added_products, (tester) async {
-      await _tests.Dismissing_allAddedProducts(tester, _products);
+      await _tests.dismissing_all_added_products(tester, _products);
     });
 
-    testWidgets(_titles.emptyCart_blockAccessCartPage, (tester) async {
-      await _tests.EmptyCart_blockAccessCartPage(tester);
+    testWidgets(_titles.emptycart_block_access_to_cartpage, (tester) async {
+      await _tests.emptycart_block_access_to_cartpage(tester);
     });
 
-    testWidgets(_titles.open_cartPage_check2Products, (tester) async {
-      await _tests.Opening_cartPage_check2Products(tester, _products);
+    testWidgets(_titles.open_cartpage_check2products, (tester) async {
+      await _tests.open_cartpage_check2products(tester, _products);
     });
 
     testWidgets(_titles.check_amount_cart, (tester) async {
-      await _tests.Check_amountCart(tester, _products);
+      await _tests.check_amount_cart(tester, _products);
     });
 
-    testWidgets(_titles.order_cartProducts_tapOrderNowButton, (tester) async {
-      await _tests.Ordering_cartProducts_tappingOrderNowButton(tester, _products);
+    testWidgets(_titles.order_cartProducts_tap_orderNowButton, (tester) async {
+      await _tests.order_cartProducts_tap_orderNowButton(tester, _products);
     });
 
     testWidgets(_titles.test_page_backbutton, (tester) async {
-      await _tests.Testing_pageBackButton(tester);
+      await _tests.test_page_backbutton(tester);
     });
   }
 }

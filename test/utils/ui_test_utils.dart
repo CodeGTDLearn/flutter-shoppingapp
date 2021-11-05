@@ -81,24 +81,53 @@ class UiTestUtils {
     if (applyDelay) await tester.pumpAndSettle(_testUtils.delay(DELAY));
   }
 
-  // UI-TEST-DIMENSIONS CONSIDERATIONS
-  //
-  // * EXPLANATIONS:
-  //   - FLUTTER:
-  //     + Uses "Logical Pixels" (not physical pixels)
-  //       -> LOGICAL PIXEL = 38 Pixel/centimeter
-  //       -> Flutter USES "LOGICAL PIXEL" in "ALL DEVICES/SCREENS"
-  //          => LOGICAL PIXEL allow find the same dimensions ALL SCREEN SIZES
-  //       -> Flutter "DOES NOT USES" physical pixels
-  //
-  //   - DevicePixelRatio:
-  //     + given in "Device Specs"
-  //
-  // * FORMULAS:
-  //   - DevicePixelRatio:
-  //     + Physical Pixels / Logical Pixels
-  //   - Find the Logical Pixels (FLUTTER):
-  //     + Physical Pixels (Size)  / DevicePixelRatio
+  Future<void> checkDarkModeTheme(
+    WidgetTester tester, {
+    required keyElementToCheckDarkmodeIn,
+    required keyDarkmodeSwitcher,
+    required BrightnessOption finalBrightnessOption,
+  }) async {
+    var finalStatus = finalBrightnessOption == BrightnessOption.dark
+        ? Brightness.dark
+        : Brightness.light;
+
+    var initialStatus = finalBrightnessOption == BrightnessOption.dark
+        ? Brightness.light
+        : Brightness.dark;
+
+    expect(
+      Theme.of(tester.element(_finder.key(keyElementToCheckDarkmodeIn))).brightness,
+      equals(initialStatus),
+    );
+
+    await tester.tap(_finder.key(keyDarkmodeSwitcher));
+    await tester.pump();
+    await tester.pumpAndSettle(_testUtils.delay(DELAY));
+
+    expect(
+      Theme.of(tester.element(_finder.key(keyElementToCheckDarkmodeIn))).brightness,
+      equals(finalStatus),
+    );
+  }
+
+// UI-TEST-DIMENSIONS CONSIDERATIONS
+//
+// * EXPLANATIONS:
+//   - FLUTTER:
+//     + Uses "Logical Pixels" (not physical pixels)
+//       -> LOGICAL PIXEL = 38 Pixel/centimeter
+//       -> Flutter USES "LOGICAL PIXEL" in "ALL DEVICES/SCREENS"
+//          => LOGICAL PIXEL allow find the same dimensions ALL SCREEN SIZES
+//       -> Flutter "DOES NOT USES" physical pixels
+//
+//   - DevicePixelRatio:
+//     + given in "Device Specs"
+//
+// * FORMULAS:
+//   - DevicePixelRatio:
+//     + Physical Pixels / Logical Pixels
+//   - Find the Logical Pixels (FLUTTER):
+//     + Physical Pixels (Size)  / DevicePixelRatio
   double deviceWidth(WidgetTester tester) =>
       tester.binding.window.physicalSize.width / tester.binding.window.devicePixelRatio;
 
@@ -121,4 +150,9 @@ class UiTestUtils {
     tester.binding.window.physicalSizeTestValue = _screenSizeDefinition;
     tester.binding.window.devicePixelRatioTestValue = 1.0;
   }
+}
+
+enum BrightnessOption {
+  dark,
+  light,
 }
