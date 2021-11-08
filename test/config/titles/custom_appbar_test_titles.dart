@@ -9,15 +9,18 @@
   B) HENCE, THE TESTS CAN NOT USE 'REPO-REAL-DE-PRODUCAO'(no external calls)
   C) SO, THE TESTS ONLY WILL USE MockedRepoClass/MockedDatasource
    */
-class CustomIndicatorTestTitles {
+class CustomAppbarTestTitles {
   static final String _GROUP_TITLE = 'Components';
-  static final String _CUSTOM_PROGR_INDIC = 'Custom-Indicator';
+  static final String _CUSTOM_APPBAR = 'Custom-Appbar';
 
-  static get GROUP_TITLE => '$_GROUP_TITLE|$_CUSTOM_PROGR_INDIC: Functional';
+  static get GROUP_TITLE => '$_GROUP_TITLE|$_CUSTOM_APPBAR: Functional';
 
-  get CUSTOM_PROGR_INDIC_TITLE => '$_CUSTOM_PROGR_INDIC|View: Functional';
+  get CUSTOM_APPBAR_TITLE => '$_CUSTOM_APPBAR|View: Functional';
 
-  get check_custom_indicator => 'Checking ProgrIndicator';
+  get check_popup_menuitem_enabled_favorites =>
+      'Checking Appbar Popup Enabling: favorites';
 
-  get check_custom_indicator_emptydb => 'Checking ProgrIndicator with EmptyDB';
+  get check_popup_menuitem_enabled_all => 'Checking Appbar Popup Enabling: All';
+
+  get close_favFilterPopup_tapOutside => 'Closing Favorite_Filter|tap OUTSIDE';
 }

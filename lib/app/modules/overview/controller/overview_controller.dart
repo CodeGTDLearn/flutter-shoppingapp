@@ -1,37 +1,42 @@
 import 'package:get/get.dart';
 
+import '../../../core/components/custom_appbar/filter_favorite_enum.dart';
 import '../../inventory/entity/product.dart';
-import '../components/filter_favorite_enum.dart';
 import '../service/i_overview_service.dart';
 
 class OverviewController extends GetxController {
   final IOverviewService service;
-  var filteredProductsObs = <Product>[].obs;
+  var overviewViewGridViewItemsObs = <Product>[].obs;
   var favoriteStatusObs = false.obs;
-  var overviewViewTitleObs = EnumFilter.All.obs;
+
+  // var overviewViewTitleObs = EnumFilter.All.obs;
+  var appbarFilterPopupObs = EnumFilter.All.obs;
 
   OverviewController({required this.service});
 
   @override
   void onInit() {
     service.clearDataSavingLists();
-    getProducts().then((response) => filteredProductsObs.assignAll(response));
+    getProducts().then((response) => overviewViewGridViewItemsObs.assignAll(response));
     super.onInit();
   }
 
   void updateFilteredProductsObs() {
-    filteredProductsObs.assignAll(service.getLocalDataAllProducts());
+    overviewViewGridViewItemsObs.assignAll(service.getLocalDataAllProducts());
   }
 
   void deleteProduct(String productId) {
     service.deleteProductInLocalDataLists(productId);
   }
 
-  void setProductsByFilter(EnumFilter filter) {
-    overviewViewTitleObs.value =
-        filter == EnumFilter.Fav ? EnumFilter.Fav : EnumFilter.All;
+  void applyFilter(EnumFilter filter) {
+    // var enumFilter = filter == EnumFilter.Fav ? EnumFilter.Fav : EnumFilter.All;
 
-    filteredProductsObs.assignAll(filter == EnumFilter.Fav
+    // overviewViewTitleObs.value = filter;
+
+    appbarFilterPopupObs.value = filter;
+
+    overviewViewGridViewItemsObs.assignAll(filter == EnumFilter.Fav
         ? service.setProductsByFilter(EnumFilter.Fav)
         : service.setProductsByFilter(EnumFilter.All));
   }
@@ -73,6 +78,6 @@ class OverviewController extends GetxController {
   }
 
   List<Product> getFilteredProductsObs() {
-    return filteredProductsObs.toList();
+    return overviewViewGridViewItemsObs.toList();
   }
 }

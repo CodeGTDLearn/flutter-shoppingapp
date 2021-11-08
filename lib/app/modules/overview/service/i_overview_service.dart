@@ -1,5 +1,5 @@
+import '../../../core/components/custom_appbar/filter_favorite_enum.dart';
 import '../../inventory/entity/product.dart';
-import '../components/filter_favorite_enum.dart';
 
 abstract class IOverviewService {
   Future<List<Product>> getProducts();

@@ -51,8 +51,6 @@ class OverviewTestTitles {
   get toggle_FavoriteButton_in_product =>
       'Toggling FavoritesIconButton in a product';
 
-  get close_favFilterPopup_tapOutside => 'Closing Favorite_Filter|tap OUTSIDE';
-
   //OVERVIEW-DETAILS-TEST-TITLES -----------------------------------------------
   get tap_product_details_check_texts =>
       'Tap Product|Check Details(texts)|Backbutton';

@@ -11,11 +11,11 @@
    */
 class CustomDrawerTestTitles {
   static final String _GROUP_TITLE = 'Components';
-  static final String _DRAWER = 'Drawwer';
+  static final String _CUSTOM_DRAWER = 'Custom-Drawwer';
 
-  static get GROUP_TITLE => '$_GROUP_TITLE|$_DRAWER|Integration:';
+  static get GROUP_TITLE => '$_GROUP_TITLE|$_CUSTOM_DRAWER|Integration:';
 
-  get DRAWER_TITLE => '$_DRAWER|View: Functional';
+  get CUSTOM_DRAWER_TITLE => '$_CUSTOM_DRAWER|View: Functional';
 
   get check_overview_before_openDrawer => 'Checking Overview BEFORE open Drawer';
 

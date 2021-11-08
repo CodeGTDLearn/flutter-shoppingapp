@@ -41,8 +41,7 @@ class OverviewViewTest {
 
     setUpAll(() async {
       _globalUtils.globalSetUpAll(
-          testModuleName:
-              '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
+          testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
     });
 
     tearDownAll(() => _globalUtils.globalTearDownAll(
@@ -86,9 +85,8 @@ class OverviewViewTest {
       );
     });
 
-    testWidgets(_titles.addProduct_click_undoSnackbar_check_shopCartIcon,
-        (tester) async {
-          await _tests.addProduct_click_undoSnackbar_check_shopCartIcon(
+    testWidgets(_titles.addProduct_click_undoSnackbar_check_shopCartIcon, (tester) async {
+      await _tests.addProduct_click_undoSnackbar_check_shopCartIcon(
         tester,
         addProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
         productTitle: _products.elementAt(0).title,
@@ -115,18 +113,6 @@ class OverviewViewTest {
       );
     });
 
-    testWidgets(_titles.tap_favFilter_noFavoritesFound, (tester) async {
-      await _tests.tap_FavoritesFilter_NoFavoritesFound(tester);
-    });
-
-    testWidgets(_titles.tap_favFilterPopup, (tester) async {
-      await _tests.tap_FavoriteFilterPopup(tester);
-    });
-
-    testWidgets(_titles.close_favFilterPopup_tapOutside, (tester) async {
-      await _tests.close_FavoriteFilterPopup(tester);
-    });
-
     testWidgets(_titles.tap_product_details_check_texts, (tester) async {
       await _tests.check_product_details_backbutton_overview(
         tester,
@@ -141,6 +127,14 @@ class OverviewViewTest {
         productButtonKey: "$OVERVIEW_GRID_ITEM_DETAILS_KEY\0",
         detailedProduct: _products.elementAt(0),
       );
+    });
+
+    testWidgets(_titles.tap_favFilter_noFavoritesFound, (tester) async {
+      await _tests.tap_FavoritesFilter_NoFavoritesFound(tester);
+    });
+
+    testWidgets(_titles.tap_favFilterPopup, (tester) async {
+      await _tests.tap_FavoriteFilterPopup(tester);
     });
   }
 }

@@ -1,5 +1,5 @@
+import '../../../core/components/custom_appbar/filter_favorite_enum.dart';
 import '../../inventory/entity/product.dart';
-import '../components/filter_favorite_enum.dart';
 import '../repo/i_overview_repo.dart';
 import 'i_overview_service.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/core/components/custom_appbar/filter_favorite_enum.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
-import 'package:shopingapp/app/modules/overview/components/filter_favorite_enum.dart';
 import 'package:shopingapp/app/modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
@@ -87,11 +87,11 @@ class OverviewControllerTests {
     test('Getting products by Filters', () {
       _controller.getProducts().then((_) {
         var listAll = _service.setProductsByFilter(EnumFilter.All);
-        _controller.setProductsByFilter(EnumFilter.All);
+        _controller.applyFilter(EnumFilter.All);
         expect(_controller.getFilteredProductsObs(), listAll);
 
         var listFav = _service.setProductsByFilter(EnumFilter.Fav);
-        _controller.setProductsByFilter(EnumFilter.Fav);
+        _controller.applyFilter(EnumFilter.Fav);
         expect(_controller.getFilteredProductsObs(), listFav);
       });
     });

@@ -217,28 +217,6 @@ class OverviewTests {
     expect(finder.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
   }
 
-  Future<void> close_FavoriteFilterPopup(tester) async {
-    await uiTestUtils.testInitialization(
-      tester,
-      isWidgetTest: isWidgetTest,
-      appDriver: app.AppDriver(),
-      applyDelay: true,
-    );
-
-    var popupItemFav = finder.key(OVERVIEW_POPUP_FAVORITE_OPTION_KEY);
-    var popupItemAll = finder.key(OVERVIEW_POPUP_ALL_OPTION_KEY);
-
-    // await tester.pumpAndSettle(testUtils.delay(DELAY));
-    await tester.tap(finder.key(OVERVIEW_POPUP_FILTER_APPBAR_BUTTON_KEY));
-    await tester.pumpAndSettle();
-    expect(popupItemFav, findsOneWidget);
-    expect(popupItemAll, findsOneWidget);
-    await tester.tapAt(const Offset(0.0, 300.0));
-    await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(popupItemFav, findsNothing);
-    expect(popupItemAll, findsNothing);
-  }
-
   Future<void> check_favorites_overview(
     tester,
     int itemsQtde,

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/components/custom_snackbar/simple_snackbar.dart';
-import '../../../core/properties/app_routes.dart';
-import '../../../core/texts_icons_provider/generic_words.dart';
-import '../../cart/controller/cart_controller.dart';
-import '../../cart/core/cart_widget_keys.dart';
-import '../core/messages_snackbars_provided.dart';
-import '../core/overview_texts_icons_provided.dart';
+import '../../../modules/cart/controller/cart_controller.dart';
+import '../../../modules/cart/core/cart_widget_keys.dart';
+import '../../../modules/overview/core/messages_snackbars_provided.dart';
+import '../../../modules/overview/core/overview_texts_icons_provided.dart';
+import '../../properties/app_routes.dart';
+import '../../texts_icons_provider/generic_words.dart';
+import '../custom_snackbar/simple_snackbar.dart';
 
 class BadgeShopCart extends StatelessWidget {
   // final Widget? child;
