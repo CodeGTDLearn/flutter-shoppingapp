@@ -12,4 +12,6 @@ linter:
     non_constant_identifier_names: false
     one_member_abstracts: false
     unnecessary_getters_setters: false
+    invalid_use_of_protected_member: false
+
 
