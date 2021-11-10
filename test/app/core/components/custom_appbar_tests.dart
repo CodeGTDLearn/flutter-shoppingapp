@@ -21,7 +21,7 @@ class CustomAppbarTests {
     required this.testUtils,
   });
 
-  Future<void> check_popup_menuitem_enabled_all(tester) async {
+  Future<void> close_favoritesFilter_popup_tapOutside(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
@@ -29,13 +29,18 @@ class CustomAppbarTests {
       applyDelay: true,
     );
 
-    var popupItemFav = finder.key(OVERVIEW_POPUP_FAVORITE_OPTION_KEY);
-    var popupItemAll = finder.key(OVERVIEW_POPUP_ALL_OPTION_KEY);
+    await _open_popup_check_options(tester);
 
-    await tester.tap(finder.key(OVERVIEW_POPUP_FILTER_APPBAR_BUTTON_KEY));
-    await tester.pumpAndSettle();
-    expect(tester.getSemantics(popupItemFav), matchesSemantics(isEnabled: true));
-    expect(tester.getSemantics(popupItemAll), matchesSemantics(isEnabled: false));
+    var popupItemFav = finder.key(OVERVIEW_POPUP_FILTER_FAVORITE_OPTION_KEY);
+    var popupItemAll = finder.key(OVERVIEW_POPUP_FILTER_ALL_OPTION_KEY);
+
+    await tester.tapAt(Offset(
+      uiTestUtils.deviceWidth(tester) * 0,
+      uiTestUtils.deviceHeight(tester) * 0.5,
+    ));
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+    expect(popupItemFav, findsNothing);
+    expect(popupItemAll, findsNothing);
   }
 
   Future<void> check_popup_menuitem_enabled_favorites(tester) async {
@@ -46,33 +51,84 @@ class CustomAppbarTests {
       applyDelay: true,
     );
 
-    var popupItemFav = finder.key(OVERVIEW_POPUP_FAVORITE_OPTION_KEY);
-    var popupItemAll = finder.key(OVERVIEW_POPUP_ALL_OPTION_KEY);
+    await _open_popup_check_options(tester);
 
-    await tester.tap(finder.key(OVERVIEW_POPUP_FILTER_APPBAR_BUTTON_KEY));
-    await tester.pumpAndSettle();
-    expect(tester.getSemantics(popupItemFav), matchesSemantics(isEnabled: false));
-    expect(tester.getSemantics(popupItemAll), matchesSemantics(isEnabled: true));
+    var favOptionProperties = uiTestUtils.getWidgetProperties<PopupMenuItem>(
+      tester,
+      StringKey: OVERVIEW_POPUP_FILTER_FAVORITE_OPTION_KEY,
+    );
+
+    var allOptionProperties = uiTestUtils.getWidgetProperties<PopupMenuItem>(
+      tester,
+      StringKey: OVERVIEW_POPUP_FILTER_ALL_OPTION_KEY,
+    );
+    expect(favOptionProperties.enabled, true);
+    expect(allOptionProperties.enabled, false);
   }
 
-  Future<void> close_favFilterPopup_tapOutside(tester) async {
+  Future<void> check_popup_menuitem_enabled_all(tester) async {
     await uiTestUtils.testInitialization(
       tester,
       isWidgetTest: isWidgetTest,
       appDriver: app.AppDriver(),
       applyDelay: true,
     );
+    // expect(finder.icon(OV_ICO_FAV), findsNWidgets);
 
-    var popupItemFav = finder.key(OVERVIEW_POPUP_FAVORITE_OPTION_KEY);
-    var popupItemAll = finder.key(OVERVIEW_POPUP_ALL_OPTION_KEY);
+    var favButtonStringKey = OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY;
+    // if (!isWidgetTest) await tester.tap(finder.key('$favButtonStringKey\0'));
+    // if (isWidgetTest) await tester.tap(finder.key('$favButtonStringKey\2'));
+    if (!isWidgetTest) await tester.tap(finder.key('$favButtonStringKey\0'));
+    // expect(finder.icon(OV_ICO_FAV), findsNWidgets);
 
-    await tester.tap(finder.key(OVERVIEW_POPUP_FILTER_APPBAR_BUTTON_KEY));
-    await tester.pumpAndSettle();
-    expect(popupItemFav, findsOneWidget);
-    expect(popupItemAll, findsOneWidget);
-    await tester.tapAt(const Offset(0.0, 300.0));
+    await _open_popup_check_options(tester);
+
+    await tester.tap(finder.key(OVERVIEW_POPUP_FILTER_FAVORITE_OPTION_KEY));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(popupItemFav, findsNothing);
-    expect(popupItemAll, findsNothing);
+
+    await _open_popup_check_options(tester);
+
+    var favOptionProps = uiTestUtils.getWidgetProperties<PopupMenuItem>(
+      tester,
+      StringKey: OVERVIEW_POPUP_FILTER_FAVORITE_OPTION_KEY,
+    );
+    var allOptionProps = uiTestUtils.getWidgetProperties<PopupMenuItem>(
+      tester,
+      StringKey: OVERVIEW_POPUP_FILTER_ALL_OPTION_KEY,
+    );
+    expect(favOptionProps.enabled, false);
+    expect(allOptionProps.enabled, true);
+  }
+
+  Future<void> _open_popup_check_options(tester) async {
+    await tester.tap(finder.key(OVERVIEW_POPUP_FILTER_APPBAR_BUTTON_KEY));
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+    await tester.ensureVisible(finder.key(OVERVIEW_POPUP_FILTER_FAVORITE_OPTION_KEY));
+    await tester.ensureVisible(finder.key(OVERVIEW_POPUP_FILTER_ALL_OPTION_KEY));
   }
 }
+// Future<void> tap_FavoritesFilter_NoFavoritesFound(tester) async {
+//   await uiTestUtils.testInitialization(
+//     tester,
+//     isWidgetTest: isWidgetTest,
+//     appDriver: app.AppDriver(),
+//     applyDelay: true,
+//   );
+//
+//   await tester.pump();
+//   var favButtonStringKey = OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY;
+//   if (isWidgetTest) await tester.tap(finder.key('$favButtonStringKey\2'));
+//   if (!isWidgetTest) await tester.tap(finder.key('$favButtonStringKey\0'));
+//
+//   // expect(finder.icon(OV_ICO_FAV), findsNWidgets);
+//   // expect(finder.icon(OV_ICO_NOFAV), findsNWidgets);
+//
+//   await tester.pumpAndSettle(testUtils.delay(DELAY));
+//
+//   await _open_popup_check_options(tester);
+//
+//   await tester.tap(finder.key(OVERVIEW_POPUP_FILTER_FAVORITE_OPTION_KEY));
+//   await tester.pumpAndSettle(testUtils.delay(DELAY));
+//
+//   expect(finder.text(OVERVIEW_TITLE_PAGE_FAVORITE), findsNothing);
+// }

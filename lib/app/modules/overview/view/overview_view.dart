@@ -13,7 +13,7 @@ import '../core/overview_widget_keys.dart';
 class OverviewView extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller = Get.find<OverviewController>();
-    controller.applyFilter(EnumFilter.All);
+    controller.applyPopupFilter(EnumFilter.All);
 
     return Scaffold(
         key: K_OV_SCFLD_GLOB_KEY,

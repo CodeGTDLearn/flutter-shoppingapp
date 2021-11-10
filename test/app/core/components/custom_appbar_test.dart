@@ -34,7 +34,7 @@ class CustomAppbarTest {
       _globalUtils.globalSetUpAll(
           testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
 
-      _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest, isEmptyDb: false);
+      // _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest, isEmptyDb: false);
     });
 
     tearDownAll(() {
@@ -44,9 +44,16 @@ class CustomAppbarTest {
       );
     });
 
-    setUp(_globalUtils.globalSetUp);
+    setUp(() {
+      _globalUtils.globalSetUp();
+      _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest, isEmptyDb: false);
+    });
 
     tearDown(_globalUtils.globalTearDown);
+
+    testWidgets(_titles.close_favFilterPopup_tapOutside, (tester) async {
+      await _tests.close_favoritesFilter_popup_tapOutside(tester);
+    });
 
     testWidgets(_titles.check_popup_menuitem_enabled_favorites, (tester) async {
       await _tests.check_popup_menuitem_enabled_favorites(tester);
@@ -56,8 +63,8 @@ class CustomAppbarTest {
       await _tests.check_popup_menuitem_enabled_all(tester);
     });
 
-    testWidgets(_titles.close_favFilterPopup_tapOutside, (tester) async {
-      await _tests.close_favFilterPopup_tapOutside(tester);
-    });
+    // testWidgets(_titles.tap_favFilter_noFavoritesFound, (tester) async {
+    //   await _tests.tap_FavoritesFilter_NoFavoritesFound(tester);
+    // });
   }
 }

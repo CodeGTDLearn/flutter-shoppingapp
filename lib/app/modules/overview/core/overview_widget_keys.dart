@@ -24,11 +24,11 @@ const OVERVIEW_POPUP_FILTER_APPBAR_BUTTON_KEY =
     "overview_popup_filter_fav_all_appbar_button_key";
 const K_OV06 = OVERVIEW_POPUP_FILTER_APPBAR_BUTTON_KEY;
 
-const OVERVIEW_POPUP_FAVORITE_OPTION_KEY = "overview_favorite_filter_key";
-const K_OV_FLT_FAV = OVERVIEW_POPUP_FAVORITE_OPTION_KEY;
+const OVERVIEW_POPUP_FILTER_FAVORITE_OPTION_KEY = "overview_favorite_filter_key";
+const K_OV_FLT_FAV = OVERVIEW_POPUP_FILTER_FAVORITE_OPTION_KEY;
 
-const OVERVIEW_POPUP_ALL_OPTION_KEY = "overview_all_filter_key";
-const K_OV_FLT_ALL = OVERVIEW_POPUP_ALL_OPTION_KEY;
+const OVERVIEW_POPUP_FILTER_ALL_OPTION_KEY = "overview_all_filter_key";
+const K_OV_FLT_ALL = OVERVIEW_POPUP_FILTER_ALL_OPTION_KEY;
 
 //OVERVIEW-ITEM DETAILS PAGE
 const OVERVIEW_GRID_ITEM_DETAILS_KEY = "overview_grid_item_details_key";

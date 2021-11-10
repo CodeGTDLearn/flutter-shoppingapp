@@ -62,7 +62,6 @@ class OverviewTests {
       applyDelay: true,
     );
 
-    // await tester.pumpAndSettle(testUtils.delay(DELAY));
     for (var i = 0; i < (qtdeToAdded - initialQtde); i++) {
       await tester.tap(finder.key(addProductButtonKey));
       await tester.pumpAndSettle(testUtils.delay(DELAY));
@@ -176,7 +175,7 @@ class OverviewTests {
     await tester.tap(finder.key(OVERVIEW_POPUP_FILTER_APPBAR_BUTTON_KEY));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
-    var favPopupOption = finder.key(OVERVIEW_POPUP_FAVORITE_OPTION_KEY);
+    var favPopupOption = finder.key(OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY);
     await tester.ensureVisible(favPopupOption);
     await tester.tap(favPopupOption);
     await tester.pump();
@@ -202,7 +201,7 @@ class OverviewTests {
     await tester.tap(finder.key(appbarPopup));
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    await tester.tap(finder.key(OVERVIEW_POPUP_FAVORITE_OPTION_KEY));
+    await tester.tap(finder.key(OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY));
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.text(OVERVIEW_TITLE_PAGE_FAVORITE), findsOneWidget);
@@ -211,7 +210,7 @@ class OverviewTests {
     await tester.tap(finder.key(appbarPopup));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
-    await tester.tap(finder.key(OVERVIEW_POPUP_ALL_OPTION_KEY));
+    await tester.tap(finder.key(OVERVIEW_POPUP_FILTER_ALL_OPTION_KEY));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
     expect(finder.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
@@ -228,7 +227,6 @@ class OverviewTests {
       applyDelay: true,
     );
 
-    // await tester.pumpAndSettle(testUtils.delay(DELAY));
     uiTestUtils.check_widgetQuantityInAView(
       widgetView: OverviewView,
       widgetType: OverviewGridItem,

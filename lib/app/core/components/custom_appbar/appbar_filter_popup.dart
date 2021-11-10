@@ -27,7 +27,8 @@ class AppbarFilterPopup extends StatelessWidget {
                   value: EnumFilter.Fav,
                   enabled: _controller.appbarFilterPopupObs.value == EnumFilter.All),
               PopupMenuItem(
-                  child: Text(OV_TXT_POPUP_ALL, key: Key(K_OV_FLT_ALL)),
+                  key: Key(K_OV_FLT_ALL),
+                  child: Text(OV_TXT_POPUP_ALL),
                   value: EnumFilter.All,
                   enabled: _controller.appbarFilterPopupObs.value == EnumFilter.Fav)
             ],
@@ -35,8 +36,8 @@ class AppbarFilterPopup extends StatelessWidget {
           _controller.getFavoritesQtde() == 0
               ? SimpleSnackbar(OPS, OVERVIEW_NO_ITEMS_FAVS_YET).show()
               : value == EnumFilter.All
-                  ? _controller.applyFilter(EnumFilter.All)
-                  : _controller.applyFilter(EnumFilter.Fav);
+                  ? _controller.applyPopupFilter(EnumFilter.All)
+                  : _controller.applyPopupFilter(EnumFilter.Fav);
         });
   }
 }

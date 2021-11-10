@@ -29,11 +29,7 @@ class OverviewController extends GetxController {
     service.deleteProductInLocalDataLists(productId);
   }
 
-  void applyFilter(EnumFilter filter) {
-    // var enumFilter = filter == EnumFilter.Fav ? EnumFilter.Fav : EnumFilter.All;
-
-    // overviewViewTitleObs.value = filter;
-
+  void applyPopupFilter(EnumFilter filter) {
     appbarFilterPopupObs.value = filter;
 
     overviewViewGridViewItemsObs.assignAll(filter == EnumFilter.Fav

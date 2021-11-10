@@ -13,14 +13,17 @@ class CustomAppbarTestTitles {
   static final String _GROUP_TITLE = 'Components';
   static final String _CUSTOM_APPBAR = 'Custom-Appbar';
 
-  static get GROUP_TITLE => '$_GROUP_TITLE|$_CUSTOM_APPBAR: Functional';
+  static get GROUP_TITLE => '$_GROUP_TITLE|$_CUSTOM_APPBAR|Functional:';
 
   get CUSTOM_APPBAR_TITLE => '$_CUSTOM_APPBAR|View: Functional';
 
-  get check_popup_menuitem_enabled_favorites =>
-      'Checking Appbar Popup Enabling: favorites';
+  get check_popup_menuitem_enabled_favorites => 'Check Appbar Popup Enabling: favorites';
 
-  get check_popup_menuitem_enabled_all => 'Checking Appbar Popup Enabling: All';
+  get check_popup_menuitem_enabled_all => 'Check Appbar Popup Enabling: All';
 
   get close_favFilterPopup_tapOutside => 'Closing Favorite_Filter|tap OUTSIDE';
+
+  get close_popup_options => 'check options in PopupMenu';
+
+// get tap_favFilter_noFavoritesFound => 'Tapping FavoriteFilter|Not favorites found';
 }

@@ -51,7 +51,7 @@ void _unitTests() {
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final SKIP_GROUP = true; //skip-group overrides the internal skip-methods
+  final SKIP_GROUP = false; //skip-group overrides the internal skip-methods
 
   group(
     TestDbCheckTitles.GROUP_TITLE,
@@ -92,5 +92,5 @@ void _integrationTests() {
 
   group(CustomAppbarTestTitles.GROUP_TITLE,
       CustomAppbarTest(testType: INTEGRATION_TEST).functional,
-      skip: false);
+      skip: SKIP_GROUP);
 }
