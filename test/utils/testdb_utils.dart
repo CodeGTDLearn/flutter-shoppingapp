@@ -210,14 +210,19 @@ class TestDbUtils {
     required Product product,
     int? statusCode,
   }) {
-    var statusTxt = statusCode == null ? '' : '    - Status: $statusCode\n';
+    var statusTxt = statusCode == null ? '' : '- Status: $statusCode';
+
+    var productBody = '  ';
+    product.toJson().forEach((key, value) => productBody += '* $key: $value\n       ');
 
     print('$_headerLine'
         '     Adding Object:\n'
         '     - URL: $collectionUrl\n'
         '     - ID: ${product.id}\n'
         '     - Type: ${product.runtimeType.toString()}\n'
-        '$statusTxt'
+        '     - Body:\n'
+        '     $productBody'
+        '     $statusTxt\n'
         '$_footerLine');
   }
 }

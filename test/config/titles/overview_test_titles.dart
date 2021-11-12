@@ -43,10 +43,10 @@ class OverviewTestTitles {
   get add_prods3And4_check_shopCartIcon =>
       'Adding Last 2 products|Checking ShopCartIcon';
 
-  get tap_favFilterPopup => 'Tapping FavoriteFilter';
+  // get tap_favFilterPopup => 'Tapping FavoriteFilter';
 
-  get tap_favFilter_noFavoritesFound =>
-      'Tapping FavoriteFilter|Not favorites found';
+  // get tap_favFilter_noFavoritesFound =>
+  //     'Tapping FavoriteFilter|Not favorites found';
 
   get toggle_FavoriteButton_in_product =>
       'Toggling FavoritesIconButton in a product';

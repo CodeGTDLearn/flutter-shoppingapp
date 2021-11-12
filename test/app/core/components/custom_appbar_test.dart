@@ -63,8 +63,12 @@ class CustomAppbarTest {
       await _tests.check_popup_menuitem_enabled_all(tester);
     });
 
-    // testWidgets(_titles.tap_favFilter_noFavoritesFound, (tester) async {
-    //   await _tests.tap_FavoritesFilter_NoFavoritesFound(tester);
-    // });
+    testWidgets(_titles.tap_favoritesFilter_noFavoritesFound, (tester) async {
+      await _tests.tap_favoritesFilter_noFavoritesFound(tester);
+    });
+
+    testWidgets(_titles.tap_favoriteFilterPopup, (tester) async {
+      await _tests.tap_favoriteFilterPopup(tester);
+    });
   }
 }

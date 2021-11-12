@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/overview/components/overview_grid_item.dart';
-import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_item_details_view.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
@@ -151,70 +149,69 @@ class OverviewTests {
     expect(finder.text(qtdeToAdded.toString()), findsOneWidget);
   }
 
-  Future<void> tap_FavoritesFilter_NoFavoritesFound(tester) async {
-    await uiTestUtils.testInitialization(
-      tester,
-      isWidgetTest: isWidgetTest,
-      appDriver: app.AppDriver(),
-      applyDelay: true,
-    );
-
-    await tester.pump();
-    if (isWidgetTest) {
-      // await tester.tap(finder.key('$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0'));
-      // await tester.pump();
-      await tester.tap(finder.key('$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\2'));
-    }
-    if (!isWidgetTest) {
-      await tester.tap(finder.key('$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0'));
-    }
-
-    await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(finder.iconType(Icons, Icons.favorite), findsNothing);
-
-    await tester.tap(finder.key(OVERVIEW_POPUP_FILTER_APPBAR_BUTTON_KEY));
-    await tester.pumpAndSettle(testUtils.delay(DELAY));
-
-    var favPopupOption = finder.key(OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY);
-    await tester.ensureVisible(favPopupOption);
-    await tester.tap(favPopupOption);
-    await tester.pump();
-    await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(finder.text(OVERVIEW_TITLE_PAGE_FAVORITE), findsNothing);
-    await tester.pumpAndSettle(testUtils.delay(DELAY));
-  }
-
-  Future<void> tap_FavoriteFilterPopup(tester) async {
-    await uiTestUtils.testInitialization(
-      tester,
-      isWidgetTest: isWidgetTest,
-      appDriver: app.AppDriver(),
-      applyDelay: true,
-    );
-
-    var appbarPopup = OVERVIEW_POPUP_FILTER_APPBAR_BUTTON_KEY;
-
-    await tester.pumpAndSettle(testUtils.delay(DELAY));
-    await tester.tap(finder.key('$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0'));
-
-    await tester.pumpAndSettle(testUtils.delay(DELAY));
-    await tester.tap(finder.key(appbarPopup));
-
-    await tester.pumpAndSettle(testUtils.delay(DELAY));
-    await tester.tap(finder.key(OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY));
-
-    await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(finder.text(OVERVIEW_TITLE_PAGE_FAVORITE), findsOneWidget);
-    expect(finder.type(OverviewGridItem), findsWidgets);
-
-    await tester.tap(finder.key(appbarPopup));
-    await tester.pumpAndSettle(testUtils.delay(DELAY));
-
-    await tester.tap(finder.key(OVERVIEW_POPUP_FILTER_ALL_OPTION_KEY));
-    await tester.pumpAndSettle(testUtils.delay(DELAY));
-
-    expect(finder.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
-  }
+  // Future<void> tap_FavoritesFilter_NoFavoritesFound(tester) async {
+  //   await uiTestUtils.testInitialization(
+  //     tester,
+  //     isWidgetTest: isWidgetTest,
+  //     appDriver: app.AppDriver(),
+  //     applyDelay: true,
+  //   );
+  //
+  //   var fav_item_button_key = OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY;
+  //
+  //   await tester.pump();
+  //   await tester.pumpAndSettle(testUtils.delay(DELAY));
+  //   if (isWidgetTest) await tester.tap(finder.key('$fav_item_button_key\2'));
+  //   if (!isWidgetTest) await tester.tap(finder.key('$fav_item_button_key\0'));
+  //
+  //   await tester.pumpAndSettle(testUtils.delay(DELAY));
+  //   expect(finder.iconType(Icons, Icons.favorite), findsNothing);
+  //
+  //   await tester.tap(finder.key(OVERVIEW_POPUP_FILTER_APPBAR_BUTTON_KEY));
+  //   await tester.pumpAndSettle(testUtils.delay(DELAY));
+  //
+  //   var favPopupOption = finder.key(OVERVIEW_POPUP_FILTER_FAVORITE_OPTION_KEY);
+  //   await tester.ensureVisible(favPopupOption);
+  //   await tester.tap(favPopupOption);
+  //   await tester.pump();
+  //   // await tester.pumpAndSettle(testUtils.delay(DELAY));
+  //
+  //   expect(finder.text(OVERVIEW_TITLE_PAGE_FAVORITE), findsNothing);
+  //   expect(finder.text(FAVORITES_NOT_FOUND_YET), findsOneWidget);
+  //   await tester.pumpAndSettle(testUtils.delay(DELAY));
+  // }
+  //
+  // Future<void> tap_FavoriteFilterPopup(tester) async {
+  //   await uiTestUtils.testInitialization(
+  //     tester,
+  //     isWidgetTest: isWidgetTest,
+  //     appDriver: app.AppDriver(),
+  //     applyDelay: true,
+  //   );
+  //
+  //   var popup = OVERVIEW_POPUP_FILTER_APPBAR_BUTTON_KEY;
+  //
+  //   await tester.pumpAndSettle(testUtils.delay(DELAY));
+  //   await tester.tap(finder.key('$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0'));
+  //
+  //   await tester.pumpAndSettle(testUtils.delay(DELAY));
+  //   await tester.tap(finder.key(popup));
+  //
+  //   await tester.pumpAndSettle(testUtils.delay(DELAY));
+  //   await tester.tap(finder.key(OVERVIEW_POPUP_FILTER_FAVORITE_OPTION_KEY));
+  //
+  //   await tester.pumpAndSettle(testUtils.delay(DELAY));
+  //   expect(finder.text(OVERVIEW_TITLE_PAGE_FAVORITE), findsOneWidget);
+  //   expect(finder.type(OverviewGridItem), findsWidgets);
+  //
+  //   await tester.tap(finder.key(popup));
+  //   await tester.pumpAndSettle(testUtils.delay(DELAY));
+  //
+  //   await tester.tap(finder.key(OVERVIEW_POPUP_FILTER_ALL_OPTION_KEY));
+  //   await tester.pumpAndSettle(testUtils.delay(DELAY));
+  //
+  //   expect(finder.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
+  // }
 
   Future<void> check_favorites_overview(
     tester,

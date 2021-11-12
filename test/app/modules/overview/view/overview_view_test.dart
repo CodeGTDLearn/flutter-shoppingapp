@@ -56,6 +56,8 @@ class OverviewViewTest {
           ? await Future.value(MockedDatasource().products())
           : await _dbUtils.getCollection(url: PRODUCTS_URL);
 
+      _products.toString();
+
       _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest);
     });
 
@@ -129,12 +131,12 @@ class OverviewViewTest {
       );
     });
 
-    testWidgets(_titles.tap_favFilter_noFavoritesFound, (tester) async {
-      await _tests.tap_FavoritesFilter_NoFavoritesFound(tester);
-    });
+    // testWidgets(_titles.tap_favFilter_noFavoritesFound, (tester) async {
+    //   await _tests.tap_FavoritesFilter_NoFavoritesFound(tester);
+    // }, skip: true);
 
-    testWidgets(_titles.tap_favFilterPopup, (tester) async {
-      await _tests.tap_FavoriteFilterPopup(tester);
-    });
+    // testWidgets(_titles.tap_favFilterPopup, (tester) async {
+    //   await _tests.tap_FavoriteFilterPopup(tester);
+    // }, skip: true);
   }
 }

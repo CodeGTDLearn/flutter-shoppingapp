@@ -25,5 +25,8 @@ class CustomAppbarTestTitles {
 
   get close_popup_options => 'check options in PopupMenu';
 
-// get tap_favFilter_noFavoritesFound => 'Tapping FavoriteFilter|Not favorites found';
+  get tap_favoriteFilterPopup => 'Tapping FavoriteFilter';
+
+  get tap_favoritesFilter_noFavoritesFound =>
+      'Tapping FavoriteFilter|Not favorites found';
 }
