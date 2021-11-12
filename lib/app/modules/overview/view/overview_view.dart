@@ -16,54 +16,55 @@ class OverviewView extends StatelessWidget {
     var _controller = Get.find<OverviewController>();
     _controller.applyPopupFilter(EnumFilter.All);
 
-    var _columnCount = 1;
-    var _gridLenght = 1;
+    var _columnCount = 2;
+    var _duration = 500;
+    // var _gridLenght = _controller.overviewViewGridViewItemsObs.length;
 
     return Scaffold(
         key: K_OV_SCFLD_GLOB_KEY,
         appBar: CustomAppBar(filter: EnumFilter.All),
         drawer: Get.find<CustomDrawer>(),
-        body: Obx(
-          () => _controller.overviewViewGridViewItemsObs.isEmpty
-              ? _overviewNoProductsInDb_info_singleChildScrollView()
-              : AnimationLimiter(
-                  child: GridView.count(
-                  crossAxisCount: _columnCount,
-                  children: List.generate(_gridLenght, (index) {
-                    return AnimationConfiguration.staggeredGrid(
-                        position: index,
-                        columnCount: _columnCount,
-                        child: ScaleAnimation(
-                          duration: Duration(milliseconds: 1000),
-                          child: FadeInAnimation(
-                              // child: _overviewGridItems_gridView(_controller),
-                              child: OverviewGridItem(
-                                  _controller.overviewViewGridViewItemsObs[index],
-                                  index.toString())),
-                        ));
-                  }),
-                )),
-        ));
+        body: Obx(() => _controller.overviewViewGridViewItemsObs.isEmpty
+            ? _overviewNoProductsInDb_infoView()
+            : AnimationLimiter(
+                child: GridView.count(
+                    crossAxisCount: _columnCount,
+                    children: List.generate(
+                        _controller.overviewViewGridViewItemsObs.length, (index) {
+                      return AnimationConfiguration.staggeredGrid(
+                          position: index,
+                          columnCount: _columnCount,
+                          child: ScaleAnimation(
+                            duration: Duration(milliseconds: _duration),
+                            child: FadeInAnimation(
+                                child: OverviewGridItem(
+                                    _controller.overviewViewGridViewItemsObs[index],
+                                    index.toString())),
+                          ));
+                    })))));
   }
 
-  GridView _overviewGridItems_gridView(OverviewController controller) {
-    return GridView.builder(
-        padding: EdgeInsets.all(10),
-        itemCount: controller.overviewViewGridViewItemsObs.length,
-        itemBuilder: (_, item) => OverviewGridItem(
-            controller.overviewViewGridViewItemsObs[item], item.toString()),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 3 / 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10));
-  }
-
-  SingleChildScrollView _overviewNoProductsInDb_info_singleChildScrollView() {
+  SingleChildScrollView _overviewNoProductsInDb_infoView() {
     return SingleChildScrollView(
         child: Center(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [CustomIndicator.message(message: NO_PROD, fontSize: 20)])));
   }
+
+// GridView _overviewGridItems_simpleGridView(OverviewController controller) {
+//   return GridView.builder(
+//       padding: EdgeInsets.all(10),
+//       itemCount: controller.overviewViewGridViewItemsObs.length,
+//       itemBuilder: (_, item) => OverviewGridItem(
+//           controller.overviewViewGridViewItemsObs[item], item.toString()),
+//       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//           crossAxisCount: 2,
+//           childAspectRatio: 3 / 2,
+//           crossAxisSpacing: 10,
+//           mainAxisSpacing: 10));
+// }
 }
+
+// BEFORE STAGGED_GRID_ANIMATION - PACKAGE: flutter_staggered_animations
+//
