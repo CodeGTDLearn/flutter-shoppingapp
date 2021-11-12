@@ -23,6 +23,7 @@ dependencies:
   currency_textfield: 2.0.0
   json_annotation: 4.3.0
   network_image_mock: 2.0.1
+  flutter_staggered_animations: 1.0.0
 
 dev_dependencies:
   integration_test:
