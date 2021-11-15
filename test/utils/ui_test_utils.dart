@@ -110,9 +110,14 @@ class UiTestUtils {
     );
   }
 
-  getWidgetProperties<T>(WidgetTester tester, {required String StringKey}) {
-    var widgetKey = _finder.key(StringKey);
+  getWidgetProperties<T>(WidgetTester tester, {required String stringKey}) {
+    var widgetKey = _finder.key(stringKey);
     return tester.widget(widgetKey) as T;
+  }
+
+  getWidgetPropertiesFromFinder<T>(WidgetTester tester, {required String stringKey}) {
+    var _type = _finder.key(stringKey).runtimeType;
+    var widget = tester.widget(_finder.key(stringKey)) as T;
   }
 
 // UI-TEST-DIMENSIONS CONSIDERATIONS

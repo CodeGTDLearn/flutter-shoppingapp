@@ -18,8 +18,6 @@ class BadgeShopCart extends StatelessWidget {
 
   BadgeShopCart({this.color});
 
-  // BadgeShopCart({this.child, this.value, this.color});
-
   @override
   Widget build(BuildContext context) {
     return Stack(alignment: Alignment.center, children: [

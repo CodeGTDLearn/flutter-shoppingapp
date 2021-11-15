@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get/instance_manager.dart';
+import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/overview/components/overview_grid_item.dart';
+import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_item_details_view.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
@@ -46,11 +49,9 @@ class OverviewTests {
     );
   }
 
-  Future<void> add_sameProduct2x_Check_ShopCartIcon(
+  Future<void> add_sameProduct2x_check_shopCartIcon(
     WidgetTester tester, {
-    required String addProductButtonKey,
     required String productTitle,
-    required int initialQtde,
     required int qtdeToAdded,
   }) async {
     await uiTestUtils.testInitialization(
@@ -59,23 +60,24 @@ class OverviewTests {
       appDriver: app.AppDriver(),
       applyDelay: true,
     );
+    final _controller = Get.find<CartController>();
 
-    for (var i = 0; i < (qtdeToAdded - initialQtde); i++) {
+    for (var i = 0; i < qtdeToAdded; i++) {
+      var addProductButtonKey = '$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY$i';
       await tester.tap(finder.key(addProductButtonKey));
       await tester.pumpAndSettle(testUtils.delay(DELAY));
+      expect(
+        finder.text(_controller.getQtdeCartItemsObs().toString()),
+        findsOneWidget,
+      );
     }
-
-    await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(finder.text(qtdeToAdded.toString()), findsOneWidget);
-    expect(finder.text(productTitle), findsWidgets);
   }
 
-  Future<void> addProduct_click_undoSnackbar_check_shopCartIcon(
+  Future<void> add_product_click_undoSnackbar_check_shopCartIcon(
     WidgetTester tester, {
     required String addProductButtonKey,
     required String productTitle,
     required String snackbarUndoButtonKey,
-    required int total,
   }) async {
     await uiTestUtils.testInitialization(
       tester,
@@ -84,19 +86,21 @@ class OverviewTests {
       applyDelay: true,
     );
 
+    final _controller = Get.find<CartController>();
+
     await tester.tap(finder.key(addProductButtonKey));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.text(productTitle), findsWidgets);
+    expect(finder.text(_controller.getQtdeCartItemsObs().toString()), findsOneWidget);
+
     await tester.tap(finder.key(snackbarUndoButtonKey));
-    await tester.pump();
-    expect(finder.text(total.toString()), findsOneWidget);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
+    expect(finder.text(_controller.getQtdeCartItemsObs().toString()), findsOneWidget);
   }
 
   Future<void> add_sameProduct3x_check_shopCartIcon(
     WidgetTester tester, {
     required String productAddButtonKey,
-    required int initialQtde,
     required int qtdeToAdded,
   }) async {
     await uiTestUtils.testInitialization(
@@ -106,20 +110,24 @@ class OverviewTests {
       applyDelay: true,
     );
 
-    await tester.pump();
-    await tester.pumpAndSettle(testUtils.delay(DELAY + 5));
-    for (var i = 0; i < (qtdeToAdded - initialQtde); i++) {
+    final _controller = Get.find<CartController>();
+
+    for (var i = 0; i < qtdeToAdded; i++) {
       await tester.tap(finder.key(productAddButtonKey));
+      await tester.pump();
+      await tester.pumpAndSettle(testUtils.delay(DELAY));
+      expect(
+        finder.text(_controller.getQtdeCartItemsObs().toString()),
+        findsOneWidget,
+      );
     }
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.text(qtdeToAdded.toString()), findsOneWidget);
   }
 
-  Future<void> add_AllProducts_check_shopCartIcon(
+  Future<void> add_allProducts_check_shopCartIcon(
     WidgetTester tester, {
-    required String firstProduct_addButtonKey,
-    required int initialQtde,
     required int qtdeToAdded,
   }) async {
     await uiTestUtils.testInitialization(
@@ -129,89 +137,21 @@ class OverviewTests {
       applyDelay: true,
     );
 
-    //POSSIBLE TAP-ERROR:
-    // "To silence this warning, pass "warnIfMissed: false" to "tap()".
-    // To make this warning fatal, set WidgetController.hitTestWarningShouldBeFatal to
-    // true.
-    // Warning: A call to tap() with finder "exactly one widget with key"
-    //SOLUTION:
-    // - CHANGE
-    //   - 'await tester.pumpAndSettle(testUtils.delay(DELAY));' TO
-    //   - 'await tester.pump();'
+    final _controller = Get.find<CartController>();
 
-    // await tester.pumpAndSettle(testUtils.delay(DELAY));
-    for (var i = 0; i < (qtdeToAdded - initialQtde); i++) {
-      await tester
-          .tap(finder.key(firstProduct_addButtonKey.replaceFirst('0', i.toString())));
+    for (var i = 0; i < qtdeToAdded; i++) {
+      var addProductButtonKey = '$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY$i';
+      await tester.tap(finder.key(addProductButtonKey));
       await tester.pump();
+      await tester.pumpAndSettle(testUtils.delay(DELAY));
+      expect(
+        finder.text(_controller.getQtdeCartItemsObs().toString()),
+        findsOneWidget,
+      );
     }
 
-    expect(finder.text(qtdeToAdded.toString()), findsOneWidget);
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
   }
-
-  // Future<void> tap_FavoritesFilter_NoFavoritesFound(tester) async {
-  //   await uiTestUtils.testInitialization(
-  //     tester,
-  //     isWidgetTest: isWidgetTest,
-  //     appDriver: app.AppDriver(),
-  //     applyDelay: true,
-  //   );
-  //
-  //   var fav_item_button_key = OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY;
-  //
-  //   await tester.pump();
-  //   await tester.pumpAndSettle(testUtils.delay(DELAY));
-  //   if (isWidgetTest) await tester.tap(finder.key('$fav_item_button_key\2'));
-  //   if (!isWidgetTest) await tester.tap(finder.key('$fav_item_button_key\0'));
-  //
-  //   await tester.pumpAndSettle(testUtils.delay(DELAY));
-  //   expect(finder.iconType(Icons, Icons.favorite), findsNothing);
-  //
-  //   await tester.tap(finder.key(OVERVIEW_POPUP_FILTER_APPBAR_BUTTON_KEY));
-  //   await tester.pumpAndSettle(testUtils.delay(DELAY));
-  //
-  //   var favPopupOption = finder.key(OVERVIEW_POPUP_FILTER_FAVORITE_OPTION_KEY);
-  //   await tester.ensureVisible(favPopupOption);
-  //   await tester.tap(favPopupOption);
-  //   await tester.pump();
-  //   // await tester.pumpAndSettle(testUtils.delay(DELAY));
-  //
-  //   expect(finder.text(OVERVIEW_TITLE_PAGE_FAVORITE), findsNothing);
-  //   expect(finder.text(FAVORITES_NOT_FOUND_YET), findsOneWidget);
-  //   await tester.pumpAndSettle(testUtils.delay(DELAY));
-  // }
-  //
-  // Future<void> tap_FavoriteFilterPopup(tester) async {
-  //   await uiTestUtils.testInitialization(
-  //     tester,
-  //     isWidgetTest: isWidgetTest,
-  //     appDriver: app.AppDriver(),
-  //     applyDelay: true,
-  //   );
-  //
-  //   var popup = OVERVIEW_POPUP_FILTER_APPBAR_BUTTON_KEY;
-  //
-  //   await tester.pumpAndSettle(testUtils.delay(DELAY));
-  //   await tester.tap(finder.key('$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0'));
-  //
-  //   await tester.pumpAndSettle(testUtils.delay(DELAY));
-  //   await tester.tap(finder.key(popup));
-  //
-  //   await tester.pumpAndSettle(testUtils.delay(DELAY));
-  //   await tester.tap(finder.key(OVERVIEW_POPUP_FILTER_FAVORITE_OPTION_KEY));
-  //
-  //   await tester.pumpAndSettle(testUtils.delay(DELAY));
-  //   expect(finder.text(OVERVIEW_TITLE_PAGE_FAVORITE), findsOneWidget);
-  //   expect(finder.type(OverviewGridItem), findsWidgets);
-  //
-  //   await tester.tap(finder.key(popup));
-  //   await tester.pumpAndSettle(testUtils.delay(DELAY));
-  //
-  //   await tester.tap(finder.key(OVERVIEW_POPUP_FILTER_ALL_OPTION_KEY));
-  //   await tester.pumpAndSettle(testUtils.delay(DELAY));
-  //
-  //   expect(finder.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
-  // }
 
   Future<void> check_favorites_overview(
     tester,
@@ -231,7 +171,7 @@ class OverviewTests {
     );
   }
 
-  Future<void> toggle_FavoriteButton_in_product(
+  Future<void> toggle_favoriteButton_in_product(
     WidgetTester tester, {
     required String toggleButtonKey,
   }) async {
@@ -270,8 +210,6 @@ class OverviewTests {
       applyDelay: true,
     );
 
-    // await tester.pump();
-    // await tester.pumpAndSettle(testUtils.delay(DELAY));
     await tester.tap(finder.key(productButtonKey));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
@@ -299,8 +237,6 @@ class OverviewTests {
       applyDelay: true,
     );
 
-    // await tester.pump();
-    // await tester.pumpAndSettle(testUtils.delay(DELAY));
     await tester.tap(finder.key(productButtonKey));
     await tester.pump();
     await tester.pumpAndSettle(testUtils.delay(DELAY));
@@ -329,8 +265,6 @@ class OverviewTests {
       applyDelay: true,
     );
 
-    // await tester.pump();
-    // await tester.pumpAndSettle(testUtils.delay(DELAY));
     await tester.tap(finder.key(productButtonKey));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 

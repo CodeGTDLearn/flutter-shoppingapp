@@ -28,16 +28,16 @@ class OverviewTestTitles {
   //OVERVIEW-TEST-TITLES -------------------------------------------------------
   get check_overviewGridItems_qtde => 'Checking products';
 
-  get add_sameProduct2x_Check_ShopCartIcon =>
+  get add_sameProduct2x_check_shopCartIcon =>
       'Adding same product 2x|Check ShopCartIcon+Snackbar';
 
-  get addProduct_click_undoSnackbar_check_shopCartIcon =>
+  get add_product_click_undoSnackbar_check_shopCartIcon =>
       'Adding product|Clicking SnackbarUndo (rollback)';
 
   get add_sameProduct3x_check_shopCartIcon =>
       'Adding same product 3x|Check ShopCartIcon';
 
-  get add_AllProducts_check_shopCartIcon =>
+  get add_allProducts_check_shopCartIcon =>
       'Adding All products|Check ShopCartIcon';
 
   get add_prods3And4_check_shopCartIcon =>
@@ -48,7 +48,7 @@ class OverviewTestTitles {
   // get tap_favFilter_noFavoritesFound =>
   //     'Tapping FavoriteFilter|Not favorites found';
 
-  get toggle_FavoriteButton_in_product =>
+  get toggle_favoriteButton_in_product =>
       'Toggling FavoritesIconButton in a product';
 
   //OVERVIEW-DETAILS-TEST-TITLES -----------------------------------------------

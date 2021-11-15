@@ -70,30 +70,28 @@ class OverviewViewTest {
       );
     });
 
-    testWidgets(_titles.toggle_FavoriteButton_in_product, (tester) async {
-      await _tests.toggle_FavoriteButton_in_product(
+    testWidgets(_titles.toggle_favoriteButton_in_product, (tester) async {
+      await _tests.toggle_favoriteButton_in_product(
         tester,
         toggleButtonKey: "$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0",
       );
     });
 
-    testWidgets(_titles.add_sameProduct2x_Check_ShopCartIcon, (tester) async {
-      await _tests.add_sameProduct2x_Check_ShopCartIcon(
+    testWidgets(_titles.add_sameProduct2x_check_shopCartIcon, (tester) async {
+      await _tests.add_sameProduct2x_check_shopCartIcon(
         tester,
-        addProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
         productTitle: _products.elementAt(0).title,
-        initialQtde: 0,
         qtdeToAdded: 2,
       );
     });
 
-    testWidgets(_titles.addProduct_click_undoSnackbar_check_shopCartIcon, (tester) async {
-      await _tests.addProduct_click_undoSnackbar_check_shopCartIcon(
+    testWidgets(_titles.add_product_click_undoSnackbar_check_shopCartIcon,
+        (tester) async {
+      await _tests.add_product_click_undoSnackbar_check_shopCartIcon(
         tester,
         addProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
         productTitle: _products.elementAt(0).title,
         snackbarUndoButtonKey: CUSTOM_SNACKBAR_BUTTON_KEY,
-        total: 0,
       );
     });
 
@@ -101,16 +99,13 @@ class OverviewViewTest {
       await _tests.add_sameProduct3x_check_shopCartIcon(
         tester,
         productAddButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
-        initialQtde: 0,
         qtdeToAdded: 3,
       );
     });
 
-    testWidgets(_titles.add_AllProducts_check_shopCartIcon, (tester) async {
-      await _tests.add_AllProducts_check_shopCartIcon(
+    testWidgets(_titles.add_allProducts_check_shopCartIcon, (tester) async {
+      await _tests.add_allProducts_check_shopCartIcon(
         tester,
-        firstProduct_addButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
-        initialQtde: 0,
         qtdeToAdded: _products.length,
       );
     });
@@ -130,13 +125,5 @@ class OverviewViewTest {
         detailedProduct: _products.elementAt(0),
       );
     });
-
-    // testWidgets(_titles.tap_favFilter_noFavoritesFound, (tester) async {
-    //   await _tests.tap_FavoritesFilter_NoFavoritesFound(tester);
-    // }, skip: true);
-
-    // testWidgets(_titles.tap_favFilterPopup, (tester) async {
-    //   await _tests.tap_FavoriteFilterPopup(tester);
-    // }, skip: true);
   }
 }

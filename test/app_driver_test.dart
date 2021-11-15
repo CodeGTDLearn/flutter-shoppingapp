@@ -26,7 +26,7 @@ import 'config/titles/inventory_test_titles.dart';
 import 'config/titles/orders_test_titles.dart';
 import 'config/titles/overview_test_titles.dart';
 import 'config/titles/testdb_check_titles.dart';
-import 'datasource/datasource_loader.dart';
+import 'datasource/mocked_datasource_loader.dart';
 
 void main() {
   // NO ERASE:  String.fromEnvironment => MUST BE CONSTANT!!!
@@ -55,7 +55,7 @@ void _integrationTests() {
 
   group(
     TestDbCheckTitles.GROUP_TITLE,
-    DatasourceLoader().loading,
+    MockedDatasourceLoader().load,
     skip: false, // false all-the-time
   );
 
@@ -92,5 +92,5 @@ void _integrationTests() {
 
   group(CustomAppbarTestTitles.GROUP_TITLE,
       CustomAppbarTest(testType: INTEGRATION_TEST).functional,
-      skip: SKIP_GROUP);
+      skip: false);
 }

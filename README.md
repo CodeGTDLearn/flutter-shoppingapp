@@ -41,8 +41,11 @@ test, study, apply, explore Flutter as a definitive crossplatform and crossdevic
 1. [Get](https://pub.dev/packages/get)
    - GetX is an extra-light and powerful solution for Flutter. It combines high performance state management,
      intelligent dependency injection, and route management in a quick and practical way. GetX is "4 in 1" package, in
-     other words, State simple/reactive management, Route management, Dependencies managements and utilities, everything
-     ia one only place.
+     other words:
+       - State management;
+       - Route management;
+       - Dependency/instance management;
+       - Utilities.
 
 2. [Firebase Authentication](https://firebase.google.com/docs/auth)
    - The Google Firebase Authentication

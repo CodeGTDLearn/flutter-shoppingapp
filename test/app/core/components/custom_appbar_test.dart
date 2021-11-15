@@ -64,6 +64,7 @@ class CustomAppbarTest {
     });
 
     testWidgets(_titles.tap_favoritesFilter_noFavoritesFound, (tester) async {
+      _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest, isEmptyDb: true);
       await _tests.tap_favoritesFilter_noFavoritesFound(tester);
     });
 

@@ -8,12 +8,12 @@ import '../data_builders/product_databuilder.dart';
 import '../utils/testdb_utils.dart';
 import '../utils/tests_global_utils.dart';
 
-class DatasourceLoader {
+class MockedDatasourceLoader {
   final _dbUtils = Get.put(TestDbUtils());
   final _titles = Get.put(TestDbCheckTitles());
   final _globalUtils = Get.put(TestsGlobalUtils());
 
-  void loading() {
+  void load() {
     setUpAll(() => _globalUtils.globalSetUpAll(
           testModuleName: '${_dbUtils.runtimeType.toString()}',
           label: 'Starting TestDb Checking: ',

@@ -38,20 +38,21 @@ class CustomDrawerTests {
       await tester.pumpAndSettle(testUtils.delay(DELAY));
       expect(scaffoldState.isDrawerOpen, isTrue);
 
-      await tester.pumpAndSettle(testUtils.delay(DELAY)); // animation done
       if (i == 0) await tester.tap(finder.key(DRAWER_OVERVIEW_OPTION_KEY));
       if (i == 1) await tester.tap(finder.key(DRAWER_INVENTORY_OPTION_KEY));
       await tester.pumpAndSettle(testUtils.delay(DELAY));
-      expect(finder.type(i == 0 ? OverviewView : InventoryView), findsOneWidget);
 
-      await tester.tapAt(Offset(
-        uiTestUtils.deviceWidth(tester) * 0.97,
-        uiTestUtils.deviceHeight(tester) * 0.97,
-      ));
-      await tester.pump();
-      await tester.pumpAndSettle(testUtils.delay(DELAY));
+      expect(finder.type(i == 0 ? OverviewView : InventoryView), findsOneWidget);
       expect(scaffoldState.isDrawerOpen, isFalse);
     }
+
+    await uiTestUtils.navigateBetweenViews(
+      tester,
+      from: InventoryView,
+      to: OverviewView,
+      trigger: BackButton,
+      interval: DELAY,
+    );
   }
 
   Future<void> close_drawer_tap_outside(WidgetTester tester) async {
