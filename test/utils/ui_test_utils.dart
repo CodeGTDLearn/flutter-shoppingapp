@@ -110,14 +110,51 @@ class UiTestUtils {
     );
   }
 
-  getWidgetProperties<T>(WidgetTester tester, {required String stringKey}) {
-    var widgetKey = _finder.key(stringKey);
-    return tester.widget(widgetKey) as T;
+  getWidgetProperties<T>(WidgetTester tester, {required String key}) {
+    // var widgetKey = _finder.key(key);
+    var retWidget;
+    try {
+      retWidget = (tester.widget(_finder.key(key)) as T);
+    } catch (e) {
+      print(e); // Catches all types of `Exception` and `Error`.
+    }
+
+    return retWidget;
   }
 
-  getWidgetPropertiesFromFinder<T>(WidgetTester tester, {required String stringKey}) {
-    var _type = _finder.key(stringKey).runtimeType;
-    var widget = tester.widget(_finder.key(stringKey)) as T;
+  /// HOW TO USE THIS METHOD
+  /// uiTestUtils.scanPropertiesInSequentialWidgets<IconButton>(
+  /// tester,
+  /// rootKey: fav_button_key,
+  /// property: 'icon',
+  /// checkParameter: OV_ICO_FAV,
+  /// );
+  scanPropertiesInSequentialWidgets<T>(
+    WidgetTester tester, {
+    required String rootKey,
+    required String property,
+    required Widget checkParameter,
+  }) {
+    var properties;
+    var counter = 0;
+    var result = '';
+
+    do {
+      properties = getWidgetProperties<IconButton>(
+        tester,
+        key: '$rootKey$counter',
+      );
+
+      if (properties != null) {
+        result += "\n\n$counter) key: $properties";
+        result = result.replaceFirstMapped('${T.toString()}-[<\'', (match) => '');
+        result = result.replaceFirstMapped('\'>](', (match) => '\n        ');
+        result = result.replaceAll(',', '\n       ');
+        counter++;
+      }
+    } while (properties != null);
+
+    print('The follow Widget were found in the View:$result)}');
   }
 
 // UI-TEST-DIMENSIONS CONSIDERATIONS

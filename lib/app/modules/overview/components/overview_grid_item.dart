@@ -19,7 +19,7 @@ class OverviewGridItem extends StatelessWidget {
   final String index;
 
   OverviewGridItem(this._product, this.index);
-
+//https://www.youtube.com/watch?v=3GMq45zRVLo - animation details
   @override
   Widget build(BuildContext context) {
     _controller.favoriteStatusObs.value = _product.isFavorite;

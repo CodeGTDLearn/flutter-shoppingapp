@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:get/instance_manager.dart';
 
 import '../../../modules/overview/components/overview_grid_item.dart';
-import '../../../modules/overview/controller/overview_controller.dart';
 import 'icustom_gridview.dart';
 
 class OverviewSimpleGridview implements ICustomGridview {
-  final _controller = Get.find<OverviewController>();
   final columnCount;
+  final gridItems;
 
-  OverviewSimpleGridview({this.columnCount = 1});
+  OverviewSimpleGridview({
+    this.columnCount = 1,
+    this.gridItems,
+  });
 
   @override
   Widget create() {
     return GridView.builder(
         padding: EdgeInsets.all(10),
-        itemCount: _controller.overviewViewGridViewItemsObs.length,
+        itemCount: gridItems.length,
         itemBuilder: (_, index) => OverviewGridItem(
-            _controller.overviewViewGridViewItemsObs[index], index.toString()),
+              gridItems.elementAt(index),
+              index.toString(),
+            ),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: columnCount,
             childAspectRatio: 3 / 2,

@@ -58,12 +58,12 @@ class CustomAppbarTests {
 
     var favProps = uiTestUtils.getWidgetProperties<PopupMenuItem>(
       tester,
-      stringKey: OVERVIEW_POPUP_FAVORITE_OPTION_KEY,
+      key: OVERVIEW_POPUP_FAVORITE_OPTION_KEY,
     );
 
     var allProps = uiTestUtils.getWidgetProperties<PopupMenuItem>(
       tester,
-      stringKey: OVERVIEW_POPUP_ALL_OPTION_KEY,
+      key: OVERVIEW_POPUP_ALL_OPTION_KEY,
     );
     expect(favProps.enabled, true);
     expect(allProps.enabled, false);
@@ -90,11 +90,11 @@ class CustomAppbarTests {
 
     var favProps = uiTestUtils.getWidgetProperties<PopupMenuItem>(
       tester,
-      stringKey: OVERVIEW_POPUP_FAVORITE_OPTION_KEY,
+      key: OVERVIEW_POPUP_FAVORITE_OPTION_KEY,
     );
     var allProps = uiTestUtils.getWidgetProperties<PopupMenuItem>(
       tester,
-      stringKey: OVERVIEW_POPUP_ALL_OPTION_KEY,
+      key: OVERVIEW_POPUP_ALL_OPTION_KEY,
     );
     expect(favProps.enabled, false);
     expect(allProps.enabled, true);
@@ -113,26 +113,6 @@ class CustomAppbarTests {
 
     var fav_button_key = OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY;
 
-    // NAO REMOVER: TODO: criar metodo que percorre lista toda e varre props
-    // ao inves de 4 usar a length do DB de test
-    // usar test: add_allProducts_check_shopCartIcon do overview
-    // for (var i = 0; i < 4; i++) {
-    //   print('$fav_button_key$i');
-    //   var iconProps = uiTestUtils.getWidgetProperties<IconButton>(
-    //     tester,
-    //     stringKey: '$fav_button_key$i',
-    //   );
-    //   print('Properties: ${iconProps.icon == OV_ICO_FAV}');
-    // }
-    // var xx = iconButtonProps.icon == OV_ICO_FAV;
-    // var xx1 = iconButtonProps.icon == OV_ICO_NOFAV;
-    // print('>>>>>>>>>>>>>>>>>>>> ${iconButtonProps.toString}|| $xx|| $xx1');
-    // var iconButtonProps = uiTestUtils.getWidgetProperties<IconButton>(
-    //   tester,
-    //   stringKey: '$fav_button_key\2',
-    // );
-
-    // if (isWidgetTest) await tester.tap(finder.key('$fav_button_key\2'));
     if (!isWidgetTest) await tester.tap(finder.key('$fav_button_key\0'));
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
@@ -145,9 +125,6 @@ class CustomAppbarTests {
     await tester.ensureVisible(favPopupOption);
     await tester.tap(favPopupOption);
     await tester.pump();
-    // await tester.pumpAndSettle(testUtils.delay(DELAY)); //<<<< pra rodar testes
-    // funcionais tem que descomentar aqui, mas se descomentar qui, os teste de unidade
-    // falham
 
     expect(finder.text(OVERVIEW_TITLE_PAGE_FAVORITE), findsNothing);
     expect(finder.text(FAVORITES_NOT_FOUND_YET), findsOneWidget);

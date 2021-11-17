@@ -28,10 +28,6 @@ class AppRoutes {
         // page: () => OverviewView(enumFilter: EnumFilter.All),
         page: () => OverviewView(),
         binding: OverviewBindings()),
-    // GetPage(
-    //     name: OVERVIEW_FAV,
-    //     page: () => OverviewView(enumFilter: EnumFilter.Fav),
-    //     binding: OverviewBindings()),
     GetPage(
         name: ORDERS,
         page: () => OrdersView(controller: Get.find()),

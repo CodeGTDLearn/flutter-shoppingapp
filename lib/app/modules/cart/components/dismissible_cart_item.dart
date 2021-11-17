@@ -13,7 +13,7 @@ class DismissibleCartItem extends StatelessWidget {
   final CartItem _cartItem;
   final CartController controller = Get.find();
 
-  DismissibleCartItem.Create(this._cartItem);
+  DismissibleCartItem.create(this._cartItem);
 
   Widget build(BuildContext context) {
     return Dismissible(

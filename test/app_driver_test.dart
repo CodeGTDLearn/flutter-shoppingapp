@@ -92,5 +92,5 @@ void _integrationTests() {
 
   group(CustomAppbarTestTitles.GROUP_TITLE,
       CustomAppbarTest(testType: INTEGRATION_TEST).functional,
-      skip: false);
+      skip: SKIP_GROUP);
 }

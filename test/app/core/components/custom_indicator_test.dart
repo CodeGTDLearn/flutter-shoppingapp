@@ -14,7 +14,6 @@ class CustomIndicatorTest {
   late bool _isWidgetTest;
   final _finder = Get.put(FinderUtils());
   final _uiUtils = Get.put(UiTestUtils());
-
   final _bindings = Get.put(CustomComponentsTestBindings());
   final _titles = Get.put(CustomIndicatorTestTitles());
   final _testUtils = Get.put(TestsUtils());
@@ -48,7 +47,7 @@ class CustomIndicatorTest {
     });
 
     testWidgets(_titles.check_custom_indicator_emptydb, (tester) async {
-      CustomComponentsTestBindings().bindingsBuilder(isWidgetTest: true, isEmptyDb: true);
+      _bindings.bindingsBuilder(isWidgetTest: true, isEmptyDb: true);
       await _tests.check_custom_indicator_emptydb(tester);
     });
   }
