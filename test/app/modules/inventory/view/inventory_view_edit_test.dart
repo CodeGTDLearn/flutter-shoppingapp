@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
+import 'package:shopingapp/app/core/keys/inventory_keys.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/bindings/inventory_test_bindings.dart';

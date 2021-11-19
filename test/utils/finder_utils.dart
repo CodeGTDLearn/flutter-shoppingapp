@@ -35,12 +35,15 @@ class FinderUtils {
 
     switch (wordList[0]) {
       case 'exactly':
+        print('>>>>>>>>>>>>>>>>>>>>>>> countItemsFromFinder = 001');
         return 1;
 
       case 'zero':
+        print('>>>>>>>>>>>>>>>>>>>>>>> countItemsFromFinder = 000');
         return 0;
 
       default:
+        print('>>>>>>>>>>>>>>>>>>>>>>> countItemsFromFinder = ${wordList[0].toString()}');
         return int.parse(wordList[0].toString());
     }
   }

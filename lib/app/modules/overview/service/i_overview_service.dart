@@ -1,4 +1,4 @@
-import '../../../core/components/custom_appbar/filter_favorite_enum.dart';
+import '../../../core/components/custom_appbar/appbar_filter_options.dart';
 import '../../inventory/entity/product.dart';
 
 abstract class IOverviewService {
@@ -10,7 +10,7 @@ abstract class IOverviewService {
 
   List<Product> getLocalDataFavoritesProducts();
 
-  List<Product> setProductsByFilter(EnumFilter filter);
+  List<Product> setProductsByFilter(AppbarFilterOptions filter);
 
   Future<bool> toggleFavoriteStatus(String id);
 

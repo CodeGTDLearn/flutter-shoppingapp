@@ -4,9 +4,12 @@ import 'package:get/get.dart';
 
 import '../../../core/components/custom_indicator.dart';
 import '../../../core/components/custom_snackbar/simple_snackbar.dart';
+import '../../../core/keys/inventory_keys.dart';
 import '../../../core/properties/app_owasp_regex.dart';
 import '../../../core/properties/app_properties.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
+import '../../../core/texts_icons_provider/pages/inventory/inventory_edit_texts_icons_provided.dart';
+import '../../../core/texts_icons_provider/pages/inventory/messages_snackbars_provided.dart';
 import '../../overview/controller/overview_controller.dart';
 import '../components/custom_form_field/custom_form_field.dart';
 import '../components/custom_form_field/field_properties/description_properties.dart';
@@ -18,9 +21,6 @@ import '../components/custom_form_field/field_validators/price_validator.dart';
 import '../components/custom_form_field/field_validators/title_validator.dart';
 import '../components/custom_form_field/field_validators/url_validator.dart';
 import '../controller/inventory_controller.dart';
-import '../core/inventory_keys.dart';
-import '../core/messages/messages_snackbars_provided.dart';
-import '../core/texts_icons/inventory_edit_texts_icons_provided.dart';
 import '../entity/product.dart';
 
 class InventoryEditView extends StatefulWidget {
@@ -29,15 +29,13 @@ class InventoryEditView extends StatefulWidget {
 }
 
 class _InventoryEditViewState extends State<InventoryEditView> {
-  final InventoryController _invController = Get.find();
-  final OverviewController _ovController = Get.find();
-
-  final _imgUrlPreviewObs = false.obs;
+  final _inventoryController = Get.find<InventoryController>();
+  final _overviewController = Get.find<OverviewController>();
 
   bool _isInit = true;
 
   final _nodePrice = FocusNode();
-  final _nodeDescr = FocusNode();
+  final _nodeDescription = FocusNode();
   final _nodeImgUrl = FocusNode();
 
   final _imgUrlController = TextEditingController();
@@ -56,15 +54,15 @@ class _InventoryEditViewState extends State<InventoryEditView> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      _invController.switchInventoryAddEditFormToCustomCircularProgrIndic();
+      _inventoryController.switchInventoryAddEditFormToCustomCircularProgrIndic();
 
       if (Get.arguments != null) {
-        _product = _invController.getProductById(Get.arguments);
+        _product = _inventoryController.getProductById(Get.arguments);
         _imgUrlController.text = _product.imageUrl;
-        _imgUrlPreviewObs.value = true;
+        _inventoryController.setImgUrlPreviewObs(true);
       }
 
-      _invController.switchInventoryAddEditFormToCustomCircularProgrIndic();
+      _inventoryController.switchInventoryAddEditFormToCustomCircularProgrIndic();
       _isInit = false;
     }
     super.didChangeDependencies();
@@ -73,7 +71,7 @@ class _InventoryEditViewState extends State<InventoryEditView> {
   @override
   void dispose() {
     _nodePrice.dispose();
-    _nodeDescr.dispose();
+    _nodeDescription.dispose();
     _nodeImgUrl.removeListener(_previewImageUrl);
     _nodeImgUrl.dispose();
     _imgUrlController.dispose();
@@ -92,7 +90,7 @@ class _InventoryEditViewState extends State<InventoryEditView> {
                   icon: ICO_INV_EDT_SAVE_BTN_APPBAR,
                   onPressed: () => _saveForm(context))
             ]),
-        body: Obx(() => _invController.reloadInventoryEditPageObs.value
+        body: Obx(() => _inventoryController.reloadInventoryEditPageObs.value
             ? CustomIndicator()
             : Padding(
                 padding: EdgeInsets.all(16),
@@ -115,7 +113,7 @@ class _InventoryEditViewState extends State<InventoryEditView> {
                           label: INV_EDT_LBL_PRICE,
                           key: K_INV_ADDEDIT_FLD_PRICE,
                           validator: PriceValidator().validate(),
-                          onFieldSubmitted: (_) => _setFocus(_nodeDescr, context),
+                          onFieldSubmitted: (_) => _setFocus(_nodeDescription, context),
                           node: _nodePrice,
                           controller: _product.price.toString() == '0.0'
                               ? _priceController()
@@ -128,7 +126,7 @@ class _InventoryEditViewState extends State<InventoryEditView> {
                           key: K_INV_ADDEDIT_FLD_DESCR,
                           validator: DescriptionValidator().validate(),
                           onFieldSubmitted: (_) => _setFocus(_nodeImgUrl, context),
-                          node: _nodeDescr),
+                          node: _nodeDescription),
                       Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
                         Container(
                             width: 100,
@@ -137,7 +135,7 @@ class _InventoryEditViewState extends State<InventoryEditView> {
                             decoration: BoxDecoration(
                                 border: Border.all(width: 0.5, color: Colors.grey)),
                             child: Obx(() => (Container(
-                                  child: _imgUrlPreviewObs.value
+                                  child: _inventoryController.getImgUrlPreviewObs()
                                       ? _showProductImage(_imgUrlController.text)
                                       : Center(child: INV_EDT_NO_IMG_TIT),
                                 )))),
@@ -164,12 +162,10 @@ class _InventoryEditViewState extends State<InventoryEditView> {
     var isUnsafeUrl = RegExp(OWASP_SAFE_URL, caseSensitive: false)
             .firstMatch(_imgUrlController.text.trim()) ==
         null;
-    // var isImgUrlNull = _imgUrlController.text == null;
     var lostFocus = !_nodeImgUrl.hasFocus;
 
-    // if (lostFocus && (isImgUrlNull || isUnsafeUrl)) return null;
     if (lostFocus && isUnsafeUrl) return null;
-    if (lostFocus) _imgUrlPreviewObs.value = true;
+    if (lostFocus) _inventoryController.setImgUrlPreviewObs(true);
   }
 
   void _saveForm(BuildContext _context) {
@@ -178,7 +174,7 @@ class _InventoryEditViewState extends State<InventoryEditView> {
 
     _formKey.currentState!.save();
 
-    _invController.switchInventoryAddEditFormToCustomCircularProgrIndic();
+    _inventoryController.switchInventoryAddEditFormToCustomCircularProgrIndic();
 
     _product.id == null
         ? _saveProduct(_product, _context)
@@ -190,27 +186,27 @@ class _InventoryEditViewState extends State<InventoryEditView> {
 
   void _saveProduct(Product _product, BuildContext _context) {
     // @formatter:off
-    _invController.addProduct(_product).then((product) {
-      _invController.switchInventoryAddEditFormToCustomCircularProgrIndic();
-      _invController.updateInventoryProductsObs();
-      _ovController.updateFilteredProductsObs();
+    _inventoryController.addProduct(_product).then((product) {
+      _inventoryController.switchInventoryAddEditFormToCustomCircularProgrIndic();
+      _inventoryController.updateInventoryProductsObs();
+      _overviewController.updateFilteredProductsObs();
     }).whenComplete(() {
       SimpleSnackbar(SUCES, SUCESS_MAN_PROD_ADD).show();
     }).catchError((onError) {
       Get.defaultDialog(
           title: OPS, middleText: ERROR_MAN_PROD, textConfirm: OK, onConfirm: Get.back);
-      _invController.switchInventoryAddEditFormToCustomCircularProgrIndic();
+      _inventoryController.switchInventoryAddEditFormToCustomCircularProgrIndic();
     });
     // @formatter:on
   }
 
   void _updateProduct(Product _product, BuildContext _context) {
     // @formatter:off
-    _invController.updateProduct(_product).then((statusCode) {
+    _inventoryController.updateProduct(_product).then((statusCode) {
       if (statusCode >= 200 && statusCode < 400) {
-        _invController.switchInventoryAddEditFormToCustomCircularProgrIndic();
-        _invController.updateInventoryProductsObs();
-        _ovController.updateFilteredProductsObs();
+        _inventoryController.switchInventoryAddEditFormToCustomCircularProgrIndic();
+        _inventoryController.updateInventoryProductsObs();
+        _overviewController.updateFilteredProductsObs();
         SimpleSnackbar(SUCES, SUCESS_MAN_PROD_UPDT).show();
       }
       if (statusCode >= 400) {

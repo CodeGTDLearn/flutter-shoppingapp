@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/keys/overview_keys.dart';
 import '../controller/overview_controller.dart';
-import '../core/overview_widget_keys.dart';
 
 class OverviewItemDetailsView extends StatelessWidget {
   final String _id = Get.arguments;
-  final OverviewController controller;
-
-  OverviewItemDetailsView({required this.controller});
+  final _controller = Get.find<OverviewController>();
 
   @override
   Widget build(BuildContext context) {
-    var _item = controller.getProductById(_id);
+    var _item = _controller.getProductById(_id);
     return Scaffold(
         appBar: AppBar(title: Text(_item.title)),
         body: SingleChildScrollView(

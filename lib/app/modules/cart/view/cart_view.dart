@@ -2,26 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/components/custom_indicator.dart';
-import '../../../core/components/custom_listview/cart_staggered_listview.dart';
+import '../../../core/components/custom_listview/cart/cart_staggered_listview.dart';
 import '../../../core/components/custom_snackbar/simple_snackbar.dart';
+import '../../../core/keys/cart_keys.dart';
 import '../../../core/properties/app_properties.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
-import '../../orders/core/messages_snackbars_provided.dart';
+import '../../../core/texts_icons_provider/pages/cart/cart_texts_icons_provided.dart';
+import '../../../core/texts_icons_provider/pages/order/messages_snackbars_provided.dart';
 import '../controller/cart_controller.dart';
-import '../core/cart_texts_icons_provided.dart';
-import '../core/cart_widget_keys.dart';
 
 class CartView extends StatelessWidget {
-  final CartController controller;
-
-  CartView({required this.controller});
+  final _controller = Get.find<CartController>();
 
   Widget build(BuildContext context) {
     var fullSizeLessAppbar = MediaQuery.of(context).size;
 
     return Scaffold(
         appBar: AppBar(title: Text(CRT_TIT_APPBAR), actions: [
-          _clearCartItemsButton(controller),
+          _clearCartItemsButton(_controller),
         ]),
         body: Container(
             width: fullSizeLessAppbar.width,
@@ -34,9 +32,9 @@ class CartView extends StatelessWidget {
                 SizedBox(height: lbHeight * 0.01),
                 Expanded(
                     child: Obx(
-                          () => controller.qtdeCartItemsObs().isEqual(0)
+                          () => _controller.qtdeCartItemsObs().isEqual(0)
                       ? Container()
-                      : CartStaggeredListview().create(controller.getAllCartItems()),
+                      : CartStaggeredListview().create(_controller.getAllCartItems()),
                 ))
               ]);
             })));
@@ -57,16 +55,16 @@ class CartView extends StatelessWidget {
                       width: lbWidth * 0.25,
                       child: Obx(() => Chip(
                           label: Text(
-                              controller.amountCartItemsObs.value.toStringAsFixed(2),
+                              _controller.amountCartItemsObs.value.toStringAsFixed(2),
                               style: TextStyle(color: Colors.white)),
                           backgroundColor: Theme.of(context).primaryColor))),
                   SizedBox(width: lbWidth * 0.18),
                   Container(
                       width: lbWidth * 0.3,
                       height: lbHeight * 0.08,
-                      child: Obx(() => controller.qtdeCartItemsObs().isEqual(0)
+                      child: Obx(() => _controller.qtdeCartItemsObs().isEqual(0)
                           ? CustomIndicator.radius(lbWidth * 0.3)
-                          : _addOrderButton(controller)))
+                          : _addOrderButton(_controller)))
                 ]))));
   }
 

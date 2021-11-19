@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/core/components/custom_appbar/filter_favorite_enum.dart';
+import 'package:shopingapp/app/core/components/custom_appbar/appbar_filter_options.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
@@ -118,8 +118,8 @@ class OverviewServiceTests {
 
     test('Getting products by Filters', () {
       _service.getProducts().then((_) {
-        var listAll = _service.setProductsByFilter(EnumFilter.All);
-        var listFav = _service.setProductsByFilter(EnumFilter.Fav);
+        var listAll = _service.setProductsByFilter(AppbarFilterOptions.All);
+        var listFav = _service.setProductsByFilter(AppbarFilterOptions.Fav);
         expect(listAll.length, 4);
         expect(listFav.length, 1);
       });
@@ -127,13 +127,13 @@ class OverviewServiceTests {
 
     test('Clearing DataSavingLists', () {
       _service.getProducts().then((_) {
-        var listAll = _service.setProductsByFilter(EnumFilter.All);
-        var listFav = _service.setProductsByFilter(EnumFilter.Fav);
+        var listAll = _service.setProductsByFilter(AppbarFilterOptions.All);
+        var listFav = _service.setProductsByFilter(AppbarFilterOptions.Fav);
         expect(listAll.length, 4);
         expect(listFav.length, 1);
         _service.clearDataSavingLists();
-        listAll = _service.setProductsByFilter(EnumFilter.All);
-        listFav = _service.setProductsByFilter(EnumFilter.Fav);
+        listAll = _service.setProductsByFilter(AppbarFilterOptions.All);
+        listFav = _service.setProductsByFilter(AppbarFilterOptions.Fav);
         expect(listAll.length, 0);
         expect(listFav.length, 0);
       });

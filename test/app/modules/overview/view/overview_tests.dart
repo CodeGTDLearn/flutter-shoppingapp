@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
+import 'package:shopingapp/app/core/keys/overview_keys.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
-import 'package:shopingapp/app/modules/overview/components/overview_grid_item.dart';
-import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
+import 'package:shopingapp/app/modules/overview/components/overview_griditem.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_item_details_view.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
@@ -171,7 +171,7 @@ class OverviewTests {
     );
   }
 
-  Future<void> toggle_favoriteButton_in_product(
+  Future<void> toggle_favoriteButton_in_overviewGridItem(
     WidgetTester tester, {
     required String toggleButtonKey,
   }) async {
@@ -192,7 +192,12 @@ class OverviewTests {
       qtdeTypes = 1;
     }
 
+    finder.countItemsFromFinder(
+      finder.iconType(IconButton, Icons.favorite),
+    );
+
     expect(
+      // finder.iconData(Icons.favorite),
       finder.iconType(IconButton, Icons.favorite),
       findsNWidgets(qtdeTypes),
     );

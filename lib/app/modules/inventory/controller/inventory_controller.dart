@@ -8,6 +8,7 @@ class InventoryController extends GetxController {
 
   var inventoryProductsObs = <Product>[].obs;
   var reloadInventoryEditPageObs = false.obs;
+  var _imgUrlPreviewObs = false.obs;
 
   InventoryController({required this.service});
 
@@ -79,5 +80,11 @@ class InventoryController extends GetxController {
 
   bool getReloadInventoryProductsEditPageObs() {
     return reloadInventoryEditPageObs.value;
+  }
+
+  bool getImgUrlPreviewObs() => _imgUrlPreviewObs.value;
+
+  void setImgUrlPreviewObs(bool value) {
+    _imgUrlPreviewObs.value = value;
   }
 }

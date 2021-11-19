@@ -2,18 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 
-import '../../../core/components/app_messages_provided.dart';
 import '../../../core/components/custom_indicator.dart';
+import '../../../core/components/custom_listview/inventory/inventory_staggered_listview.dart';
+import '../../../core/keys/inventory_keys.dart';
 import '../../../core/properties/app_routes.dart';
-import '../components/inventory_item.dart';
+import '../../../core/texts_icons_provider/pages/components/app_messages_provided.dart';
+import '../../../core/texts_icons_provider/pages/inventory/inventory_texts_icons_provided.dart';
 import '../controller/inventory_controller.dart';
-import '../core/inventory_keys.dart';
-import '../core/texts_icons/inventory_texts_icons_provided.dart';
 
 class InventoryView extends StatelessWidget {
-  final InventoryController controller;
-
-  InventoryView({required this.controller});
+  final _controller = Get.find<InventoryController>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,26 +25,19 @@ class InventoryView extends StatelessWidget {
 
       // GERENCIA DE ESTADO REATIVA - COM O GET
       // body: Obx(() => (controller.getInventoryProductsObs().length == 0
-      body: Obx(() => (controller.getInventoryProductsObs().isEmpty
+      body: Obx(() => (_controller.getInventoryProductsObs().isEmpty
           ? CustomIndicator.message(message: NO_INV_PROD, fontSize: 20)
           : RefreshIndicator(
-              onRefresh: controller.getProducts,
-              // child: controller.getInventoryProductsObs().length == 0
-              child: controller.getInventoryProductsObs().isEmpty
+              onRefresh: _controller.getProducts,
+              child: _controller.getInventoryProductsObs().isEmpty
                   ? Center(child: Text(NO_INV_PROD))
-                  : ListView.builder(
-                      itemCount: controller.getInventoryProductsObs().length,
-                      itemBuilder: (ctx, i) => Column(children: [
-                            InventoryItem(
-                              product: controller.getInventoryProductsObs()[i],
-                              inventoryController: controller,
-                              overviewController: Get.find(),
-                            ),
-                            Divider()
-                          ]))))),
+                  : InventoryStaggeredListview()
+                      .create(_controller.getInventoryProductsObs()),
+            ))),
     );
   }
 }
+
 // GERENCIA DE ESTADO SIMPLES - COM O GET
 //      body: GetBuilder<ManagedProductsController>(
 //          init: ManagedProductsController(),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shopingapp/app/core/keys/overview_keys.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
-import 'package:shopingapp/app/core/texts_icons_provider/pages/overview.dart';
-import 'package:shopingapp/app/modules/overview/components/overview_grid_item.dart';
-import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
+import 'package:shopingapp/app/core/texts_icons_provider/pages/overview/overview.dart';
+import 'package:shopingapp/app/modules/overview/components/overview_griditem.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../config/tests_properties.dart';

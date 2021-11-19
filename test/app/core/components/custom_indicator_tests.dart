@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shopingapp/app/core/components/keys/progres_indicator_keys.dart';
+import 'package:shopingapp/app/core/keys/components/custom_indicator_keys.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
-import 'package:shopingapp/app/modules/overview/components/overview_grid_item.dart';
+import 'package:shopingapp/app/modules/overview/components/overview_griditem.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../config/tests_properties.dart';

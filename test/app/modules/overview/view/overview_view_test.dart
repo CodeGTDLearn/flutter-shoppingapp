@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/core/components/keys/snackbarr_keys.dart';
+import 'package:shopingapp/app/core/keys/components/custom_snackbar_keys.dart';
+import 'package:shopingapp/app/core/keys/overview_keys.dart';
 import 'package:shopingapp/app/core/properties/app_urls.dart';
-import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 
 import '../../../../config/bindings/overview_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
@@ -70,8 +70,8 @@ class OverviewViewTest {
       );
     });
 
-    testWidgets(_titles.toggle_favoriteButton_in_product, (tester) async {
-      await _tests.toggle_favoriteButton_in_product(
+    testWidgets(_titles.toggle_favoriteButton_in_overviewGridItem, (tester) async {
+      await _tests.toggle_favoriteButton_in_overviewGridItem(
         tester,
         toggleButtonKey: "$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0",
       );

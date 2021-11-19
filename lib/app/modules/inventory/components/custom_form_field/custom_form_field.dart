@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/texts_icons/inventory_edit_texts_icons_provided.dart';
+import '../../../../core/texts_icons_provider/pages/inventory/inventory_edit_texts_icons_provided.dart';
 import '../../entity/product.dart';
 import 'field_properties/properties_abstraction.dart';
 

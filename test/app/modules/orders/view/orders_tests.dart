@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shopingapp/app/core/components/custom_indicator.dart';
-import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
+import 'package:shopingapp/app/core/keys/cart_keys.dart';
+import 'package:shopingapp/app/core/keys/components/custom_drawer_keys.dart';
+import 'package:shopingapp/app/core/keys/overview_keys.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
-import 'package:shopingapp/app/modules/cart/core/cart_widget_keys.dart';
 import 'package:shopingapp/app/modules/cart/view/cart_view.dart';
 import 'package:shopingapp/app/modules/orders/components/order_collapsable_tile.dart';
 import 'package:shopingapp/app/modules/orders/view/orders_view.dart';
-import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 

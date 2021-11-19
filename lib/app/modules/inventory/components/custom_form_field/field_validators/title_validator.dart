@@ -3,7 +3,7 @@ import 'package:wc_form_validators/wc_form_validators.dart';
 
 import '../../../../../core/properties/app_form_field_sizes.dart';
 import '../../../../../core/properties/app_owasp_regex.dart';
-import '../../../core/messages/field_form_validation_provided.dart';
+import '../../../../../core/texts_icons_provider/pages/inventory/field_form_validation_provided.dart';
 import 'validator_abstraction.dart';
 
 class TitleValidator extends ValidatorAbstraction {

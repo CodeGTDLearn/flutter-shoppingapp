@@ -4,13 +4,13 @@ import 'package:get/get.dart';
 import '../../modules/cart/service/i_cart_service.dart';
 import '../../modules/inventory/controller/inventory_controller.dart';
 import '../../modules/orders/service/i_orders_service.dart';
+import '../keys/components/custom_drawer_keys.dart';
 import '../properties/app_routes.dart';
 import '../properties/theme/app_theme_controller.dart';
 import '../texts_icons_provider/generic_words.dart';
-import 'app_messages_provided.dart';
+import '../texts_icons_provider/pages/components/app_messages_provided.dart';
+import '../texts_icons_provider/pages/components/drawwer_texts_icons_provided.dart';
 import 'custom_snackbar/simple_snackbar.dart';
-import 'keys/drawwer_keys.dart';
-import 'texts_icons/drawwer_texts_icons_provided.dart';
 
 // ignore: must_be_immutable
 class CustomDrawer extends StatelessWidget {
@@ -88,9 +88,11 @@ class CustomDrawer extends StatelessWidget {
         title: Text(title),
         onTap: () {
           Navigator.pop(context);
-          if (quantityItems == 0 && notRoutingWithoutQtdeEvaluation) {
+          var cond1 = quantityItems == 0 && notRoutingWithoutQtdeEvaluation;
+          var cond2 = quantityItems != 0 && notRoutingWithoutQtdeEvaluation;
+          if (cond1)
             SimpleSnackbar(SUCES, message).show();
-          } else if (quantityItems != 0 && notRoutingWithoutQtdeEvaluation) {
+          else if (cond2) {
             Get.toNamed(route);
           } else {
             Get.toNamed(route);

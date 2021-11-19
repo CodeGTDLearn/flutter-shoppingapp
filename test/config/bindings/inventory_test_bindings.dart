@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:shopingapp/app/core/bindings/cart_bindings.dart';
 import 'package:shopingapp/app/core/properties/theme/app_theme_controller.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
-import 'package:shopingapp/app/modules/cart/core/cart_bindings.dart';
 import 'package:shopingapp/app/modules/inventory/controller/inventory_controller.dart';
 import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
 import 'package:shopingapp/app/modules/inventory/service/i_inventory_service.dart';

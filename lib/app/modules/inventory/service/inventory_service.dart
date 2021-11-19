@@ -5,6 +5,7 @@ import 'i_inventory_service.dart';
 
 class InventoryService implements IInventoryService {
   final IInventoryRepo repo;
+
   final IOverviewService overviewService;
   List<Product> _localInventoryProducts = [];
 

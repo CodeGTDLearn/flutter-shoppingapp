@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import '../../../core/components/custom_snackbar/simple_snackbar.dart';
 import '../../../core/properties/app_properties.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
-import '../../orders/core/messages_snackbars_provided.dart';
+import '../../../core/texts_icons_provider/pages/cart/cart_texts_icons_provided.dart';
+import '../../../core/texts_icons_provider/pages/order/messages_snackbars_provided.dart';
 import '../controller/cart_controller.dart';
-import '../core/cart_texts_icons_provided.dart';
 import '../entity/cart_item.dart';
 
 class DismissibleCartItem extends StatelessWidget {

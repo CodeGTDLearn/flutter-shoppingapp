@@ -48,8 +48,8 @@ class OverviewTestTitles {
   // get tap_favFilter_noFavoritesFound =>
   //     'Tapping FavoriteFilter|Not favorites found';
 
-  get toggle_favoriteButton_in_product =>
-      'Toggling FavoritesIconButton in a product';
+  get toggle_favoriteButton_in_overviewGridItem =>
+      'Toggling FavoritesIconButton in a product(OverviewGridItem)';
 
   //OVERVIEW-DETAILS-TEST-TITLES -----------------------------------------------
   get tap_product_details_check_texts =>

@@ -24,6 +24,7 @@ dependencies:
   json_annotation: 4.3.0
   network_image_mock: 2.0.1
   flutter_staggered_animations: 1.0.0
+  animations: 2.0.2
 
 dev_dependencies:
   integration_test:

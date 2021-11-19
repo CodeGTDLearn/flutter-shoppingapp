@@ -126,15 +126,8 @@ class UiTestUtils {
   /// uiTestUtils.scanPropertiesInSequentialWidgets<IconButton>(
   /// tester,
   /// rootKey: fav_button_key,
-  /// property: 'icon',
-  /// checkParameter: OV_ICO_FAV,
   /// );
-  scanPropertiesInSequentialWidgets<T>(
-    WidgetTester tester, {
-    required String rootKey,
-    required String property,
-    required Widget checkParameter,
-  }) {
+  scanPropertiesInSequentialWidgets<T>(WidgetTester tester, {required String rootKey}) {
     var properties;
     var counter = 0;
     var result = '';

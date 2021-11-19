@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/core/components/keys/progres_indicator_keys.dart';
+import 'package:shopingapp/app/core/keys/cart_keys.dart';
+import 'package:shopingapp/app/core/keys/components/custom_indicator_keys.dart';
+import 'package:shopingapp/app/core/keys/overview_keys.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/generic_words.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
-import 'package:shopingapp/app/core/texts_icons_provider/pages/cart.dart';
+import 'package:shopingapp/app/core/texts_icons_provider/pages/cart/cart.dart';
 import 'package:shopingapp/app/modules/cart/components/dismissible_cart_item.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
-import 'package:shopingapp/app/modules/cart/core/cart_widget_keys.dart';
 import 'package:shopingapp/app/modules/cart/view/cart_view.dart';
-import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 

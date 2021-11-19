@@ -1,15 +1,15 @@
 import 'package:get/get.dart';
 
-import '../../modules/cart/core/cart_bindings.dart';
 import '../../modules/cart/view/cart_view.dart';
-import '../../modules/inventory/core/inventory_bindings.dart';
 import '../../modules/inventory/view/inventory_edit_view.dart';
 import '../../modules/inventory/view/inventory_view.dart';
-import '../../modules/orders/core/orders_bindings.dart';
 import '../../modules/orders/view/orders_view.dart';
-import '../../modules/overview/core/overview_bindings.dart';
 import '../../modules/overview/view/overview_item_details_view.dart';
 import '../../modules/overview/view/overview_view.dart';
+import '../bindings/cart_bindings.dart';
+import '../bindings/inventory_bindings.dart';
+import '../bindings/orders_bindings.dart';
+import '../bindings/overview_bindings.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class AppRoutes {
@@ -20,31 +20,29 @@ class AppRoutes {
   static const INVENTORY = '/inventory';
   static const INVENTORY_ADDEDIT_PRODUCT = '/inventory-add-edit';
 
-  // static const OVERVIEW_FAV = '/item-overview-favorites';
-
   static List<GetPage> getAppRoutes = [
     GetPage(
-        name: OVERVIEW_ALL,
-        // page: () => OverviewView(enumFilter: EnumFilter.All),
-        page: () => OverviewView(),
-        binding: OverviewBindings()),
+      name: OVERVIEW_ALL,
+      page: () => OverviewView(),
+      binding: OverviewBindings(),
+    ),
     GetPage(
-        name: ORDERS,
-        page: () => OrdersView(controller: Get.find()),
-        binding: OrdersBindings()),
+      name: ORDERS,
+      page: () => OrdersView(),
+      binding: OrdersBindings(),
+    ),
     GetPage(
-      // name: '$OVERVIEW_DETAIL_ROUTE:id',
       name: '$OVERVIEW_DETAIL',
-      page: () => OverviewItemDetailsView(controller: Get.find()),
+      page: () => OverviewItemDetailsView(),
     ),
     GetPage(
       name: CART,
-      page: () => CartView(controller: Get.find()),
+      page: () => CartView(),
       binding: CartBindings(),
     ),
     GetPage(
       name: INVENTORY,
-      page: () => InventoryView(controller: Get.find()),
+      page: () => InventoryView(),
       binding: InventoryBindings(),
     ),
     GetPage(

@@ -2,25 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/components/custom_snackbar/simple_snackbar.dart';
+import '../../../core/keys/inventory_keys.dart';
 import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
+import '../../../core/texts_icons_provider/pages/inventory/inventory_item_icons_provided.dart';
+import '../../../core/texts_icons_provider/pages/inventory/messages_snackbars_provided.dart';
 import '../../overview/controller/overview_controller.dart';
 import '../controller/inventory_controller.dart';
-import '../core/inventory_keys.dart';
-import '../core/messages/messages_snackbars_provided.dart';
-import '../core/texts_icons/inventory_item_icons_provided.dart';
 import '../entity/product.dart';
 
 class InventoryItem extends StatelessWidget {
   final Product product;
-  final InventoryController inventoryController;
-  final OverviewController overviewController;
+  final _inventoryController = Get.find<InventoryController>();
+  final _overviewController = Get.find<OverviewController>();
 
-  InventoryItem({
-    required this.product,
-    required this.inventoryController,
-    required this.overviewController,
-  });
+  InventoryItem({required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +42,11 @@ class InventoryItem extends StatelessWidget {
                   icon: INV_ITEM_DEL_ICO,
                   // @formatter:off
                   onPressed: () =>
-                      inventoryController.deleteProduct(_id).then((statusCode) {
+                      _inventoryController.deleteProduct(_id).then((statusCode) {
                         if (statusCode >= 200 && statusCode < 400) {
-                          inventoryController.updateInventoryProductsObs();
-                          overviewController.deleteProduct(_id);
-                          overviewController.updateFilteredProductsObs();
+                          _inventoryController.updateInventoryProductsObs();
+                          _overviewController.deleteProduct(_id);
+                          _overviewController.updateFilteredProductsObs();
                           SimpleSnackbar(SUCES, SUCESS_MAN_PROD_DEL).show();
                         }
                         if (statusCode >= 400) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../modules/overview/components/overview_grid_item.dart';
+import '../../../modules/overview/components/overview_griditem.dart';
 import 'icustom_gridview.dart';
 
 class OverviewSimpleGridview implements ICustomGridview {

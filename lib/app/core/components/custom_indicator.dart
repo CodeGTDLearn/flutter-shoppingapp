@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../keys/components/custom_indicator_keys.dart';
 import '../properties/app_properties.dart';
-import 'keys/progres_indicator_keys.dart';
 
 // ignore: must_be_immutable
 class CustomIndicator extends StatefulWidget {

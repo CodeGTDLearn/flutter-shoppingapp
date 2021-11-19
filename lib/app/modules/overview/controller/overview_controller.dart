@@ -1,16 +1,15 @@
 import 'package:get/get.dart';
 
-import '../../../core/components/custom_appbar/filter_favorite_enum.dart';
+import '../../../core/components/custom_appbar/appbar_filter_options.dart';
 import '../../inventory/entity/product.dart';
 import '../service/i_overview_service.dart';
 
 class OverviewController extends GetxController {
   final IOverviewService service;
+
   var overviewViewGridViewItemsObs = <Product>[].obs;
   var favoriteStatusObs = false.obs;
-
-  // var overviewViewTitleObs = EnumFilter.All.obs;
-  var appbarFilterPopupObs = EnumFilter.All.obs;
+  var appbarFilterPopupObs = AppbarFilterOptions.All.obs;
 
   OverviewController({required this.service});
 
@@ -29,12 +28,12 @@ class OverviewController extends GetxController {
     service.deleteProductInLocalDataLists(productId);
   }
 
-  void applyPopupFilter(EnumFilter filter) {
+  void applyPopupFilter(AppbarFilterOptions filter) {
     appbarFilterPopupObs.value = filter;
 
-    overviewViewGridViewItemsObs.assignAll(filter == EnumFilter.Fav
-        ? service.setProductsByFilter(EnumFilter.Fav)
-        : service.setProductsByFilter(EnumFilter.All));
+    overviewViewGridViewItemsObs.assignAll(filter == AppbarFilterOptions.Fav
+        ? service.setProductsByFilter(AppbarFilterOptions.Fav)
+        : service.setProductsByFilter(AppbarFilterOptions.All));
   }
 
   Future<bool> toggleFavoriteStatus(String id) {

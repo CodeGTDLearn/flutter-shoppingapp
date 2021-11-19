@@ -1,4 +1,0 @@
-enum EnumFilter {
-  Fav,
-  All,
-}

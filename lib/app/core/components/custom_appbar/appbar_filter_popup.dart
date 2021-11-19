@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../modules/overview/controller/overview_controller.dart';
-import '../../../modules/overview/core/messages_snackbars_provided.dart';
-import '../../../modules/overview/core/overview_texts_icons_provided.dart';
-import '../../../modules/overview/core/overview_widget_keys.dart';
+import '../../keys/overview_keys.dart';
 import '../../texts_icons_provider/generic_words.dart';
+import '../../texts_icons_provider/pages/overview/messages_snackbars_provided.dart';
+import '../../texts_icons_provider/pages/overview/overview_texts_icons_provided.dart';
 import '../custom_snackbar/simple_snackbar.dart';
-import 'filter_favorite_enum.dart';
+import 'appbar_filter_options.dart';
 
 // ignore: must_be_immutable
 class AppbarFilterPopup extends StatelessWidget {
-  final OverviewController _controller = Get.find<OverviewController>();
-  final EnumFilter filter = EnumFilter.All;
+  final _controller = Get.find<OverviewController>();
+  final AppbarFilterOptions filter = AppbarFilterOptions.All;
 
   AppbarFilterPopup({required filter});
 
@@ -24,20 +24,22 @@ class AppbarFilterPopup extends StatelessWidget {
               PopupMenuItem(
                   key: Key(K_OV_FLT_FAV),
                   child: Text(OV_TXT_POPUP_FAV),
-                  value: EnumFilter.Fav,
-                  enabled: _controller.appbarFilterPopupObs.value == EnumFilter.All),
+                  value: AppbarFilterOptions.Fav,
+                  enabled:
+                      _controller.appbarFilterPopupObs.value == AppbarFilterOptions.All),
               PopupMenuItem(
                   key: Key(K_OV_FLT_ALL),
                   child: Text(OV_TXT_POPUP_ALL),
-                  value: EnumFilter.All,
-                  enabled: _controller.appbarFilterPopupObs.value == EnumFilter.Fav)
+                  value: AppbarFilterOptions.All,
+                  enabled:
+                      _controller.appbarFilterPopupObs.value == AppbarFilterOptions.Fav)
             ],
         onSelected: (value) {
           _controller.getFavoritesQtde() == 0
               ? SimpleSnackbar(OPS, OVERVIEW_NO_ITEMS_FAVS_YET).show()
-              : value == EnumFilter.All
-                  ? _controller.applyPopupFilter(EnumFilter.All)
-                  : _controller.applyPopupFilter(EnumFilter.Fav);
+              : value == AppbarFilterOptions.All
+                  ? _controller.applyPopupFilter(AppbarFilterOptions.All)
+                  : _controller.applyPopupFilter(AppbarFilterOptions.Fav);
         });
   }
 }

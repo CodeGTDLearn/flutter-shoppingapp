@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/properties/app_properties.dart';
-import '../../../core/texts_icons_provider/pages/orders.dart';
-import '../core/orders_texts_icons_provided.dart';
+import '../../../core/texts_icons_provider/pages/order/orders.dart';
+import '../../../core/texts_icons_provider/pages/order/orders_texts_icons_provided.dart';
 import '../entity/order.dart';
 import 'order_collapsable_tile_controller.dart';
 

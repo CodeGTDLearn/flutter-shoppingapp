@@ -1,30 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/components/app_messages_provided.dart';
 import '../../../core/components/custom_indicator.dart';
-import '../components/order_collapsable_tile.dart';
+import '../../../core/components/custom_listview/order/orders_staggered_listview.dart';
+import '../../../core/texts_icons_provider/pages/components/app_messages_provided.dart';
+import '../../../core/texts_icons_provider/pages/order/orders_texts_icons_provided.dart';
 import '../controller/orders_controller.dart';
-import '../core/orders_texts_icons_provided.dart';
 
 // ignore: must_be_immutable
 class OrdersView extends StatelessWidget {
-  final OrdersController controller;
-
-  OrdersView({required this.controller});
+  final _controller = Get.find<OrdersController>();
 
   @override
   Widget build(BuildContext context) {
-    controller.getOrders();
+    _controller.getOrders();
     return Scaffold(
         appBar: AppBar(title: Text(ORD_TIT_PAGE)),
-        // body: Obx(() => controller.ordersObs.length == 0
-        body: Obx(() => controller.ordersObs.isEmpty
+        body: Obx(() => _controller.ordersObs.isEmpty
             ? CustomIndicator.message(message: NO_ORD, fontSize: 20)
             : Container(
-                child: ListView.builder(
-                    itemCount: controller.ordersObs.length,
-                    itemBuilder: (ctx, item) =>
-                        OrderCollapsableTile(controller.ordersObs.toList()[item])))));
+                child: OrdersStaggeredListview().create(_controller.ordersObs.toList()),
+              )));
   }
 }

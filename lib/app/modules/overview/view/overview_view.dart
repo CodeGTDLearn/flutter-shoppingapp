@@ -2,30 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 
-import '../../../core/components/app_messages_provided.dart';
+import '../../../core/components/custom_appbar/appbar_filter_options.dart';
 import '../../../core/components/custom_appbar/custom_appbar.dart';
-import '../../../core/components/custom_appbar/filter_favorite_enum.dart';
 import '../../../core/components/custom_drawer.dart';
 import '../../../core/components/custom_gridview/overview_staggered_gridview.dart';
 import '../../../core/components/custom_indicator.dart';
+import '../../../core/keys/overview_keys.dart';
+import '../../../core/texts_icons_provider/pages/components/app_messages_provided.dart';
 import '../controller/overview_controller.dart';
-import '../core/overview_widget_keys.dart';
 
 class OverviewView extends StatelessWidget {
+
   Widget build(BuildContext context) {
     var _controller = Get.find<OverviewController>();
-    _controller.applyPopupFilter(EnumFilter.All);
+    _controller.applyPopupFilter(AppbarFilterOptions.All);
 
     return Scaffold(
         key: K_OV_SCFLD_GLOB_KEY,
-        appBar: CustomAppBar(filter: EnumFilter.All),
+        appBar: CustomAppBar(filter: AppbarFilterOptions.All),
         drawer: Get.find<CustomDrawer>(),
         body: Obx(
           () => _controller.overviewViewGridViewItemsObs.isEmpty
               ? _overviewGrid_noProductsInDb()
               : OverviewStaggeredGridview(
-                  columnCount: 2,
-                  gridItems: _controller.overviewViewGridViewItemsObs).create(),
+                      columnCount: 2, gridItems: _controller.overviewViewGridViewItemsObs)
+                  .create(),
         ));
   }
 

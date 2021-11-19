@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/core/components/keys/drawwer_keys.dart';
+import 'package:shopingapp/app/core/keys/components/custom_drawer_keys.dart';
+import 'package:shopingapp/app/core/keys/inventory_keys.dart';
+import 'package:shopingapp/app/core/keys/overview_keys.dart';
 import 'package:shopingapp/app/core/properties/app_urls.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
+import 'package:shopingapp/app/core/texts_icons_provider/pages/inventory/field_form_validation_provided.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/inventory/inventory_add_edit.dart';
 import 'package:shopingapp/app/modules/inventory/components/inventory_item.dart';
-import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
-import 'package:shopingapp/app/modules/inventory/core/messages/field_form_validation_provided.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/inventory/view/inventory_edit_view.dart';
 import 'package:shopingapp/app/modules/inventory/view/inventory_view.dart';
-import 'package:shopingapp/app/modules/overview/components/overview_grid_item.dart';
-import 'package:shopingapp/app/modules/overview/core/overview_widget_keys.dart';
+import 'package:shopingapp/app/modules/overview/components/overview_griditem.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 

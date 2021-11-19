@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:shopingapp/app/core/components/custom_appbar/filter_favorite_enum.dart';
+import 'package:shopingapp/app/core/components/custom_appbar/appbar_filter_options.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/orders/entity/order.dart';
 
@@ -43,8 +43,8 @@ class MockedDatasource {
     return list.firstWhere((element) => element.id == id);
   }
 
-  List<Product> productsByFilter(EnumFilter filter) {
-    return filter == EnumFilter.All
+  List<Product> productsByFilter(AppbarFilterOptions filter) {
+    return filter == AppbarFilterOptions.All
         ? MockedDatasource().products()
         : MockedDatasource().favoritesProducts();
   }
