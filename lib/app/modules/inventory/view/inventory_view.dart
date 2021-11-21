@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 
-import '../../../core/components/custom_indicator.dart';
-import '../../../core/components/custom_listview/inventory/inventory_staggered_listview.dart';
+import '../../../core/custom_widgets/custom_indicator.dart';
 import '../../../core/keys/inventory_keys.dart';
 import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/pages/components/app_messages_provided.dart';
 import '../../../core/texts_icons_provider/pages/inventory/inventory_texts_icons_provided.dart';
 import '../controller/inventory_controller.dart';
+import '../core/custom_listview/inventory_staggered_listview.dart';
 
 class InventoryView extends StatelessWidget {
   final _controller = Get.find<InventoryController>();

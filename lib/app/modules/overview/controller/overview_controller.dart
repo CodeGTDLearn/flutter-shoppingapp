@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-import '../../../core/components/custom_appbar/appbar_filter_options.dart';
 import '../../inventory/entity/product.dart';
+import '../core/custom_appbar/appbar_filter_options.dart';
 import '../service/i_overview_service.dart';
 
 class OverviewController extends GetxController {

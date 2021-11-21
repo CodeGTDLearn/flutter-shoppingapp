@@ -1,5 +1,5 @@
-import '../../../core/components/custom_appbar/appbar_filter_options.dart';
 import '../../inventory/entity/product.dart';
+import '../core/custom_appbar/appbar_filter_options.dart';
 
 abstract class IOverviewService {
   Future<List<Product>> getProducts();

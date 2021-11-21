@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
-import 'package:shopingapp/app/core/bindings/cart_bindings.dart';
 import 'package:shopingapp/app/core/properties/theme/app_theme_controller.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
+import 'package:shopingapp/app/modules/cart/core/cart_bindings.dart';
 import 'package:shopingapp/app/modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
@@ -29,9 +29,9 @@ class CustomComponentsTestBindings {
       Get.lazyPut<IOverviewRepo>(() => repo);
 
       Get.lazyPut<IOverviewService>(
-              () => OverviewService(repo: Get.find<IOverviewRepo>()));
+          () => OverviewService(repo: Get.find<IOverviewRepo>()));
       Get.lazyPut<OverviewController>(
-              () => OverviewController(service: Get.find<IOverviewService>()));
+          () => OverviewController(service: Get.find<IOverviewService>()));
 
       Get.lazyPut<AppThemeController>(() => AppThemeController());
 

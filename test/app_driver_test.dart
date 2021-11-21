@@ -36,6 +36,10 @@ void main() {
   if (_env != WIDGET_TEST && _env != INTEGRATION_TEST) print('TestType invalid.');
 }
 
+// ISOLATED STATE:
+// MOSTLY, OF WIDGET-TESTS HAVE ISOLATED TEST
+// MEANING, IN THE ALL METHODS 'FOR-EACH' A NEW MOCKED-DATASOURCE
+// IS LOADED, THEREFORE, EACH THE TESTS CAN HAVE ITS OWN STATE
 void _unitTests() {
   final SKIP_GROUP = false;
 
@@ -48,6 +52,11 @@ void _unitTests() {
   CustomIndicatorTestGroups().groups(skipGroup: SKIP_GROUP);
 }
 
+// SHARED STATE:
+// ONCE, A REAL DATABASE (FIREBASE) IS BEING USED
+// IT IS IMPOSSIBLE ISOLATE THE STATE FOR EACH-TEST
+// HENCE, 'ALL-TESTS' SHOULD BE EXECUTED TOGETHER
+// BECAUSE THE SHARE THE DB-STATE
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 

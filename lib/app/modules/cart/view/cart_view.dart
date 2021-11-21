@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/components/custom_indicator.dart';
-import '../../../core/components/custom_listview/cart/cart_staggered_listview.dart';
-import '../../../core/components/custom_snackbar/simple_snackbar.dart';
+import '../../../core/custom_widgets/custom_indicator.dart';
+import '../../../core/custom_widgets/custom_snackbar/simple_snackbar.dart';
 import '../../../core/keys/cart_keys.dart';
 import '../../../core/properties/app_properties.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
 import '../../../core/texts_icons_provider/pages/cart/cart_texts_icons_provided.dart';
 import '../../../core/texts_icons_provider/pages/order/messages_snackbars_provided.dart';
 import '../controller/cart_controller.dart';
+import '../core/custom_listview/cart_staggered_listview.dart';
 
 class CartView extends StatelessWidget {
   final _controller = Get.find<CartController>();

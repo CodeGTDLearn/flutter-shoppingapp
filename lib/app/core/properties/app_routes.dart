@@ -1,15 +1,15 @@
 import 'package:get/get.dart';
 
+import '../../modules/cart/core/cart_bindings.dart';
 import '../../modules/cart/view/cart_view.dart';
+import '../../modules/inventory/core/inventory_bindings.dart';
 import '../../modules/inventory/view/inventory_edit_view.dart';
 import '../../modules/inventory/view/inventory_view.dart';
+import '../../modules/orders/core/orders_bindings.dart';
 import '../../modules/orders/view/orders_view.dart';
+import '../../modules/overview/core/overview_bindings.dart';
 import '../../modules/overview/view/overview_item_details_view.dart';
 import '../../modules/overview/view/overview_view.dart';
-import '../bindings/cart_bindings.dart';
-import '../bindings/inventory_bindings.dart';
-import '../bindings/orders_bindings.dart';
-import '../bindings/overview_bindings.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class AppRoutes {

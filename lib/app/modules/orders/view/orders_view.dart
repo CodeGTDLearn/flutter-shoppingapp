@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/components/custom_indicator.dart';
-import '../../../core/components/custom_listview/order/orders_staggered_listview.dart';
+import '../../../core/custom_widgets/custom_indicator.dart';
 import '../../../core/texts_icons_provider/pages/components/app_messages_provided.dart';
 import '../../../core/texts_icons_provider/pages/order/orders_texts_icons_provided.dart';
 import '../controller/orders_controller.dart';
+import '../core/custom_listview/orders_staggered_listview.dart';
 
 // ignore: must_be_immutable
 class OrdersView extends StatelessWidget {

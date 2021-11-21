@@ -4,7 +4,7 @@ import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/keys/overview_keys.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
-import 'package:shopingapp/app/modules/overview/components/overview_griditem.dart';
+import 'package:shopingapp/app/modules/overview/core/griditem.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_item_details_view.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
@@ -44,7 +44,7 @@ class OverviewTests {
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     uiTestUtils.check_widgetQuantityInAView(
       widgetView: OverviewView,
-      widgetType: OverviewGridItem,
+      widgetType: GridItem,
       widgetQtde: qtde,
     );
   }
@@ -166,7 +166,7 @@ class OverviewTests {
 
     uiTestUtils.check_widgetQuantityInAView(
       widgetView: OverviewView,
-      widgetType: OverviewGridItem,
+      widgetType: GridItem,
       widgetQtde: itemsQtde,
     );
   }
@@ -174,6 +174,7 @@ class OverviewTests {
   Future<void> toggle_favoriteButton_in_overviewGridItem(
     WidgetTester tester, {
     required String toggleButtonKey,
+    required totalProducts,
   }) async {
     await uiTestUtils.testInitialization(
       tester,
@@ -182,25 +183,28 @@ class OverviewTests {
       applyDelay: true,
     );
 
-    var qtdeTypes = finder.countItemsFromFinder(
+    var favoritesIcons = finder.countItemsFromFinder(
       finder.iconType(IconButton, Icons.favorite),
     );
 
-    if (qtdeTypes == 0) {
-      await tester.tap(finder.key(toggleButtonKey));
-      await tester.pumpAndSettle(testUtils.delay(DELAY));
-      qtdeTypes = 1;
-    }
+    var unfavoritesIcons = finder.countItemsFromFinder(
+      finder.iconType(IconButton, Icons.favorite_border),
+    );
 
-    finder.countItemsFromFinder(
+    expect(totalProducts, favoritesIcons + unfavoritesIcons);
+
+    await tester.tap(finder.key(toggleButtonKey));
+    await tester.pumpAndSettle(testUtils.delay(DELAY));
+
+    favoritesIcons = finder.countItemsFromFinder(
       finder.iconType(IconButton, Icons.favorite),
     );
 
-    expect(
-      // finder.iconData(Icons.favorite),
-      finder.iconType(IconButton, Icons.favorite),
-      findsNWidgets(qtdeTypes),
+    unfavoritesIcons = finder.countItemsFromFinder(
+      finder.iconType(IconButton, Icons.favorite_border),
     );
+
+    expect(totalProducts, favoritesIcons + unfavoritesIcons);
   }
 
   Future<void> check_product_details_image_backbutton_overview(

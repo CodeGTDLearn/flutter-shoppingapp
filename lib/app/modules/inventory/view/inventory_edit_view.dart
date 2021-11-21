@@ -2,8 +2,8 @@ import 'package:currency_textfield/currency_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/components/custom_indicator.dart';
-import '../../../core/components/custom_snackbar/simple_snackbar.dart';
+import '../../../core/custom_widgets/custom_indicator.dart';
+import '../../../core/custom_widgets/custom_snackbar/simple_snackbar.dart';
 import '../../../core/keys/inventory_keys.dart';
 import '../../../core/properties/app_owasp_regex.dart';
 import '../../../core/properties/app_properties.dart';
@@ -11,16 +11,16 @@ import '../../../core/texts_icons_provider/generic_words.dart';
 import '../../../core/texts_icons_provider/pages/inventory/inventory_edit_texts_icons_provided.dart';
 import '../../../core/texts_icons_provider/pages/inventory/messages_snackbars_provided.dart';
 import '../../overview/controller/overview_controller.dart';
-import '../components/custom_form_field/custom_form_field.dart';
-import '../components/custom_form_field/field_properties/description_properties.dart';
-import '../components/custom_form_field/field_properties/price_properties.dart';
-import '../components/custom_form_field/field_properties/title_properties.dart';
-import '../components/custom_form_field/field_properties/url_properties.dart';
-import '../components/custom_form_field/field_validators/description_validator.dart';
-import '../components/custom_form_field/field_validators/price_validator.dart';
-import '../components/custom_form_field/field_validators/title_validator.dart';
-import '../components/custom_form_field/field_validators/url_validator.dart';
 import '../controller/inventory_controller.dart';
+import '../core/custom_form_field/custom_form_field.dart';
+import '../core/custom_form_field/field_properties/description_properties.dart';
+import '../core/custom_form_field/field_properties/price_properties.dart';
+import '../core/custom_form_field/field_properties/title_properties.dart';
+import '../core/custom_form_field/field_properties/url_properties.dart';
+import '../core/custom_form_field/field_validators/description_validator.dart';
+import '../core/custom_form_field/field_validators/price_validator.dart';
+import '../core/custom_form_field/field_validators/title_validator.dart';
+import '../core/custom_form_field/field_validators/url_validator.dart';
 import '../entity/product.dart';
 
 class InventoryEditView extends StatefulWidget {
@@ -118,7 +118,7 @@ class _InventoryEditViewState extends State<InventoryEditView> {
                           controller: _product.price.toString() == '0.0'
                               ? _priceController()
                               : null),
-                      CustomFormField(DescripProperties()).create(
+                      CustomFormField(DescriptionProperties()).create(
                           product: _product,
                           initialValue: _product.description,
                           context: context,

@@ -74,6 +74,7 @@ class OverviewViewTest {
       await _tests.toggle_favoriteButton_in_overviewGridItem(
         tester,
         toggleButtonKey: "$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0",
+        totalProducts: _products.length,
       );
     });
 
