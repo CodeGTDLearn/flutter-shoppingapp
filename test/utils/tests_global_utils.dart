@@ -1,4 +1,5 @@
-import 'package:get/get.dart';
+import 'package:get/get_common/get_reset.dart';
+import 'package:get/get_core/get_core.dart';
 
 class TestsGlobalUtils {
   void globalSetUpAll({

@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
+import 'package:get/get_common/get_reset.dart';
+import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/properties/theme/app_theme_controller.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/cart/repo/cart_repo_firebase.dart';
@@ -16,11 +17,11 @@ import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 
-import '../../app/modules/orders/repo/orders_mocked_repo.dart';
-import '../../app/modules/overview/repo/overview_mocked_repo.dart';
+import '../../orders/repo/orders_mocked_repo.dart';
+import '../../overview/repo/overview_mocked_repo.dart';
 
 class CartTestBindings {
-  final ICartRepo _mocked_repo_tobe_used = CartRepoFirebase();
+  final ICartRepo _mocked_repo = CartRepoFirebase();
 
   void _bindingsBuilder(ICartRepo cartRepo) {
     Get.reset();
@@ -77,6 +78,6 @@ class CartTestBindings {
   }
 
   void bindingsBuilder({required bool isWidgetTest}) {
-    if (isWidgetTest) _bindingsBuilder(_mocked_repo_tobe_used);
+    if (isWidgetTest) _bindingsBuilder(_mocked_repo);
   }
 }

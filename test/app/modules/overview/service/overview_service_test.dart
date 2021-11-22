@@ -1,13 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/overview/core/custom_appbar/appbar_filter_options.dart';
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 
-import '../../../../config/bindings/overview_test_bindings.dart';
 import '../../../../datasource/mocked_datasource.dart';
+import '../core/overview_test_bindings.dart';
 import 'overview_mocked_service.dart';
 
 class OverviewServiceTests {
@@ -17,7 +17,7 @@ class OverviewServiceTests {
     var testConfig = Get.put(OverviewTestBindings());
 
     setUp(() {
-      testConfig.bindingsBuilder(isWidgetTest: true);
+      testConfig.bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
       _repo = Get.find<IOverviewRepo>();
       _service = OverviewService(repo: _repo);
       _injectService = OverviewInjectMockedService();

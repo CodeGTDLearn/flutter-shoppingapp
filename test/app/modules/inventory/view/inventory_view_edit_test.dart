@@ -1,9 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/keys/inventory_keys.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
-import '../../../../config/bindings/inventory_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
 import '../../../../config/titles/inventory_test_titles.dart';
 import '../../../../data_builders/product_databuilder.dart';
@@ -12,6 +11,7 @@ import '../../../../utils/testdb_utils.dart';
 import '../../../../utils/tests_global_utils.dart';
 import '../../../../utils/tests_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
+import '../core/inventory_test_bindings.dart';
 import 'inventory_tests.dart';
 
 class InventoryViewEditTest {
@@ -37,9 +37,8 @@ class InventoryViewEditTest {
         testUtils: _testUtils));
 
     setUpAll(
-      () async => _globalUtils.globalSetUpAll(
-          testModuleName:
-              '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE'),
+          () async => _globalUtils.globalSetUpAll(
+          testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE'),
     );
 
     tearDownAll(() => _globalUtils.globalTearDownAll(

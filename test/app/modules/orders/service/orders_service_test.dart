@@ -1,9 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
+import 'package:get/get_common/get_reset.dart';
+import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/orders/entity/order.dart';
 import 'package:shopingapp/app/modules/orders/service/i_orders_service.dart';
 
-import '../../../../config/bindings/orders_test_bindings.dart';
+import '../core/orders_test_bindings.dart';
 
 class OrdersServiceTests {
   void unit() {
@@ -35,6 +36,7 @@ class OrdersServiceTests {
       });
     });
 
+    //todo: change for AtElement
     test('Getting Orders (getLocalDataOrders)', () {
       _service.getOrders().then((_) {
         var list = _service.getLocalDataOrders();

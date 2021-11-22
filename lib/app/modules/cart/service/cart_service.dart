@@ -30,7 +30,7 @@ class CartService implements ICartService {
     repo.clearCart();
   }
 
-  double cartItemTotal$Amount() {
+  double amountCartItems() {
     var total = 0.0;
     getAllCartItems().forEach((key, cartItem) {
       total += cartItem.price * cartItem.qtde;
@@ -38,7 +38,7 @@ class CartService implements ICartService {
     return total;
   }
 
-  int cartItemsQtde() {
+  int qtdeCartItems() {
     var totalQtde = 0;
     getAllCartItems().forEach((x, item) => totalQtde += item.qtde);
     return totalQtde;

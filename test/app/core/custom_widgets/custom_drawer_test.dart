@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 
-import '../../../config/bindings/custom_components_test_bindings.dart';
 import '../../../config/tests_properties.dart';
 import '../../../config/titles/custom_drawer_test_titles.dart';
 import '../../../utils/finder_utils.dart';
@@ -9,12 +8,13 @@ import '../../../utils/tests_global_utils.dart';
 import '../../../utils/tests_utils.dart';
 import '../../../utils/ui_test_utils.dart';
 import 'custom_drawer_tests.dart';
+import 'custom_widgets_test_bindings.dart';
 
 class CustomDrawerTest {
   late bool _isWidgetTest;
   final _finder = Get.put(FinderUtils());
   final _uiUtils = Get.put(UiTestUtils());
-  final _bindings = Get.put(CustomComponentsTestBindings());
+  final _bindings = Get.put(CustomWidgetsTestBindings());
   final _titles = Get.put(CustomDrawerTestTitles());
   final _testUtils = Get.put(TestsUtils());
   final _globalUtils = Get.put(TestsGlobalUtils());

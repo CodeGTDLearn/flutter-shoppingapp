@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/cart/repo/i_cart_repo.dart';
 
-import '../../../config/bindings/cart_test_bindings.dart';
 import '../../../data_builders/cartitem_databuilder.dart';
 import '../../../datasource/mocked_datasource.dart';
+import 'core/cart_test_bindings.dart';
 
 /*
  THERE IS NO NECESSITY OF _injectableRepoMock

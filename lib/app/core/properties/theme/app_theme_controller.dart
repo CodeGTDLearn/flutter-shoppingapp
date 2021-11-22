@@ -1,11 +1,12 @@
-import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
+import 'package:get/route_manager.dart';
+import 'package:get/state_manager.dart';
 
-import '../../shared_preferences/i_shared_prefs_repo.dart';
 import '../../shared_preferences/shared_prefs_repo.dart';
 import 'app_theme.dart';
 
 class AppThemeController extends GetxController {
-  final ISharedPrefsRepo _sharedPreferencesRepo = Get.put(SharedPrefsRepo());
+  final _sharedPreferencesRepo = Get.put(SharedPrefsRepo());
 
   var isDark = false.obs;
 

@@ -1,11 +1,12 @@
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
+import 'package:get/get_common/get_reset.dart';
+import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/orders/entity/order.dart';
 import 'package:shopingapp/app/modules/orders/repo/i_orders_repo.dart';
 
-import '../../../../config/bindings/orders_test_bindings.dart';
 import '../../../../data_builders/order_databuilder.dart';
+import '../core/orders_test_bindings.dart';
 
 class OrdersRepoTests {
   void unit() {

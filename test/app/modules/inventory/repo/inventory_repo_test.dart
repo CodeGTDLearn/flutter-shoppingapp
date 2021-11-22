@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
 
-import '../../../../config/bindings/inventory_test_bindings.dart';
 import '../../../../datasource/mocked_datasource.dart';
+import '../core/inventory_test_bindings.dart';
 import 'inventory_mocked_repo_inject.dart';
 
 class InventoryRepoTests {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
+import 'package:get/route_manager.dart';
+import 'package:get/state_manager.dart';
 
 import '../../modules/cart/service/i_cart_service.dart';
 import '../../modules/inventory/controller/inventory_controller.dart';
@@ -14,10 +16,10 @@ import 'custom_snackbar/simple_snackbar.dart';
 
 // ignore: must_be_immutable
 class CustomDrawer extends StatelessWidget {
-  final ICartService _cart = Get.find();
-  final IOrdersService _orders = Get.find();
-  final InventoryController _inventory = Get.find();
-  final AppThemeController _darkThemeController = Get.find();
+  final _cart = Get.find<ICartService>();
+  final _orders = Get.find<IOrdersService>();
+  final _inventory = Get.find<InventoryController>();
+  final _darkThemeController = Get.find<AppThemeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class CustomDrawer extends StatelessWidget {
             key: K_DRW_OV_OP1,
             context: context),
         _drawerItem(
-            quantityItems: _cart.cartItemsQtde(),
+            quantityItems: _cart.qtdeCartItems(),
             leadIcon: DRW_ICO_CART,
             title: DRW_LBL_CART,
             message: DRW_TXT_CART,

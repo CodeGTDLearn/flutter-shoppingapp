@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:get/state_manager.dart';
 
 import '../entity/order.dart';
 import '../service/i_orders_service.dart';

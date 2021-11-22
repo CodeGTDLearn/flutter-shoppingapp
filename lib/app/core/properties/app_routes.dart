@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:get/route_manager.dart';
 
 import '../../modules/cart/core/cart_bindings.dart';
 import '../../modules/cart/view/cart_view.dart';

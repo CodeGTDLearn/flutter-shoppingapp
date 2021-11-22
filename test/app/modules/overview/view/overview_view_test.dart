@@ -1,10 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/keys/components/custom_snackbar_keys.dart';
 import 'package:shopingapp/app/core/keys/overview_keys.dart';
 import 'package:shopingapp/app/core/properties/app_urls.dart';
 
-import '../../../../config/bindings/overview_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
 import '../../../../config/titles/overview_test_titles.dart';
 import '../../../../datasource/mocked_datasource.dart';
@@ -13,6 +12,7 @@ import '../../../../utils/testdb_utils.dart';
 import '../../../../utils/tests_global_utils.dart';
 import '../../../../utils/tests_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
+import '../core/overview_test_bindings.dart';
 import 'overview_tests.dart';
 
 class OverviewViewTest {
@@ -58,7 +58,7 @@ class OverviewViewTest {
 
       _products.toString();
 
-      _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest);
+      _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest, isEmptyDb: false);
     });
 
     tearDown(_globalUtils.globalTearDown);

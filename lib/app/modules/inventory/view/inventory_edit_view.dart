@@ -1,6 +1,8 @@
 import 'package:currency_textfield/currency_textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/instance_manager.dart';
+import 'package:get/state_manager.dart';
 
 import '../../../core/custom_widgets/custom_indicator.dart';
 import '../../../core/custom_widgets/custom_snackbar/simple_snackbar.dart';

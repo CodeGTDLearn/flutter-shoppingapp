@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 
 import '../../../core/custom_widgets/custom_drawer.dart';
 import '../../../core/properties/theme/app_theme_controller.dart';
@@ -19,13 +19,10 @@ class OverviewBindings extends Bindings {
 
     Get.lazyPut<IOverviewRepo>(() => OverviewRepoFirebase());
 
-    Get.lazyPut<IOverviewService>(() => OverviewService(
-          repo: Get.find<IOverviewRepo>(),
-        ));
+    Get.lazyPut<IOverviewService>(() => OverviewService(repo: Get.find<IOverviewRepo>()));
 
-    Get.lazyPut<OverviewController>(() => OverviewController(
-          service: Get.find<IOverviewService>(),
-        ));
+    Get.lazyPut<OverviewController>(
+        () => OverviewController(service: Get.find<IOverviewService>()));
 
     OrdersBindings().dependencies();
 

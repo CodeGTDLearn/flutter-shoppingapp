@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:get/state_manager.dart';
 
 import '../../inventory/entity/product.dart';
 import '../core/custom_appbar/appbar_filter_options.dart';

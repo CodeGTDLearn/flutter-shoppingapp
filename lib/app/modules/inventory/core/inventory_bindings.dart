@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 
 import '../../../core/custom_widgets/custom_drawer.dart';
 import '../../overview/service/i_overview_service.dart';

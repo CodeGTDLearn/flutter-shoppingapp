@@ -17,7 +17,6 @@ import '../../controller/overview_controller.dart';
 import 'icustom_gridtile.dart';
 
 class AnimatedGridtile implements ICustomGridtile {
-  // final _overviewController = Get.find<OverviewController>();
   final _cartController = Get.find<CartController>();
 
   @override

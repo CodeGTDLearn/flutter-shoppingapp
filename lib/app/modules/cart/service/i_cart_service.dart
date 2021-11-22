@@ -10,9 +10,9 @@ abstract class ICartService {
 
   void removeCartItem(CartItem cartItem);
 
-  double cartItemTotal$Amount();
+  double amountCartItems();
 
-  int cartItemsQtde();
+  int qtdeCartItems();
 
   void clearCart();
 }

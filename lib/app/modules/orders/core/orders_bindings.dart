@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 
 import '../controller/orders_controller.dart';
 import '../repo/i_orders_repo.dart';

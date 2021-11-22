@@ -1,8 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/properties/app_urls.dart';
 
-import '../../../../config/bindings/cart_test_bindings.dart';
 import '../../../../config/tests_properties.dart';
 import '../../../../config/titles/cart_test_titles.dart';
 import '../../../../datasource/mocked_datasource.dart';
@@ -11,6 +10,7 @@ import '../../../../utils/testdb_utils.dart';
 import '../../../../utils/tests_global_utils.dart';
 import '../../../../utils/tests_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
+import '../core/cart_test_bindings.dart';
 import 'cart_tests.dart';
 
 class CartViewTest {

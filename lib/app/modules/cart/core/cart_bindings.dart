@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 
 import '../../orders/service/i_orders_service.dart';
 import '../controller/cart_controller.dart';

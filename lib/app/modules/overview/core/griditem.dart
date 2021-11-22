@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 
 import '../../inventory/entity/product.dart';
 import '../controller/overview_controller.dart';
+import '../service/i_overview_service.dart';
 import 'custom_griditem/simple_gridtile.dart';
 
 class GridItem extends StatelessWidget {
   final Product _product;
 
-  final _uniqueController = OverviewController(service: Get.find());
-
+  // todo: possible bug
+  final _uniqueController = OverviewController(service: Get.find<IOverviewService>());
   final String index;
 
   GridItem(this._product, this.index);

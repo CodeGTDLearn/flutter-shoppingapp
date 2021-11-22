@@ -1,14 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
-import 'app/core/components/custom_appbar_test.dart';
-import 'app/core/components/custom_drawer_test.dart';
-import 'app/core/components/custom_indicator_test.dart';
+import 'app/core/custom_widgets/custom_drawer_test.dart';
+import 'app/core/custom_widgets/custom_indicator_test.dart';
 import 'app/modules/cart/view/cart_view_test.dart';
 import 'app/modules/inventory/view/inventory_view_edit_test.dart';
 import 'app/modules/inventory/view/inventory_view_test.dart';
 import 'app/modules/inventory/view/inventory_view_validation_test.dart';
 import 'app/modules/orders/view/orders_view_test.dart';
+import 'app/modules/overview/core/custom_appbar_test.dart';
 import 'app/modules/overview/view/overview_view_test.dart';
 import 'config/groups/cart_test_groups.dart';
 import 'config/groups/custom_appbar_test_groups.dart';

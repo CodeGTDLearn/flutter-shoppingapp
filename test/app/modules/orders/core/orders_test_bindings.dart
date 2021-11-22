@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
+import 'package:get/get_common/get_reset.dart';
+import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/properties/theme/app_theme_controller.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/cart/repo/cart_repo_firebase.dart';
@@ -17,12 +18,12 @@ import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
 
-import '../../app/modules/orders/repo/orders_mocked_repo.dart';
-import '../../app/modules/orders/repo/orders_mocked_repo_emptydb.dart';
-import '../../app/modules/overview/repo/overview_mocked_repo.dart';
+import '../../overview/repo/overview_mocked_repo.dart';
+import '../repo/orders_mocked_repo.dart';
+import '../repo/orders_mocked_repo_emptydb.dart';
 
 class OrdersTestBindings {
-  final IOrdersRepo _mocked_repo_tobe_used = OrdersMockedRepo();
+  final IOrdersRepo _mocked_repo = OrdersMockedRepo();
 
   void _bindingsBuilder(IOrdersRepo ordersRepo) {
     Get.reset();
@@ -84,16 +85,8 @@ class OrdersTestBindings {
     HttpOverrides.global = null;
   }
 
-  // void bindingsBuilderMockedRepo({required bool isWidgetTest}) {
-  //   if (isWidgetTest) _bindingsBuilder(_mocked_repo_tobe_used);
-  // }
-  //
-  // void bindingsBuilderMockRepoEmptyDb({required bool isWidgetTest}) {
-  //   if (isWidgetTest) _bindingsBuilder(OrdersMockedRepoEmptyDb());
-  // }
-
   void bindingsBuilder({required bool isWidgetTest, required bool isEmptyDb}) {
-    if (isWidgetTest && !isEmptyDb) _bindingsBuilder(_mocked_repo_tobe_used);
+    if (isWidgetTest && !isEmptyDb) _bindingsBuilder(_mocked_repo);
     if (isWidgetTest && isEmptyDb) _bindingsBuilder(OrdersMockedRepoEmptyDb());
   }
 }

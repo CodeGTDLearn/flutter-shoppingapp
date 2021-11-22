@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/keys/cart_keys.dart';
 import 'package:shopingapp/app/core/keys/components/custom_indicator_keys.dart';
 import 'package:shopingapp/app/core/keys/overview_keys.dart';
@@ -285,11 +285,6 @@ class CartTests {
       expect(finder.text((i + 1).toString()), findsOneWidget);
     }
 
-    // await tester.tap(CartIconProduct0);
-    // await tester.pumpAndSettle(testUtils.delay(DELAY));
-    // expect(finder.text("2"), findsOneWidget);
-
-    // var cartButtonView = finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
     await tester.tap(finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
     await tester.pump();
     await tester.pumpAndSettle(testUtils.delay(DELAY));

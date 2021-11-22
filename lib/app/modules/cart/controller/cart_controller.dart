@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:get/state_manager.dart';
 
 import '../../inventory/entity/product.dart';
 import '../../orders/entity/order.dart';
@@ -9,6 +9,8 @@ import '../service/i_cart_service.dart';
 class CartController extends GetxController {
   final ICartService cartService;
   final IOrdersService ordersService;
+
+  var renderStaggeredListView = false.obs;
 
   var qtdeCartItemsObs = 0.obs;
   var amountCartItemsObs = 0.0.obs;
@@ -35,8 +37,8 @@ class CartController extends GetxController {
   }
 
   void recalcQtdeAndAmountCart() {
-    qtdeCartItemsObs.value = cartService.cartItemsQtde();
-    amountCartItemsObs.value = cartService.cartItemTotal$Amount();
+    qtdeCartItemsObs.value = cartService.qtdeCartItems();
+    amountCartItemsObs.value = cartService.amountCartItems();
   }
 
   void removeCartItem(CartItem cartItem) {

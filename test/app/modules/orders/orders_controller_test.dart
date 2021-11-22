@@ -1,9 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
+import 'package:get/get_common/get_reset.dart';
+import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/orders/controller/orders_controller.dart';
 
-import '../../../config/bindings/orders_test_bindings.dart';
 import '../../../datasource/mocked_datasource.dart';
+import 'core/orders_test_bindings.dart';
 
 class OrdersControllerTests {
   void integration() {

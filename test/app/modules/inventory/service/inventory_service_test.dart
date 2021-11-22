@@ -1,12 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/inventory/service/i_inventory_service.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 
-import '../../../../config/bindings/inventory_test_bindings.dart';
 import '../../../../data_builders/product_databuilder.dart';
 import '../../../../datasource/mocked_datasource.dart';
+import '../core/inventory_test_bindings.dart';
 
 class InventoryServiceTests {
   void unit() {

@@ -6,10 +6,10 @@ import 'package:shopingapp/app/core/texts_icons_provider/pages/overview/overview
 import 'package:shopingapp/app/modules/overview/core/griditem.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
-import '../../../config/tests_properties.dart';
-import '../../../utils/finder_utils.dart';
-import '../../../utils/tests_utils.dart';
-import '../../../utils/ui_test_utils.dart';
+import '../../../../config/tests_properties.dart';
+import '../../../../utils/finder_utils.dart';
+import '../../../../utils/tests_utils.dart';
+import '../../../../utils/ui_test_utils.dart';
 
 class CustomAppbarTests {
   final bool isWidgetTest;

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
+import 'package:get/route_manager.dart';
 
 import 'app/core/properties/app_properties.dart';
 import 'app/core/properties/app_routes.dart';
 import 'app/core/properties/theme/app_theme.dart';
 import 'app/core/properties/theme/app_theme_controller.dart';
-import 'app/core/shared_preferences/i_shared_prefs_repo.dart';
 import 'app/core/shared_preferences/shared_prefs_repo.dart';
 
 void main() => runApp(AppDriver());
@@ -13,7 +13,7 @@ void main() => runApp(AppDriver());
 class AppDriver extends StatelessWidget {
   final _appTheme = Get.put(AppTheme());
   final _darkTheme = Get.put(AppThemeController());
-  final _sharedPrefsRepo = Get.put<ISharedPrefsRepo>(SharedPrefsRepo());
+  final _sharedPrefsRepo = Get.put(SharedPrefsRepo());
 
   @override
   Widget build(BuildContext context) {

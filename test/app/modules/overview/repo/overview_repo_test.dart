@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 
-import '../../../../config/bindings/overview_test_bindings.dart';
 import '../../../../data_builders/product_databuilder.dart';
+import '../core/overview_test_bindings.dart';
 import 'overview_mocked_repo_inject.dart';
 
 class OverviewRepoTests {
@@ -14,7 +14,7 @@ class OverviewRepoTests {
     var testConfig = Get.put(OverviewTestBindings());
 
     setUp(() {
-      testConfig.bindingsBuilder(isWidgetTest: true);
+      testConfig.bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
       _repo = Get.find<IOverviewRepo>();
       _injectRepo = OverviewMockedRepoInject();
       _productFail = ProductDataBuilder().ProductWithId();
