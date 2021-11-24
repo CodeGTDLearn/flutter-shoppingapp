@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/num_extensions.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
+import 'package:shopingapp/app/core/custom_widgets/custom_alert_dialog.dart';
 
 import '../../../core/custom_widgets/custom_snackbar/simple_snackbar.dart';
 import '../../../core/properties/app_properties.dart';
@@ -58,23 +59,29 @@ class DismissibleCartItem extends StatelessWidget {
                     trailing: Text('x${_cartItem.qtde}')))),
         //
         confirmDismiss: (direction) {
-          return showDialog<bool>(
-              context: context,
-              builder: (context) => AlertDialog(
-                      title: Text(CRT_LBL_CONF_DISM),
-                      content: Text('$CRT_MSG_CONF_DISM${_cartItem.title}'
-                          ' from the cart?'),
-                      actions: <Widget>[
-                        _textButton(YES, true, context),
-                        _textButton(NO, false, context)
-                      ]));
+          return CustomAlertDialog.showOptionDialog(
+            context,
+            CRT_LBL_CONF_DISM,
+            '$CRT_MSG_CONF_DISM${_cartItem.title} from the cart?',
+            YES,
+            NO,
+            () => {},
+            () => {},
+          );
         });
   }
 
-  TextButton _textButton(String label, bool remove, BuildContext context) {
-    return TextButton(
-      onPressed: () => Navigator.of(context).pop(remove),
-      child: Text(label),
-    );
-  }
+// Future<bool?> _showDialog(context, String title, content) {
+//   var _navCtx = Navigator.of(context);
+//   return showDialog<bool>(
+//       context: context,
+//       builder: (_) => AlertDialog(
+//             title: Text(title),
+//             content: Text(content),
+//             actions: <Widget>[
+//               TextButton(onPressed: () => _navCtx.pop(true), child: Text(YES)),
+//               TextButton(onPressed: () => _navCtx.pop(false), child: Text(NO)),
+//             ],
+//           ));
+// }
 }

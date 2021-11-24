@@ -39,6 +39,7 @@ class InventoryView extends StatelessWidget {
   }
 }
 
+//-----------------------------------------------------------------------------
 // GERENCIA DE ESTADO SIMPLES - COM O GET
 //      body: GetBuilder<ManagedProductsController>(
 //          init: ManagedProductsController(),
@@ -52,5 +53,4 @@ class InventoryView extends StatelessWidget {
 //                    ),
 //                    Divider()
 //                  ]))),
-
-//----------
+//-----------------------------------------------------------------------------

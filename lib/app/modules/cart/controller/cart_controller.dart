@@ -10,7 +10,7 @@ class CartController extends GetxController {
   final ICartService cartService;
   final IOrdersService ordersService;
 
-  var renderStaggeredListView = false.obs;
+  var renderListView = true.obs;
 
   var qtdeCartItemsObs = 0.obs;
   var amountCartItemsObs = 0.0.obs;
@@ -37,8 +37,8 @@ class CartController extends GetxController {
   }
 
   void recalcQtdeAndAmountCart() {
-    qtdeCartItemsObs.value = cartService.qtdeCartItems();
     amountCartItemsObs.value = cartService.amountCartItems();
+    qtdeCartItemsObs.value = cartService.qtdeCartItems();
   }
 
   void removeCartItem(CartItem cartItem) {

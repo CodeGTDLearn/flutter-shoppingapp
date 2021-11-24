@@ -10,36 +10,38 @@ class CartStaggeredListview implements ICustomCartListview {
   final itemCount;
   final delayMilliseconds;
   final verticalOffset;
-  final reverse;
-  final fade;
-  final curve;
+  final horizontalOffset;
+  final invertTargetPosition;
+  final fadeEffect;
+  final fadeCurve;
 
   CartStaggeredListview({
     this.itemCount = ITEM_COUNT,
-    this.delayMilliseconds = DELAY_MILLISEC_GRIDVIEW,
-    this.verticalOffset = VERTICAL_OFFSET_GRIDVIEW,
-    this.reverse = false,
-    this.fade = false,
-    this.curve = Curves.ease,
+    this.delayMilliseconds = DELAY_MILLISEC_LISTVIEW,
+    this.verticalOffset = VERTICAL_OFFSET_LISTVIEW,
+    this.horizontalOffset = 0.0,
+    this.invertTargetPosition = false,
+    this.fadeEffect = false,
+    this.fadeCurve = Curves.ease,
   });
 
   @override
   Widget create(Map<String, CartItem> mapCartItems) {
-    mapCartItems = reverse ? reverseMap(mapCartItems) : mapCartItems;
+    mapCartItems = invertTargetPosition ? reverseMap(mapCartItems) : mapCartItems;
     // var total = mapCartItems.isEmpty ? 20 : mapCartItems.length;
     return AnimationLimiter(
         child: ListView.builder(
-            reverse: reverse,
+            reverse: invertTargetPosition,
             itemCount: mapCartItems.length,
             itemBuilder: (context, index) {
               return AnimationConfiguration.staggeredList(
                   position: index,
-                  duration: Duration(milliseconds: 3000),
+                  duration: Duration(milliseconds: DELAY_MILLISEC_LISTVIEW),
                   child: SlideAnimation(
                       verticalOffset: verticalOffset,
-                      child: fade
+                      child: fadeEffect
                           ? FadeInAnimation(
-                              curve: curve,
+                              curve: fadeCurve,
                               child: DismissibleCartItem.create(
                                   mapCartItems.values.elementAt(index)),
                             )

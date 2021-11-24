@@ -20,42 +20,45 @@ class BadgeShopCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(alignment: Alignment.center, children: [
-      IconButton(
-          key: Key(K_SHP_CART_APPBAR_BTN),
-          icon: OV_ICO_SHOPCART,
-          onPressed: () {
-            // todo: refactoring to ternary
-            // cond ?
-            // (() => {
-            //   print("111ScaffoldMessenger.of(context).removeCurrentSnackBar()"),
-            //   print("111Get.toNamed(AppRoutes.CART);")
-            // }).call()
-            //     : (() => {
-            //   print("222ScaffoldMessenger.of(context).removeCurrentSnackBar()"),
-            //   print("222Get.toNamed(AppRoutes.CART);")
-            // })
-            //     .call();
-            if (_controller.getAllCartItems().isEmpty) {
-              SimpleSnackbar(OPS, CART_NO_ITEMS_YET).show();
-            } else {
-              ScaffoldMessenger.of(context).removeCurrentSnackBar();
-              Get.toNamed(AppRoutes.CART);
-            }
-          }),
-      Positioned(
-          right: 8,
-          top: 8,
-          child: Container(
-              padding: EdgeInsets.all(2.0),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  color: color != null ? color : Theme.of(context).colorScheme.secondary),
-              constraints: BoxConstraints(minWidth: 16, minHeight: 16),
-              child: Obx(
-                () => Text(_controller.getQtdeCartItemsObs().toString(),
-                    textAlign: TextAlign.center, style: TextStyle(fontSize: 10)),
-              )))
-    ]);
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        IconButton(
+            key: Key(K_SHP_CART_APPBAR_BTN),
+            icon: OV_ICO_SHOPCART,
+            onPressed: () {
+              // MODEL OF SEQUENTILA TERNARY
+              // cond ?
+              // (() => {
+              //   print("111ScaffoldMessenger.of(context).removeCurrentSnackBar()"),
+              //   print("111Get.toNamed(AppRoutes.CART);")
+              // }).call()
+              //     : (() => {
+              //   print("222ScaffoldMessenger.of(context).removeCurrentSnackBar()"),
+              //   print("222Get.toNamed(AppRoutes.CART);")
+              // }).call();
+              if (_controller.getAllCartItems().isEmpty) {
+                SimpleSnackbar(OPS, CART_NO_ITEMS_YET).show();
+              } else {
+                ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                Get.toNamed(AppRoutes.CART);
+              }
+            }),
+        Positioned(
+            right: 8,
+            top: 8,
+            child: Container(
+                padding: EdgeInsets.all(2.0),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color:
+                        color != null ? color : Theme.of(context).colorScheme.secondary),
+                constraints: BoxConstraints(minWidth: 16, minHeight: 16),
+                child: Obx(
+                  () => Text(_controller.getQtdeCartItemsObs().toString(),
+                      textAlign: TextAlign.center, style: TextStyle(fontSize: 10)),
+                )))
+      ],
+    );
   }
 }
