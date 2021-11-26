@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
-import '../griditem.dart';
+import '../gridview_item.dart';
 import 'icustom_gridview.dart';
 
 class StaggeredGridview implements ICustomGridview {
@@ -29,7 +29,7 @@ class StaggeredGridview implements ICustomGridview {
                       child: FadeInAnimation(
                           child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: GridItem(
+                              child: GridViewItem(
                                 gridItems.elementAt(index),
                                 index.toString(),
                               )))));

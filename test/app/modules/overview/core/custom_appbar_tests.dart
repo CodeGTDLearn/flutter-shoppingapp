@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shopingapp/app/core/keys/overview_keys.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/overview/overview.dart';
-import 'package:shopingapp/app/modules/overview/core/griditem.dart';
+import 'package:shopingapp/app/modules/overview/core/gridview_item.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/tests_properties.dart';
@@ -152,7 +152,7 @@ class CustomAppbarTests {
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.text(OVERVIEW_TITLE_PAGE_FAVORITE), findsOneWidget);
-    expect(finder.type(GridItem), findsWidgets);
+    expect(finder.type(GridViewItem), findsWidgets);
 
     await tester.tap(finder.key(popup));
     await tester.pumpAndSettle(testUtils.delay(DELAY));

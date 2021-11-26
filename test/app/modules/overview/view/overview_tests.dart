@@ -4,7 +4,7 @@ import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/keys/overview_keys.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
-import 'package:shopingapp/app/modules/overview/core/griditem.dart';
+import 'package:shopingapp/app/modules/overview/core/gridview_item.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_item_details_view.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
@@ -44,7 +44,7 @@ class OverviewTests {
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     uiTestUtils.check_widgetQuantityInAView(
       widgetView: OverviewView,
-      widgetType: GridItem,
+      widgetType: GridViewItem,
       widgetQtde: qtde,
     );
   }
@@ -166,7 +166,7 @@ class OverviewTests {
 
     uiTestUtils.check_widgetQuantityInAView(
       widgetView: OverviewView,
-      widgetType: GridItem,
+      widgetType: GridViewItem,
       widgetQtde: itemsQtde,
     );
   }

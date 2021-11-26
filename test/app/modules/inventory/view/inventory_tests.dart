@@ -12,7 +12,7 @@ import 'package:shopingapp/app/modules/inventory/core/inventory_item.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/inventory/view/inventory_edit_view.dart';
 import 'package:shopingapp/app/modules/inventory/view/inventory_view.dart';
-import 'package:shopingapp/app/modules/overview/core/griditem.dart';
+import 'package:shopingapp/app/modules/overview/core/gridview_item.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
@@ -360,7 +360,7 @@ class InventoryTests {
     uiTestUtils.check_widgetQuantityInAView(
       widgetView: OverviewView,
       widgetQtde: qtdeAfterDelete,
-      widgetType: GridItem,
+      widgetType: GridViewItem,
     );
   }
 

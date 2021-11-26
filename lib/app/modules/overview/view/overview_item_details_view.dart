@@ -6,12 +6,16 @@ import '../../../core/keys/overview_keys.dart';
 import '../controller/overview_controller.dart';
 
 class OverviewItemDetailsView extends StatelessWidget {
-  final String _id = Get.arguments;
+  String? _id;
+
   final _controller = Get.find<OverviewController>();
+
+  OverviewItemDetailsView([this._id]);
 
   @override
   Widget build(BuildContext context) {
-    var _item = _controller.getProductById(_id);
+    if (_id == null) _id = Get.parameters['id'];
+    var _item = _controller.getProductById(_id!);
     return Scaffold(
         appBar: AppBar(title: Text(_item.title)),
         body: SingleChildScrollView(
@@ -36,3 +40,9 @@ class OverviewItemDetailsView extends StatelessWidget {
         ])));
   }
 }
+// GetPage(
+//   name: '$OVERVIEW_DETAIL',
+//   page: () => OverviewItemDetailsView(),
+// ),
+// Get.toNamed('$OVERVIEW_DETAIL_ROUTE${_product.id}'),
+// String? id = Get.arguments;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../griditem.dart';
+import '../gridview_item.dart';
 import 'icustom_gridview.dart';
 
 class SimpleGridview implements ICustomGridview {
@@ -17,7 +17,7 @@ class SimpleGridview implements ICustomGridview {
     return GridView.builder(
         padding: EdgeInsets.all(10),
         itemCount: gridItems.length,
-        itemBuilder: (_, index) => GridItem(
+        itemBuilder: (_, index) => GridViewItem(
               gridItems.elementAt(index),
               index.toString(),
             ),

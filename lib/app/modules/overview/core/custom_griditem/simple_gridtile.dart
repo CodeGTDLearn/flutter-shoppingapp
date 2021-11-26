@@ -29,7 +29,7 @@ class SimpleGridtile implements ICustomGridtile {
     return GridTile(
         child: GestureDetector(
             key: Key("$K_OV_ITM_DET_PAGE$index"),
-            onTap: () => Get.toNamed(AppRoutes.OVERVIEW_DETAIL, arguments: product.id),
+            onTap: () => Get.toNamed('${AppRoutes.OVERVIEW_DETAIL}${product.id}'),
             child: Image.network(product.imageUrl, fit: BoxFit.cover)),
         footer: GridTileBar(
             leading: Obx(

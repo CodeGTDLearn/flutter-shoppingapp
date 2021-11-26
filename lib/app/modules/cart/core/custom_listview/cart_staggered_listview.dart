@@ -18,8 +18,8 @@ class CartStaggeredListview implements ICustomCartListview {
   CartStaggeredListview({
     this.itemCount = ITEM_COUNT,
     this.delayMilliseconds = DELAY_MILLISEC_LISTVIEW,
-    this.verticalOffset = VERTICAL_OFFSET_LISTVIEW,
-    this.horizontalOffset = 0.0,
+    this.verticalOffset,
+    this.horizontalOffset,
     this.invertTargetPosition = false,
     this.fadeEffect = false,
     this.fadeCurve = Curves.ease,
@@ -28,7 +28,6 @@ class CartStaggeredListview implements ICustomCartListview {
   @override
   Widget create(Map<String, CartItem> mapCartItems) {
     mapCartItems = invertTargetPosition ? reverseMap(mapCartItems) : mapCartItems;
-    // var total = mapCartItems.isEmpty ? 20 : mapCartItems.length;
     return AnimationLimiter(
         child: ListView.builder(
             reverse: invertTargetPosition,
@@ -39,6 +38,7 @@ class CartStaggeredListview implements ICustomCartListview {
                   duration: Duration(milliseconds: DELAY_MILLISEC_LISTVIEW),
                   child: SlideAnimation(
                       verticalOffset: verticalOffset,
+                      horizontalOffset: horizontalOffset,
                       child: fadeEffect
                           ? FadeInAnimation(
                               curve: fadeCurve,

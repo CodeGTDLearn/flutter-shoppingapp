@@ -4,16 +4,15 @@ import 'package:get/instance_manager.dart';
 import '../../inventory/entity/product.dart';
 import '../controller/overview_controller.dart';
 import '../service/i_overview_service.dart';
-import 'custom_griditem/simple_gridtile.dart';
+import 'custom_griditem/animated_gridtile.dart';
 
-class GridItem extends StatelessWidget {
+class GridViewItem extends StatelessWidget {
   final Product _product;
 
-  // todo: possible bug
   final _uniqueController = OverviewController(service: Get.find<IOverviewService>());
   final String index;
 
-  GridItem(this._product, this.index);
+  GridViewItem(this._product, this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +23,7 @@ class GridItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.0)),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
-          child: SimpleGridtile().create(
-            context,
-            _product,
-            index,
-            _uniqueController,
-          ),
+          child: AnimatedGridtile().create(context, _product, index, _uniqueController),
         ));
   }
 }

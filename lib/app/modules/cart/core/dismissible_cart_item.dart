@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/num_extensions.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
-import 'package:shopingapp/app/core/custom_widgets/custom_alert_dialog.dart';
 
+import '../../../core/custom_widgets/custom_alert_dialog.dart';
 import '../../../core/custom_widgets/custom_snackbar/simple_snackbar.dart';
 import '../../../core/properties/app_properties.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
