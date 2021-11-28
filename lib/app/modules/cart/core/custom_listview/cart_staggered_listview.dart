@@ -1,4 +1,12 @@
 import 'package:flutter/widgets.dart';
+// erro Gradle + flutter_staggered_animations:
+// Script 'C:\flutter\packages\flutter_tools\gradle\flutter.gradle' line: 1005
+// Solution:
+// a) dart pub get;
+// b) flutter pub cache repair;
+// c) flutter clean;
+// d) flutter pub get;
+// e) dart pub cache clean.
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../../../core/properties/app_properties.dart';

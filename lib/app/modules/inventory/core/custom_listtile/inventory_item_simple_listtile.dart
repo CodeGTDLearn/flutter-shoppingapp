@@ -2,42 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 
-import '../../../core/custom_widgets/custom_snackbar/simple_snackbar.dart';
-import '../../../core/keys/inventory_keys.dart';
-import '../../../core/properties/app_routes.dart';
-import '../../../core/texts_icons_provider/generic_words.dart';
-import '../../../core/texts_icons_provider/pages/inventory/inventory_item_icons_provided.dart';
-import '../../../core/texts_icons_provider/pages/inventory/messages_snackbars_provided.dart';
-import '../../overview/controller/overview_controller.dart';
-import '../controller/inventory_controller.dart';
-import '../entity/product.dart';
+import '../../../../core/custom_widgets/custom_snackbar/simple_snackbar.dart';
+import '../../../../core/keys/inventory_keys.dart';
+import '../../../../core/properties/app_properties.dart';
+import '../../../../core/texts_icons_provider/generic_words.dart';
+import '../../../../core/texts_icons_provider/pages/inventory/inventory_item_icons_provided.dart';
+import '../../../../core/texts_icons_provider/pages/inventory/messages_snackbars_provided.dart';
+import '../../../overview/controller/overview_controller.dart';
+import '../../controller/inventory_controller.dart';
+import '../../entity/product.dart';
+import '../../view/inventory_edit_view.dart';
+import 'icustom_inventory_listtile.dart';
 
-class InventoryItem extends StatelessWidget {
-  final Product product;
+class InventoryItemSimpleListtile implements ICustomInventoryListtile {
+  // final Product product;
   final _inventoryController = Get.find<InventoryController>();
   final _overviewController = Get.find<OverviewController>();
 
-  InventoryItem({required this.product});
+  // InventoryItemSimpleListtile({required this.product});
 
   @override
-  Widget build(BuildContext context) {
+  Widget create(Product product) {
     var _id = product.id!;
-    var _title = product.title;
-    var _imageUrl = product.imageUrl;
+    var context = APP_CONTEXT_GLOBAL_KEY.currentContext;
 
     return ListTile(
         key: Key('$K_INV_ITEM_KEY$_id'),
-        leading: CircleAvatar(backgroundImage: NetworkImage(_imageUrl)),
-        title: Text(_title),
+        leading: CircleAvatar(backgroundImage: NetworkImage(product.imageUrl)),
+        title: Text(product.title),
         trailing: Container(
             width: 100,
             child: Row(children: <Widget>[
               IconButton(
                   key: Key('$K_INV_UPD_BTN$_id'),
                   icon: INV_ITEM_UPD_ICO,
-                  onPressed: () =>
-                      Get.toNamed(AppRoutes.INVENTORY_ADDEDIT_PRODUCT, arguments: _id),
-                  color: Theme.of(context).errorColor),
+                  onPressed: () => InventoryEditView(_id),
+                  color: Theme.of(context!).errorColor),
               IconButton(
                   key: Key('$K_INV_DEL_BTN$_id'),
                   icon: INV_ITEM_DEL_ICO,
@@ -50,9 +50,7 @@ class InventoryItem extends StatelessWidget {
                           _overviewController.updateFilteredProductsObs();
                           SimpleSnackbar(SUCES, SUCESS_MAN_PROD_DEL).show();
                         }
-                        if (statusCode >= 400) {
-                          SimpleSnackbar(OPS, ERROR_MAN_PROD).show();
-                        }
+                        if (statusCode >= 400) SimpleSnackbar(OPS, ERROR_MAN_PROD).show();
                       }),
                   // @formatter:on
                   color: Theme.of(context).errorColor),

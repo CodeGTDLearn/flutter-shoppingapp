@@ -7,9 +7,13 @@ import '../service/i_overview_service.dart';
 class OverviewController extends GetxController {
   final IOverviewService service;
 
+  //OVERVIEW VIEW -> OBSERVABLES
   var overviewViewGridViewItemsObs = <Product>[].obs;
   var favoriteStatusObs = false.obs;
   var appbarFilterPopupObs = AppbarFilterOptions.All.obs;
+
+  //OVERVIEW-DETAILS -> OBSERVABLES
+  var overviewDetailsImageZoomObs = false.obs;
 
   OverviewController({required this.service});
 
@@ -50,6 +54,10 @@ class OverviewController extends GetxController {
     favoriteStatusObs.value = getProductById(id).isFavorite;
     return futureReturn;
     // @formatter:on
+  }
+
+  void toggleOverviewDetailsImageZoom() {
+    overviewDetailsImageZoomObs.value = !overviewDetailsImageZoomObs.value;
   }
 
   Product getProductById(String id) {

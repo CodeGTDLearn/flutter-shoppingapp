@@ -1,7 +1,10 @@
 //GENERAL PROPERTIES
+import 'package:flutter/widgets.dart';
+
 const APP_TITLE = "My Shopp App";
 const APP_DEBUG_CHECK = false;
 const PLAY_APP_TEST = 'PlayAppTest';
+final APP_CONTEXT_GLOBAL_KEY = GlobalKey<NavigatorState>();
 
 //NO IMAGE-URL
 const NO_IMAGE_AVAILABLE =

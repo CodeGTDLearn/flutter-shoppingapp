@@ -26,6 +26,10 @@ import '../core/custom_form_field/field_validators/url_validator.dart';
 import '../entity/product.dart';
 
 class InventoryEditView extends StatefulWidget {
+  String? _id;
+
+  InventoryEditView([this._id]);
+
   @override
   _InventoryEditViewState createState() => _InventoryEditViewState();
 }
@@ -82,6 +86,7 @@ class _InventoryEditViewState extends State<InventoryEditView> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget._id == null) widget._id = Get.parameters['id'];
     return Scaffold(
         appBar: AppBar(
             title: Text(

@@ -25,6 +25,7 @@ dependencies:
   network_image_mock: 2.0.1
   flutter_staggered_animations: 1.0.0
   animations: 2.0.2
+  photo_view: ^0.13.0
 
 dev_dependencies:
   integration_test:

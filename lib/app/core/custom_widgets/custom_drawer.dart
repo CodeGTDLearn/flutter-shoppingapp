@@ -84,6 +84,7 @@ class CustomDrawer extends StatelessWidget {
     required String key,
     required BuildContext context,
   }) {
+    // @formatter:off
     return ListTile(
         key: Key(key),
         leading: leadIcon,
@@ -92,13 +93,13 @@ class CustomDrawer extends StatelessWidget {
           Navigator.pop(context);
           var cond1 = quantityItems == 0 && notRoutingWithoutQtdeEvaluation;
           var cond2 = quantityItems != 0 && notRoutingWithoutQtdeEvaluation;
-          if (cond1)
-            SimpleSnackbar(SUCES, message).show();
+          if (cond1) SimpleSnackbar(SUCES, message).show();
           else if (cond2) {
             Get.toNamed(route);
           } else {
             Get.toNamed(route);
           }
         });
+    // @formatter:on
   }
 }

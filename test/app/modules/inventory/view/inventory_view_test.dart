@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/keys/inventory_keys.dart';
 import 'package:shopingapp/app/core/properties/app_urls.dart';
-import 'package:shopingapp/app/modules/inventory/core/inventory_item.dart';
+import 'package:shopingapp/app/modules/inventory/core/custom_listtile/inventory_item_simple_listtile.dart';
 
 import '../../../../config/tests_properties.dart';
 import '../../../../config/titles/inventory_test_titles.dart';
@@ -87,7 +87,7 @@ class InventoryViewTest {
           tester,
           deleteButtonKey:
               '$INVENTORY_DELETEITEM_BUTTON_KEY${_products[_products.length - 1].id}',
-          widgetTypetoBeDeleted: InventoryItem,
+          widgetTypetoBeDeleted: InventoryItemSimpleListtile,
           qtdeAfterDelete: _products.length - 1,
         );
       },

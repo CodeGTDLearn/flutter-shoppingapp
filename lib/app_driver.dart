@@ -22,6 +22,7 @@ class AppDriver extends StatelessWidget {
         : _darkTheme.isDark.value = darkOption);
 
     return GetMaterialApp(
+      navigatorKey: APP_CONTEXT_GLOBAL_KEY,
       debugShowCheckedModeBanner: APP_DEBUG_CHECK,
       title: APP_TITLE,
       theme: _appTheme.theme(_darkTheme.isDark.value),

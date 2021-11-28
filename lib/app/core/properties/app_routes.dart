@@ -21,38 +21,23 @@ class AppRoutes {
   static const CART = '/cart';
   static const ORDERS = '/orders';
   static const INVENTORY = '/inventory';
-  static const INVENTORY_ADDEDIT_PRODUCT = '/inventory-add-edit';
+  static const INVENTORY_EDIT_PRODUCT = '/inventory-edit';
 
+  // @formatter:off
   static List<GetPage> getAppRoutes = [
-    GetPage(
-      name: OVERVIEW_ALL,
-      page: () => OverviewView(),
-      binding: OverviewBindings(),
-    ),
-    GetPage(
-      name: ORDERS,
-      page: () => OrdersView(),
-      binding: OrdersBindings(),
-    ),
-    GetPage(
-      name: '$OVERVIEW_DETAIL:id',
-      page: () => OverviewItemDetailsView(),
-    ),
-    GetPage(
-      name: CART,
-      page: () => CartView(),
-      binding: CartBindings(),
-    ),
-    GetPage(
-      name: INVENTORY,
-      page: () => InventoryView(),
-      binding: InventoryBindings(),
-    ),
-    GetPage(
-      name: INVENTORY_ADDEDIT_PRODUCT,
-      page: () => InventoryEditView(),
-    ),
+    GetPage(name: OVERVIEW_ALL, page: () => OverviewView(), binding: OverviewBindings()),
+
+    GetPage(name: '$OVERVIEW_DETAIL:id', page: () => OverviewItemDetailsView()),
+
+    GetPage(name: ORDERS, page: () => OrdersView(), binding: OrdersBindings()),
+
+    GetPage(name: CART, page: () => CartView(), binding: CartBindings()),
+
+    GetPage(name: INVENTORY, page: () => InventoryView(), binding: InventoryBindings()),
+
+    GetPage(name: '$INVENTORY_EDIT_PRODUCT:id', page: () => InventoryEditView()),
   ];
+  // @formatter:on
 }
 // GetPage(
 //   name: '$OVERVIEW_DETAIL',

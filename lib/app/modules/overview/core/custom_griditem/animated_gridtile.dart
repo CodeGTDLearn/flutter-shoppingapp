@@ -4,18 +4,18 @@ import 'package:flutter/widgets.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
-import 'package:shopingapp/app/core/properties/app_properties.dart';
-import 'package:shopingapp/app/modules/overview/view/overview_item_details_view.dart';
 
 import '../../../../core/custom_widgets/custom_snackbar/button_snackbar.dart';
 import '../../../../core/custom_widgets/custom_snackbar/simple_snackbar.dart';
 import '../../../../core/keys/overview_keys.dart';
+import '../../../../core/properties/app_properties.dart';
 import '../../../../core/texts_icons_provider/generic_words.dart';
 import '../../../../core/texts_icons_provider/pages/overview/messages_snackbars_provided.dart';
 import '../../../../core/texts_icons_provider/pages/overview/overview_texts_icons_provided.dart';
 import '../../../cart/controller/cart_controller.dart';
 import '../../../inventory/entity/product.dart';
 import '../../controller/overview_controller.dart';
+import '../../view/overview_item_details_view.dart';
 import 'icustom_gridtile.dart';
 
 class AnimatedGridtile implements ICustomGridtile {

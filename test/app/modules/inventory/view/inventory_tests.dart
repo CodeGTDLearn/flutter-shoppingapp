@@ -8,7 +8,7 @@ import 'package:shopingapp/app/core/properties/app_urls.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/inventory/field_form_validation_provided.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/inventory/inventory_add_edit.dart';
-import 'package:shopingapp/app/modules/inventory/core/inventory_item.dart';
+import 'package:shopingapp/app/modules/inventory/core/custom_listtile/inventory_item_simple_listtile.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/inventory/view/inventory_edit_view.dart';
 import 'package:shopingapp/app/modules/inventory/view/inventory_view.dart';
@@ -85,7 +85,7 @@ class InventoryTests {
     uiTestUtils.check_widgetQuantityInAView(
       widgetView: InventoryView,
       widgetQtde: 0,
-      widgetType: InventoryItem,
+      widgetType: InventoryItemSimpleListtile,
     );
 
     expect(finder.text(NO_INVENTORY_PRODUCTS_FOUND_YET), findsOneWidget);
@@ -121,7 +121,7 @@ class InventoryTests {
     );
 
     if (!isWidgetTest) {
-      expect(finder.type(InventoryItem), findsWidgets);
+      expect(finder.type(InventoryItemSimpleListtile), findsWidgets);
       await dbTestUtils.removeObject(
         tester,
         url: PRODUCTS_URL,
@@ -139,7 +139,7 @@ class InventoryTests {
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(RefreshIndicator), findsNWidgets(1));
     if (!isWidgetTest) {
-      expect(finder.type(InventoryItem), findsNWidgets(qtdeAfterRefresh));
+      expect(finder.type(InventoryItemSimpleListtile), findsNWidgets(qtdeAfterRefresh));
     }
   }
 
@@ -168,7 +168,7 @@ class InventoryTests {
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
     expect(finder.type(InventoryView), findsOneWidget);
-    expect(finder.type(InventoryItem), findsWidgets);
+    expect(finder.type(InventoryItemSimpleListtile), findsWidgets);
 
     // 2) UpdateButton
     //   -> Click in 'UpdateButton'
@@ -386,7 +386,7 @@ class InventoryTests {
 
     uiTestUtils.check_widgetQuantityInAView(
       widgetView: InventoryView,
-      widgetType: InventoryItem,
+      widgetType: InventoryItemSimpleListtile,
       widgetQtde: itemsQtde,
     );
   }
@@ -471,7 +471,7 @@ class InventoryTests {
         tester,
         interval: interval,
         triggerKey: INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY,
-        resultWidget: InventoryItem,
+        resultWidget: InventoryItemSimpleListtile,
       );
 
       await tester.pumpAndSettle(testUtils.delay(interval));
