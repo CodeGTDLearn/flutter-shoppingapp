@@ -2,22 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
+import 'package:shopingapp/app/core/custom_widgets/custom_appbar.dart';
+import 'package:shopingapp/app/core/properties/app_routes.dart';
+import 'package:shopingapp/app/modules/cart/core/clear_cart_button.dart';
 
 import '../../../core/properties/app_properties.dart';
 import '../../../core/texts_icons_provider/pages/cart/cart_texts_icons_provided.dart';
 import '../controller/cart_controller.dart';
 import '../core/cartview_header.dart';
-import '../core/clear_cart_button.dart';
 import '../core/custom_listview/cart_staggered_listview.dart';
 
 class CartView extends StatelessWidget {
   final _controller = Get.find<CartController>();
+  final _appbar = Get.find<CustomAppBar>();
 
   Widget build(BuildContext context) {
     _controller.renderListView.value = true;
     return Scaffold(
-        appBar:
-            AppBar(title: Text(CRT_TIT_APPBAR), actions: [ClearCartButton(_controller)]),
+        appBar: _appbar.create(
+          CRT_TIT_APPBAR,
+          () => Get.offNamed(AppRoutes.OVERVIEW_ALL),
+          [ClearCartButton(_controller)],
+        ),
         body: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
@@ -34,18 +40,16 @@ class CartView extends StatelessWidget {
                             fadeEffect: false,
                             invertTargetPosition: false,
                             verticalOffset: (_height * 0.625),
-                            // horizontalOffset: -(_width * 0.625),
                           ).create(_controller.getAllCartItems()))
                         : Container(
                             child: Stack(alignment: Alignment.center, children: [
-                              CartStaggeredListview(
-                                fadeEffect: false,
-                                invertTargetPosition: true,
-                                verticalOffset: -(_height * 0.564),
-                              ).create(_controller.getAllCartItems()),
-                              _transparentGradientShaderMask()
-                            ]),
-                          )))
+                            CartStaggeredListview(
+                              fadeEffect: false,
+                              invertTargetPosition: true,
+                              verticalOffset: -(_height * 0.564),
+                            ).create(_controller.getAllCartItems()),
+                            _transparentGradientShaderMask()
+                          ]))))
               ]);
             })));
   }

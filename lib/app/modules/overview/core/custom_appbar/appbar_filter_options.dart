@@ -1,4 +1,0 @@
-enum AppbarFilterOptions {
-  Fav,
-  All,
-}

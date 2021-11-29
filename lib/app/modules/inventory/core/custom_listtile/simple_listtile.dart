@@ -11,20 +11,17 @@ import '../../../../core/texts_icons_provider/pages/inventory/messages_snackbars
 import '../../../overview/controller/overview_controller.dart';
 import '../../controller/inventory_controller.dart';
 import '../../entity/product.dart';
-import '../../view/inventory_edit_view.dart';
-import 'icustom_inventory_listtile.dart';
+import '../../view/inventory_item_details_view.dart';
+import 'icustom_listtile.dart';
 
-class InventoryItemSimpleListtile implements ICustomInventoryListtile {
-  // final Product product;
+class SimpleListTile implements ICustomListTile {
   final _inventoryController = Get.find<InventoryController>();
   final _overviewController = Get.find<OverviewController>();
-
-  // InventoryItemSimpleListtile({required this.product});
 
   @override
   Widget create(Product product) {
     var _id = product.id!;
-    var context = APP_CONTEXT_GLOBAL_KEY.currentContext;
+    var _context = APP_CONTEXT_GLOBAL_KEY.currentContext;
 
     return ListTile(
         key: Key('$K_INV_ITEM_KEY$_id'),
@@ -36,8 +33,8 @@ class InventoryItemSimpleListtile implements ICustomInventoryListtile {
               IconButton(
                   key: Key('$K_INV_UPD_BTN$_id'),
                   icon: INV_ITEM_UPD_ICO,
-                  onPressed: () => InventoryEditView(_id),
-                  color: Theme.of(context!).errorColor),
+                  onPressed: () => Get.to(() => InventoryItemDetailsView(_id)),
+                  color: Theme.of(_context!).errorColor),
               IconButton(
                   key: Key('$K_INV_DEL_BTN$_id'),
                   icon: INV_ITEM_DEL_ICO,
@@ -53,7 +50,7 @@ class InventoryItemSimpleListtile implements ICustomInventoryListtile {
                         if (statusCode >= 400) SimpleSnackbar(OPS, ERROR_MAN_PROD).show();
                       }),
                   // @formatter:on
-                  color: Theme.of(context).errorColor),
+                  color: Theme.of(_context).errorColor),
             ])));
   }
 }

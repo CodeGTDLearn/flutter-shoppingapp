@@ -1,5 +1,6 @@
+import 'package:shopingapp/app/modules/overview/core/overview_appbar/filter_options.dart';
+
 import '../../inventory/entity/product.dart';
-import '../core/custom_appbar/appbar_filter_options.dart';
 
 abstract class IOverviewService {
   Future<List<Product>> getProducts();
@@ -10,7 +11,7 @@ abstract class IOverviewService {
 
   List<Product> getLocalDataFavoritesProducts();
 
-  List<Product> setProductsByFilter(AppbarFilterOptions filter);
+  List<Product> setProductsByFilter(FilterOptions filter);
 
   Future<bool> toggleFavoriteStatus(String id);
 

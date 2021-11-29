@@ -11,10 +11,10 @@ import '../../../../core/texts_icons_provider/pages/inventory/messages_snackbars
 import '../../../overview/controller/overview_controller.dart';
 import '../../controller/inventory_controller.dart';
 import '../../entity/product.dart';
-import '../../view/inventory_edit_view.dart';
-import 'icustom_inventory_listtile.dart';
+import '../../view/inventory_item_details_view.dart';
+import 'icustom_listtile.dart';
 
-class InventoryItemAnimatedListtile implements ICustomInventoryListtile {
+class AnimatedListTile implements ICustomListTile {
   // final Product product;
   final _inventoryController = Get.find<InventoryController>();
   final _overviewController = Get.find<OverviewController>();
@@ -29,7 +29,7 @@ class InventoryItemAnimatedListtile implements ICustomInventoryListtile {
     return OpenContainer(
       transitionType: ContainerTransitionType.fadeThrough,
       openBuilder: (context, void Function({Object? returnValue}) openContainer) {
-        return InventoryEditView(_id);
+        return InventoryItemDetailsView(_id);
       },
       closedBuilder: (context, void Function() openContainer) {
         return ListTile(

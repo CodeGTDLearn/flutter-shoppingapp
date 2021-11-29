@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/overview/controller/overview_controller.dart';
-import 'package:shopingapp/app/modules/overview/core/custom_appbar/appbar_filter_options.dart';
+import 'package:shopingapp/app/modules/overview/core/overview_appbar/filter_options.dart';
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 import 'package:shopingapp/app/modules/overview/service/overview_service.dart';
@@ -86,12 +86,12 @@ class OverviewControllerTests {
 
     test('Getting products by Filters', () {
       _controller.getProducts().then((_) {
-        var listAll = _service.setProductsByFilter(AppbarFilterOptions.All);
-        _controller.applyPopupFilter(AppbarFilterOptions.All);
+        var listAll = _service.setProductsByFilter(FilterOptions.All);
+        _controller.applyPopupFilter(FilterOptions.All);
         expect(_controller.getFilteredProductsObs(), listAll);
 
-        var listFav = _service.setProductsByFilter(AppbarFilterOptions.Fav);
-        _controller.applyPopupFilter(AppbarFilterOptions.Fav);
+        var listFav = _service.setProductsByFilter(FilterOptions.Fav);
+        _controller.applyPopupFilter(FilterOptions.Fav);
         expect(_controller.getFilteredProductsObs(), listFav);
       });
     });

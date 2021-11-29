@@ -1,5 +1,5 @@
 import '../../inventory/entity/product.dart';
-import '../core/custom_appbar/appbar_filter_options.dart';
+import '../core/overview_appbar/filter_options.dart';
 import '../repo/i_overview_repo.dart';
 import 'i_overview_service.dart';
 
@@ -111,9 +111,9 @@ class OverviewService implements IOverviewService {
   }
 
   @override
-  List<Product> setProductsByFilter(AppbarFilterOptions filter) {
+  List<Product> setProductsByFilter(FilterOptions filter) {
     _updateLocalDataFavoritesProducts();
-    if (filter == AppbarFilterOptions.Fav) {
+    if (filter == FilterOptions.Fav) {
       return getFavoritesQtde() == 0 ? [] : getLocalDataFavoritesProducts();
     }
     return getProductsQtde() == 0 ? [] : getLocalDataAllProducts();

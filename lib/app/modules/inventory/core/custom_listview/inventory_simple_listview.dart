@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../modules/inventory/entity/product.dart';
-import '../custom_listtile/inventory_item_simple_listtile.dart';
+import '../custom_listtile/simple_listtile.dart';
 import 'icustom_inventory_listview.dart';
 
 class InventorySimpleListview implements ICustomInventoryListview {
@@ -10,8 +10,8 @@ class InventorySimpleListview implements ICustomInventoryListview {
     return ListView.builder(
         itemCount: productsList.length,
         itemBuilder: (ctx, index) => Column(children: [
-              InventoryItemSimpleListtile().create(productsList.elementAt(index)),
-              Divider(),
+              SimpleListTile().create(productsList.elementAt(index)),
+              Divider()
             ]));
   }
 }

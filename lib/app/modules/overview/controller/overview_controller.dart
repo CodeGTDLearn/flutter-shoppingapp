@@ -1,7 +1,7 @@
 import 'package:get/state_manager.dart';
 
 import '../../inventory/entity/product.dart';
-import '../core/custom_appbar/appbar_filter_options.dart';
+import '../core/overview_appbar/filter_options.dart';
 import '../service/i_overview_service.dart';
 
 class OverviewController extends GetxController {
@@ -10,7 +10,7 @@ class OverviewController extends GetxController {
   //OVERVIEW VIEW -> OBSERVABLES
   var overviewViewGridViewItemsObs = <Product>[].obs;
   var favoriteStatusObs = false.obs;
-  var appbarFilterPopupObs = AppbarFilterOptions.All.obs;
+  var appbarFilterPopupObs = FilterOptions.All.obs;
 
   //OVERVIEW-DETAILS -> OBSERVABLES
   var overviewDetailsImageZoomObs = false.obs;
@@ -32,12 +32,12 @@ class OverviewController extends GetxController {
     service.deleteProductInLocalDataLists(productId);
   }
 
-  void applyPopupFilter(AppbarFilterOptions filter) {
+  void applyPopupFilter(FilterOptions filter) {
     appbarFilterPopupObs.value = filter;
 
-    overviewViewGridViewItemsObs.assignAll(filter == AppbarFilterOptions.Fav
-        ? service.setProductsByFilter(AppbarFilterOptions.Fav)
-        : service.setProductsByFilter(AppbarFilterOptions.All));
+    overviewViewGridViewItemsObs.assignAll(filter == FilterOptions.Fav
+        ? service.setProductsByFilter(FilterOptions.Fav)
+        : service.setProductsByFilter(FilterOptions.All));
   }
 
   Future<bool> toggleFavoriteStatus(String id) {

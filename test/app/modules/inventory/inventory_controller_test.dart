@@ -36,7 +36,7 @@ class InventoryControllerTests {
 
     test('Getting using GetManagedProductsObs', () {
       _controller.getProducts().then((_) {
-        var list = _controller.getInventoryProductsObs();
+        var list = _controller.inventoryProductsObs.toList();
         expect(list[0].id, _products.elementAt(0).id);
         expect(list[0].title, _products.elementAt(0).title);
       });
@@ -60,7 +60,7 @@ class InventoryControllerTests {
 
     test('Getting ProductsQtde', () {
       _controller.getProducts().then((value) {
-        expect(_newProduct, isNot(isIn(_controller.getInventoryProductsObs())));
+        expect(_newProduct, isNot(isIn(_controller.inventoryProductsObs.toList())));
         expect(_controller.getProductsQtde(), 4);
         _controller.addProduct(_newProduct).then((response) {
           expect(_controller.getProductsQtde(), 5);
@@ -74,7 +74,7 @@ class InventoryControllerTests {
         var found = _controller.getProductById(products[0].id!);
         expect(found.id, _product0.id);
         expect(found.title, _product0.title);
-        expect(found, isIn(_controller.getInventoryProductsObs()));
+        expect(found, isIn(_controller.inventoryProductsObs.toList()));
       });
       // @formatter:on
     });
@@ -95,7 +95,7 @@ class InventoryControllerTests {
       });
       _controller.getProducts().then((_) {
         expect(_controller.getProductById(_product1.id!),
-            isIn(_controller.getInventoryProductsObs()));
+            isIn(_controller.inventoryProductsObs.toList()));
         _controller.updateProduct(_product1).then((response) {
           expect(response, 200);
         });
@@ -106,7 +106,7 @@ class InventoryControllerTests {
       _controller.getProducts().then((_) {
         expect(
           _newProduct.id,
-          isNot(isIn(_controller.getInventoryProductsObs())),
+          isNot(isIn(_controller.inventoryProductsObs.toList())),
         );
         _newProduct;
         _controller.updateProduct(_newProduct).then((response) {
@@ -123,16 +123,16 @@ class InventoryControllerTests {
         _service.addLocalDataInventoryProducts(productTest);
         expect(_service.getLocalDataInventoryProducts().length, 5);
 
-        expect(_controller.getInventoryProductsObs().length, 4);
+        expect(_controller.inventoryProductsObs.toList().length, 4);
         _controller.updateInventoryProductsObs();
-        expect(_controller.getInventoryProductsObs().length, 5);
+        expect(_controller.inventoryProductsObs.toList().length, 5);
       });
     });
 
     test('Deleting Product - status 200', () {
       _controller.getProducts().then((_) {
         expect(_controller.getProductById(_product1.id!),
-            isIn(_controller.getInventoryProductsObs()));
+            isIn(_controller.inventoryProductsObs.toList()));
         _controller.deleteProduct(_product1.id!).then((response) {
           expect(response, 200);
         });
@@ -142,7 +142,7 @@ class InventoryControllerTests {
     test('Deleting Product - Optimistic/Rollback', () {
       _controller.getProducts().then((_) {
         expect(_controller.getProductById(_product1.id!),
-            isIn(_controller.getInventoryProductsObs()));
+            isIn(_controller.inventoryProductsObs.toList()));
         _controller.deleteProduct(_product1.id!).then((response) {
           expect(response, 200);
         });
@@ -152,7 +152,7 @@ class InventoryControllerTests {
     test('Deleting a Product - Not found - Exception', () {
       _controller.getProducts().then((_) {
         expect(_controller.getProductById(_product1.id!),
-            isIn(_controller.getInventoryProductsObs()));
+            isIn(_controller.inventoryProductsObs.toList()));
         expect(
             () => _controller.deleteProduct(_newProduct.id!), throwsA(isA<RangeError>()));
       });
@@ -161,7 +161,7 @@ class InventoryControllerTests {
     test('Testing getReloadManagedProductsEditPage', () {
       _controller.getProducts().then((_) {
         expect(_controller.getReloadInventoryProductsEditPageObs(), isFalse);
-        _controller.switchInventoryAddEditFormToCustomCircularProgrIndic();
+        _controller.switchInventoryItemFormToCustomIndicator();
         expect(_controller.getReloadInventoryProductsEditPageObs(), isTrue);
       });
     });

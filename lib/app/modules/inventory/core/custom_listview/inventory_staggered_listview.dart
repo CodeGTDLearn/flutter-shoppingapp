@@ -3,7 +3,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../../../core/properties/app_properties.dart';
 import '../../../../modules/inventory/entity/product.dart';
-import '../custom_listtile/inventory_item_simple_listtile.dart';
+import '../custom_listtile/simple_listtile.dart';
 import 'icustom_inventory_listview.dart';
 
 class InventoryStaggeredListview implements ICustomInventoryListview {
@@ -18,20 +18,18 @@ class InventoryStaggeredListview implements ICustomInventoryListview {
   });
 
   @override
-  Widget create(List<Product> productsList) {
+  Widget create(List<Product> products) {
     return AnimationLimiter(
         child: ListView.builder(
-            itemCount: productsList.length,
+            itemCount: products.length,
             itemBuilder: (context, index) {
               return AnimationConfiguration.staggeredList(
-                position: index,
-                duration: Duration(milliseconds: delayMilliseconds),
-                child: SlideAnimation(
-                    verticalOffset: verticalOffset,
-                    child: FadeInAnimation(
-                        child: InventoryItemSimpleListtile()
-                            .create(productsList.elementAt(index)))),
-              );
+                  position: index,
+                  duration: Duration(milliseconds: delayMilliseconds),
+                  child: SlideAnimation(
+                      verticalOffset: verticalOffset,
+                      child: FadeInAnimation(
+                          child: SimpleListTile().create(products.elementAt(index)))));
             }));
   }
 }

@@ -8,9 +8,9 @@ import 'package:shopingapp/app/core/properties/app_urls.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/inventory/field_form_validation_provided.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/pages/inventory/inventory_add_edit.dart';
-import 'package:shopingapp/app/modules/inventory/core/custom_listtile/inventory_item_simple_listtile.dart';
+import 'package:shopingapp/app/modules/inventory/core/custom_listtile/simple_listtile.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
-import 'package:shopingapp/app/modules/inventory/view/inventory_edit_view.dart';
+import 'package:shopingapp/app/modules/inventory/view/inventory_item_details_view.dart';
 import 'package:shopingapp/app/modules/inventory/view/inventory_view.dart';
 import 'package:shopingapp/app/modules/overview/core/gridview_item.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
@@ -85,7 +85,7 @@ class InventoryTests {
     uiTestUtils.check_widgetQuantityInAView(
       widgetView: InventoryView,
       widgetQtde: 0,
-      widgetType: InventoryItemSimpleListtile,
+      widgetType: SimpleListTile,
     );
 
     expect(finder.text(NO_INVENTORY_PRODUCTS_FOUND_YET), findsOneWidget);
@@ -121,7 +121,7 @@ class InventoryTests {
     );
 
     if (!isWidgetTest) {
-      expect(finder.type(InventoryItemSimpleListtile), findsWidgets);
+      expect(finder.type(SimpleListTile), findsWidgets);
       await dbTestUtils.removeObject(
         tester,
         url: PRODUCTS_URL,
@@ -139,7 +139,7 @@ class InventoryTests {
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(RefreshIndicator), findsNWidgets(1));
     if (!isWidgetTest) {
-      expect(finder.type(InventoryItemSimpleListtile), findsNWidgets(qtdeAfterRefresh));
+      expect(finder.type(SimpleListTile), findsNWidgets(qtdeAfterRefresh));
     }
   }
 
@@ -168,7 +168,7 @@ class InventoryTests {
       scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
     );
     expect(finder.type(InventoryView), findsOneWidget);
-    expect(finder.type(InventoryItemSimpleListtile), findsWidgets);
+    expect(finder.type(SimpleListTile), findsWidgets);
 
     // 2) UpdateButton
     //   -> Click in 'UpdateButton'
@@ -185,7 +185,7 @@ class InventoryTests {
     //   -> Test existence of INValidation messages
     //   -> Go to InventoryView + Checking UpdatedValue
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(finder.type(InventoryEditView), findsOneWidget);
+    expect(finder.type(InventoryItemDetailsView), findsOneWidget);
 
     await tester.tap(finder.key(fieldKey));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
@@ -252,7 +252,7 @@ class InventoryTests {
     await tester.tap(keyUpdateButton);
     // await tester.pump();
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(finder.type(InventoryEditView), findsOneWidget);
+    expect(finder.type(InventoryItemDetailsView), findsOneWidget);
 
     // 2) InventoryAddEditView
     //   -> Checking View + Title-Form-Field
@@ -386,7 +386,7 @@ class InventoryTests {
 
     uiTestUtils.check_widgetQuantityInAView(
       widgetView: InventoryView,
-      widgetType: InventoryItemSimpleListtile,
+      widgetType: SimpleListTile,
       widgetQtde: itemsQtde,
     );
   }
@@ -403,7 +403,7 @@ class InventoryTests {
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     await tester.tap(finder.key(INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(finder.type(InventoryEditView), findsOneWidget);
+    expect(finder.type(InventoryItemDetailsView), findsOneWidget);
   }
 
   Future<void> AddProductInDb(
@@ -433,7 +433,7 @@ class InventoryTests {
         tester,
         interval: interval,
         triggerKey: INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY,
-        resultWidget: InventoryEditView,
+        resultWidget: InventoryItemDetailsView,
       );
 
       // D) GENERATE PRE-BUIT CONTENT + CLICK IN THE TEXT-FIELDS + ADD CONTENT
@@ -471,7 +471,7 @@ class InventoryTests {
         tester,
         interval: interval,
         triggerKey: INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY,
-        resultWidget: InventoryItemSimpleListtile,
+        resultWidget: SimpleListTile,
       );
 
       await tester.pumpAndSettle(testUtils.delay(interval));
@@ -543,7 +543,7 @@ class InventoryTests {
 
     useValidTexts
         ? expect(finder.type(InventoryView), findsOneWidget)
-        : expect(finder.type(InventoryEditView), findsOneWidget);
+        : expect(finder.type(InventoryItemDetailsView), findsOneWidget);
   }
 
   Future<void> test_auto_currency_in_form(
@@ -614,7 +614,7 @@ class InventoryTests {
 
     useValidTexts
         ? expect(finder.type(InventoryView), findsOneWidget)
-        : expect(finder.type(InventoryEditView), findsOneWidget);
+        : expect(finder.type(InventoryItemDetailsView), findsOneWidget);
   }
 
   Future<void> edit_back_button(tester) async {
@@ -629,7 +629,7 @@ class InventoryTests {
 
     await uiTestUtils.navigateBetweenViews(
       tester,
-      from: InventoryEditView,
+      from: InventoryItemDetailsView,
       to: InventoryView,
       trigger: BackButton,
       interval: DELAY,

@@ -27,16 +27,6 @@ class BadgeShopCart extends StatelessWidget {
             key: Key(K_SHP_CART_APPBAR_BTN),
             icon: OV_ICO_SHOPCART,
             onPressed: () {
-              // MODEL OF SEQUENTILA TERNARY
-              // cond ?
-              // (() => {
-              //   print("111ScaffoldMessenger.of(context).removeCurrentSnackBar()"),
-              //   print("111Get.toNamed(AppRoutes.CART);")
-              // }).call()
-              //     : (() => {
-              //   print("222ScaffoldMessenger.of(context).removeCurrentSnackBar()"),
-              //   print("222Get.toNamed(AppRoutes.CART);")
-              // }).call();
               if (_controller.getAllCartItems().isEmpty) {
                 SimpleSnackbar(OPS, CART_NO_ITEMS_YET).show();
               } else {

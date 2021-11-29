@@ -3,7 +3,7 @@ import 'package:get/route_manager.dart';
 import '../../modules/cart/core/cart_bindings.dart';
 import '../../modules/cart/view/cart_view.dart';
 import '../../modules/inventory/core/inventory_bindings.dart';
-import '../../modules/inventory/view/inventory_edit_view.dart';
+import '../../modules/inventory/view/inventory_item_details_view.dart';
 import '../../modules/inventory/view/inventory_view.dart';
 import '../../modules/orders/core/orders_bindings.dart';
 import '../../modules/orders/view/orders_view.dart';
@@ -17,17 +17,17 @@ class AppRoutes {
 
   // '$OVERVIEW_DETAIL_ROUTE:id'
   // static const OVERVIEW_DETAIL = '/item-details/';
-  static const OVERVIEW_DETAIL = '/item-details/';
+  static const OVERVIEW_ITEM_DETAILS = '/item-details/';
   static const CART = '/cart';
   static const ORDERS = '/orders';
   static const INVENTORY = '/inventory';
-  static const INVENTORY_EDIT_PRODUCT = '/inventory-edit';
+  static const INVENTORY_ITEM_DETAILS = '/inventory-edit/';
 
   // @formatter:off
   static List<GetPage> getAppRoutes = [
     GetPage(name: OVERVIEW_ALL, page: () => OverviewView(), binding: OverviewBindings()),
 
-    GetPage(name: '$OVERVIEW_DETAIL:id', page: () => OverviewItemDetailsView()),
+    GetPage(name: '$OVERVIEW_ITEM_DETAILS:id', page: () => OverviewItemDetailsView()),
 
     GetPage(name: ORDERS, page: () => OrdersView(), binding: OrdersBindings()),
 
@@ -35,13 +35,14 @@ class AppRoutes {
 
     GetPage(name: INVENTORY, page: () => InventoryView(), binding: InventoryBindings()),
 
-    GetPage(name: '$INVENTORY_EDIT_PRODUCT:id', page: () => InventoryEditView()),
+    GetPage(name: '$INVENTORY_ITEM_DETAILS:id', page: () => InventoryItemDetailsView()),
   ];
   // @formatter:on
 }
 // GetPage(
 //   name: '$OVERVIEW_DETAIL',
-//   page: () => OverviewItemDetailsView(),
-// ),
-// Get.toNamed('$OVERVIEW_DETAIL_ROUTE${_product.id}'),
+//   page: () => OverviewItemDetailsView()),
+// onPressed: () => Get.toNamed('${AppRoutes.INVENTORY_EDIT_PRODUCT}$_id'),
+// onPressed: () => Get.toNamed('${AppRoutes.OVERVIEW_DETAIL_ROUTE$}$_id'),
 // String? id = Get.arguments;
+// if(_id == null) _id = Get.parameters['id'];

@@ -7,22 +7,25 @@ import '../../../core/custom_widgets/custom_indicator.dart';
 import '../../../core/keys/overview_keys.dart';
 import '../../../core/texts_icons_provider/pages/components/app_messages_provided.dart';
 import '../controller/overview_controller.dart';
-import '../core/custom_appbar/appbar_filter_options.dart';
-import '../core/custom_appbar/custom_appbar.dart';
 import '../core/custom_gridview/staggered_gridview.dart';
+import '../core/overview_appbar/filter_options.dart';
+import '../core/overview_appbar/overview_appbar.dart';
 
 class OverviewView extends StatelessWidget {
+  final _appbar = Get.find<OverviewAppBar>();
+  final _drawer = Get.find<CustomDrawer>();
+  final _controller = Get.find<OverviewController>();
+
   @override
   Widget build(BuildContext context) {
-    var _controller = Get.find<OverviewController>();
-    _controller.applyPopupFilter(AppbarFilterOptions.All);
+    _controller.applyPopupFilter(FilterOptions.All);
 
     return Scaffold(
         key: K_OV_SCFLD_GLOB_KEY,
-        appBar: CustomAppBar(filter: AppbarFilterOptions.All),
-        drawer: Get.find<CustomDrawer>(),
+        appBar: _appbar,
+        drawer: _drawer,
         body: Obx(
-              () => _controller.overviewViewGridViewItemsObs.isEmpty
+          () => _controller.overviewViewGridViewItemsObs.isEmpty
               ? _overviewGrid_noProductsInDb()
               : StaggeredGridview(
                   columnCount: 2,

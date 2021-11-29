@@ -24,6 +24,7 @@ class OverviewItemDetailsView extends StatelessWidget {
     var _appBar = AppBar(title: Text(_item.title));
     var _appBarZoom = AppBar(title: Text(_item.title), automaticallyImplyLeading: false);
     var _height = Utils.usefulHeight(context, _appBar);
+
     return Obx(() => Scaffold(
         appBar: _controller.overviewDetailsImageZoomObs.value ? _appBarZoom : _appBar,
         body: PageTransitionSwitcher(

@@ -7,7 +7,7 @@ class InventoryController extends GetxController {
   final IInventoryService service;
 
   var inventoryProductsObs = <Product>[].obs;
-  var reloadInventoryEditPageObs = false.obs;
+  var renderInventoryItemDetailsViewObs = false.obs;
   var _imgUrlPreviewObs = false.obs;
 
   InventoryController({required this.service});
@@ -66,20 +66,16 @@ class InventoryController extends GetxController {
     // @formatter:on
   }
 
-  void switchInventoryAddEditFormToCustomCircularProgrIndic() {
-    reloadInventoryEditPageObs.value = !reloadInventoryEditPageObs.value;
+  void switchInventoryItemFormToCustomIndicator() {
+    renderInventoryItemDetailsViewObs.value = !renderInventoryItemDetailsViewObs.value;
   }
 
   void updateInventoryProductsObs() {
     inventoryProductsObs.assignAll(service.getLocalDataInventoryProducts());
   }
 
-  List<Product> getInventoryProductsObs() {
-    return inventoryProductsObs.toList();
-  }
-
   bool getReloadInventoryProductsEditPageObs() {
-    return reloadInventoryEditPageObs.value;
+    return renderInventoryItemDetailsViewObs.value;
   }
 
   bool getImgUrlPreviewObs() => _imgUrlPreviewObs.value;
