@@ -3,7 +3,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../../../core/properties/app_properties.dart';
 import '../../../../modules/inventory/entity/product.dart';
-import '../custom_listtile/simple_listtile.dart';
+import '../custom_listtile/animated_listtile.dart';
 import 'icustom_inventory_listview.dart';
 
 class InventoryStaggeredListview implements ICustomInventoryListview {
@@ -29,7 +29,7 @@ class InventoryStaggeredListview implements ICustomInventoryListview {
                   child: SlideAnimation(
                       verticalOffset: verticalOffset,
                       child: FadeInAnimation(
-                          child: SimpleListTile().create(products.elementAt(index)))));
+                          child: AnimatedListTile().create(products.elementAt(index)))));
             }));
   }
 }

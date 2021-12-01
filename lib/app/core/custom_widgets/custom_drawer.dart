@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
-import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 
+import '../../modules/cart/controller/cart_controller.dart';
 import '../../modules/inventory/controller/inventory_controller.dart';
 import '../../modules/orders/controller/orders_controller.dart';
-import '../../modules/overview/controller/overview_controller.dart';
 import '../keys/components/custom_drawer_keys.dart';
 import '../properties/app_routes.dart';
 import '../properties/theme/app_theme_controller.dart';
 import '../texts_icons_provider/generic_words.dart';
-import '../texts_icons_provider/pages/components/app_messages_provided.dart';
 import '../texts_icons_provider/pages/components/drawwer_texts_icons_provided.dart';
 import 'custom_snackbar/simple_snackbar.dart';
 
@@ -20,7 +18,8 @@ class CustomDrawer extends StatelessWidget {
   final _cart = Get.find<CartController>();
   final _orders = Get.find<OrdersController>();
   final _inventory = Get.find<InventoryController>();
-  final _overview = Get.find<OverviewController>();
+
+  // final _overview = Get.find<OverviewController>();
   final _darkThemeController = Get.find<AppThemeController>();
 
   @override
@@ -30,15 +29,15 @@ class CustomDrawer extends StatelessWidget {
       child: Drawer(
           child: Column(children: [
         AppBar(title: Text(DRW_TIT_APPBAR), automaticallyImplyLeading: false),
-        _drawerItem(
-            quantityItems: _overview.getProductsQtde(),
-            leadIcon: DRW_ICO_PROD,
-            title: DRW_LBL_PROD,
-            message: DRW_NO_DATA,
-            route: AppRoutes.OVERVIEW_ALL,
-            notRoutingWithoutQtdeEvaluation: false,
-            key: K_DRW_OV_OP1,
-            context: context),
+        // _drawerItem(
+        //     quantityItems: _overview.getProductsQtde(),
+        //     leadIcon: DRW_ICO_PROD,
+        //     title: DRW_LBL_PROD,
+        //     message: DRW_NO_DATA,
+        //     route: AppRoutes.OVERVIEW_ALL,
+        //     notRoutingWithoutQtdeEvaluation: false,
+        //     key: K_DRW_OV_OP1,
+        //     context: context),
         _drawerItem(
             // quantityItems: _cart.qtdeCartItems(),
             quantityItems: _cart.getQtdeCartItemsObs(),

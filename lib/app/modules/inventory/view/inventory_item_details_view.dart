@@ -4,6 +4,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 
+import '../../../core/custom_widgets/custom_appbar.dart';
 import '../../../core/custom_widgets/custom_snackbar/simple_snackbar.dart';
 import '../../../core/keys/inventory_keys.dart';
 import '../../../core/properties/app_owasp_regex.dart';
@@ -11,6 +12,7 @@ import '../../../core/properties/app_properties.dart';
 import '../../../core/texts_icons_provider/generic_words.dart';
 import '../../../core/texts_icons_provider/pages/inventory/inventory_edit_texts_icons_provided.dart';
 import '../../../core/texts_icons_provider/pages/inventory/messages_snackbars_provided.dart';
+import '../../../core/utils/animations_utils.dart';
 import '../controller/inventory_controller.dart';
 import '../core/custom_form_field/custom_form_field.dart';
 import '../core/custom_form_field/field_properties/description_properties.dart';
@@ -23,18 +25,35 @@ import '../core/custom_form_field/field_validators/title_validator.dart';
 import '../core/custom_form_field/field_validators/url_validator.dart';
 import '../entity/product.dart';
 
+// todo: refazer usando o video do rodrigohaman
+// https://www.youtube.com/watch?v=GEC4LF40J6k&t=309s
+// https://www.youtube.com/watch?v=R8cPBD9eZQY&t=513s
 // ignore: must_be_immutable
-class InventoryItemDetailsView extends StatelessWidget {
+class InventoryItemDetailsView extends StatefulWidget {
   final String? _id;
 
   InventoryItemDetailsView([this._id]);
 
+  @override
+  State<InventoryItemDetailsView> createState() => _InventoryItemDetailsViewState();
+}
+
+class _InventoryItemDetailsViewState extends State<InventoryItemDetailsView> {
+  final _appbar = Get.find<CustomAppBar>();
+
   final _controller = Get.find<InventoryController>();
+  final _animations = Get.find<AnimationsUtils>();
+
   final _formKey = K_INV_FORM_GKEY;
+
   late Product _product;
+
   var _urlControl;
+
   var _nodePrice;
+
   var _nodeDescr;
+
   var _nodeImgUrl;
 
   @override
@@ -42,16 +61,14 @@ class InventoryItemDetailsView extends StatelessWidget {
     _startingFormInstances();
     _definingFormTask_updateOrAdd();
     return Scaffold(
-        appBar: AppBar(
-            title: Text(
-                Get.arguments == null ? INV_EDT_LBL_ADD_APPBAR : INV_EDT_LBL_EDIT_APPBAR),
-            leading: GestureDetector(onTap: Get.back, child: Icon(Icons.arrow_back)),
-            actions: [
-              IconButton(
-                  key: Key(K_INV_ADDEDIT_SAVE_BTN),
-                  icon: ICO_INV_EDT_SAVE_BTN_APPBAR,
-                  onPressed: () => _saveForm(context))
-            ]),
+        appBar: _appbar.create(
+            Get.arguments == null ? INV_EDT_LBL_ADD_APPBAR : INV_EDT_LBL_EDIT_APPBAR,
+            Get.back, [
+          IconButton(
+              key: Key(K_INV_ADDEDIT_SAVE_BTN),
+              icon: ICO_INV_EDT_SAVE_BTN_APPBAR,
+              onPressed: () => _saveForm(context))
+        ]),
         body: Padding(
             padding: EdgeInsets.all(16),
             child: Form(
@@ -87,20 +104,25 @@ class InventoryItemDetailsView extends StatelessWidget {
                       onFieldSubmitted: (_) => _setFocus(_nodeImgUrl, context),
                       node: _nodeDescr),
                   Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                    Container(
-                        width: 100,
-                        height: 100,
-                        margin: EdgeInsets.only(top: 20, right: 10),
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 0.5, color: Colors.grey)),
-                        child: Obx(() => (Container(
-                            child: _controller.getImgUrlPreviewObs()
-                                ? FittedBox(
-                                    child: Image.network(
-                                    _urlControl.text,
-                                    fit: BoxFit.cover,
-                                  ))
-                                : Center(child: INV_EDT_NO_IMG_TIT))))),
+                    _animations.zoomPageTransitionSwitcher(
+                      zoomObservable: _controller.inventoryImageZoomObs,
+                      imageUrl: _urlControl.text,
+                      zoomToggleMethod: _controller.toggleInventoryImageZoomObs,
+                      closeBuilder: Container(
+                          width: 100,
+                          height: 100,
+                          margin: EdgeInsets.only(top: 20, right: 10),
+                          decoration: BoxDecoration(
+                              border: Border.all(width: 0.5, color: Colors.grey)),
+                          child: Obx(() => Container(
+                              child: _controller.getImgUrlPreviewObs()
+                                  ? FittedBox(
+                                      child: Image.network(
+                                      _urlControl.text,
+                                      fit: BoxFit.cover,
+                                    ))
+                                  : Center(child: INV_EDT_NO_IMG_TIT)))),
+                    ),
                     Expanded(
                         child: CustomFormField(UrlProperties()).create(
                             product: _product,
@@ -117,17 +139,19 @@ class InventoryItemDetailsView extends StatelessWidget {
   }
 
   void _definingFormTask_updateOrAdd() {
-    var findId = Get.parameters['id'] != null || _id != null;
+    var findId = Get.parameters['id'] != null || widget._id != null;
+    var _productId = widget._id == null ? Get.parameters['id'] : widget._id!;
+
     findId
         ? () {
-            _product =
-                _controller.getProductById(_id == null ? Get.parameters['id']! : _id!);
+            _product = _controller.getProductById(_productId!);
             _urlControl.text = _product.imageUrl;
             _controller.setImgUrlPreviewObs(true);
           }.call()
         : () {
             _product = Product.emptyInitialized();
             _nodeImgUrl.addListener(_previewImageUrl);
+            _controller.setImgUrlPreviewObs(true);
           }.call();
   }
 
@@ -174,7 +198,6 @@ class InventoryItemDetailsView extends StatelessWidget {
     // @formatter:on
   }
 
-  //todo: refactoring to the same as the above method
   void _update(Product _product, BuildContext _context) {
     // @formatter:off
     _controller.updateProduct(_product).then((statusCode) {

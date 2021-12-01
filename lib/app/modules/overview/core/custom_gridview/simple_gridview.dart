@@ -17,10 +17,8 @@ class SimpleGridview implements ICustomGridview {
     return GridView.builder(
         padding: EdgeInsets.all(10),
         itemCount: gridItems.length,
-        itemBuilder: (_, index) => GridViewItem(
-              gridItems.elementAt(index),
-              index.toString(),
-            ),
+        itemBuilder: (_, index) =>
+            GridViewItem(gridItems.elementAt(index), index.toString()),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: columnCount,
             childAspectRatio: 3 / 2,

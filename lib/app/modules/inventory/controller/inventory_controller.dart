@@ -9,6 +9,7 @@ class InventoryController extends GetxController {
   var inventoryProductsObs = <Product>[].obs;
   var renderInventoryItemDetailsViewObs = false.obs;
   var _imgUrlPreviewObs = false.obs;
+  var inventoryImageZoomObs = false.obs;
 
   InventoryController({required this.service});
 
@@ -19,6 +20,10 @@ class InventoryController extends GetxController {
     inventoryProductsObs.assignAll([]);
     getProducts();
     super.onInit();
+  }
+
+  void toggleInventoryImageZoomObs() {
+    inventoryImageZoomObs.value = !inventoryImageZoomObs.value;
   }
 
   Future<List<Product>> getProducts() {

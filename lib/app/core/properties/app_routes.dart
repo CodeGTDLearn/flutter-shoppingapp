@@ -7,9 +7,13 @@ import '../../modules/inventory/view/inventory_item_details_view.dart';
 import '../../modules/inventory/view/inventory_view.dart';
 import '../../modules/orders/core/orders_bindings.dart';
 import '../../modules/orders/view/orders_view.dart';
+import '../../modules/overview/core/overview_appbar_binding.dart';
 import '../../modules/overview/core/overview_bindings.dart';
 import '../../modules/overview/view/overview_item_details_view.dart';
 import '../../modules/overview/view/overview_view.dart';
+import '../global_bindings/custom_appbar_binding.dart';
+import '../global_bindings/drawer_bindings.dart';
+import '../global_bindings/global_bindings.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class AppRoutes {
@@ -25,20 +29,39 @@ class AppRoutes {
 
   // @formatter:off
   static List<GetPage> getAppRoutes = [
-    GetPage(name: OVERVIEW_ALL, page: () => OverviewView(), binding: OverviewBindings()),
+    GetPage(name: OVERVIEW_ALL, page: () => OverviewView(), bindings: [
+      GlobalBindings(),
+      DrawerBindings(),
+      OverviewAppbarBinding(),
+      CustomAppbarBinding(),
+      OverviewBindings()]),
 
     GetPage(name: '$OVERVIEW_ITEM_DETAILS:id', page: () => OverviewItemDetailsView()),
 
-    GetPage(name: ORDERS, page: () => OrdersView(), binding: OrdersBindings()),
+    GetPage(name: ORDERS, page: () => OrdersView(), bindings: [
+      CustomAppbarBinding(),
+      OrdersBindings()]),
 
-    GetPage(name: CART, page: () => CartView(), binding: CartBindings()),
+    GetPage(name: CART, page: () => CartView(), bindings: [
+      CustomAppbarBinding(),
+      CartBindings()]),
 
-    GetPage(name: INVENTORY, page: () => InventoryView(), binding: InventoryBindings()),
+    GetPage(name: INVENTORY, page: () => InventoryView(), bindings: [
+      OverviewBindings(),
+      CustomAppbarBinding(),
+      InventoryBindings()]),
 
     GetPage(name: '$INVENTORY_ITEM_DETAILS:id', page: () => InventoryItemDetailsView()),
   ];
   // @formatter:on
 }
+// -------------------------- DO NOT REMOVE ------------------------------------
+// GetPage(
+//   name: '$OVERVIEW_DETAIL',
+//   page: () => OverviewItemDetailsView(),
+// ),
+// Get.toNamed('$OVERVIEW_DETAIL_ROUTE${_product.id}'),
+// String? id = Get.arguments;
 // GetPage(
 //   name: '$OVERVIEW_DETAIL',
 //   page: () => OverviewItemDetailsView()),

@@ -13,7 +13,7 @@ class OverviewController extends GetxController {
   var appbarFilterPopupObs = FilterOptions.All.obs;
 
   //OVERVIEW-DETAILS -> OBSERVABLES
-  var overviewDetailsImageZoomObs = false.obs;
+  var overviewItemDetailsImageZoomObs = false.obs;
 
   OverviewController({required this.service});
 
@@ -56,8 +56,8 @@ class OverviewController extends GetxController {
     // @formatter:on
   }
 
-  void toggleOverviewDetailsImageZoom() {
-    overviewDetailsImageZoomObs.value = !overviewDetailsImageZoomObs.value;
+  void toggleOverviewItemDetailsImageZoomObs() {
+    overviewItemDetailsImageZoomObs.value = !overviewItemDetailsImageZoomObs.value;
   }
 
   Product getProductById(String id) {

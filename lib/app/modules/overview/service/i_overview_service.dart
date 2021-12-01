@@ -1,6 +1,5 @@
-import 'package:shopingapp/app/modules/overview/core/overview_appbar/filter_options.dart';
-
 import '../../inventory/entity/product.dart';
+import '../core/overview_appbar/filter_options.dart';
 
 abstract class IOverviewService {
   Future<List<Product>> getProducts();

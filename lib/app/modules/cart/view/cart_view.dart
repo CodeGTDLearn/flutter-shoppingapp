@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
-import 'package:shopingapp/app/core/custom_widgets/custom_appbar.dart';
-import 'package:shopingapp/app/core/properties/app_routes.dart';
-import 'package:shopingapp/app/modules/cart/core/clear_cart_button.dart';
 
+import '../../../core/custom_widgets/custom_appbar.dart';
 import '../../../core/properties/app_properties.dart';
+import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/pages/cart/cart_texts_icons_provided.dart';
 import '../controller/cart_controller.dart';
 import '../core/cartview_header.dart';
+import '../core/clear_cart_button.dart';
 import '../core/custom_listview/cart_staggered_listview.dart';
 
 class CartView extends StatelessWidget {

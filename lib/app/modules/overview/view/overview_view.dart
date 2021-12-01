@@ -42,37 +42,3 @@ class OverviewView extends StatelessWidget {
                 children: [CustomIndicator.message(message: NO_PROD, fontSize: 20)])));
   }
 }
-
-// BEFORE STAGGED_GRID_ANIMATION - PACKAGE: flutter_staggered_animations
-//
-// AnimationLimiter _overviewGrid_staggered(
-//     int columnCount, OverviewController controller, int delayMilliseconds) {
-//   return AnimationLimiter(
-//       child: GridView.count(
-//           crossAxisCount: columnCount,
-//           children:
-//               List.generate(controller.overviewViewGridViewItemsObs.length, (index) {
-//             return AnimationConfiguration.staggeredGrid(
-//                 position: index,
-//                 columnCount: columnCount,
-//                 child: ScaleAnimation(
-//                   duration: Duration(milliseconds: delayMilliseconds),
-//                   child: FadeInAnimation(
-//                       child: OverviewGridItem(
-//                           controller.overviewViewGridViewItemsObs[index],
-//                           index.toString())),
-//                 ));
-//           })));
-// }
-// GridView _overviewGrid_simple(OverviewController controller) {
-//   return GridView.builder(
-//       padding: EdgeInsets.all(10),
-//       itemCount: controller.overviewViewGridViewItemsObs.length,
-//       itemBuilder: (_, index) => OverviewGridItem(
-//           controller.overviewViewGridViewItemsObs[index], index.toString()),
-//       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//           crossAxisCount: 2,
-//           childAspectRatio: 3 / 2,
-//           crossAxisSpacing: 10,
-//           mainAxisSpacing: 10));
-// }

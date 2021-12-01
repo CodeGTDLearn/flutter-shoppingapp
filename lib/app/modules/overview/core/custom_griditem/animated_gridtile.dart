@@ -31,6 +31,9 @@ class AnimatedGridtile implements ICustomGridtile {
     return OpenContainer(
       transitionDuration: Duration(milliseconds: DELAY_MILLISEC_GRIDVIEW),
       transitionType: ContainerTransitionType.fadeThrough,
+      openBuilder: (context, void Function({Object? returnValue}) action) {
+        return OverviewItemDetailsView(product.id);
+      },
       closedBuilder: (context, void Function() openContainer) {
         return GridTile(
             child: GestureDetector(
@@ -71,9 +74,6 @@ class AnimatedGridtile implements ICustomGridtile {
                     },
                     color: Theme.of(context).colorScheme.secondary),
                 backgroundColor: Colors.black87));
-      },
-      openBuilder: (context, void Function({Object? returnValue}) action) {
-        return OverviewItemDetailsView(product.id);
       },
     );
   }

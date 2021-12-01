@@ -45,7 +45,6 @@ class CartRepo implements ICartRepo {
 
   @override
   void clearCart() {
-    // if (getAllCartItems().length != 0) _cartItems.clear();
     if (getAllCartItems().isNotEmpty) _cartItems.clear();
   }
 }
