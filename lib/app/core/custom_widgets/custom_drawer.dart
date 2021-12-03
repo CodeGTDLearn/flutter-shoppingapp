@@ -96,7 +96,7 @@ class CustomDrawer extends StatelessWidget {
           var cond1 = quantityItems == 0 && notRoutingWithoutQtdeEvaluation;
           var cond2 = quantityItems != 0 && notRoutingWithoutQtdeEvaluation;
           if (cond1) {
-            SimpleSnackbar(SUCES, message).show();
+            SimpleSnackbar().show(SUCES, message);
           } else if (cond2) {
             // Get.toNamed(route);
             Get.offNamed(route);

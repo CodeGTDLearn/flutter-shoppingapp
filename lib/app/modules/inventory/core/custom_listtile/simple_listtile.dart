@@ -45,9 +45,9 @@ class SimpleListTile implements ICustomListTile {
                           _inventoryController.updateInventoryProductsObs();
                           _overviewController.deleteProduct(_id);
                           _overviewController.updateFilteredProductsObs();
-                          SimpleSnackbar(SUCES, SUCESS_MAN_PROD_DEL).show();
+                          SimpleSnackbar().show(SUCES, SUCESS_MAN_PROD_DEL);
                         }
-                        if (statusCode >= 400) SimpleSnackbar(OPS, ERROR_MAN_PROD).show();
+                        if (statusCode >= 400) SimpleSnackbar().show(OPS, ERROR_MAN_PROD);
                       }),
                   // @formatter:on
                   color: Theme.of(_context).errorColor),

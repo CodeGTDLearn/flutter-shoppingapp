@@ -6,13 +6,11 @@ import '../../properties/app_properties.dart';
 import 'icustom_snackbar.dart';
 
 class SimpleSnackbar implements ICustomSnackbar {
-  String title;
-  String message;
   int? durationMilis;
 
-  SimpleSnackbar(this.title, this.message, [this.durationMilis]);
+  SimpleSnackbar([this.durationMilis]);
 
-  void show() {
+  void show(String title, String message) {
     Get.snackbar(
       title,
       message,

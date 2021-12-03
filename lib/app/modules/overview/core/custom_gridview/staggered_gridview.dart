@@ -1,22 +1,15 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
+import '../../../inventory/entity/product.dart';
 import '../gridview_item.dart';
 import 'icustom_gridview.dart';
 
 class StaggeredGridview implements ICustomGridview {
-  final columnCount;
-  final delayMilliseconds;
-  final gridItems;
-
-  StaggeredGridview({
-    this.columnCount = 1,
-    this.delayMilliseconds = 500,
-    this.gridItems,
-  });
+  StaggeredGridview();
 
   @override
-  Widget create() {
+  Widget create(int columnCount, List<Product> gridItems, [int delayMilliseconds = 500]) {
     return AnimationLimiter(
         child: GridView.count(
             crossAxisCount: columnCount,

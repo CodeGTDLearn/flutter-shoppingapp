@@ -27,10 +27,11 @@ class OverviewView extends StatelessWidget {
         body: Obx(
           () => _controller.overviewViewGridViewItemsObs.isEmpty
               ? _overviewGrid_noProductsInDb()
-              : StaggeredGridview(
-                  columnCount: 2,
-                  gridItems: _controller.overviewViewGridViewItemsObs,
-                ).create(),
+              : StaggeredGridview().create(
+                  2,
+                  _controller.overviewViewGridViewItemsObs.value,
+                  500,
+                ),
         ));
   }
 

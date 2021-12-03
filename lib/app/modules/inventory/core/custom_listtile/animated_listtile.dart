@@ -14,6 +14,7 @@ import '../../../overview/controller/overview_controller.dart';
 import '../../controller/inventory_controller.dart';
 import '../../entity/product.dart';
 import '../../view/inventory_item_details_view.dart';
+import '../../view/inventory_item_image_view.dart';
 import 'icustom_listtile.dart';
 
 class AnimatedListTile implements ICustomListTile {
@@ -22,8 +23,8 @@ class AnimatedListTile implements ICustomListTile {
   final _animations = Get.find<AnimationsUtils>();
 
   @override
-  Widget create(Product product) {
-    var _id = product.id!;
+  Widget create(Product _product) {
+    var _id = _product.id!;
 
     return OpenContainer(
       transitionDuration: Duration(milliseconds: DELAY_MILLISEC_LISTTILE),
@@ -34,14 +35,11 @@ class AnimatedListTile implements ICustomListTile {
       closedBuilder: (context, void Function() openContainer) {
         return ListTile(
             key: Key('$K_INV_ITEM_KEY$_id'),
-            // leading: CircleAvatar(backgroundImage: NetworkImage(product.imageUrl)),
-            leading: _animations.zoomPageTransitionSwitcher(
-              zoomObservable: _inventoryController.inventoryImageZoomObs,
-              imageUrl: product.imageUrl,
-              zoomToggleMethod: _inventoryController.toggleInventoryImageZoomObs,
-              closeBuilder: CircleAvatar(backgroundImage: NetworkImage(product.imageUrl)),
-            ),
-            title: Text(product.title),
+            leading: _animations.openContainer(
+                openBuilder: InventoryItemImageView(_product.title, _product.imageUrl),
+                closedBuilder:
+                    CircleAvatar(backgroundImage: NetworkImage(_product.imageUrl))),
+            title: Text(_product.title),
             trailing: Container(
                 width: 100,
                 child: Row(children: <Widget>[
@@ -54,16 +52,18 @@ class AnimatedListTile implements ICustomListTile {
                       key: Key('$K_INV_DEL_BTN$_id'),
                       icon: INV_ITEM_DEL_ICO,
                       // @formatter:off
-                    onPressed: () =>
-                        _inventoryController.deleteProduct(_id).then((statusCode) {
-                          if (statusCode >= 200 && statusCode < 400) {
-                            _inventoryController.updateInventoryProductsObs();
-                            _overviewController.deleteProduct(_id);
-                            _overviewController.updateFilteredProductsObs();
-                            SimpleSnackbar(SUCES, SUCESS_MAN_PROD_DEL).show();
-                          }
-                          if (statusCode >= 400) SimpleSnackbar(OPS, ERROR_MAN_PROD).show();
-                        }),
+                      onPressed: () =>
+                          _inventoryController.deleteProduct(_id).then((statusCode) {
+                            if (statusCode >= 200 && statusCode < 400) {
+                              _inventoryController.updateInventoryProductsObs();
+                              _overviewController.deleteProduct(_id);
+                              _overviewController.updateFilteredProductsObs();
+                              SimpleSnackbar().show(SUCES, SUCESS_MAN_PROD_DEL);
+                            }
+                            if (statusCode >= 400) {
+                              SimpleSnackbar().show(OPS, ERROR_MAN_PROD);
+                            }
+                          }),
                       // @formatter:on
                       color: Theme.of(context).errorColor),
                 ])));

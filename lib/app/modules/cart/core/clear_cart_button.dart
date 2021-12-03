@@ -31,7 +31,7 @@ class ClearCartButton extends StatelessWidget {
                 _controller.renderListView.value = false;
                 await Future.delayed(Duration(milliseconds: 500));
                 _controller.clearCart.call();
-                SimpleSnackbar(SUCES, SUCES_ORD_CLEAN).show();
+                SimpleSnackbar().show(SUCES, SUCES_ORD_CLEAN);
                 await Future.delayed(Duration(milliseconds: DURATION + 2000));
                 Get.back.call();
               },

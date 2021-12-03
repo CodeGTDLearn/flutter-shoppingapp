@@ -22,7 +22,7 @@ class CartView extends StatelessWidget {
         appBar: _appbar.create(
           CRT_TIT_APPBAR,
           () => Get.offNamed(AppRoutes.OVERVIEW_ALL),
-          [ClearCartButton(_controller)],
+          actions: [ClearCartButton(_controller)],
         ),
         body: Container(
             width: MediaQuery.of(context).size.width,

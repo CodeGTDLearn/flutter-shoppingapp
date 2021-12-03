@@ -75,21 +75,23 @@ class CartViewHeader extends StatelessWidget {
                     CRT_MSG_CONF_ORDER,
                     YES,
                     CRT_LBL_KEEP,
-              // @formatter:off
-              () => {_controller
-                    .addOrder(
-                        _controller.getAllCartItems().values.toList(),
-                        _controller.amountCartItemsObs.value)
-                    .then((_) async {
+                    // @formatter:off
+                    () => {
+                      _controller
+                          .addOrder(_controller.getAllCartItems().values.toList(),
+                              _controller.amountCartItemsObs.value)
+                          .then((_) async {
                         _controller.renderListView.value = false;
                         await Future.delayed(Duration(milliseconds: 500));
                         _controller.clearCart.call();
-                        SimpleSnackbar(SUCES, SUCES_ORD_ADD).show();
+                        SimpleSnackbar().show(SUCES, SUCES_ORD_ADD);
                         await Future.delayed(Duration(milliseconds: DURATION + 2000));
-                        Get.back.call();})
-                    .catchError((error) {SimpleSnackbar('$OPS$error', ERROR_ORD, 5000).show();})
-                   },
-              () => {Get.back()},
+                        Get.back.call();
+                      }).catchError((error) {
+                        SimpleSnackbar(5000).show('$OPS$error', ERROR_ORD);
+                      })
+                    },
+                    () => {Get.back()},
                     // @formatter:on
                   );
                 }

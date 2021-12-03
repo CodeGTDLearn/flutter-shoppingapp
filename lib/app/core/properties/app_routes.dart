@@ -4,6 +4,7 @@ import '../../modules/cart/core/cart_bindings.dart';
 import '../../modules/cart/view/cart_view.dart';
 import '../../modules/inventory/core/inventory_bindings.dart';
 import '../../modules/inventory/view/inventory_item_details_view.dart';
+import '../../modules/inventory/view/inventory_item_image_view.dart';
 import '../../modules/inventory/view/inventory_view.dart';
 import '../../modules/orders/core/orders_bindings.dart';
 import '../../modules/orders/view/orders_view.dart';
@@ -25,7 +26,8 @@ class AppRoutes {
   static const CART = '/cart';
   static const ORDERS = '/orders';
   static const INVENTORY = '/inventory';
-  static const INVENTORY_ITEM_DETAILS = '/inventory-edit/';
+  static const INVENTORY_ITEM_DETAILS = '/inventory-item-edit/';
+  static const INVENTORY_ITEM_IMAGE = '/inventory-item-image/';
 
   // @formatter:off
   static List<GetPage> getAppRoutes = [
@@ -52,6 +54,8 @@ class AppRoutes {
       InventoryBindings()]),
 
     GetPage(name: '$INVENTORY_ITEM_DETAILS:id', page: () => InventoryItemDetailsView()),
+    GetPage(name: '$INVENTORY_ITEM_IMAGE', page: () =>
+        InventoryItemImageView()),
   ];
   // @formatter:on
 }

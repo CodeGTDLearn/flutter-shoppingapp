@@ -4,21 +4,17 @@ import '../../keys/components/custom_snackbar_keys.dart';
 import 'icustom_snackbar.dart';
 
 class ButtonSnackbar implements ICustomSnackbar {
-  String title;
-  String message;
   String labelButton;
   BuildContext context;
   Function function;
 
   ButtonSnackbar({
-    required this.title,
-    required this.message,
     required this.labelButton,
     required this.context,
     required this.function,
   });
 
-  void show() {
+  void show(String title, String message) {
     var snackBarButtonConfig = SnackBar(
         duration: Duration(seconds: 1),
         action: SnackBarAction(

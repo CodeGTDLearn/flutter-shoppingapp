@@ -6,7 +6,7 @@ import 'package:shopingapp/app/core/keys/components/custom_drawer_keys.dart';
 import 'package:shopingapp/app/core/keys/overview_keys.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
 import 'package:shopingapp/app/modules/cart/view/cart_view.dart';
-import 'package:shopingapp/app/modules/orders/core/order_collapsable_tile.dart';
+import 'package:shopingapp/app/modules/orders/core/custom_collapsable_tile/order_collapsable_tile.dart';
 import 'package:shopingapp/app/modules/orders/view/orders_view.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;

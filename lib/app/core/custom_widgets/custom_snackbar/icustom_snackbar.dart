@@ -1,3 +1,6 @@
 abstract class ICustomSnackbar {
-  void show();
+  void show(
+    String title,
+    String message,
+  );
 }

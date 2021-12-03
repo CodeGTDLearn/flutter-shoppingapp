@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../inventory/entity/product.dart';
 import '../gridview_item.dart';
 import 'icustom_gridview.dart';
 
@@ -13,7 +14,7 @@ class SimpleGridview implements ICustomGridview {
   });
 
   @override
-  Widget create() {
+  Widget create(int columnCount, List<Product> gridItems, [int delayMilliseconds = 500]) {
     return GridView.builder(
         padding: EdgeInsets.all(10),
         itemCount: gridItems.length,

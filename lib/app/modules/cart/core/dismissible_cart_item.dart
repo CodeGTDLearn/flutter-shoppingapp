@@ -36,7 +36,7 @@ class DismissibleCartItem extends StatelessWidget {
         onDismissed: (direction) {
           _controller.removeCartItem(_cartItem);
           if (_controller.getQtdeCartItemsObs().isEqual(0)) {
-            SimpleSnackbar(SUCES, QUIT_AFTER_DELS).show();
+            SimpleSnackbar().show(SUCES, QUIT_AFTER_DELS);
             Future.delayed(Duration(milliseconds: DURATION)).then((value) => Get.back());
           }
         },

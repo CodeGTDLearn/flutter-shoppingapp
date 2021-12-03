@@ -14,12 +14,13 @@ class AnimationsUtils {
     Color fillColor = Colors.white,
     String title = "",
     required String imageUrl,
-    required Function zoomToggleMethod,
+    required Function observableToggleMethod,
     //closeBuilder: Starting/Origin Widget that will be zoomed
     required Widget closeBuilder,
+    bool reverse = false,
   }) {
-    return Obx(
-      () => PageTransitionSwitcher(
+    return Obx(() => PageTransitionSwitcher(
+        reverse: reverse,
         duration: Duration(milliseconds: milliseconds),
         transitionBuilder: (child, primaryAnimation, secondaryAnimation) {
           return SharedAxisTransition(
@@ -30,17 +31,48 @@ class AnimationsUtils {
               fillColor: fillColor);
         },
         child: zoomObservable.value
-            ? GestureDetector(
-                onTap: () => zoomToggleMethod.call(),
-                child: InteractiveViewer(
-                    minScale: 0.2,
-                    maxScale: 100.2,
-                    child: Image.network(imageUrl,
-                        height: double.infinity,
-                        width: double.infinity,
-                        fit: BoxFit.cover)))
-            : closeBuilder,
-      ),
-    );
+            ? _zoomingGestureDetector(observableToggleMethod, imageUrl)
+
+            /*╔═══════════════════════════════════════════════════════════════╗
+              ║  !!!ATTENTION!!! <<==== GestureDetector =====>> closeBuilder  ║
+              ╠═══════════════════════════════════════════════════════════════╣
+              ║    INSIDE THE CLOSED-BUILDER-WIDGET(closeBuilder) MUST HAVE   ║
+              ║        A  GestureDetector WITH observableToggleMethod         ║
+              ║               THAT WILL START THIS ANIMATION                  ║
+              ╚═══════════════════════════════════════════════════════════════╝*/
+            : closeBuilder));
+  }
+
+  GestureDetector _zoomingGestureDetector(
+    Function observableToggleMethod,
+    String imageUrl,
+  ) {
+    return GestureDetector(
+        onTap: () => observableToggleMethod.call(),
+        child: InteractiveViewer(
+            minScale: 0.2,
+            maxScale: 100.2,
+            child: Image.network(
+              imageUrl,
+              height: double.infinity,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            )));
+  }
+
+  OpenContainer<Object> openContainer({
+    required Widget openBuilder,
+    required Widget closedBuilder,
+    int milliseconds = 375,
+  }) {
+    return OpenContainer(
+        transitionDuration: Duration(milliseconds: milliseconds),
+        transitionType: ContainerTransitionType.fadeThrough,
+        openBuilder: (context, void Function({Object? returnValue}) action) {
+          return openBuilder;
+        },
+        closedBuilder: (context, void Function() openContainer) {
+          return GestureDetector(onTap: openContainer, child: closedBuilder);
+        });
   }
 }

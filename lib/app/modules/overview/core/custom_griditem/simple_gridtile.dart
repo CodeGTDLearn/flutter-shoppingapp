@@ -41,8 +41,8 @@ class SimpleGridtile implements ICustomGridtile {
                   onPressed: () {
                     _uniqueController.toggleFavoriteStatus(product.id!).then((response) {
                       response
-                          ? SimpleSnackbar(SUCES, TOG_STATUS_SUCES).show()
-                          : SimpleSnackbar(OPS, TOG_STATUS_ERROR).show();
+                          ? SimpleSnackbar().show(SUCES, TOG_STATUS_SUCES)
+                          : SimpleSnackbar().show(OPS, TOG_STATUS_ERROR);
                     });
                   },
                   color: Theme.of(context).colorScheme.secondary),
@@ -55,11 +55,12 @@ class SimpleGridtile implements ICustomGridtile {
                   _cartController.addCartItem(product);
                   ButtonSnackbar(
                     context: context,
-                    title: DONE,
-                    message: "${product.title}$ITEMCART_ADDED",
                     labelButton: UNDO,
                     function: () => _cartController.addCartItemUndo(product),
-                  ).show();
+                  ).show(
+                    DONE,
+                    "${product.title}$ITEMCART_ADDED",
+                  );
                 },
                 color: Theme.of(context).colorScheme.secondary),
             backgroundColor: Colors.black87));

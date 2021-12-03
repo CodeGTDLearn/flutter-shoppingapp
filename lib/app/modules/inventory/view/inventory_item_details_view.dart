@@ -24,6 +24,7 @@ import '../core/custom_form_field/field_validators/price_validator.dart';
 import '../core/custom_form_field/field_validators/title_validator.dart';
 import '../core/custom_form_field/field_validators/url_validator.dart';
 import '../entity/product.dart';
+import 'inventory_item_image_view.dart';
 
 // todo: refazer usando o video do rodrigohaman
 // https://www.youtube.com/watch?v=GEC4LF40J6k&t=309s
@@ -40,20 +41,15 @@ class InventoryItemDetailsView extends StatefulWidget {
 
 class _InventoryItemDetailsViewState extends State<InventoryItemDetailsView> {
   final _appbar = Get.find<CustomAppBar>();
-
   final _controller = Get.find<InventoryController>();
   final _animations = Get.find<AnimationsUtils>();
 
   final _formKey = K_INV_FORM_GKEY;
 
   late Product _product;
-
   var _urlControl;
-
   var _nodePrice;
-
   var _nodeDescr;
-
   var _nodeImgUrl;
 
   @override
@@ -63,12 +59,13 @@ class _InventoryItemDetailsViewState extends State<InventoryItemDetailsView> {
     return Scaffold(
         appBar: _appbar.create(
             Get.arguments == null ? INV_EDT_LBL_ADD_APPBAR : INV_EDT_LBL_EDIT_APPBAR,
-            Get.back, [
-          IconButton(
-              key: Key(K_INV_ADDEDIT_SAVE_BTN),
-              icon: ICO_INV_EDT_SAVE_BTN_APPBAR,
-              onPressed: () => _saveForm(context))
-        ]),
+            Get.back,
+            actions: [
+              IconButton(
+                  key: Key(K_INV_ADDEDIT_SAVE_BTN),
+                  icon: ICO_INV_EDT_SAVE_BTN_APPBAR,
+                  onPressed: () => _saveForm(context))
+            ]),
         body: Padding(
             padding: EdgeInsets.all(16),
             child: Form(
@@ -104,25 +101,21 @@ class _InventoryItemDetailsViewState extends State<InventoryItemDetailsView> {
                       onFieldSubmitted: (_) => _setFocus(_nodeImgUrl, context),
                       node: _nodeDescr),
                   Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                    _animations.zoomPageTransitionSwitcher(
-                      zoomObservable: _controller.inventoryImageZoomObs,
-                      imageUrl: _urlControl.text,
-                      zoomToggleMethod: _controller.toggleInventoryImageZoomObs,
-                      closeBuilder: Container(
-                          width: 100,
-                          height: 100,
-                          margin: EdgeInsets.only(top: 20, right: 10),
-                          decoration: BoxDecoration(
-                              border: Border.all(width: 0.5, color: Colors.grey)),
-                          child: Obx(() => Container(
-                              child: _controller.getImgUrlPreviewObs()
-                                  ? FittedBox(
-                                      child: Image.network(
-                                      _urlControl.text,
-                                      fit: BoxFit.cover,
-                                    ))
-                                  : Center(child: INV_EDT_NO_IMG_TIT)))),
-                    ),
+                    Container(
+                        width: 100,
+                        height: 100,
+                        margin: EdgeInsets.only(top: 20, right: 10),
+                        decoration: BoxDecoration(
+                            border: Border.all(width: 0.5, color: Colors.grey)),
+                        child: Obx(() => _controller.getImgUrlPreviewObs()
+                            ? _animations.openContainer(
+                                openBuilder: InventoryItemImageView(
+                                    _product.title, _product.imageUrl),
+                                closedBuilder: FittedBox(
+                                    child: Image.network(_urlControl.text,
+                                        fit: BoxFit.cover)),
+                              )
+                            : Center(child: INV_EDT_NO_IMG_TIT))),
                     Expanded(
                         child: CustomFormField(UrlProperties()).create(
                             product: _product,
@@ -190,7 +183,7 @@ class _InventoryItemDetailsViewState extends State<InventoryItemDetailsView> {
     _controller.addProduct(_product).then((product) {
       _controller.updateInventoryProductsObs();
     }).whenComplete(() {
-      SimpleSnackbar(SUCES, SUCESS_MAN_PROD_ADD).show();
+      SimpleSnackbar().show(SUCES, SUCESS_MAN_PROD_ADD);
     }).catchError((onError) {
       Get.defaultDialog(
           title: OPS, middleText: ERROR_MAN_PROD, textConfirm: OK, onConfirm: Get.back);
@@ -203,7 +196,7 @@ class _InventoryItemDetailsViewState extends State<InventoryItemDetailsView> {
     _controller.updateProduct(_product).then((statusCode) {
       if (statusCode >= 200 && statusCode < 400) {
         _controller.updateInventoryProductsObs();
-        SimpleSnackbar(SUCES, SUCESS_MAN_PROD_UPDT).show();
+        SimpleSnackbar().show(SUCES, SUCESS_MAN_PROD_UPDT);
       }
       if (statusCode >= 400) {
         Get.defaultDialog(

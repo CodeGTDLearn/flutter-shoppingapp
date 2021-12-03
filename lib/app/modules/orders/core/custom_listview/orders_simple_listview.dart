@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../modules/orders/entity/order.dart';
-import '../order_collapsable_tile.dart';
+import '../custom_collapsable_tile/order_collapsable_tile.dart';
 import 'icustom_orders_listview.dart';
 
 class OrdersSimpleListview implements ICustomOrdersListview {

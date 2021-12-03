@@ -25,38 +25,48 @@ class OverviewItemDetailsView extends StatelessWidget {
     if (_id == null) _id = Get.parameters['id'];
     var _item = _controller.getProductById(_id!);
     var _appBar = _appbar.create(_item.title, Get.back);
-    var _appBarZoom = AppBar(title: Text(_item.title), automaticallyImplyLeading: false);
+    var _appbarZoomPage = _appbar.create(
+      _item.title,
+      _controller.toggleOverviewItemDetailsImageZoomObs,
+      icon: Icons.zoom_out,
+    );
     var _height = _uiUtils.usefulHeight(context, _appBar);
 
     return Obx(() => Scaffold(
-        appBar: _controller.overviewItemDetailsImageZoomObs.value ? _appBarZoom : _appBar,
+        appBar:
+            _controller.overviewItemDetailsImageZoomObs.value ? _appbarZoomPage : _appBar,
         body: _animations.zoomPageTransitionSwitcher(
+            reverse: !_controller.overviewItemDetailsImageZoomObs.value,
             milliseconds: 1000,
             zoomObservable: _controller.overviewItemDetailsImageZoomObs,
             title: _item.title,
             imageUrl: _item.imageUrl,
-            zoomToggleMethod: _controller.toggleOverviewItemDetailsImageZoomObs,
+            observableToggleMethod: _controller.toggleOverviewItemDetailsImageZoomObs,
             closeBuilder: SingleChildScrollView(
-                child: Column(children: [
-              Container(
-                  height: _height * 0.4,
-                  width: double.infinity,
-                  child: GestureDetector(
-                      onTap: _controller.toggleOverviewItemDetailsImageZoomObs,
-                      child: Image.network(_item.imageUrl,
-                          fit: BoxFit.cover, key: Key(K_OV_ITM_DET_PAGE_IMG)))),
-              SizedBox(height: _height * 0.03),
-              Text('\$${_item.title}', style: TextStyle(fontSize: _height * 0.03)),
-              SizedBox(height: _height * 0.03),
-              Text('\$${_item.price}', style: TextStyle(fontSize: _height * 0.03)),
-              SizedBox(height: _height * 0.03),
-              Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  height: _height * 0.4,
-                  width: double.infinity,
-                  child: Text(_item.description,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyText2))
-            ])))));
+                child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(children: [
+                      Container(
+                          height: _height * 0.4,
+                          width: double.infinity,
+                          child: GestureDetector(
+                              onTap: _controller.toggleOverviewItemDetailsImageZoomObs,
+                              child: Image.network(_item.imageUrl,
+                                  fit: BoxFit.cover, key: Key(K_OV_ITM_DET_PAGE_IMG)))),
+                      SizedBox(height: _height * 0.03),
+                      Text('\$${_item.title}',
+                          style: TextStyle(fontSize: _height * 0.03)),
+                      SizedBox(height: _height * 0.03),
+                      Text('\$${_item.price}',
+                          style: TextStyle(fontSize: _height * 0.03)),
+                      SizedBox(height: _height * 0.03),
+                      Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          height: _height * 0.4,
+                          width: double.infinity,
+                          child: Text(_item.description,
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.bodyText2))
+                    ]))))));
   }
 }

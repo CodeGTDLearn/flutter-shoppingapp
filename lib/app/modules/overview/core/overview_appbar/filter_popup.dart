@@ -34,7 +34,7 @@ class FilterPopup extends StatelessWidget {
             ],
         onSelected: (value) {
           _controller.getFavoritesQtde() == 0
-              ? SimpleSnackbar(OPS, OVERVIEW_NO_ITEMS_FAVS_YET).show()
+              ? SimpleSnackbar().show(OPS, OVERVIEW_NO_ITEMS_FAVS_YET)
               : value == FilterOptions.All
                   ? _controller.applyPopupFilter(FilterOptions.All)
                   : _controller.applyPopupFilter(FilterOptions.Fav);

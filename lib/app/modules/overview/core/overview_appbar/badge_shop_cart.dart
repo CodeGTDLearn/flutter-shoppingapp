@@ -28,7 +28,7 @@ class BadgeShopCart extends StatelessWidget {
             icon: OV_ICO_SHOPCART,
             onPressed: () {
               if (_controller.getAllCartItems().isEmpty) {
-                SimpleSnackbar(OPS, CART_NO_ITEMS_YET).show();
+                SimpleSnackbar().show(OPS, CART_NO_ITEMS_YET);
               } else {
                 ScaffoldMessenger.of(context).removeCurrentSnackBar();
                 Get.toNamed(AppRoutes.CART);
