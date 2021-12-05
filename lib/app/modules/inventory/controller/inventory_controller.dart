@@ -78,14 +78,4 @@ class InventoryController extends GetxController {
   void updateInventoryProductsObs() {
     inventoryProductsObs.assignAll(service.getLocalDataInventoryProducts());
   }
-
-  bool getReloadInventoryProductsEditPageObs() {
-    return renderInventoryItemDetailsViewObs.value;
-  }
-
-// bool getImgUrlPreviewObs() => _imgUrlPreviewObs.value;
-//
-// void setImgUrlPreviewObs(bool value) {
-//   _imgUrlPreviewObs.value = value;
-// }
 }

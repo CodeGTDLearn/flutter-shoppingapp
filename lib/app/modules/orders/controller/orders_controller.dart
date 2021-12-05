@@ -24,12 +24,4 @@ class OrdersController {
   void clearOrder() {
     service.clearOrder();
   }
-
-  List<Order> getOrdersObs() {
-    return ordersObs.toList();
-  }
-
-  int getQtdeOrdersObs() {
-    return qtdeOrdersObs.value;
-  }
 }

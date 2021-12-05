@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
-import 'package:shopingapp/app/core/properties/app_routes.dart';
 
 import '../../../core/custom_widgets/custom_appbar.dart';
 import '../../../core/keys/overview_keys.dart';
+import '../../../core/properties/app_routes.dart';
 import '../../../core/utils/animations_utils.dart';
 import '../../../core/utils/ui_utils.dart';
 import '../controller/overview_controller.dart';

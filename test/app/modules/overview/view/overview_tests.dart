@@ -67,7 +67,7 @@ class OverviewTests {
       await tester.tap(finder.key(addProductButtonKey));
       await tester.pumpAndSettle(testUtils.delay(DELAY));
       expect(
-        finder.text(_controller.getQtdeCartItemsObs().toString()),
+        finder.text(_controller.qtdeCartItemsObs.value.toString()),
         findsOneWidget,
       );
     }
@@ -91,11 +91,11 @@ class OverviewTests {
     await tester.tap(finder.key(addProductButtonKey));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.text(productTitle), findsWidgets);
-    expect(finder.text(_controller.getQtdeCartItemsObs().toString()), findsOneWidget);
+    expect(finder.text(_controller.qtdeCartItemsObs.value.toString()), findsOneWidget);
 
     await tester.tap(finder.key(snackbarUndoButtonKey));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(finder.text(_controller.getQtdeCartItemsObs().toString()), findsOneWidget);
+    expect(finder.text(_controller.qtdeCartItemsObs.value.toString()), findsOneWidget);
   }
 
   Future<void> add_sameProduct3x_check_shopCartIcon(
@@ -117,7 +117,7 @@ class OverviewTests {
       await tester.pump();
       await tester.pumpAndSettle(testUtils.delay(DELAY));
       expect(
-        finder.text(_controller.getQtdeCartItemsObs().toString()),
+        finder.text(_controller.qtdeCartItemsObs.value.toString()),
         findsOneWidget,
       );
     }
@@ -145,7 +145,7 @@ class OverviewTests {
       await tester.pump();
       await tester.pumpAndSettle(testUtils.delay(DELAY));
       expect(
-        finder.text(_controller.getQtdeCartItemsObs().toString()),
+        finder.text(_controller.qtdeCartItemsObs.value.toString()),
         findsOneWidget,
       );
     }

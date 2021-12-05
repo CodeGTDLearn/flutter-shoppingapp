@@ -46,7 +46,7 @@ class BadgeShopCart extends StatelessWidget {
                         color != null ? color : Theme.of(context).colorScheme.secondary),
                 constraints: BoxConstraints(minWidth: 16, minHeight: 16),
                 child: Obx(
-                  () => Text(_controller.getQtdeCartItemsObs().toString(),
+                  () => Text(_controller.qtdeCartItemsObs.value.toString(),
                       textAlign: TextAlign.center, style: TextStyle(fontSize: 10)),
                 )))
       ],

@@ -57,11 +57,11 @@ class CartTests {
     await tester.pump();
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(CartView), findsOneWidget);
-    expect(Get.find<CartController>().getAmountCartItemsObs() > 0.0, isTrue);
+    expect(Get.find<CartController>().amountCartItemsObs.value > 0.0, isTrue);
 
     await _clearCart_quitCartView(tester, finder.key(CART_PAGE_CLEARCART_BUTTON_KEY));
 
-    expect(Get.find<CartController>().getAmountCartItemsObs() == 0, isTrue);
+    expect(Get.find<CartController>().amountCartItemsObs.value == 0, isTrue);
     expect(finder.type(DismissibleCartItem), findsNothing);
     expect(finder.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
 
@@ -84,15 +84,14 @@ class CartTests {
     );
 
     expect(finder.type(CartView), findsOneWidget);
-    await _clearCart_quitCartView(
-        tester, finder.key(CART_PAGE_CLEARCART_BUTTON_KEY));
+    await _clearCart_quitCartView(tester, finder.key(CART_PAGE_CLEARCART_BUTTON_KEY));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
     await _addProduct_tappingOverviewItem_openShopCartView(
       tester,
       itemToAdd: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
     );
-    expect(Get.find<CartController>().getAmountCartItemsObs() > 0, isTrue);
+    expect(Get.find<CartController>().amountCartItemsObs.value > 0, isTrue);
     expect(orderNowButton, findsOneWidget);
     expect(customCircProgrIndic, findsNothing);
     expect(finder.type(DismissibleCartItem), findsOneWidget);
@@ -100,7 +99,7 @@ class CartTests {
     await tester.tap(orderNowButton);
     await tester.pump(testUtils.delay(DELAY));
 
-    expect(Get.find<CartController>().getAmountCartItemsObs() == 0, isTrue);
+    expect(Get.find<CartController>().amountCartItemsObs.value == 0, isTrue);
     expect(orderNowButton, findsNothing);
     expect(customCircProgrIndic, findsOneWidget);
     expect(finder.type(DismissibleCartItem), findsNothing);
@@ -125,9 +124,7 @@ class CartTests {
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(CartView), findsOneWidget);
     expect(
-      finder.text(Get.find<CartController>()
-          .getAmountCartItemsObs()
-          .toStringAsFixed(2)),
+      finder.text(Get.find<CartController>().amountCartItemsObs.value.toStringAsFixed(2)),
       findsOneWidget,
     );
   }

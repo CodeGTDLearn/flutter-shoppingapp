@@ -1,7 +1,7 @@
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/modules/overview/core/overview_appbar/filter_options.dart';
-import 'package:shopingapp/app/modules/overview/core/overview_appbar/overview_appbar.dart';
 
+import '../../modules/overview/core/overview_appbar/filter_options.dart';
+import '../../modules/overview/core/overview_appbar/overview_appbar.dart';
 import '../custom_widgets/custom_appbar.dart';
 
 class CustomAppbarsBinding extends Bindings {

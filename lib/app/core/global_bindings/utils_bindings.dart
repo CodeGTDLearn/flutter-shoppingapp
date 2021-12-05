@@ -1,6 +1,7 @@
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/utils/animations_utils.dart';
-import 'package:shopingapp/app/core/utils/ui_utils.dart';
+
+import '../utils/animations_utils.dart';
+import '../utils/ui_utils.dart';
 
 class UtilsBindings extends Bindings {
   void dependencies() {

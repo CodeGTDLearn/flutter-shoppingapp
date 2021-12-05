@@ -40,7 +40,7 @@ class CustomDrawer extends StatelessWidget {
         //     context: context),
         _drawerItem(
             // quantityItems: _cart.qtdeCartItems(),
-            quantityItems: _cart.getQtdeCartItemsObs(),
+            quantityItems: _cart.qtdeCartItemsObs.value,
             leadIcon: DRW_ICO_CART,
             title: DRW_LBL_CART,
             message: DRW_TXT_CART,
@@ -49,7 +49,7 @@ class CustomDrawer extends StatelessWidget {
             key: K_DRW_CRT_OP2,
             context: context),
         _drawerItem(
-            quantityItems: _orders.getQtdeOrdersObs(),
+            quantityItems: _orders.qtdeOrdersObs.value,
             leadIcon: DRW_ICO_ORD,
             title: DRW_LBL_ORD,
             message: DRW_TXT_ORD,

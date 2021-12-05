@@ -160,9 +160,9 @@ class InventoryControllerTests {
 
     test('Testing getReloadManagedProductsEditPage', () {
       _controller.getProducts().then((_) {
-        expect(_controller.getReloadInventoryProductsEditPageObs(), isFalse);
+        expect(_controller.renderInventoryItemDetailsViewObs.value, isFalse);
         _controller.switchInventoryItemFormToCustomIndicator();
-        expect(_controller.getReloadInventoryProductsEditPageObs(), isTrue);
+        expect(_controller.renderInventoryItemDetailsViewObs.value, isTrue);
       });
     });
   }

@@ -45,7 +45,7 @@ class OverviewControllerTests {
 
     test('Updating FilteredProductsObs', () {
       _controller.getProducts().then((value) {
-        expect(_controller.getFilteredProductsObs().length, 0);
+        expect(_controller.overviewViewGridViewItemsObs.toList().length, 0);
 
         var productTest = MockedDatasource().product();
         expect(_service.getLocalDataAllProducts().length, 4);
@@ -53,7 +53,7 @@ class OverviewControllerTests {
         expect(_service.getLocalDataAllProducts().length, 5);
 
         _controller.updateFilteredProductsObs();
-        expect(_controller.getFilteredProductsObs().length, 5);
+        expect(_controller.overviewViewGridViewItemsObs.toList().length, 5);
       });
     });
 
@@ -88,11 +88,11 @@ class OverviewControllerTests {
       _controller.getProducts().then((_) {
         var listAll = _service.setProductsByFilter(FilterOptions.All);
         _controller.applyPopupFilter(FilterOptions.All);
-        expect(_controller.getFilteredProductsObs(), listAll);
+        expect(_controller.overviewViewGridViewItemsObs.toList(), listAll);
 
         var listFav = _service.setProductsByFilter(FilterOptions.Fav);
         _controller.applyPopupFilter(FilterOptions.Fav);
-        expect(_controller.getFilteredProductsObs(), listFav);
+        expect(_controller.overviewViewGridViewItemsObs.toList(), listFav);
       });
     });
 
@@ -103,7 +103,7 @@ class OverviewControllerTests {
         _controller.toggleFavoriteStatus("p3").then((sucessOperation) {
           expect(sucessOperation, isTrue);
           expect(_controller.getProductById("p3").isFavorite, isFalse);
-          expect(_controller.getFavoriteStatusObs(), isFalse);
+          expect(_controller.favoriteStatusObs.value, isFalse);
         });
       });
     });

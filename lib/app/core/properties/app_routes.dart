@@ -1,5 +1,4 @@
 import 'package:get/route_manager.dart';
-import 'package:shopingapp/app/core/global_bindings/utils_bindings.dart';
 
 import '../../modules/cart/core/cart_bindings.dart';
 import '../../modules/cart/view/cart_view.dart';
@@ -15,6 +14,7 @@ import '../../modules/overview/view/overview_view.dart';
 import '../global_bindings/app_theme_bindings.dart';
 import '../global_bindings/custom_appbars_binding.dart';
 import '../global_bindings/custom_drawer_bindings.dart';
+import '../global_bindings/utils_bindings.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class AppRoutes {

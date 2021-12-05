@@ -19,26 +19,26 @@ class OrdersControllerTests {
     tearDown(Get.reset);
 
     test('Getting Orders', () {
-      expect(_controller.getQtdeOrdersObs(), isZero);
-      expect(_controller.getOrdersObs().length, isZero);
+      expect(_controller.qtdeOrdersObs.value, isZero);
+      expect(_controller.ordersObs.toList().length, isZero);
 
       _controller.getOrders().forEach((value) {
         expect(value.id.toString(), isIn(MockedDatasource().orders()));
-        expect(_controller.getQtdeOrdersObs(), isNonZero);
-        expect(_controller.getOrdersObs().length, isNonZero);
+        expect(_controller.qtdeOrdersObs.value, isNonZero);
+        expect(_controller.ordersObs.toList().length, isNonZero);
       });
     });
 
     test('Clearing Orders', () {
       _controller.getOrders().forEach((value) {
-        expect(_controller.getQtdeOrdersObs(), isZero);
-        expect(_controller.getOrdersObs().length, isZero);
+        expect(_controller.qtdeOrdersObs.value, isZero);
+        expect(_controller.ordersObs.toList().length, isZero);
         expect(value.id.toString(), isIn(MockedDatasource().orders()));
-        expect(_controller.getQtdeOrdersObs(), isNonZero);
-        expect(_controller.getOrdersObs().length, isNonZero);
+        expect(_controller.qtdeOrdersObs.value, isNonZero);
+        expect(_controller.ordersObs.toList().length, isNonZero);
         _controller.clearOrder();
-        expect(_controller.getQtdeOrdersObs(), isZero);
-        expect(_controller.getOrdersObs().length, isZero);
+        expect(_controller.qtdeOrdersObs.value, isZero);
+        expect(_controller.ordersObs.toList().length, isZero);
       });
     });
   }

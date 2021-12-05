@@ -76,11 +76,4 @@ class OverviewController extends GetxController {
     return service.getProductsQtde();
   }
 
-  bool getFavoriteStatusObs() {
-    return favoriteStatusObs.value;
-  }
-
-  List<Product> getFilteredProductsObs() {
-    return overviewViewGridViewItemsObs.toList();
-  }
 }
