@@ -93,16 +93,14 @@ class CustomDrawer extends StatelessWidget {
         title: Text(title),
         onTap: () {
           Navigator.pop(context);
-          var cond1 = quantityItems == 0 && notRoutingWithoutQtdeEvaluation;
-          var cond2 = quantityItems != 0 && notRoutingWithoutQtdeEvaluation;
-          if (cond1) {
+          var condition1 = quantityItems == 0 && notRoutingWithoutQtdeEvaluation;
+          var condition2 = quantityItems != 0 && notRoutingWithoutQtdeEvaluation;
+          if (condition1) {
             SimpleSnackbar().show(SUCES, message);
-          } else if (cond2) {
-            // Get.toNamed(route);
-            Get.offNamed(route);
+          } else if (condition2) {
+            Get.toNamed(route);
           } else {
-            // Get.toNamed(route);
-            Get.offNamed(route);
+            Get.toNamed(route);
           }
         });
     // @formatter:on

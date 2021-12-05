@@ -1,4 +1,5 @@
 import 'package:get/route_manager.dart';
+import 'package:shopingapp/app/core/global_bindings/utils_bindings.dart';
 
 import '../../modules/cart/core/cart_bindings.dart';
 import '../../modules/cart/view/cart_view.dart';
@@ -8,13 +9,12 @@ import '../../modules/inventory/view/inventory_item_image_view.dart';
 import '../../modules/inventory/view/inventory_view.dart';
 import '../../modules/orders/core/orders_bindings.dart';
 import '../../modules/orders/view/orders_view.dart';
-import '../../modules/overview/core/overview_appbar_binding.dart';
 import '../../modules/overview/core/overview_bindings.dart';
 import '../../modules/overview/view/overview_item_details_view.dart';
 import '../../modules/overview/view/overview_view.dart';
-import '../global_bindings/custom_appbar_binding.dart';
-import '../global_bindings/drawer_bindings.dart';
-import '../global_bindings/global_bindings.dart';
+import '../global_bindings/app_theme_bindings.dart';
+import '../global_bindings/custom_appbars_binding.dart';
+import '../global_bindings/custom_drawer_bindings.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class AppRoutes {
@@ -32,30 +32,32 @@ class AppRoutes {
   // @formatter:off
   static List<GetPage> getAppRoutes = [
     GetPage(name: OVERVIEW_ALL, page: () => OverviewView(), bindings: [
-      GlobalBindings(),
-      DrawerBindings(),
-      OverviewAppbarBinding(),
-      CustomAppbarBinding(),
+      AppThemeBindings(),
+      CustomDrawerBindings(),
+      UtilsBindings(),
+      CustomAppbarsBinding(),
+      CartBindings(),
       OverviewBindings()]),
+
+    GetPage(name: CART, page: () => CartView(), bindings: [
+      CustomAppbarsBinding(),
+      UtilsBindings(),
+      CartBindings()]),
 
     GetPage(name: '$OVERVIEW_ITEM_DETAILS:id', page: () => OverviewItemDetailsView()),
 
     GetPage(name: ORDERS, page: () => OrdersView(), bindings: [
-      CustomAppbarBinding(),
+      CustomAppbarsBinding(),
       OrdersBindings()]),
 
-    GetPage(name: CART, page: () => CartView(), bindings: [
-      CustomAppbarBinding(),
-      CartBindings()]),
-
     GetPage(name: INVENTORY, page: () => InventoryView(), bindings: [
+      CustomAppbarsBinding(),
+      UtilsBindings(),
       OverviewBindings(),
-      CustomAppbarBinding(),
       InventoryBindings()]),
 
     GetPage(name: '$INVENTORY_ITEM_DETAILS:id', page: () => InventoryItemDetailsView()),
-    GetPage(name: '$INVENTORY_ITEM_IMAGE', page: () =>
-        InventoryItemImageView()),
+    GetPage(name: '$INVENTORY_ITEM_IMAGE', page: () => InventoryItemImageView()),
   ];
   // @formatter:on
 }

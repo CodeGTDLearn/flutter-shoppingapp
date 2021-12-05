@@ -5,7 +5,6 @@ import 'package:get/state_manager.dart';
 
 import '../../../core/custom_widgets/custom_appbar.dart';
 import '../../../core/properties/app_properties.dart';
-import '../../../core/properties/app_routes.dart';
 import '../../../core/texts_icons_provider/pages/cart/cart_texts_icons_provided.dart';
 import '../controller/cart_controller.dart';
 import '../core/cartview_header.dart';
@@ -19,11 +18,8 @@ class CartView extends StatelessWidget {
   Widget build(BuildContext context) {
     _controller.renderListView.value = true;
     return Scaffold(
-        appBar: _appbar.create(
-          CRT_TIT_APPBAR,
-          () => Get.offNamed(AppRoutes.OVERVIEW_ALL),
-          actions: [ClearCartButton(_controller)],
-        ),
+        appBar: _appbar
+            .create(CRT_TIT_APPBAR, Get.back, actions: [ClearCartButton(_controller)]),
         body: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
@@ -56,18 +52,15 @@ class CartView extends StatelessWidget {
 
   Widget _transparentGradientShaderMask() {
     return ShaderMask(
-      shaderCallback: (rect) {
-        return LinearGradient(
-          begin: Alignment.bottomCenter,
-          end: Alignment.topCenter,
-          colors: [Colors.black, Colors.transparent],
-        ).createShader(
-            Rect.fromLTRB(0, 0, rect.width, rect.height * TRANSPARENCY_LAYER_LISTVIEW));
-      },
-      blendMode: BlendMode.dstIn,
-      child: Container(
-        color: Colors.white,
-      ),
-    );
+        shaderCallback: (rect) {
+          return LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: [Colors.black, Colors.transparent],
+          ).createShader(
+              Rect.fromLTRB(0, 0, rect.width, rect.height * TRANSPARENCY_LAYER_LISTVIEW));
+        },
+        blendMode: BlendMode.dstIn,
+        child: Container(color: Colors.white));
   }
 }

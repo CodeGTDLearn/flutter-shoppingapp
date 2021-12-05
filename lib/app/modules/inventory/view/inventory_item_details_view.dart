@@ -19,10 +19,10 @@ import '../core/custom_form_field/field_properties/description_properties.dart';
 import '../core/custom_form_field/field_properties/price_properties.dart';
 import '../core/custom_form_field/field_properties/title_properties.dart';
 import '../core/custom_form_field/field_properties/url_properties.dart';
-import '../core/custom_form_field/field_validators/description_validator.dart';
-import '../core/custom_form_field/field_validators/price_validator.dart';
-import '../core/custom_form_field/field_validators/title_validator.dart';
-import '../core/custom_form_field/field_validators/url_validator.dart';
+import '../core/custom_form_field/validators/description_validator.dart';
+import '../core/custom_form_field/validators/price_validator.dart';
+import '../core/custom_form_field/validators/title_validator.dart';
+import '../core/custom_form_field/validators/url_validator.dart';
 import '../entity/product.dart';
 import 'inventory_item_image_view.dart';
 
@@ -78,7 +78,7 @@ class _InventoryItemDetailsViewState extends State<InventoryItemDetailsView> {
                       context: context,
                       label: INV_EDT_LBL_TITLE,
                       key: K_INV_ADDEDIT_FLD_TITLE,
-                      validator: TitleValidator().validate(),
+                      validator: TitleValidator().validator(),
                       onFieldSubmitted: (_) => _setFocus(_nodePrice, context)),
                   CustomFormField(PriceProperties()).create(
                       product: _product,
@@ -86,7 +86,7 @@ class _InventoryItemDetailsViewState extends State<InventoryItemDetailsView> {
                       context: context,
                       label: INV_EDT_LBL_PRICE,
                       key: K_INV_ADDEDIT_FLD_PRICE,
-                      validator: PriceValidator().validate(),
+                      validator: PriceValidator().validator(),
                       onFieldSubmitted: (_) => _setFocus(_nodeDescr, context),
                       node: _nodePrice,
                       controller:
@@ -97,7 +97,7 @@ class _InventoryItemDetailsViewState extends State<InventoryItemDetailsView> {
                       context: context,
                       label: INV_EDT_LBL_DESCR,
                       key: K_INV_ADDEDIT_FLD_DESCR,
-                      validator: DescriptionValidator().validate(),
+                      validator: DescriptionValidator().validator(),
                       onFieldSubmitted: (_) => _setFocus(_nodeImgUrl, context),
                       node: _nodeDescr),
                   Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
@@ -107,14 +107,13 @@ class _InventoryItemDetailsViewState extends State<InventoryItemDetailsView> {
                         margin: EdgeInsets.only(top: 20, right: 10),
                         decoration: BoxDecoration(
                             border: Border.all(width: 0.5, color: Colors.grey)),
-                        child: Obx(() => _controller.getImgUrlPreviewObs()
+                        child: Obx(() => _controller.imgUrlPreviewObs.value
                             ? _animations.openContainer(
                                 openBuilder: InventoryItemImageView(
                                     _product.title, _product.imageUrl),
                                 closedBuilder: FittedBox(
                                     child: Image.network(_urlControl.text,
-                                        fit: BoxFit.cover)),
-                              )
+                                        fit: BoxFit.cover)))
                             : Center(child: INV_EDT_NO_IMG_TIT))),
                     Expanded(
                         child: CustomFormField(UrlProperties()).create(
@@ -123,7 +122,7 @@ class _InventoryItemDetailsViewState extends State<InventoryItemDetailsView> {
                             context: context,
                             label: INV_EDT_LBL_IMGURL,
                             key: K_INV_ADDEDIT_FLD_IMGURL,
-                            validator: UrlValidator().validate(),
+                            validator: UrlValidator().validator(),
                             onFieldSubmitted: (_) => _saveForm(context),
                             node: _nodeImgUrl,
                             controller: _urlControl))
@@ -138,14 +137,15 @@ class _InventoryItemDetailsViewState extends State<InventoryItemDetailsView> {
     findId
         ? () {
             _product = _controller.getProductById(_productId!);
-            _urlControl.text = _product.imageUrl;
-            _controller.setImgUrlPreviewObs(true);
+            _controller.imgUrlPreviewObs.value = true;
           }.call()
         : () {
             _product = Product.emptyInitialized();
             _nodeImgUrl.addListener(_previewImageUrl);
-            _controller.setImgUrlPreviewObs(true);
+            _controller.imgUrlPreviewObs.value = false;
           }.call();
+
+    _urlControl.text = _product.imageUrl;
   }
 
   void _startingFormInstances() {
@@ -167,7 +167,7 @@ class _InventoryItemDetailsViewState extends State<InventoryItemDetailsView> {
     var lostFocus = !_nodeImgUrl.hasFocus;
 
     if (lostFocus && isUnsafeUrl) return null;
-    if (lostFocus) _controller.setImgUrlPreviewObs(true);
+    if (lostFocus) _controller.imgUrlPreviewObs.value = true;
   }
 
   void _saveForm(BuildContext _context) {

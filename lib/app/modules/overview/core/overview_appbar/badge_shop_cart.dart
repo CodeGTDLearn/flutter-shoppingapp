@@ -32,6 +32,7 @@ class BadgeShopCart extends StatelessWidget {
               } else {
                 ScaffoldMessenger.of(context).removeCurrentSnackBar();
                 Get.toNamed(AppRoutes.CART);
+                // Get.offNamed(AppRoutes.CART);
               }
             }),
         Positioned(

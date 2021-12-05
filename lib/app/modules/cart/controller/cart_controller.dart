@@ -57,7 +57,7 @@ class CartController extends GetxController {
         .catchError((onError) => throw onError);
   }
 
-  int getQtdeCartItemsObs() {
+int getQtdeCartItemsObs() {
     return qtdeCartItemsObs.value;
   }
 

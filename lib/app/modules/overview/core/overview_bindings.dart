@@ -1,8 +1,5 @@
 import 'package:get/instance_manager.dart';
 
-import '../../../core/custom_widgets/custom_drawer.dart';
-import '../../../core/utils/animations_utils.dart';
-import '../../../core/utils/ui_utils.dart';
 import '../controller/overview_controller.dart';
 import '../repo/i_overview_repo.dart';
 import '../repo/overview_repo_firebase.dart';
@@ -11,11 +8,7 @@ import '../service/overview_service.dart';
 
 class OverviewBindings extends Bindings {
   void dependencies() {
-    Get.lazyPut<UiUtils>(() => UiUtils());
-    Get.lazyPut<AnimationsUtils>(() => AnimationsUtils());
-    Get.lazyPut<CustomDrawer>(() => CustomDrawer());
-
-    Get.lazyPut<IOverviewRepo>(() => OverviewRepoFirebase());
+        Get.lazyPut<IOverviewRepo>(() => OverviewRepoFirebase());
 
     Get.lazyPut<IOverviewService>(() => OverviewService(repo: Get.find<IOverviewRepo>()));
 

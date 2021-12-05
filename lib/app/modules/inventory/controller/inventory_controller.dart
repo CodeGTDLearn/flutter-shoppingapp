@@ -8,7 +8,7 @@ class InventoryController extends GetxController {
 
   var inventoryProductsObs = <Product>[].obs;
   var renderInventoryItemDetailsViewObs = false.obs;
-  var _imgUrlPreviewObs = false.obs;
+  var imgUrlPreviewObs = false.obs;
   var inventoryImageZoomObs = false.obs;
 
   InventoryController({required this.service});
@@ -83,9 +83,9 @@ class InventoryController extends GetxController {
     return renderInventoryItemDetailsViewObs.value;
   }
 
-  bool getImgUrlPreviewObs() => _imgUrlPreviewObs.value;
-
-  void setImgUrlPreviewObs(bool value) {
-    _imgUrlPreviewObs.value = value;
-  }
+// bool getImgUrlPreviewObs() => _imgUrlPreviewObs.value;
+//
+// void setImgUrlPreviewObs(bool value) {
+//   _imgUrlPreviewObs.value = value;
+// }
 }

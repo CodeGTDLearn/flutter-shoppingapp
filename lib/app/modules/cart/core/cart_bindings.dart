@@ -1,6 +1,6 @@
 import 'package:get/instance_manager.dart';
+import 'package:shopingapp/app/modules/cart/repo/cart_repo.dart';
 
-import '../../../core/utils/animations_utils.dart';
 import '../../orders/service/i_orders_service.dart';
 import '../controller/cart_controller.dart';
 import '../repo/i_cart_repo.dart';
@@ -9,11 +9,9 @@ import '../service/i_cart_service.dart';
 
 class CartBindings extends Bindings {
   void dependencies() {
-    Get.lazyPut<AnimationsUtils>(() => AnimationsUtils());
+    Get.lazyPut<ICartRepo>(() => CartRepo());
 
-    final _permanentCartRepo = Get.find<ICartRepo>(tag: 'persistentCartRepo');
-
-    Get.lazyPut<ICartService>(() => CartService(repo: _permanentCartRepo));
+    Get.lazyPut<ICartService>(() => CartService(repo: Get.find<ICartRepo>()));
 
     Get.lazyPut<CartController>(() => CartController(
         cartService: Get.find<ICartService>(),

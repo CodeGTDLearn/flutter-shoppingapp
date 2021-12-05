@@ -64,10 +64,13 @@ class AnimationsUtils {
     required Widget openBuilder,
     required Widget closedBuilder,
     int milliseconds = 375,
+    int closedElevation = 0,
+    transitionType = ContainerTransitionType.fadeThrough,
   }) {
     return OpenContainer(
         transitionDuration: Duration(milliseconds: milliseconds),
         transitionType: ContainerTransitionType.fadeThrough,
+        closedElevation: 0,
         openBuilder: (context, void Function({Object? returnValue}) action) {
           return openBuilder;
         },

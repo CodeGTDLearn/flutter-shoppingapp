@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
-import 'package:shopingapp/app/core/keys/inventory_keys.dart';
-import 'package:shopingapp/app/core/utils/animations_utils.dart';
 
 import '../../../core/custom_widgets/custom_appbar.dart';
 import '../../../core/custom_widgets/custom_indicator.dart';
-import '../../../core/properties/app_routes.dart';
+import '../../../core/keys/inventory_keys.dart';
 import '../../../core/texts_icons_provider/pages/components/app_messages_provided.dart';
 import '../../../core/texts_icons_provider/pages/inventory/inventory_texts_icons_provided.dart';
+import '../../../core/utils/animations_utils.dart';
 import '../../overview/controller/overview_controller.dart';
 import '../controller/inventory_controller.dart';
 import '../core/custom_listview/inventory_staggered_listview.dart';
@@ -26,19 +25,16 @@ class InventoryView extends StatelessWidget {
     return Scaffold(
         appBar: _appbar.create(INV_TIT_APPBAR, () {
           _overviewController.updateFilteredProductsObs();
-          Get.offNamed(AppRoutes.OVERVIEW_ALL);
+          Get.back();
         }, actions: [
           _animations.openContainer(
               milliseconds: 1000,
               openBuilder: InventoryItemDetailsView(),
               closedBuilder: Container(
                 decoration: BoxDecoration(
-                  color: Colors.pink,
-                  border: Border.all(color: Colors.transparent),
-                ),
+                    color: Colors.pink, border: Border.all(color: Colors.transparent)),
                 width: 50,
                 alignment: Alignment.center,
-                // color: Colors.pink,
                 key: Key(K_INV_ICO_ADD_PROD_APPBAR),
                 child: INV_ICO_ADD_PROD_APPBAR,
               ))
