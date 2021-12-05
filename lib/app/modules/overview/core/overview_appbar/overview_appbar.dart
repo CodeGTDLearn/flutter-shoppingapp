@@ -17,13 +17,16 @@ class OverviewAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   Widget build(BuildContext context) {
     return Obx(() => AppBar(
-        key: Key(K_DRW_APPBAR_BTN),
-        title: Text(
-            _controller.appbarFilterPopupObs == FilterOptions.All
-                ? OV_TIT_ALL_APPBAR
-                : OV_TIT_FAV_APPBAR,
-            key: Key(K_OV_TIT_APPBAR)),
-        actions: [FilterPopup(filter: filter), BadgeShopCart()]));
+            key: Key(K_DRW_APPBAR_BTN),
+            title: Text(
+                _controller.appbarFilterPopupObs == FilterOptions.All
+                    ? OV_TIT_ALL_APPBAR
+                    : OV_TIT_FAV_APPBAR,
+                key: Key(K_OV_TIT_APPBAR)),
+            actions: [
+              FilterPopup(filter: filter),
+              BadgeShopCart(),
+            ]));
   }
 
   Size get preferredSize => const Size.fromHeight(55);

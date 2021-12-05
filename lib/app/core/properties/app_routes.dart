@@ -32,9 +32,9 @@ class AppRoutes {
   // @formatter:off
   static List<GetPage> getAppRoutes = [
     GetPage(name: OVERVIEW_ALL, page: () => OverviewView(), bindings: [
+      UtilsBindings(),
       AppThemeBindings(),
       CustomDrawerBindings(),
-      UtilsBindings(),
       CustomAppbarsBinding(),
       CartBindings(),
       OverviewBindings()]),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
+import 'package:shopingapp/app/core/utils/animations_utils.dart';
+import 'package:shopingapp/app/modules/cart/view/cart_view.dart';
 
 import '../../../../core/custom_widgets/custom_snackbar/simple_snackbar.dart';
 import '../../../../core/keys/cart_keys.dart';
@@ -14,7 +16,8 @@ import '../../../cart/controller/cart_controller.dart';
 class BadgeShopCart extends StatelessWidget {
   final Color? color;
 
-  final CartController _controller = Get.find<CartController>();
+  final _controller = Get.find<CartController>();
+  final _animations = Get.find<AnimationsUtils>();
 
   BadgeShopCart({this.color});
 
@@ -23,18 +26,34 @@ class BadgeShopCart extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        IconButton(
-            key: Key(K_SHP_CART_APPBAR_BTN),
-            icon: OV_ICO_SHOPCART,
-            onPressed: () {
-              if (_controller.getAllCartItems().isEmpty) {
-                SimpleSnackbar().show(OPS, CART_NO_ITEMS_YET);
-              } else {
-                ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                Get.toNamed(AppRoutes.CART);
-                // Get.offNamed(AppRoutes.CART);
-              }
-            }),
+        _animations.openContainer(
+          milliseconds: 1000,
+          openBuilder: CartView(),
+          closedBuilder: Container(
+              key: Key(K_SHP_CART_APPBAR_BTN),
+              child: OV_ICO_SHOPCART,
+              onPressed: () {
+                if (_controller.getAllCartItems().isEmpty) {
+                  SimpleSnackbar().show(OPS, CART_NO_ITEMS_YET);
+                }
+                if (_controller.getAllCartItems().isNotEmpty) {
+                  ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                  Get.toNamed(AppRoutes.CART);
+                }
+              }),
+        ),
+        // IconButton(
+        //     key: Key(K_SHP_CART_APPBAR_BTN),
+        //     icon: OV_ICO_SHOPCART,
+        //     onPressed: () {
+        //       if (_controller.getAllCartItems().isEmpty) {
+        //         SimpleSnackbar().show(OPS, CART_NO_ITEMS_YET);
+        //       } else {
+        //         ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        //         Get.toNamed(AppRoutes.CART);
+        //         // Get.offNamed(AppRoutes.CART);
+        //       }
+        //     }),
         Positioned(
             right: 8,
             top: 8,

@@ -31,17 +31,13 @@ class InventoryView extends StatelessWidget {
               milliseconds: 1000,
               openBuilder: InventoryItemDetailsView(),
               closedBuilder: Container(
+                key: Key(K_INV_ICO_ADD_PROD_APPBAR),
+                alignment: Alignment.center,
+                child: INV_ICO_ADD_PROD_APPBAR,
+                width: 50,
                 decoration: BoxDecoration(
                     color: Colors.pink, border: Border.all(color: Colors.transparent)),
-                width: 50,
-                alignment: Alignment.center,
-                key: Key(K_INV_ICO_ADD_PROD_APPBAR),
-                child: INV_ICO_ADD_PROD_APPBAR,
               ))
-          // IconButton(
-          //     key: Key(K_INV_ICO_ADD_PROD_APPBAR),
-          //     icon: INV_ICO_ADD_PROD_APPBAR,
-          //     onPressed: () => Get.to(() => InventoryItemDetailsView()))
         ]),
         body: Obx(() => (_controller.inventoryProductsObs.toList().isEmpty
             ? CustomIndicator.message(message: NO_INV_PROD, fontSize: 20)
