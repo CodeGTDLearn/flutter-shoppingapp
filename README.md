@@ -61,7 +61,7 @@ test, study, apply, explore Flutter as a definitive crossplatform and crossdevic
 
 
 5. [S.O.L.I.D.](https://scotch.io/bar-talk/s-o-l-i-d-the-first-five-principles-of-object-oriented-design)
-   - The First 5 Principles of Object Oriented Design
+   - The First 5 Principles of Object-Oriented Design
 
 
 6. [Flutter Staggered Animations](https://pub.dev/packages/flutter_staggered_animations)

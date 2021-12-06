@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../inventory/entity/product.dart';
-import '../gridview_item.dart';
+import '../custom_grid_item/animated_grid_item.dart';
 import 'icustom_gridview.dart';
 
 class SimpleGridview implements ICustomGridview {
@@ -19,7 +19,7 @@ class SimpleGridview implements ICustomGridview {
         padding: EdgeInsets.all(10),
         itemCount: gridItems.length,
         itemBuilder: (_, index) =>
-            GridViewItem(gridItems.elementAt(index), index.toString()),
+            AnimatedGridItem(gridItems.elementAt(index), index.toString()),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: columnCount,
             childAspectRatio: 3 / 2,

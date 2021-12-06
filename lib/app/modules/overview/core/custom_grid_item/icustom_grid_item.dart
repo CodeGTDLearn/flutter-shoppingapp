@@ -4,7 +4,7 @@ import '../../../inventory/entity/product.dart';
 import '../../controller/overview_controller.dart';
 
 abstract class ICustomGridtile {
-  Widget create(
+  Widget customGridTile(
     final context,
     final Product product,
     final String index,

@@ -29,8 +29,8 @@ class InventoryView extends StatelessWidget {
         }, actions: [
           _animations.openContainer(
               milliseconds: 1000,
-              openBuilder: InventoryItemDetailsView(),
-              closedBuilder: Container(
+              openingWidget: InventoryItemDetailsView(),
+              closingWidget: Container(
                 key: Key(K_INV_ICO_ADD_PROD_APPBAR),
                 alignment: Alignment.center,
                 child: INV_ICO_ADD_PROD_APPBAR,

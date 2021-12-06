@@ -109,9 +109,9 @@ class _InventoryItemDetailsViewState extends State<InventoryItemDetailsView> {
                             border: Border.all(width: 0.5, color: Colors.grey)),
                         child: Obx(() => _controller.imgUrlPreviewObs.value
                             ? _animations.openContainer(
-                                openBuilder: InventoryItemImageView(
+                                openingWidget: InventoryItemImageView(
                                     _product.title, _product.imageUrl),
-                                closedBuilder: FittedBox(
+                                closingWidget: FittedBox(
                                     child: Image.network(_urlControl.text,
                                         fit: BoxFit.cover)))
                             : Center(child: INV_EDT_NO_IMG_TIT))),

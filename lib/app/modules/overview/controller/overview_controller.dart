@@ -11,6 +11,7 @@ class OverviewController extends GetxController {
   var overviewViewGridViewItemsObs = <Product>[].obs;
   var favoriteStatusObs = false.obs;
   var appbarFilterPopupObs = FilterOptions.All.obs;
+  var gridItemElevateAnimationObs = true.obs;
 
   //OVERVIEW-DETAILS -> OBSERVABLES
   var overviewItemDetailsImageZoomObs = false.obs;
@@ -22,6 +23,10 @@ class OverviewController extends GetxController {
     service.clearDataSavingLists();
     getProducts().then((response) => overviewViewGridViewItemsObs.assignAll(response));
     super.onInit();
+  }
+
+  void elevateGridItemAnimation(bool applyShadow) {
+    gridItemElevateAnimationObs.value = applyShadow;
   }
 
   void updateFilteredProductsObs() {
@@ -75,5 +80,4 @@ class OverviewController extends GetxController {
   int getProductsQtde() {
     return service.getProductsQtde();
   }
-
 }

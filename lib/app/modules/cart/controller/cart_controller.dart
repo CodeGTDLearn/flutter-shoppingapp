@@ -18,7 +18,7 @@ class CartController extends GetxController {
   CartController({required this.cartService, required this.ordersService});
 
   void onInit() {
-    recalcQtdeAndAmountCart();
+    reloadQtdeAndAmountCart();
     super.onInit();
   }
 
@@ -28,27 +28,27 @@ class CartController extends GetxController {
 
   void addCartItem(Product product) {
     cartService.addCartItem(product);
-    recalcQtdeAndAmountCart();
+    reloadQtdeAndAmountCart();
   }
 
   void addCartItemUndo(Product product) {
     cartService.addCartItemUndo(product);
-    recalcQtdeAndAmountCart();
+    reloadQtdeAndAmountCart();
   }
 
-  void recalcQtdeAndAmountCart() {
+  void reloadQtdeAndAmountCart() {
     amountCartItemsObs.value = cartService.amountCartItems();
     qtdeCartItemsObs.value = cartService.qtdeCartItems();
   }
 
   void removeCartItem(CartItem cartItem) {
     cartService.removeCartItem(cartItem);
-    recalcQtdeAndAmountCart();
+    reloadQtdeAndAmountCart();
   }
 
   void clearCart() {
     cartService.clearCart();
-    recalcQtdeAndAmountCart();
+    reloadQtdeAndAmountCart();
   }
 
   Future<Order> addOrder(List<CartItem> cartItems, double amount) {

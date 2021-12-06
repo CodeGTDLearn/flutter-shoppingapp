@@ -36,8 +36,8 @@ class AnimatedListTile implements ICustomListTile {
         return ListTile(
             key: Key('$K_INV_ITEM_KEY$_id'),
             leading: _animations.openContainer(
-                openBuilder: InventoryItemImageView(_product.title, _product.imageUrl),
-                closedBuilder:
+                openingWidget: InventoryItemImageView(_product.title, _product.imageUrl),
+                closingWidget:
                     CircleAvatar(backgroundImage: NetworkImage(_product.imageUrl))),
             title: Text(_product.title),
             trailing: Container(

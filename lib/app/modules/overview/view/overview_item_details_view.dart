@@ -5,7 +5,6 @@ import 'package:get/state_manager.dart';
 
 import '../../../core/custom_widgets/custom_appbar.dart';
 import '../../../core/keys/overview_keys.dart';
-import '../../../core/properties/app_routes.dart';
 import '../../../core/utils/animations_utils.dart';
 import '../../../core/utils/ui_utils.dart';
 import '../controller/overview_controller.dart';
@@ -25,8 +24,7 @@ class OverviewItemDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     if (_id == null) _id = Get.parameters['id'];
     var _item = _controller.getProductById(_id!);
-    // var _appBar = _appbar.create(_item.title, Get.back);
-    var _appBar = _appbar.create(_item.title, () => Get.offNamed(AppRoutes.OVERVIEW_ALL));
+    var _appBar = _appbar.create(_item.title, Get.back);
     var _appbarZoomPage = _appbar.create(
       _item.title,
       _controller.toggleOverviewItemDetailsImageZoomObs,

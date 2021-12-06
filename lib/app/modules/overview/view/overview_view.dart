@@ -3,43 +3,22 @@ import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 
 import '../../../core/custom_widgets/custom_drawer.dart';
-import '../../../core/custom_widgets/custom_indicator.dart';
 import '../../../core/keys/overview_keys.dart';
-import '../../../core/texts_icons_provider/pages/components/app_messages_provided.dart';
-import '../controller/overview_controller.dart';
-import '../core/custom_gridview/staggered_gridview.dart';
-import '../core/overview_appbar/filter_options.dart';
-import '../core/overview_appbar/overview_appbar.dart';
+import '../core/overview_scaffold/overview_simple_scaffold.dart';
 
-class OverviewView extends StatelessWidget {
-  final _appbar = Get.find<OverviewAppBar>();
+class OverviewView extends StatefulWidget {
+  @override
+  State<OverviewView> createState() => _OverviewViewState();
+}
+
+class _OverviewViewState extends State<OverviewView> {
   final _drawer = Get.find<CustomDrawer>();
-  final _controller = Get.find<OverviewController>();
 
   @override
   Widget build(BuildContext context) {
-    _controller.applyPopupFilter(FilterOptions.All);
-
-    return Scaffold(
-        key: K_OV_SCFLD_GLOB_KEY,
-        appBar: _appbar,
-        drawer: _drawer,
-        body: Obx(
-          () => _controller.overviewViewGridViewItemsObs.isEmpty
-              ? _overviewGrid_noProductsInDb()
-              : StaggeredGridview().create(
-                  2,
-                  _controller.overviewViewGridViewItemsObs.value,
-                  500,
-                ),
-        ));
-  }
-
-  SingleChildScrollView _overviewGrid_noProductsInDb() {
-    return SingleChildScrollView(
-        child: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [CustomIndicator.message(message: NO_PROD, fontSize: 20)])));
+    return OverviewSimpleScaffold(
+      drawer: _drawer,
+      scaffoldKey: K_OV_SCFLD_GLOB_KEY,
+    );
   }
 }

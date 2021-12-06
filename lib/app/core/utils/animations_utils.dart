@@ -61,8 +61,9 @@ class AnimationsUtils {
   }
 
   OpenContainer<Object> openContainer({
-    required Widget openBuilder,
-    required Widget closedBuilder,
+    required Widget closingWidget,
+    Function? closingFunction,
+    required Widget openingWidget,
     int milliseconds = 375,
     int closedElevation = 0,
     transitionType = ContainerTransitionType.fadeThrough,
@@ -71,11 +72,21 @@ class AnimationsUtils {
         transitionDuration: Duration(milliseconds: milliseconds),
         transitionType: ContainerTransitionType.fadeThrough,
         closedElevation: 0,
+
+        //openingWidget / openBuilder: Widget that will be close/minimized
         openBuilder: (context, void Function({Object? returnValue}) action) {
-          return openBuilder;
+          return openingWidget;
         },
+
+        //closingWidget / closedBuilder: Widget that will be opened
         closedBuilder: (context, void Function() openContainer) {
-          return GestureDetector(onTap: openContainer, child: closedBuilder);
+          return GestureDetector(
+            onTap: () {
+              closingFunction?.call();
+              openContainer.call();
+            },
+            child: (closingWidget),
+          );
         });
   }
 }

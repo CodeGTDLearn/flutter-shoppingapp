@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
@@ -14,17 +13,37 @@ import '../../../../core/texts_icons_provider/pages/overview/overview_texts_icon
 import '../../../cart/controller/cart_controller.dart';
 import '../../../inventory/entity/product.dart';
 import '../../controller/overview_controller.dart';
-import 'icustom_gridtile.dart';
+import '../../service/i_overview_service.dart';
+import 'icustom_grid_item.dart';
 
-class SimpleGridtile implements ICustomGridtile {
+class SimpleGridItem extends StatelessWidget implements ICustomGridtile {
+  final Product _product;
+
   final _cartController = Get.find<CartController>();
+  final _uniqueController = OverviewController(service: Get.find<IOverviewService>());
+  final String index;
+
+  SimpleGridItem(this._product, this.index);
 
   @override
-  Widget create(
-    final context,
-    final Product product,
-    final String index,
-    final OverviewController _uniqueController,
+  Widget build(BuildContext context) {
+    _uniqueController.favoriteStatusObs.value = _product.isFavorite;
+    return Container(
+        decoration: BoxDecoration(
+            border: Border.all(color: Color.fromRGBO(220, 220, 220, 10)),
+            borderRadius: BorderRadius.circular(10.0)),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: customGridTile(context, _product, index, _uniqueController),
+        ));
+  }
+
+  @override
+  Widget customGridTile(
+    context,
+    Product product,
+    String index,
+    OverviewController uniqueController,
   ) {
     return GridTile(
         child: GestureDetector(
@@ -33,7 +52,7 @@ class SimpleGridtile implements ICustomGridtile {
             child: Image.network(product.imageUrl, fit: BoxFit.cover)),
         footer: GridTileBar(
             leading: Obx(
-              () => IconButton(
+                  () => IconButton(
                   key: Key("$K_OV_GRD_FAV_BTN$index"),
                   icon: _uniqueController.favoriteStatusObs.value
                       ? OV_ICO_FAV

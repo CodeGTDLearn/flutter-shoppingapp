@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shopingapp/app/core/keys/components/custom_indicator_keys.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
-import 'package:shopingapp/app/modules/overview/core/gridview_item.dart';
+import 'package:shopingapp/app/modules/overview/core/custom_grid_item/animated_grid_item.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../config/tests_properties.dart';
@@ -42,7 +42,7 @@ class CustomIndicatorTests {
     expect(finder.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsNothing);
     expect(finder.type(CircularProgressIndicator), findsNothing);
 
-    expect(finder.type(GridViewItem), findsWidgets);
+    expect(finder.type(AnimatedGridItem), findsWidgets);
   }
 
   Future<void> check_custom_indicator_emptydb(WidgetTester tester) async {
@@ -63,7 +63,7 @@ class CustomIndicatorTests {
     expect(finder.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
     expect(finder.type(CircularProgressIndicator), findsNothing);
 
-    expect(finder.type(GridViewItem), findsNothing);
+    expect(finder.type(AnimatedGridItem), findsNothing);
 
     expect(finder.text(NO_PRODUCTS_FOUND_YET), findsOneWidget);
   }
