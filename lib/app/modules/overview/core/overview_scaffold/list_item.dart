@@ -8,21 +8,21 @@ class AppListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Container mandatoryContainer = Container(
+        key: imageGlobalKey,
+        width: 60,
+        height: 60,
+        color: Colors.transparent,
+        child: Image.asset("assets/apple.png", width: 60, height: 60));
+
     return GestureDetector(
       onTap: () => onClick(imageGlobalKey),
       child: GridTile(
-        // child: Image.asset(
-        //   "assets/apple.png",
-        //   key: imageGlobalKey,
-        //   width: 30,
-        //   height: 30,
-        // ),
-        child: Image.network(
-          "https://images.freeimages.com/images/large-previews/eae/clothes-3-1466560.jpg",
-          fit: BoxFit.cover,
-        ),
+        child: mandatoryContainer,
       ),
     );
+
+
     // Image image =
     //     Image.asset("assets/apple.png", key: imageGlobalKey, width: 60, height: 60);
     // return ListTile(

@@ -8,9 +8,9 @@ class OverviewController extends GetxController {
   final IOverviewService service;
 
   //OVERVIEW VIEW -> OBSERVABLES
-  var overviewViewGridViewItemsObs = <Product>[].obs;
+  var gridItemsObs = <Product>[].obs;
   var favoriteStatusObs = false.obs;
-  var appbarFilterPopupObs = FilterOptions.All.obs;
+  var appbarFilterOptionObs = FilterOptions.All.obs;
   var gridItemElevateAnimationObs = true.obs;
 
   //OVERVIEW-DETAILS -> OBSERVABLES
@@ -21,7 +21,7 @@ class OverviewController extends GetxController {
   @override
   void onInit() {
     service.clearDataSavingLists();
-    getProducts().then((response) => overviewViewGridViewItemsObs.assignAll(response));
+    getProducts().then((response) => gridItemsObs.assignAll(response));
     super.onInit();
   }
 
@@ -30,7 +30,7 @@ class OverviewController extends GetxController {
   }
 
   void updateFilteredProductsObs() {
-    overviewViewGridViewItemsObs.assignAll(service.getLocalDataAllProducts());
+    gridItemsObs.assignAll(service.getLocalDataAllProducts());
   }
 
   void deleteProduct(String productId) {
@@ -38,9 +38,9 @@ class OverviewController extends GetxController {
   }
 
   void applyPopupFilter(FilterOptions filter) {
-    appbarFilterPopupObs.value = filter;
+    appbarFilterOptionObs.value = filter;
 
-    overviewViewGridViewItemsObs.assignAll(filter == FilterOptions.Fav
+    gridItemsObs.assignAll(filter == FilterOptions.Fav
         ? service.setProductsByFilter(FilterOptions.Fav)
         : service.setProductsByFilter(FilterOptions.All));
   }

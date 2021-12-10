@@ -25,12 +25,12 @@ class FilterPopup extends StatelessWidget {
                   key: Key(K_OV_FLT_FAV),
                   child: Text(OV_TXT_POPUP_FAV),
                   value: FilterOptions.Fav,
-                  enabled: _controller.appbarFilterPopupObs.value == FilterOptions.All),
+                  enabled: _controller.appbarFilterOptionObs.value == FilterOptions.All),
               PopupMenuItem(
                   key: Key(K_OV_FLT_ALL),
                   child: Text(OV_TXT_POPUP_ALL),
                   value: FilterOptions.All,
-                  enabled: _controller.appbarFilterPopupObs.value == FilterOptions.Fav)
+                  enabled: _controller.appbarFilterOptionObs.value == FilterOptions.Fav)
             ],
         onSelected: (value) {
           _controller.getFavoritesQtde() == 0

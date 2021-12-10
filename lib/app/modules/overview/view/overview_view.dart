@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
+import 'package:shopingapp/app/modules/overview/core/overview_scaffold/addcart_scaffold.dart';
 
 import '../../../core/custom_widgets/custom_drawer.dart';
-import '../../../core/keys/overview_keys.dart';
-import '../core/overview_scaffold/overview_simple_scaffold.dart';
 
 class OverviewView extends StatefulWidget {
   @override
@@ -16,9 +15,8 @@ class _OverviewViewState extends State<OverviewView> {
 
   @override
   Widget build(BuildContext context) {
-    return OverviewSimpleScaffold(
-      drawer: _drawer,
-      scaffoldKey: K_OV_SCFLD_GLOB_KEY,
-    );
+    return AddCartScaffold(drawer: _drawer);
+    // return SimpleScaffold(drawer: _drawer);
+    // return StaggeredScaffold(drawer: _drawer);
   }
 }

@@ -23,8 +23,10 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
   final _animations = Get.find<AnimationsUtils>();
   final _uniqueController = OverviewController(service: Get.find<IOverviewService>());
   final String index;
+  final void Function(GlobalKey)? onClick;
+  final GlobalKey imageGlobalKey = GlobalKey();
 
-  AnimatedGridItem(this._product, this.index);
+  AnimatedGridItem(this._product, this.index, {this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -40,14 +42,18 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
           color: Colors.white,
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           onEnd: () => _uniqueController.elevateGridItemAnimation(true),
-          child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(color: Color.fromRGBO(220, 220, 220, 10)),
-                  borderRadius: BorderRadius.circular(10.0)),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10.0),
-                child: customGridTile(context, _product, index, _uniqueController),
-              ))),
+          child: GestureDetector(
+            onTap: () => onClick!(imageGlobalKey),
+            child: Container(
+                key: imageGlobalKey,
+                decoration: BoxDecoration(
+                    border: Border.all(color: Color.fromRGBO(220, 220, 220, 10)),
+                    borderRadius: BorderRadius.circular(10.0)),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: customGridTile(context, _product, index, _uniqueController),
+                )),
+          )),
     );
   }
 

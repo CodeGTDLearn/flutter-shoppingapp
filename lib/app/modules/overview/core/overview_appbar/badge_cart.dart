@@ -11,12 +11,12 @@ import '../../../../core/texts_icons_provider/pages/overview/messages_snackbars_
 import '../../../../core/texts_icons_provider/pages/overview/overview_texts_icons_provided.dart';
 import '../../../cart/controller/cart_controller.dart';
 
-class BadgeShopCart extends StatelessWidget {
+class BadgeCart extends StatelessWidget {
   final Color? color;
 
   final _controller = Get.find<CartController>();
 
-  BadgeShopCart({this.color});
+  BadgeCart({this.color});
 
   @override
   Widget build(BuildContext context) {

@@ -45,7 +45,7 @@ class OverviewControllerTests {
 
     test('Updating FilteredProductsObs', () {
       _controller.getProducts().then((value) {
-        expect(_controller.overviewViewGridViewItemsObs.toList().length, 0);
+        expect(_controller.gridItemsObs.toList().length, 0);
 
         var productTest = MockedDatasource().product();
         expect(_service.getLocalDataAllProducts().length, 4);
@@ -53,7 +53,7 @@ class OverviewControllerTests {
         expect(_service.getLocalDataAllProducts().length, 5);
 
         _controller.updateFilteredProductsObs();
-        expect(_controller.overviewViewGridViewItemsObs.toList().length, 5);
+        expect(_controller.gridItemsObs.toList().length, 5);
       });
     });
 
@@ -88,11 +88,11 @@ class OverviewControllerTests {
       _controller.getProducts().then((_) {
         var listAll = _service.setProductsByFilter(FilterOptions.All);
         _controller.applyPopupFilter(FilterOptions.All);
-        expect(_controller.overviewViewGridViewItemsObs.toList(), listAll);
+        expect(_controller.gridItemsObs.toList(), listAll);
 
         var listFav = _service.setProductsByFilter(FilterOptions.Fav);
         _controller.applyPopupFilter(FilterOptions.Fav);
-        expect(_controller.overviewViewGridViewItemsObs.toList(), listFav);
+        expect(_controller.gridItemsObs.toList(), listFav);
       });
     });
 

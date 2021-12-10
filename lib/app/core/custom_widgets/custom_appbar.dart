@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../keys/overview_keys.dart';
+
 // ignore: avoid_classes_with_only_static_members
 class CustomAppBar {
   AppBar create(
@@ -9,6 +11,7 @@ class CustomAppBar {
     List<Widget>? actions,
   }) {
     return AppBar(
+        key: Key(K_DRW_APPBAR_BTN),
         title: Text(title),
         automaticallyImplyLeading: true,
         leading: GestureDetector(
