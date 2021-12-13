@@ -11,7 +11,7 @@ import 'filter_popup.dart';
 class OverviewAppBar extends StatelessWidget implements PreferredSizeWidget {
   final FilterOptions filter = FilterOptions.All;
   final _controller = Get.find<OverviewController>();
- Widget? cart;
+  late Widget? cart;
 
   OverviewAppBar({this.cart});
 
@@ -25,7 +25,7 @@ class OverviewAppBar extends StatelessWidget implements PreferredSizeWidget {
                 key: Key(K_OV_TIT_APPBAR)),
             actions: [
               FilterPopup(filter: filter),
-              cart!,
+              cart ??= Container(),
             ]));
   }
 

@@ -11,7 +11,7 @@ import '../../../core/texts_icons_provider/pages/inventory/inventory_texts_icons
 import '../../../core/utils/animations_utils.dart';
 import '../../overview/controller/overview_controller.dart';
 import '../controller/inventory_controller.dart';
-import '../core/custom_listview/inventory_staggered_listview.dart';
+import '../core/custom_listview/staggered_listview.dart';
 import 'inventory_item_details_view.dart';
 
 class InventoryView extends StatelessWidget {
@@ -45,7 +45,7 @@ class InventoryView extends StatelessWidget {
                 onRefresh: _controller.getProducts,
                 child: _controller.inventoryProductsObs.toList().isEmpty
                     ? Center(child: Text(NO_INV_PROD))
-                    : InventoryStaggeredListview()
-                        .create(_controller.inventoryProductsObs.toList())))));
+                    : StaggeredListview()
+                        .customInventoryListview(_controller.inventoryProductsObs.toList())))));
   }
 }

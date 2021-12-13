@@ -42,18 +42,14 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
           color: Colors.white,
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           onEnd: () => _uniqueController.elevateGridItemAnimation(true),
-          child: GestureDetector(
-            onTap: () => onClick!(imageGlobalKey),
-            child: Container(
-                key: imageGlobalKey,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromRGBO(220, 220, 220, 10)),
-                    borderRadius: BorderRadius.circular(10.0)),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: customGridTile(context, _product, index, _uniqueController),
-                )),
-          )),
+          child: Container(
+              decoration: BoxDecoration(
+                  border: Border.all(color: Color.fromRGBO(220, 220, 220, 10)),
+                  borderRadius: BorderRadius.circular(10.0)),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: customGridTile(context, _product, index, _uniqueController),
+              ))),
     );
   }
 
@@ -68,7 +64,11 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
       openingWidget: OverviewItemDetailsView(product.id),
       closingWidget: GridTile(
           key: Key("$K_OV_ITM_DET_PAGE$index"),
-          child: Image.network(product.imageUrl, fit: BoxFit.cover),
+          child: Container(
+              key: imageGlobalKey,
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: Image.network(product.imageUrl, fit: BoxFit.cover))),
           footer: GridTileBar(
               leading: Obx(() => IconButton(
                   key: Key("$K_OV_GRD_FAV_BTN$index"),
@@ -90,6 +90,7 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
                   onPressed: () {
                     uniqueController.elevateGridItemAnimation(false);
                     _cartController.addCartItem(product);
+                    onClick!(imageGlobalKey);
                     ButtonSnackbar(
                       context: context,
                       labelButton: UNDO,

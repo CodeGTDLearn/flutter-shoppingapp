@@ -6,19 +6,17 @@ import '../../../../modules/orders/entity/order.dart';
 import '../custom_collapsable_tile/order_collapsable_tile.dart';
 import 'icustom_orders_listview.dart';
 
-class OrdersStaggeredListview implements ICustomOrdersListview {
-  final itemCount;
+class StaggeredListview implements ICustomOrdersListview {
   final delayMilliseconds;
   final double verticalOffset;
 
-  OrdersStaggeredListview({
-    this.itemCount = ITEM_COUNT,
+  StaggeredListview({
     this.delayMilliseconds = DELAY_MILLISEC_LISTVIEW,
     this.verticalOffset = VERTICAL_OFFSET_LISTVIEW,
   });
 
   @override
-  Widget create(List<Order> ordersList) {
+  Widget customOrdersListview(List<Order> ordersList) {
     return AnimationLimiter(
         child: ListView.builder(
             itemCount: ordersList.length,

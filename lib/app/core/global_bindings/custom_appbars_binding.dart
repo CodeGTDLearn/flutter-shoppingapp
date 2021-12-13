@@ -7,7 +7,7 @@ import '../custom_widgets/custom_appbar.dart';
 class CustomAppbarsBinding extends Bindings {
   void dependencies() {
     Get.lazyPut<CustomAppBar>(() => CustomAppBar());
-    Get.lazyPut<OverviewAppBar>(() => OverviewAppBar(cart: BadgeCart()));
-    Get.lazyPut<OverviewAppBar>(() => OverviewAppBar(), tag: 'appBarAddCart');
+    Get.lazyPut<OverviewAppBar>(() => OverviewAppBar());
+    Get.lazyPut<BadgeCart>(() => BadgeCart());
   }
 }

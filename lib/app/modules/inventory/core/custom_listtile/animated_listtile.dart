@@ -23,7 +23,7 @@ class AnimatedListTile implements ICustomListTile {
   final _animations = Get.find<AnimationsUtils>();
 
   @override
-  Widget create(Product _product) {
+  Widget customListTile(Product _product) {
     var _id = _product.id!;
 
     return OpenContainer(

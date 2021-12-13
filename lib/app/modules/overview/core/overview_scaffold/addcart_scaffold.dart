@@ -3,13 +3,92 @@ import 'package:add_to_cart_animation/add_to_cart_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/modules/overview/core/overview_appbar/overview_appbar.dart';
+import 'package:get/route_manager.dart';
+import 'package:get/state_manager.dart';
 
+import '../../../../core/custom_widgets/custom_indicator.dart';
+import '../../../../core/custom_widgets/custom_snackbar/simple_snackbar.dart';
 import '../../../../core/keys/overview_keys.dart';
+import '../../../../core/properties/app_routes.dart';
+import '../../../../core/texts_icons_provider/generic_words.dart';
+import '../../../../core/texts_icons_provider/pages/components/app_messages_provided.dart';
+import '../../../../core/texts_icons_provider/pages/overview/messages_snackbars_provided.dart';
+import '../../../../core/texts_icons_provider/pages/overview/overview_texts_icons_provided.dart';
 import '../../../cart/controller/cart_controller.dart';
-import '../../controller/overview_controller.dart';
 import '../custom_grid_item/animated_grid_item.dart';
+import 'icustom_scaffold.dart';
 
+class AddCartScaffold implements ICustomScaffold {
+  final _cartController = Get.find<CartController>();
+  GlobalKey<CartIconKey> gkCart = GlobalKey<CartIconKey>();
+  late Function(GlobalKey) runAddToCardAnimation;
+
+  Widget customScaffold(_drawer, _controller, _appbar) {
+    _appbar.cart = GestureDetector(
+      onTap: () {
+        if (_cartController.getAllCartItems().isEmpty) {
+          SimpleSnackbar().show(OPS, CART_NO_ITEMS_YET);
+        }
+        if (_cartController.getAllCartItems().isNotEmpty) Get.toNamed(AppRoutes.CART);
+      },
+      child: AddToCartIcon(key: gkCart, icon: OV_ICO_SHOPCART),
+    );
+
+    return AddToCartAnimation(
+        gkCart: gkCart,
+        rotation: false,
+        dragToCardCurve: Curves.easeIn,
+        dragToCardDuration: const Duration(milliseconds: 1000),
+        previewCurve: Curves.linearToEaseOut,
+        previewDuration: const Duration(milliseconds: 500),
+        previewHeight: 30,
+        previewWidth: 30,
+        opacity: 0.85,
+        initiaJump: false,
+        receiveCreateAddToCardAnimationMethod: (addToCardAnimationMethod) {
+          this.runAddToCardAnimation = addToCardAnimationMethod;
+        },
+        child: Scaffold(
+          key: K_OV_SCFLD_GLOB_KEY,
+          appBar: _appbar,
+          drawer: _drawer,
+          body: Obx(() => (_controller.gridItemsObs.value.isEmpty
+              ? SingleChildScrollView(
+                  child: Center(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                      CustomIndicator.message(message: NO_PROD, fontSize: 20)
+                    ])))
+              : AnimationLimiter(
+                  child: GridView.count(
+                      crossAxisCount: 2,
+                      children:
+                          List.generate(_controller.gridItemsObs.value.length, (index) {
+                        return AnimationConfiguration.staggeredGrid(
+                            position: index,
+                            columnCount: 2,
+                            child: ScaleAnimation(
+                                duration: Duration(milliseconds: 2000),
+                                child: FadeInAnimation(
+                                    child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: AnimatedGridItem(
+                                          _controller.gridItemsObs.value.elementAt(index),
+                                          index.toString(),
+                                          onClick: listClick,
+                                        )))));
+                      }))))),
+        ));
+  }
+
+  void listClick(GlobalKey gkImageContainer) async {
+    await runAddToCardAnimation(gkImageContainer);
+    await gkCart.currentState!.runCartAnimation(
+      _cartController.qtdeCartItemsObs.value.toString(),
+    );
+  }
+}
 // void main() => runApp(MyApp());
 //
 // class MyApp extends StatelessWidget {
@@ -24,104 +103,29 @@ import '../custom_grid_item/animated_grid_item.dart';
 //     );
 //   }
 // }
-
-class AddCartScaffold extends StatefulWidget {
-  final drawer;
-
-  AddCartScaffold({Key? key, required this.drawer}) : super(key: key);
-
-  @override
-  _AddCartScaffoldState createState() => _AddCartScaffoldState();
-}
-
-class _AddCartScaffoldState extends State<AddCartScaffold> {
-  GlobalKey<CartIconKey> gkCart = GlobalKey<CartIconKey>();
-  late Function(GlobalKey) runAddToCardAnimation;
-  final _controller = Get.find<OverviewController>();
-  final _cartController = Get.find<CartController>();
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var _gridItems = _controller.gridItemsObs.value;
-    final _appbar = Get.find<OverviewAppBar>(tag: 'appBarAddCart');
-    // final _appbar = Get.put(OverviewAppBar(
-    //   cart: AddToCartIcon(key: gkCart, icon: Icon(Icons.threed_rotation_sharp)),
-    // ));
-
-    return AddToCartAnimation(
-      gkCart: gkCart,
-      rotation: false,
-      dragToCardCurve: Curves.easeIn,
-      dragToCardDuration: const Duration(milliseconds: 1000),
-      previewCurve: Curves.linearToEaseOut,
-      previewDuration: const Duration(milliseconds: 500),
-      previewHeight: 30,
-      previewWidth: 30,
-      opacity: 0.85,
-      initiaJump: false,
-      receiveCreateAddToCardAnimationMethod: (addToCardAnimationMethod) {
-        this.runAddToCardAnimation = addToCardAnimationMethod;
-      },
-      child: Scaffold(
-          key: K_OV_SCFLD_GLOB_KEY,
-          appBar: _appbar,
-          drawer: widget.drawer,
-          body: AnimationLimiter(
-              child: GridView.count(
-                  crossAxisCount: 2,
-                  children: List.generate(_gridItems.length, (index) {
-                    return AnimationConfiguration.staggeredGrid(
-                        position: index,
-                        columnCount: 2,
-                        child: ScaleAnimation(
-                            duration: Duration(milliseconds: 500),
-                            child: FadeInAnimation(
-                                child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: AnimatedGridItem(
-                                      _gridItems.elementAt(index),
-                                      index.toString(),
-                                      onClick: listClick,
-                                    )))));
-                  })))
-
-          // appBar: AppBar(
-          //   title: Text(widget.title),
-          //   centerTitle: false,
-          //   actions: [
-          //     AddToCartIcon(key: gkCart, icon: Icon(Icons.shopping_cart)),
-          //     SizedBox(width: 16)
-          //   ],
-          // ),
-          // body: Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child: Center(
-          //     child: Container(
-          //       child: GridView.count(
-          //         scrollDirection: Axis.vertical,
-          //         crossAxisCount: 2,
-          //         children: [
-          //           AppListItem(onClick: listClick),
-          //           AppListItem(onClick: listClick),
-          //           AppListItem(onClick: listClick),
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          ),
-    );
-  }
-
-  void listClick(GlobalKey gkImageContainer) async {
-    await runAddToCardAnimation(gkImageContainer);
-    await gkCart.currentState!.runCartAnimation(
-      _cartController.qtdeCartItemsObs.value.toString(),
-    );
-  }
-}
+// appBar: _appbar,
+// drawer: widget.drawer,
+// appBar: AppBar(
+//   title: Text("widget.title"),
+//   centerTitle: false,
+//   actions: [
+//     AddToCartIcon(key: gkCart, icon: Icon(Icons.shopping_cart)),
+//     SizedBox(width: 16)
+//   ],
+// ),
+// body: Padding(
+//   padding: const EdgeInsets.all(8.0),
+//   child: Center(
+//     child: Container(
+//       child: GridView.count(
+//         scrollDirection: Axis.vertical,
+//         crossAxisCount: 2,
+//         children: [
+//           AppListItem(onClick: listClick),
+//           AppListItem(onClick: listClick),
+//           AppListItem(onClick: listClick),
+//         ],
+//       ),
+//     ),
+//   ),
+// ),

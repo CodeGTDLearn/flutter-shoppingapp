@@ -36,14 +36,14 @@ class CartView extends StatelessWidget {
                             fadeEffect: false,
                             invertTargetPosition: false,
                             verticalOffset: (_height * 0.625),
-                          ).create(_controller.getAllCartItems()))
+                          ).customCartListview(_controller.getAllCartItems()))
                         : Container(
                             child: Stack(alignment: Alignment.center, children: [
                             CartStaggeredListview(
                               fadeEffect: false,
                               invertTargetPosition: true,
                               verticalOffset: -(_height * 0.564),
-                            ).create(_controller.getAllCartItems()),
+                            ).customCartListview(_controller.getAllCartItems()),
                             _transparentGradientShaderMask()
                           ]))))
               ]);

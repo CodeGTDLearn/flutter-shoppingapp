@@ -34,7 +34,7 @@ class CartStaggeredListview implements ICustomCartListview {
   });
 
   @override
-  Widget create(Map<String, CartItem> mapCartItems) {
+  Widget customCartListview(Map<String, CartItem> mapCartItems) {
     mapCartItems = invertTargetPosition ? reverseMap(mapCartItems) : mapCartItems;
     return AnimationLimiter(
         child: ListView.builder(

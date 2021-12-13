@@ -8,10 +8,8 @@ import '../service/overview_service.dart';
 
 class OverviewBindings extends Bindings {
   void dependencies() {
-        Get.lazyPut<IOverviewRepo>(() => OverviewRepoFirebase());
-
+    Get.lazyPut<IOverviewRepo>(() => OverviewRepoFirebase());
     Get.lazyPut<IOverviewService>(() => OverviewService(repo: Get.find<IOverviewRepo>()));
-
     Get.lazyPut<OverviewController>(
         () => OverviewController(service: Get.find<IOverviewService>()));
   }

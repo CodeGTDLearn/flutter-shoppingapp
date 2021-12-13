@@ -19,7 +19,7 @@ class SimpleListTile implements ICustomListTile {
   final _overviewController = Get.find<OverviewController>();
 
   @override
-  Widget create(Product product) {
+  Widget customListTile(Product product) {
     var _id = product.id!;
     var _context = APP_CONTEXT_GLOBAL_KEY.currentContext;
 
