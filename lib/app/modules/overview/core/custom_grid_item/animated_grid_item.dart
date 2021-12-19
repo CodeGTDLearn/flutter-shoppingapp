@@ -5,6 +5,7 @@ import 'package:get/instance_manager.dart';
 import '../../../../core/custom_widgets/custom_snackbar/button_snackbar.dart';
 import '../../../../core/custom_widgets/custom_snackbar/simple_snackbar.dart';
 import '../../../../core/keys/overview_keys.dart';
+import '../../../../core/properties/app_properties.dart';
 import '../../../../core/texts_icons_provider/generic_words.dart';
 import '../../../../core/texts_icons_provider/pages/overview/messages_snackbars_provided.dart';
 import '../../../../core/texts_icons_provider/pages/overview/overview_texts_icons_provided.dart';
@@ -68,7 +69,11 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
               key: imageGlobalKey,
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
-                  child: Image.network(product.imageUrl, fit: BoxFit.cover))),
+                  child: FadeInImage(
+                    placeholder: AssetImage(IMAGE_PLACEHOLDER),
+                    image: NetworkImage(product.imageUrl),
+                    fit: BoxFit.cover,
+                  ))),
           footer: GridTileBar(
               leading: Obx(() => IconButton(
                   key: Key("$K_OV_GRD_FAV_BTN$index"),

@@ -5,6 +5,7 @@ import 'package:get/state_manager.dart';
 
 import '../../../core/custom_widgets/custom_appbar.dart';
 import '../../../core/keys/overview_keys.dart';
+import '../../../core/properties/app_properties.dart';
 import '../../../core/utils/animations_utils.dart';
 import '../../../core/utils/ui_utils.dart';
 import '../controller/overview_controller.dart';
@@ -30,7 +31,7 @@ class OverviewItemDetailsView extends StatelessWidget {
       _controller.toggleOverviewItemDetailsImageZoomObs,
       icon: Icons.zoom_out,
     );
-    var _height = _uiUtils.usefulHeight(context, _appBar);
+    var _height = _uiUtils.usefulHeight(context, _appBar.preferredSize.height);
 
     return Obx(() => Scaffold(
         appBar:
@@ -51,8 +52,12 @@ class OverviewItemDetailsView extends StatelessWidget {
                           width: double.infinity,
                           child: GestureDetector(
                               onTap: _controller.toggleOverviewItemDetailsImageZoomObs,
-                              child: Image.network(_item.imageUrl,
-                                  fit: BoxFit.cover, key: Key(K_OV_ITM_DET_PAGE_IMG)))),
+                              child: FadeInImage(
+                                key: Key(K_OV_ITM_DET_PAGE_IMG),
+                                placeholder: AssetImage(IMAGE_PLACEHOLDER),
+                                image: NetworkImage(_item.imageUrl),
+                                fit: BoxFit.cover,
+                              ))),
                       SizedBox(height: _height * 0.03),
                       Text('\$${_item.title}',
                           style: TextStyle(fontSize: _height * 0.03)),

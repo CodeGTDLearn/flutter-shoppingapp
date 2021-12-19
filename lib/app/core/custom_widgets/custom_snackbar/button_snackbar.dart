@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../keys/components/custom_snackbar_keys.dart';
+import '../../keys/custom_snackbar_keys.dart';
 import 'icustom_snackbar.dart';
 
 class ButtonSnackbar implements ICustomSnackbar {

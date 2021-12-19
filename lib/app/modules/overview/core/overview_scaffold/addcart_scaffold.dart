@@ -26,10 +26,9 @@ class AddCartScaffold implements ICustomScaffold {
   Widget customScaffold(_drawer, _controller, _appbar) {
     _appbar.cart = GestureDetector(
       onTap: () {
-        if (_cartController.getAllCartItems().isEmpty) {
-          SimpleSnackbar().show(OPS, CART_NO_ITEMS_YET);
-        }
-        if (_cartController.getAllCartItems().isNotEmpty) Get.toNamed(AppRoutes.CART);
+        _cartController.getAllCartItems().isEmpty
+            ? SimpleSnackbar().show(OPS, CART_NO_ITEMS_YET)
+            : Get.toNamed(AppRoutes.CART);
       },
       child: AddToCartIcon(key: gkCart, icon: OV_ICO_SHOPCART),
     );
@@ -89,43 +88,3 @@ class AddCartScaffold implements ICustomScaffold {
     );
   }
 }
-// void main() => runApp(MyApp());
-//
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Add To Cart Animation',
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: AnimatedOverviewScaffold(title: 'Add To Cart Animation'),
-//     );
-//   }
-// }
-// appBar: _appbar,
-// drawer: widget.drawer,
-// appBar: AppBar(
-//   title: Text("widget.title"),
-//   centerTitle: false,
-//   actions: [
-//     AddToCartIcon(key: gkCart, icon: Icon(Icons.shopping_cart)),
-//     SizedBox(width: 16)
-//   ],
-// ),
-// body: Padding(
-//   padding: const EdgeInsets.all(8.0),
-//   child: Center(
-//     child: Container(
-//       child: GridView.count(
-//         scrollDirection: Axis.vertical,
-//         crossAxisCount: 2,
-//         children: [
-//           AppListItem(onClick: listClick),
-//           AppListItem(onClick: listClick),
-//           AppListItem(onClick: listClick),
-//         ],
-//       ),
-//     ),
-//   ),
-// ),

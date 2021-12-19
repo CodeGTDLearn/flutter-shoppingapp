@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../keys/components/custom_indicator_keys.dart';
+import '../keys/custom_indicator_keys.dart';
 import '../properties/app_properties.dart';
 
 // ignore: must_be_immutable

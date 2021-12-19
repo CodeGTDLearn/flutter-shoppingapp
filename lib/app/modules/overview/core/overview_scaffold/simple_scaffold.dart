@@ -11,14 +11,13 @@ import '../overview_appbar/filter_options.dart';
 import 'icustom_scaffold.dart';
 
 class SimpleScaffold implements ICustomScaffold {
-
-  Widget customScaffold(_drawer, _controller,_appbar) {
+  Widget customScaffold(_drawer, _controller, _sliverAppbar,) {
     _controller.applyPopupFilter(FilterOptions.All);
-    _appbar.cart = Get.find<BadgeCart>();
+    _sliverAppbar.cart = Get.find<BadgeCart>();
 
     return Scaffold(
         key: K_OV_SCFLD_GLOB_KEY,
-        appBar: _appbar,
+        // appBar: _appbar,
         drawer: _drawer,
         body: Obx(() => _controller.gridItemsObs.value.isEmpty
             ? SingleChildScrollView(
@@ -26,17 +25,22 @@ class SimpleScaffold implements ICustomScaffold {
                     child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                 CustomIndicator.message(message: NO_PROD, fontSize: 20)
               ])))
-            : GridView.builder(
-                padding: EdgeInsets.all(10),
-                itemCount: _controller.gridItemsObs.value.length,
-                itemBuilder: (_, index) => AnimatedGridItem(
-                      _controller.gridItemsObs.value.elementAt(index),
-                      index.toString(),
-                    ),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 3 / 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10))));
+            : CustomScrollView(
+                slivers: [
+                  _sliverAppbar,
+                  SliverGrid(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 3 / 2,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10),
+                      delegate: SliverChildBuilderDelegate(
+                        (_, index) => AnimatedGridItem(
+                            _controller.gridItemsObs.value.elementAt(index),
+                            index.toString()),
+                        childCount: _controller.gridItemsObs.length,
+                      )),
+                ],
+              )));
   }
 }

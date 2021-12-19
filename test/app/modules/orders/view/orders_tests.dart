@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shopingapp/app/core/custom_widgets/custom_indicator.dart';
 import 'package:shopingapp/app/core/keys/cart_keys.dart';
-import 'package:shopingapp/app/core/keys/components/custom_drawer_keys.dart';
+import 'package:shopingapp/app/core/keys/custom_drawer_keys.dart';
 import 'package:shopingapp/app/core/keys/overview_keys.dart';
 import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
 import 'package:shopingapp/app/modules/cart/view/cart_view.dart';

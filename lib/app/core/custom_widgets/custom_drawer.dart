@@ -6,7 +6,7 @@ import 'package:get/state_manager.dart';
 import '../../modules/cart/controller/cart_controller.dart';
 import '../../modules/inventory/controller/inventory_controller.dart';
 import '../../modules/orders/controller/orders_controller.dart';
-import '../keys/components/custom_drawer_keys.dart';
+import '../keys/custom_drawer_keys.dart';
 import '../properties/app_routes.dart';
 import '../properties/theme/app_theme_controller.dart';
 import '../texts_icons_provider/generic_words.dart';

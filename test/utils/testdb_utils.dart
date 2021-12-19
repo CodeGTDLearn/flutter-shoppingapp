@@ -151,6 +151,7 @@ class TestDbUtils {
         _addProduct_message(
           collectionUrl: collectionUrl,
           product: response,
+          number: item.toString(),
         );
       });
     }
@@ -208,6 +209,7 @@ class TestDbUtils {
   void _addProduct_message({
     required String collectionUrl,
     required Product product,
+    String number = '',
     int? statusCode,
   }) {
     var statusTxt = statusCode == null ? '' : '- Status: $statusCode';
@@ -215,8 +217,8 @@ class TestDbUtils {
     var productBody = '  ';
     product.toJson().forEach((key, value) => productBody += '* $key: $value\n       ');
 
-    print('$_headerLine'
-        '     Adding Object:\n'
+    print('$_headerLine '
+        '     Adding Object: $number\n'
         '     - URL: $collectionUrl\n'
         '     - ID: ${product.id}\n'
         '     - Type: ${product.runtimeType.toString()}\n'

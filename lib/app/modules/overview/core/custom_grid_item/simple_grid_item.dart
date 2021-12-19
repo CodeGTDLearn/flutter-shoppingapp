@@ -6,6 +6,7 @@ import 'package:get/state_manager.dart';
 import '../../../../core/custom_widgets/custom_snackbar/button_snackbar.dart';
 import '../../../../core/custom_widgets/custom_snackbar/simple_snackbar.dart';
 import '../../../../core/keys/overview_keys.dart';
+import '../../../../core/properties/app_properties.dart';
 import '../../../../core/properties/app_routes.dart';
 import '../../../../core/texts_icons_provider/generic_words.dart';
 import '../../../../core/texts_icons_provider/pages/overview/messages_snackbars_provided.dart';
@@ -49,10 +50,14 @@ class SimpleGridItem extends StatelessWidget implements ICustomGridtile {
         child: GestureDetector(
             key: Key("$K_OV_ITM_DET_PAGE$index"),
             onTap: () => Get.toNamed('${AppRoutes.OVERVIEW_ITEM_DETAILS}${product.id}'),
-            child: Image.network(product.imageUrl, fit: BoxFit.cover)),
+            child: FadeInImage(
+              placeholder: AssetImage(IMAGE_PLACEHOLDER),
+              image: NetworkImage(product.imageUrl),
+              fit: BoxFit.cover,
+            )),
         footer: GridTileBar(
             leading: Obx(
-                  () => IconButton(
+              () => IconButton(
                   key: Key("$K_OV_GRD_FAV_BTN$index"),
                   icon: _uniqueController.favoriteStatusObs.value
                       ? OV_ICO_FAV
