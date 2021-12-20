@@ -15,10 +15,10 @@ class OrdersService implements IOrdersService {
     var orderTimeStamp = DateTime.now();
 
     var order = Order(
-      null,
-      amount.toStringAsFixed(2),
-      orderTimeStamp.toIso8601String(),
-      cartItems,
+      id: null,
+      amount: amount.toStringAsFixed(2),
+      datetime: orderTimeStamp.toIso8601String(),
+      cartItems: cartItems,
     );
 
     // @formatter:off

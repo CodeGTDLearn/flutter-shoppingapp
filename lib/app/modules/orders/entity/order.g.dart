@@ -7,10 +7,10 @@ part of 'order.dart';
 // **************************************************************************
 
 Order _$OrderFromJson(Map<String, dynamic> json) => Order(
-      json['id'] as String?,
-      json['amount'] as String,
-      json['datetime'] as String,
-      (json['cartItems'] as List<dynamic>)
+      id: json['id'] as String?,
+      amount: json['amount'] as String,
+      datetime: json['datetime'] as String,
+      cartItems: (json['cartItems'] as List<dynamic>)
           .map((e) => CartItem.fromJson(e as Map<String, dynamic>))
           .toList(),
     );

@@ -18,7 +18,7 @@ const TESTDB_PRODUCTS_URL = "$TESTDB_URL/products.json";
 const TESTDB_ORDERS_URL = "$TESTDB_URL/orders.json";
 const TESTDB_CART_ITEM_URL = "$TESTDB_URL/cart-items.json";
 
-const TOTAL_SAMPLEDATA_ITEMS_TOBE_LOADED_IN_TESTDB = 3;
+const TOTAL_SAMPLEDATA_ITEMS = 20;
 const IMAGE_CORE_URL = 'https://images.freeimages.com/images/large-previews/';
 const TEST_IMAGE_URL_MAP = {
   "Tomatoes": "${IMAGE_CORE_URL}294/tomatoes-1326096.jpg",

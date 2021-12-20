@@ -17,7 +17,7 @@ class OrdersRepoTests {
     setUp(() {
       testConfig.bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
       _repo = Get.find<IOrdersRepo>();
-      _orderWithoutId = OrderDatabuilder().OrderFull();
+      _orderWithoutId = OrderDatabuilder().Order_full_withoutId();
     });
 
     tearDown(Get.reset);

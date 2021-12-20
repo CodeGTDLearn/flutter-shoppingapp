@@ -4,5 +4,6 @@ class TestDbCheckTitles {
 
   get check_db_status => 'Check Db-Test status';
   get clean_db_completelly => 'Clean Db-Test';
-  get load_db_with_sample_data => 'Load Db-Test';
+  get load_db_products_sample_data => 'Load Product Db-Test';
+  get load_db_orders_sample_data => 'Load Orders Db-Test';
 }

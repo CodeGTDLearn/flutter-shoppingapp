@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
+import 'package:shopingapp/app/modules/orders/entity/order.dart';
 
 import '../config/tests_properties.dart';
 import 'tests_utils.dart';
@@ -115,7 +116,7 @@ class TestDbUtils {
     // @formatter:on
   }
 
-  Future<List<dynamic>> add_sameObject_multipleTimes({
+  Future<List<dynamic>> add_object_multipleTimes({
     required Object object,
     required int qtdeObjects,
     required String collectionUrl,
@@ -156,6 +157,34 @@ class TestDbUtils {
       });
     }
     return await Future.value(listReturn);
+  }
+
+  Future<List<dynamic>> add_multipleObjects({
+    required String collectionUrl,
+    required Function dataBuilder,
+    required int totalItems,
+  }) async {
+    var inputList = <Object>[];
+    var outputList = <Object>[];
+
+    for (var i = 0; i < totalItems; i++) {
+      inputList.add(dataBuilder.call());
+    }
+
+    for (var item = 1; item <= inputList.length; item++) {
+      await addObject(
+        object: inputList[item - 1],
+        collectionUrl: collectionUrl,
+      ).then((response) {
+        outputList.add(response);
+        _addOrder_message(
+          collectionUrl: collectionUrl,
+          order: response,
+          number: item.toString(),
+        );
+      });
+    }
+    return await Future.value(outputList);
   }
 
   final _headerLine = "||> >=====================================> DB ACTION "
@@ -214,8 +243,8 @@ class TestDbUtils {
   }) {
     var statusTxt = statusCode == null ? '' : '- Status: $statusCode';
 
-    var productBody = '  ';
-    product.toJson().forEach((key, value) => productBody += '* $key: $value\n       ');
+    var body = '  ';
+    product.toJson().forEach((key, value) => body += '* $key: $value\n       ');
 
     print('$_headerLine '
         '     Adding Object: $number\n'
@@ -223,7 +252,29 @@ class TestDbUtils {
         '     - ID: ${product.id}\n'
         '     - Type: ${product.runtimeType.toString()}\n'
         '     - Body:\n'
-        '     $productBody'
+        '     $body'
+        '     $statusTxt\n'
+        '$_footerLine');
+  }
+
+  void _addOrder_message({
+    required String collectionUrl,
+    required Order order,
+    String number = '',
+    int? statusCode,
+  }) {
+    var statusTxt = statusCode == null ? '' : '- Status: $statusCode';
+
+    var body = '  ';
+    order.toJson().forEach((key, value) => body += '* $key: $value\n       ');
+
+    print('$_headerLine '
+        '     Adding Object: $number\n'
+        '     - URL: $collectionUrl\n'
+        '     - ID: ${order.id}\n'
+        '     - Type: ${order.runtimeType.toString()}\n'
+        '     - Body:\n'
+        '     $body'
         '     $statusTxt\n'
         '$_footerLine');
   }

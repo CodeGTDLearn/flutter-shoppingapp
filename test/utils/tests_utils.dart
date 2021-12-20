@@ -26,7 +26,7 @@ class TestsUtils {
       await dbTestUtils.cleanDb(url: TESTDB_ROOT_URL, dbName: TESTDB_NAME);
       await Future.delayed(delay(DELAY));
       await dbTestUtils
-          .add_sameObject_multipleTimes(
+          .add_object_multipleTimes(
               qtdeObjects: 2,
               collectionUrl: PRODUCTS_URL,
               object: ProductDataBuilder().ProductWithoutId(),

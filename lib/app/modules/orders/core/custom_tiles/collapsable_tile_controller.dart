@@ -1,6 +1,6 @@
 import 'package:get/state_manager.dart';
 
-class OrderCollapsableTileController extends GetxController {
+class CollapsableTileController extends GetxController {
   var isTileCollapsed = false.obs;
 
   void toggleCollapseTile() {

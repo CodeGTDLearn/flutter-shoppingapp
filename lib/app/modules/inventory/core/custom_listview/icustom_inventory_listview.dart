@@ -3,5 +3,5 @@ import 'package:flutter/widgets.dart';
 import '../../../../modules/inventory/entity/product.dart';
 
 abstract class ICustomInventoryListview {
-  Widget customInventoryListview(List<Product> products);
+  Widget inventoryListview(List<Product> products);
 }

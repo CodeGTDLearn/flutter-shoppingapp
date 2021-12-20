@@ -6,16 +6,16 @@ import '../../../../core/properties/app_properties.dart';
 import '../../../../core/texts_icons_provider/pages/order/orders.dart';
 import '../../../../core/texts_icons_provider/pages/order/orders_texts_icons_provided.dart';
 import '../../entity/order.dart';
-import 'order_collapsable_tile_controller.dart';
+import 'collapsable_tile_controller.dart';
 
-class OrderCollapsableTile extends StatelessWidget {
+class CollapsableTile extends StatelessWidget {
   final Order _order;
 
-  OrderCollapsableTile(this._order);
+  CollapsableTile(this._order);
 
   @override
   Widget build(BuildContext context) {
-    var _controller = OrderCollapsableTileController();
+    var _controller = CollapsableTileController();
 
     return Card(
         margin: EdgeInsets.all(15),
@@ -36,32 +36,36 @@ class OrderCollapsableTile extends StatelessWidget {
           ),
           Obx(() => Visibility(
               visible: _controller.isTileCollapsed.value,
-              child: Container(
-                  height: _order.cartItems.length * 48.0,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(2.0),
-                      color: Colors.white,
-                      boxShadow: [_boxShadow(Colors.grey, 5.0)]),
-                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-                  child: LayoutBuilder(builder: (_, specs) {
-                    return ListView(
-                        padding: EdgeInsets.all(5),
-                        children: _order.cartItems
-                            .map((item) => Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      _rowContainer(
-                                          '${item.title}', 18, specs.maxWidth * 0.55),
-                                      _rowContainer(
-                                          'x${item.qtde}', 18, specs.maxWidth * 0.15),
-                                      _rowContainer('${item.price.toString()}', 18,
-                                          specs.maxWidth * 0.2)
-                                    ]))
-                            .toList());
-                  }))))
+              child: _getCartItems()))
         ]));
+  }
+
+  Container _getCartItems() {
+    return Container(
+                height: _order.cartItems.length * 48.0,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(2.0),
+                    color: Colors.white,
+                    boxShadow: [_boxShadow(Colors.grey, 5.0)]),
+                margin: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                child: LayoutBuilder(builder: (_, specs) {
+                  return ListView(
+                      padding: EdgeInsets.all(5),
+                      children: _order.cartItems
+                          .map((item) => Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    _rowContainer(
+                                        '${item.title}', 18, specs.maxWidth * 0.55),
+                                    _rowContainer(
+                                        'x${item.qtde}', 18, specs.maxWidth * 0.15),
+                                    _rowContainer('${item.price.toString()}', 18,
+                                        specs.maxWidth * 0.2)
+                                  ]))
+                          .toList());
+                }));
   }
 
   BoxShadow _boxShadow(Color color, double radius) {

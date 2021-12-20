@@ -7,18 +7,16 @@ import '../custom_listtile/animated_listtile.dart';
 import 'icustom_inventory_listview.dart';
 
 class StaggeredListview implements ICustomInventoryListview {
-  final itemCount;
   final delayMilliseconds;
   final double verticalOffset;
 
   StaggeredListview({
-    this.itemCount = ITEM_COUNT,
     this.delayMilliseconds = DELAY_MILLISEC_LISTVIEW,
     this.verticalOffset = VERTICAL_OFFSET_LISTVIEW,
   });
 
   @override
-  Widget customInventoryListview(List<Product> products) {
+  Widget inventoryListview(List<Product> products) {
     return AnimationLimiter(
         child: ListView.builder(
             itemCount: products.length,

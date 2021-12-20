@@ -14,16 +14,16 @@ class Order {
   late String datetime;
   late List<CartItem> cartItems;
 
-  Order(this.id, this.amount, this.datetime, this.cartItems);
+  Order({this.id, required this.amount, required this.datetime, required this.cartItems});
 
   factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
 
   Map<String, dynamic> toJson() => _$OrderToJson(this);
 
   factory Order.deepCopy(Order orderToCopy) => Order(
-        orderToCopy.id,
-        orderToCopy.amount,
-        orderToCopy.datetime,
-        orderToCopy.cartItems,
+        id: orderToCopy.id,
+    amount: orderToCopy.amount,
+    datetime: orderToCopy.datetime,
+    cartItems: orderToCopy.cartItems,
       );
 }

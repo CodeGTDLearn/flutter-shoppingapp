@@ -95,7 +95,7 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
                   onPressed: () {
                     uniqueController.elevateGridItemAnimation(false);
                     _cartController.addCartItem(product);
-                    onClick!(imageGlobalKey);
+                    // onClick!(imageGlobalKey);
                     ButtonSnackbar(
                       context: context,
                       labelButton: UNDO,

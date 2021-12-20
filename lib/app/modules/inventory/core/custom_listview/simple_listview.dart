@@ -6,7 +6,7 @@ import 'icustom_inventory_listview.dart';
 
 class SimpleListview implements ICustomInventoryListview {
   @override
-  Widget customInventoryListview(List<Product> productsList) {
+  Widget inventoryListview(List<Product> productsList) {
     return ListView.builder(
         itemCount: productsList.length,
         itemBuilder: (ctx, index) => Column(children: [
