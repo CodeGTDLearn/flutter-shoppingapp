@@ -8,6 +8,7 @@ class OrdersController {
 
   var qtdeOrdersObs = 0.obs;
   var ordersObs = <Order>[].obs;
+  var isTileCollapsed = false.obs;
 
   OrdersController({required this.service});
 
@@ -23,5 +24,9 @@ class OrdersController {
 
   void clearOrder() {
     service.clearOrder();
+  }
+
+  void toggleCollapseTile() {
+    isTileCollapsed.value = !isTileCollapsed.value;
   }
 }

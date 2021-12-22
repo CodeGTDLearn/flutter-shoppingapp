@@ -9,13 +9,15 @@
           "id": "-MJ45uFapLqamB92wOYe",
           "title": "Red Shirt",
           "qtde": 1,
-          "price": 19.99
+          "price": 19.99,
+          "imageUrl": "https://images.freeimages.com/images/large-previews/eae/clothes-3-1466560.jpg"
         },
         {
           "id": "-MJDo1SL6ywrEs6AGrxB",
           "title": "Trousers",
           "qtde": 1,
-          "price": 29.99
+          "price": 29.99,
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Trousers%2C_dress_%28AM_1960.022-8%29.jpg/512px-Trousers%2C_dress_%28AM_1960.022-8%29.jpg"
         }
       ]
     },
@@ -28,13 +30,15 @@
           "id": "-MKML9enBe3N13QRQKPF",
           "title": "Yellow Scarf",
           "qtde": 1,
-          "price": 39.99
+          "price": 39.99,
+          "imageUrl": "https://live.staticflickr.com/4043/4438260868_cc79b3369d_z.jpg"
         },
         {
           "id": "-MKML9enBe3N13QRQWSV",
           "title": "A Pan",
           "qtde": 1,
-          "price": 49.99
+          "price": 49.99,
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg"
         }
       ]
     }

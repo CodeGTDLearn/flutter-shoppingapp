@@ -1,31 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/properties/app_properties.dart';
 import '../../../../core/texts_icons_provider/pages/order/orders.dart';
 import '../../../../core/texts_icons_provider/pages/order/orders_texts_icons_provided.dart';
+import '../../controller/orders_controller.dart';
 import '../../entity/order.dart';
-import 'collapsable_tile_controller.dart';
+import 'icustom_order_tile.dart';
 
-class CollapsableTile extends StatelessWidget {
-  final Order _order;
-
-  CollapsableTile(this._order);
+class CollapsableTile implements ICustomOrderTile {
+  final _controller = Get.find<OrdersController>();
 
   @override
-  Widget build(BuildContext context) {
-    var _controller = CollapsableTileController();
-
+  Widget create(Order _order) {
     return Card(
         margin: EdgeInsets.all(15),
         child: Column(children: [
           Container(
-            decoration: BoxDecoration(
-                color: Colors.white, boxShadow: [_boxShadow(Colors.grey, 5.0)]),
+            decoration: BoxDecoration(color: Colors.white, boxShadow: [_boxShadow()]),
             child: ListTile(
                 dense: true,
-                title: Text("$ORDERS_LABEL_CARD${_order.amount}"),
+                title: Text("$ORDERS_TOTAL_CARD${_order.amount}"),
                 subtitle:
                     Text(DateFormat(DATE_FORMAT).format(DateTime.parse(_order.datetime))),
                 trailing: IconButton(
@@ -36,40 +33,37 @@ class CollapsableTile extends StatelessWidget {
           ),
           Obx(() => Visibility(
               visible: _controller.isTileCollapsed.value,
-              child: _getCartItems()))
+              child: _getCartItemsFromOrder(_order)))
         ]));
   }
 
-  Container _getCartItems() {
-    return Container(
-                height: _order.cartItems.length * 48.0,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2.0),
-                    color: Colors.white,
-                    boxShadow: [_boxShadow(Colors.grey, 5.0)]),
-                margin: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-                child: LayoutBuilder(builder: (_, specs) {
-                  return ListView(
-                      padding: EdgeInsets.all(5),
-                      children: _order.cartItems
-                          .map((item) => Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    _rowContainer(
-                                        '${item.title}', 18, specs.maxWidth * 0.55),
-                                    _rowContainer(
-                                        'x${item.qtde}', 18, specs.maxWidth * 0.15),
-                                    _rowContainer('${item.price.toString()}', 18,
-                                        specs.maxWidth * 0.2)
-                                  ]))
-                          .toList());
-                }));
-  }
+  BoxShadow _boxShadow() =>
+      BoxShadow(color: Colors.grey, offset: Offset(1.0, 1.0), blurRadius: 5.0);
 
-  BoxShadow _boxShadow(Color color, double radius) {
-    return BoxShadow(color: color, offset: Offset(1.0, 1.0), blurRadius: radius);
+  Container _getCartItemsFromOrder(Order _order) {
+    return Container(
+        height: _order.cartItems.length * 48.0,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(2.0),
+            color: Colors.white,
+            boxShadow: [_boxShadow()]),
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+        child: LayoutBuilder(builder: (_, specs) {
+          return ListView(
+              padding: EdgeInsets.all(5),
+              children: _order.cartItems
+                  .map((item) => Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            _rowContainer('${item.title}', 18, specs.maxWidth * 0.55),
+                            _rowContainer('x${item.qtde}', 18, specs.maxWidth * 0.15),
+                            _rowContainer(
+                                '${item.price.toString()}', 18, specs.maxWidth * 0.2)
+                          ]))
+                  .toList());
+        }));
   }
 
   Container _rowContainer(String text, int fonSize, double width) {

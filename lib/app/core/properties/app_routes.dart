@@ -48,9 +48,7 @@ class AppRoutes {
 
     GetPage(name: '$OVERVIEW_ITEM_DETAILS:id', page: () => OverviewItemDetailsView()),
 
-    GetPage(name: ORDERS, page: () => OrdersView(), bindings: [
-      CustomAppbarsBinding(),
-      OrdersBindings()]),
+    GetPage(name: ORDERS, page: () => OrdersView(), bindings: [ OrdersBindings()]),
 
     GetPage(name: INVENTORY, page: () => InventoryView(), bindings: [
       CustomAppbarsBinding(),

@@ -116,7 +116,7 @@ class TestDbUtils {
     // @formatter:on
   }
 
-  Future<List<dynamic>> add_object_multipleTimes({
+  Future<List<dynamic>> add_product_multipleTimes({
     required Object object,
     required int qtdeObjects,
     required String collectionUrl,
@@ -137,7 +137,7 @@ class TestDbUtils {
     return Future.value(listReturn);
   }
 
-  Future<List<dynamic>> add_objectList({
+  Future<List<dynamic>> add_productList({
     required List<Object> objectList,
     required String collectionUrl,
   }) async {
@@ -159,7 +159,7 @@ class TestDbUtils {
     return await Future.value(listReturn);
   }
 
-  Future<List<dynamic>> add_multipleObjects({
+  Future<List<dynamic>> add_multipleOrders({
     required String collectionUrl,
     required Function dataBuilder,
     required int totalItems,

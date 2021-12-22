@@ -1,79 +1,143 @@
 import 'package:expandable/expandable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/properties/app_properties.dart';
 import '../../../../core/texts_icons_provider/pages/order/orders.dart';
+import '../../../cart/entity/cart_item.dart';
 import '../../entity/order.dart';
+import 'icustom_order_tile.dart';
 
-class ExpandableTile extends StatelessWidget {
-  final Order _order;
-
-  ExpandableTile(this._order);
+class ExpandableTile implements ICustomOrderTile {
+  final _appContext = APP_CONTEXT_GLOBAL_KEY.currentContext;
 
   @override
-  Widget build(BuildContext context) {
+  Widget create(Order _order) {
     return Card(
-      margin: EdgeInsets.all(13),
+      margin: EdgeInsets.only(top: 10.0, bottom: 5.0, left: 13.0, right: 13.0),
       child: Container(
-        decoration:
-            BoxDecoration(color: Colors.white, boxShadow: [_boxShadow(Colors.grey, 5.0)]),
-        child: ExpandablePanel(
-          header: Column(
-            children: [
-              Text("$ORDERS_LABEL_CARD${_order.amount}"),
-              Text(DateFormat(DATE_FORMAT).format(DateTime.parse(_order.datetime))),
-            ],
-          ),
-          collapsed: Text(
-            "$ORDERS_LABEL_CARD${_order.amount}",
-            softWrap: true,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-          expanded: _getCartItems(),
-        ),
-      ),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(6)),
+              color: Colors.white,
+              boxShadow: [_boxShadow()]),
+          padding: EdgeInsets.all(5.0),
+          child: ExpandablePanel(
+              header: Text(
+                  "${DateFormat(DATE_FORMAT).format(DateTime.parse(_order.datetime))}",
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+              collapsed: Text("$ORDERS_TOTAL_CARD \$${_order.amount}"),
+              expanded: _showExpandedOrderItems(_order))),
     );
   }
 
-  Container _getCartItems() {
+  BoxShadow _boxShadow() =>
+      BoxShadow(color: Colors.grey, offset: Offset(1.0, 1.0), blurRadius: 3.0);
+
+  Container _showExpandedOrderItems(Order _order) {
     return Container(
-        height: _order.cartItems.length * 48.0,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(2.0),
-            color: Colors.white,
-            boxShadow: [_boxShadow(Colors.grey, 5.0)]),
-        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-        child: LayoutBuilder(builder: (_, specs) {
-          return ListView(
-              padding: EdgeInsets.all(5),
-              children: _order.cartItems
-                  .map((item) => Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            _rowContainer('${item.title}', 18, specs.maxWidth * 0.55),
-                            _rowContainer('x${item.qtde}', 18, specs.maxWidth * 0.15),
-                            _rowContainer(
-                                '${item.price.toString()}', 18, specs.maxWidth * 0.2)
-                          ]))
-                  .toList());
-        }));
+      height: _order.cartItems.length * MediaQuery.of(_appContext!).size.height * 0.17,
+      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+      child: LayoutBuilder(builder: (_, dimensions) {
+        return ListView(
+            padding: EdgeInsets.only(top: 10, bottom: 10),
+            children: _order.cartItems.map((cartItem) => _card(cartItem, dimensions)).toList());
+      }),
+    );
   }
 
-  BoxShadow _boxShadow(Color color, double radius) {
-    return BoxShadow(color: color, offset: Offset(1.0, 1.0), blurRadius: radius);
+  Widget _card(CartItem cartItem, BoxConstraints dims) {
+    return Container(
+        decoration:
+            BoxDecoration(border: Border(top: BorderSide(color: Colors.grey.shade200))),
+        child: Padding(
+            padding: const EdgeInsets.only(bottom: 8, top: 8, left: 5, right: 4),
+            child: Row(children: [
+              Expanded(
+                  flex: 3, child: _image('${cartItem.imageUrl}', dims.maxWidth * 0.3)),
+              Expanded(
+                  flex: 7,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _titlePriceQtdeRow(cartItem, dims),
+                      _subtotalColumn(cartItem),
+                    ],
+                  )),
+            ])));
   }
 
-  Container _rowContainer(String text, int fonSize, double width) {
+  Row _titlePriceQtdeRow(CartItem cartItem, BoxConstraints dims) {
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      _text('${cartItem.title}', 22, dims.maxWidth * 0.4),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          RichText(
+              text: TextSpan(
+                  text: '${cartItem.price.toString()}',
+                  style: GoogleFonts.lato(
+                      textStyle: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          letterSpacing: .5,
+                          fontWeight: FontWeight.bold)),
+                  children: <TextSpan>[
+                TextSpan(
+                    text: '\$',
+                    style: GoogleFonts.lato(
+                        textStyle: TextStyle(
+                            fontSize: 15,
+                            letterSpacing: .5,
+                            fontWeight: FontWeight.normal)))
+              ])),
+          Text('x ${cartItem.qtde}', style: TextStyle(fontSize: 18)),
+        ],
+      )
+    ]);
+  }
+
+  Column _subtotalColumn(CartItem cartItem) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Divider(),
+        Text('Sub-total: ${(cartItem.qtde * cartItem.price).toString()}',
+            style: GoogleFonts.lato(
+                textStyle: TextStyle(
+                    fontSize: 15, letterSpacing: .5, fontWeight: FontWeight.normal))),
+      ],
+    );
+  }
+
+  Container _text(String text, int fonSize, double width) {
     return Container(
-        padding: EdgeInsets.only(top: 5),
-        alignment: Alignment.centerLeft,
+        padding: EdgeInsets.only(left: 10),
         width: width,
+        alignment: AlignmentDirectional.centerStart,
         child: Text(text,
-            style: TextStyle(fontSize: fonSize.toDouble(), fontWeight: FontWeight.bold)));
+            style: TextStyle(
+              fontSize: fonSize.toDouble(),
+              fontWeight: FontWeight.bold,
+            )));
+  }
+
+  Widget _image(String url, double width) {
+    var fadeImage = FadeInImage(
+      placeholder: AssetImage(IMAGE_PLACEHOLDER),
+      image: NetworkImage(url),
+      fit: BoxFit.cover,
+    );
+
+    return Container(
+        width: width,
+        height: width,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(9.0),
+            color: Colors.white,
+            boxShadow: [_boxShadow()]),
+        child: ClipRRect(borderRadius: BorderRadius.circular(9.0), child: fadeImage));
   }
 }

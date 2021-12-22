@@ -11,12 +11,14 @@ class CartItem {
   String title;
   int qtde;
   double price;
+  String imageUrl;
 
   CartItem(
     this.id,
     this.title,
     this.qtde,
     this.price,
+    this.imageUrl,
   );
 
   factory CartItem.fromJson(Map<String, dynamic> json) => _$CartItemFromJson(json);

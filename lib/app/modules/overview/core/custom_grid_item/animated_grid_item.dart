@@ -61,49 +61,57 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
     String index,
     OverviewController uniqueController,
   ) {
+    var fadeImage = FadeInImage(
+        placeholder: AssetImage(IMAGE_PLACEHOLDER),
+        image: NetworkImage(product.imageUrl),
+        fit: BoxFit.cover);
+
     return _animations.openContainer(
       openingWidget: OverviewItemDetailsView(product.id),
       closingWidget: GridTile(
           key: Key("$K_OV_ITM_DET_PAGE$index"),
           child: Container(
               key: imageGlobalKey,
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: FadeInImage(
-                    placeholder: AssetImage(IMAGE_PLACEHOLDER),
-                    image: NetworkImage(product.imageUrl),
-                    fit: BoxFit.cover,
-                  ))),
+              child:
+                  ClipRRect(borderRadius: BorderRadius.circular(10.0), child: fadeImage)),
           footer: GridTileBar(
-              leading: Obx(() => IconButton(
-                  key: Key("$K_OV_GRD_FAV_BTN$index"),
-                  color: Theme.of(context).colorScheme.secondary,
-                  icon: uniqueController.favoriteStatusObs.value
-                      ? OV_ICO_FAV
-                      : OV_ICO_NOFAV,
-                  onPressed: () {
-                    uniqueController.toggleFavoriteStatus(product.id!).then((response) {
-                      response
-                          ? SimpleSnackbar().show(SUCES, TOG_STATUS_SUCES)
-                          : SimpleSnackbar().show(OPS, TOG_STATUS_ERROR);
-                    });
-                  })),
+              leading: Obx(() => _favButton(index, context, uniqueController, product)),
               title: Text(product.title, key: Key("$K_OV_GRD_PRD_TIT$index")),
-              trailing: IconButton(
-                  key: Key("$K_OV_GRD_CRT_BTN$index"),
-                  icon: OV_ICO_SHOPCART,
-                  onPressed: () {
-                    uniqueController.elevateGridItemAnimation(false);
-                    _cartController.addCartItem(product);
-                    // onClick!(imageGlobalKey);
-                    ButtonSnackbar(
-                      context: context,
-                      labelButton: UNDO,
-                      function: () => _cartController.addCartItemUndo(product),
-                    ).show(DONE, "${product.title}$ITEMCART_ADDED");
-                  },
-                  color: Theme.of(context).colorScheme.secondary),
+              trailing: _shopCartButton(index, uniqueController, product, context),
               backgroundColor: Colors.black87)),
     );
+  }
+
+  IconButton _favButton(
+      String index, context, OverviewController uniqueController, Product product) {
+    return IconButton(
+        key: Key("$K_OV_GRD_FAV_BTN$index"),
+        color: Theme.of(context).colorScheme.secondary,
+        icon: uniqueController.favoriteStatusObs.value ? OV_ICO_FAV : OV_ICO_NOFAV,
+        onPressed: () {
+          uniqueController.toggleFavoriteStatus(product.id!).then((response) {
+            response
+                ? SimpleSnackbar().show(SUCES, TOG_STATUS_SUCES)
+                : SimpleSnackbar().show(OPS, TOG_STATUS_ERROR);
+          });
+        });
+  }
+
+  IconButton _shopCartButton(
+      String index, OverviewController uniqueController, Product product, context) {
+    return IconButton(
+        key: Key("$K_OV_GRD_CRT_BTN$index"),
+        icon: OV_ICO_SHOPCART,
+        onPressed: () {
+          uniqueController.elevateGridItemAnimation(false);
+          _cartController.addCartItem(product);
+          // onClick!(imageGlobalKey);
+          ButtonSnackbar(
+            context: context,
+            labelButton: UNDO,
+            function: () => _cartController.addCartItemUndo(product),
+          ).show(DONE, "${product.title}$ITEMCART_ADDED");
+        },
+        color: Theme.of(context).colorScheme.secondary);
   }
 }

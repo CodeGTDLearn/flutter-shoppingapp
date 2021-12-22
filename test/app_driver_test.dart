@@ -64,7 +64,7 @@ void _integrationTests() {
 
   group(
     TestDbCheckTitles.GROUP_TITLE,
-    () => MockedDatasourceLoader(TOTAL_SAMPLEDATA_ITEMS).load(start: false),
+    () => MockedDatasourceLoader(TOTAL_SAMPLE_DATA_ITEMS).load(start: true),
     skip: false, // false all-the-time
   );
 

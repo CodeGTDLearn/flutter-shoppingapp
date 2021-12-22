@@ -17,7 +17,6 @@ class SimpleScaffold implements ICustomScaffold {
 
     return Scaffold(
         key: K_OV_SCFLD_GLOB_KEY,
-        // appBar: _appbar,
         drawer: _drawer,
         body: Obx(() => _controller.gridItemsObs.value.isEmpty
             ? SingleChildScrollView(

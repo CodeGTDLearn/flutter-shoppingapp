@@ -1,12 +1,14 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:get/instance_manager.dart';
 
 import '../../../../core/properties/app_properties.dart';
 import '../../../../modules/orders/entity/order.dart';
-import '../custom_tiles/expandable_tile.dart';
+import '../custom_tiles/icustom_order_tile.dart';
 import 'icustom_orders_listview.dart';
 
 class StaggeredSliverListview implements ICustomOrdersListview {
+  final _orderTile = Get.find<ICustomOrderTile>();
   final delayMilliseconds;
   final double verticalOffset;
 
@@ -27,8 +29,7 @@ class StaggeredSliverListview implements ICustomOrdersListview {
             child: SlideAnimation(
                 verticalOffset: verticalOffset,
                 child: FadeInAnimation(
-                  // child: OrderCollapsableTile(orders.elementAt(index)),
-                  child: ExpandableTile(orders.elementAt(index)),
+                  child: _orderTile.create(orders.elementAt(index)),
                 )));
       },
       childCount: orders.length,

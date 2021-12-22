@@ -51,7 +51,7 @@ class MockedDatasourceLoader {
         }
 
         await _dbUtils
-            .add_objectList(collectionUrl: PRODUCTS_URL, objectList: inputList)
+            .add_productList(collectionUrl: PRODUCTS_URL, objectList: inputList)
             .then((value) => outputList = value);
 
         expect(outputList.length, sampleDbTotalItems);
@@ -63,10 +63,10 @@ class MockedDatasourceLoader {
       var outputList;
       if (start) {
         await _dbUtils
-            .add_multipleObjects(
+            .add_multipleOrders(
                 collectionUrl: ORDERS_URL,
                 totalItems: sampleDbTotalItems,
-                dataBuilder: OrderDatabuilder().Order_full_withId)
+                dataBuilder: OrderDatabuilder(second: DateTime.now().second).Order_full_withId)
             .then((value) => outputList = value);
 
         expect(outputList.length, sampleDbTotalItems);
