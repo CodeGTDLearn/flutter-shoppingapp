@@ -23,8 +23,11 @@ class InventoryRepoHttp implements IInventoryRepo {
   Future<Product> addProduct(Product product) {
     // @formatter:off
     return
-        http
-        .post(Uri.parse(PRODUCTS_URL), body: jsonEncode(product.toJson()))
+     http
+        .post(
+               Uri.parse(PRODUCTS_URL),
+               body: jsonEncode(product.toJson())
+             )
         .then((response) {
                var plainText = response.body;
                Map<String, dynamic> json = jsonDecode(plainText);

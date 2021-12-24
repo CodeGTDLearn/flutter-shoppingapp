@@ -16,7 +16,7 @@ import 'package:shopingapp/app/modules/overview/core/custom_grid_item/animated_g
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
-import '../../../../config/tests_properties.dart';
+import '../../../../config/app_tests_properties.dart';
 import '../../../../utils/finder_utils.dart';
 import '../../../../utils/testdb./../../utils/finder_utils.dart';
 import '../../../../utils/testdb_utils.dart';

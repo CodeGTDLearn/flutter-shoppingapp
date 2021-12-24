@@ -6,7 +6,7 @@ import '../../app/modules/inventory/service/inventory_service_test.dart';
 import '../../app/modules/inventory/view/inventory_view_edit_test.dart';
 import '../../app/modules/inventory/view/inventory_view_test.dart';
 import '../../app/modules/inventory/view/inventory_view_validation_test.dart';
-import '../tests_properties.dart';
+import '../app_tests_properties.dart';
 import '../titles/inventory_test_titles.dart';
 
 class InventoryTestGroups {

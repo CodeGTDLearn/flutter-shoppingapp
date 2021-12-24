@@ -6,7 +6,7 @@ import 'package:shopingapp/app/modules/inventory/view/inventory_view.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
-import '../../../config/tests_properties.dart';
+import '../../../config/app_tests_properties.dart';
 import '../../../utils/finder_utils.dart';
 import '../../../utils/tests_utils.dart';
 import '../../../utils/ui_test_utils.dart';

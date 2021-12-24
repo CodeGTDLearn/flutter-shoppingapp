@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
 
-import '../../../../config/tests_properties.dart';
+import '../../../../config/app_tests_properties.dart';
 import '../../../../config/titles/custom_appbar_test_titles.dart';
 import '../../../../utils/finder_utils.dart';
 import '../../../../utils/tests_global_utils.dart';

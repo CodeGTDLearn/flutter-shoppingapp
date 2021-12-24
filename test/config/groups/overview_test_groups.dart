@@ -4,7 +4,7 @@ import '../../app/modules/overview/overview_controller_test.dart';
 import '../../app/modules/overview/repo/overview_repo_test.dart';
 import '../../app/modules/overview/service/overview_service_test.dart';
 import '../../app/modules/overview/view/overview_view_test.dart';
-import '../tests_properties.dart';
+import '../app_tests_properties.dart';
 import '../titles/overview_test_titles.dart';
 
 class OverviewTestGroups {

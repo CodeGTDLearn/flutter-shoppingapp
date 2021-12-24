@@ -5,7 +5,7 @@ import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
 import 'package:shopingapp/app/modules/overview/core/custom_grid_item/animated_grid_item.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
-import '../../../config/tests_properties.dart';
+import '../../../config/app_tests_properties.dart';
 import '../../../utils/finder_utils.dart';
 import '../../../utils/tests_utils.dart';
 import '../../../utils/ui_test_utils.dart';

@@ -3,7 +3,7 @@ import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/orders/view/orders_view.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 
-import '../../../../config/tests_properties.dart';
+import '../../../../config/app_tests_properties.dart';
 import '../../../../config/titles/orders_test_titles.dart';
 import '../../../../utils/finder_utils.dart';
 import '../../../../utils/testdb_utils.dart';

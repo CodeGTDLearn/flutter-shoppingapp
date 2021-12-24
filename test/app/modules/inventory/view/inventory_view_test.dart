@@ -4,7 +4,7 @@ import 'package:shopingapp/app/core/keys/inventory_keys.dart';
 import 'package:shopingapp/app/core/properties/app_urls.dart';
 import 'package:shopingapp/app/modules/inventory/core/custom_listtile/simple_listtile.dart';
 
-import '../../../../config/tests_properties.dart';
+import '../../../../config/app_tests_properties.dart';
 import '../../../../config/titles/inventory_test_titles.dart';
 import '../../../../datasource/mocked_datasource.dart';
 import '../../../../utils/finder_utils.dart';

@@ -4,7 +4,7 @@ import 'package:shopingapp/app/core/keys/custom_snackbar_keys.dart';
 import 'package:shopingapp/app/core/keys/overview_keys.dart';
 import 'package:shopingapp/app/core/properties/app_urls.dart';
 
-import '../../../../config/tests_properties.dart';
+import '../../../../config/app_tests_properties.dart';
 import '../../../../config/titles/overview_test_titles.dart';
 import '../../../../datasource/mocked_datasource.dart';
 import '../../../../utils/finder_utils.dart';

@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/orders/entity/order.dart';
 
-import '../config/tests_properties.dart';
+import '../config/app_tests_properties.dart';
 import 'tests_utils.dart';
 
 //Examples:

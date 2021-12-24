@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/properties/app_urls.dart';
 
-import '../config/tests_properties.dart';
+import '../config/app_tests_properties.dart';
 import '../config/titles/testdb_check_titles.dart';
 import '../data_builders/order_databuilder.dart';
 import '../data_builders/product_databuilder.dart';
@@ -66,7 +66,7 @@ class MockedDatasourceLoader {
             .add_multipleOrders(
                 collectionUrl: ORDERS_URL,
                 totalItems: sampleDbTotalItems,
-                dataBuilder: OrderDatabuilder(second: DateTime.now().second).Order_full_withId)
+                dataBuilder: OrderDatabuilder().Order_full_withId)
             .then((value) => outputList = value);
 
         expect(outputList.length, sampleDbTotalItems);

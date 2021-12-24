@@ -5,7 +5,7 @@ import 'package:network_image_mock/network_image_mock.dart';
 import 'package:shopingapp/app/core/properties/app_urls.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
-import '../config/tests_properties.dart';
+import '../config/app_tests_properties.dart';
 import '../data_builders/product_databuilder.dart';
 import '../datasource/mocked_datasource.dart';
 import 'testdb_utils.dart';

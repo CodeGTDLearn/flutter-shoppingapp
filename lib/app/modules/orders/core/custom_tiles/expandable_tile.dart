@@ -25,10 +25,20 @@ class ExpandableTile implements ICustomOrderTile {
               boxShadow: [_boxShadow()]),
           padding: EdgeInsets.all(5.0),
           child: ExpandablePanel(
-              header: Text(
-                  "${DateFormat(DATE_FORMAT).format(DateTime.parse(_order.datetime))}",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-              collapsed: Text("$ORDERS_TOTAL_CARD \$${_order.amount}"),
+              header: Container(
+                padding: EdgeInsets.all(5.0),
+                child: Text(
+                    "${DateFormat(DATE_FORMAT).format(DateTime.parse(_order.datetime))}",
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                decoration: BoxDecoration(
+                    border: Border(bottom: BorderSide(color: Colors.grey.shade200))),
+              ),
+              collapsed: Container(
+                alignment: Alignment.centerRight,
+                padding: EdgeInsets.only(right: 40.0, top: 5.0, bottom: 5.0),
+                width: double.infinity,
+                child: Text("$ORDERS_TOTAL_CARD \$${_order.amount}"),
+              ),
               expanded: _showExpandedOrderItems(_order))),
     );
   }
@@ -36,22 +46,39 @@ class ExpandableTile implements ICustomOrderTile {
   BoxShadow _boxShadow() =>
       BoxShadow(color: Colors.grey, offset: Offset(1.0, 1.0), blurRadius: 3.0);
 
-  Container _showExpandedOrderItems(Order _order) {
-    return Container(
-      height: _order.cartItems.length * MediaQuery.of(_appContext!).size.height * 0.17,
-      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-      child: LayoutBuilder(builder: (_, dimensions) {
-        return ListView(
-            padding: EdgeInsets.only(top: 10, bottom: 10),
-            children: _order.cartItems.map((cartItem) => _card(cartItem, dimensions)).toList());
-      }),
+  Widget _showExpandedOrderItems(Order _order) {
+    return Column(
+      children: [
+        Container(
+          height:
+              _order.cartItems.length * MediaQuery.of(_appContext!).size.height * 0.16,
+          // padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+          child: LayoutBuilder(builder: (_, dimensions) {
+            return ListView(
+                padding: EdgeInsets.only(top: 1, bottom: 1),
+                children: _order.cartItems
+                    .map((cartItem) => _card(cartItem, dimensions))
+                    .toList());
+          }),
+        ),
+        Container(
+            alignment: AlignmentDirectional.centerEnd,
+            // decoration: BoxDecoration(
+            //     border: Border(top: BorderSide(color: Colors.grey.shade200))),
+            padding: EdgeInsets.all(5.0),
+            width: double.infinity,
+            child: Text(
+              "Final: \$${_order.amount}",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ))
+      ],
     );
   }
 
   Widget _card(CartItem cartItem, BoxConstraints dims) {
     return Container(
-        decoration:
-            BoxDecoration(border: Border(top: BorderSide(color: Colors.grey.shade200))),
+        decoration: BoxDecoration(
+            border: Border(bottom: BorderSide(color: Colors.grey.shade200))),
         child: Padding(
             padding: const EdgeInsets.only(bottom: 8, top: 8, left: 5, right: 4),
             child: Row(children: [
@@ -104,10 +131,13 @@ class ExpandableTile implements ICustomOrderTile {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Divider(),
-        Text('Sub-total: ${(cartItem.qtde * cartItem.price).toString()}',
+        Text('Partial: ${(cartItem.qtde * cartItem.price).toStringAsFixed(2)}',
             style: GoogleFonts.lato(
                 textStyle: TextStyle(
-                    fontSize: 15, letterSpacing: .5, fontWeight: FontWeight.normal))),
+              fontSize: 15,
+              letterSpacing: .5,
+              fontWeight: FontWeight.normal,
+            ))),
       ],
     );
   }
@@ -118,10 +148,9 @@ class ExpandableTile implements ICustomOrderTile {
         width: width,
         alignment: AlignmentDirectional.centerStart,
         child: Text(text,
-            style: TextStyle(
-              fontSize: fonSize.toDouble(),
-              fontWeight: FontWeight.bold,
-            )));
+            style: GoogleFonts.andika(
+                textStyle: TextStyle(
+                    fontSize: 20, letterSpacing: .5, fontWeight: FontWeight.bold))));
   }
 
   Widget _image(String url, double width) {

@@ -4,7 +4,7 @@ import '../../app/modules/cart/cart_controller_test.dart';
 import '../../app/modules/cart/cart_repo_test.dart';
 import '../../app/modules/cart/cart_service_test.dart';
 import '../../app/modules/cart/view/cart_view_test.dart';
-import '../tests_properties.dart';
+import '../app_tests_properties.dart';
 import '../titles/cart_test_titles.dart';
 
 class CartTestGroups {

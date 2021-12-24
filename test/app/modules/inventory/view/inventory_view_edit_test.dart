@@ -3,7 +3,7 @@ import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/keys/inventory_keys.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
-import '../../../../config/tests_properties.dart';
+import '../../../../config/app_tests_properties.dart';
 import '../../../../config/titles/inventory_test_titles.dart';
 import '../../../../data_builders/product_databuilder.dart';
 import '../../../../utils/finder_utils.dart';

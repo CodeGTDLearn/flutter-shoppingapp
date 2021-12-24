@@ -4,7 +4,7 @@ import 'package:faker/faker.dart';
 import 'package:shopingapp/app/modules/cart/entity/cart_item.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
-import '../config/tests_properties.dart';
+import '../config/app_tests_properties.dart';
 
 class CartItemDatabuilder {
   CartItem CartItemFromProduct(Product product) {
