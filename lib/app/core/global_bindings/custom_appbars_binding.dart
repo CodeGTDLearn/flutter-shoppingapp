@@ -12,6 +12,6 @@ class CustomAppbarsBinding extends Bindings {
     Get.lazyPut<CustomAppBar>(() => CustomAppBar());
     Get.lazyPut<OverviewAppBar>(() => OverviewAppBar());
     Get.lazyPut<CustomSliverAppBar>(() => CustomSliverAppBar());
-    Get.lazyPut<OverviewSliverAppBar>(() => OverviewSliverAppBar());
+    Get.lazyPut<OverviewSliverAppBar>(() => OverviewSliverAppBar(cart: Get.find<BadgeCart>()));
   }
 }

@@ -75,14 +75,14 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
               child:
                   ClipRRect(borderRadius: BorderRadius.circular(10.0), child: fadeImage)),
           footer: GridTileBar(
-              leading: Obx(() => _favButton(index, context, uniqueController, product)),
+              leading: Obx(() => _favoriteButton(index, context, uniqueController, product)),
               title: Text(product.title, key: Key("$K_OV_GRD_PRD_TIT$index")),
               trailing: _shopCartButton(index, uniqueController, product, context),
               backgroundColor: Colors.black87)),
     );
   }
 
-  IconButton _favButton(
+  IconButton _favoriteButton(
       String index, context, OverviewController uniqueController, Product product) {
     return IconButton(
         key: Key("$K_OV_GRD_FAV_BTN$index"),

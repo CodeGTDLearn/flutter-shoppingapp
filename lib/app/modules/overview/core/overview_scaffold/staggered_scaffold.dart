@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 
 import '../../../../core/custom_widgets/custom_indicator.dart';
 import '../../../../core/keys/overview_keys.dart';
 import '../../../../core/texts_icons_provider/pages/components/app_messages_provided.dart';
 import '../custom_grid_item/animated_grid_item.dart';
-import '../overview_appbar/badge_cart.dart';
 import '../overview_appbar/filter_options.dart';
 import 'icustom_scaffold.dart';
 
 class StaggeredScaffold implements ICustomScaffold {
   Widget customScaffold(_drawer, _controller, _sliverAppbar) {
     _controller.applyPopupFilter(FilterOptions.All);
-    _sliverAppbar.cart = Get.find<BadgeCart>();
 
     return Scaffold(
         key: K_OV_SCFLD_GLOB_KEY,
-        // appBar: _appbar,
         drawer: _drawer,
         body: Obx(() => _controller.gridItemsObs.value.isEmpty
             ? SingleChildScrollView(
