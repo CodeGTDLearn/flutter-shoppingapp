@@ -7,8 +7,8 @@ import '../../../utils/finder_utils.dart';
 import '../../../utils/tests_global_utils.dart';
 import '../../../utils/tests_utils.dart';
 import '../../../utils/ui_test_utils.dart';
+import '../bindings/custom_widgets_test_bindings.dart';
 import 'custom_indicator_tests.dart';
-import 'custom_widgets_test_bindings.dart';
 
 class CustomIndicatorTest {
   late bool _isWidgetTest;

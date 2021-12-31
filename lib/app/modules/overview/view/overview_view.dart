@@ -3,9 +3,9 @@ import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 
 import '../../../core/custom_widgets/custom_drawer.dart';
+import '../components/overview_appbar/overview_sliver_appbar.dart';
+import '../components/overview_scaffold/icustom_scaffold.dart';
 import '../controller/overview_controller.dart';
-import '../core/overview_appbar/overview_sliver_appbar.dart';
-import '../core/overview_scaffold/icustom_scaffold.dart';
 
 class OverviewView extends StatelessWidget {
   final _drawer = Get.find<CustomDrawer>();

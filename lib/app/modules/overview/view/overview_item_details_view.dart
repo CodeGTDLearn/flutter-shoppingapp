@@ -3,17 +3,17 @@ import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shopingapp/app/core/texts_icons_provider/pages/overview/overview_texts_icons_provided.dart';
 
+import '../../../core/custom_widgets/badge_cart.dart';
 import '../../../core/custom_widgets/custom_appbar.dart';
 import '../../../core/keys/overview_keys.dart';
 import '../../../core/properties/app_properties.dart';
+import '../../../core/texts/modules/overview.dart';
+import '../../../core/utils/adaptive_widget_utils.dart';
 import '../../../core/utils/animations_utils.dart';
 import '../../../core/utils/ui_utils.dart';
-import '../../../core/utils/widget_platform_utils.dart';
 import '../../cart/controller/cart_controller.dart';
 import '../controller/overview_controller.dart';
-import '../core/overview_appbar/badge_cart.dart';
 
 // ignore: must_be_immutable
 class OverviewItemDetailsView extends StatelessWidget {
@@ -24,7 +24,7 @@ class OverviewItemDetailsView extends StatelessWidget {
   final _animations = Get.find<AnimationsUtils>();
   final _appbar = Get.find<CustomAppBar>();
   final _uiUtils = Get.find<UiUtils>();
-  final _widgetUtils = Get.find<WidgetPlatformUtils>();
+  final _widgetUtils = Get.find<AdaptiveWidgetUtils>();
   var cart = Get.find<BadgeCart>();
 
   OverviewItemDetailsView([this._id]);
@@ -59,14 +59,25 @@ class OverviewItemDetailsView extends StatelessWidget {
                       Container(
                           height: _height * 0.3,
                           width: double.infinity,
-                          child: GestureDetector(
-                              onTap: _controller.toggleOverviewItemDetailsImageZoomObs,
-                              child: FadeInImage(
-                                key: Key(K_OV_ITM_DET_PAGE_IMG),
-                                placeholder: AssetImage(IMAGE_PLACEHOLDER),
-                                image: NetworkImage(_product.imageUrl),
-                                fit: BoxFit.cover,
-                              ))),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              // color: Colors.black,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    offset: Offset(1.0, 1.0),
+                                    blurRadius: 10.0)
+                              ]),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: GestureDetector(
+                                onTap: _controller.toggleOverviewItemDetailsImageZoomObs,
+                                child: FadeInImage(
+                                    key: Key(K_OV_ITM_DET_PAGE_IMG),
+                                    placeholder: AssetImage(IMAGE_PLACEHOLDER),
+                                    image: NetworkImage(_product.imageUrl),
+                                    fit: BoxFit.cover)),
+                          )),
                       SizedBox(height: _height * 0.03),
                       Text('${_product.title}',
                           style: TextStyle(fontSize: _height * 0.03)),
@@ -83,17 +94,18 @@ class OverviewItemDetailsView extends StatelessWidget {
                               style: Theme.of(context).textTheme.bodyText2)),
                       SizedBox(height: _height * 0.03),
                       Container(
-                          height: _height * 0.1,
-                          width: _width * 0.5,
-                          color: Colors.red,
-                          child: _widgetUtils.button(
-                              onpressed: () => _cartController.addCartItem(_product),
-                              child: Text(OV_DET_BUY_BTN,
-                                  style: GoogleFonts.roboto(
-                                      textStyle: TextStyle(
-                                          fontSize: 25,
-                                          letterSpacing: .5,
-                                          fontWeight: FontWeight.normal))))),
+                        height: _height * 0.1,
+                        width: _width * 0.5,
+                        color: Colors.red,
+                        child: _widgetUtils.button(
+                            onPressed: () => _cartController.addCartItem(_product),
+                            text: OV_DET_BUY_BTN,
+                            textStyle: GoogleFonts.lato(
+                                textStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold))),
+                      ),
                       SizedBox(height: _height * 0.1),
                     ]))))));
   }

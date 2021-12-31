@@ -8,7 +8,7 @@ import 'app/modules/inventory/view/inventory_view_edit_test.dart';
 import 'app/modules/inventory/view/inventory_view_test.dart';
 import 'app/modules/inventory/view/inventory_view_validation_test.dart';
 import 'app/modules/orders/view/orders_view_test.dart';
-import 'app/modules/overview/core/custom_appbar_test.dart';
+import 'app/modules/overview/components/custom_appbar_test.dart';
 import 'app/modules/overview/view/overview_view_test.dart';
 import 'config/app_tests_properties.dart';
 import 'config/groups/cart_test_groups.dart';

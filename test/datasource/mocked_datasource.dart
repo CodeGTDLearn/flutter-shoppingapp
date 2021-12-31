@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/orders/entity/order.dart';
-import 'package:shopingapp/app/modules/overview/core/overview_appbar/filter_options.dart';
+import 'package:shopingapp/app/modules/overview/components/overview_appbar/filter_options.dart';
 
 import '../config/app_tests_properties.dart';
 

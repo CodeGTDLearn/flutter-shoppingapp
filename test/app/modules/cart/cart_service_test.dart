@@ -5,7 +5,7 @@ import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
 import '../../../data_builders/cartitem_databuilder.dart';
 import '../../../data_builders/product_databuilder.dart';
-import 'core/cart_test_bindings.dart';
+import '../../core/bindings/cart_test_bindings.dart';
 
 class CartServiceTests {
   void unit() {

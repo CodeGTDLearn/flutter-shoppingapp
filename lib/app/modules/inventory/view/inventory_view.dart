@@ -6,12 +6,12 @@ import 'package:get/state_manager.dart';
 import '../../../core/custom_widgets/custom_indicator.dart';
 import '../../../core/custom_widgets/custom_sliver_appbar.dart';
 import '../../../core/keys/inventory_keys.dart';
-import '../../../core/texts_icons_provider/pages/components/app_messages_provided.dart';
-import '../../../core/texts_icons_provider/pages/inventory/inventory_texts_icons_provided.dart';
+import '../../../core/texts/messages.dart';
+import '../../../core/texts/modules/inventory/inventory.dart';
 import '../../../core/utils/animations_utils.dart';
 import '../../overview/controller/overview_controller.dart';
+import '../components/custom_listview/icustom_inventory_listview.dart';
 import '../controller/inventory_controller.dart';
-import '../core/custom_listview/icustom_inventory_listview.dart';
 import 'inventory_item_details_view.dart';
 
 class InventoryView extends StatelessWidget {

@@ -6,11 +6,12 @@ import 'package:get/state_manager.dart';
 import '../../modules/cart/controller/cart_controller.dart';
 import '../../modules/inventory/controller/inventory_controller.dart';
 import '../../modules/orders/controller/orders_controller.dart';
+import '../icons/drawwer.dart';
 import '../keys/custom_drawer_keys.dart';
 import '../properties/app_routes.dart';
-import '../properties/theme/app_theme_controller.dart';
-import '../texts_icons_provider/generic_words.dart';
-import '../texts_icons_provider/pages/components/drawwer_texts_icons_provided.dart';
+import '../texts/custom_drawer.dart';
+import '../texts/general_words.dart';
+import '../theme/app_theme_controller.dart';
 import 'custom_snackbar/simple_snackbar.dart';
 
 // ignore: must_be_immutable

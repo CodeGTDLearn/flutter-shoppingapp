@@ -3,16 +3,18 @@ import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 
+import '../../../core/custom_widgets/badge_cart.dart';
 import '../../../core/custom_widgets/custom_indicator.dart';
 import '../../../core/custom_widgets/custom_sliver_appbar.dart';
-import '../../../core/texts_icons_provider/pages/components/app_messages_provided.dart';
-import '../../../core/texts_icons_provider/pages/order/orders_texts_icons_provided.dart';
+import '../../../core/texts/messages.dart';
+import '../../../core/texts/modules/orders.dart';
+import '../components/custom_listview/staggered_sliver_listview.dart';
 import '../controller/orders_controller.dart';
-import '../core/custom_listview/staggered_sliver_listview.dart';
 
 class OrdersView extends StatelessWidget {
   final _controller = Get.find<OrdersController>();
   final _sliverAppbar = Get.find<CustomSliverAppBar>();
+  final _cartBadge = Get.find<BadgeCart>();
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class OrdersView extends StatelessWidget {
       () => _controller.ordersObs.isEmpty
           ? CustomIndicator.message(message: NO_ORD, fontSize: 20)
           : CustomScrollView(slivers: [
-              _sliverAppbar.create(ORD_TIT_PAGE, Get.back),
+              _sliverAppbar.create(ORD_TIT_PAGE, Get.back,actions: [_cartBadge]),
               StaggeredSliverListview().ordersListview(_controller.ordersObs.toList())
             ]),
     ));

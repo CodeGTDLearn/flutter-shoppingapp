@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/keys/custom_snackbar_keys.dart';
 import 'package:shopingapp/app/core/keys/overview_keys.dart';
-import 'package:shopingapp/app/core/properties/app_urls.dart';
+import 'package:shopingapp/app/core/properties/app_db_urls.dart';
 
 import '../../../../config/app_tests_properties.dart';
 import '../../../../config/titles/overview_test_titles.dart';
@@ -12,7 +12,7 @@ import '../../../../utils/testdb_utils.dart';
 import '../../../../utils/tests_global_utils.dart';
 import '../../../../utils/tests_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
-import '../core/overview_test_bindings.dart';
+import '../../../core/bindings/overview_test_bindings.dart';
 import 'overview_tests.dart';
 
 class OverviewViewTest {

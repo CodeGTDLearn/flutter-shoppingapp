@@ -4,9 +4,9 @@ import 'package:get/route_manager.dart';
 
 import 'app/core/properties/app_properties.dart';
 import 'app/core/properties/app_routes.dart';
-import 'app/core/properties/theme/app_theme.dart';
-import 'app/core/properties/theme/app_theme_controller.dart';
 import 'app/core/shared_preferences/shared_prefs_repo.dart';
+import 'app/core/theme/app_theme.dart';
+import 'app/core/theme/app_theme_controller.dart';
 
 void main() => runApp(AppDriver());
 

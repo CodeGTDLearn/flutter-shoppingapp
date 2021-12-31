@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../app/modules/overview/core/custom_appbar_test.dart';
+import '../../app/modules/overview/components/custom_appbar_test.dart';
 import '../app_tests_properties.dart';
 import '../titles/custom_appbar_test_titles.dart';
 

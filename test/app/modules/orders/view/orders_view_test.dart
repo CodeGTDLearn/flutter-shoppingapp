@@ -10,7 +10,7 @@ import '../../../../utils/testdb_utils.dart';
 import '../../../../utils/tests_global_utils.dart';
 import '../../../../utils/tests_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
-import '../core/orders_test_bindings.dart';
+import '../../../core/bindings/orders_test_bindings.dart';
 import 'orders_tests.dart';
 
 class OrdersViewTest {

@@ -4,7 +4,7 @@ import 'package:shopingapp/app/modules/cart/repo/i_cart_repo.dart';
 
 import '../../../data_builders/cartitem_databuilder.dart';
 import '../../../datasource/mocked_datasource.dart';
-import 'core/cart_test_bindings.dart';
+import '../../core/bindings/cart_test_bindings.dart';
 
 /*
  THERE IS NO NECESSITY OF _injectableRepoMock

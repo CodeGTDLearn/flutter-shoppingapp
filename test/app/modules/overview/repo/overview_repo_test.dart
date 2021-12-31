@@ -4,7 +4,7 @@ import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 
 import '../../../../data_builders/product_databuilder.dart';
-import '../core/overview_test_bindings.dart';
+import '../../../core/bindings/overview_test_bindings.dart';
 import 'overview_mocked_repo_inject.dart';
 
 class OverviewRepoTests {

@@ -11,7 +11,7 @@ import '../../../../utils/testdb_utils.dart';
 import '../../../../utils/tests_global_utils.dart';
 import '../../../../utils/tests_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
-import '../core/inventory_test_bindings.dart';
+import '../../../core/bindings/inventory_test_bindings.dart';
 import 'inventory_tests.dart';
 
 class InventoryViewEditTest {

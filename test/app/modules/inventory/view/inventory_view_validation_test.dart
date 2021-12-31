@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/keys/inventory_keys.dart';
-import 'package:shopingapp/app/core/properties/app_urls.dart';
-import 'package:shopingapp/app/core/texts_icons_provider/pages/inventory/field_form_validation_provided.dart';
+import 'package:shopingapp/app/core/properties/app_db_urls.dart';
+import 'package:shopingapp/app/core/texts/modules/inventory/field_form_validation_provided.dart';
 
 import '../../../../config/app_tests_properties.dart';
 import '../../../../config/titles/inventory_test_titles.dart';
@@ -12,7 +12,7 @@ import '../../../../utils/testdb_utils.dart';
 import '../../../../utils/tests_global_utils.dart';
 import '../../../../utils/tests_utils.dart';
 import '../../../../utils/ui_test_utils.dart';
-import '../core/inventory_test_bindings.dart';
+import '../../../core/bindings/inventory_test_bindings.dart';
 import 'inventory_tests.dart';
 
 class InventoryViewValidationTest {

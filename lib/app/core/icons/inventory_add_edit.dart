@@ -1,0 +1,7 @@
+import 'package:flutter/material.dart';
+
+const INVENTORY_ADDEDIT_ICO_SAVE_APPBAR = Icon(Icons.save);
+const INVENTORY_ADDEDIT_ICO_NOIMAGE_TITLE = Icon(Icons.image_outlined);
+
+const ICO_INV_EDT_SAVE_BTN_APPBAR = INVENTORY_ADDEDIT_ICO_SAVE_APPBAR;
+const INV_EDT_NO_IMG_TIT = INVENTORY_ADDEDIT_ICO_NOIMAGE_TITLE;

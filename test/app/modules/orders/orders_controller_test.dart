@@ -4,7 +4,7 @@ import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/orders/controller/orders_controller.dart';
 
 import '../../../datasource/mocked_datasource.dart';
-import 'core/orders_test_bindings.dart';
+import '../../core/bindings/orders_test_bindings.dart';
 
 class OrdersControllerTests {
   void integration() {

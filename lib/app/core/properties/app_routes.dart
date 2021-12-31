@@ -1,21 +1,21 @@
 import 'package:get/route_manager.dart';
 
-import '../../modules/cart/core/cart_bindings.dart';
 import '../../modules/cart/view/cart_view.dart';
-import '../../modules/inventory/core/inventory_bindings.dart';
 import '../../modules/inventory/view/inventory_item_details_view.dart';
 import '../../modules/inventory/view/inventory_item_image_view.dart';
 import '../../modules/inventory/view/inventory_view.dart';
-import '../../modules/orders/core/orders_bindings.dart';
 import '../../modules/orders/view/orders_view.dart';
-import '../../modules/overview/core/overview_bindings.dart';
 import '../../modules/overview/view/overview_item_details_view.dart';
 import '../../modules/overview/view/overview_view.dart';
-import '../global_bindings/app_theme_bindings.dart';
-import '../global_bindings/custom_appbars_binding.dart';
-import '../global_bindings/custom_drawer_bindings.dart';
-import '../global_bindings/custom_scaffolds_binding.dart';
-import '../global_bindings/utils_bindings.dart';
+import '../bindings/app_theme_bindings.dart';
+import '../bindings/custom_widgets/custom_appbars_binding.dart';
+import '../bindings/custom_widgets/custom_drawer_bindings.dart';
+import '../bindings/custom_widgets/custom_scaffolds_binding.dart';
+import '../bindings/modules/cart_bindings.dart';
+import '../bindings/modules/inventory_bindings.dart';
+import '../bindings/modules/orders_bindings.dart';
+import '../bindings/modules/overview_bindings.dart';
+import '../bindings/utils_bindings.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class AppRoutes {

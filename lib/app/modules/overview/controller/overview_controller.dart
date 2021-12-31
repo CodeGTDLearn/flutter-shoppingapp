@@ -1,7 +1,7 @@
 import 'package:get/state_manager.dart';
 
 import '../../inventory/entity/product.dart';
-import '../core/overview_appbar/filter_options.dart';
+import '../components/overview_appbar/filter_options.dart';
 import '../service/i_overview_service.dart';
 
 class OverviewController extends GetxController {

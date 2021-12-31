@@ -6,7 +6,7 @@ import 'package:shopingapp/app/modules/orders/entity/order.dart';
 import 'package:shopingapp/app/modules/orders/repo/i_orders_repo.dart';
 
 import '../../../../data_builders/order_databuilder.dart';
-import '../core/orders_test_bindings.dart';
+import '../../../core/bindings/orders_test_bindings.dart';
 
 class OrdersRepoTests {
   void unit() {

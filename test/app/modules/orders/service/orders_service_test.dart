@@ -4,7 +4,7 @@ import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/orders/entity/order.dart';
 import 'package:shopingapp/app/modules/orders/service/i_orders_service.dart';
 
-import '../core/orders_test_bindings.dart';
+import '../../../core/bindings/orders_test_bindings.dart';
 
 class OrdersServiceTests {
   void unit() {

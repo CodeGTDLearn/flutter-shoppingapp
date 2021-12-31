@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shopingapp/app/core/keys/custom_indicator_keys.dart';
-import 'package:shopingapp/app/core/texts_icons_provider/messages.dart';
-import 'package:shopingapp/app/modules/overview/core/custom_grid_item/animated_grid_item.dart';
+import 'package:shopingapp/app/core/texts/messages.dart';
+import 'package:shopingapp/app/modules/overview/components/custom_grid_item/animated_grid_item.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../config/app_tests_properties.dart';

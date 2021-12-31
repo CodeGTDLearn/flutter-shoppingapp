@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/properties/app_urls.dart';
+import 'package:shopingapp/app/core/properties/app_db_urls.dart';
 
 import '../config/app_tests_properties.dart';
 import '../config/titles/testdb_check_titles.dart';
@@ -14,6 +14,7 @@ class MockedDatasourceLoader {
   final _titles = Get.put(TestDbCheckTitles());
   final _globalUtils = Get.put(TestsGlobalUtils());
   late int sampleDbTotalItems;
+  var _outputList;
 
   MockedDatasourceLoader(this.sampleDbTotalItems);
 
@@ -43,7 +44,7 @@ class MockedDatasourceLoader {
     testWidgets(_titles.load_db_products_sample_data, (tester) async {
       if (start) {
         var inputList = <Object>[];
-        var outputList;
+        // var outputList;
         var items = sampleDbTotalItems;
 
         for (var i = 0; i < items; i++) {
@@ -52,24 +53,27 @@ class MockedDatasourceLoader {
 
         await _dbUtils
             .add_productList(collectionUrl: PRODUCTS_URL, objectList: inputList)
-            .then((value) => outputList = value);
+            .then((value) => _outputList = value);
 
-        expect(outputList.length, sampleDbTotalItems);
-        expect(outputList[0], inputList[0]);
+        expect(_outputList.length, sampleDbTotalItems);
+        expect(_outputList[0], inputList[0]);
       }
     });
 
     testWidgets(_titles.load_db_orders_sample_data, (tester) async {
-      var outputList;
       if (start) {
         await _dbUtils
             .add_multipleOrders(
                 collectionUrl: ORDERS_URL,
                 totalItems: sampleDbTotalItems,
-                dataBuilder: OrderDatabuilder().Order_full_withId)
-            .then((value) => outputList = value);
+                dataBuilder: () =>
+                    OrderDatabuilder().OrderId_with_ProductList(_outputList))
+            .then((value) {
 
-        expect(outputList.length, sampleDbTotalItems);
+          _outputList = value;
+        });
+
+        expect(_outputList.length, sampleDbTotalItems);
       }
     });
   }

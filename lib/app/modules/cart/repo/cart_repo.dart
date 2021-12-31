@@ -18,11 +18,17 @@ class CartRepo implements ICartRepo {
   void addCartItem(Product product) {
     if (_cartItems.containsKey(product.id)) {
       _cartItems.update(product.id!, (item) {
-        return CartItem(item.id, item.title, item.qtde + 1, item.price, item.imageUrl);
+        return CartItem(
+          item.id,
+          item.title,
+          item.qtde + 1,
+          item.price,
+          item.imageUrl,
+        );
       });
     } else {
-      _cartItems.putIfAbsent(
-          product.id!, () => CartItem(product.id!, product.title, 1, product.price, product.imageUrl));
+      _cartItems.putIfAbsent(product.id!,
+          () => CartItem(product.id!, product.title, 1, product.price, product.imageUrl));
     }
   }
 
@@ -34,8 +40,10 @@ class CartRepo implements ICartRepo {
     });
     productQuantity == 1
         ? _cartItems.remove(product.id)
-        : _cartItems.update(product.id!,
-            (item) => CartItem(item.id, item.title, item.qtde - 1, item.price, item.imageUrl));
+        : _cartItems.update(
+            product.id!,
+            (item) =>
+                CartItem(item.id, item.title, item.qtde - 1, item.price, item.imageUrl));
   }
 
   @override

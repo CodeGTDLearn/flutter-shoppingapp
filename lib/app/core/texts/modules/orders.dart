@@ -1,0 +1,6 @@
+const ORDERS_TITLE_PAGE = "Your Orders";
+const ORDERS_TOTAL_CARD = "Total: ";
+const ORDERS_BUY_AGAIN_CARD = "Buy Againg";
+
+const ORD_TIT_PAGE = ORDERS_TITLE_PAGE;
+const ORD_LBL_CARD = ORDERS_TOTAL_CARD;

@@ -12,7 +12,7 @@ class CartItemDatabuilder {
       product.id!,
       product.title,
       1,
-      22.22,
+      product.price,
       product.imageUrl,
     );
   }
