@@ -2,19 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 
-import '../../../../core/custom_widgets/custom_snackbar/simple_snackbar.dart';
-import '../../../../core/icons/inventory_item.dart';
-import '../../../../core/keys/inventory_keys.dart';
+import '../../../../core/custom_widgets/snackbar/simple_snackbar.dart';
+import '../../../../core/icons/modules/inventory/inventory_icons.dart';
+import '../../../../core/keys/modules/inventory_keys.dart';
 import '../../../../core/properties/app_properties.dart';
 import '../../../../core/texts/general_words.dart';
 import '../../../../core/texts/messages.dart';
 import '../../../overview/controller/overview_controller.dart';
 import '../../controller/inventory_controller.dart';
 import '../../entity/product.dart';
-import '../../view/inventory_item_details_view.dart';
+import '../../view/inventory_details_view.dart';
 import 'icustom_listtile.dart';
 
 class SimpleListTile implements ICustomListTile {
+  final _icons = Get.find<InventoryIcons>();
+  final _messages = Get.find<Messages>();
+  final _words = Get.find<GeneralWords>();
+
   final _inventoryController = Get.find<InventoryController>();
   final _overviewController = Get.find<OverviewController>();
 
@@ -32,12 +36,12 @@ class SimpleListTile implements ICustomListTile {
             child: Row(children: <Widget>[
               IconButton(
                   key: Key('$K_INV_UPD_BTN$_id'),
-                  icon: INV_ITEM_UPD_ICO,
-                  onPressed: () => Get.to(() => InventoryItemDetailsView(_id)),
+                  icon: _icons.icon_update(),
+                  onPressed: () => Get.to(() => InventoryDetailsView(_id)),
                   color: Theme.of(_context!).errorColor),
               IconButton(
                   key: Key('$K_INV_DEL_BTN$_id'),
-                  icon: INV_ITEM_DEL_ICO,
+                  icon: _icons.icon_delete(),
                   // @formatter:off
                   onPressed: () =>
                       _inventoryController.deleteProduct(_id).then((statusCode) {
@@ -45,9 +49,12 @@ class SimpleListTile implements ICustomListTile {
                           _inventoryController.updateInventoryProductsObs();
                           _overviewController.deleteProduct(_id);
                           _overviewController.updateFilteredProductsObs();
-                          SimpleSnackbar().show(SUCES, SUCESS_MAN_PROD_DEL);
+                          SimpleSnackbar().show(_words.suces(), _messages
+                              .suces_inv_prod_del());
                         }
-                        if (statusCode >= 400) SimpleSnackbar().show(OPS, ERROR_MAN_PROD);
+                        if (statusCode >= 400) {
+                          SimpleSnackbar().show(_words.ops(), _messages.error_inv_prod());
+                        }
                       }),
                   // @formatter:on
                   color: Theme.of(_context).errorColor),

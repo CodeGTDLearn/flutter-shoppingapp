@@ -3,10 +3,10 @@ import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 
-import '../../../../core/custom_widgets/custom_snackbar/button_snackbar.dart';
-import '../../../../core/custom_widgets/custom_snackbar/simple_snackbar.dart';
-import '../../../../core/icons/overview.dart';
-import '../../../../core/keys/overview_keys.dart';
+import '../../../../core/custom_widgets/snackbar/button_snackbar.dart';
+import '../../../../core/custom_widgets/snackbar/simple_snackbar.dart';
+import '../../../../core/icons/modules/overview_icons.dart';
+import '../../../../core/keys/modules/overview_keys.dart';
 import '../../../../core/properties/app_properties.dart';
 import '../../../../core/properties/app_routes.dart';
 import '../../../../core/texts/general_words.dart';
@@ -19,10 +19,12 @@ import 'icustom_grid_item.dart';
 
 class SimpleGridItem extends StatelessWidget implements ICustomGridtile {
   final Product _product;
-
+  final _icons = Get.find<OverviewIcons>();
   final _cartController = Get.find<CartController>();
   final _uniqueController = OverviewController(service: Get.find<IOverviewService>());
   final String index;
+  final _messages = Get.find<Messages>();
+  final _words = Get.find<GeneralWords>();
 
   SimpleGridItem(this._product, this.index);
 
@@ -69,16 +71,16 @@ class SimpleGridItem extends StatelessWidget implements ICustomGridtile {
   IconButton _shopCartButton(String index, Product product, context) {
     return IconButton(
         key: Key("$K_OV_GRD_CRT_BTN$index"),
-        icon: OV_ICO_SHOPCART,
+        icon: _icons.ico_shopcart(),
         onPressed: () {
           _cartController.addCartItem(product);
           ButtonSnackbar(
             context: context,
-            labelButton: UNDO,
+            labelButton: _words.undo(),
             function: () => _cartController.addCartItemUndo(product),
           ).show(
-            DONE,
-            "${product.title}$ITEMCART_ADDED",
+            _words.done(),
+            "${product.title}${_messages.item_cart_added()}",
           );
         },
         color: Theme.of(context).colorScheme.secondary);
@@ -87,12 +89,14 @@ class SimpleGridItem extends StatelessWidget implements ICustomGridtile {
   IconButton _favButton(String index, Product product, context) {
     return IconButton(
         key: Key("$K_OV_GRD_FAV_BTN$index"),
-        icon: _uniqueController.favoriteStatusObs.value ? OV_ICO_FAV : OV_ICO_NOFAV,
+        icon: _uniqueController.favoriteStatusObs.value
+            ? _icons.ico_fav()
+            : _icons.ico_nofav(),
         onPressed: () {
           _uniqueController.toggleFavoriteStatus(product.id!).then((response) {
             response
-                ? SimpleSnackbar().show(SUCES, TOG_STATUS_SUCES)
-                : SimpleSnackbar().show(OPS, TOG_STATUS_ERROR);
+                ? SimpleSnackbar().show(_words.suces(), _messages.tog_status_suces())
+                : SimpleSnackbar().show(_words.ops(), _messages.tog_status_error());
           });
         },
         color: Theme.of(context).colorScheme.secondary);

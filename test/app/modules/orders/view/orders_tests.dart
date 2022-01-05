@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/custom_widgets/custom_indicator.dart';
-import 'package:shopingapp/app/core/keys/cart_keys.dart';
 import 'package:shopingapp/app/core/keys/custom_drawer_keys.dart';
-import 'package:shopingapp/app/core/keys/overview_keys.dart';
+import 'package:shopingapp/app/core/keys/modules/cart_keys.dart';
+import 'package:shopingapp/app/core/keys/modules/overview_keys.dart';
 import 'package:shopingapp/app/core/texts/messages.dart';
 import 'package:shopingapp/app/modules/cart/view/cart_view.dart';
 import 'package:shopingapp/app/modules/orders/components/custom_tiles/collapsable_tile.dart';
@@ -23,6 +24,7 @@ class OrdersTests {
   final UiTestUtils uiTestUtils;
   final TestDbUtils dbTestUtils;
   final TestsUtils testUtils;
+  final _messages = Get.find<Messages>();
 
   OrdersTests({
     required this.isWidgetTest,
@@ -119,7 +121,7 @@ class OrdersTests {
 
     expect(finder.type(OrdersView), findsOneWidget);
     expect(finder.type(CircularProgressIndicator), findsNothing);
-    expect(finder.text(NO_ORDERS_FOUND_YET), findsOneWidget);
+    expect(finder.text(_messages.no_orders_yet()), findsOneWidget);
 
     await uiTestUtils.navigateBetweenViews(
       tester,

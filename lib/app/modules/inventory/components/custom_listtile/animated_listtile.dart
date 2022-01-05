@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 
-import '../../../../core/custom_widgets/custom_snackbar/simple_snackbar.dart';
-import '../../../../core/icons/inventory_item.dart';
-import '../../../../core/keys/inventory_keys.dart';
+import '../../../../core/custom_widgets/snackbar/simple_snackbar.dart';
+import '../../../../core/icons/modules/inventory/inventory_icons.dart';
+import '../../../../core/keys/modules/inventory_keys.dart';
 import '../../../../core/properties/app_properties.dart';
 import '../../../../core/texts/general_words.dart';
 import '../../../../core/texts/messages.dart';
@@ -13,14 +13,17 @@ import '../../../../core/utils/animations_utils.dart';
 import '../../../overview/controller/overview_controller.dart';
 import '../../controller/inventory_controller.dart';
 import '../../entity/product.dart';
-import '../../view/inventory_item_details_view.dart';
-import '../../view/inventory_item_image_view.dart';
+import '../../view/inventory_details_view.dart';
+import '../../view/inventory_image_view.dart';
 import 'icustom_listtile.dart';
 
 class AnimatedListTile implements ICustomListTile {
+  final _icons = Get.find<InventoryIcons>();
   final _inventoryController = Get.find<InventoryController>();
   final _overviewController = Get.find<OverviewController>();
   final _animations = Get.find<AnimationsUtils>();
+  final _messages = Get.find<Messages>();
+  final _words = Get.find<GeneralWords>();
 
   @override
   Widget customListTile(Product _product) {
@@ -30,13 +33,13 @@ class AnimatedListTile implements ICustomListTile {
       transitionDuration: Duration(milliseconds: DELAY_MILLISEC_LISTTILE),
       transitionType: ContainerTransitionType.fadeThrough,
       openBuilder: (context, void Function({Object? returnValue}) openContainer) {
-        return InventoryItemDetailsView(_id);
+        return InventoryDetailsView(_id);
       },
       closedBuilder: (context, void Function() openContainer) {
         return ListTile(
             key: Key('$K_INV_ITEM_KEY$_id'),
             leading: _animations.openContainer(
-                openingWidget: InventoryItemImageView(_product.title, _product.imageUrl),
+                openingWidget: InventoryImageView(_product.title, _product.imageUrl),
                 closingWidget:
                     CircleAvatar(backgroundImage: NetworkImage(_product.imageUrl))),
             title: Text(_product.title),
@@ -45,12 +48,12 @@ class AnimatedListTile implements ICustomListTile {
                 child: Row(children: <Widget>[
                   IconButton(
                       key: Key('$K_INV_UPD_BTN$_id'),
-                      icon: INV_ITEM_UPD_ICO,
+                      icon: _icons.icon_update(),
                       onPressed: openContainer,
                       color: Theme.of(context).errorColor),
                   IconButton(
                       key: Key('$K_INV_DEL_BTN$_id'),
-                      icon: INV_ITEM_DEL_ICO,
+                      icon: _icons.icon_delete(),
                       // @formatter:off
                       onPressed: () =>
                           _inventoryController.deleteProduct(_id).then((statusCode) {
@@ -58,10 +61,12 @@ class AnimatedListTile implements ICustomListTile {
                               _inventoryController.updateInventoryProductsObs();
                               _overviewController.deleteProduct(_id);
                               _overviewController.updateFilteredProductsObs();
-                              SimpleSnackbar().show(SUCES, SUCESS_MAN_PROD_DEL);
+                              SimpleSnackbar().show(_words.suces(), _messages
+                                  .suces_inv_prod_del());
                             }
                             if (statusCode >= 400) {
-                              SimpleSnackbar().show(OPS, ERROR_MAN_PROD);
+                              SimpleSnackbar().show(_words.ops(), _messages
+                                  .error_inv_prod());
                             }
                           }),
                       // @formatter:on

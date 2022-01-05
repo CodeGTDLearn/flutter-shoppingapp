@@ -3,9 +3,9 @@ import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 
-import '../../../core/custom_widgets/custom_appbar.dart';
+import '../../../core/custom_widgets/appbar/custom_appbar.dart';
 import '../../../core/properties/app_properties.dart';
-import '../../../core/texts/modules/cart.dart';
+import '../../../core/texts/modules/cart_labels.dart';
 import '../components/cartview_header.dart';
 import '../components/clear_cart_button.dart';
 import '../components/custom_listview/cart_staggered_listview.dart';
@@ -14,12 +14,14 @@ import '../controller/cart_controller.dart';
 class CartView extends StatelessWidget {
   final _controller = Get.find<CartController>();
   final _appbar = Get.find<CustomAppBar>();
+  final _labels = Get.find<CartLabels>();
 
   Widget build(BuildContext context) {
     _controller.renderListView.value = true;
     return Scaffold(
         appBar: _appbar
-            .create(CRT_TIT_APPBAR, Get.back, actions: [ClearCartButton(_controller)]),
+            .create(_labels.label_title_page(), Get.back, actions: [ClearCartButton
+          (_controller)]),
         body: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,

@@ -7,9 +7,9 @@ import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 
 import '../../../../core/custom_widgets/custom_indicator.dart';
-import '../../../../core/custom_widgets/custom_snackbar/simple_snackbar.dart';
-import '../../../../core/icons/overview.dart';
-import '../../../../core/keys/overview_keys.dart';
+import '../../../../core/custom_widgets/snackbar/simple_snackbar.dart';
+import '../../../../core/icons/modules/overview_icons.dart';
+import '../../../../core/keys/modules/overview_keys.dart';
 import '../../../../core/properties/app_routes.dart';
 import '../../../../core/texts/general_words.dart';
 import '../../../../core/texts/messages.dart';
@@ -19,18 +19,21 @@ import 'icustom_scaffold.dart';
 
 
 class AddCartScaffold implements ICustomScaffold {
+  final _icons = Get.find<OverviewIcons>();
   final _cartController = Get.find<CartController>();
   GlobalKey<CartIconKey> gkCart = GlobalKey<CartIconKey>();
   late Function(GlobalKey) runAddToCardAnimation;
+  final _messages = Get.find<Messages>();
+  final _words = Get.find<GeneralWords>();
 
   Widget customScaffold(_drawer, _controller, _appbar) {
     _appbar.cart = GestureDetector(
       onTap: () {
         _cartController.getAllCartItems().isEmpty
-            ? SimpleSnackbar().show(OPS, CART_NO_ITEMS_YET)
+            ? SimpleSnackbar().show(_words.ops(), _messages.cart_no_items_yet())
             : Get.toNamed(AppRoutes.CART);
       },
-      child: AddToCartIcon(key: gkCart, icon: OV_ICO_SHOPCART),
+      child: AddToCartIcon(key: gkCart, icon: _icons.ico_shopcart()),
     );
 
     return AddToCartAnimation(
@@ -45,7 +48,7 @@ class AddCartScaffold implements ICustomScaffold {
         opacity: 0.85,
         initiaJump: false,
         receiveCreateAddToCardAnimationMethod: (addToCardAnimationMethod) {
-          this.runAddToCardAnimation = addToCardAnimationMethod;
+          runAddToCardAnimation = addToCardAnimationMethod;
         },
         child: Scaffold(
           key: K_OV_SCFLD_GLOB_KEY,
@@ -57,7 +60,7 @@ class AddCartScaffold implements ICustomScaffold {
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                      CustomIndicator.message(message: NO_PROD, fontSize: 20)
+                      CustomIndicator.message(message: _messages.no_products_yet(), fontSize: 20)
                     ])))
               : AnimationLimiter(
                   child: GridView.count(

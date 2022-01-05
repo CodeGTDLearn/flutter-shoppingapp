@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/keys/custom_snackbar_keys.dart';
-import 'package:shopingapp/app/core/keys/overview_keys.dart';
+import 'package:shopingapp/app/core/keys/modules/overview_keys.dart';
 import 'package:shopingapp/app/core/properties/app_db_urls.dart';
 
 import '../../../../config/app_tests_properties.dart';

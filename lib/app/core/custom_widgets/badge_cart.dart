@@ -4,16 +4,19 @@ import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 
 import '../../modules/cart/controller/cart_controller.dart';
-import '../icons/overview.dart';
-import '../keys/cart_keys.dart';
+import '../icons/modules/overview_icons.dart';
+import '../keys/modules/cart_keys.dart';
 import '../properties/app_routes.dart';
 import '../texts/general_words.dart';
 import '../texts/messages.dart';
-import 'custom_snackbar/simple_snackbar.dart';
+import 'snackbar/simple_snackbar.dart';
 
 class BadgeCart extends StatelessWidget {
   final Color? color;
 
+  final _words = Get.find<GeneralWords>();
+  final _messages = Get.find<Messages>();
+  final _icons = Get.find<OverviewIcons>();
   final _controller = Get.find<CartController>();
 
   BadgeCart({this.color});
@@ -28,10 +31,10 @@ class BadgeCart extends StatelessWidget {
             position: _controller.badgeShopCartAnimation as Animation<Offset>,
             child: IconButton(
                 key: Key(K_SHP_CART_APPBAR_BTN),
-                icon: OV_ICO_SHOPCART,
+                icon: _icons.ico_shopcart(),
                 onPressed: () {
                   if (_controller.getAllCartItems().isEmpty) {
-                    SimpleSnackbar().show(OPS, CART_NO_ITEMS_YET);
+                    SimpleSnackbar().show(_words.ops(), _messages.cart_no_items_yet());
                   }
                   if (_controller.getAllCartItems().isNotEmpty) {
                     ScaffoldMessenger.of(context).removeCurrentSnackBar();

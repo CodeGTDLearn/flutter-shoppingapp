@@ -4,13 +4,15 @@ import 'package:get/state_manager.dart';
 
 import '../../../../core/custom_widgets/badge_cart.dart';
 import '../../../../core/custom_widgets/custom_indicator.dart';
-import '../../../../core/keys/overview_keys.dart';
+import '../../../../core/keys/modules/overview_keys.dart';
 import '../../../../core/texts/messages.dart';
 import '../custom_grid_item/animated_grid_item.dart';
 import '../overview_appbar/filter_options.dart';
 import 'icustom_scaffold.dart';
 
 class SimpleScaffold implements ICustomScaffold {
+  final _messages = Get.find<Messages>();
+
   Widget customScaffold(_drawer, _controller, _sliverAppbar,) {
     _controller.applyPopupFilter(FilterOptions.All);
     _sliverAppbar.cart = Get.find<BadgeCart>();
@@ -22,7 +24,7 @@ class SimpleScaffold implements ICustomScaffold {
             ? SingleChildScrollView(
                 child: Center(
                     child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                CustomIndicator.message(message: NO_PROD, fontSize: 20)
+                CustomIndicator.message(message: _messages.no_products_yet(), fontSize: 20)
               ])))
             : CustomScrollView(
                 slivers: [

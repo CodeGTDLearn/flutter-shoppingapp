@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shopingapp/app/core/keys/overview_keys.dart';
+import 'package:get/instance_manager.dart';
+import 'package:shopingapp/app/core/keys/modules/overview_keys.dart';
 import 'package:shopingapp/app/core/texts/messages.dart';
-import 'package:shopingapp/app/core/texts/modules/overview.dart';
+import 'package:shopingapp/app/core/texts/modules/overview_labels.dart';
 import 'package:shopingapp/app/modules/overview/components/custom_grid_item/animated_grid_item.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
@@ -16,6 +17,8 @@ class CustomAppbarTests {
   final FinderUtils finder;
   final UiTestUtils uiTestUtils;
   final TestsUtils testUtils;
+  final _messages = Get.find<Messages>();
+  final _labels = Get.find<OverviewLabels>();
 
   CustomAppbarTests({
     required this.finder,
@@ -126,8 +129,7 @@ class CustomAppbarTests {
     await tester.tap(favPopupOption);
     await tester.pump();
 
-    expect(finder.text(OVERVIEW_TITLE_PAGE_FAVORITE), findsNothing);
-    expect(finder.text(FAVORITES_NOT_FOUND_YET), findsOneWidget);
+    expect(finder.text(_messages.overview_no_favs_yet()), findsOneWidget);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
   }
 
@@ -151,7 +153,7 @@ class CustomAppbarTests {
     await tester.tap(finder.key(OVERVIEW_POPUP_FAVORITE_OPTION_KEY));
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(finder.text(OVERVIEW_TITLE_PAGE_FAVORITE), findsOneWidget);
+    expect(finder.text(_labels.label_title_fav()), findsOneWidget);
     expect(finder.type(AnimatedGridItem), findsWidgets);
 
     await tester.tap(finder.key(popup));
@@ -160,7 +162,7 @@ class CustomAppbarTests {
     await tester.tap(finder.key(OVERVIEW_POPUP_ALL_OPTION_KEY));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
-    expect(finder.text(OVERVIEW_TITLE_PAGE_ALL), findsOneWidget);
+    expect(finder.text(_labels.label_title_appbar()), findsOneWidget);
   }
 
   Future<void> _open_popup_check_options(tester) async {

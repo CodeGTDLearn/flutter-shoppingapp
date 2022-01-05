@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get_utils/src/extensions/num_extensions.dart';
+import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 
 import '../../../core/custom_widgets/custom_alert_dialog.dart';
 import '../../../core/custom_widgets/custom_indicator.dart';
-import '../../../core/custom_widgets/custom_snackbar/simple_snackbar.dart';
-import '../../../core/keys/cart_keys.dart';
+import '../../../core/custom_widgets/snackbar/simple_snackbar.dart';
+import '../../../core/keys/modules/cart_keys.dart';
 import '../../../core/properties/app_properties.dart';
 import '../../../core/texts/general_words.dart';
 import '../../../core/texts/messages.dart';
-import '../../../core/texts/modules/cart.dart';
+import '../../../core/texts/modules/cart_labels.dart';
 import '../controller/cart_controller.dart';
 
 class CartViewHeader extends StatelessWidget {
   final _width;
   final _height;
   final CartController _controller;
+  final _messages = Get.find<Messages>();
+  final _words = Get.find<GeneralWords>();
+  final _labels= Get.find<CartLabels>();
 
   CartViewHeader(
     this._width,
@@ -38,7 +42,7 @@ class CartViewHeader extends StatelessWidget {
                 child: Row(children: [
                   Container(
                       width: _width * 0.15,
-                      child: Text(CRT_LBL_CARD, style: TextStyle(fontSize: 20))),
+                      child: Text(_labels.label_card_cart(), style: TextStyle(fontSize: 20))),
                   Container(
                       width: _width * 0.25,
                       child: Obx(() => Chip(
@@ -63,19 +67,19 @@ class CartViewHeader extends StatelessWidget {
       return TextButton(
           key: Key(K_CRT_ORD_NOW_BTN),
           child: enabled
-              ? Text(CRT_LBL_ORD,
+              ? Text(_labels.label_ordernow_btn(),
                   style: TextStyle(color: Theme.of(_context).primaryColor))
-              : Text(CRT_LBL_ORD,
+              : Text(_labels.label_ordernow_btn(),
                   style: TextStyle(color: Theme.of(_context).disabledColor)),
           onPressed: enabled
               ? () {
                   CustomAlertDialog.showOptionDialog(
                     _context,
-                    CONFIRM,
-                    CRT_MSG_CONF_ORDER,
-                    YES,
-                    CRT_LBL_KEEP,
-                    // @formatter:off
+                    _words.confirm(),
+                    _labels.label_dialog_ordernow(),
+                    _words.yes(),
+                    _labels.label_keep_shop(),
+              // @formatter:off
                     () => {
                       _controller
                           .addOrder(_controller.getAllCartItems().values.toList(),
@@ -84,11 +88,12 @@ class CartViewHeader extends StatelessWidget {
                         _controller.renderListView.value = false;
                         await Future.delayed(Duration(milliseconds: 500));
                         _controller.clearCart.call();
-                        SimpleSnackbar().show(SUCES, SUCES_ORD_ADD);
+                        SimpleSnackbar().show(_words.suces(), _messages.suces_ord_add());
                         await Future.delayed(Duration(milliseconds: DURATION + 2000));
                         Get.back.call();
                       }).catchError((error) {
-                        SimpleSnackbar(5000).show('$OPS$error', ERROR_ORD);
+                        SimpleSnackbar(5000).show('${_words.ops()}$error', _messages
+                            .error_ord());
                       })
                     },
                     () => {Get.back()},

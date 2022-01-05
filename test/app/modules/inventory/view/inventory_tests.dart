@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/keys/custom_drawer_keys.dart';
-import 'package:shopingapp/app/core/keys/inventory_keys.dart';
-import 'package:shopingapp/app/core/keys/overview_keys.dart';
+import 'package:shopingapp/app/core/keys/modules/inventory_keys.dart';
+import 'package:shopingapp/app/core/keys/modules/overview_keys.dart';
 import 'package:shopingapp/app/core/properties/app_db_urls.dart';
 import 'package:shopingapp/app/core/texts/messages.dart';
-import 'package:shopingapp/app/core/texts/modules/inventory/field_form_validation_provided.dart';
-import 'package:shopingapp/app/core/texts/modules/inventory/inventory_add_edit.dart';
+import 'package:shopingapp/app/core/texts/modules/inventory_labels.dart';
 import 'package:shopingapp/app/modules/inventory/components/custom_listtile/simple_listtile.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
-import 'package:shopingapp/app/modules/inventory/view/inventory_item_details_view.dart';
+import 'package:shopingapp/app/modules/inventory/view/inventory_details_view.dart';
 import 'package:shopingapp/app/modules/inventory/view/inventory_view.dart';
 import 'package:shopingapp/app/modules/overview/components/custom_grid_item/animated_grid_item.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
@@ -29,6 +28,8 @@ class InventoryTests {
   final UiTestUtils uiTestUtils;
   final TestDbUtils dbTestUtils;
   final TestsUtils testUtils;
+  final _messages = Get.find<Messages>();
+  final _labels = Get.find<InventoryLabels>();
 
   InventoryTests({
     required this.isWidgetTest,
@@ -88,7 +89,7 @@ class InventoryTests {
       widgetType: SimpleListTile,
     );
 
-    expect(finder.text(NO_INVENTORY_PRODUCTS_FOUND_YET), findsOneWidget);
+    expect(finder.text(_messages.no_inv_prod_yet()), findsOneWidget);
 
     await uiTestUtils.navigateBetweenViews(
       tester,
@@ -185,7 +186,7 @@ class InventoryTests {
     //   -> Test existence of INValidation messages
     //   -> Go to InventoryView + Checking UpdatedValue
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(finder.type(InventoryItemDetailsView), findsOneWidget);
+    expect(finder.type(InventoryDetailsView), findsOneWidget);
 
     await tester.tap(finder.key(fieldKey));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
@@ -252,7 +253,7 @@ class InventoryTests {
     await tester.tap(keyUpdateButton);
     // await tester.pump();
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(finder.type(InventoryItemDetailsView), findsOneWidget);
+    expect(finder.type(InventoryDetailsView), findsOneWidget);
 
     // 2) InventoryAddEditView
     //   -> Checking View + Title-Form-Field
@@ -403,7 +404,7 @@ class InventoryTests {
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     await tester.tap(finder.key(INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(finder.type(InventoryItemDetailsView), findsOneWidget);
+    expect(finder.type(InventoryDetailsView), findsOneWidget);
   }
 
   Future<void> AddProductInDb(
@@ -433,15 +434,15 @@ class InventoryTests {
         tester,
         interval: interval,
         triggerKey: INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY,
-        resultWidget: InventoryItemDetailsView,
+        resultWidget: InventoryDetailsView,
       );
 
       // D) GENERATE PRE-BUIT CONTENT + CLICK IN THE TEXT-FIELDS + ADD CONTENT
-      expect(_finder.text(INVENTORY_ADDEDIT_FIELD_TITLE), findsOneWidget);
-      expect(_finder.text(INVENTORY_ADDEDIT_FIELD_PRICE), findsOneWidget);
-      expect(_finder.text(INVENTORY_ADDEDIT_FIELD_DESCRIPT), findsOneWidget);
-      expect(_finder.text(INVENTORY_ADDEDIT_FIELD_IMAGE_URL), findsOneWidget);
-      expect(_finder.text(INVENTORY_ADDEDIT_IMAGE_TITLE), findsOneWidget);
+      expect(_finder.text(_labels.INV_EDT_LBL_TITLE()), findsOneWidget);
+      expect(_finder.text(_labels.INV_EDT_LBL_PRICE()), findsOneWidget);
+      expect(_finder.text(_labels.INV_EDT_LBL_DESCR()), findsOneWidget);
+      expect(_finder.text(_labels.INV_EDT_LBL_IMGURL()), findsOneWidget);
+      expect(_finder.text(_labels.INV_EDT_IMG_TIT()), findsOneWidget);
 
       invalidText = "d";
       await tester.enterText(
@@ -511,10 +512,10 @@ class InventoryTests {
     validDesc = product.description;
     validImgUrl = product.imageUrl;
 
-    expect(finder.text(INVENTORY_ADDEDIT_FIELD_TITLE), findsOneWidget);
-    expect(finder.text(INVENTORY_ADDEDIT_FIELD_PRICE), findsOneWidget);
-    expect(finder.text(INVENTORY_ADDEDIT_FIELD_DESCRIPT), findsOneWidget);
-    expect(finder.text(INVENTORY_ADDEDIT_FIELD_IMAGE_URL), findsOneWidget);
+    expect(finder.text(_labels.INV_EDT_LBL_TITLE()), findsOneWidget);
+    expect(finder.text(_labels.INV_EDT_LBL_PRICE()), findsOneWidget);
+    expect(finder.text(_labels.INV_EDT_LBL_DESCR()), findsOneWidget);
+    expect(finder.text(_labels.INV_EDT_LBL_IMGURL()), findsOneWidget);
 
     await tester.enterText(
       finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY),
@@ -543,7 +544,7 @@ class InventoryTests {
 
     useValidTexts
         ? expect(finder.type(InventoryView), findsOneWidget)
-        : expect(finder.type(InventoryItemDetailsView), findsOneWidget);
+        : expect(finder.type(InventoryDetailsView), findsOneWidget);
   }
 
   Future<void> test_auto_currency_in_form(
@@ -568,10 +569,10 @@ class InventoryTests {
     validDesc = product.description;
     validImgUrl = product.imageUrl;
 
-    expect(finder.text(INVENTORY_ADDEDIT_FIELD_TITLE), findsOneWidget);
-    expect(finder.text(INVENTORY_ADDEDIT_FIELD_PRICE), findsOneWidget);
-    expect(finder.text(INVENTORY_ADDEDIT_FIELD_DESCRIPT), findsOneWidget);
-    expect(finder.text(INVENTORY_ADDEDIT_FIELD_IMAGE_URL), findsOneWidget);
+    expect(finder.text(_labels.INV_EDT_LBL_TITLE()), findsOneWidget);
+    expect(finder.text(_labels.INV_EDT_LBL_PRICE()), findsOneWidget);
+    expect(finder.text(_labels.INV_EDT_LBL_DESCR()), findsOneWidget);
+    expect(finder.text(_labels.INV_EDT_LBL_IMGURL()), findsOneWidget);
 
     await tester.enterText(
       finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY),
@@ -614,7 +615,7 @@ class InventoryTests {
 
     useValidTexts
         ? expect(finder.type(InventoryView), findsOneWidget)
-        : expect(finder.type(InventoryItemDetailsView), findsOneWidget);
+        : expect(finder.type(InventoryDetailsView), findsOneWidget);
   }
 
   Future<void> edit_back_button(tester) async {
@@ -629,7 +630,7 @@ class InventoryTests {
 
     await uiTestUtils.navigateBetweenViews(
       tester,
-      from: InventoryItemDetailsView,
+      from: InventoryDetailsView,
       to: InventoryView,
       trigger: BackButton,
       interval: DELAY,
@@ -637,8 +638,8 @@ class InventoryTests {
   }
 
   void _expectTestingINValidationMessages(Matcher matcher) {
-    expect(finder.text(SIZE_05_INVALID_ERROR_MSG), matcher);
-    expect(finder.text(SIZE_10_INVALID_ERROR_MSG), matcher);
-    expect(finder.text(URL_INVALID_ERROR_MSG), matcher);
+    expect(finder.text(_messages.size_05_inval_message()), matcher);
+    expect(finder.text(_messages.size_10_inval_message()), matcher);
+    expect(finder.text(_messages.format_url_message()), matcher);
   }
 }

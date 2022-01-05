@@ -3,15 +3,17 @@ import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../core/icons/orders.dart';
+import '../../../../core/icons/modules/orders_icons.dart';
 import '../../../../core/properties/app_properties.dart';
-import '../../../../core/texts/modules/orders.dart';
+import '../../../../core/texts/modules/orders_labels.dart';
 import '../../controller/orders_controller.dart';
 import '../../entity/order.dart';
 import 'icustom_order_tile.dart';
 
 class CollapsableTile implements ICustomOrderTile {
+  final _icons = Get.find<OrdersIcons>();
   final _controller = Get.find<OrdersController>();
+  final _labels = Get.find<OrdersLabels>();
 
   @override
   Widget create(Order _order) {
@@ -22,13 +24,13 @@ class CollapsableTile implements ICustomOrderTile {
             decoration: BoxDecoration(color: Colors.white, boxShadow: [_boxShadow()]),
             child: ListTile(
                 dense: true,
-                title: Text("$ORDERS_TOTAL_CARD${_order.amount}"),
+                title: Text("${_labels.label_total_tile}${_order.amount}"),
                 subtitle:
                     Text(DateFormat(DATE_FORMAT).format(DateTime.parse(_order.datetime))),
                 trailing: IconButton(
                     icon: Obx(() => _controller.isTileCollapsed.value == false
-                        ? ORD_ICO_COLLAPSE
-                        : ORD_ICO_UNCOLLAPSE),
+                        ? _icons.ico_collapse()
+                        : _icons.ico_uncollapse()),
                     onPressed: _controller.toggleCollapseTile)),
           ),
           Obx(() => Visibility(

@@ -4,11 +4,11 @@ import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/custom_widgets/appbar/custom_appbar.dart';
 import '../../../core/custom_widgets/badge_cart.dart';
-import '../../../core/custom_widgets/custom_appbar.dart';
-import '../../../core/keys/overview_keys.dart';
+import '../../../core/keys/modules/overview_keys.dart';
 import '../../../core/properties/app_properties.dart';
-import '../../../core/texts/modules/overview.dart';
+import '../../../core/texts/modules/overview_labels.dart';
 import '../../../core/utils/adaptive_widget_utils.dart';
 import '../../../core/utils/animations_utils.dart';
 import '../../../core/utils/ui_utils.dart';
@@ -26,6 +26,7 @@ class OverviewItemDetailsView extends StatelessWidget {
   final _uiUtils = Get.find<UiUtils>();
   final _widgetUtils = Get.find<AdaptiveWidgetUtils>();
   var cart = Get.find<BadgeCart>();
+  final _labels= Get.find<OverviewLabels>();
 
   OverviewItemDetailsView([this._id]);
 
@@ -99,7 +100,7 @@ class OverviewItemDetailsView extends StatelessWidget {
                         color: Colors.red,
                         child: _widgetUtils.button(
                             onPressed: () => _cartController.addCartItem(_product),
-                            text: OV_DET_BUY_BTN,
+                            text: _labels.label_buy_btn,
                             textStyle: GoogleFonts.lato(
                                 textStyle: TextStyle(
                                     color: Colors.white,

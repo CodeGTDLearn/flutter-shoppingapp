@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/properties/app_properties.dart';
-import '../../../../core/texts/modules/orders.dart';
+import '../../../../core/texts/modules/orders_labels.dart';
 import '../../../../core/utils/adaptive_widget_utils.dart';
 import '../../../cart/controller/cart_controller.dart';
 import '../../../cart/entity/cart_item.dart';
@@ -22,6 +22,7 @@ class ExpandableTile implements ICustomOrderTile {
   final _widgetUtils = Get.find<AdaptiveWidgetUtils>();
   final size = MediaQuery.of(APP_CONTEXT_GLOBAL_KEY.currentContext!).size;
   final _colorScheme = Theme.of(APP_CONTEXT_GLOBAL_KEY.currentContext!).colorScheme;
+  final _labels = Get.find<OrdersLabels>();
 
   @override
   Widget create(Order _order) {
@@ -45,7 +46,7 @@ class ExpandableTile implements ICustomOrderTile {
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.only(right: 40.0, top: 5.0, bottom: 5.0),
                   width: double.infinity,
-                  child: Text("$ORDERS_TOTAL_CARD ${_order.amount}\$")),
+                  child: Text("${_labels.label_total_tile()} ${_order.amount}\$")),
               expanded: _showExpandedOrderItems(_order))),
     );
   }

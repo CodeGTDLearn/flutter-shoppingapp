@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/instance_manager.dart';
 
-import '../../../../core/texts/modules/inventory/inventory_add_edit.dart';
+import '../../../../core/texts/modules/inventory_labels.dart';
 import '../../entity/product.dart';
 import 'field_properties/properties_abstraction.dart';
 
 class CustomFormField {
   late final PropertiesAbstraction properties;
+  final _labels = Get.find<InventoryLabels>();
 
   CustomFormField(this.properties);
 
@@ -35,7 +37,7 @@ class CustomFormField {
       decoration: InputDecoration(labelText: label),
       textInputAction: getValue(map, 'textInputAction'),
       maxLength: getValue(map, 'maxLength'),
-      maxLines: label == INV_EDT_LBL_DESCR ? 4 : 1,
+      maxLines: label == _labels.INV_EDT_LBL_DESCR ? 4 : 1,
       keyboardType: getValue(map, 'textInputType'),
       validator: validator,
       onFieldSubmitted: (_) => onFieldSubmitted,
@@ -51,10 +53,10 @@ class CustomFormField {
   }
 
   void _loadProductWithFieldValue(String field, Product product, var value) {
-    if (field == INV_EDT_LBL_TITLE) product.title = value;
-    if (field == INV_EDT_LBL_IMGURL) product.imageUrl = value;
-    if (field == INV_EDT_LBL_DESCR) product.description = value;
-    if (field == INV_EDT_LBL_PRICE) {
+    if (field == _labels.INV_EDT_LBL_TITLE) product.title = value;
+    if (field == _labels.INV_EDT_LBL_IMGURL) product.imageUrl = value;
+    if (field == _labels.INV_EDT_LBL_DESCR) product.description = value;
+    if (field == _labels.INV_EDT_LBL_PRICE) {
       var txtValue = (value as String).isEmpty ? '0.00' : value.toString();
       txtValue = txtValue.replaceAll(",", "");
       txtValue = txtValue.replaceAll("\$", "");

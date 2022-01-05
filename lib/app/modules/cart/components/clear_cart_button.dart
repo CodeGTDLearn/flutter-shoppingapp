@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 
 import '../../../core/custom_widgets/custom_alert_dialog.dart';
-import '../../../core/custom_widgets/custom_snackbar/simple_snackbar.dart';
-import '../../../core/icons/cart.dart';
-import '../../../core/keys/cart_keys.dart';
+import '../../../core/custom_widgets/snackbar/simple_snackbar.dart';
+import '../../../core/icons/modules/cart_icons.dart';
+import '../../../core/keys/modules/cart_keys.dart';
 import '../../../core/properties/app_properties.dart';
 import '../../../core/texts/general_words.dart';
 import '../../../core/texts/messages.dart';
-import '../../../core/texts/modules/cart.dart';
+import '../../../core/texts/modules/cart_labels.dart';
 import '../controller/cart_controller.dart';
 
 class ClearCartButton extends StatelessWidget {
   final CartController _controller;
+  final _icons = Get.find<CartIcons>();
+  final _messages = Get.find<Messages>();
+  final _words = Get.find<GeneralWords>();
+  final _labels = Get.find<CartLabels>();
 
   ClearCartButton(this._controller);
 
@@ -21,23 +26,23 @@ class ClearCartButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
         key: Key(K_CRT_CLR_CART_BTN),
-        icon: CRT_ICO_CLEAR,
+        icon: _icons.ico_clear(),
         onPressed: () => CustomAlertDialog.showOptionDialog(
               context,
-              ATTENT,
-              CRT_MSG_CONF_CLEAR_ALL,
-              YES,
-              NO,
+              _words.attent(),
+              _labels.label_dialog_clearall(),
+              _words.yes(),
+              _words.no(),
               () async {
                 _controller.renderListView.value = false;
                 await Future.delayed(Duration(milliseconds: 500));
                 _controller.clearCart.call();
-                SimpleSnackbar().show(SUCES, SUCES_ORD_CLEAN);
+                SimpleSnackbar().show(_words.suces(), _messages.suces_ord_clean());
                 await Future.delayed(Duration(milliseconds: DURATION + 2000));
                 Get.back.call();
               },
               () async {},
             ),
-        tooltip: CRT_CLEAR_TOOLT);
+        tooltip: _labels.label_tootip_clear_cart());
   }
 }

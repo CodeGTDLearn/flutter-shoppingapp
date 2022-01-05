@@ -4,18 +4,22 @@ import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 
 import '../../../core/custom_widgets/custom_alert_dialog.dart';
-import '../../../core/custom_widgets/custom_snackbar/simple_snackbar.dart';
-import '../../../core/icons/cart.dart';
+import '../../../core/custom_widgets/snackbar/simple_snackbar.dart';
+import '../../../core/icons/modules/cart_icons.dart';
 import '../../../core/properties/app_properties.dart';
 import '../../../core/texts/general_words.dart';
 import '../../../core/texts/messages.dart';
-import '../../../core/texts/modules/cart.dart';
+import '../../../core/texts/modules/cart_labels.dart';
 import '../controller/cart_controller.dart';
 import '../entity/cart_item.dart';
 
 class DismissibleCartItem extends StatelessWidget {
   final CartItem _cartItem;
   final _controller = Get.find<CartController>();
+  final _icons = Get.find<CartIcons>();
+  final _messages = Get.find<Messages>();
+  final _words = Get.find<GeneralWords>();
+  final _labels = Get.find<CartLabels>();
 
   DismissibleCartItem.create(this._cartItem);
 
@@ -24,7 +28,7 @@ class DismissibleCartItem extends StatelessWidget {
     return Dismissible(
         key: Key(_cartItem.id),
         background: Container(
-          child: CRT_ICO_DISM,
+          child: _icons.CRT_ICO_DISM(),
           alignment: Alignment.centerRight,
           padding: EdgeInsets.only(right: 20),
           margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
@@ -37,7 +41,7 @@ class DismissibleCartItem extends StatelessWidget {
         onDismissed: (direction) {
           _controller.removeCartItem(_cartItem);
           if (_controller.qtdeCartItemsObs.value.isEqual(0)) {
-            SimpleSnackbar().show(SUCES, ITEM_REMOVED_SHOPCART);
+            SimpleSnackbar().show(_words.suces(), _messages.item_removed_cart());
             Future.delayed(Duration(milliseconds: DURATION)).then((value) => Get.back());
           }
         },
@@ -62,10 +66,10 @@ class DismissibleCartItem extends StatelessWidget {
         confirmDismiss: (direction) {
           return CustomAlertDialog.showOptionDialog(
             context,
-            CRT_LBL_CONF_DISM,
-            '$CRT_MSG_CONF_DISM${_cartItem.title} from the cart?',
-            YES,
-            NO,
+            _labels.label_title_dialog_dismis(),
+            '${_labels.label_message_dialog_dismis()}${_cartItem.title} from the cart?',
+            _words.yes(),
+            _words.no(),
             () => {},
             () => {},
           );

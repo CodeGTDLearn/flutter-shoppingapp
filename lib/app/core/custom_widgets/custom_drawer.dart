@@ -6,17 +6,22 @@ import 'package:get/state_manager.dart';
 import '../../modules/cart/controller/cart_controller.dart';
 import '../../modules/inventory/controller/inventory_controller.dart';
 import '../../modules/orders/controller/orders_controller.dart';
-import '../icons/drawwer.dart';
+import '../icons/custom_drawer_icons.dart';
 import '../keys/custom_drawer_keys.dart';
 import '../properties/app_routes.dart';
-import '../texts/custom_drawer.dart';
+import '../texts/custom_drawer_labels.dart';
 import '../texts/general_words.dart';
+import '../texts/messages.dart';
 import '../theme/app_theme_controller.dart';
-import 'custom_snackbar/simple_snackbar.dart';
+import 'snackbar/simple_snackbar.dart';
 
 // ignore: must_be_immutable
 class CustomDrawer extends StatelessWidget {
   final _cart = Get.find<CartController>();
+  final _icons = Get.find<CustomDrawerIcons>();
+  final _messages = Get.find<Messages>();
+  final _words = Get.find<GeneralWords>();
+  final _labels = Get.find<CustomDrawerLabels>();
   final _orders = Get.find<OrdersController>();
   final _inventory = Get.find<InventoryController>();
 
@@ -29,7 +34,7 @@ class CustomDrawer extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.70,
       child: Drawer(
           child: Column(children: [
-        AppBar(title: Text(DRW_TIT_APPBAR), automaticallyImplyLeading: false),
+        AppBar(title: Text(_labels.label_appbar()), automaticallyImplyLeading: false),
         // _drawerItem(
         //     quantityItems: _overview.getProductsQtde(),
         //     leadIcon: DRW_ICO_PROD,
@@ -42,35 +47,35 @@ class CustomDrawer extends StatelessWidget {
         _drawerItem(
             // quantityItems: _cart.qtdeCartItems(),
             quantityItems: _cart.qtdeCartItemsObs.value,
-            leadIcon: DRW_ICO_CART,
-            title: DRW_LBL_CART,
-            message: DRW_TXT_CART,
+            leadIcon: _icons.ico_cart(),
+            title: _labels.label_cart(),
+            message: _messages.cart_no_items_yet(),
             route: AppRoutes.CART,
             notRoutingWithoutQtdeEvaluation: true,
             key: K_DRW_CRT_OP2,
             context: context),
         _drawerItem(
             quantityItems: _orders.qtdeOrdersObs.value,
-            leadIcon: DRW_ICO_ORD,
-            title: DRW_LBL_ORD,
-            message: DRW_TXT_ORD,
+            leadIcon: _icons.ico_ord(),
+            title: _labels.label_orders(),
+            message: _messages.no_orders_yet(),
             route: AppRoutes.ORDERS,
             notRoutingWithoutQtdeEvaluation: false,
             key: K_DRW_ORD_OP3,
             context: context),
         _drawerItem(
             quantityItems: _inventory.getProductsQtde(),
-            leadIcon: DRW_ICO_MAN_PROD,
-            title: DRW_LBL_MAN_PROD,
-            message: DRW_TXT_NO_MAN_PROD_YET,
+            leadIcon: _icons.ico_inv(),
+            title: _labels.label_inventory(),
+            message: _messages.no_products_yet(),
             route: AppRoutes.INVENTORY,
             notRoutingWithoutQtdeEvaluation: false,
             key: K_DRW_MPROD_OP4,
             context: context),
         Obx(() => SwitchListTile(
             key: Key(K_DRW_DARKM_OP5),
-            secondary: DRW_ICO_DARKTHM,
-            title: Text(DRW_LBL_DARKTHM),
+            secondary: _icons.ico_switch(),
+            title: Text(_labels.label_dark_theme()),
             value: _darkThemeController.isDark.value,
             onChanged: _darkThemeController.toggleDarkTheme))
       ])),
@@ -97,7 +102,7 @@ class CustomDrawer extends StatelessWidget {
           var condition1 = quantityItems == 0 && notRoutingWithoutQtdeEvaluation;
           var condition2 = quantityItems != 0 && notRoutingWithoutQtdeEvaluation;
           if (condition1) {
-            SimpleSnackbar().show(SUCES, message);
+            SimpleSnackbar().show(_words.suces(), message);
           } else if (condition2) {
             Get.toNamed(route);
           } else {

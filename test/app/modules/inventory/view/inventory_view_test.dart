@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/keys/inventory_keys.dart';
+import 'package:shopingapp/app/core/keys/modules/inventory_keys.dart';
 import 'package:shopingapp/app/core/properties/app_db_urls.dart';
 import 'package:shopingapp/app/modules/inventory/components/custom_listtile/simple_listtile.dart';
 

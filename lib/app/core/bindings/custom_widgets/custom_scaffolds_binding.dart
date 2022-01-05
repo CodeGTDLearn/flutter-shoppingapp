@@ -6,6 +6,5 @@ import '../../../modules/overview/components/overview_scaffold/staggered_scaffol
 class CustomScaffoldBinding extends Bindings {
   void dependencies() {
     Get.lazyPut<ICustomScaffold>(() => StaggeredScaffold());
-    // Get.lazyPut<ICustomScaffold>(() => AddCartScaffold());
   }
 }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/keys/cart_keys.dart';
 import 'package:shopingapp/app/core/keys/custom_indicator_keys.dart';
-import 'package:shopingapp/app/core/keys/overview_keys.dart';
+import 'package:shopingapp/app/core/keys/modules/cart_keys.dart';
+import 'package:shopingapp/app/core/keys/modules/overview_keys.dart';
 import 'package:shopingapp/app/core/texts/general_words.dart';
 import 'package:shopingapp/app/core/texts/messages.dart';
-import 'package:shopingapp/app/core/texts/modules/cart.dart';
+import 'package:shopingapp/app/core/texts/modules/cart_labels.dart';
 import 'package:shopingapp/app/modules/cart/components/dismissible_cart_item.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/cart/view/cart_view.dart';
@@ -25,6 +25,9 @@ class CartTests {
   final UiTestUtils uiTestUtils;
   final TestDbUtils dbTestUtils;
   final TestsUtils testUtils;
+  final _messages = Get.find<Messages>();
+  final _words = Get.find<GeneralWords>();
+  final _labels = Get.find<CartLabels>();
 
   CartTests({
     required this.isWidgetTest,
@@ -179,22 +182,20 @@ class CartTests {
     expect(typeDismisCartItem, findsNWidgets(2));
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    await tester.drag(
-        finder.key('${_productsList[0].id}'), Offset(-500.0, 0.0));
+    await tester.drag(finder.key('${_productsList[0].id}'), Offset(-500.0, 0.0));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(AlertDialog), findsOneWidget);
-    expect(finder.text(CART_LABEL_ALERTDIALOG_DISMIS_CONFIRM), findsOneWidget);
-    await tester.tap(finder.text(YES));
+    expect(finder.text(_labels.label_title_dialog_dismis()), findsOneWidget);
+    await tester.tap(finder.text(_words.yes()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(typeDismisCartItem, findsOneWidget);
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    await tester.drag(
-        finder.key('${_productsList[1].id}'), Offset(-500.0, 0.0));
+    await tester.drag(finder.key('${_productsList[1].id}'), Offset(-500.0, 0.0));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(AlertDialog), findsOneWidget);
-    expect(finder.text(CART_LABEL_ALERTDIALOG_DISMIS_CONFIRM), findsOneWidget);
-    await tester.tap(finder.text(YES));
+    expect(finder.text(_labels.label_title_dialog_dismis()), findsOneWidget);
+    await tester.tap(finder.text(_words.yes()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(typeDismisCartItem, findsNothing);
   }
@@ -220,8 +221,8 @@ class CartTests {
     await tester.drag(keyCartItemProduct1, Offset(-500.0, 0.0));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(AlertDialog), findsOneWidget);
-    expect(finder.text(CART_LABEL_ALERTDIALOG_DISMIS_CONFIRM), findsOneWidget);
-    await tester.tap(finder.text(YES));
+    expect(finder.text(_labels.label_title_dialog_dismis()), findsOneWidget);
+    await tester.tap(finder.text(_words.yes()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(typeCardCartItem, findsNothing);
   }
@@ -247,8 +248,8 @@ class CartTests {
     await tester.drag(keyCartItemProduct1, Offset(-500.0, 0.0));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(AlertDialog), findsOneWidget);
-    expect(finder.text(CART_LABEL_ALERTDIALOG_DISMIS_CONFIRM), findsOneWidget);
-    await tester.tap(finder.text(NO));
+    expect(finder.text(_labels.label_title_dialog_dismis()), findsOneWidget);
+    await tester.tap(finder.text(_words.no()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(typeCardCartItem, findsOneWidget);
   }
@@ -260,7 +261,8 @@ class CartTests {
     await _startApp_OpenOverviewView(tester);
 
     var cartIconProduct0 = finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
-    var snackbarInfo = '${_productsList[0].title}$ITEM_CART_ADDED_IN_THE_SHOPCART';
+    var snackbarInfo =
+        '${_productsList.elementAt(0).title}${_messages.item_cart_added}';
 
     await tester.tap(cartIconProduct0);
     await tester.pumpAndSettle(testUtils.delay(DELAY));

@@ -1,0 +1,41 @@
+class InventoryLabels {
+  final _INVENTORY_PAGE_TITLE = "Inventory";
+  final _INVENTORY_ADDEDIT_TITLEPAGE_ADD = "Add Product";
+  final _INVENTORY_ADDEDIT_TITLEPAGE_EDIT = "Edit Product";
+  final _INVENTORY_ADDEDIT_FIELD_TITLE = "Title";
+  final _INVENTORY_ADDEDIT_FIELD_PRICE = "Price";
+  final _INVENTORY_ADDEDIT_FIELD_DESCRIPT = "Description";
+  final _INVENTORY_ADDEDIT_IMAGE_TITLE = "Image";
+  final _INVENTORY_ADDEDIT_FIELD_IMAGE_URL = "Image URL";
+
+  // FORM-HINTS
+  final _HINT_PRICE_FIELD = "00.00";
+  final _HINT_TITLE_FIELD = "title";
+  final _HINT_DESCRIPTION_FIELD = "Description";
+  final _HINT_URL_FIELD = "Image Url";
+
+  String inv_tit_page() => _INVENTORY_PAGE_TITLE;
+
+  String INV_EDT_LBL_ADD_APPBAR() => _INVENTORY_ADDEDIT_TITLEPAGE_ADD;
+
+  String INV_EDT_LBL_EDIT_APPBAR() => _INVENTORY_ADDEDIT_TITLEPAGE_EDIT;
+
+  String INV_EDT_LBL_TITLE() => _INVENTORY_ADDEDIT_FIELD_TITLE;
+
+  String INV_EDT_LBL_PRICE() => _INVENTORY_ADDEDIT_FIELD_PRICE;
+
+  String INV_EDT_LBL_DESCR() => _INVENTORY_ADDEDIT_FIELD_DESCRIPT;
+
+  String INV_EDT_LBL_IMGURL() => _INVENTORY_ADDEDIT_FIELD_IMAGE_URL;
+
+  String INV_EDT_IMG_TIT() => _INVENTORY_ADDEDIT_IMAGE_TITLE;
+
+  // FORM-HINTS
+  String amount_hint() => _HINT_PRICE_FIELD;
+
+  String title_hint() => _HINT_TITLE_FIELD;
+
+  String descript_hint() => _HINT_DESCRIPTION_FIELD;
+
+  String url_hint() => _HINT_URL_FIELD;
+}

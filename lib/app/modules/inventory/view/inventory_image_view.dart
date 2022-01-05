@@ -3,16 +3,17 @@ import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 
-import '../../../core/custom_widgets/custom_appbar.dart';
+import '../../../core/custom_widgets/appbar/custom_appbar.dart';
+
 
 // ignore: must_be_immutable
-class InventoryItemImageView extends StatelessWidget {
+class InventoryImageView extends StatelessWidget {
   final String? title;
   final String? imageUrl;
 
   final _appbar = Get.find<CustomAppBar>();
 
-  InventoryItemImageView([this.title, this.imageUrl]);
+  InventoryImageView([this.title, this.imageUrl]);
 
   @override
   Widget build(BuildContext context) {

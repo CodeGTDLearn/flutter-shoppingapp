@@ -1,8 +1,8 @@
 import 'package:get/route_manager.dart';
 
 import '../../modules/cart/view/cart_view.dart';
-import '../../modules/inventory/view/inventory_item_details_view.dart';
-import '../../modules/inventory/view/inventory_item_image_view.dart';
+import '../../modules/inventory/view/inventory_details_view.dart';
+import '../../modules/inventory/view/inventory_image_view.dart';
 import '../../modules/inventory/view/inventory_view.dart';
 import '../../modules/orders/view/orders_view.dart';
 import '../../modules/overview/view/overview_item_details_view.dart';
@@ -56,8 +56,8 @@ class AppRoutes {
       OverviewBindings(),
       InventoryBindings()]),
 
-    GetPage(name: '$INVENTORY_ITEM_DETAILS:id', page: () => InventoryItemDetailsView()),
-    GetPage(name: '$INVENTORY_ITEM_IMAGE', page: () => InventoryItemImageView()),
+    GetPage(name: '$INVENTORY_ITEM_DETAILS:id', page: () => InventoryDetailsView()),
+    GetPage(name: '$INVENTORY_ITEM_IMAGE', page: () => InventoryImageView()),
   ];
   // @formatter:on
 }
