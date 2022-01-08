@@ -9,7 +9,7 @@ import 'package:flutter/widgets.dart';
 // e) dart pub cache clean.
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
-import '../../../../core/properties/app_properties.dart';
+import '../../../../core/properties/properties.dart';
 import '../../../../modules/cart/entity/cart_item.dart';
 import '../dismissible_cart_item.dart';
 import 'icustom_cart_listview.dart';

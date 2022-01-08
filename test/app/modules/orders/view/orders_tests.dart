@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/custom_widgets/custom_indicator.dart';
-import 'package:shopingapp/app/core/keys/custom_drawer_keys.dart';
+import 'package:shopingapp/app/core/global_widgets/custom_indicator.dart';
+import 'package:shopingapp/app/core/keys/global_widgets_keys.dart';
 import 'package:shopingapp/app/core/keys/modules/cart_keys.dart';
 import 'package:shopingapp/app/core/keys/modules/overview_keys.dart';
-import 'package:shopingapp/app/core/texts/messages.dart';
+import 'package:shopingapp/app/core/labels/message_labels.dart';
 import 'package:shopingapp/app/modules/cart/view/cart_view.dart';
 import 'package:shopingapp/app/modules/orders/components/custom_tiles/collapsable_tile.dart';
 import 'package:shopingapp/app/modules/orders/view/orders_view.dart';
@@ -24,7 +24,10 @@ class OrdersTests {
   final UiTestUtils uiTestUtils;
   final TestDbUtils dbTestUtils;
   final TestsUtils testUtils;
-  final _messages = Get.find<Messages>();
+  final _messages = Get.find<MessageLabels>();
+  final _keys = Get.find<GlobalWidgetsKeys>();
+  final _keysOv = Get.find<OverviewKeys>();
+  final _keysCart = Get.find<CartKeys>();
 
   OrdersTests({
     required this.isWidgetTest,
@@ -51,8 +54,8 @@ class OrdersTests {
     await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: interval,
-      optionKey: DRAWER_ORDER_OPTION_KEY,
-      scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
+      optionKey: _keys.k_drw_orders_opt3(),
+      scaffoldGlobalKey: _keysOv.k_ov_scfld_glob_key(),
     );
 
     uiTestUtils.check_widgetQuantityInAView(
@@ -82,16 +85,16 @@ class OrdersTests {
     //A) ADDING ONE PRODUCT IN THE CART
     await tester.pumpAndSettle(testUtils.delay(interval));
     expect(finder.type(OverviewView), findsOneWidget);
-    await tester.tap(finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0"));
+    await tester.tap(finder.key("${_keysOv.k_ov_grd_crt_btn}\0"));
     await tester.pumpAndSettle(testUtils.delay(interval));
 
     //B) CLICKING CART-BUTTON-PAGE AND CHECK THE AMOUNT CART
-    await tester.tap(finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
+    await tester.tap(finder.key(_keysCart.k_shopcart_appbar_btn()));
     await tester.pumpAndSettle(testUtils.delay(interval));
     expect(finder.type(CartView), findsOneWidget);
 
     //C) CLICKING ORDER-NOW-BUTTON AND GO BACK TO THE PREVIOUS PAGE
-    await tester.tap(finder.key(CART_PAGE_ORDERSNOW_BUTTON_KEY));
+    await tester.tap(finder.key(_keysCart.k_crt_ordnow_btn()));
     await tester.pump(testUtils.delay(interval));
     expect(finder.type(CustomIndicator), findsOneWidget);
     await tester.pumpAndSettle(testUtils.delay(interval));
@@ -115,8 +118,8 @@ class OrdersTests {
     await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: interval,
-      optionKey: DRAWER_ORDER_OPTION_KEY,
-      scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
+      optionKey: _keys.k_drw_orders_opt3(),
+      scaffoldGlobalKey: _keysOv.k_ov_scfld_glob_key(),
     );
 
     expect(finder.type(OrdersView), findsOneWidget);
@@ -148,8 +151,8 @@ class OrdersTests {
     await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: DELAY,
-      optionKey: DRAWER_ORDER_OPTION_KEY,
-      scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
+      optionKey: _keys.k_drw_orders_opt3(),
+      scaffoldGlobalKey: _keysOv.k_ov_scfld_glob_key(),
     );
 
     await tester.pumpAndSettle();

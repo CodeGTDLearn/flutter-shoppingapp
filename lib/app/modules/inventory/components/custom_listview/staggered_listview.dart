@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
-import '../../../../core/properties/app_properties.dart';
+import '../../../../core/properties/properties.dart';
 import '../../../../modules/inventory/entity/product.dart';
 import '../custom_listtile/animated_listtile.dart';
 import 'icustom_inventory_listview.dart';

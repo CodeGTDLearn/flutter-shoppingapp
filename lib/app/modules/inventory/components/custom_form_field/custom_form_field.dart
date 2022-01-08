@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 
-import '../../../../core/texts/modules/inventory_labels.dart';
+import '../../../../core/labels/modules/inventory_labels.dart';
 import '../../entity/product.dart';
 import 'field_properties/properties_abstraction.dart';
 

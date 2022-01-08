@@ -1,32 +1,34 @@
 import 'package:flutter/material.dart';
 
-const INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY = 'inventory_appbar_addbutton_key';
-const K_INV_ICO_ADD_PROD_APPBAR = INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY;
+class InventoryKeys {
+  final _INVENTORY_ADDEDIT_VIEW_FORM_GLOBALKEY = GlobalKey<FormState>();
+  final _INVENTORY_APPBAR_ADD_BUTTON_KEY = 'inventory_appbar_addbutton_key';
+  final _INVENTORY_DELETE_BUTTON_KEY = 'inventory_deleteitem_button_key';
+  final _INVENTORY_ITEM_KEY = 'inventory_item_key';
+  final _INVENTORY_UPDATE_BUTTON_KEY = 'inventory_updateitem_button_key';
+  final _INVENTORY_EDIT_VIEW_SAVE_BUTTON_KEY = 'inventory_addedit_savebutton_key';
+  final _INVENTORY_EDIT_VIEW_FIELD_TITLE_KEY = 'inventory_addedit_field_title_key';
+  final _INVENTORY_EDIT_VIEW_FIELD_PRICE_KEY = 'inventory_addedit_field_price_key';
+  final _INVENTORY_EDIT_VIEW_FIELD_DESCRIPT_KEY = 'inventory_edit_field_descript_key';
+  final _INVENTORY_EDIT_VIEW_FIELD_URL_KEY = 'inventory_addedit_field_url_key';
 
-const INVENTORY_DELETEITEM_BUTTON_KEY = 'inventory_deleteitem_button_key';
-const K_INV_DEL_BTN = INVENTORY_DELETEITEM_BUTTON_KEY;
+  String k_inv_add_btn_appbar() => _INVENTORY_APPBAR_ADD_BUTTON_KEY;
 
-const INVENTORY_UPDATEITEM_BUTTON_KEY = 'inventory_updateitem_button_key';
-const K_INV_UPD_BTN = INVENTORY_UPDATEITEM_BUTTON_KEY;
+  String k_inv_del_btn() => _INVENTORY_DELETE_BUTTON_KEY;
 
-const INVENTORY_ITEM_KEY = 'inventory_item_key';
-const K_INV_ITEM_KEY = INVENTORY_ITEM_KEY;
+  String k_inv_upd_btn() => _INVENTORY_UPDATE_BUTTON_KEY;
 
-//MANAGED-PRODUCTS-ADD-EDIT-PAGE FORM
-const INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY = 'inventory_addedit_savebutton_key';
-const K_INV_ADDEDIT_SAVE_BTN = INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY;
+  String k_inv_item_key() => _INVENTORY_ITEM_KEY;
 
-final INVENTORY_ADDEDIT_VIEW_FORM_GLOBALKEY = GlobalKey<FormState>();
-final K_INV_FORM_GKEY = INVENTORY_ADDEDIT_VIEW_FORM_GLOBALKEY;
+  String k_inv_edit_save_btn() => _INVENTORY_EDIT_VIEW_SAVE_BUTTON_KEY;
 
-const INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY = 'inventory_addedit_field_title_key';
-const K_INV_ADDEDIT_FLD_TITLE = INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY;
+  GlobalKey k_inv_form_gkey() => _INVENTORY_ADDEDIT_VIEW_FORM_GLOBALKEY;
 
-const INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY = 'inventory_addedit_field_price_key';
-const K_INV_ADDEDIT_FLD_PRICE = INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY;
+  String k_inv_edit_fld_title() => _INVENTORY_EDIT_VIEW_FIELD_TITLE_KEY;
 
-const INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY = 'inventory_addedit_field_descript_key';
-const K_INV_ADDEDIT_FLD_DESCR = INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY;
+  String k_inv_edit_fld_price() => _INVENTORY_EDIT_VIEW_FIELD_PRICE_KEY;
 
-const INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY = 'inventory_addedit_field_url_key';
-const K_INV_ADDEDIT_FLD_IMGURL = INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY;
+  String k_inv_edit_fld_descr() => _INVENTORY_EDIT_VIEW_FIELD_DESCRIPT_KEY;
+
+  String k_inv_edit_fld_imgurl() => _INVENTORY_EDIT_VIEW_FIELD_URL_KEY;
+}

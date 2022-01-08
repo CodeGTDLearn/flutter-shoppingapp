@@ -4,8 +4,8 @@ import 'package:get/state_manager.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/icons/modules/orders_icons.dart';
-import '../../../../core/properties/app_properties.dart';
-import '../../../../core/texts/modules/orders_labels.dart';
+import '../../../../core/labels/modules/orders_labels.dart';
+import '../../../../core/properties/properties.dart';
 import '../../controller/orders_controller.dart';
 import '../../entity/order.dart';
 import 'icustom_order_tile.dart';

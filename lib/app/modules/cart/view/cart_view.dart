@@ -3,9 +3,9 @@ import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 
-import '../../../core/custom_widgets/appbar/custom_appbar.dart';
-import '../../../core/properties/app_properties.dart';
-import '../../../core/texts/modules/cart_labels.dart';
+import '../../../core/global_widgets/appbar/custom_appbar.dart';
+import '../../../core/labels/modules/cart_labels.dart';
+import '../../../core/properties/properties.dart';
 import '../components/cartview_header.dart';
 import '../components/clear_cart_button.dart';
 import '../components/custom_listview/cart_staggered_listview.dart';

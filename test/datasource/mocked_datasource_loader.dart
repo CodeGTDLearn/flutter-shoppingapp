@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/properties/app_db_urls.dart';
+import 'package:shopingapp/app/core/properties/db_urls.dart';
 
 import '../config/app_tests_properties.dart';
 import '../config/titles/testdb_check_titles.dart';

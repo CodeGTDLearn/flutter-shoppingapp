@@ -1,5 +1,5 @@
 import '../../inventory/entity/product.dart';
-import '../components/overview_appbar/filter_options.dart';
+import '../components/overview_appbar/filter_options_enum.dart';
 import '../repo/i_overview_repo.dart';
 import 'i_overview_service.dart';
 
@@ -111,9 +111,9 @@ class OverviewService implements IOverviewService {
   }
 
   @override
-  List<Product> setProductsByFilter(FilterOptions filter) {
+  List<Product> setProductsByFilter(FilterOptionsEnum filter) {
     _updateLocalDataFavoritesProducts();
-    if (filter == FilterOptions.Fav) {
+    if (filter == FilterOptionsEnum.Fav) {
       return getFavoritesQtde() == 0 ? [] : getLocalDataFavoritesProducts();
     }
     return getProductsQtde() == 0 ? [] : getLocalDataAllProducts();

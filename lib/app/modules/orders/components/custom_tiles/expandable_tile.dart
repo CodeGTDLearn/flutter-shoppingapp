@@ -7,8 +7,8 @@ import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../core/properties/app_properties.dart';
-import '../../../../core/texts/modules/orders_labels.dart';
+import '../../../../core/labels/modules/orders_labels.dart';
+import '../../../../core/properties/properties.dart';
 import '../../../../core/utils/adaptive_widget_utils.dart';
 import '../../../cart/controller/cart_controller.dart';
 import '../../../cart/entity/cart_item.dart';

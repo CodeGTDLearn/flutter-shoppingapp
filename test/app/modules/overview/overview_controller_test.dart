@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
-import 'package:shopingapp/app/modules/overview/components/overview_appbar/filter_options.dart';
+import 'package:shopingapp/app/modules/overview/components/overview_appbar/filter_options_enum.dart';
 import 'package:shopingapp/app/modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
@@ -86,12 +86,12 @@ class OverviewControllerTests {
 
     test('Getting products by Filters', () {
       _controller.getProducts().then((_) {
-        var listAll = _service.setProductsByFilter(FilterOptions.All);
-        _controller.applyPopupFilter(FilterOptions.All);
+        var listAll = _service.setProductsByFilter(FilterOptionsEnum.All);
+        _controller.applyPopupFilter(FilterOptionsEnum.All);
         expect(_controller.gridItemsObs.toList(), listAll);
 
-        var listFav = _service.setProductsByFilter(FilterOptions.Fav);
-        _controller.applyPopupFilter(FilterOptions.Fav);
+        var listFav = _service.setProductsByFilter(FilterOptionsEnum.Fav);
+        _controller.applyPopupFilter(FilterOptionsEnum.Fav);
         expect(_controller.gridItemsObs.toList(), listFav);
       });
     });

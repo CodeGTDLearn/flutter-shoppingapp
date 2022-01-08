@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/keys/custom_indicator_keys.dart';
+import 'package:shopingapp/app/core/keys/global_widgets_keys.dart';
 import 'package:shopingapp/app/core/keys/modules/cart_keys.dart';
 import 'package:shopingapp/app/core/keys/modules/overview_keys.dart';
-import 'package:shopingapp/app/core/texts/general_words.dart';
-import 'package:shopingapp/app/core/texts/messages.dart';
-import 'package:shopingapp/app/core/texts/modules/cart_labels.dart';
+import 'package:shopingapp/app/core/labels/global_labels.dart';
+import 'package:shopingapp/app/core/labels/message_labels.dart';
+import 'package:shopingapp/app/core/labels/modules/cart_labels.dart';
 import 'package:shopingapp/app/modules/cart/components/dismissible_cart_item.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/cart/view/cart_view.dart';
@@ -25,9 +25,12 @@ class CartTests {
   final UiTestUtils uiTestUtils;
   final TestDbUtils dbTestUtils;
   final TestsUtils testUtils;
-  final _messages = Get.find<Messages>();
-  final _words = Get.find<GeneralWords>();
+  final _messages = Get.find<MessageLabels>();
+  final _words = Get.find<GlobalLabels>();
   final _labels = Get.find<CartLabels>();
+  final _keysInd = Get.find<GlobalWidgetsKeys>();
+  final _keysOv = Get.find<OverviewKeys>();
+  final _keysCart = Get.find<CartKeys>();
 
   CartTests({
     required this.isWidgetTest,
@@ -42,7 +45,7 @@ class CartTests {
 
     await _addProduct_tappingOverviewItem_openShopCartView(
       tester,
-      itemToAdd: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
+      itemToAdd: "${_keysOv.k_ov_grd_crt_btn}\0",
     );
 
     expect(finder.type(CartView), findsOneWidget);
@@ -55,18 +58,19 @@ class CartTests {
   Future<void> clear_cart_tap_clear_button(tester) async {
     await _startApp_OpenOverviewView(tester);
 
-    await tester.tap(finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0"));
-    await tester.tap(finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
+    await tester.tap(finder.key("${_keysOv.k_ov_grd_crt_btn}\0"));
+    await tester.tap(finder.key(_keysCart.k_shopcart_appbar_btn()));
     await tester.pump();
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(CartView), findsOneWidget);
     expect(Get.find<CartController>().amountCartItemsObs.value > 0.0, isTrue);
 
-    await _clearCart_quitCartView(tester, finder.key(CART_PAGE_CLEARCART_BUTTON_KEY));
+    await _clearCart_quitCartView(
+        tester, finder.key(_keysCart.k_crt_clearcart_btn()));
 
     expect(Get.find<CartController>().amountCartItemsObs.value == 0, isTrue);
     expect(finder.type(DismissibleCartItem), findsNothing);
-    expect(finder.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY), findsOneWidget);
+    expect(finder.key(_keysInd.k_circ_prg_indic()), findsOneWidget);
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(OverviewView), findsOneWidget);
@@ -78,21 +82,22 @@ class CartTests {
   ) async {
     await _startApp_OpenOverviewView(tester);
 
-    var orderNowButton = finder.key(CART_PAGE_ORDERSNOW_BUTTON_KEY);
-    var customCircProgrIndic = finder.key(CUSTOM_CIRC_PROGR_INDICATOR_KEY);
+    var orderNowButton = finder.key(_keysCart.k_crt_ordnow_btn());
+    var customCircProgrIndic = finder.key(_keysInd.k_circ_prg_indic());
 
     await _addProduct_tappingOverviewItem_openShopCartView(
       tester,
-      itemToAdd: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
+      itemToAdd: "${_keysOv.k_ov_grd_crt_btn}\0",
     );
 
     expect(finder.type(CartView), findsOneWidget);
-    await _clearCart_quitCartView(tester, finder.key(CART_PAGE_CLEARCART_BUTTON_KEY));
+    await _clearCart_quitCartView(
+        tester, finder.key(_keysCart.k_crt_clearcart_btn()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
     await _addProduct_tappingOverviewItem_openShopCartView(
       tester,
-      itemToAdd: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
+      itemToAdd: "${_keysOv.k_ov_grd_crt_btn}\0",
     );
     expect(Get.find<CartController>().amountCartItemsObs.value > 0, isTrue);
     expect(orderNowButton, findsOneWidget);
@@ -117,13 +122,13 @@ class CartTests {
   ) async {
     await _startApp_OpenOverviewView(tester);
 
-    var cartIconProduct0 = finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
+    var cartIconProduct0 = finder.key("${_keysOv.k_ov_grd_crt_btn}\0");
 
     await tester.tap(cartIconProduct0);
     await tester.tap(cartIconProduct0);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
-    await tester.tap(finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
+    await tester.tap(finder.key(_keysCart.k_shopcart_appbar_btn()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(CartView), findsOneWidget);
     expect(
@@ -138,8 +143,8 @@ class CartTests {
   ) async {
     await _startApp_OpenOverviewView(tester);
 
-    var cartIconProduct0 = finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
-    var cartIconProduct1 = finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\1");
+    var cartIconProduct0 = finder.key("${_keysOv.k_ov_grd_crt_btn}\0");
+    var cartIconProduct1 = finder.key("${_keysOv.k_ov_grd_crt_btn}\1");
 
     await tester.tap(cartIconProduct0);
     await tester.tap(cartIconProduct0);
@@ -148,7 +153,7 @@ class CartTests {
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.text("4"), findsOneWidget);
 
-    await tester.tap(finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
+    await tester.tap(finder.key(_keysCart.k_shopcart_appbar_btn()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(CartView), findsOneWidget);
     expect(finder.text(_productsList[0].title), findsOneWidget);
@@ -159,7 +164,7 @@ class CartTests {
 
   Future<void> emptycart_block_access_to_cartpage(tester) async {
     await _startApp_OpenOverviewView(tester);
-    await tester.tap(finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
+    await tester.tap(finder.key(_keysCart.k_shopcart_appbar_btn()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(OverviewView), findsOneWidget);
   }
@@ -173,10 +178,10 @@ class CartTests {
     var typeDismisCartItem = finder.type(DismissibleCartItem);
 
     expect(finder.type(OverviewView), findsOneWidget);
-    await tester.tap(finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0"));
-    await tester.tap(finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\1"));
+    await tester.tap(finder.key("${_keysOv.k_ov_grd_crt_btn}\0"));
+    await tester.tap(finder.key("${_keysOv.k_ov_grd_crt_btn}\1"));
 
-    await tester.tap(finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
+    await tester.tap(finder.key(_keysCart.k_shopcart_appbar_btn()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(CartView), findsOneWidget);
     expect(typeDismisCartItem, findsNWidgets(2));
@@ -206,12 +211,12 @@ class CartTests {
   ) async {
     await _startApp_OpenOverviewView(tester);
 
-    var cartIconProduct0 = finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
+    var cartIconProduct0 = finder.key("${_keysOv.k_ov_grd_crt_btn}\0");
     await tester.tap(cartIconProduct0);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
     var typeCardCartItem = finder.type(DismissibleCartItem);
-    var cartPageButton = finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
+    var cartPageButton = finder.key(_keysCart.k_shopcart_appbar_btn());
     await tester.tap(cartPageButton);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(CartView), findsOneWidget);
@@ -233,12 +238,12 @@ class CartTests {
   ) async {
     await _startApp_OpenOverviewView(tester);
 
-    var cartIconProduct0 = finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
+    var cartIconProduct0 = finder.key("${_keysOv.k_ov_grd_crt_btn}\0");
     await tester.tap(cartIconProduct0);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
     var typeCardCartItem = finder.type(DismissibleCartItem);
-    var cartPageButton = finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY);
+    var cartPageButton = finder.key(_keysCart.k_shopcart_appbar_btn());
     await tester.tap(cartPageButton);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(CartView), findsOneWidget);
@@ -260,9 +265,8 @@ class CartTests {
   ) async {
     await _startApp_OpenOverviewView(tester);
 
-    var cartIconProduct0 = finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
-    var snackbarInfo =
-        '${_productsList.elementAt(0).title}${_messages.item_cart_added}';
+    var cartIconProduct0 = finder.key("${_keysOv.k_ov_grd_crt_btn}\0");
+    var snackbarInfo = '${_productsList.elementAt(0).title}${_messages.item_cart_added}';
 
     await tester.tap(cartIconProduct0);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
@@ -276,7 +280,7 @@ class CartTests {
   }) async {
     await _startApp_OpenOverviewView(tester);
 
-    var CartIconProduct0 = finder.key("$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0");
+    var CartIconProduct0 = finder.key("${_keysOv.k_ov_grd_crt_btn}\0");
 
     for (var i = 0; i < qtdeProducts; i++) {
       await tester.tap(CartIconProduct0);
@@ -284,7 +288,7 @@ class CartTests {
       expect(finder.text((i + 1).toString()), findsOneWidget);
     }
 
-    await tester.tap(finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
+    await tester.tap(finder.key(_keysCart.k_shopcart_appbar_btn()));
     await tester.pump();
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(CartView), findsOneWidget);
@@ -315,7 +319,7 @@ class CartTests {
     required String itemToAdd,
   }) async {
     await tester.tap(finder.key(itemToAdd));
-    await tester.tap(finder.key(OVERVIEW_PAGE_SHOPCART_APPBAR_BUTTON_KEY));
+    await tester.tap(finder.key(_keysCart.k_shopcart_appbar_btn()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
   }
 }

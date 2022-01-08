@@ -23,6 +23,7 @@ class InventoryViewEditTest {
   final _dbUtils = Get.put(TestDbUtils());
   final _bindings = Get.put(InventoryTestBindings());
   final _titles = Get.put(InventoryTestTitles());
+  final _keysInv = Get.find<InventoryKeys>();
 
   InventoryViewEditTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
@@ -80,13 +81,13 @@ class InventoryViewEditTest {
       await _tests.openInventoryEditView(tester);
 
       _testUtils.checkImageTotalInAView(0);
-      await tester.tap(_finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY));
+      await tester.tap(_finder.key(_keysInv.k_inv_edit_fld_imgurl()));
       await tester.enterText(
-        _finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY),
+        _finder.key(_keysInv.k_inv_edit_fld_imgurl()),
         TEST_IMAGE_URL_MAP.values.elementAt(1),
       );
       await tester.pumpAndSettle(_testUtils.delay(DELAY));
-      await tester.tap(_finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY));
+      await tester.tap(_finder.key(_keysInv.k_inv_edit_fld_descr()));
       await tester.pumpAndSettle(_testUtils.delay(DELAY));
       _testUtils.checkImageTotalInAView(1);
     });

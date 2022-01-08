@@ -4,11 +4,11 @@ import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../core/custom_widgets/appbar/custom_appbar.dart';
-import '../../../core/custom_widgets/badge_cart.dart';
+import '../../../core/global_widgets/appbar/custom_appbar.dart';
+import '../../../core/global_widgets/badge_cart.dart';
 import '../../../core/keys/modules/overview_keys.dart';
-import '../../../core/properties/app_properties.dart';
-import '../../../core/texts/modules/overview_labels.dart';
+import '../../../core/labels/modules/overview_labels.dart';
+import '../../../core/properties/properties.dart';
 import '../../../core/utils/adaptive_widget_utils.dart';
 import '../../../core/utils/animations_utils.dart';
 import '../../../core/utils/ui_utils.dart';
@@ -27,6 +27,7 @@ class OverviewItemDetailsView extends StatelessWidget {
   final _widgetUtils = Get.find<AdaptiveWidgetUtils>();
   var cart = Get.find<BadgeCart>();
   final _labels= Get.find<OverviewLabels>();
+  final _keys = Get.find<OverviewKeys>();
 
   OverviewItemDetailsView([this._id]);
 
@@ -74,7 +75,7 @@ class OverviewItemDetailsView extends StatelessWidget {
                             child: GestureDetector(
                                 onTap: _controller.toggleOverviewItemDetailsImageZoomObs,
                                 child: FadeInImage(
-                                    key: Key(K_OV_ITM_DET_PAGE_IMG),
+                                    key: Key(_keys.k_ov_itm_det_page_img()),
                                     placeholder: AssetImage(IMAGE_PLACEHOLDER),
                                     image: NetworkImage(_product.imageUrl),
                                     fit: BoxFit.cover)),

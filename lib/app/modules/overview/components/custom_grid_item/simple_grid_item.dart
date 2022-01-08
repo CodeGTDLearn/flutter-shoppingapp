@@ -3,14 +3,14 @@ import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 
-import '../../../../core/custom_widgets/snackbar/button_snackbar.dart';
-import '../../../../core/custom_widgets/snackbar/simple_snackbar.dart';
+import '../../../../core/global_widgets/snackbar/button_snackbar.dart';
+import '../../../../core/global_widgets/snackbar/simple_snackbar.dart';
 import '../../../../core/icons/modules/overview_icons.dart';
 import '../../../../core/keys/modules/overview_keys.dart';
-import '../../../../core/properties/app_properties.dart';
-import '../../../../core/properties/app_routes.dart';
-import '../../../../core/texts/general_words.dart';
-import '../../../../core/texts/messages.dart';
+import '../../../../core/labels/global_labels.dart';
+import '../../../../core/labels/message_labels.dart';
+import '../../../../core/properties/properties.dart';
+import '../../../../core/properties/routes.dart';
 import '../../../cart/controller/cart_controller.dart';
 import '../../../inventory/entity/product.dart';
 import '../../controller/overview_controller.dart';
@@ -23,8 +23,9 @@ class SimpleGridItem extends StatelessWidget implements ICustomGridtile {
   final _cartController = Get.find<CartController>();
   final _uniqueController = OverviewController(service: Get.find<IOverviewService>());
   final String index;
-  final _messages = Get.find<Messages>();
-  final _words = Get.find<GeneralWords>();
+  final _messages = Get.find<MessageLabels>();
+  final _words = Get.find<GlobalLabels>();
+  final _keys = Get.find<OverviewKeys>();
 
   SimpleGridItem(this._product, this.index);
 
@@ -56,21 +57,21 @@ class SimpleGridItem extends StatelessWidget implements ICustomGridtile {
 
     return GridTile(
         child: GestureDetector(
-            key: Key("$K_OV_ITM_DET_PAGE$index"),
-            onTap: () => Get.toNamed('${AppRoutes.OVERVIEW_ITEM_DETAILS}${product.id}'),
+            key: Key("${_keys.k_ov_itm_det_page}$index"),
+            onTap: () => Get.toNamed('${Routes.OVERVIEW_ITEM_DETAILS}${product.id}'),
             child: fadeImage),
         footer: GridTileBar(
             leading: Obx(
               () => _favButton(index, product, context),
             ),
-            title: Text(product.title, key: Key("$K_OV_GRD_PRD_TIT$index")),
+            title: Text(product.title, key: Key("${_keys.k_ov_grd_prd_tit}$index")),
             trailing: _shopCartButton(index, product, context),
             backgroundColor: Colors.black87));
   }
 
   IconButton _shopCartButton(String index, Product product, context) {
     return IconButton(
-        key: Key("$K_OV_GRD_CRT_BTN$index"),
+        key: Key("${_keys.k_ov_grd_crt_btn}$index"),
         icon: _icons.ico_shopcart(),
         onPressed: () {
           _cartController.addCartItem(product);
@@ -88,7 +89,7 @@ class SimpleGridItem extends StatelessWidget implements ICustomGridtile {
 
   IconButton _favButton(String index, Product product, context) {
     return IconButton(
-        key: Key("$K_OV_GRD_FAV_BTN$index"),
+        key: Key("${_keys.k_ov_grd_fav_btn}$index"),
         icon: _uniqueController.favoriteStatusObs.value
             ? _icons.ico_fav()
             : _icons.ico_nofav(),

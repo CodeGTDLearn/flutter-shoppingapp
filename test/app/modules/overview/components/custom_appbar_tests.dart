@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/keys/modules/overview_keys.dart';
-import 'package:shopingapp/app/core/texts/messages.dart';
-import 'package:shopingapp/app/core/texts/modules/overview_labels.dart';
+import 'package:shopingapp/app/core/labels/message_labels.dart';
+import 'package:shopingapp/app/core/labels/modules/overview_labels.dart';
 import 'package:shopingapp/app/modules/overview/components/custom_grid_item/animated_grid_item.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
@@ -17,8 +17,10 @@ class CustomAppbarTests {
   final FinderUtils finder;
   final UiTestUtils uiTestUtils;
   final TestsUtils testUtils;
-  final _messages = Get.find<Messages>();
+  final _messages = Get.find<MessageLabels>();
   final _labels = Get.find<OverviewLabels>();
+  final _keys = Get.find<OverviewKeys>();
+
 
   CustomAppbarTests({
     required this.finder,
@@ -37,8 +39,8 @@ class CustomAppbarTests {
 
     await _open_popup_check_options(tester);
 
-    var popupItemFav = finder.key(OVERVIEW_POPUP_FAVORITE_OPTION_KEY);
-    var popupItemAll = finder.key(OVERVIEW_POPUP_ALL_OPTION_KEY);
+    var popupItemFav = finder.key(_keys.k_ov_flt_fav());
+    var popupItemAll = finder.key(_keys.k_ov_flt_all());
 
     await tester.tapAt(Offset(
       uiTestUtils.deviceWidth(tester) * 0,
@@ -61,12 +63,12 @@ class CustomAppbarTests {
 
     var favProps = uiTestUtils.getWidgetProperties<PopupMenuItem>(
       tester,
-      key: OVERVIEW_POPUP_FAVORITE_OPTION_KEY,
+      key: _keys.k_ov_flt_fav(),
     );
 
     var allProps = uiTestUtils.getWidgetProperties<PopupMenuItem>(
       tester,
-      key: OVERVIEW_POPUP_ALL_OPTION_KEY,
+      key: _keys.k_ov_flt_all(),
     );
     expect(favProps.enabled, true);
     expect(allProps.enabled, false);
@@ -86,23 +88,23 @@ class CustomAppbarTests {
 
     await _open_popup_check_options(tester);
 
-    await tester.tap(finder.key(OVERVIEW_POPUP_FAVORITE_OPTION_KEY));
+    await tester.tap(finder.key(_keys.k_ov_flt_fav()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
     await _open_popup_check_options(tester);
 
     var favProps = uiTestUtils.getWidgetProperties<PopupMenuItem>(
       tester,
-      key: OVERVIEW_POPUP_FAVORITE_OPTION_KEY,
+      key: _keys.k_ov_flt_fav(),
     );
     var allProps = uiTestUtils.getWidgetProperties<PopupMenuItem>(
       tester,
-      key: OVERVIEW_POPUP_ALL_OPTION_KEY,
+      key: _keys.k_ov_flt_all(),
     );
     expect(favProps.enabled, false);
     expect(allProps.enabled, true);
 
-    await tester.tap(finder.key(OVERVIEW_POPUP_ALL_OPTION_KEY));
+    await tester.tap(finder.key(_keys.k_ov_flt_all()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
   }
 
@@ -114,17 +116,17 @@ class CustomAppbarTests {
       applyDelay: true,
     );
 
-    var fav_button_key = OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY;
+    var fav_button_key = _keys.k_ov_grd_fav_btn();
 
     if (!isWidgetTest) await tester.tap(finder.key('$fav_button_key\0'));
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.iconType(Icons, Icons.favorite), findsNothing);
 
-    await tester.tap(finder.key(OVERVIEW_POPUP_APPBAR_BUTTON_KEY));
+    await tester.tap(finder.key(_keys.k_ov06()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
-    var favPopupOption = finder.key(OVERVIEW_POPUP_FAVORITE_OPTION_KEY);
+    var favPopupOption = finder.key(_keys.k_ov_flt_fav());
     await tester.ensureVisible(favPopupOption);
     await tester.tap(favPopupOption);
     await tester.pump();
@@ -141,16 +143,16 @@ class CustomAppbarTests {
       applyDelay: true,
     );
 
-    var popup = OVERVIEW_POPUP_APPBAR_BUTTON_KEY;
+    var popup = _keys.k_ov06();
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    await tester.tap(finder.key('$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0'));
+    await tester.tap(finder.key('${_keys.k_ov_grd_fav_btn}\0'));
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     await tester.tap(finder.key(popup));
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    await tester.tap(finder.key(OVERVIEW_POPUP_FAVORITE_OPTION_KEY));
+    await tester.tap(finder.key(_keys.k_ov_flt_fav()));
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.text(_labels.label_title_fav()), findsOneWidget);
@@ -159,16 +161,16 @@ class CustomAppbarTests {
     await tester.tap(finder.key(popup));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
-    await tester.tap(finder.key(OVERVIEW_POPUP_ALL_OPTION_KEY));
+    await tester.tap(finder.key(_keys.k_ov_flt_all()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
     expect(finder.text(_labels.label_title_appbar()), findsOneWidget);
   }
 
   Future<void> _open_popup_check_options(tester) async {
-    await tester.tap(finder.key(OVERVIEW_POPUP_APPBAR_BUTTON_KEY));
+    await tester.tap(finder.key(_keys.k_ov06()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    await tester.ensureVisible(finder.key(OVERVIEW_POPUP_FAVORITE_OPTION_KEY));
-    await tester.ensureVisible(finder.key(OVERVIEW_POPUP_ALL_OPTION_KEY));
+    await tester.ensureVisible(finder.key(_keys.k_ov_flt_fav()));
+    await tester.ensureVisible(finder.key(_keys.k_ov_flt_all()));
   }
 }

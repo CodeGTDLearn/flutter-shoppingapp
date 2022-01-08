@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/keys/custom_snackbar_keys.dart';
+import 'package:shopingapp/app/core/keys/global_widgets_keys.dart';
 import 'package:shopingapp/app/core/keys/modules/overview_keys.dart';
-import 'package:shopingapp/app/core/properties/app_db_urls.dart';
+import 'package:shopingapp/app/core/properties/db_urls.dart';
 
 import '../../../../config/app_tests_properties.dart';
 import '../../../../config/titles/overview_test_titles.dart';
@@ -24,6 +24,8 @@ class OverviewViewTest {
   final _titles = Get.put(OverviewTestTitles());
   final _testUtils = Get.put(TestsUtils());
   final _globalUtils = Get.put(TestsGlobalUtils());
+  final _keys = Get.find<OverviewKeys>();
+  final _keysSnack = Get.find<GlobalWidgetsKeys>();
 
   OverviewViewTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
@@ -73,7 +75,7 @@ class OverviewViewTest {
     testWidgets(_titles.toggle_favoriteButton_in_overviewGridItem, (tester) async {
       await _tests.toggle_favoriteButton_in_overviewGridItem(
         tester,
-        toggleButtonKey: "$OVERVIEW_GRID_ITEM_FAVORITE_BUTTON_KEY\0",
+        toggleButtonKey: "${_keys.k_ov_grd_fav_btn}\0",
         totalProducts: _products.length,
       );
     });
@@ -90,16 +92,16 @@ class OverviewViewTest {
         (tester) async {
       await _tests.add_product_click_undoSnackbar_check_shopCartIcon(
         tester,
-        addProductButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
+        addProductButtonKey: "${_keys.k_ov_grd_crt_btn}\0",
         productTitle: _products.elementAt(0).title,
-        snackbarUndoButtonKey: CUSTOM_SNACKBAR_BUTTON_KEY,
+        snackbarUndoButtonKey: _keysSnack.k_snackbar_btn(),
       );
     });
 
     testWidgets(_titles.add_sameProduct3x_check_shopCartIcon, (tester) async {
       await _tests.add_sameProduct3x_check_shopCartIcon(
         tester,
-        productAddButtonKey: "$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY\0",
+        productAddButtonKey: "${_keys.k_ov_grd_crt_btn}\0",
         qtdeToAdded: 3,
       );
     });
@@ -114,7 +116,7 @@ class OverviewViewTest {
     testWidgets(_titles.tap_product_details_check_texts, (tester) async {
       await _tests.check_product_details_backbutton_overview(
         tester,
-        productButtonKey: "$OVERVIEW_GRID_ITEM_DETAILS_KEY\1",
+        productButtonKey: "${_keys.k_ov_grd_crt_btn}\1",
         detailedProduct: _products.elementAt(1),
       );
     });
@@ -122,7 +124,7 @@ class OverviewViewTest {
     testWidgets(_titles.tap_product_details_check_image, (tester) async {
       await _tests.check_product_details_image_backbutton_overview(
         tester,
-        productButtonKey: "$OVERVIEW_GRID_ITEM_DETAILS_KEY\0",
+        productButtonKey: "${_keys.k_ov_grd_crt_btn}\0",
         detailedProduct: _products.elementAt(0),
       );
     });

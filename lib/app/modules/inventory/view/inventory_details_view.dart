@@ -4,15 +4,15 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 
-import '../../../core/custom_widgets/appbar/custom_appbar.dart';
-import '../../../core/custom_widgets/snackbar/simple_snackbar.dart';
-import '../../../core/icons/modules/inventory/inventory_details_icons.dart';
+import '../../../core/global_widgets/appbar/custom_appbar.dart';
+import '../../../core/global_widgets/snackbar/simple_snackbar.dart';
+import '../../../core/icons/modules/inventory_icons.dart';
 import '../../../core/keys/modules/inventory_keys.dart';
-import '../../../core/properties/app_owasp_regex.dart';
-import '../../../core/properties/app_properties.dart';
-import '../../../core/texts/general_words.dart';
-import '../../../core/texts/messages.dart';
-import '../../../core/texts/modules/inventory_labels.dart';
+import '../../../core/labels/global_labels.dart';
+import '../../../core/labels/message_labels.dart';
+import '../../../core/labels/modules/inventory_labels.dart';
+import '../../../core/properties/owasp_regex.dart';
+import '../../../core/properties/properties.dart';
 import '../../../core/utils/animations_utils.dart';
 import '../components/custom_form_field/custom_form_field.dart';
 import '../components/custom_form_field/field_properties/description_properties.dart';
@@ -41,15 +41,21 @@ class InventoryDetailsView extends StatefulWidget {
 }
 
 class _InventoryDetailsViewState extends State<InventoryDetailsView> {
-  final _words = Get.find<GeneralWords>();
+  final _words = Get.find<GlobalLabels>();
   final _labels = Get.find<InventoryLabels>();
   final _appbar = Get.find<CustomAppBar>();
   final _controller = Get.find<InventoryController>();
   final _animations = Get.find<AnimationsUtils>();
-  final _icons = Get.find<InventoryDetailsIcons>();
-  final _messages = Get.find<Messages>();
+  final _icons = Get.find<InventoryIcons>();
+  final _messages = Get.find<MessageLabels>();
+  final _keys = Get.find<InventoryKeys>();
+  late var _formKey;
 
-  final _formKey = K_INV_FORM_GKEY;
+  @override
+  void initState() {
+    super.initState();
+     _formKey = _keys.k_inv_form_gkey();
+  }
 
   late Product _product;
   var _urlControl;
@@ -63,12 +69,13 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     _definingFormTask_updateOrAdd();
     return Scaffold(
         appBar: _appbar.create(
-            Get.arguments == null ? _labels.INV_EDT_LBL_ADD_APPBAR() :
-            _labels.INV_EDT_LBL_EDIT_APPBAR(),
+            Get.arguments == null
+                ? _labels.INV_EDT_LBL_ADD_APPBAR()
+                : _labels.INV_EDT_LBL_EDIT_APPBAR(),
             Get.back,
             actions: [
               IconButton(
-                  key: Key(K_INV_ADDEDIT_SAVE_BTN),
+                  key: Key(_keys.k_inv_edit_save_btn()),
                   icon: _icons.ico_btn_appbar(),
                   onPressed: () => _saveForm(context))
             ]),
@@ -83,7 +90,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
                       initialValue: _product.title,
                       context: context,
                       label: _labels.INV_EDT_LBL_TITLE(),
-                      key: K_INV_ADDEDIT_FLD_TITLE,
+                      key: _keys.k_inv_edit_fld_title(),
                       validator: TitleValidator().validator(),
                       onFieldSubmitted: (_) => _setFocus(_nodePrice, context)),
                   CustomFormField(PriceProperties()).create(
@@ -91,7 +98,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
                       initialValue: _product.price.toString(),
                       context: context,
                       label: _labels.INV_EDT_LBL_PRICE(),
-                      key: K_INV_ADDEDIT_FLD_PRICE,
+                      key: _keys.k_inv_edit_fld_price(),
                       validator: PriceValidator().validator(),
                       onFieldSubmitted: (_) => _setFocus(_nodeDescr, context),
                       node: _nodePrice,
@@ -102,7 +109,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
                       initialValue: _product.description,
                       context: context,
                       label: _labels.INV_EDT_LBL_DESCR(),
-                      key: K_INV_ADDEDIT_FLD_DESCR,
+                      key: _keys.k_inv_edit_fld_descr(),
                       validator: DescriptionValidator().validator(),
                       onFieldSubmitted: (_) => _setFocus(_nodeImgUrl, context),
                       node: _nodeDescr),
@@ -127,7 +134,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
                             initialValue: _product.imageUrl,
                             context: context,
                             label: _labels.INV_EDT_LBL_IMGURL(),
-                            key: K_INV_ADDEDIT_FLD_IMGURL,
+                            key: _keys.k_inv_edit_fld_imgurl(),
                             validator: UrlValidator().validator(),
                             onFieldSubmitted: (_) => _saveForm(context),
                             node: _nodeImgUrl,

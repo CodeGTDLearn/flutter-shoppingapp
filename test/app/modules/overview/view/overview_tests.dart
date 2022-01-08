@@ -21,6 +21,7 @@ class OverviewTests {
   final UiTestUtils uiTestUtils;
   final TestDbUtils dbTestUtils;
   final TestsUtils testUtils;
+  final _keys = Get.find<OverviewKeys>();
 
   OverviewTests({
     required this.finder,
@@ -63,7 +64,7 @@ class OverviewTests {
     final _controller = Get.find<CartController>();
 
     for (var i = 0; i < qtdeToAdded; i++) {
-      var addProductButtonKey = '$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY$i';
+      var addProductButtonKey = '${_keys.k_ov_grd_crt_btn}$i';
       await tester.tap(finder.key(addProductButtonKey));
       await tester.pumpAndSettle(testUtils.delay(DELAY));
       expect(
@@ -140,7 +141,7 @@ class OverviewTests {
     final _controller = Get.find<CartController>();
 
     for (var i = 0; i < qtdeToAdded; i++) {
-      var addProductButtonKey = '$OVERVIEW_GRID_ITEM_CART_BUTTON_KEY$i';
+      var addProductButtonKey = '${_keys.k_ov_grd_crt_btn}$i';
       await tester.tap(finder.key(addProductButtonKey));
       await tester.pump();
       await tester.pumpAndSettle(testUtils.delay(DELAY));

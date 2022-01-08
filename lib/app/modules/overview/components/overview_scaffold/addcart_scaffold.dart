@@ -6,32 +6,33 @@ import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 
-import '../../../../core/custom_widgets/custom_indicator.dart';
-import '../../../../core/custom_widgets/snackbar/simple_snackbar.dart';
+import '../../../../core/global_widgets/custom_indicator.dart';
+import '../../../../core/global_widgets/snackbar/simple_snackbar.dart';
 import '../../../../core/icons/modules/overview_icons.dart';
 import '../../../../core/keys/modules/overview_keys.dart';
-import '../../../../core/properties/app_routes.dart';
-import '../../../../core/texts/general_words.dart';
-import '../../../../core/texts/messages.dart';
+import '../../../../core/labels/global_labels.dart';
+import '../../../../core/labels/message_labels.dart';
+import '../../../../core/properties/routes.dart';
 import '../../../cart/controller/cart_controller.dart';
 import '../custom_grid_item/animated_grid_item.dart';
-import 'icustom_scaffold.dart';
+import 'ioverview_scaffold.dart';
 
 
-class AddCartScaffold implements ICustomScaffold {
+class AddCartScaffold implements IOverviewScaffold {
   final _icons = Get.find<OverviewIcons>();
   final _cartController = Get.find<CartController>();
   GlobalKey<CartIconKey> gkCart = GlobalKey<CartIconKey>();
   late Function(GlobalKey) runAddToCardAnimation;
-  final _messages = Get.find<Messages>();
-  final _words = Get.find<GeneralWords>();
+  final _messages = Get.find<MessageLabels>();
+  final _words = Get.find<GlobalLabels>();
+  final _keys = Get.find<OverviewKeys>();
 
-  Widget customScaffold(_drawer, _controller, _appbar) {
+  Widget overviewScaffold(_drawer, _controller, _appbar) {
     _appbar.cart = GestureDetector(
       onTap: () {
         _cartController.getAllCartItems().isEmpty
             ? SimpleSnackbar().show(_words.ops(), _messages.cart_no_items_yet())
-            : Get.toNamed(AppRoutes.CART);
+            : Get.toNamed(Routes.CART);
       },
       child: AddToCartIcon(key: gkCart, icon: _icons.ico_shopcart()),
     );
@@ -51,7 +52,7 @@ class AddCartScaffold implements ICustomScaffold {
           runAddToCardAnimation = addToCardAnimationMethod;
         },
         child: Scaffold(
-          key: K_OV_SCFLD_GLOB_KEY,
+          key: _keys.k_ov_scfld_glob_key(),
           appBar: _appbar,
           drawer: _drawer,
           body: Obx(() => (_controller.gridItemsObs.value.isEmpty

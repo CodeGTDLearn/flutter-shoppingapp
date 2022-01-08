@@ -2,23 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 
-import '../../../../core/custom_widgets/badge_cart.dart';
-import '../../../../core/custom_widgets/custom_indicator.dart';
+import '../../../../core/global_widgets/badge_cart.dart';
+import '../../../../core/global_widgets/custom_indicator.dart';
 import '../../../../core/keys/modules/overview_keys.dart';
-import '../../../../core/texts/messages.dart';
+import '../../../../core/labels/message_labels.dart';
 import '../custom_grid_item/animated_grid_item.dart';
-import '../overview_appbar/filter_options.dart';
-import 'icustom_scaffold.dart';
+import '../overview_appbar/filter_options_enum.dart';
+import 'ioverview_scaffold.dart';
 
-class SimpleScaffold implements ICustomScaffold {
-  final _messages = Get.find<Messages>();
+class SimpleScaffold implements IOverviewScaffold {
+  final _messages = Get.find<MessageLabels>();
+  final _keys = Get.find<OverviewKeys>();
 
-  Widget customScaffold(_drawer, _controller, _sliverAppbar,) {
-    _controller.applyPopupFilter(FilterOptions.All);
+  Widget overviewScaffold(_drawer, _controller, _sliverAppbar,) {
+    _controller.applyPopupFilter(FilterOptionsEnum.All);
     _sliverAppbar.cart = Get.find<BadgeCart>();
 
     return Scaffold(
-        key: K_OV_SCFLD_GLOB_KEY,
+        key: _keys.k_ov_scfld_glob_key(),
         drawer: _drawer,
         body: Obx(() => _controller.gridItemsObs.value.isEmpty
             ? SingleChildScrollView(

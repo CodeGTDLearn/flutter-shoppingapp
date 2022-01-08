@@ -1,7 +1,7 @@
 import 'package:get/state_manager.dart';
 
 import '../../inventory/entity/product.dart';
-import '../components/overview_appbar/filter_options.dart';
+import '../components/overview_appbar/filter_options_enum.dart';
 import '../service/i_overview_service.dart';
 
 class OverviewController extends GetxController {
@@ -10,7 +10,7 @@ class OverviewController extends GetxController {
   //OVERVIEW VIEW -> OBSERVABLES
   var gridItemsObs = <Product>[].obs;
   var favoriteStatusObs = false.obs;
-  var appbarFilterOptionObs = FilterOptions.All.obs;
+  var appbarFilterOptionObs = FilterOptionsEnum.All.obs;
   var gridItemElevateAnimationObs = true.obs;
 
   //OVERVIEW-DETAILS -> OBSERVABLES
@@ -37,12 +37,12 @@ class OverviewController extends GetxController {
     service.deleteProductInLocalDataLists(productId);
   }
 
-  void applyPopupFilter(FilterOptions filter) {
+  void applyPopupFilter(FilterOptionsEnum filter) {
     appbarFilterOptionObs.value = filter;
 
-    gridItemsObs.assignAll(filter == FilterOptions.Fav
-        ? service.setProductsByFilter(FilterOptions.Fav)
-        : service.setProductsByFilter(FilterOptions.All));
+    gridItemsObs.assignAll(filter == FilterOptionsEnum.Fav
+        ? service.setProductsByFilter(FilterOptionsEnum.Fav)
+        : service.setProductsByFilter(FilterOptionsEnum.All));
   }
 
   Future<bool> toggleFavoriteStatus(String id) {

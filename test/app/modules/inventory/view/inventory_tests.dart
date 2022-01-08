@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/keys/custom_drawer_keys.dart';
+import 'package:shopingapp/app/core/keys/global_widgets_keys.dart';
 import 'package:shopingapp/app/core/keys/modules/inventory_keys.dart';
 import 'package:shopingapp/app/core/keys/modules/overview_keys.dart';
-import 'package:shopingapp/app/core/properties/app_db_urls.dart';
-import 'package:shopingapp/app/core/texts/messages.dart';
-import 'package:shopingapp/app/core/texts/modules/inventory_labels.dart';
+import 'package:shopingapp/app/core/labels/message_labels.dart';
+import 'package:shopingapp/app/core/labels/modules/inventory_labels.dart';
+import 'package:shopingapp/app/core/properties/db_urls.dart';
 import 'package:shopingapp/app/modules/inventory/components/custom_listtile/simple_listtile.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/inventory/view/inventory_details_view.dart';
@@ -28,8 +28,11 @@ class InventoryTests {
   final UiTestUtils uiTestUtils;
   final TestDbUtils dbTestUtils;
   final TestsUtils testUtils;
-  final _messages = Get.find<Messages>();
+  final _messages = Get.find<MessageLabels>();
   final _labels = Get.find<InventoryLabels>();
+  final _keys = Get.find<GlobalWidgetsKeys>();
+  final _keysOv = Get.find<OverviewKeys>();
+  final _keysInv = Get.find<InventoryKeys>();
 
   InventoryTests({
     required this.isWidgetTest,
@@ -50,8 +53,8 @@ class InventoryTests {
     await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: DELAY,
-      optionKey: DRAWER_INVENTORY_OPTION_KEY,
-      scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
+      optionKey: _keys.k_drw_inventory_opt4(),
+      scaffoldGlobalKey: _keysOv.k_ov_scfld_glob_key(),
     );
 
     await uiTestUtils.navigateBetweenViews(
@@ -79,8 +82,8 @@ class InventoryTests {
     await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: interval,
-      optionKey: DRAWER_INVENTORY_OPTION_KEY,
-      scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
+      optionKey: _keys.k_drw_inventory_opt4(),
+      scaffoldGlobalKey: _keysOv.k_ov_scfld_glob_key(),
     );
 
     uiTestUtils.check_widgetQuantityInAView(
@@ -117,8 +120,8 @@ class InventoryTests {
     await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: DELAY,
-      optionKey: DRAWER_INVENTORY_OPTION_KEY,
-      scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
+      optionKey: _keys.k_drw_inventory_opt4(),
+      scaffoldGlobalKey: _keysOv.k_ov_scfld_glob_key(),
     );
 
     if (!isWidgetTest) {
@@ -132,7 +135,7 @@ class InventoryTests {
     }
 
     await tester.drag(
-      finder.key('$INVENTORY_ITEM_KEY${draggerWidget.id}'),
+      finder.key('${_keysInv.k_inv_item_key}${draggerWidget.id}'),
       Offset(0.0, 150.0),
     );
 
@@ -158,15 +161,15 @@ class InventoryTests {
     );
 
     var keyUpdateButton =
-        finder.key('$INVENTORY_UPDATEITEM_BUTTON_KEY${productToUpdate.id}');
+        finder.key('${_keysInv.k_inv_upd_btn}${productToUpdate.id}');
 
     // 1) InventoryView
     //   -> Check 'InventoryView' + 'InventoryItem'
     await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: DELAY,
-      optionKey: DRAWER_INVENTORY_OPTION_KEY,
-      scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
+      optionKey: _keys.k_drw_inventory_opt4(),
+      scaffoldGlobalKey: _keysOv.k_ov_scfld_glob_key(),
     );
     expect(finder.type(InventoryView), findsOneWidget);
     expect(finder.type(SimpleListTile), findsWidgets);
@@ -194,7 +197,7 @@ class InventoryTests {
     await tester.enterText(finder.key(fieldKey), inputValidText);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
-    await tester.tap(finder.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
+    await tester.tap(finder.key(_keysInv.k_inv_edit_save_btn()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
     // 3.1) Save form
@@ -237,13 +240,13 @@ class InventoryTests {
     );
 
     var keyUpdateButton =
-        finder.key('$INVENTORY_UPDATEITEM_BUTTON_KEY${productToUpdate.id}');
+        finder.key('${_keysInv.k_inv_upd_btn}${productToUpdate.id}');
 
     await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: DELAY,
-      optionKey: DRAWER_INVENTORY_OPTION_KEY,
-      scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
+      optionKey: _keys.k_drw_inventory_opt4(),
+      scaffoldGlobalKey: _keysOv.k_ov_scfld_glob_key(),
     );
 
     // 1) InventoryView
@@ -259,8 +262,8 @@ class InventoryTests {
     //   -> Checking View + Title-Form-Field
 
     for (var i = 1; i <= 2; i++) {
-      var isPriceField = fieldKey == INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY;
-      var isUrlField = fieldKey == INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY;
+      var isPriceField = fieldKey == _keysInv.k_inv_edit_fld_price;
+      var isUrlField = fieldKey == _keysInv.k_inv_edit_fld_imgurl;
 
       inputText = i == 1
           ? inputText
@@ -285,7 +288,7 @@ class InventoryTests {
       //      - ONLY IN FUNCTIONAL-TESTS: Backing to InventoryView automatically
       //   -> Test existence of INValidation messages
       //   -> Go to InventoryView + Checking UpdatedValue
-      await tester.tap(finder.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
+      await tester.tap(finder.key(_keysInv.k_inv_edit_save_btn()));
       // await tester.pump();
       await tester.pumpAndSettle(testUtils.delay(DELAY));
 
@@ -337,8 +340,8 @@ class InventoryTests {
     await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: DELAY,
-      optionKey: DRAWER_INVENTORY_OPTION_KEY,
-      scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
+      optionKey: _keys.k_drw_inventory_opt4(),
+      scaffoldGlobalKey: _keysOv.k_ov_scfld_glob_key(),
     );
 
     await tester.tap(finder.key(deleteButtonKey));
@@ -381,8 +384,8 @@ class InventoryTests {
     await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: DELAY,
-      optionKey: DRAWER_INVENTORY_OPTION_KEY,
-      scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
+      optionKey: _keys.k_drw_inventory_opt4(),
+      scaffoldGlobalKey: _keysOv.k_ov_scfld_glob_key(),
     );
 
     uiTestUtils.check_widgetQuantityInAView(
@@ -397,12 +400,12 @@ class InventoryTests {
     await uiTestUtils.openDrawer_SelectAnOption(
       tester,
       interval: DELAY,
-      optionKey: DRAWER_INVENTORY_OPTION_KEY,
-      scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
+      optionKey: _keys.k_drw_inventory_opt4(),
+      scaffoldGlobalKey: _keysOv.k_ov_scfld_glob_key(),
     );
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    await tester.tap(finder.key(INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY));
+    await tester.tap(finder.key(_keysInv.k_inv_add_btn_appbar()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(InventoryDetailsView), findsOneWidget);
   }
@@ -421,8 +424,8 @@ class InventoryTests {
     await UiTestUtils().openDrawer_SelectAnOption(
       tester,
       interval: interval,
-      optionKey: DRAWER_INVENTORY_OPTION_KEY,
-      scaffoldGlobalKey: DRAWWER_SCAFFOLD_GLOBALKEY,
+      optionKey: _keys.k_drw_inventory_opt4(),
+      scaffoldGlobalKey: _keysOv.k_ov_scfld_glob_key(),
     );
 
     expect(_finder.type(InventoryView), findsOneWidget);
@@ -433,7 +436,7 @@ class InventoryTests {
       await UiTestUtils().tapButton_CheckResult(
         tester,
         interval: interval,
-        triggerKey: INVENTORY_APPBAR_ADDPRODUCT_BUTTON_KEY,
+        triggerKey: _keysInv.k_inv_add_btn_appbar(),
         resultWidget: InventoryDetailsView,
       );
 
@@ -446,22 +449,22 @@ class InventoryTests {
 
       invalidText = "d";
       await tester.enterText(
-        _finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY),
+        _finder.key(_keysInv.k_inv_edit_fld_title()),
         validTexts ? "Red Tomatoes" : invalidText,
       );
 
       await tester.enterText(
-        _finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY),
+        _finder.key(_keysInv.k_inv_edit_fld_price()),
         validTexts ? (99.99).toString() : invalidText,
       );
 
       await tester.enterText(
-        _finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY),
+        _finder.key(_keysInv.k_inv_edit_fld_descr()),
         validTexts ? "The best Red tomatoes ever. It is super red!" : invalidText,
       );
 
       await tester.enterText(
-        _finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY),
+        _finder.key(_keysInv.k_inv_edit_fld_imgurl()),
         validTexts ? TEST_IMAGE_URL_MAP.values.elementAt(0) : invalidText,
       );
 
@@ -471,7 +474,7 @@ class InventoryTests {
       await UiTestUtils().tapButton_CheckResult(
         tester,
         interval: interval,
-        triggerKey: INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY,
+        triggerKey: _keysInv.k_inv_edit_save_btn(),
         resultWidget: SimpleListTile,
       );
 
@@ -518,24 +521,24 @@ class InventoryTests {
     expect(finder.text(_labels.INV_EDT_LBL_IMGURL()), findsOneWidget);
 
     await tester.enterText(
-      finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY),
+      finder.key(_keysInv.k_inv_edit_fld_title()),
       useValidTexts ? validTitle : invalidText,
     );
     //Price is blocked against INVALID CONTENT, so there is no need to test it.
     await tester.enterText(
-        finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY), validPrice);
+        finder.key(_keysInv.k_inv_edit_fld_price()), validPrice);
     await tester.enterText(
-      finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY),
+      finder.key(_keysInv.k_inv_edit_fld_descr()),
       useValidTexts ? validDesc : invalidText,
     );
     await tester.enterText(
-      finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY),
+      finder.key(_keysInv.k_inv_edit_fld_imgurl()),
       useValidTexts ? validImgUrl : invalidText,
     );
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
-    await tester.tap(finder.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
+    await tester.tap(finder.key(_keysInv.k_inv_edit_save_btn()));
     await tester.pump(testUtils.delay(DELAY));
 
     useValidTexts
@@ -575,38 +578,42 @@ class InventoryTests {
     expect(finder.text(_labels.INV_EDT_LBL_IMGURL()), findsOneWidget);
 
     await tester.enterText(
-      finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY),
+      finder.key(_keysInv.k_inv_edit_fld_title()),
       useValidTexts ? validTitle : invalidText,
     );
     //Price is blocked against INVALID CONTENT, so there is no need to test it.
-    await tester.enterText(finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY), '2');
+    await tester.enterText(finder.key(_keysInv.k_inv_edit_fld_price())
+        , '2');
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.text('\$0.02'), findsOneWidget);
 
-    await tester.enterText(finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY), '22');
+    await tester.enterText(finder.key(_keysInv.k_inv_edit_fld_price())
+        , '22');
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.text('\$0.22'), findsOneWidget);
 
-    await tester.enterText(finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY), '222');
+    await tester.enterText(finder.key(_keysInv.k_inv_edit_fld_price())
+        , '222');
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.text('\$2.22'), findsOneWidget);
 
-    await tester.enterText(finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY), '2222');
+    await tester.enterText(finder.key(_keysInv.k_inv_edit_fld_price())
+        , '2222');
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.text('\$22.22'), findsOneWidget);
 
     await tester.enterText(
-      finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY),
+      finder.key(_keysInv.k_inv_edit_fld_descr()),
       useValidTexts ? validDesc : invalidText,
     );
     await tester.enterText(
-      finder.key(INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY),
+      finder.key(_keysInv.k_inv_edit_fld_imgurl()),
       useValidTexts ? validImgUrl : invalidText,
     );
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
-    await tester.tap(finder.key(INVENTORY_ADDEDIT_VIEW_SAVEBUTTON_KEY));
+    await tester.tap(finder.key(_keysInv.k_inv_edit_save_btn()));
     await tester.pump(testUtils.delay(DELAY));
 
     useValidTexts

@@ -5,7 +5,6 @@ class OverviewIcons {
   final _POPUP_APPBAR = Icon(Icons.more_vert);
   final _FAVORITES = Icon(Icons.favorite);
   final _NO_FAVORITES = Icon(Icons.favorite_border);
-
   final _FAVORITES_NOTIFICATION =
       Icon(Icons.notifications_active, color: Colors.white);
 

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
 
-import '../../../../core/custom_widgets/snackbar/button_snackbar.dart';
-import '../../../../core/custom_widgets/snackbar/simple_snackbar.dart';
+import '../../../../core/global_widgets/snackbar/button_snackbar.dart';
+import '../../../../core/global_widgets/snackbar/simple_snackbar.dart';
 import '../../../../core/icons/modules/overview_icons.dart';
 import '../../../../core/keys/modules/overview_keys.dart';
-import '../../../../core/properties/app_properties.dart';
-import '../../../../core/texts/general_words.dart';
-import '../../../../core/texts/messages.dart';
+import '../../../../core/labels/global_labels.dart';
+import '../../../../core/labels/message_labels.dart';
+import '../../../../core/properties/properties.dart';
 import '../../../../core/utils/animations_utils.dart';
 import '../../../cart/controller/cart_controller.dart';
 import '../../../inventory/entity/product.dart';
@@ -27,8 +27,9 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
   final String index;
   final void Function(GlobalKey)? onClick;
   final GlobalKey imageGlobalKey = GlobalKey();
-  final _messages = Get.find<Messages>();
-  final _words = Get.find<GeneralWords>();
+  final _messages = Get.find<MessageLabels>();
+  final _words = Get.find<GlobalLabels>();
+  final _keys = Get.find<OverviewKeys>();
 
   AnimatedGridItem(this._product, this.index, {this.onClick});
 
@@ -72,7 +73,7 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
     return _animations.openContainer(
       openingWidget: OverviewItemDetailsView(product.id),
       closingWidget: GridTile(
-          key: Key("$K_OV_ITM_DET_PAGE$index"),
+          key: Key("${_keys.k_ov_itm_det_page()}$index"),
           child: Container(
               key: imageGlobalKey,
               child:
@@ -80,7 +81,7 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
           footer: GridTileBar(
               leading:
                   Obx(() => _favoriteButton(index, context, uniqueController, product)),
-              title: Text(product.title, key: Key("$K_OV_GRD_PRD_TIT$index")),
+              title: Text(product.title, key: Key("${_keys.k_ov_grd_prd_tit()}$index")),
               trailing: _shopCartButton(index, uniqueController, product, context),
               backgroundColor: Colors.black87)),
     );
@@ -89,7 +90,7 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
   IconButton _favoriteButton(
       String index, context, OverviewController uniqueController, Product product) {
     return IconButton(
-        key: Key("$K_OV_GRD_FAV_BTN$index"),
+        key: Key("${_keys.k_ov_grd_fav_btn}$index"),
         color: Theme.of(context).colorScheme.secondary,
         icon: uniqueController.favoriteStatusObs.value
             ? _icons.ico_fav()
@@ -106,7 +107,7 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
   IconButton _shopCartButton(
       String index, OverviewController uniqueController, Product product, context) {
     return IconButton(
-        key: Key("$K_OV_GRD_CRT_BTN$index"),
+        key: Key("${_keys.k_ov_grd_crt_btn}$index"),
         icon: _icons.ico_shopcart(),
         onPressed: () {
           uniqueController.elevateGridItemAnimation(false);

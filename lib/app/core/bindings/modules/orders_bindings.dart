@@ -7,18 +7,17 @@ import '../../../modules/orders/repo/i_orders_repo.dart';
 import '../../../modules/orders/repo/orders_repo_http.dart';
 import '../../../modules/orders/service/i_orders_service.dart';
 import '../../../modules/orders/service/orders_service.dart';
-import '../custom_widgets/custom_appbars_binding.dart';
+import '../../labels/modules/orders_labels.dart';
+import '../global_widgets/appbars_bindings.dart';
 
 class OrdersBindings extends Bindings {
   void dependencies() {
-
-    CustomAppbarsBinding().dependencies();
+    Get.lazyPut(() => OrdersLabels());
+    AppbarsBindings().dependencies();
     Get.lazyPut<ICustomOrderTile>(() => ExpandableTile());
 
     Get.lazyPut<IOrdersRepo>(() => OrdersRepoHttp());
     Get.lazyPut<IOrdersService>(() => OrdersService(repo: Get.find<IOrdersRepo>()));
-    Get.lazyPut<OrdersController>(() => OrdersController(
-          service: Get.find<IOrdersService>()
-        ));
+    Get.lazyPut(() => OrdersController(service: Get.find<IOrdersService>()));
   }
 }

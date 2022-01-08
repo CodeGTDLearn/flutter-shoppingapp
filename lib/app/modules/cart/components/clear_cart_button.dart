@@ -3,29 +3,30 @@ import 'package:flutter/widgets.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 
-import '../../../core/custom_widgets/custom_alert_dialog.dart';
-import '../../../core/custom_widgets/snackbar/simple_snackbar.dart';
+import '../../../core/global_widgets/custom_alert_dialog.dart';
+import '../../../core/global_widgets/snackbar/simple_snackbar.dart';
 import '../../../core/icons/modules/cart_icons.dart';
 import '../../../core/keys/modules/cart_keys.dart';
-import '../../../core/properties/app_properties.dart';
-import '../../../core/texts/general_words.dart';
-import '../../../core/texts/messages.dart';
-import '../../../core/texts/modules/cart_labels.dart';
+import '../../../core/labels/global_labels.dart';
+import '../../../core/labels/message_labels.dart';
+import '../../../core/labels/modules/cart_labels.dart';
+import '../../../core/properties/properties.dart';
 import '../controller/cart_controller.dart';
 
 class ClearCartButton extends StatelessWidget {
   final CartController _controller;
   final _icons = Get.find<CartIcons>();
-  final _messages = Get.find<Messages>();
-  final _words = Get.find<GeneralWords>();
+  final _messages = Get.find<MessageLabels>();
+  final _words = Get.find<GlobalLabels>();
   final _labels = Get.find<CartLabels>();
+  final _keys = Get.find<CartKeys>();
 
   ClearCartButton(this._controller);
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-        key: Key(K_CRT_CLR_CART_BTN),
+        key: Key(_keys.k_crt_clearcart_btn()),
         icon: _icons.ico_clear(),
         onPressed: () => CustomAlertDialog.showOptionDialog(
               context,

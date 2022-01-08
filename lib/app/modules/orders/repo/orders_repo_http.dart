@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../../../core/properties/app_db_urls.dart';
+import '../../../core/properties/db_urls.dart';
 import '../entity/order.dart';
 import 'i_orders_repo.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/keys/modules/inventory_keys.dart';
-import 'package:shopingapp/app/core/properties/app_db_urls.dart';
+import 'package:shopingapp/app/core/properties/db_urls.dart';
 import 'package:shopingapp/app/modules/inventory/components/custom_listtile/simple_listtile.dart';
 
 import '../../../../config/app_tests_properties.dart';
@@ -24,6 +24,7 @@ class InventoryViewTest {
   final _titles = Get.put(InventoryTestTitles());
   final _globalUtils = Get.put(TestsGlobalUtils());
   final _testUtils = Get.put(TestsUtils());
+  final _keysInv = Get.find<InventoryKeys>();
 
   InventoryViewTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
@@ -74,7 +75,7 @@ class InventoryViewTest {
         await _tests.update_product(
           tester,
           inputValidText: "XXXXXX",
-          fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
+          fieldKey: _keysInv.k_inv_edit_fld_title(),
           productToUpdate: _products.elementAt(0),
         );
       },
@@ -86,7 +87,7 @@ class InventoryViewTest {
         await _tests.delete_product(
           tester,
           deleteButtonKey:
-              '$INVENTORY_DELETEITEM_BUTTON_KEY${_products[_products.length - 1].id}',
+              '${_keysInv.k_inv_del_btn}${_products[_products.length - 1].id}',
           widgetTypetoBeDeleted: SimpleListTile,
           qtdeAfterDelete: _products.length - 1,
         );

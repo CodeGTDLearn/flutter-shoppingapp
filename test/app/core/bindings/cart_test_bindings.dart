@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get_common/get_reset.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/theme/app_theme_controller.dart';
+import 'package:shopingapp/app/core/labels/message_labels.dart';
+import 'package:shopingapp/app/core/theme/global_theme_controller.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/cart/repo/cart_repo.dart';
 import 'package:shopingapp/app/modules/cart/repo/i_cart_repo.dart';
@@ -26,53 +26,27 @@ class CartTestBindings {
   void _bindingsBuilder(ICartRepo cartRepo) {
     Get.reset();
 
-    expect(Get.isPrepared<AppThemeController>(), isFalse);
-
-    expect(Get.isPrepared<IOverviewRepo>(), isFalse);
-    expect(Get.isPrepared<IOverviewService>(), isFalse);
-    expect(Get.isPrepared<OverviewController>(), isFalse);
-
-    expect(Get.isPrepared<IOrdersRepo>(), isFalse);
-    expect(Get.isPrepared<IOrdersService>(), isFalse);
-
-    expect(Get.isPrepared<ICartRepo>(), isFalse);
-    expect(Get.isPrepared<ICartService>(), isFalse);
-    expect(Get.isPrepared<CartController>(), isFalse);
-
     var binding = BindingsBuilder(() {
-      Get.lazyPut<AppThemeController>(() => AppThemeController());
+      Get.lazyPut(() => MessageLabels());
+      Get.lazyPut(() => GlobalThemeController());
 
       Get.lazyPut<IOverviewRepo>(() => OverviewMockedRepo());
       Get.lazyPut<IOverviewService>(
-          () => OverviewService(repo: Get.find<IOverviewRepo>()));
-      Get.lazyPut<OverviewController>(
-          () => OverviewController(service: Get.find<IOverviewService>()));
+        () => OverviewService(repo: Get.find<IOverviewRepo>()),
+      );
+      Get.lazyPut(() => OverviewController(service: Get.find<IOverviewService>()));
 
       Get.lazyPut<IOrdersRepo>(() => OrdersMockedRepo());
       Get.lazyPut<IOrdersService>(() => OrdersService(repo: Get.find<IOrdersRepo>()));
 
       Get.lazyPut<ICartRepo>(() => cartRepo);
-
       Get.lazyPut<ICartService>(() => CartService(repo: Get.find<ICartRepo>()));
-      Get.lazyPut<CartController>(() => CartController(
+      Get.lazyPut(() => CartController(
           cartService: Get.find<ICartService>(),
           ordersService: Get.find<IOrdersService>()));
     });
 
     binding.builder();
-
-    expect(Get.isPrepared<AppThemeController>(), isTrue);
-
-    expect(Get.isPrepared<IOverviewRepo>(), isTrue);
-    expect(Get.isPrepared<IOverviewService>(), isTrue);
-    expect(Get.isPrepared<OverviewController>(), isTrue);
-
-    expect(Get.isPrepared<IOrdersRepo>(), isTrue);
-    expect(Get.isPrepared<IOrdersService>(), isTrue);
-
-    expect(Get.isPrepared<ICartRepo>(), isTrue);
-    expect(Get.isPrepared<ICartService>(), isTrue);
-    expect(Get.isPrepared<CartController>(), isTrue);
 
     HttpOverrides.global = null;
   }

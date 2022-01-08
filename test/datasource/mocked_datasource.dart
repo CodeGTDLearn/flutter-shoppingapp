@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/orders/entity/order.dart';
-import 'package:shopingapp/app/modules/overview/components/overview_appbar/filter_options.dart';
+import 'package:shopingapp/app/modules/overview/components/overview_appbar/filter_options_enum.dart';
 
 import '../config/app_tests_properties.dart';
 
@@ -43,8 +43,8 @@ class MockedDatasource {
     return list.firstWhere((element) => element.id == id);
   }
 
-  List<Product> productsByFilter(FilterOptions filter) {
-    return filter == FilterOptions.All
+  List<Product> productsByFilter(FilterOptionsEnum filter) {
+    return filter == FilterOptionsEnum.All
         ? MockedDatasource().products()
         : MockedDatasource().favoritesProducts();
   }

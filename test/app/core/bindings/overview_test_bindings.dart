@@ -1,11 +1,10 @@
 import 'dart:io';
 
-import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get_common/get_reset.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/bindings/modules/cart_bindings.dart';
-import 'package:shopingapp/app/core/theme/app_theme_controller.dart';
-import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
+import 'package:shopingapp/app/core/labels/message_labels.dart';
+import 'package:shopingapp/app/core/theme/global_theme_controller.dart';
 import 'package:shopingapp/app/modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
@@ -32,39 +31,22 @@ class OverviewTestBindings {
   void _bindingsBuilder(IOverviewRepo overviewRepo) {
     Get.reset();
 
-    expect(Get.isPrepared<AppThemeController>(), isFalse);
-    expect(Get.isPrepared<IOverviewRepo>(), isFalse);
-    expect(Get.isPrepared<IOverviewService>(), isFalse);
-    expect(Get.isPrepared<OverviewController>(), isFalse);
-    expect(Get.isPrepared<CartController>(), isFalse);
-
     var binding = BindingsBuilder(() {
-      Get.lazyPut<IOverviewRepo>(() => overviewRepo);
+      Get.lazyPut(() => GlobalThemeController());
+      Get.lazyPut(() => MessageLabels());
 
+      Get.lazyPut<IOverviewRepo>(() => overviewRepo);
       Get.lazyPut<IOverviewService>(
           () => OverviewService(repo: Get.find<IOverviewRepo>()));
-      Get.lazyPut<OverviewController>(
-          () => OverviewController(service: Get.find<IOverviewService>()));
-
-      Get.lazyPut<AppThemeController>(() => AppThemeController());
+      Get.lazyPut(() => OverviewController(service: Get.find<IOverviewService>()));
 
       CartBindings().dependencies();
     });
 
     binding.builder();
 
-    expect(Get.isPrepared<AppThemeController>(), isTrue);
-    expect(Get.isPrepared<IOverviewRepo>(), isTrue);
-    expect(Get.isPrepared<IOverviewService>(), isTrue);
-    expect(Get.isPrepared<OverviewController>(), isTrue);
-    expect(Get.isPrepared<CartController>(), isTrue);
-
     HttpOverrides.global = null;
   }
-
-  // void bindingsBuilder({required bool isWidgetTest}) {
-  //   if (isWidgetTest) _bindingsBuilder(_mocked_repo_tobe_used);
-  // }
 
   void bindingsBuilder({required bool isWidgetTest, required bool isEmptyDb}) {
     if (isWidgetTest && !isEmptyDb) _bindingsBuilder(_mocked_repo);

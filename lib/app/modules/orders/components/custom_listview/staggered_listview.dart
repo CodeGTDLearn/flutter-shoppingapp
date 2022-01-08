@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/instance_manager.dart';
 
-import '../../../../core/properties/app_properties.dart';
+import '../../../../core/properties/properties.dart';
 import '../../../../modules/orders/entity/order.dart';
 import '../custom_tiles/icustom_order_tile.dart';
 import 'icustom_orders_listview.dart';

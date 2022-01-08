@@ -1,11 +1,9 @@
 import 'dart:io';
 
-import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get_common/get_reset.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/bindings/modules/cart_bindings.dart';
-import 'package:shopingapp/app/core/theme/app_theme_controller.dart';
-import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
+import 'package:shopingapp/app/core/theme/global_theme_controller.dart';
 import 'package:shopingapp/app/modules/inventory/controller/inventory_controller.dart';
 import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
 import 'package:shopingapp/app/modules/inventory/service/i_inventory_service.dart';
@@ -26,20 +24,8 @@ class InventoryTestBindings {
   void _bindingsBuilder(IInventoryRepo mockRepo) {
     Get.reset();
 
-    expect(Get.isPrepared<AppThemeController>(), isFalse);
-
-    expect(Get.isPrepared<IOverviewRepo>(), isFalse);
-    expect(Get.isPrepared<IOverviewService>(), isFalse);
-    expect(Get.isPrepared<OverviewController>(), isFalse);
-
-    expect(Get.isPrepared<CartController>(), isFalse);
-
-    expect(Get.isPrepared<IInventoryRepo>(), isFalse);
-    expect(Get.isPrepared<IInventoryService>(), isFalse);
-    expect(Get.isPrepared<InventoryController>(), isFalse);
-
     var binding = BindingsBuilder(() {
-      Get.lazyPut<AppThemeController>(() => AppThemeController());
+      Get.lazyPut<GlobalThemeController>(() => GlobalThemeController());
 
       Get.lazyPut<IOverviewRepo>(() => OverviewMockedRepo());
       Get.lazyPut<IOverviewService>(
@@ -58,18 +44,6 @@ class InventoryTestBindings {
     });
 
     binding.builder();
-
-    expect(Get.isPrepared<AppThemeController>(), isTrue);
-
-    expect(Get.isPrepared<IOverviewRepo>(), isTrue);
-    expect(Get.isPrepared<IOverviewService>(), isTrue);
-    expect(Get.isPrepared<OverviewController>(), isTrue);
-
-    expect(Get.isPrepared<CartController>(), isTrue);
-
-    expect(Get.isPrepared<IInventoryRepo>(), isTrue);
-    expect(Get.isPrepared<IInventoryService>(), isTrue);
-    expect(Get.isPrepared<InventoryController>(), isTrue);
 
     HttpOverrides.global = null;
   }

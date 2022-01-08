@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/keys/modules/inventory_keys.dart';
-import 'package:shopingapp/app/core/properties/app_db_urls.dart';
-import 'package:shopingapp/app/core/texts/messages.dart';
+import 'package:shopingapp/app/core/labels/message_labels.dart';
+import 'package:shopingapp/app/core/properties/db_urls.dart';
 
 import '../../../../config/app_tests_properties.dart';
 import '../../../../config/titles/inventory_test_titles.dart';
@@ -24,7 +24,8 @@ class InventoryViewValidationTest {
   final _bindings = Get.put(InventoryTestBindings());
   final _titles = Get.put(InventoryTestTitles());
   final _testUtils = Get.put(TestsUtils());
-  final _messages = Get.find<Messages>();
+  final _messages = Get.find<MessageLabels>();
+  final _keysInv = Get.find<InventoryKeys>();
 
   InventoryViewValidationTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;
@@ -67,7 +68,7 @@ class InventoryViewValidationTest {
       await _tests.check_Injection_Validation(
         tester,
         inputText: "Size",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
+        fieldKey: _keysInv.k_inv_edit_fld_title(),
         validationErrorMessage: _messages.size_05_inval_message(),
         productToUpdate: _products.elementAt(0),
       );
@@ -77,7 +78,7 @@ class InventoryViewValidationTest {
       await _tests.check_Injection_Validation(
         tester,
         inputText: "",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
+        fieldKey: _keysInv.k_inv_edit_fld_title(),
         validationErrorMessage: _messages.empty_field_msg(),
         productToUpdate: _products.elementAt(0),
       );
@@ -87,7 +88,7 @@ class InventoryViewValidationTest {
       await _tests.check_Injection_Validation(
         tester,
         inputText: "<SCRIPT>",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_TITLE_KEY,
+        fieldKey: _keysInv.k_inv_edit_fld_title(),
         validationErrorMessage: _messages.only_textnumber_message(),
         productToUpdate: _products.elementAt(0),
       );
@@ -98,7 +99,7 @@ class InventoryViewValidationTest {
       await _tests.check_Injection_Validation(
         tester,
         inputText: "Size",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY,
+        fieldKey: _keysInv.k_inv_edit_fld_descr(),
         validationErrorMessage: _messages.size_10_inval_message(),
         productToUpdate: _products.elementAt(0),
       );
@@ -108,7 +109,7 @@ class InventoryViewValidationTest {
       await _tests.check_Injection_Validation(
         tester,
         inputText: "",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY,
+        fieldKey: _keysInv.k_inv_edit_fld_descr(),
         validationErrorMessage: _messages.empty_field_msg(),
         productToUpdate: _products.elementAt(0),
       );
@@ -118,7 +119,7 @@ class InventoryViewValidationTest {
       await _tests.check_Injection_Validation(
         tester,
         inputText: "<SCRIPT>",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_DESCRIPT_KEY,
+        fieldKey: _keysInv.k_inv_edit_fld_descr(),
         validationErrorMessage: _messages.only_textnumber_message(),
         productToUpdate: _products.elementAt(0),
       );
@@ -129,7 +130,7 @@ class InventoryViewValidationTest {
       await _tests.check_Injection_Validation(
         tester,
         inputText: "evilLetterrr",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY,
+        fieldKey: _keysInv.k_inv_edit_fld_price(),
         validationErrorMessage: _messages.format_price_message(),
         productToUpdate: _products.elementAt(0),
       );
@@ -139,7 +140,7 @@ class InventoryViewValidationTest {
       await _tests.check_Injection_Validation(
         tester,
         inputText: "",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY,
+        fieldKey: _keysInv.k_inv_edit_fld_price(),
         validationErrorMessage: _messages.empty_field_msg(),
         productToUpdate: _products.elementAt(0),
       );
@@ -149,7 +150,7 @@ class InventoryViewValidationTest {
       await _tests.check_Injection_Validation(
         tester,
         inputText: "<SCRIPT>",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_PRICE_KEY,
+        fieldKey: _keysInv.k_inv_edit_fld_price(),
         validationErrorMessage: _messages.format_price_message(),
         productToUpdate: _products.elementAt(0),
       );
@@ -160,7 +161,7 @@ class InventoryViewValidationTest {
       await _tests.check_Injection_Validation(
         tester,
         inputText: "evilLetter",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY,
+        fieldKey: _keysInv.k_inv_edit_fld_imgurl(),
         validationErrorMessage: _messages.format_url_message(),
         productToUpdate: _products.elementAt(0),
       );
@@ -170,7 +171,7 @@ class InventoryViewValidationTest {
       await _tests.check_Injection_Validation(
         tester,
         inputText: "",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY,
+        fieldKey: _keysInv.k_inv_edit_fld_imgurl(),
         validationErrorMessage: _messages.empty_field_msg(),
         productToUpdate: _products.elementAt(0),
       );
@@ -180,7 +181,7 @@ class InventoryViewValidationTest {
       await _tests.check_Injection_Validation(
         tester,
         inputText: "<SCRIPT>",
-        fieldKey: INVENTORY_ADDEDIT_VIEW_FIELD_URL_KEY,
+        fieldKey: _keysInv.k_inv_edit_fld_imgurl(),
         validationErrorMessage: _messages.format_url_message(),
         productToUpdate: _products.elementAt(0),
       );

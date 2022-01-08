@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 
-import '../../../../core/custom_widgets/snackbar/simple_snackbar.dart';
-import '../../../../core/icons/modules/inventory/inventory_icons.dart';
+import '../../../../core/global_widgets/snackbar/simple_snackbar.dart';
+import '../../../../core/icons/modules/inventory_icons.dart';
 import '../../../../core/keys/modules/inventory_keys.dart';
-import '../../../../core/properties/app_properties.dart';
-import '../../../../core/texts/general_words.dart';
-import '../../../../core/texts/messages.dart';
+import '../../../../core/labels/global_labels.dart';
+import '../../../../core/labels/message_labels.dart';
+import '../../../../core/properties/properties.dart';
 import '../../../overview/controller/overview_controller.dart';
 import '../../controller/inventory_controller.dart';
 import '../../entity/product.dart';
@@ -16,8 +16,9 @@ import 'icustom_listtile.dart';
 
 class SimpleListTile implements ICustomListTile {
   final _icons = Get.find<InventoryIcons>();
-  final _messages = Get.find<Messages>();
-  final _words = Get.find<GeneralWords>();
+  final _messages = Get.find<MessageLabels>();
+  final _words = Get.find<GlobalLabels>();
+  final _keys = Get.find<InventoryKeys>();
 
   final _inventoryController = Get.find<InventoryController>();
   final _overviewController = Get.find<OverviewController>();
@@ -28,19 +29,19 @@ class SimpleListTile implements ICustomListTile {
     var _context = APP_CONTEXT_GLOBAL_KEY.currentContext;
 
     return ListTile(
-        key: Key('$K_INV_ITEM_KEY$_id'),
+        key: Key('${_keys.k_inv_item_key()}$_id'),
         leading: CircleAvatar(backgroundImage: NetworkImage(product.imageUrl)),
         title: Text(product.title),
         trailing: Container(
             width: 100,
             child: Row(children: <Widget>[
               IconButton(
-                  key: Key('$K_INV_UPD_BTN$_id'),
+                  key: Key('${_keys.k_inv_upd_btn()}$_id'),
                   icon: _icons.icon_update(),
                   onPressed: () => Get.to(() => InventoryDetailsView(_id)),
                   color: Theme.of(_context!).errorColor),
               IconButton(
-                  key: Key('$K_INV_DEL_BTN$_id'),
+                  key: Key('${_keys.k_inv_del_btn()}$_id'),
                   icon: _icons.icon_delete(),
                   // @formatter:off
                   onPressed: () =>
