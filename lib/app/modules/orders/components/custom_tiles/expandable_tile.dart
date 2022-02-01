@@ -1,11 +1,10 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/instance_manager.dart';
-import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:shopingapp/app/core/utils/ui_utils.dart';
 
 import '../../../../core/labels/modules/orders_labels.dart';
 import '../../../../core/properties/properties.dart';
@@ -23,16 +22,17 @@ class ExpandableTile implements ICustomOrderTile {
   final size = MediaQuery.of(APP_CONTEXT_GLOBAL_KEY.currentContext!).size;
   final _colorScheme = Theme.of(APP_CONTEXT_GLOBAL_KEY.currentContext!).colorScheme;
   final _labels = Get.find<OrdersLabels>();
+  final _uiUtils = Get.find<UiUtils>();
 
   @override
   Widget create(Order _order) {
     return Card(
       margin: EdgeInsets.only(top: 10.0, bottom: 5.0, left: 13.0, right: 13.0),
       child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(6)),
-              color: Colors.white,
-              boxShadow: [_boxShadow()]),
+          // decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.all(Radius.circular(6)),
+          //     color: Colors.white,
+          //     boxShadow: [_boxShadow()]),
           padding: EdgeInsets.all(5.0),
           child: ExpandablePanel(
               header: Container(
@@ -46,7 +46,7 @@ class ExpandableTile implements ICustomOrderTile {
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.only(right: 40.0, top: 5.0, bottom: 5.0),
                   width: double.infinity,
-                  child: Text("${_labels.label_total_tile()} ${_order.amount}\$")),
+                  child: Text("${_labels.total_tile} ${_order.amount}\$")),
               expanded: _showExpandedOrderItems(_order))),
     );
   }
@@ -88,11 +88,9 @@ class ExpandableTile implements ICustomOrderTile {
               children: [
                 Row(children: [
                   Expanded(
-                      flex: 3,
-                      child: _image(
-                        '${cartItem.imageUrl}',
-                        dims.maxWidth * 0.3,
-                      )),
+                    flex: 3,
+                    child: _image(cartItem.imageUrl, dims.maxWidth * 0.3),
+                  ),
                   Expanded(
                       flex: 7,
                       child: Column(
@@ -104,21 +102,26 @@ class ExpandableTile implements ICustomOrderTile {
                 ]),
                 Positioned(
                     bottom: 0,
-                    left: 105,
+                    left: 85,
                     child: Container(
-                        decoration: BoxDecoration(
-                            color: _colorScheme.primary,
-                            shape: BoxShape.circle,
-                            border: Border.all(color: Color.fromRGBO(220, 220, 220, 10)),
-                            boxShadow: [_boxShadow()]),
-                        child: _widgetUtils.iconButton(
-                          materialIcon: Icons.shopping_cart,
-                          cupertinoIcon: CupertinoIcons.shopping_cart,
-                          iconColor: _colorScheme.onSecondary,
-                          onPressed: () => _cartController.addCartItem(
-                            _overViewController.getProductById(cartItem.id),
-                          ),
-                        )))
+                        // width: _uiUtils.widthNoContext() * 0.28,
+                        // decoration: BoxDecoration(
+                        //     color: _colorScheme.primary,
+                        //     shape: BoxShape.circle,
+                        //     border: Border.all(color: Color.fromRGBO(220, 220, 220, 10)),
+                        //     boxShadow: [_boxShadow()]),
+                        child: _widgetUtils.elevatedButton(
+                      text: _labels.again,
+                      textStyle: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                        shadows: [_boxShadow()],
+                        fontSize: 15,
+                        fontWeight: FontWeight.normal,
+                      )),
+                      onPressed: () => _cartController.addCartItem(
+                        _overViewController.getProductById(cartItem.id),
+                      ),
+                    )))
               ],
             )));
   }
@@ -175,7 +178,7 @@ class ExpandableTile implements ICustomOrderTile {
 
   Container _text(String text, int fonSize, double width) {
     return Container(
-        padding: EdgeInsets.only(left: 10),
+        padding: EdgeInsets.only(left: 10, bottom: 15),
         width: width,
         alignment: AlignmentDirectional.centerStart,
         child: Text(text,

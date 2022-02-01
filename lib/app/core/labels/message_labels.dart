@@ -12,7 +12,6 @@ class MessageLabels {
   final _PRODUCT_SUCESS_DEL = "The product was deleted successfuly.";
   final _ORDER_SUCESS_ADD = "The order was added successfuly.";
   final _ORDER_CLEAN_SUCESS = "The order was cleaned successfuly.";
-  final _CART_NO_ITEMS_ANYMORE = "There is no products in cart anymore.";
 
 //Database Empty
   final _DB_EMPTY_YET = 'There is no products to display.';
@@ -29,7 +28,6 @@ class MessageLabels {
   final _NO_PRODUCTS_YET = "There is no Products, yet";
   final _NO_CART_ITEMS_YET = "There is no CartItems, yet";
   final _NO_INVENT_PRODUCTS_YET = "There is no Products in Inventory, yet";
-  final _NO_ITEM_IN_DB_YET = "No items in the DB, yet.";
   final _NO_ITEMS_IN_CART_YET = "No items in the cart, yet.";
   final _FAVORITES_NOT_FOUND_YET = "Favorites not found, yet.";
   final _NO_ORDERS_DONE_YET = "No orders were done, yet.";

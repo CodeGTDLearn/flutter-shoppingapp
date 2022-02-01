@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/inventory/controller/inventory_controller.dart';
-import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/inventory/service/i_inventory_service.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 
+import '../../../config/titles/inventory_test_titles.dart';
 import '../../../data_builders/product_databuilder.dart';
 import '../../../datasource/mocked_datasource.dart';
 import '../../core/bindings/inventory_test_bindings.dart';
@@ -14,27 +14,28 @@ class InventoryControllerTests {
     late IOverviewService _overviewService;
     late IInventoryService _service;
     late InventoryController _controller;
+    final _mock = Get.find<MockedDatasource>();
+    final _builder = Get.find<ProductDataBuilder>();
+    final _titles = Get.find<InventoryTestTitles>();
 
-    var _product0 = MockedDatasource().products().elementAt(0);
-    var _product1 = MockedDatasource().products().elementAt(1);
-    var _products = MockedDatasource().products();
-    var _newProduct = ProductDataBuilder().ProductWithId();
+    var _product0, _product1, _newProduct;
+    var _products;
 
-    setUp(() {
-      InventoryTestBindings().bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
-      _overviewService = Get.find<IOverviewService>();
+    setUpAll(() {
+      Get.create(() => InventoryTestBindings());
+      var _bindings = Get.find<InventoryTestBindings>();
+      _bindings.bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
 
       _service = Get.find<IInventoryService>();
+      _overviewService = Get.find<IOverviewService>();
       _controller = InventoryController(service: _service);
+      _product0 = _mock.products().elementAt(0);
+      _product1 = _mock.products().elementAt(1);
+      _products = _mock.products();
+      _newProduct = _builder.ProductWithId();
     });
 
-    test('Getting Products - ResponseType', () {
-      _controller.getProducts().then((value) {
-        expect(value, isA<List<Product>>());
-      });
-    });
-
-    test('Getting using GetManagedProductsObs', () {
+    test(_titles.controller_GetManagedProductsObs, () {
       _controller.getProducts().then((_) {
         var list = _controller.inventoryProductsObs.toList();
         expect(list[0].id, _products.elementAt(0).id);
@@ -42,7 +43,7 @@ class InventoryControllerTests {
       });
     });
 
-    test('Adding a Product', () {
+    test(_titles.controller_add_product, () {
       // @formatter:off
       _controller.getProducts().then((value) {
         _controller.addProduct(_product0).then((addedProduct) {
@@ -58,7 +59,7 @@ class InventoryControllerTests {
       // @formatter:on
     });
 
-    test('Getting ProductsQtde', () {
+    test(_titles.controller_get_products_qtde, () {
       _controller.getProducts().then((value) {
         expect(_newProduct, isNot(isIn(_controller.inventoryProductsObs.toList())));
         expect(_controller.getProductsQtde(), 4);
@@ -68,7 +69,7 @@ class InventoryControllerTests {
       });
     });
 
-    test('Getting ProductById', () {
+    test(_titles.controller_get_product_by_id, () {
       // @formatter:off
       _controller.getProducts().then((products) {
         var found = _controller.getProductById(products[0].id!);
@@ -79,14 +80,14 @@ class InventoryControllerTests {
       // @formatter:on
     });
 
-    test('Getting ProductById - Exception', () {
+    test(_titles.controller_get_product_by_id_exc, () {
       _controller.getProducts().then((_) {
         expect(() => _controller.getProductById(_newProduct.id!),
             throwsA(isA<RangeError>()));
       });
     });
 
-    test('Updating a Product - status 200', () {
+    test(_titles.controller_update_product, () {
       _overviewService.getProducts().then((_) {
         expect(
           _overviewService.getProductById(_product1.id!),
@@ -102,7 +103,7 @@ class InventoryControllerTests {
       });
     });
 
-    test('Updating a Product - status 500', () {
+    test(_titles.controller_update_product_status_500, () {
       _controller.getProducts().then((_) {
         expect(
           _newProduct.id,
@@ -115,7 +116,7 @@ class InventoryControllerTests {
       });
     });
 
-    test('Updating ManagedProductsObs', () {
+    test(_titles.controller_update_managed_products_obs, () {
       var productTest = MockedDatasource().product();
 
       _controller.getProducts().then((value) {
@@ -129,7 +130,7 @@ class InventoryControllerTests {
       });
     });
 
-    test('Deleting Product - status 200', () {
+    test(_titles.controller_delete_product_status_200, () {
       _controller.getProducts().then((_) {
         expect(_controller.getProductById(_product1.id!),
             isIn(_controller.inventoryProductsObs.toList()));
@@ -139,7 +140,7 @@ class InventoryControllerTests {
       });
     });
 
-    test('Deleting Product - Optimistic/Rollback', () {
+    test(_titles.controller_delete_transaction, () {
       _controller.getProducts().then((_) {
         expect(_controller.getProductById(_product1.id!),
             isIn(_controller.inventoryProductsObs.toList()));
@@ -149,7 +150,7 @@ class InventoryControllerTests {
       });
     });
 
-    test('Deleting a Product - Not found - Exception', () {
+    test(_titles.controller_delete_transaction_exc, () {
       _controller.getProducts().then((_) {
         expect(_controller.getProductById(_product1.id!),
             isIn(_controller.inventoryProductsObs.toList()));
@@ -158,7 +159,7 @@ class InventoryControllerTests {
       });
     });
 
-    test('Testing getReloadManagedProductsEditPage', () {
+    test(_titles.controller_reload_view, () {
       _controller.getProducts().then((_) {
         expect(_controller.renderInventoryItemDetailsViewObs.value, isFalse);
         _controller.switchInventoryItemFormToCustomIndicator();

@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get/instance_manager.dart';
 
 import '../../app/modules/cart/cart_controller_test.dart';
 import '../../app/modules/cart/cart_repo_test.dart';
@@ -8,27 +9,29 @@ import '../app_tests_properties.dart';
 import '../titles/cart_test_titles.dart';
 
 class CartTestGroups {
+  final _titles = Get.put(CartTestTitles());
+
   void groups({required bool skipGroup}) {
     group(
-      CartTestTitles().REPO_TITLE,
+      _titles.REPO_TITLE,
       CartRepoTests().unit,
       skip: skipGroup, // 'skip-group' overrides the internal 'skip-methods'
     );
 
     group(
-      CartTestTitles().SERVICE_TITLE,
+      _titles.SERVICE_TITLE,
       CartServiceTests().unit,
       skip: skipGroup,
     );
 
     group(
-      CartTestTitles().CONTROLLER_TITLE,
+      _titles.CONTROLLER_TITLE,
       CartControllerTests().integration,
       skip: skipGroup,
     );
 
     group(
-      CartTestTitles().VIEW_TITLE,
+      _titles.VIEW_TITLE,
       CartViewTest(testType: WIDGET_TEST).functional,
       skip: skipGroup,
     );

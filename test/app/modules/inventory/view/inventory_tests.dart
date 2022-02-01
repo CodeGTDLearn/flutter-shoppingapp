@@ -29,7 +29,7 @@ class InventoryTests {
   final TestDbUtils dbTestUtils;
   final TestsUtils testUtils;
   final _messages = Get.find<MessageLabels>();
-  final _labels = Get.find<InventoryLabels>();
+  final _labels = Get.put(InventoryLabels());
   final _keys = Get.find<GlobalWidgetsKeys>();
   final _keysOv = Get.find<OverviewKeys>();
   final _keysInv = Get.find<InventoryKeys>();

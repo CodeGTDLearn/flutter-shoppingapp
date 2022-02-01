@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
-import 'package:get/state_manager.dart';
 
 import '../../../core/global_widgets/custom_drawer.dart';
 import '../components/overview_appbar/overview_sliver_appbar.dart';

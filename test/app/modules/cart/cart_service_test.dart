@@ -3,6 +3,7 @@ import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/cart/service/i_cart_service.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
+import '../../../config/titles/cart_test_titles.dart';
 import '../../../data_builders/cartitem_databuilder.dart';
 import '../../../data_builders/product_databuilder.dart';
 import '../../core/bindings/cart_test_bindings.dart';
@@ -10,25 +11,22 @@ import '../../core/bindings/cart_test_bindings.dart';
 class CartServiceTests {
   void unit() {
     late ICartService _service;
-    late Product _product1, _product2;
+    late Product _product0, _product1;
+    final _titles = Get.find<CartTestTitles>();
+    final _builder = Get.put(ProductDataBuilder());
 
     setUp(() {
-      CartTestBindings().bindingsBuilder(isWidgetTest: true);
-      _product1 = ProductDataBuilder().ProductWithId();
-      _product2 = ProductDataBuilder().ProductWithId();
+      Get.create(() => CartTestBindings());
+      Get.find<CartTestBindings>().bindingsBuilder(isWidgetTest: true);
       _service = Get.find<ICartService>();
+      _product0 = _builder.ProductWithId();
+      _product1 = _builder.ProductWithId();
     });
 
-    test('Checking Instances to be used in the Tests', () {
-      expect(_service, isA<ICartService>());
-      expect(_product1, isA<Product>());
-      expect(_product2, isA<Product>());
-    });
-
-    test('Getting ALL products from the Cart', () {
+    test(_titles.service_get_all_products, () {
       expect(_service.getAllCartItems().length, isZero);
+      _service.addCartItem(_product0);
       _service.addCartItem(_product1);
-      _service.addCartItem(_product2);
 
       _service.getAllCartItems().forEach((key, value) {
         expect(key.toString(), isIn(_service.getAllCartItems()));
@@ -36,23 +34,23 @@ class CartServiceTests {
       expect(_service.getAllCartItems().length, 2);
     });
 
-    test('Removing specific products from the Cart', () {
+    test(_titles.service_remove_product, () {
       expect(_service.getAllCartItems().length, isZero);
+      _service.addCartItem(_product0);
       _service.addCartItem(_product1);
-      _service.addCartItem(_product2);
 
       var listProductsInserted = _service.getAllCartItems();
+      expect(_product0.id.toString(), isIn(listProductsInserted));
       expect(_product1.id.toString(), isIn(listProductsInserted));
-      expect(_product2.id.toString(), isIn(listProductsInserted));
 
       //TESTING ABSENCE: STYLE 01 - ISNOT+ISIN
-      var cartItem1 = CartItemDatabuilder().CartItemFromProduct(_product1);
+      var cartItem1 = CartItemDatabuilder().CartItemFromProduct(_product0);
       _service.removeCartItem(cartItem1);
       expect(_service.getAllCartItems().length, 1);
-      expect(_product1.id.toString(), isNot(isIn(listProductsInserted)));
+      expect(_product0.id.toString(), isNot(isIn(listProductsInserted)));
 
       //TESTING ABSENCE: STYLE 02 - FOREACH+FAIL
-      var cartItem2 = CartItemDatabuilder().CartItemFromProduct(_product2);
+      var cartItem2 = CartItemDatabuilder().CartItemFromProduct(_product1);
       _service.removeCartItem(cartItem2);
       expect(_service.getAllCartItems().length, isZero);
       _service.getAllCartItems().forEach((key, value) {
@@ -62,66 +60,66 @@ class CartServiceTests {
       });
     });
 
-    test('Clearing ALL products from the Cart', () {
+    test(_titles.service_clear_cart, () {
       expect(_service.getAllCartItems().length, isZero);
+      _service.addCartItem(_product0);
       _service.addCartItem(_product1);
-      _service.addCartItem(_product2);
       expect(_service.getAllCartItems().length, 2);
       _service.clearCart();
       expect(_service.getAllCartItems().length, isZero);
     });
 
-    test('Adding two products in the Cart', () {
+    test(_titles.service_add_two_products, () {
       expect(_service.getAllCartItems().length, isZero);
+      _service.addCartItem(_product0);
       _service.addCartItem(_product1);
-      _service.addCartItem(_product2);
       expect(_service.getAllCartItems().length, 2);
       _service.clearCart();
       expect(_service.getAllCartItems().length, isZero);
     });
 
-    test('Undo added product', () {
+    test(_titles.service_undo_add_product, () {
       expect(_service.getAllCartItems().length, isZero);
+      _service.addCartItem(_product0);
       _service.addCartItem(_product1);
-      _service.addCartItem(_product2);
 
       var listProductsInserted = _service.getAllCartItems();
+      expect(_product0.id.toString(), isIn(listProductsInserted));
       expect(_product1.id.toString(), isIn(listProductsInserted));
-      expect(_product2.id.toString(), isIn(listProductsInserted));
-
-      _service.addCartItemUndo(_product2);
-      expect(_service.getAllCartItems().length, 1);
-      expect(_product1.id.toString(), isIn(listProductsInserted));
-      expect(_product2.id.toString(), isNot(isIn(listProductsInserted)));
 
       _service.addCartItemUndo(_product1);
-      expect(_service.getAllCartItems().length, isZero);
+      expect(_service.getAllCartItems().length, 1);
+      expect(_product0.id.toString(), isIn(listProductsInserted));
       expect(_product1.id.toString(), isNot(isIn(listProductsInserted)));
-      expect(_product2.id.toString(), isNot(isIn(listProductsInserted)));
+
+      _service.addCartItemUndo(_product0);
+      expect(_service.getAllCartItems().length, isZero);
+      expect(_product0.id.toString(), isNot(isIn(listProductsInserted)));
+      expect(_product1.id.toString(), isNot(isIn(listProductsInserted)));
     });
 
-    test('Getting CartItems Quantity from the Cart', () {
+    test(_titles.service_get_cartitem_qtde, () {
       expect(_service.getAllCartItems().length, isZero);
+      _service.addCartItem(_product0);
       _service.addCartItem(_product1);
-      _service.addCartItem(_product2);
 
+      expect(_product0.id.toString(), isIn(_service.getAllCartItems()));
       expect(_product1.id.toString(), isIn(_service.getAllCartItems()));
-      expect(_product2.id.toString(), isIn(_service.getAllCartItems()));
       expect(_service.getAllCartItems().length, 2);
       _service.clearCart();
       expect(_service.getAllCartItems().length, isZero);
     });
 
-    test('Getting CartItems Amount\$ from the Cart', () {
+    test(_titles.service_get_cartitem_amount, () {
       expect(_service.getAllCartItems().length, isZero);
+      _service.addCartItem(_product0);
       _service.addCartItem(_product1);
-      _service.addCartItem(_product2);
 
       expect(_service.getAllCartItems().length, 2);
+      expect(_product0.id.toString(), isIn(_service.getAllCartItems()));
       expect(_product1.id.toString(), isIn(_service.getAllCartItems()));
-      expect(_product2.id.toString(), isIn(_service.getAllCartItems()));
 
-      expect(_service.amountCartItems(), allOf([_product1.price + _product2.price]));
+      expect(_service.amountCartItems(), allOf([_product0.price + _product1.price]));
     });
   }
 }

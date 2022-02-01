@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:get/get_common/get_reset.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/bindings/modules/cart_bindings.dart';
-import 'package:shopingapp/app/core/theme/global_theme_controller.dart';
 import 'package:shopingapp/app/modules/inventory/controller/inventory_controller.dart';
 import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
 import 'package:shopingapp/app/modules/inventory/service/i_inventory_service.dart';
@@ -25,7 +24,6 @@ class InventoryTestBindings {
     Get.reset();
 
     var binding = BindingsBuilder(() {
-      Get.lazyPut<GlobalThemeController>(() => GlobalThemeController());
 
       Get.lazyPut<IOverviewRepo>(() => OverviewMockedRepo());
       Get.lazyPut<IOverviewService>(

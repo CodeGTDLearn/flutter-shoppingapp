@@ -24,7 +24,7 @@ class CollapsableTile implements ICustomOrderTile {
             decoration: BoxDecoration(color: Colors.white, boxShadow: [_boxShadow()]),
             child: ListTile(
                 dense: true,
-                title: Text("${_labels.label_total_tile}${_order.amount}"),
+                title: Text("${_labels.total_tile}${_order.amount}"),
                 subtitle:
                     Text(DateFormat(DATE_FORMAT).format(DateTime.parse(_order.datetime))),
                 trailing: IconButton(

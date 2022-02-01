@@ -27,7 +27,7 @@ class AdaptiveWidgetUtils {
     );
   }
 
-  PlatformElevatedButton button({
+  Widget elevatedButton({
     required Function onPressed,
     required text,
     required textStyle,
@@ -35,6 +35,19 @@ class AdaptiveWidgetUtils {
     return PlatformElevatedButton(
       onPressed: () => onPressed.call(),
       child: PlatformText(text, style: textStyle),
+      material: (_, __) => MaterialElevatedButtonData(
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.only(
+            left: 6,
+            right: 6,
+          ),
+        ),
+      ),
+      cupertino: (_, __) => CupertinoElevatedButtonData(
+        // minSize: 15,
+        padding: EdgeInsets.fromLTRB(15.0, 2.0,15.0,2.0),
+
+      ),
     );
   }
 }

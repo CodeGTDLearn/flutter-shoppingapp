@@ -1,7 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
-import 'package:get/route_manager.dart';
 
 import '../../../../core/global_widgets/custom_alert_dialog.dart';
 import '../../../../core/global_widgets/snackbar/simple_snackbar.dart';

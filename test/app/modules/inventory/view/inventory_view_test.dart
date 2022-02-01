@@ -24,7 +24,7 @@ class InventoryViewTest {
   final _titles = Get.put(InventoryTestTitles());
   final _globalUtils = Get.put(TestsGlobalUtils());
   final _testUtils = Get.put(TestsUtils());
-  final _keysInv = Get.find<InventoryKeys>();
+  final _keysInv = Get.put(InventoryKeys());
 
   InventoryViewTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;

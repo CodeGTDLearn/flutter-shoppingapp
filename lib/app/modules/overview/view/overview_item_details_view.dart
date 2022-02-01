@@ -99,7 +99,7 @@ class OverviewItemDetailsView extends StatelessWidget {
                         height: _height * 0.1,
                         width: _width * 0.5,
                         color: Colors.red,
-                        child: _widgetUtils.button(
+                        child: _widgetUtils.elevatedButton(
                             onPressed: () => _cartController.addCartItem(_product),
                             text: _labels.label_buy_btn,
                             textStyle: GoogleFonts.lato(

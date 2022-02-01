@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../app/modules/inventory/inventory_controller_test.dart';
+import '../../app/modules/inventory/inventory_service_test.dart';
 import '../../app/modules/inventory/repo/inventory_repo_test.dart';
-import '../../app/modules/inventory/service/inventory_service_test.dart';
 import '../../app/modules/inventory/view/inventory_view_edit_test.dart';
 import '../../app/modules/inventory/view/inventory_view_test.dart';
 import '../../app/modules/inventory/view/inventory_view_validation_test.dart';

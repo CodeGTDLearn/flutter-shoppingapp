@@ -22,4 +22,16 @@ class UiUtils {
   double screenTop(BuildContext context) {
     return MediaQuery.of(context).padding.top;
   }
+
+  Size sizeNoContext() {
+    return WidgetsBinding.instance!.window.physicalSize;
+  }
+
+  double widthNoContext() {
+    return sizeNoContext().width;
+  }
+
+  double heightNoContext() {
+    return sizeNoContext().height;
+  }
 }

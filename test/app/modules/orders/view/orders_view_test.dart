@@ -50,7 +50,7 @@ class OrdersViewTest {
 
     tearDown(_globalUtils.globalTearDown);
 
-    testWidgets(_titles.orderProduct_using_cartView_tapping_orderNowButton,
+    testWidgets(_titles.orderProduct_using_cartView_tap_orderNowButton,
         (tester) async {
       await _tests.orderProduct_using_cartView_tapping_orderNowButton(
         tester,

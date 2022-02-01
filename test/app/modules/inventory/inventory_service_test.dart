@@ -1,44 +1,45 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/inventory/service/i_inventory_service.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 
-import '../../../../data_builders/product_databuilder.dart';
-import '../../../../datasource/mocked_datasource.dart';
-import '../../../core/bindings/inventory_test_bindings.dart';
+import '../../../config/titles/inventory_test_titles.dart';
+import '../../../data_builders/product_databuilder.dart';
+import '../../../datasource/mocked_datasource.dart';
+import '../../core/bindings/inventory_test_bindings.dart';
 
 class InventoryServiceTests {
   void unit() {
-    late IOverviewService _overviewService;
     late IInventoryService _service;
+    late IOverviewService _overviewService;
+    final _mock = Get.find<MockedDatasource>();
+    final _builder = Get.find<ProductDataBuilder>();
+    final _titles = Get.find<InventoryTestTitles>();
 
-    var _product0 = MockedDatasource().products().elementAt(0);
-    var _product1 = MockedDatasource().products().elementAt(1);
-    var _products = MockedDatasource().products();
-    var _newProduct = ProductDataBuilder().ProductWithId();
+    var _product0, _product1, _newProduct;
+    var _products;
 
-    setUp(() {
-      InventoryTestBindings().bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
+    setUpAll(() {
+      Get.create(() => InventoryTestBindings());
+      var _bindings = Get.find<InventoryTestBindings>();
+      _bindings.bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
+
       _overviewService = Get.find<IOverviewService>();
       _service = Get.find<IInventoryService>();
-      // _injectService = InventoryInjectMockedService();
+      _product0 = _mock.products().elementAt(0);
+      _product1 = _mock.products().elementAt(1);
+      _products = _mock.products();
+      _newProduct = _builder.ProductWithId();
     });
 
-    test('Getting Products - ResponseType', () {
-      _service.getProducts().then((value) {
-        expect(value, isA<List<Product>>());
-      });
-    });
-
-    test('Getting Products', () {
+    test(_titles.service_get_products, () {
       _service.getProducts().then((productsReturned) {
         expect(productsReturned[0].id, _products.elementAt(0).id);
         expect(productsReturned[0].title, _products.elementAt(0).title);
       });
     });
 
-    test('Getting LocalDataManagedProducts', () {
+    test(_titles.service_get_local_products, () {
       _service.getProducts().then((_) {
         var list = _service.getLocalDataInventoryProducts();
         expect(list[0].id, _products.elementAt(0).id);
@@ -46,7 +47,7 @@ class InventoryServiceTests {
       });
     });
 
-    test('Adding Product', () {
+    test(_titles.service_add_product, () {
       _service.addProduct(_product0).then((addedProduct) {
         // In addProduct, never the 'product to be added' has 'id'
         // expect(addedProduct.id, _product0.id);
@@ -59,7 +60,7 @@ class InventoryServiceTests {
       });
     });
 
-    test('Adding Product in LocalDataManagedProducts', () {
+    test(_titles.service_add_local_product, () {
       var productTest = MockedDatasource().product();
 
       _service.getProducts().then((_) {
@@ -71,13 +72,13 @@ class InventoryServiceTests {
       });
     });
 
-    test('Getting ProductsQtde', () {
+    test(_titles.service_get_products_qtde, () {
       _service.getProducts().then((response) {
         expect(response.length, _service.getProductsQtde());
       });
     });
 
-    test('Getting ProductById', () {
+    test(_titles.service_get_products_by_id, () {
       _service.getProducts().then((_) {
         expect(_service.getProductById(_product1.id!),
             isIn(_service.getLocalDataInventoryProducts()));
@@ -85,14 +86,14 @@ class InventoryServiceTests {
       });
     });
 
-    test('Getting ProductById - Exception', () {
+    test(_titles.service_get_products_by_id_exc, () {
       _service.getProducts().then((_) {
         expect(
             () => _service.getProductById(_newProduct.id!), throwsA(isA<RangeError>()));
       });
     });
 
-    test('Deleting a Product', () {
+    test(_titles.service_remove_product, () {
       _service.getProducts().then((_) {
         expect(_service.getProductById(_product1.id!),
             isIn(_service.getLocalDataInventoryProducts()));
@@ -102,7 +103,7 @@ class InventoryServiceTests {
       });
     });
 
-    test('Updating a Product', () {
+    test(_titles.service_update_product, () {
       _overviewService.getProducts().then((_) {
         expect(
           _overviewService.getProductById(_product1.id!),
@@ -122,7 +123,7 @@ class InventoryServiceTests {
       });
     });
 
-    test('Deleting a Product - Optimistic/Rollback', () {
+    test(_titles.service_remove_product_transaction, () {
       _service.getProducts().then((_) {
         expect(_service.getProductById(_product1.id!),
             isIn(_service.getLocalDataInventoryProducts()));
@@ -132,7 +133,7 @@ class InventoryServiceTests {
       });
     });
 
-    test('Deleting a Product - Not found - Exception', () {
+    test(_titles.service_remove_product_exc, () {
       _service.getProducts().then((_) {
         expect(_service.getProductById(_product1.id!),
             isIn(_service.getLocalDataInventoryProducts()));
@@ -140,7 +141,7 @@ class InventoryServiceTests {
       });
     });
 
-    test('Clearing LocalDataManagedProducts', () {
+    test(_titles.service_clean_local_data, () {
       _service.getProducts().then((response) {
         expect(_service.getLocalDataInventoryProducts(), isNot(isEmpty));
         _service.clearDataSavingLists();

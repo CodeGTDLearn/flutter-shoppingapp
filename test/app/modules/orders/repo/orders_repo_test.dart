@@ -1,45 +1,44 @@
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get_common/get_reset.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/orders/entity/order.dart';
 import 'package:shopingapp/app/modules/orders/repo/i_orders_repo.dart';
 
+import '../../../../config/titles/orders_test_titles.dart';
 import '../../../../data_builders/order_databuilder.dart';
+import '../../../../datasource/mocked_datasource.dart';
 import '../../../core/bindings/orders_test_bindings.dart';
 
 class OrdersRepoTests {
   void unit() {
-    var testConfig = Get.put(OrdersTestBindings());
     late IOrdersRepo _repo;
     var _orderWithoutId;
+    late Order _order0, _order1;
+    final _titles = Get.put(OrdersTestTitles());
+    final _bindings = Get.put(OrdersTestBindings());
+    final _builder = Get.put(OrderDatabuilder());
 
     setUp(() {
-      testConfig.bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
+      _bindings.bindingsBuilder(isWidgetTest: true, isEmptyDb: false);
+      _orderWithoutId = _builder.Order_full_withoutId();
       _repo = Get.find<IOrdersRepo>();
-      _orderWithoutId = OrderDatabuilder().Order_full_withoutId();
+      _order0 = Get.put(MockedDatasource()).orders().elementAt(0);
+      _order1 = Get.put(MockedDatasource()).orders().elementAt(1);
     });
 
-    tearDown(Get.reset);
+    test(_titles.repo_get_orders, () {
+      _repo.getOrders().then((resp) {
+        expect(resp.elementAt(0).id, _order0.id);
+        expect(resp.elementAt(0).cartItems.elementAt(0).id,
+            _order0.cartItems.elementAt(0).id);
 
-    test('Getting Orders - ResponseType', () {
-      _repo.getOrders().then((value) {
-        expect(value, isA<List<Order>>());
+        expect(resp.elementAt(1).id, _order1.id);
+        expect(resp.elementAt(1).cartItems.elementAt(0).id,
+            _order1.cartItems.elementAt(0).id);
       });
     });
 
-    test('Getting Orders', () {
-      _repo.getOrders().then((response) {
-        expect(response[0].id, "-MLszdOBBsXxJaPuwZqE");
-        expect(response[0].cartItems[0].id, "-MJ45uFapLqamB92wOYe");
-        expect(response[0].cartItems[1].id, "-MJDo1SL6ywrEs6AGrxB");
-        expect(response[1].id, '-MKaVMmT4Z7SYHhg-S27');
-        expect(response[1].cartItems[0].id, "-MKML9enBe3N13QRQKPF");
-        expect(response[1].cartItems[1].id, "-MKML9enBe3N13QRQWSV");
-      });
-    });
-
-    test('Adding Order', () {
+    test(_titles.repo_add_order, () {
       var id = Faker().randomGenerator.string(20, min: 20);
       _repo.addOrder(_orderWithoutId).then((response) {
         response = _orderWithoutId;

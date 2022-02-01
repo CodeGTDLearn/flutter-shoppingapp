@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/cart/repo/i_cart_repo.dart';
 
+import '../../../config/titles/cart_test_titles.dart';
 import '../../../data_builders/cartitem_databuilder.dart';
 import '../../../datasource/mocked_datasource.dart';
 import '../../core/bindings/cart_test_bindings.dart';
@@ -15,24 +16,32 @@ import '../../core/bindings/cart_test_bindings.dart';
 class CartRepoTests {
   void unit() {
     late ICartRepo _repo;
-    var _product0 = MockedDatasource().products().elementAt(0);
-    var _product1 = MockedDatasource().products().elementAt(1);
+    var _product0, _product1;
+    final _titles = Get.find<CartTestTitles>();
+    final _mock = Get.put(MockedDatasource());
+    Get.create(() => CartTestBindings());
+
+    setUpAll(() {
+      // Get.create(() => CartTestBindings());
+      Get.find<CartTestBindings>().bindingsBuilder(isWidgetTest: true);
+      _repo = Get.find<ICartRepo>();
+      _product0 = _mock.products().elementAt(0);
+      _product1 = _mock.products().elementAt(1);
+    });
 
     setUp(() {
-      CartTestBindings().bindingsBuilder(isWidgetTest: true);
-      _repo = Get.find<ICartRepo>();
       _repo.addCartItem(_product0);
       _repo.addCartItem(_product1);
     });
 
-    test('Getting ALL products from the Cart', () {
+    test(_titles.repo_get_all_products, () {
       _repo.getAllCartItems().forEach((key, value) {
         expect(key.toString(), isIn(_repo.getAllCartItems()));
       });
       expect(_repo.getAllCartItems().length, 2);
     });
 
-    test('Removing specific products from the Cart', () {
+    test(_titles.repo_remove_product, () {
       var listProductsInserted = _repo.getAllCartItems();
       expect(_product0.id.toString(), isIn(listProductsInserted));
       expect(_product1.id.toString(), isIn(listProductsInserted));
@@ -54,19 +63,19 @@ class CartRepoTests {
       });
     });
 
-    test('Clearing ALL products from the Cart', () {
+    test(_titles.repo_clear_cart, () {
       expect(_repo.getAllCartItems().length, 2);
       _repo.clearCart();
       expect(_repo.getAllCartItems().length, isZero);
     });
 
-    test('Adding two products in the Cart', () {
+    test(_titles.repo_add_two_products, () {
       expect(_repo.getAllCartItems().length, 2);
       _repo.clearCart();
       expect(_repo.getAllCartItems().length, isZero);
     });
 
-    test('Undo added product', () {
+    test(_titles.repo_undo_add_product, () {
       var listProductsInserted = _repo.getAllCartItems();
       expect(_product0.id.toString(), isIn(listProductsInserted));
       expect(_product1.id.toString(), isIn(listProductsInserted));

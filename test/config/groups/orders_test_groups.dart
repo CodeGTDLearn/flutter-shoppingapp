@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../app/modules/orders/orders_controller_test.dart';
+import '../../app/modules/orders/orders_service_test.dart';
 import '../../app/modules/orders/repo/orders_repo_test.dart';
-import '../../app/modules/orders/service/orders_service_test.dart';
 import '../../app/modules/orders/view/orders_view_test.dart';
 import '../app_tests_properties.dart';
 import '../titles/orders_test_titles.dart';

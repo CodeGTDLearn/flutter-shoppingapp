@@ -1,11 +1,10 @@
 class CartTestTitles {
   String REPO_NAME = 'CartMockedRepo';
 
-  // @formatter:off
   //GROUP-TITLES ---------------------------------------------------------------
   static get GROUP_TITLE => 'Cart|Integration-Tests:';
 
-  //MVC-TITLES -----------------------------------------------------------------
+  // MVC-TITLES ----------------------------------------------------------------
   get REPO_TITLE => '$REPO_NAME|Repo: Unit';
 
   get SERVICE_TITLE => '$REPO_NAME|Service: Unit';
@@ -14,29 +13,69 @@ class CartTestTitles {
 
   get VIEW_TITLE => '$REPO_NAME|View: Functional';
 
-  //TEST-TITLES ----------------------------------------------------------------
-  get add_products_check_cartPage => 'Adding products|Check CartPage';
+  // REPO-TITLES ---------------------------------------------------------------
+  get repo_get_all_products => 'Getting ALL products from the Cart';
 
-  get add_product_check_snackbar => 'Adding product|Check Snackbar';
+  get repo_remove_product => 'Removing specific products from the Cart';
 
-  get denying_dismissing_cartitem => 'Denying FIRST product Dismissing';
+  get repo_clear_cart => 'Clearing ALL products from the Cart';
 
-  get dismissing_first_added_product => 'Dismissing FIRST added product';
+  get repo_add_two_products => 'Adding two products in the Cart';
 
-  get dismissing_all_added_products => 'Dismissing ALL products';
+  get repo_undo_add_product => 'Undo added product';
 
-  get emptycart_block_access_to_cartpage => 'Empty Cart|block Access to Cart Page';
+  // SERVICE-TITLES ------------------------------------------------------------
+  get service_get_all_products => 'Getting ALL products from the Cart';
 
-  get open_cartpage_check2products => 'Opening CartView|Checking 2 products';
+  get service_remove_product => 'Removing specific products from the Cart';
 
-  get check_amount_cart => 'Checking Amount Cart';
+  get service_clear_cart => 'Clearing ALL products from the Cart';
 
-  get order_cartProducts_tap_orderNowButton =>
-      'Ordering Products|Tapping Order-Now-Button';
+  get service_add_two_products => 'Adding two products in the Cart';
 
-  get clear_cart_tap_clear_button => 'Clearing Products|ClearCart IconButton';
+  get service_undo_add_product => 'Undo added product';
 
-  get test_page_backbutton => 'Testing Page BackButton';
+  get service_get_cartitem_qtde => 'Getting CartItems Quantity from the Cart';
 
-// @formatter:on
+  get service_get_cartitem_amount => 'Getting CartItems Amount\$ from the Cart';
+
+  // CONTROLLER-TITLES  --------------------------------------------------------
+  get controller_add_order => 'Adding Orders';
+
+  get controller_get_cartitem_amount => 'Getting CartItems AmountObs\$ from the Cart';
+
+  get controller_get_cartitem_qtde => 'Getting CartItems QuantityObs from the Cart';
+
+  get controller_undo_add_product => 'Undo added product';
+
+  get controller_add_two_products => 'Adding two products in the Cart';
+
+  get controller_clear_cart => 'Clearing ALL products from the Cart';
+
+  get controller_product => 'Removing specific products from the Cart';
+
+  get controller_get_all_products => 'Getting ALL products from the Cart';
+
+  // VIEW-TITLES ---------------------------------------------------------------
+  get view_add_products => 'Adding products|Check CartPage';
+
+  get view_add_product_check_snackbar => 'Adding product|Check Snackbar';
+
+  get view_denying_dismissing_cartitem => 'Denying FIRST product Dismissing';
+
+  get view_dismissing_first_product => 'Dismissing FIRST added product';
+
+  get view_dismissing_all_products => 'Dismissing ALL products';
+
+  get view_block_cartview_cartempty => 'Empty Cart|block Access to Cart Page';
+
+  get view_open_cartview => 'Opening CartView|Checking 2 products';
+
+  get view_check_amount_cart => 'Checking Amount Cart';
+
+  get view_order_cartProducts_tap_orderNowButton => 'Order Product|Tap Order-Now-Button';
+
+  get view_clear_cart_clear_button => 'Clearing Products|ClearCart IconButton';
+
+  get view_backbutton => 'Testing Page BackButton';
 }

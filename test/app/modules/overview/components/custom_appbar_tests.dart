@@ -18,7 +18,7 @@ class CustomAppbarTests {
   final UiTestUtils uiTestUtils;
   final TestsUtils testUtils;
   final _messages = Get.find<MessageLabels>();
-  final _labels = Get.find<OverviewLabels>();
+  final _labels = Get.put(OverviewLabels());
   final _keys = Get.find<OverviewKeys>();
 
 

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:get/get_common/get_reset.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/bindings/modules/cart_bindings.dart';
-import 'package:shopingapp/app/core/theme/global_theme_controller.dart';
 import 'package:shopingapp/app/modules/overview/controller/overview_controller.dart';
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
@@ -19,7 +18,7 @@ class CustomWidgetsTestBindings {
     Get.reset();
 
     var binding = BindingsBuilder(() {
-      Get.lazyPut(() => GlobalThemeController());
+      // Get.lazyPut(() => GlobalThemeController());
 
       Get.lazyPut<IOverviewRepo>(() => repo);
       Get.lazyPut<IOverviewService>(

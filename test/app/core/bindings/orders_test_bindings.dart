@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:get/get_common/get_reset.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/theme/global_theme_controller.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/cart/repo/cart_repo.dart';
 import 'package:shopingapp/app/modules/cart/repo/i_cart_repo.dart';
@@ -28,8 +27,6 @@ class OrdersTestBindings {
     Get.reset();
 
     var binding = BindingsBuilder(() {
-      Get.lazyPut(() => GlobalThemeController());
-
       //OVERVIEW
       Get.lazyPut<IOverviewRepo>(() => OverviewMockedRepo());
       Get.lazyPut<IOverviewService>(

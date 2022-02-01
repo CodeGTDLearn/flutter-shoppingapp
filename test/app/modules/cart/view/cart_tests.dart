@@ -25,12 +25,12 @@ class CartTests {
   final UiTestUtils uiTestUtils;
   final TestDbUtils dbTestUtils;
   final TestsUtils testUtils;
-  final _messages = Get.find<MessageLabels>();
-  final _words = Get.find<GlobalLabels>();
-  final _labels = Get.find<CartLabels>();
-  final _keysInd = Get.find<GlobalWidgetsKeys>();
-  final _keysOv = Get.find<OverviewKeys>();
-  final _keysCart = Get.find<CartKeys>();
+  final _messages = Get.put(MessageLabels());
+  final _words = Get.put(GlobalLabels());
+  final _labels = Get.put(CartLabels());
+  final _keysInd = Get.put(GlobalWidgetsKeys());
+  final _keysOv = Get.put(OverviewKeys());
+  final _keysCart = Get.put(CartKeys());
 
   CartTests({
     required this.isWidgetTest,

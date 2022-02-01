@@ -26,7 +26,7 @@ class OrdersView extends StatelessWidget {
       () => _controller.ordersObs.isEmpty
           ? CustomIndicator.message(message: _messages.no_orders_yet(), fontSize: 20)
           : CustomScrollView(slivers: [
-              _sliverAppbar.create(_labels.label_title_page(), Get.back,actions: [_cartBadge]),
+              _sliverAppbar.create(_labels.title_page, Get.back,actions: [_cartBadge]),
               StaggeredSliverListview().ordersListview(_controller.ordersObs.toList())
             ]),
     ));

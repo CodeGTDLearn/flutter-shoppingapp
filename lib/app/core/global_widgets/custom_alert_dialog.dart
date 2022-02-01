@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class CustomAlertDialog {

@@ -41,12 +41,12 @@ void main() {
 // MEANING, IN THE ALL METHODS 'FOR-EACH' A NEW MOCKED-DATASOURCE
 // IS LOADED, THEREFORE, EACH THE TESTS CAN HAVE ITS OWN STATE
 void _unitTests() {
-  final SKIP_GROUP = true;
+  final SKIP_GROUP = false;
 
   CartTestGroups().groups(skipGroup: SKIP_GROUP);
+  InventoryTestGroups().groups(skipGroup: SKIP_GROUP);
   OrdersTestGroups().groups(skipGroup: SKIP_GROUP);
   OverviewTestGroups().groups(skipGroup: SKIP_GROUP);
-  InventoryTestGroups().groups(skipGroup: false);
   CustomAppbarTestGroups().groups(skipGroup: SKIP_GROUP);
   CustomDrawerTestGroups().groups(skipGroup: SKIP_GROUP);
   CustomIndicatorTestGroups().groups(skipGroup: SKIP_GROUP);
