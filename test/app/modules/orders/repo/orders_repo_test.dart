@@ -4,10 +4,10 @@ import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/orders/entity/order.dart';
 import 'package:shopingapp/app/modules/orders/repo/i_orders_repo.dart';
 
-import '../../../../config/titles/orders_test_titles.dart';
-import '../../../../data_builders/order_databuilder.dart';
-import '../../../../datasource/mocked_datasource.dart';
-import '../../../core/bindings/orders_test_bindings.dart';
+import '../../../../config/data_builders/order_databuilder.dart';
+import '../../../../config/datasource/mocked_datasource.dart';
+import '../core/orders_test_bindings.dart';
+import '../core/orders_test_titles.dart';
 
 class OrdersRepoTests {
   void unit() {

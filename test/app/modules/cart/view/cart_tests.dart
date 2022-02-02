@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/keys/global_widgets_keys.dart';
-import 'package:shopingapp/app/core/keys/modules/cart_keys.dart';
-import 'package:shopingapp/app/core/keys/modules/overview_keys.dart';
-import 'package:shopingapp/app/core/labels/global_labels.dart';
-import 'package:shopingapp/app/core/labels/message_labels.dart';
-import 'package:shopingapp/app/core/labels/modules/cart_labels.dart';
-import 'package:shopingapp/app/modules/cart/components/dismissible_cart_item.dart';
+import 'package:shopingapp/app/core/components/components_keys.dart';
+import 'package:shopingapp/app/core/texts/global_labels.dart';
+import 'package:shopingapp/app/core/texts/global_messages.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
+import 'package:shopingapp/app/modules/cart/core/cart_keys.dart';
+import 'package:shopingapp/app/modules/cart/core/cart_labels.dart';
+import 'package:shopingapp/app/modules/cart/core/components/dismissible_cart_item.dart';
 import 'package:shopingapp/app/modules/cart/view/cart_view.dart';
+import 'package:shopingapp/app/modules/overview/core/overview_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/app_tests_properties.dart';
-import '../../../../utils/finder_utils.dart';
-import '../../../../utils/testdb_utils.dart';
-import '../../../../utils/tests_utils.dart';
-import '../../../../utils/ui_test_utils.dart';
+import '../../../../config/utils/finder_utils.dart';
+import '../../../../config/utils/testdb_utils.dart';
+import '../../../../config/utils/tests_utils.dart';
+import '../../../../config/utils/ui_test_utils.dart';
 
 class CartTests {
   final bool isWidgetTest;
@@ -25,10 +25,10 @@ class CartTests {
   final UiTestUtils uiTestUtils;
   final TestDbUtils dbTestUtils;
   final TestsUtils testUtils;
-  final _messages = Get.put(MessageLabels());
+  final _messages = Get.put(GlobalMessages());
   final _words = Get.put(GlobalLabels());
   final _labels = Get.put(CartLabels());
-  final _keysInd = Get.put(GlobalWidgetsKeys());
+  final _keysInd = Get.put(ComponentsKeys());
   final _keysOv = Get.put(OverviewKeys());
   final _keysCart = Get.put(CartKeys());
 
@@ -65,8 +65,7 @@ class CartTests {
     expect(finder.type(CartView), findsOneWidget);
     expect(Get.find<CartController>().amountCartItemsObs.value > 0.0, isTrue);
 
-    await _clearCart_quitCartView(
-        tester, finder.key(_keysCart.k_crt_clearcart_btn()));
+    await _clearCart_quitCartView(tester, finder.key(_keysCart.k_crt_clearcart_btn()));
 
     expect(Get.find<CartController>().amountCartItemsObs.value == 0, isTrue);
     expect(finder.type(DismissibleCartItem), findsNothing);
@@ -91,8 +90,7 @@ class CartTests {
     );
 
     expect(finder.type(CartView), findsOneWidget);
-    await _clearCart_quitCartView(
-        tester, finder.key(_keysCart.k_crt_clearcart_btn()));
+    await _clearCart_quitCartView(tester, finder.key(_keysCart.k_crt_clearcart_btn()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
     await _addProduct_tappingOverviewItem_openShopCartView(

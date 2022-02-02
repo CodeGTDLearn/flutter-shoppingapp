@@ -3,9 +3,9 @@ import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/orders/entity/order.dart';
 import 'package:shopingapp/app/modules/orders/service/i_orders_service.dart';
 
-import '../../../config/titles/orders_test_titles.dart';
-import '../../../datasource/mocked_datasource.dart';
-import '../../core/bindings/orders_test_bindings.dart';
+import '../../../config/datasource/mocked_datasource.dart';
+import 'core/orders_test_bindings.dart';
+import 'core/orders_test_titles.dart';
 
 class OrdersServiceTests {
   void unit() {

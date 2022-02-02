@@ -2,12 +2,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
 
 import '../../../config/app_tests_properties.dart';
-import '../../../config/titles/custom_indicator_test_titles.dart';
-import '../../../utils/finder_utils.dart';
-import '../../../utils/tests_global_utils.dart';
-import '../../../utils/tests_utils.dart';
-import '../../../utils/ui_test_utils.dart';
+import '../../../config/utils/finder_utils.dart';
+import '../../../config/utils/tests_global_utils.dart';
+import '../../../config/utils/tests_utils.dart';
+import '../../../config/utils/ui_test_utils.dart';
 import '../bindings/custom_widgets_test_bindings.dart';
+import '../test_titles/custom_indicator_test_titles.dart';
 import 'custom_indicator_tests.dart';
 
 class CustomIndicatorTest {
@@ -32,8 +32,7 @@ class CustomIndicatorTest {
 
     setUpAll(() async {
       _globalUtils.globalSetUpAll(
-          testModuleName:
-              '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
+          testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE');
 
       _bindings.bindingsBuilder(isWidgetTest: _isWidgetTest, isEmptyDb: false);
     });

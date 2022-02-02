@@ -1,12 +1,12 @@
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/modules/overview/components/overview_appbar/filter_options_enum.dart';
+import 'package:shopingapp/app/modules/overview/core/components/overview_appbar/filter_options_enum.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 
-import '../../../../config/titles/overview_test_titles.dart';
-import '../../../../datasource/mocked_datasource.dart';
-import '../../../core/bindings/overview_test_bindings.dart';
+import '../../../../config/datasource/mocked_datasource.dart';
+import '../core/overview_test_bindings.dart';
+import '../core/overview_test_titles.dart';
 
 class OverviewServiceTests {
   void unit() {

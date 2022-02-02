@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 
-import '../../../core/global_widgets/custom_drawer.dart';
-import '../components/overview_appbar/overview_sliver_appbar.dart';
-import '../components/overview_scaffold/ioverview_scaffold.dart';
+import '../../../core/components/drawer/custom_drawer.dart';
 import '../controller/overview_controller.dart';
+import '../core/components/overview_appbar/overview_sliver_appbar.dart';
+import '../core/components/overview_scaffold/ioverview_scaffold.dart';
 
 class OverviewView extends StatelessWidget {
   final _drawer = Get.find<CustomDrawer>();

@@ -1,21 +1,21 @@
 import 'package:get/route_manager.dart';
 
+import '../../modules/cart/core/cart_bindings.dart';
 import '../../modules/cart/view/cart_view.dart';
+import '../../modules/inventory/core/inventory_bindings.dart';
 import '../../modules/inventory/view/inventory_details_view.dart';
 import '../../modules/inventory/view/inventory_image_view.dart';
 import '../../modules/inventory/view/inventory_view.dart';
+import '../../modules/orders/core/orders_bindings.dart';
 import '../../modules/orders/view/orders_view.dart';
+import '../../modules/overview/core/bindings/overview_bindings.dart';
+import '../../modules/overview/core/bindings/overview_scaffold_bindings.dart';
 import '../../modules/overview/view/overview_item_details_view.dart';
 import '../../modules/overview/view/overview_view.dart';
-import '../bindings/global_theme_bindings.dart';
-import '../bindings/global_widgets/appbars_bindings.dart';
-import '../bindings/global_widgets/custom_drawer_bindings.dart';
-import '../bindings/modules/cart_bindings.dart';
-import '../bindings/modules/inventory_bindings.dart';
-import '../bindings/modules/orders_bindings.dart';
-import '../bindings/modules/overview/overview_bindings.dart';
-import '../bindings/modules/overview/overview_scaffold_bindings.dart';
-import '../bindings/utils_bindings.dart';
+import '../components/appbar/appbars_bindings.dart';
+import '../components/drawer/custom_drawer_bindings.dart';
+import '../theme/global_theme_bindings.dart';
+import '../utils/utils_bindings.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class Routes {
@@ -26,6 +26,7 @@ class Routes {
   static const INVENTORY = '/inventory';
   static const INVENTORY_ITEM_DETAILS = '/inventory-item-edit/';
   static const INVENTORY_ITEM_IMAGE = '/inventory-item-image/';
+
   // '$OVERVIEW_DETAIL_ROUTE:id'
   // static const OVERVIEW_DETAIL = '/item-details/';
 

@@ -3,7 +3,7 @@ import 'package:mockito/mockito.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/inventory/repo/i_inventory_repo.dart';
 
-import '../../../../datasource/mocked_datasource.dart';
+import '../../../../config/datasource/mocked_datasource.dart';
 
 /* **************************************************
   *--> TIPOS DE MOCK

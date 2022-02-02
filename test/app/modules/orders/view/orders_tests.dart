@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/global_widgets/custom_indicator.dart';
-import 'package:shopingapp/app/core/keys/global_widgets_keys.dart';
-import 'package:shopingapp/app/core/keys/modules/cart_keys.dart';
-import 'package:shopingapp/app/core/keys/modules/overview_keys.dart';
-import 'package:shopingapp/app/core/labels/message_labels.dart';
+import 'package:shopingapp/app/core/components/components_keys.dart';
+import 'package:shopingapp/app/core/components/custom_indicator.dart';
+import 'package:shopingapp/app/core/texts/global_messages.dart';
+import 'package:shopingapp/app/modules/cart/core/cart_keys.dart';
 import 'package:shopingapp/app/modules/cart/view/cart_view.dart';
-import 'package:shopingapp/app/modules/orders/components/custom_tiles/collapsable_tile.dart';
+import 'package:shopingapp/app/modules/orders/core/components/custom_tiles/collapsable_tile.dart';
 import 'package:shopingapp/app/modules/orders/view/orders_view.dart';
+import 'package:shopingapp/app/modules/overview/core/overview_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/app_tests_properties.dart';
-import '../../../../utils/finder_utils.dart';
-import '../../../../utils/testdb_utils.dart';
-import '../../../../utils/tests_utils.dart';
-import '../../../../utils/ui_test_utils.dart';
+import '../../../../config/utils/finder_utils.dart';
+import '../../../../config/utils/testdb_utils.dart';
+import '../../../../config/utils/tests_utils.dart';
+import '../../../../config/utils/ui_test_utils.dart';
 
 class OrdersTests {
   final bool isWidgetTest;
@@ -24,8 +24,8 @@ class OrdersTests {
   final UiTestUtils uiTestUtils;
   final TestDbUtils dbTestUtils;
   final TestsUtils testUtils;
-  final _messages = Get.find<MessageLabels>();
-  final _keys = Get.find<GlobalWidgetsKeys>();
+  final _messages = Get.find<GlobalMessages>();
+  final _keys = Get.find<ComponentsKeys>();
   final _keysOv = Get.find<OverviewKeys>();
   final _keysCart = Get.find<CartKeys>();
 
@@ -124,7 +124,7 @@ class OrdersTests {
 
     expect(finder.type(OrdersView), findsOneWidget);
     expect(finder.type(CircularProgressIndicator), findsNothing);
-    expect(finder.text(_messages.no_orders_yet()), findsOneWidget);
+    expect(finder.text(_messages.no_orders_yet), findsOneWidget);
 
     await uiTestUtils.navigateBetweenViews(
       tester,

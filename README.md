@@ -1,4 +1,5 @@
 ### Table of Contents
+
 <!-- AUTO-GENERATED-CONTENT:START (TOC:collapse=true&collapseText="Click to expand") -->
 <details>
 <summary>"Click to expand"</summary>
@@ -39,20 +40,20 @@ test, study, apply, explore Flutter as a definitive crossplatform and crossdevic
 ## Built With
 
 1. [Get](https://pub.dev/packages/get)
-   - GetX is an extra-light and powerful solution for Flutter. It combines high performance state management,
-     intelligent dependency injection, and route management in a quick and practical way. GetX is "4 in 1" package, in
-     other words:
-       - State management;
-       - Route management;
-       - Dependency/instance management;
-       - Utilities.
+    - GetX is an extra-light and powerful solution for Flutter. It combines high performance state management,
+      intelligent dependency injection, and route management in a quick and practical way. GetX is "4 in 1" package, in
+      other words:
+        - State management;
+        - Route management;
+        - Dependency/instance management;
+        - Utilities.
 
 2. [Firebase Authentication](https://firebase.google.com/docs/auth)
-   - The Google Firebase Authentication
+    - The Google Firebase Authentication
 
 
 3. [Flutter Integration](https://flutter.dev/docs/cookbook/testing/integration/introduction)
-   - The Google Oficial package to create Widget Tests, as well as, Functional/UI Tests.
+    - The Google Oficial package to create Widget Tests, as well as, Functional/UI Tests.
 
 
 4. [Firebase Realtime Database](https://firebase.google.com/docs/database/)
@@ -61,16 +62,16 @@ test, study, apply, explore Flutter as a definitive crossplatform and crossdevic
 
 
 5. [S.O.L.I.D.](https://scotch.io/bar-talk/s-o-l-i-d-the-first-five-principles-of-object-oriented-design)
-   - The First 5 Principles of Object-Oriented Design
+    - The First 5 Principles of Object-Oriented Design
 
 
 6. [Flutter Staggered Animations](https://pub.dev/packages/flutter_staggered_animations)
-   - Easily add staggered animations to your ListView, GridView, Column and Row children as shown in Material Design
-     guidelines
+    - Easily add staggered animations to your ListView, GridView, Column and Row children as shown in Material Design
+      guidelines
 
 
 7. [JSON annotation](https://pub.dev/packages/json_annotation)
-   - Defines the annotations used by json_serializable to create code for JSON serialization and deserialization.
+    - Defines the annotations used by json_serializable to create code for JSON serialization and deserialization.
 
 #### Packages removed:
 

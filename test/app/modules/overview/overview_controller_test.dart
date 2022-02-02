@@ -1,17 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/modules/overview/components/overview_appbar/filter_options_enum.dart';
 import 'package:shopingapp/app/modules/overview/controller/overview_controller.dart';
-import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
+import 'package:shopingapp/app/modules/overview/core/components/overview_appbar/filter_options_enum.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 
-import '../../../config/titles/overview_test_titles.dart';
-import '../../../datasource/mocked_datasource.dart';
-import '../../core/bindings/overview_test_bindings.dart';
+import '../../../config/datasource/mocked_datasource.dart';
+import 'core/overview_test_bindings.dart';
+import 'core/overview_test_titles.dart';
 
 class OverviewControllerTests {
   void integration() {
-    late IOverviewRepo _repo;
     late IOverviewService _service;
     late OverviewController _controller;
     final _titles = Get.put(OverviewTestTitles());

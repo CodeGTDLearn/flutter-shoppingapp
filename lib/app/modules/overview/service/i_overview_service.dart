@@ -1,5 +1,5 @@
 import '../../inventory/entity/product.dart';
-import '../components/overview_appbar/filter_options_enum.dart';
+import '../core/components/overview_appbar/filter_options_enum.dart';
 
 abstract class IOverviewService {
   Future<List<Product>> getProducts();

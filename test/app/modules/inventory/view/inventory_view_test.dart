@@ -1,18 +1,18 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/keys/modules/inventory_keys.dart';
 import 'package:shopingapp/app/core/properties/db_urls.dart';
-import 'package:shopingapp/app/modules/inventory/components/custom_listtile/simple_listtile.dart';
+import 'package:shopingapp/app/modules/inventory/core/components/custom_listtile/simple_listtile.dart';
+import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 
 import '../../../../config/app_tests_properties.dart';
-import '../../../../config/titles/inventory_test_titles.dart';
-import '../../../../datasource/mocked_datasource.dart';
-import '../../../../utils/finder_utils.dart';
-import '../../../../utils/testdb_utils.dart';
-import '../../../../utils/tests_global_utils.dart';
-import '../../../../utils/tests_utils.dart';
-import '../../../../utils/ui_test_utils.dart';
-import '../../../core/bindings/inventory_test_bindings.dart';
+import '../../../../config/datasource/mocked_datasource.dart';
+import '../../../../config/utils/finder_utils.dart';
+import '../../../../config/utils/testdb_utils.dart';
+import '../../../../config/utils/tests_global_utils.dart';
+import '../../../../config/utils/tests_utils.dart';
+import '../../../../config/utils/ui_test_utils.dart';
+import '../core/inventory_test_bindings.dart';
+import '../core/inventory_test_titles.dart';
 import 'inventory_tests.dart';
 
 class InventoryViewTest {

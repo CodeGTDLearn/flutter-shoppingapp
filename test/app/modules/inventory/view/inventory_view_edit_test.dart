@@ -1,17 +1,17 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/keys/modules/inventory_keys.dart';
+import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/app_tests_properties.dart';
-import '../../../../config/titles/inventory_test_titles.dart';
-import '../../../../data_builders/product_databuilder.dart';
-import '../../../../utils/finder_utils.dart';
-import '../../../../utils/testdb_utils.dart';
-import '../../../../utils/tests_global_utils.dart';
-import '../../../../utils/tests_utils.dart';
-import '../../../../utils/ui_test_utils.dart';
-import '../../../core/bindings/inventory_test_bindings.dart';
+import '../../../../config/data_builders/product_databuilder.dart';
+import '../../../../config/utils/finder_utils.dart';
+import '../../../../config/utils/testdb_utils.dart';
+import '../../../../config/utils/tests_global_utils.dart';
+import '../../../../config/utils/tests_utils.dart';
+import '../../../../config/utils/ui_test_utils.dart';
+import '../core/inventory_test_bindings.dart';
+import '../core/inventory_test_titles.dart';
 import 'inventory_tests.dart';
 
 class InventoryViewEditTest {
@@ -38,7 +38,7 @@ class InventoryViewEditTest {
         testUtils: _testUtils));
 
     setUpAll(
-          () async => _globalUtils.globalSetUpAll(
+      () async => _globalUtils.globalSetUpAll(
           testModuleName: '${_tests.runtimeType.toString()} $SHARED_STATE_TITLE'),
     );
 

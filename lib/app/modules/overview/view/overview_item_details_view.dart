@@ -4,16 +4,16 @@ import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../core/global_widgets/appbar/custom_appbar.dart';
-import '../../../core/global_widgets/badge_cart.dart';
-import '../../../core/keys/modules/overview_keys.dart';
-import '../../../core/labels/modules/overview_labels.dart';
+import '../../../core/components/adaptive_widgets.dart';
+import '../../../core/components/appbar/custom_appbar.dart';
+import '../../../core/components/badge/badge_cart.dart';
 import '../../../core/properties/properties.dart';
-import '../../../core/utils/adaptive_widget_utils.dart';
 import '../../../core/utils/animations_utils.dart';
 import '../../../core/utils/ui_utils.dart';
 import '../../cart/controller/cart_controller.dart';
 import '../controller/overview_controller.dart';
+import '../core/overview_keys.dart';
+import '../core/overview_labels.dart';
 
 // ignore: must_be_immutable
 class OverviewItemDetailsView extends StatelessWidget {
@@ -24,9 +24,9 @@ class OverviewItemDetailsView extends StatelessWidget {
   final _animations = Get.find<AnimationsUtils>();
   final _appbar = Get.find<CustomAppBar>();
   final _uiUtils = Get.find<UiUtils>();
-  final _widgetUtils = Get.find<AdaptiveWidgetUtils>();
+  final _widgetUtils = Get.find<AdaptiveWidgets>();
   var cart = Get.find<BadgeCart>();
-  final _labels= Get.find<OverviewLabels>();
+  final _labels = Get.find<OverviewLabels>();
   final _keys = Get.find<OverviewKeys>();
 
   OverviewItemDetailsView([this._id]);
@@ -37,7 +37,7 @@ class OverviewItemDetailsView extends StatelessWidget {
     var _product = _controller.getProductById(_id!);
     var _appBar = _appbar.create(_product.title, Get.back, actions: [cart]);
     var _appbarZoomPage = _appbar.create(
-      'Click to return',
+      _labels.detail_return_btn,
       _controller.toggleOverviewItemDetailsImageZoomObs,
       icon: Icons.zoom_out,
     );
@@ -96,18 +96,17 @@ class OverviewItemDetailsView extends StatelessWidget {
                               style: Theme.of(context).textTheme.bodyText2)),
                       SizedBox(height: _height * 0.03),
                       Container(
-                        height: _height * 0.1,
-                        width: _width * 0.5,
-                        color: Colors.red,
-                        child: _widgetUtils.elevatedButton(
-                            onPressed: () => _cartController.addCartItem(_product),
-                            text: _labels.label_buy_btn,
-                            textStyle: GoogleFonts.lato(
-                                textStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold))),
-                      ),
+                          height: _height * 0.1,
+                          width: _width * 0.5,
+                          color: Colors.red,
+                          child: _widgetUtils.elevatedButton(
+                              onPressed: () => _cartController.addCartItem(_product),
+                              text: _labels.buy_btn,
+                              textStyle: GoogleFonts.lato(
+                                  textStyle: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold)))),
                       SizedBox(height: _height * 0.1),
                     ]))))));
   }

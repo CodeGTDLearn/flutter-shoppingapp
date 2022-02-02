@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/keys/global_widgets_keys.dart';
-import 'package:shopingapp/app/core/keys/modules/overview_keys.dart';
+import 'package:shopingapp/app/core/components/components_keys.dart';
 import 'package:shopingapp/app/modules/inventory/view/inventory_view.dart';
+import 'package:shopingapp/app/modules/overview/core/overview_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../config/app_tests_properties.dart';
-import '../../../utils/finder_utils.dart';
-import '../../../utils/tests_utils.dart';
-import '../../../utils/ui_test_utils.dart';
+import '../../../config/utils/finder_utils.dart';
+import '../../../config/utils/tests_utils.dart';
+import '../../../config/utils/ui_test_utils.dart';
 
 class CustomDrawerTests {
   final bool isWidgetTest;
@@ -18,7 +18,7 @@ class CustomDrawerTests {
   final UiTestUtils uiTestUtils;
   final TestsUtils testUtils;
   final _keys = Get.find<OverviewKeys>();
-  final _keysDrawer = Get.find<GlobalWidgetsKeys>();
+  final _keysDrawer = Get.find<ComponentsKeys>();
 
   CustomDrawerTests({
     required this.finder,

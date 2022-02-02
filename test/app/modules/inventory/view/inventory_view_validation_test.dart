@@ -1,18 +1,18 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/keys/modules/inventory_keys.dart';
-import 'package:shopingapp/app/core/labels/message_labels.dart';
 import 'package:shopingapp/app/core/properties/db_urls.dart';
+import 'package:shopingapp/app/core/texts/global_messages.dart';
+import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 
 import '../../../../config/app_tests_properties.dart';
-import '../../../../config/titles/inventory_test_titles.dart';
-import '../../../../datasource/mocked_datasource.dart';
-import '../../../../utils/finder_utils.dart';
-import '../../../../utils/testdb_utils.dart';
-import '../../../../utils/tests_global_utils.dart';
-import '../../../../utils/tests_utils.dart';
-import '../../../../utils/ui_test_utils.dart';
-import '../../../core/bindings/inventory_test_bindings.dart';
+import '../../../../config/datasource/mocked_datasource.dart';
+import '../../../../config/utils/finder_utils.dart';
+import '../../../../config/utils/testdb_utils.dart';
+import '../../../../config/utils/tests_global_utils.dart';
+import '../../../../config/utils/tests_utils.dart';
+import '../../../../config/utils/ui_test_utils.dart';
+import '../core/inventory_test_bindings.dart';
+import '../core/inventory_test_titles.dart';
 import 'inventory_tests.dart';
 
 class InventoryViewValidationTest {
@@ -24,7 +24,7 @@ class InventoryViewValidationTest {
   final _bindings = Get.put(InventoryTestBindings());
   final _titles = Get.put(InventoryTestTitles());
   final _testUtils = Get.put(TestsUtils());
-  final _messages = Get.find<MessageLabels>();
+  final _messages = Get.find<GlobalMessages>();
   final _keysInv = Get.find<InventoryKeys>();
 
   InventoryViewValidationTest({required String testType}) {
@@ -69,7 +69,7 @@ class InventoryViewValidationTest {
         tester,
         inputText: "Size",
         fieldKey: _keysInv.k_inv_edit_fld_title(),
-        validationErrorMessage: _messages.size_05_inval_message(),
+        validationErrorMessage: _messages.size_05_inval_message,
         productToUpdate: _products.elementAt(0),
       );
     });
@@ -79,7 +79,7 @@ class InventoryViewValidationTest {
         tester,
         inputText: "",
         fieldKey: _keysInv.k_inv_edit_fld_title(),
-        validationErrorMessage: _messages.empty_field_msg(),
+        validationErrorMessage: _messages.empty_field_msg,
         productToUpdate: _products.elementAt(0),
       );
     });
@@ -89,7 +89,7 @@ class InventoryViewValidationTest {
         tester,
         inputText: "<SCRIPT>",
         fieldKey: _keysInv.k_inv_edit_fld_title(),
-        validationErrorMessage: _messages.only_textnumber_message(),
+        validationErrorMessage: _messages.only_textnumber_message,
         productToUpdate: _products.elementAt(0),
       );
     });
@@ -100,7 +100,7 @@ class InventoryViewValidationTest {
         tester,
         inputText: "Size",
         fieldKey: _keysInv.k_inv_edit_fld_descr(),
-        validationErrorMessage: _messages.size_10_inval_message(),
+        validationErrorMessage: _messages.size_10_inval_message,
         productToUpdate: _products.elementAt(0),
       );
     });
@@ -110,7 +110,7 @@ class InventoryViewValidationTest {
         tester,
         inputText: "",
         fieldKey: _keysInv.k_inv_edit_fld_descr(),
-        validationErrorMessage: _messages.empty_field_msg(),
+        validationErrorMessage: _messages.empty_field_msg,
         productToUpdate: _products.elementAt(0),
       );
     });
@@ -120,7 +120,7 @@ class InventoryViewValidationTest {
         tester,
         inputText: "<SCRIPT>",
         fieldKey: _keysInv.k_inv_edit_fld_descr(),
-        validationErrorMessage: _messages.only_textnumber_message(),
+        validationErrorMessage: _messages.only_textnumber_message,
         productToUpdate: _products.elementAt(0),
       );
     });
@@ -131,7 +131,7 @@ class InventoryViewValidationTest {
         tester,
         inputText: "evilLetterrr",
         fieldKey: _keysInv.k_inv_edit_fld_price(),
-        validationErrorMessage: _messages.format_price_message(),
+        validationErrorMessage: _messages.format_price_message,
         productToUpdate: _products.elementAt(0),
       );
     });
@@ -141,7 +141,7 @@ class InventoryViewValidationTest {
         tester,
         inputText: "",
         fieldKey: _keysInv.k_inv_edit_fld_price(),
-        validationErrorMessage: _messages.empty_field_msg(),
+        validationErrorMessage: _messages.empty_field_msg,
         productToUpdate: _products.elementAt(0),
       );
     });
@@ -151,7 +151,7 @@ class InventoryViewValidationTest {
         tester,
         inputText: "<SCRIPT>",
         fieldKey: _keysInv.k_inv_edit_fld_price(),
-        validationErrorMessage: _messages.format_price_message(),
+        validationErrorMessage: _messages.format_price_message,
         productToUpdate: _products.elementAt(0),
       );
     });
@@ -162,7 +162,7 @@ class InventoryViewValidationTest {
         tester,
         inputText: "evilLetter",
         fieldKey: _keysInv.k_inv_edit_fld_imgurl(),
-        validationErrorMessage: _messages.format_url_message(),
+        validationErrorMessage: _messages.format_url_message,
         productToUpdate: _products.elementAt(0),
       );
     });
@@ -172,7 +172,7 @@ class InventoryViewValidationTest {
         tester,
         inputText: "",
         fieldKey: _keysInv.k_inv_edit_fld_imgurl(),
-        validationErrorMessage: _messages.empty_field_msg(),
+        validationErrorMessage: _messages.empty_field_msg,
         productToUpdate: _products.elementAt(0),
       );
     });
@@ -182,7 +182,7 @@ class InventoryViewValidationTest {
         tester,
         inputText: "<SCRIPT>",
         fieldKey: _keysInv.k_inv_edit_fld_imgurl(),
-        validationErrorMessage: _messages.format_url_message(),
+        validationErrorMessage: _messages.format_url_message,
         productToUpdate: _products.elementAt(0),
       );
     });

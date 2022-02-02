@@ -3,10 +3,10 @@ import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/cart/service/i_cart_service.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
-import '../../../config/titles/cart_test_titles.dart';
-import '../../../data_builders/cartitem_databuilder.dart';
-import '../../../data_builders/product_databuilder.dart';
-import '../../core/bindings/cart_test_bindings.dart';
+import '../../../config/data_builders/cartitem_databuilder.dart';
+import '../../../config/data_builders/product_databuilder.dart';
+import 'core/cart_test_bindings.dart';
+import 'core/cart_test_titles.dart';
 
 class CartServiceTests {
   void unit() {

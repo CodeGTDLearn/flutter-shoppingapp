@@ -1,19 +1,19 @@
-import 'package:animations/src/open_container.dart';
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 
-import '../../../core/global_widgets/appbar/custom_sliver_appbar.dart';
-import '../../../core/global_widgets/custom_indicator.dart';
-import '../../../core/icons/modules/inventory_icons.dart';
-import '../../../core/keys/modules/inventory_keys.dart';
-import '../../../core/labels/message_labels.dart';
-import '../../../core/labels/modules/inventory_labels.dart';
+import '../../../core/components/appbar/custom_sliver_appbar.dart';
+import '../../../core/components/custom_indicator.dart';
+import '../../../core/texts/global_messages.dart';
 import '../../../core/utils/animations_utils.dart';
 import '../../overview/controller/overview_controller.dart';
-import '../components/custom_listview/icustom_inventory_listview.dart';
 import '../controller/inventory_controller.dart';
+import '../core/components/custom_listview/icustom_inventory_listview.dart';
+import '../core/inventory_icons.dart';
+import '../core/inventory_keys.dart';
+import '../core/inventory_labels.dart';
 import 'inventory_details_view.dart';
 
 class InventoryView extends StatelessWidget {
@@ -23,7 +23,7 @@ class InventoryView extends StatelessWidget {
   final _animations = Get.find<AnimationsUtils>();
   final _sliverListView = Get.find<ICustomInventoryListview>();
   final _icons = Get.find<InventoryIcons>();
-  final _messages = Get.find<MessageLabels>();
+  final _messages = Get.find<GlobalMessages>();
   final _labels = Get.find<InventoryLabels>();
   final _keys = Get.find<InventoryKeys>();
 
@@ -32,13 +32,13 @@ class InventoryView extends StatelessWidget {
     return Scaffold(
         body: Obx(
       () => (_controller.inventoryProductsObs.toList().isEmpty
-          ? CustomIndicator.message(message: _messages.no_inv_prod_yet(), fontSize: 20)
+          ? CustomIndicator.message(message: _messages.no_inv_prod_yet, fontSize: 20)
           : RefreshIndicator(
               onRefresh: _controller.getProducts,
               child: _controller.inventoryProductsObs.toList().isEmpty
-                  ? Center(child: Text(_messages.no_inv_prod_yet()))
+                  ? Center(child: Text(_messages.no_inv_prod_yet))
                   : CustomScrollView(slivers: [
-                      _sliverAppbar.create(_labels.inv_tit_page(), () {
+                      _sliverAppbar.create(_labels.inv_tit_page, () {
                         _overviewController.updateFilteredProductsObs();
                         Get.back();
                       }, actions: [_addNewProductAppbarButton()]),

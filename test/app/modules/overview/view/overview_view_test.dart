@@ -1,18 +1,18 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/keys/global_widgets_keys.dart';
-import 'package:shopingapp/app/core/keys/modules/overview_keys.dart';
+import 'package:shopingapp/app/core/components/components_keys.dart';
 import 'package:shopingapp/app/core/properties/db_urls.dart';
+import 'package:shopingapp/app/modules/overview/core/overview_keys.dart';
 
 import '../../../../config/app_tests_properties.dart';
-import '../../../../config/titles/overview_test_titles.dart';
-import '../../../../datasource/mocked_datasource.dart';
-import '../../../../utils/finder_utils.dart';
-import '../../../../utils/testdb_utils.dart';
-import '../../../../utils/tests_global_utils.dart';
-import '../../../../utils/tests_utils.dart';
-import '../../../../utils/ui_test_utils.dart';
-import '../../../core/bindings/overview_test_bindings.dart';
+import '../../../../config/datasource/mocked_datasource.dart';
+import '../../../../config/utils/finder_utils.dart';
+import '../../../../config/utils/testdb_utils.dart';
+import '../../../../config/utils/tests_global_utils.dart';
+import '../../../../config/utils/tests_utils.dart';
+import '../../../../config/utils/ui_test_utils.dart';
+import '../core/overview_test_bindings.dart';
+import '../core/overview_test_titles.dart';
 import 'overview_tests.dart';
 
 class OverviewViewTest {
@@ -25,7 +25,7 @@ class OverviewViewTest {
   final _testUtils = Get.put(TestsUtils());
   final _globalUtils = Get.put(TestsGlobalUtils());
   final _keys = Get.find<OverviewKeys>();
-  final _keysSnack = Get.find<GlobalWidgetsKeys>();
+  final _keysSnack = Get.find<ComponentsKeys>();
 
   OverviewViewTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;

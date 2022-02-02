@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/keys/modules/overview_keys.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
-import 'package:shopingapp/app/modules/overview/components/custom_grid_item/animated_grid_item.dart';
+import 'package:shopingapp/app/modules/overview/core/components/custom_grid_item/animated_grid_item.dart';
+import 'package:shopingapp/app/modules/overview/core/overview_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_item_details_view.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/app_tests_properties.dart';
-import '../../../../utils/finder_utils.dart';
-import '../../../../utils/testdb_utils.dart';
-import '../../../../utils/tests_utils.dart';
-import '../../../../utils/ui_test_utils.dart';
+import '../../../../config/utils/finder_utils.dart';
+import '../../../../config/utils/testdb_utils.dart';
+import '../../../../config/utils/tests_utils.dart';
+import '../../../../config/utils/ui_test_utils.dart';
 
 class OverviewTests {
   final bool isWidgetTest;

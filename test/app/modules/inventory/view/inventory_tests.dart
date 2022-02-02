@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/keys/global_widgets_keys.dart';
-import 'package:shopingapp/app/core/keys/modules/inventory_keys.dart';
-import 'package:shopingapp/app/core/keys/modules/overview_keys.dart';
-import 'package:shopingapp/app/core/labels/message_labels.dart';
-import 'package:shopingapp/app/core/labels/modules/inventory_labels.dart';
+import 'package:shopingapp/app/core/components/components_keys.dart';
 import 'package:shopingapp/app/core/properties/db_urls.dart';
-import 'package:shopingapp/app/modules/inventory/components/custom_listtile/simple_listtile.dart';
+import 'package:shopingapp/app/core/texts/global_messages.dart';
+import 'package:shopingapp/app/modules/inventory/core/components/custom_listtile/simple_listtile.dart';
+import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
+import 'package:shopingapp/app/modules/inventory/core/inventory_labels.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/inventory/view/inventory_details_view.dart';
 import 'package:shopingapp/app/modules/inventory/view/inventory_view.dart';
-import 'package:shopingapp/app/modules/overview/components/custom_grid_item/animated_grid_item.dart';
+import 'package:shopingapp/app/modules/overview/core/components/custom_grid_item/animated_grid_item.dart';
+import 'package:shopingapp/app/modules/overview/core/overview_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/app_tests_properties.dart';
-import '../../../../utils/finder_utils.dart';
-import '../../../../utils/testdb./../../utils/finder_utils.dart';
-import '../../../../utils/testdb_utils.dart';
-import '../../../../utils/tests_utils.dart';
-import '../../../../utils/ui_test_utils.dart';
+import '../../../../config/utils/finder_utils.dart';
+import '../../../../config/utils/testdb_utils.dart';
+import '../../../../config/utils/tests_utils.dart';
+import '../../../../config/utils/ui_test_utils.dart';
 
 class InventoryTests {
   final bool isWidgetTest;
@@ -28,9 +27,9 @@ class InventoryTests {
   final UiTestUtils uiTestUtils;
   final TestDbUtils dbTestUtils;
   final TestsUtils testUtils;
-  final _messages = Get.find<MessageLabels>();
+  final _messages = Get.find<GlobalMessages>();
   final _labels = Get.put(InventoryLabels());
-  final _keys = Get.find<GlobalWidgetsKeys>();
+  final _keys = Get.find<ComponentsKeys>();
   final _keysOv = Get.find<OverviewKeys>();
   final _keysInv = Get.find<InventoryKeys>();
 
@@ -92,7 +91,7 @@ class InventoryTests {
       widgetType: SimpleListTile,
     );
 
-    expect(finder.text(_messages.no_inv_prod_yet()), findsOneWidget);
+    expect(finder.text(_messages.no_inv_prod_yet), findsOneWidget);
 
     await uiTestUtils.navigateBetweenViews(
       tester,
@@ -160,8 +159,7 @@ class InventoryTests {
       applyDelay: true,
     );
 
-    var keyUpdateButton =
-        finder.key('${_keysInv.k_inv_upd_btn}${productToUpdate.id}');
+    var keyUpdateButton = finder.key('${_keysInv.k_inv_upd_btn}${productToUpdate.id}');
 
     // 1) InventoryView
     //   -> Check 'InventoryView' + 'InventoryItem'
@@ -239,8 +237,7 @@ class InventoryTests {
       applyDelay: true,
     );
 
-    var keyUpdateButton =
-        finder.key('${_keysInv.k_inv_upd_btn}${productToUpdate.id}');
+    var keyUpdateButton = finder.key('${_keysInv.k_inv_upd_btn}${productToUpdate.id}');
 
     await uiTestUtils.openDrawer_SelectAnOption(
       tester,
@@ -441,11 +438,11 @@ class InventoryTests {
       );
 
       // D) GENERATE PRE-BUIT CONTENT + CLICK IN THE TEXT-FIELDS + ADD CONTENT
-      expect(_finder.text(_labels.INV_EDT_LBL_TITLE()), findsOneWidget);
-      expect(_finder.text(_labels.INV_EDT_LBL_PRICE()), findsOneWidget);
-      expect(_finder.text(_labels.INV_EDT_LBL_DESCR()), findsOneWidget);
-      expect(_finder.text(_labels.INV_EDT_LBL_IMGURL()), findsOneWidget);
-      expect(_finder.text(_labels.INV_EDT_IMG_TIT()), findsOneWidget);
+      expect(_finder.text(_labels.inv_edt_lbl_title()), findsOneWidget);
+      expect(_finder.text(_labels.inv_edt_lbl_price()), findsOneWidget);
+      expect(_finder.text(_labels.inv_edt_lbl_descr()), findsOneWidget);
+      expect(_finder.text(_labels.inv_edt_lbl_imgurl()), findsOneWidget);
+      expect(_finder.text(_labels.inv_edt_img_tit()), findsOneWidget);
 
       invalidText = "d";
       await tester.enterText(
@@ -515,18 +512,17 @@ class InventoryTests {
     validDesc = product.description;
     validImgUrl = product.imageUrl;
 
-    expect(finder.text(_labels.INV_EDT_LBL_TITLE()), findsOneWidget);
-    expect(finder.text(_labels.INV_EDT_LBL_PRICE()), findsOneWidget);
-    expect(finder.text(_labels.INV_EDT_LBL_DESCR()), findsOneWidget);
-    expect(finder.text(_labels.INV_EDT_LBL_IMGURL()), findsOneWidget);
+    expect(finder.text(_labels.inv_edt_lbl_title()), findsOneWidget);
+    expect(finder.text(_labels.inv_edt_lbl_price()), findsOneWidget);
+    expect(finder.text(_labels.inv_edt_lbl_descr()), findsOneWidget);
+    expect(finder.text(_labels.inv_edt_lbl_imgurl()), findsOneWidget);
 
     await tester.enterText(
       finder.key(_keysInv.k_inv_edit_fld_title()),
       useValidTexts ? validTitle : invalidText,
     );
     //Price is blocked against INVALID CONTENT, so there is no need to test it.
-    await tester.enterText(
-        finder.key(_keysInv.k_inv_edit_fld_price()), validPrice);
+    await tester.enterText(finder.key(_keysInv.k_inv_edit_fld_price()), validPrice);
     await tester.enterText(
       finder.key(_keysInv.k_inv_edit_fld_descr()),
       useValidTexts ? validDesc : invalidText,
@@ -572,33 +568,29 @@ class InventoryTests {
     validDesc = product.description;
     validImgUrl = product.imageUrl;
 
-    expect(finder.text(_labels.INV_EDT_LBL_TITLE()), findsOneWidget);
-    expect(finder.text(_labels.INV_EDT_LBL_PRICE()), findsOneWidget);
-    expect(finder.text(_labels.INV_EDT_LBL_DESCR()), findsOneWidget);
-    expect(finder.text(_labels.INV_EDT_LBL_IMGURL()), findsOneWidget);
+    expect(finder.text(_labels.inv_edt_lbl_title), findsOneWidget);
+    expect(finder.text(_labels.inv_edt_lbl_price), findsOneWidget);
+    expect(finder.text(_labels.inv_edt_lbl_descr), findsOneWidget);
+    expect(finder.text(_labels.inv_edt_lbl_imgurl), findsOneWidget);
 
     await tester.enterText(
       finder.key(_keysInv.k_inv_edit_fld_title()),
       useValidTexts ? validTitle : invalidText,
     );
     //Price is blocked against INVALID CONTENT, so there is no need to test it.
-    await tester.enterText(finder.key(_keysInv.k_inv_edit_fld_price())
-        , '2');
+    await tester.enterText(finder.key(_keysInv.k_inv_edit_fld_price()), '2');
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.text('\$0.02'), findsOneWidget);
 
-    await tester.enterText(finder.key(_keysInv.k_inv_edit_fld_price())
-        , '22');
+    await tester.enterText(finder.key(_keysInv.k_inv_edit_fld_price()), '22');
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.text('\$0.22'), findsOneWidget);
 
-    await tester.enterText(finder.key(_keysInv.k_inv_edit_fld_price())
-        , '222');
+    await tester.enterText(finder.key(_keysInv.k_inv_edit_fld_price()), '222');
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.text('\$2.22'), findsOneWidget);
 
-    await tester.enterText(finder.key(_keysInv.k_inv_edit_fld_price())
-        , '2222');
+    await tester.enterText(finder.key(_keysInv.k_inv_edit_fld_price()), '2222');
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.text('\$22.22'), findsOneWidget);
 
@@ -645,8 +637,8 @@ class InventoryTests {
   }
 
   void _expectTestingINValidationMessages(Matcher matcher) {
-    expect(finder.text(_messages.size_05_inval_message()), matcher);
-    expect(finder.text(_messages.size_10_inval_message()), matcher);
-    expect(finder.text(_messages.format_url_message()), matcher);
+    expect(finder.text(_messages.size_05_inval_message), matcher);
+    expect(finder.text(_messages.size_10_inval_message), matcher);
+    expect(finder.text(_messages.format_url_message), matcher);
   }
 }

@@ -3,13 +3,13 @@ import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 
-import '../../../core/global_widgets/appbar/custom_appbar.dart';
-import '../../../core/labels/modules/cart_labels.dart';
+import '../../../core/components/appbar/custom_appbar.dart';
 import '../../../core/properties/properties.dart';
-import '../components/cartview_header.dart';
-import '../components/clear_cart_button.dart';
-import '../components/custom_listview/cart_staggered_listview.dart';
 import '../controller/cart_controller.dart';
+import '../core/cart_labels.dart';
+import '../core/components/cartview_header.dart';
+import '../core/components/clear_cart_button.dart';
+import '../core/components/custom_listview/cart_staggered_listview.dart';
 
 class CartView extends StatelessWidget {
   final _controller = Get.find<CartController>();
@@ -19,9 +19,8 @@ class CartView extends StatelessWidget {
   Widget build(BuildContext context) {
     _controller.renderListView.value = true;
     return Scaffold(
-        appBar: _appbar
-            .create(_labels.label_title_page(), Get.back, actions: [ClearCartButton
-          (_controller)]),
+        appBar: _appbar.create(_labels.label_title_page, Get.back,
+            actions: [ClearCartButton(_controller)]),
         body: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,

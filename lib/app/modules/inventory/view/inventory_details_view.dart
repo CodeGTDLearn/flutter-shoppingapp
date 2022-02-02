@@ -4,26 +4,26 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 
-import '../../../core/global_widgets/appbar/custom_appbar.dart';
-import '../../../core/global_widgets/snackbar/simple_snackbar.dart';
-import '../../../core/icons/modules/inventory_icons.dart';
-import '../../../core/keys/modules/inventory_keys.dart';
-import '../../../core/labels/global_labels.dart';
-import '../../../core/labels/message_labels.dart';
-import '../../../core/labels/modules/inventory_labels.dart';
+import '../../../core/components/appbar/custom_appbar.dart';
+import '../../../core/components/snackbar/simple_snackbar.dart';
 import '../../../core/properties/owasp_regex.dart';
 import '../../../core/properties/properties.dart';
+import '../../../core/texts/global_labels.dart';
+import '../../../core/texts/global_messages.dart';
 import '../../../core/utils/animations_utils.dart';
-import '../components/custom_form_field/custom_form_field.dart';
-import '../components/custom_form_field/field_properties/description_properties.dart';
-import '../components/custom_form_field/field_properties/price_properties.dart';
-import '../components/custom_form_field/field_properties/title_properties.dart';
-import '../components/custom_form_field/field_properties/url_properties.dart';
-import '../components/custom_form_field/validators/description_validator.dart';
-import '../components/custom_form_field/validators/price_validator.dart';
-import '../components/custom_form_field/validators/title_validator.dart';
-import '../components/custom_form_field/validators/url_validator.dart';
 import '../controller/inventory_controller.dart';
+import '../core/components/custom_form_field/custom_form_field.dart';
+import '../core/components/custom_form_field/field_properties/description_properties.dart';
+import '../core/components/custom_form_field/field_properties/price_properties.dart';
+import '../core/components/custom_form_field/field_properties/title_properties.dart';
+import '../core/components/custom_form_field/field_properties/url_properties.dart';
+import '../core/components/custom_form_field/validators/description_validator.dart';
+import '../core/components/custom_form_field/validators/price_validator.dart';
+import '../core/components/custom_form_field/validators/title_validator.dart';
+import '../core/components/custom_form_field/validators/url_validator.dart';
+import '../core/inventory_icons.dart';
+import '../core/inventory_keys.dart';
+import '../core/inventory_labels.dart';
 import '../entity/product.dart';
 import 'inventory_image_view.dart';
 
@@ -47,14 +47,14 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
   final _controller = Get.find<InventoryController>();
   final _animations = Get.find<AnimationsUtils>();
   final _icons = Get.find<InventoryIcons>();
-  final _messages = Get.find<MessageLabels>();
+  final _messages = Get.find<GlobalMessages>();
   final _keys = Get.find<InventoryKeys>();
   late var _formKey;
 
   @override
   void initState() {
     super.initState();
-     _formKey = _keys.k_inv_form_gkey();
+    _formKey = _keys.k_inv_form_gkey();
   }
 
   late Product _product;
@@ -70,8 +70,8 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     return Scaffold(
         appBar: _appbar.create(
             Get.arguments == null
-                ? _labels.INV_EDT_LBL_ADD_APPBAR()
-                : _labels.INV_EDT_LBL_EDIT_APPBAR(),
+                ? _labels.inv_edt_lbl_add_appbar
+                : _labels.inv_edt_lbl_edit_appbar,
             Get.back,
             actions: [
               IconButton(
@@ -89,7 +89,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
                       product: _product,
                       initialValue: _product.title,
                       context: context,
-                      label: _labels.INV_EDT_LBL_TITLE(),
+                      label: _labels.inv_edt_lbl_title,
                       key: _keys.k_inv_edit_fld_title(),
                       validator: TitleValidator().validator(),
                       onFieldSubmitted: (_) => _setFocus(_nodePrice, context)),
@@ -97,7 +97,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
                       product: _product,
                       initialValue: _product.price.toString(),
                       context: context,
-                      label: _labels.INV_EDT_LBL_PRICE(),
+                      label: _labels.inv_edt_lbl_price,
                       key: _keys.k_inv_edit_fld_price(),
                       validator: PriceValidator().validator(),
                       onFieldSubmitted: (_) => _setFocus(_nodeDescr, context),
@@ -108,7 +108,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
                       product: _product,
                       initialValue: _product.description,
                       context: context,
-                      label: _labels.INV_EDT_LBL_DESCR(),
+                      label: _labels.inv_edt_lbl_descr,
                       key: _keys.k_inv_edit_fld_descr(),
                       validator: DescriptionValidator().validator(),
                       onFieldSubmitted: (_) => _setFocus(_nodeImgUrl, context),
@@ -133,7 +133,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
                             product: _product,
                             initialValue: _product.imageUrl,
                             context: context,
-                            label: _labels.INV_EDT_LBL_IMGURL(),
+                            label: _labels.inv_edt_lbl_imgurl,
                             key: _keys.k_inv_edit_fld_imgurl(),
                             validator: UrlValidator().validator(),
                             onFieldSubmitted: (_) => _saveForm(context),
@@ -196,10 +196,10 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     _controller.addProduct(_product).then((product) {
       _controller.updateInventoryProductsObs();
     }).whenComplete(() {
-      SimpleSnackbar().show(_words.suces(), _messages.suces_inv_prod_add());
+      SimpleSnackbar().show(_words.suces, _messages.suces_inv_prod_add);
     }).catchError((onError) {
       Get.defaultDialog(
-          title: _words.ops(), middleText: _messages.error_inv_prod(), textConfirm:
+          title: _words.ops, middleText: _messages.error_inv_prod, textConfirm:
       _words.ok(),
           onConfirm:
       Get.back);
@@ -212,13 +212,13 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     _controller.updateProduct(_product).then((statusCode) {
       if (statusCode >= 200 && statusCode < 400) {
         _controller.updateInventoryProductsObs();
-        SimpleSnackbar().show(_words.suces(), _messages.suces_inv_prod_upd());
+        SimpleSnackbar().show(_words.suces, _messages.suces_inv_prod_upd);
       }
       if (statusCode >= 400) {
         Get.defaultDialog(
-            title: _words.ops(), middleText: _messages.error_inv_prod(),
+            title: _words.ops, middleText: _messages.error_inv_prod,
             textConfirm:
-        _words.ok(),
+        _words.ok,
             onConfirm: Get.back);
       }
     });

@@ -4,11 +4,11 @@ import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/orders/entity/order.dart';
 
-import '../../../config/titles/cart_test_titles.dart';
-import '../../../data_builders/cartitem_databuilder.dart';
-import '../../../data_builders/product_databuilder.dart';
-import '../../../datasource/mocked_datasource.dart';
-import '../../core/bindings/cart_test_bindings.dart';
+import '../../../config/data_builders/cartitem_databuilder.dart';
+import '../../../config/data_builders/product_databuilder.dart';
+import '../../../config/datasource/mocked_datasource.dart';
+import 'core/cart_test_bindings.dart';
+import 'core/cart_test_titles.dart';
 
 class CartControllerTests {
   void integration() {

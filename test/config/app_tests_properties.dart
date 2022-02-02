@@ -10,7 +10,7 @@ const INTEGRATION_TEST = 'integration';
 const ISOLATED_STATE_TITLE = ' - Isolated State';
 const SHARED_STATE_TITLE = ' - Shared State';
 
-final MOCKED_DATA_MASS_PATH_FILE = "test/datasource/mocked_data_mass.json";
+final MOCKED_DATA_MASS_PATH_FILE = "test/config/datasource/mocked_data_mass.json";
 const TESTDB_NAME = 'test-app-dev-e6ee1-default-rtdb';
 const TESTDB_URL = "https://$TESTDB_NAME.firebaseio.com";
 const TESTDB_ROOT_URL = "$TESTDB_URL/.json";

@@ -2,10 +2,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/overview/repo/i_overview_repo.dart';
 
-import '../../../../config/titles/overview_test_titles.dart';
-import '../../../../data_builders/product_databuilder.dart';
-import '../../../../datasource/mocked_datasource.dart';
-import '../../../core/bindings/overview_test_bindings.dart';
+import '../../../../config/data_builders/product_databuilder.dart';
+import '../../../../config/datasource/mocked_datasource.dart';
+import '../core/overview_test_bindings.dart';
+import '../core/overview_test_titles.dart';
 
 class OverviewRepoTests {
   void unit() {

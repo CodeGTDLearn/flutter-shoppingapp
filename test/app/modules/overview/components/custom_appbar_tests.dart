@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/keys/modules/overview_keys.dart';
-import 'package:shopingapp/app/core/labels/message_labels.dart';
-import 'package:shopingapp/app/core/labels/modules/overview_labels.dart';
-import 'package:shopingapp/app/modules/overview/components/custom_grid_item/animated_grid_item.dart';
+import 'package:shopingapp/app/core/texts/global_messages.dart';
+import 'package:shopingapp/app/modules/overview/core/components/custom_grid_item/animated_grid_item.dart';
+import 'package:shopingapp/app/modules/overview/core/overview_keys.dart';
+import 'package:shopingapp/app/modules/overview/core/overview_labels.dart';
 import 'package:shopingapp/app_driver.dart' as app;
 
 import '../../../../config/app_tests_properties.dart';
-import '../../../../utils/finder_utils.dart';
-import '../../../../utils/tests_utils.dart';
-import '../../../../utils/ui_test_utils.dart';
+import '../../../../config/utils/finder_utils.dart';
+import '../../../../config/utils/tests_utils.dart';
+import '../../../../config/utils/ui_test_utils.dart';
 
 class CustomAppbarTests {
   final bool isWidgetTest;
   final FinderUtils finder;
   final UiTestUtils uiTestUtils;
   final TestsUtils testUtils;
-  final _messages = Get.find<MessageLabels>();
+  final _messages = Get.find<GlobalMessages>();
   final _labels = Get.put(OverviewLabels());
   final _keys = Get.find<OverviewKeys>();
-
 
   CustomAppbarTests({
     required this.finder,
@@ -131,7 +130,7 @@ class CustomAppbarTests {
     await tester.tap(favPopupOption);
     await tester.pump();
 
-    expect(finder.text(_messages.overview_no_favs_yet()), findsOneWidget);
+    expect(finder.text(_messages.overview_no_favs_yet), findsOneWidget);
     await tester.pumpAndSettle(testUtils.delay(DELAY));
   }
 
@@ -155,7 +154,7 @@ class CustomAppbarTests {
     await tester.tap(finder.key(_keys.k_ov_flt_fav()));
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    expect(finder.text(_labels.label_title_fav()), findsOneWidget);
+    expect(finder.text(_labels.title_fav()), findsOneWidget);
     expect(finder.type(AnimatedGridItem), findsWidgets);
 
     await tester.tap(finder.key(popup));
@@ -164,7 +163,7 @@ class CustomAppbarTests {
     await tester.tap(finder.key(_keys.k_ov_flt_all()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
 
-    expect(finder.text(_labels.label_title_appbar()), findsOneWidget);
+    expect(finder.text(_labels.title_appbar()), findsOneWidget);
   }
 
   Future<void> _open_popup_check_options(tester) async {

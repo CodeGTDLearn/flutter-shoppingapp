@@ -3,10 +3,10 @@ import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/inventory/service/i_inventory_service.dart';
 import 'package:shopingapp/app/modules/overview/service/i_overview_service.dart';
 
-import '../../../config/titles/inventory_test_titles.dart';
-import '../../../data_builders/product_databuilder.dart';
-import '../../../datasource/mocked_datasource.dart';
-import '../../core/bindings/inventory_test_bindings.dart';
+import '../../../config/data_builders/product_databuilder.dart';
+import '../../../config/datasource/mocked_datasource.dart';
+import 'core/inventory_test_bindings.dart';
+import 'core/inventory_test_titles.dart';
 
 class InventoryServiceTests {
   void unit() {

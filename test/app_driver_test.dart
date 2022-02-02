@@ -3,30 +3,30 @@ import 'package:integration_test/integration_test.dart';
 
 import 'app/core/global_widgets/custom_drawer_test.dart';
 import 'app/core/global_widgets/custom_indicator_test.dart';
+import 'app/core/groups/custom_appbar_test_groups.dart';
+import 'app/core/groups/custom_drawer_test_groups.dart';
+import 'app/core/groups/custom_indicator_test_groups.dart';
+import 'app/core/test_titles/custom_appbar_test_titles.dart';
+import 'app/core/test_titles/custom_drawer_test_titles.dart';
+import 'app/core/test_titles/custom_indicator_test_titles.dart';
+import 'app/core/test_titles/testdb_check_titles.dart';
+import 'app/modules/cart/core/cart_test_groups.dart';
+import 'app/modules/cart/core/cart_test_titles.dart';
 import 'app/modules/cart/view/cart_view_test.dart';
+import 'app/modules/inventory/core/inventory_test_groups.dart';
+import 'app/modules/inventory/core/inventory_test_titles.dart';
 import 'app/modules/inventory/view/inventory_view_edit_test.dart';
 import 'app/modules/inventory/view/inventory_view_test.dart';
 import 'app/modules/inventory/view/inventory_view_validation_test.dart';
+import 'app/modules/orders/core/orders_test_groups.dart';
+import 'app/modules/orders/core/orders_test_titles.dart';
 import 'app/modules/orders/view/orders_view_test.dart';
 import 'app/modules/overview/components/custom_appbar_test.dart';
+import 'app/modules/overview/core/overview_test_groups.dart';
+import 'app/modules/overview/core/overview_test_titles.dart';
 import 'app/modules/overview/view/overview_view_test.dart';
 import 'config/app_tests_properties.dart';
-import 'config/groups/cart_test_groups.dart';
-import 'config/groups/custom_appbar_test_groups.dart';
-import 'config/groups/custom_drawer_test_groups.dart';
-import 'config/groups/custom_indicator_test_groups.dart';
-import 'config/groups/inventory_test_groups.dart';
-import 'config/groups/orders_test_groups.dart';
-import 'config/groups/overview_test_groups.dart';
-import 'config/titles/cart_test_titles.dart';
-import 'config/titles/custom_appbar_test_titles.dart';
-import 'config/titles/custom_drawer_test_titles.dart';
-import 'config/titles/custom_indicator_test_titles.dart';
-import 'config/titles/inventory_test_titles.dart';
-import 'config/titles/orders_test_titles.dart';
-import 'config/titles/overview_test_titles.dart';
-import 'config/titles/testdb_check_titles.dart';
-import 'datasource/mocked_datasource_loader.dart';
+import 'config/datasource/mocked_datasource_loader.dart';
 
 void main() {
   // NO ERASE:  String.fromEnvironment => MUST BE CONSTANT!!!

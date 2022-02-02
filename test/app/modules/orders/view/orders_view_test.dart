@@ -4,13 +4,13 @@ import 'package:shopingapp/app/modules/orders/view/orders_view.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
 
 import '../../../../config/app_tests_properties.dart';
-import '../../../../config/titles/orders_test_titles.dart';
-import '../../../../utils/finder_utils.dart';
-import '../../../../utils/testdb_utils.dart';
-import '../../../../utils/tests_global_utils.dart';
-import '../../../../utils/tests_utils.dart';
-import '../../../../utils/ui_test_utils.dart';
-import '../../../core/bindings/orders_test_bindings.dart';
+import '../../../../config/utils/finder_utils.dart';
+import '../../../../config/utils/testdb_utils.dart';
+import '../../../../config/utils/tests_global_utils.dart';
+import '../../../../config/utils/tests_utils.dart';
+import '../../../../config/utils/ui_test_utils.dart';
+import '../core/orders_test_bindings.dart';
+import '../core/orders_test_titles.dart';
 import 'orders_tests.dart';
 
 class OrdersViewTest {
@@ -50,8 +50,7 @@ class OrdersViewTest {
 
     tearDown(_globalUtils.globalTearDown);
 
-    testWidgets(_titles.orderProduct_using_cartView_tap_orderNowButton,
-        (tester) async {
+    testWidgets(_titles.orderProduct_using_cartView_tap_orderNowButton, (tester) async {
       await _tests.orderProduct_using_cartView_tapping_orderNowButton(
         tester,
         DELAY,

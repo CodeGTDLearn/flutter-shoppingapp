@@ -22,8 +22,8 @@ class Order {
 
   factory Order.deepCopy(Order orderToCopy) => Order(
         id: orderToCopy.id,
-    amount: orderToCopy.amount,
-    datetime: orderToCopy.datetime,
-    cartItems: orderToCopy.cartItems,
+        amount: orderToCopy.amount,
+        datetime: orderToCopy.datetime,
+        cartItems: orderToCopy.cartItems,
       );
 }
