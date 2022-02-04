@@ -8,6 +8,7 @@ List<Product> PRODUCTS = [
     price: 29.99,
     imageUrl: 'https://images.freeimages'
         '.com/images/large-previews/eae/clothes-3-1466560.jpg',
+    stockQtde: 10,
   ),
   Product(
     id: 'p2',
@@ -16,6 +17,7 @@ List<Product> PRODUCTS = [
     price: 59.99,
     imageUrl: 'https://upload.wikimedia'
         '.org/wikipedia/commons/thumb/e/e8/Trousers%2C_dress_%28AM_1960.022-8%29.jpg/512px-Trousers%2C_dress_%28AM_1960.022-8%29.jpg',
+  stockQtde: 10,
   ),
   Product(
     id: 'p3',
@@ -23,6 +25,7 @@ List<Product> PRODUCTS = [
     description: 'Warm and cozy - exactly what you need for the winter.',
     price: 19.99,
     imageUrl: 'https://live.staticflickr.com/4043/4438260868_cc79b3369d_z.jpg',
+    stockQtde: 10,
   ),
   Product(
     id: 'p4',
@@ -31,5 +34,6 @@ List<Product> PRODUCTS = [
     price: 49.99,
     imageUrl: 'https://upload.wikimedia'
         '.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
+    stockQtde: 10,
   ),
 ];

@@ -7,6 +7,7 @@ class InventoryLabels {
   final _INVENTORY_EDIT_FIELD_DESCRIPT = "Description";
   final _INVENTORY_EDIT_IMAGE_TITLE = "Image";
   final _INVENTORY_EDIT_FIELD_IMAGE_URL = "Image URL";
+  final _INVENTORY_EDIT_FIELD_BARCODE_URL = "Bar Code";
   final _INVENTORY_EDIT_DELETE_TITLE = "Inventory Deletion";
   final _INVENTORY_EDIT_DELETE_CONFIRMATION = "Really wanna remove: ";
 
@@ -29,6 +30,8 @@ class InventoryLabels {
   get inv_edt_lbl_descr => _INVENTORY_EDIT_FIELD_DESCRIPT;
 
   get inv_edt_lbl_imgurl => _INVENTORY_EDIT_FIELD_IMAGE_URL;
+
+  get inv_edt_lbl_barcode => _INVENTORY_EDIT_FIELD_BARCODE_URL;
 
   get inv_edt_img_tit => _INVENTORY_EDIT_IMAGE_TITLE;
 

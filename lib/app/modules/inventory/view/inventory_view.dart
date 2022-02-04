@@ -54,7 +54,7 @@ class InventoryView extends StatelessWidget {
         milliseconds: 1000,
         openingWidget: InventoryDetailsView(),
         closingWidget: Container(
-            key: Key(_keys.k_inv_add_btn_appbar()),
+            key: Key(_keys.k_inv_add_btn_appbar),
             alignment: Alignment.center,
             child: _icons.ico_add_appbar(),
             width: 50,

@@ -41,7 +41,7 @@ class SimpleListTile implements ICustomListTile {
                   onPressed: () => Get.to(() => InventoryDetailsView(_id)),
                   color: Theme.of(_context!).errorColor),
               IconButton(
-                  key: Key('${_keys.k_inv_del_btn()}$_id'),
+                  key: Key('${_keys.k_inv_del_btn}$_id'),
                   icon: _icons.icon_delete(),
                   // @formatter:off
                   onPressed: () =>

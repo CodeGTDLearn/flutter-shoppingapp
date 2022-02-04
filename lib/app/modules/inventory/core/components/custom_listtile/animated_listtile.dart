@@ -40,7 +40,7 @@ class AnimatedListTile implements ICustomListTile {
       },
       closedBuilder: (context, void Function() openContainer) {
         return ListTile(
-            key: Key('${_keys.k_inv_item_key()}$_id'),
+            key: Key('${_keys.k_inv_item_key}$_id'),
             leading: _openInventoryImageViewProduct(_product),
             title: Text(_product.title),
             trailing: Container(
@@ -61,7 +61,7 @@ class AnimatedListTile implements ICustomListTile {
 
   IconButton _deleteIconButton(String _id, BuildContext context, Product _product) {
     return IconButton(
-        key: Key('${_keys.k_inv_del_btn()}$_id'),
+        key: Key('${_keys.k_inv_del_btn}$_id'),
         icon: _icons.icon_delete(),
         // @formatter:off
                     onPressed: ()
@@ -82,7 +82,7 @@ class AnimatedListTile implements ICustomListTile {
 
   IconButton _updateIconButton(String _id, void openContainer(), BuildContext context) {
     return IconButton(
-        key: Key('${_keys.k_inv_upd_btn()}$_id'),
+        key: Key('${_keys.k_inv_upd_btn}$_id'),
         icon: _icons.icon_update(),
         onPressed: openContainer,
         color: Theme.of(context).errorColor);

@@ -17,6 +17,7 @@ class ProductDataBuilder {
       imageUrl: "https://images.freeimages"
           ".com/images/large-previews/eae/clothes-3-1466560.jpg",
       isFavorite: true,
+      stockQtde: 10,
     );
   }
 
@@ -27,6 +28,7 @@ class ProductDataBuilder {
       price: 99.99,
       imageUrl: TEST_IMAGE_URL_MAP.values.elementAt(0),
       isFavorite: false,
+      stockQtde: 10,
     );
   }
 
@@ -40,6 +42,7 @@ class ProductDataBuilder {
       price: 99.99,
       imageUrl: _url,
       isFavorite: false,
+      stockQtde: 10,
     );
   }
 }

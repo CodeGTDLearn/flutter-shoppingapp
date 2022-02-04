@@ -402,7 +402,7 @@ class InventoryTests {
     );
 
     await tester.pumpAndSettle(testUtils.delay(DELAY));
-    await tester.tap(finder.key(_keysInv.k_inv_add_btn_appbar()));
+    await tester.tap(finder.key(_keysInv.k_inv_add_btn_appbar));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(InventoryDetailsView), findsOneWidget);
   }
@@ -433,7 +433,7 @@ class InventoryTests {
       await UiTestUtils().tapButton_CheckResult(
         tester,
         interval: interval,
-        triggerKey: _keysInv.k_inv_add_btn_appbar(),
+        triggerKey: _keysInv.k_inv_add_btn_appbar,
         resultWidget: InventoryDetailsView,
       );
 

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:shopingapp/app/modules/inventory/core/components/custom_form_field/validators/barcode_validator.dart';
 
 import '../../../core/components/appbar/custom_appbar.dart';
 import '../../../core/components/snackbar/simple_snackbar.dart';
@@ -54,7 +56,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
   @override
   void initState() {
     super.initState();
-    _formKey = _keys.k_inv_form_gkey();
+    _formKey = _keys.k_inv_form_gkey;
   }
 
   late Product _product;
@@ -62,6 +64,8 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
   var _nodePrice;
   var _nodeDescr;
   var _nodeImgUrl;
+  var _nodeBarcode;
+  var _nodeBarcodeButton;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +79,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
             Get.back,
             actions: [
               IconButton(
-                  key: Key(_keys.k_inv_edit_save_btn()),
+                  key: Key(_keys.k_inv_edit_save_btn),
                   icon: _icons.ico_btn_appbar(),
                   onPressed: () => _saveForm(context))
             ]),
@@ -85,62 +89,148 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
                 key: _formKey,
                 child: SingleChildScrollView(
                     child: Column(children: [
-                  CustomFormField(TitleProperties()).create(
-                      product: _product,
-                      initialValue: _product.title,
-                      context: context,
-                      label: _labels.inv_edt_lbl_title,
-                      key: _keys.k_inv_edit_fld_title(),
-                      validator: TitleValidator().validator(),
-                      onFieldSubmitted: (_) => _setFocus(_nodePrice, context)),
-                  CustomFormField(PriceProperties()).create(
-                      product: _product,
-                      initialValue: _product.price.toString(),
-                      context: context,
-                      label: _labels.inv_edt_lbl_price,
-                      key: _keys.k_inv_edit_fld_price(),
-                      validator: PriceValidator().validator(),
-                      onFieldSubmitted: (_) => _setFocus(_nodeDescr, context),
-                      node: _nodePrice,
-                      controller:
-                          _product.price.toString() == '0.0' ? _priceController() : null),
-                  CustomFormField(DescriptionProperties()).create(
-                      product: _product,
-                      initialValue: _product.description,
-                      context: context,
-                      label: _labels.inv_edt_lbl_descr,
-                      key: _keys.k_inv_edit_fld_descr(),
-                      validator: DescriptionValidator().validator(),
-                      onFieldSubmitted: (_) => _setFocus(_nodeImgUrl, context),
-                      node: _nodeDescr),
-                  Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                    Container(
-                        width: 100,
-                        height: 100,
-                        margin: EdgeInsets.only(top: 20, right: 10),
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 0.5, color: Colors.grey)),
-                        child: Obx(() => _controller.imgUrlPreviewObs.value
-                            ? _animations.openContainer(
-                                openingWidget:
-                                    InventoryImageView(_product.title, _product.imageUrl),
-                                closingWidget: FittedBox(
-                                    child: Image.network(_urlControl.text,
-                                        fit: BoxFit.cover)))
-                            : Center(child: _icons.ico_edt_no_img()))),
-                    Expanded(
-                        child: CustomFormField(UrlProperties()).create(
-                            product: _product,
-                            initialValue: _product.imageUrl,
-                            context: context,
-                            label: _labels.inv_edt_lbl_imgurl,
-                            key: _keys.k_inv_edit_fld_imgurl(),
-                            validator: UrlValidator().validator(),
-                            onFieldSubmitted: (_) => _saveForm(context),
-                            node: _nodeImgUrl,
-                            controller: _urlControl))
-                  ])
+                  _titleField(context),
+                  _priceField(context),
+                  _descriptionField(context),
+                  _imageRow(context),
+                  SizedBox(height: 25),
+                  _barcodeRow(context),
+                  SizedBox(height: 35),
+                  _stockRow(),
                 ])))));
+  }
+
+  TextFormField _descriptionField(BuildContext context) {
+    return CustomFormField(DescriptionProperties()).create(
+                    product: _product,
+                    initialValue: _product.description,
+                    context: context,
+                    label: _labels.inv_edt_lbl_descr,
+                    key: _keys.k_inv_edit_fld_descr,
+                    validator: DescriptionValidator().validator(),
+                    onFieldSubmitted: (_) => _setFocus(_nodeImgUrl, context),
+                    node: _nodeDescr);
+  }
+
+  TextFormField _priceField(BuildContext context) {
+    return CustomFormField(PriceProperties()).create(
+                    product: _product,
+                    initialValue: _product.price.toString(),
+                    context: context,
+                    label: _labels.inv_edt_lbl_price,
+                    key: _keys.k_inv_edit_fld_price,
+                    validator: PriceValidator().validator(),
+                    onFieldSubmitted: (_) => _setFocus(_nodeDescr, context),
+                    node: _nodePrice,
+                    controller:
+                        _product.price.toString() == '0.0' ? _priceController() : null);
+  }
+
+  TextFormField _titleField(BuildContext context) {
+    return CustomFormField(TitleProperties()).create(
+                    product: _product,
+                    initialValue: _product.title,
+                    context: context,
+                    label: _labels.inv_edt_lbl_title,
+                    key: _keys.k_inv_edit_fld_title,
+                    validator: TitleValidator().validator(),
+                    onFieldSubmitted: (_) => _setFocus(_nodePrice, context));
+  }
+
+  Row _stockRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        IconButton(
+          icon: Icon(Icons.add_circle_outline),
+          onPressed: () {},
+          focusNode: _nodeBarcodeButton,
+          iconSize: 50.00,
+          padding: EdgeInsets.only(right: Get.width * 0.05),
+        ),
+        Container(
+          width: Get.width * 0.4,
+            child: Text(
+              _product.stockQtde.toString(),
+              textAlign: TextAlign.center,
+              style: GoogleFonts.lato(
+                  textStyle: const TextStyle(
+                      color: Colors.blue,
+                      fontSize: 50,
+                      fontWeight: FontWeight.bold,
+                  )),
+            ),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.white),
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: const [
+                  BoxShadow(
+                      color: Colors.grey,
+                      spreadRadius: 3,
+                      offset: Offset(1.0, 1.0),
+                      blurRadius: 5.0)
+                ])),
+        IconButton(
+          icon: Icon(Icons.remove_circle_outline_outlined),
+          onPressed: () {},
+          focusNode: _nodeBarcodeButton,
+          iconSize: 50.00,
+          padding: EdgeInsets.only(left:  Get.width * 0.05),
+        ),
+      ],
+    );
+  }
+
+  Row _barcodeRow(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: CustomFormField(DescriptionProperties()).create(
+              product: _product,
+              initialValue: _product.barcode,
+              context: context,
+              label: _labels.inv_edt_lbl_barcode,
+              key: _keys.k_inv_edit_barcode_fld,
+              validator: BarcodeValidator().validator(),
+              onFieldSubmitted: (_) => _setFocus(_nodeBarcodeButton, context),
+              node: _nodeBarcode),
+        ),
+        IconButton(
+          icon: Icon(Icons.qr_code),
+          onPressed: () {},
+          focusNode: _nodeBarcodeButton,
+        )
+      ],
+    );
+  }
+
+  Row _imageRow(BuildContext context) {
+    return Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+      Container(
+          width: 100,
+          height: 100,
+          margin: EdgeInsets.only(top: 20, right: 10),
+          decoration: BoxDecoration(border: Border.all(width: 0.5, color: Colors.grey)),
+          child: Obx(() => _controller.imgUrlPreviewObs.value
+              ? _animations.openContainer(
+                  openingWidget: InventoryImageView(_product.title, _product.imageUrl),
+                  closingWidget: FittedBox(
+                      child: Image.network(_urlControl.text, fit: BoxFit.cover)))
+              : Center(child: _icons.ico_edt_no_img()))),
+      Expanded(
+          child: CustomFormField(UrlProperties()).create(
+              product: _product,
+              initialValue: _product.imageUrl,
+              context: context,
+              label: _labels.inv_edt_lbl_imgurl,
+              key: _keys.k_inv_edit_fld_imgurl,
+              validator: UrlValidator().validator(),
+              onFieldSubmitted: (_) => _setFocus(_nodeBarcode, context),
+              // onFieldSubmitted: (_) => _saveForm(context),
+              node: _nodeImgUrl,
+              controller: _urlControl))
+    ]);
   }
 
   void _definingFormTask_updateOrAdd() {
