@@ -2,27 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 
 import '../properties/properties.dart';
-import 'components_keys.dart';
+import 'core_components_keys.dart';
 
 // ignore: must_be_immutable
-class CustomIndicator extends StatefulWidget {
+class CoreIndicatorAdaptive extends StatefulWidget {
   double? radius;
   String? message;
   double? fontSize;
   bool _showCircularProgressIndicator = true;
-  final _keys = Get.find<ComponentsKeys>();
+  final _keys = Get.find<CoreComponentsKeys>();
 
-  CustomIndicator.message({required this.message, required this.fontSize});
+  CoreIndicatorAdaptive.message({required this.message, required this.fontSize});
 
-  CustomIndicator.radius([this.radius]);
+  CoreIndicatorAdaptive.radius([this.radius]);
 
-  CustomIndicator();
+  CoreIndicatorAdaptive();
 
   @override
-  _CustomIndicatorState createState() => _CustomIndicatorState();
+  _CoreIndicatorAdaptiveState createState() => _CoreIndicatorAdaptiveState();
 }
 
-class _CustomIndicatorState extends State<CustomIndicator> {
+class _CoreIndicatorAdaptiveState extends State<CoreIndicatorAdaptive> {
   @override
   void initState() {
     super.initState();
@@ -48,7 +48,7 @@ class _CustomIndicatorState extends State<CustomIndicator> {
       height: widget.radius ?? MediaQuery.of(context).size.height,
       alignment: Alignment.center,
       child: widget._showCircularProgressIndicator
-          ? CircularProgressIndicator()
+          ? CircularProgressIndicator.adaptive()
           : Text(widget.message!, style: TextStyle(fontSize: widget.fontSize)),
     );
   }

@@ -3,13 +3,13 @@ import 'package:get/instance_manager.dart';
 import '../../../modules/cart/core/cart_bindings.dart';
 import '../../../modules/inventory/core/inventory_bindings.dart';
 import '../../../modules/orders/core/orders_bindings.dart';
-import '../components_icons.dart';
-import 'custom_drawer.dart';
+import '../core_components_icons.dart';
+import 'core_drawer.dart';
 
-class CustomDrawerBindings extends Bindings {
+class CoreDrawerBindings extends Bindings {
   void dependencies() {
-    Get.lazyPut(() => ComponentsIcons());
-    Get.lazyPut(() => CustomDrawer());
+    Get.lazyPut(() => CoreComponentsIcons());
+    Get.lazyPut(() => CoreDrawer());
     CartBindings().dependencies();
     OrdersBindings().dependencies();
     InventoryBindings().dependencies();

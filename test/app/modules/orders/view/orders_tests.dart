@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/components/components_keys.dart';
-import 'package:shopingapp/app/core/components/custom_indicator.dart';
-import 'package:shopingapp/app/core/texts/global_messages.dart';
+import 'package:shopingapp/app/core/components/core_components_keys.dart';
+import 'package:shopingapp/app/core/components/core_indicator_adaptive.dart';
+import 'package:shopingapp/app/core/texts/core_messages.dart';
 import 'package:shopingapp/app/modules/cart/core/cart_keys.dart';
 import 'package:shopingapp/app/modules/cart/view/cart_view.dart';
 import 'package:shopingapp/app/modules/orders/core/components/custom_tiles/collapsable_tile.dart';
@@ -24,8 +24,8 @@ class OrdersTests {
   final UiTestUtils uiTestUtils;
   final TestDbUtils dbTestUtils;
   final TestsUtils testUtils;
-  final _messages = Get.find<GlobalMessages>();
-  final _keys = Get.find<ComponentsKeys>();
+  final _messages = Get.find<CoreMessages>();
+  final _keys = Get.find<CoreComponentsKeys>();
   final _keysOv = Get.find<OverviewKeys>();
   final _keysCart = Get.find<CartKeys>();
 
@@ -96,7 +96,7 @@ class OrdersTests {
     //C) CLICKING ORDER-NOW-BUTTON AND GO BACK TO THE PREVIOUS PAGE
     await tester.tap(finder.key(_keysCart.k_crt_ordnow_btn()));
     await tester.pump(testUtils.delay(interval));
-    expect(finder.type(CustomIndicator), findsOneWidget);
+    expect(finder.type(CoreIndicatorAdaptive), findsOneWidget);
     await tester.pumpAndSettle(testUtils.delay(interval));
     expect(finder.type(OverviewView), findsOneWidget);
   }

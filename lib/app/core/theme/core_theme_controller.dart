@@ -3,9 +3,9 @@ import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 
 import '../shared_preferences/shared_prefs_repo.dart';
-import 'global_theme.dart';
+import 'core_theme.dart';
 
-class GlobalThemeController extends GetxController {
+class CoreThemeController extends GetxController {
   final _sharedPreferencesRepo = Get.put(SharedPrefsRepo());
 
   var isDark = false.obs;
@@ -14,7 +14,7 @@ class GlobalThemeController extends GetxController {
     _sharedPreferencesRepo.put('isDarkOption', value);
     isDark.value = value;
     Get.changeTheme(
-      Get.isDarkMode ? GlobalTheme().theme(false) : GlobalTheme().theme(true),
+      Get.isDarkMode ? CoreTheme().materialThemeData(false) : CoreTheme().materialThemeData(true),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // ignore: avoid_classes_with_only_static_members
-class UiUtils {
+class CoreUiUtils {
   double usefulHeight(BuildContext context, double superiorBar) {
     return MediaQuery.of(context).size.height -
         (screenBotton(context) + screenTop(context) + superiorBar);

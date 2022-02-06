@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 
-import '../components_keys.dart';
+import '../core_components_keys.dart';
 
 // ignore: avoid_classes_with_only_static_members
-class CustomSliverAppBar {
-  final _keys = Get.find<ComponentsKeys>();
+class CoreSliverAppBar {
+  final _keys = Get.find<CoreComponentsKeys>();
 
   SliverAppBar create(
     String title,

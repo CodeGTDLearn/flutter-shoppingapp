@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 
-import '../components_keys.dart';
-import 'icustom_snackbar.dart';
+import '../core_components_keys.dart';
+import 'i_core_snackbar.dart';
 
-class ButtonSnackbar implements ICustomSnackbar {
+class CoreButtonSnackbar implements ICoreSnackbar {
   String labelButton;
   BuildContext context;
   Function function;
-  final _keys = Get.find<ComponentsKeys>();
+  final _keys = Get.find<CoreComponentsKeys>();
 
-  ButtonSnackbar({
+  CoreButtonSnackbar({
     required this.labelButton,
     required this.context,
     required this.function,

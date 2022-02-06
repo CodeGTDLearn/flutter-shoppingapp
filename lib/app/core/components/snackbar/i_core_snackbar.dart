@@ -1,4 +1,4 @@
-abstract class ICustomSnackbar {
+abstract class ICoreSnackbar {
   void show(
     String title,
     String message,

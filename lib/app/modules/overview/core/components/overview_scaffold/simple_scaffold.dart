@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 
-import '../../../../../core/components/badge/badge_cart.dart';
-import '../../../../../core/components/custom_indicator.dart';
-import '../../../../../core/texts/global_messages.dart';
+import '../../../../../core/components/badge/core_badge_cart.dart';
+import '../../../../../core/components/core_indicator_adaptive.dart';
+import '../../../../../core/texts/core_messages.dart';
 import '../../overview_keys.dart';
 import '../custom_grid_item/animated_grid_item.dart';
 import '../overview_appbar/filter_options_enum.dart';
 import 'ioverview_scaffold.dart';
 
 class SimpleScaffold implements IOverviewScaffold {
-  final _messages = Get.find<GlobalMessages>();
+  final _messages = Get.find<CoreMessages>();
   final _keys = Get.find<OverviewKeys>();
 
   Widget overviewScaffold(
@@ -20,7 +20,7 @@ class SimpleScaffold implements IOverviewScaffold {
     _sliverAppbar,
   ) {
     _controller.applyPopupFilter(FilterOptionsEnum.All);
-    _sliverAppbar.cart = Get.find<BadgeCart>();
+    _sliverAppbar.cart = Get.find<CoreBadgeCart>();
 
     return Scaffold(
         key: _keys.k_ov_scfld_glob_key(),
@@ -29,7 +29,7 @@ class SimpleScaffold implements IOverviewScaffold {
             ? SingleChildScrollView(
                 child: Center(
                     child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                CustomIndicator.message(message: _messages.no_products_yet, fontSize: 20)
+                CoreIndicatorAdaptive.message(message: _messages.no_products_yet, fontSize: 20)
               ])))
             : CustomScrollView(
                 slivers: [

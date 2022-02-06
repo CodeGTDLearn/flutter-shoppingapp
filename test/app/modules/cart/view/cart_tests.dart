@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/components/components_keys.dart';
-import 'package:shopingapp/app/core/texts/global_labels.dart';
-import 'package:shopingapp/app/core/texts/global_messages.dart';
+import 'package:shopingapp/app/core/components/core_components_keys.dart';
+import 'package:shopingapp/app/core/texts/core_labels.dart';
+import 'package:shopingapp/app/core/texts/core_messages.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopingapp/app/modules/cart/core/cart_keys.dart';
 import 'package:shopingapp/app/modules/cart/core/cart_labels.dart';
@@ -25,10 +25,10 @@ class CartTests {
   final UiTestUtils uiTestUtils;
   final TestDbUtils dbTestUtils;
   final TestsUtils testUtils;
-  final _messages = Get.put(GlobalMessages());
-  final _words = Get.put(GlobalLabels());
+  final _messages = Get.put(CoreMessages());
+  final _words = Get.put(CoreLabels());
   final _labels = Get.put(CartLabels());
-  final _keysInd = Get.put(ComponentsKeys());
+  final _keysInd = Get.put(CoreComponentsKeys());
   final _keysOv = Get.put(OverviewKeys());
   final _keysCart = Get.put(CartKeys());
 

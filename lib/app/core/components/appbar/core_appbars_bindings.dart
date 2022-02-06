@@ -3,18 +3,18 @@ import 'package:get/instance_manager.dart';
 import '../../../modules/overview/core/components/overview_appbar/overview_appbar.dart';
 import '../../../modules/overview/core/components/overview_appbar/overview_sliver_appbar.dart';
 import '../../../modules/overview/core/overview_keys.dart';
-import '../badge/badge_cart.dart';
-import '../badge/badge_cart_bindings.dart';
-import 'custom_appbar.dart';
-import 'custom_sliver_appbar.dart';
+import '../badge/core_badge_cart.dart';
+import '../badge/core_badge_cart_bindings.dart';
+import 'core_appbar.dart';
+import 'core_sliver_appbar.dart';
 
-class AppbarsBindings extends Bindings {
+class CoreAppbarsBindings extends Bindings {
   void dependencies() {
-    BadgeCartBindings().dependencies();
+    CoreBadgeCartBindings().dependencies();
     Get.lazyPut(() => OverviewKeys());
-    Get.lazyPut(() => CustomAppBar());
+    Get.lazyPut(() => CoreAppBar());
     Get.lazyPut(() => OverviewAppBar());
-    Get.lazyPut(() => CustomSliverAppBar());
-    Get.lazyPut(() => OverviewSliverAppBar(cart: Get.find<BadgeCart>()));
+    Get.lazyPut(() => CoreSliverAppBar());
+    Get.lazyPut(() => OverviewSliverAppBar(cart: Get.find<CoreBadgeCart>()));
   }
 }

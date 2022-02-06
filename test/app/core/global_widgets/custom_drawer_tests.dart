@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/components/components_keys.dart';
+import 'package:shopingapp/app/core/components/core_components_keys.dart';
 import 'package:shopingapp/app/modules/inventory/view/inventory_view.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_keys.dart';
 import 'package:shopingapp/app/modules/overview/view/overview_view.dart';
@@ -18,7 +18,7 @@ class CustomDrawerTests {
   final UiTestUtils uiTestUtils;
   final TestsUtils testUtils;
   final _keys = Get.find<OverviewKeys>();
-  final _keysDrawer = Get.find<ComponentsKeys>();
+  final _keysDrawer = Get.find<CoreComponentsKeys>();
 
   CustomDrawerTests({
     required this.finder,

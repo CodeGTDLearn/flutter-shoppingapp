@@ -1,4 +1,4 @@
-class ComponentsKeys {
+class CoreComponentsKeys {
   final _DRAWER_OVERVIEW_VIEW = "drawwer_overview_page";
   final _DRAWWER_INVENTORY_VIEW = "drawwer_managed_product_page";
   final _DRAWER_OVERVIEW_OPTION_KEY = "drawwer_overview_option";

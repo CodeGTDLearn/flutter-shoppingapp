@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 
-import '../components_keys.dart';
+import '../core_components_keys.dart';
 
 // ignore: avoid_classes_with_only_static_members
-class CustomAppBar {
-  final _keys = Get.find<ComponentsKeys>();
+class CoreAppBar {
+  final _keys = Get.find<CoreComponentsKeys>();
 
   AppBar create(
     String title,

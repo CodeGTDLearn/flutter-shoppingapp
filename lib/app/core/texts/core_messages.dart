@@ -1,11 +1,13 @@
 import '../properties/form_field_sizes.dart';
 
-class GlobalMessages {
+class CoreMessages {
   final _ITEM_ADDED_IN_CART = " Added in the cart.";
   final _ITEM_REMOVED_FROM_CART = "Item removed successfully.";
   final _NO_INVENTORY_PRODUCTS_YET = "There is no products to be managed.";
+  final _PRODUCT_ADDITION_STOCK_CONFIRMATION = "Are you sure?";
 
-//Getx Dialogs
+
+  //Getx Dialogs
   final _TRY_AGAIN_LATER = "Something wronged happens. Please, Try Again.";
   final _PRODUCT_SUCESS_ADD = "The product was added successfuly.";
   final _PRODUCT_SUCESS_UPD = "The product was updated successfuly.";
@@ -49,6 +51,7 @@ class GlobalMessages {
       "Allowed: $FIELD_PRICE_MIN_SIZE to $FIELD_PRICE_MAX_SIZE characters.";
 
   get suces_ord_clean => _ORDER_CLEAN_SUCESS;
+  get prod_add_stock_conf => _PRODUCT_ADDITION_STOCK_CONFIRMATION;
 
   get suces_ord_add => _ORDER_SUCESS_ADD;
 

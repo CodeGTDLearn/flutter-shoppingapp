@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 
 // ignore: avoid_classes_with_only_static_members
-class AnimationsUtils {
+class CoreAnimationsUtils {
   //Instruction: https://www.youtube.com/watch?v=3GMq45zRVLo
   Widget zoomPageTransitionSwitcher({
     required RxBool zoomObservable,

@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
+import 'package:shopingapp/app/core/routes/core_routes.dart';
 
 import '../../../modules/cart/controller/cart_controller.dart';
 import '../../../modules/cart/core/cart_keys.dart';
 import '../../../modules/overview/core/overview_icons.dart';
-import '../../properties/routes.dart';
-import '../../texts/global_labels.dart';
-import '../../texts/global_messages.dart';
-import '../snackbar/simple_snackbar.dart';
+import '../../texts/core_labels.dart';
+import '../../texts/core_messages.dart';
+import '../snackbar/core_snackbar.dart';
 
-class BadgeCart extends StatelessWidget {
+class CoreBadgeCart extends StatelessWidget {
   final Color? color;
 
-  final _words = Get.find<GlobalLabels>();
-  final _messages = Get.find<GlobalMessages>();
+  final _words = Get.find<CoreLabels>();
+  final _messages = Get.find<CoreMessages>();
   final _icons = Get.find<OverviewIcons>();
   final _controller = Get.find<CartController>();
   final _keys = Get.find<CartKeys>();
 
-  BadgeCart({this.color});
+  CoreBadgeCart({this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +35,11 @@ class BadgeCart extends StatelessWidget {
                 icon: _icons.ico_shopcart(),
                 onPressed: () {
                   if (_controller.getAllCartItems().isEmpty) {
-                    SimpleSnackbar().show(_words.ops(), _messages.cart_no_items_yet);
+                    CoreSnackbar().show(_words.ops(), _messages.cart_no_items_yet);
                   }
                   if (_controller.getAllCartItems().isNotEmpty) {
                     ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                    Get.toNamed(Routes.CART);
+                    Get.toNamed(CoreRoutes.CART);
                   }
                 }),
           ),

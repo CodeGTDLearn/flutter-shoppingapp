@@ -4,21 +4,21 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shopingapp/app/modules/inventory/core/components/custom_form_field/validators/barcode_validator.dart';
 
-import '../../../core/components/appbar/custom_appbar.dart';
-import '../../../core/components/snackbar/simple_snackbar.dart';
+import '../../../core/components/appbar/core_appbar.dart';
+import '../../../core/components/snackbar/core_snackbar.dart';
 import '../../../core/properties/owasp_regex.dart';
 import '../../../core/properties/properties.dart';
-import '../../../core/texts/global_labels.dart';
-import '../../../core/texts/global_messages.dart';
-import '../../../core/utils/animations_utils.dart';
+import '../../../core/texts/core_labels.dart';
+import '../../../core/texts/core_messages.dart';
+import '../../../core/utils/core_animations_utils.dart';
 import '../controller/inventory_controller.dart';
 import '../core/components/custom_form_field/custom_form_field.dart';
 import '../core/components/custom_form_field/field_properties/description_properties.dart';
 import '../core/components/custom_form_field/field_properties/price_properties.dart';
 import '../core/components/custom_form_field/field_properties/title_properties.dart';
 import '../core/components/custom_form_field/field_properties/url_properties.dart';
+import '../core/components/custom_form_field/validators/barcode_validator.dart';
 import '../core/components/custom_form_field/validators/description_validator.dart';
 import '../core/components/custom_form_field/validators/price_validator.dart';
 import '../core/components/custom_form_field/validators/title_validator.dart';
@@ -43,13 +43,13 @@ class InventoryDetailsView extends StatefulWidget {
 }
 
 class _InventoryDetailsViewState extends State<InventoryDetailsView> {
-  final _words = Get.find<GlobalLabels>();
+  final _words = Get.find<CoreLabels>();
   final _labels = Get.find<InventoryLabels>();
-  final _appbar = Get.find<CustomAppBar>();
+  final _appbar = Get.find<CoreAppBar>();
   final _controller = Get.find<InventoryController>();
-  final _animations = Get.find<AnimationsUtils>();
+  final _animations = Get.find<CoreAnimationsUtils>();
   final _icons = Get.find<InventoryIcons>();
-  final _messages = Get.find<GlobalMessages>();
+  final _messages = Get.find<CoreMessages>();
   final _keys = Get.find<InventoryKeys>();
   late var _formKey;
 
@@ -91,50 +91,52 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
                     child: Column(children: [
                   _titleField(context),
                   _priceField(context),
-                  _descriptionField(context),
+                  _descrField(context),
                   _imageRow(context),
-                  SizedBox(height: 25),
+                  _space(percent: 0.03),
                   _barcodeRow(context),
-                  SizedBox(height: 35),
+                  _space(percent: 0.06),
                   _stockRow(),
+                  _space(percent: 0.02),
                 ])))));
   }
 
-  TextFormField _descriptionField(BuildContext context) {
+  SizedBox _space({required double percent}) => SizedBox(height: Get.height * percent);
+
+  TextFormField _descrField(BuildContext context) {
     return CustomFormField(DescriptionProperties()).create(
-                    product: _product,
-                    initialValue: _product.description,
-                    context: context,
-                    label: _labels.inv_edt_lbl_descr,
-                    key: _keys.k_inv_edit_fld_descr,
-                    validator: DescriptionValidator().validator(),
-                    onFieldSubmitted: (_) => _setFocus(_nodeImgUrl, context),
-                    node: _nodeDescr);
+        product: _product,
+        initialValue: _product.description,
+        context: context,
+        label: _labels.inv_edt_lbl_descr,
+        key: _keys.k_inv_edit_fld_descr,
+        validator: DescriptionValidator().validator(),
+        onFieldSubmitted: (_) => _setFocus(_nodeImgUrl, context),
+        node: _nodeDescr);
   }
 
   TextFormField _priceField(BuildContext context) {
     return CustomFormField(PriceProperties()).create(
-                    product: _product,
-                    initialValue: _product.price.toString(),
-                    context: context,
-                    label: _labels.inv_edt_lbl_price,
-                    key: _keys.k_inv_edit_fld_price,
-                    validator: PriceValidator().validator(),
-                    onFieldSubmitted: (_) => _setFocus(_nodeDescr, context),
-                    node: _nodePrice,
-                    controller:
-                        _product.price.toString() == '0.0' ? _priceController() : null);
+        product: _product,
+        initialValue: _product.price.toString(),
+        context: context,
+        label: _labels.inv_edt_lbl_price,
+        key: _keys.k_inv_edit_fld_price,
+        validator: PriceValidator().validator(),
+        onFieldSubmitted: (_) => _setFocus(_nodeDescr, context),
+        node: _nodePrice,
+        controller: _product.price.toString() == '0.0' ? _priceController() : null);
   }
 
   TextFormField _titleField(BuildContext context) {
     return CustomFormField(TitleProperties()).create(
-                    product: _product,
-                    initialValue: _product.title,
-                    context: context,
-                    label: _labels.inv_edt_lbl_title,
-                    key: _keys.k_inv_edit_fld_title,
-                    validator: TitleValidator().validator(),
-                    onFieldSubmitted: (_) => _setFocus(_nodePrice, context));
+        product: _product,
+        initialValue: _product.title,
+        context: context,
+        label: _labels.inv_edt_lbl_title,
+        key: _keys.k_inv_edit_fld_title,
+        validator: TitleValidator().validator(),
+        onFieldSubmitted: (_) => _setFocus(_nodePrice, context));
   }
 
   Row _stockRow() {
@@ -149,16 +151,16 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
           padding: EdgeInsets.only(right: Get.width * 0.05),
         ),
         Container(
-          width: Get.width * 0.4,
+            width: Get.width * 0.4,
             child: Text(
               _product.stockQtde.toString(),
               textAlign: TextAlign.center,
               style: GoogleFonts.lato(
                   textStyle: const TextStyle(
-                      color: Colors.blue,
-                      fontSize: 50,
-                      fontWeight: FontWeight.bold,
-                  )),
+                color: Colors.blue,
+                fontSize: 50,
+                fontWeight: FontWeight.bold,
+              )),
             ),
             decoration: BoxDecoration(
                 color: Colors.white,
@@ -176,7 +178,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
           onPressed: () {},
           focusNode: _nodeBarcodeButton,
           iconSize: 50.00,
-          padding: EdgeInsets.only(left:  Get.width * 0.05),
+          padding: EdgeInsets.only(left: Get.width * 0.05),
         ),
       ],
     );
@@ -286,7 +288,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     _controller.addProduct(_product).then((product) {
       _controller.updateInventoryProductsObs();
     }).whenComplete(() {
-      SimpleSnackbar().show(_words.suces, _messages.suces_inv_prod_add);
+      CoreSnackbar().show(_words.suces, _messages.suces_inv_prod_add);
     }).catchError((onError) {
       Get.defaultDialog(
           title: _words.ops, middleText: _messages.error_inv_prod, textConfirm:
@@ -302,7 +304,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     _controller.updateProduct(_product).then((statusCode) {
       if (statusCode >= 200 && statusCode < 400) {
         _controller.updateInventoryProductsObs();
-        SimpleSnackbar().show(_words.suces, _messages.suces_inv_prod_upd);
+        CoreSnackbar().show(_words.suces, _messages.suces_inv_prod_upd);
       }
       if (statusCode >= 400) {
         Get.defaultDialog(

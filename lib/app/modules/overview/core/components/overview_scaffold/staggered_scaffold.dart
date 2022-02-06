@@ -3,15 +3,15 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 
-import '../../../../../core/components/custom_indicator.dart';
-import '../../../../../core/texts/global_messages.dart';
+import '../../../../../core/components/core_indicator_adaptive.dart';
+import '../../../../../core/texts/core_messages.dart';
 import '../../overview_keys.dart';
 import '../custom_grid_item/animated_grid_item.dart';
 import '../overview_appbar/filter_options_enum.dart';
 import 'ioverview_scaffold.dart';
 
 class StaggeredScaffold implements IOverviewScaffold {
-  final _messages = Get.find<GlobalMessages>();
+  final _messages = Get.find<CoreMessages>();
   final _keys = Get.find<OverviewKeys>();
 
   Widget overviewScaffold(_drawer, _controller, _sliverAppbar) {
@@ -24,7 +24,7 @@ class StaggeredScaffold implements IOverviewScaffold {
             ? SingleChildScrollView(
                 child: Center(
                     child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                CustomIndicator.message(message: _messages.no_products_yet, fontSize: 20)
+                CoreIndicatorAdaptive.message(message: _messages.no_products_yet, fontSize: 20)
               ])))
             : CustomScrollView(slivers: [
                 _sliverAppbar,

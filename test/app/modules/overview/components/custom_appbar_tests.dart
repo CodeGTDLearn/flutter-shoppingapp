@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/texts/global_messages.dart';
+import 'package:shopingapp/app/core/texts/core_messages.dart';
 import 'package:shopingapp/app/modules/overview/core/components/custom_grid_item/animated_grid_item.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_keys.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_labels.dart';
@@ -17,7 +17,7 @@ class CustomAppbarTests {
   final FinderUtils finder;
   final UiTestUtils uiTestUtils;
   final TestsUtils testUtils;
-  final _messages = Get.find<GlobalMessages>();
+  final _messages = Get.find<CoreMessages>();
   final _labels = Get.put(OverviewLabels());
   final _keys = Get.find<OverviewKeys>();
 

@@ -2,32 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
+import 'package:shopingapp/app/core/routes/core_routes.dart';
 
 import '../../../modules/cart/controller/cart_controller.dart';
 import '../../../modules/inventory/controller/inventory_controller.dart';
 import '../../../modules/orders/controller/orders_controller.dart';
-import '../../properties/routes.dart';
-import '../../texts/global_labels.dart';
-import '../../texts/global_messages.dart';
-import '../../theme/global_theme_controller.dart';
-import '../components_icons.dart';
-import '../components_keys.dart';
-import '../snackbar/simple_snackbar.dart';
-import 'custom_drawer_labels.dart';
+import '../../texts/core_labels.dart';
+import '../../texts/core_messages.dart';
+import '../../theme/core_theme_controller.dart';
+import '../core_components_icons.dart';
+import '../core_components_keys.dart';
+import '../snackbar/core_snackbar.dart';
+import 'core_drawer_labels.dart';
 
 // ignore: must_be_immutable
-class CustomDrawer extends StatelessWidget {
+class CoreDrawer extends StatelessWidget {
   final _cart = Get.find<CartController>();
-  final _icons = Get.find<ComponentsIcons>();
-  final _messages = Get.find<GlobalMessages>();
-  final _words = Get.find<GlobalLabels>();
-  final _labels = Get.find<CustomDrawerLabels>();
+  final _icons = Get.find<CoreComponentsIcons>();
+  final _messages = Get.find<CoreMessages>();
+  final _words = Get.find<CoreLabels>();
+  final _labels = Get.find<CoreDrawerLabels>();
   final _orders = Get.find<OrdersController>();
   final _inventory = Get.find<InventoryController>();
-  final _keys = Get.find<ComponentsKeys>();
+  final _keys = Get.find<CoreComponentsKeys>();
 
   // final _overview = Get.find<OverviewController>();
-  final _darkThemeController = Get.find<GlobalThemeController>();
+  final _darkThemeController = Get.find<CoreThemeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class CustomDrawer extends StatelessWidget {
             leadIcon: _icons.ico_cart(),
             title: _labels.label_cart,
             message: _messages.cart_no_items_yet,
-            route: Routes.CART,
+            route: CoreRoutes.CART,
             notRoutingWithoutQtdeEvaluation: true,
             key: _keys.k_drw_cart_opt2(),
             context: context),
@@ -60,7 +60,7 @@ class CustomDrawer extends StatelessWidget {
             leadIcon: _icons.ico_ord(),
             title: _labels.label_orders,
             message: _messages.no_orders_yet,
-            route: Routes.ORDERS,
+            route: CoreRoutes.ORDERS,
             notRoutingWithoutQtdeEvaluation: false,
             key: _keys.k_drw_orders_opt3(),
             context: context),
@@ -69,7 +69,7 @@ class CustomDrawer extends StatelessWidget {
             leadIcon: _icons.ico_inv(),
             title: _labels.label_inventory,
             message: _messages.no_products_yet,
-            route: Routes.INVENTORY,
+            route: CoreRoutes.INVENTORY,
             notRoutingWithoutQtdeEvaluation: false,
             key: _keys.k_drw_inventory_opt4(),
             context: context),
@@ -103,7 +103,7 @@ class CustomDrawer extends StatelessWidget {
           var condition1 = quantityItems == 0 && notRoutingWithoutQtdeEvaluation;
           var condition2 = quantityItems != 0 && notRoutingWithoutQtdeEvaluation;
           if (condition1) {
-            SimpleSnackbar().show(_words.suces(), message);
+            CoreSnackbar().show(_words.suces(), message);
           } else if (condition2) {
             Get.toNamed(route);
           } else {

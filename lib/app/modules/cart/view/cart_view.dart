@@ -3,7 +3,7 @@ import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 
-import '../../../core/components/appbar/custom_appbar.dart';
+import '../../../core/components/appbar/core_appbar.dart';
 import '../../../core/properties/properties.dart';
 import '../controller/cart_controller.dart';
 import '../core/cart_labels.dart';
@@ -13,7 +13,7 @@ import '../core/components/custom_listview/cart_staggered_listview.dart';
 
 class CartView extends StatelessWidget {
   final _controller = Get.find<CartController>();
-  final _appbar = Get.find<CustomAppBar>();
+  final _appbar = Get.find<CoreAppBar>();
   final _labels = Get.find<CartLabels>();
 
   Widget build(BuildContext context) {

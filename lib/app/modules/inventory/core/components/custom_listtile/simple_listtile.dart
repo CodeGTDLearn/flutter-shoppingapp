@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 
-import '../../../../../core/components/snackbar/simple_snackbar.dart';
+import '../../../../../core/components/snackbar/core_snackbar.dart';
 import '../../../../../core/properties/properties.dart';
-import '../../../../../core/texts/global_labels.dart';
-import '../../../../../core/texts/global_messages.dart';
+import '../../../../../core/texts/core_labels.dart';
+import '../../../../../core/texts/core_messages.dart';
 import '../../../../overview/controller/overview_controller.dart';
 import '../../../controller/inventory_controller.dart';
 import '../../../entity/product.dart';
@@ -16,8 +16,8 @@ import 'icustom_listtile.dart';
 
 class SimpleListTile implements ICustomListTile {
   final _icons = Get.find<InventoryIcons>();
-  final _messages = Get.find<GlobalMessages>();
-  final _words = Get.find<GlobalLabels>();
+  final _messages = Get.find<CoreMessages>();
+  final _words = Get.find<CoreLabels>();
   final _keys = Get.find<InventoryKeys>();
 
   final _inventoryController = Get.find<InventoryController>();
@@ -50,10 +50,10 @@ class SimpleListTile implements ICustomListTile {
                           _inventoryController.updateInventoryProductsObs();
                           _overviewController.deleteProduct(_id);
                           _overviewController.updateFilteredProductsObs();
-                          SimpleSnackbar().show(_words.suces, _messages.suces_inv_prod_del);
+                          CoreSnackbar().show(_words.suces, _messages.suces_inv_prod_del);
                         }
                         if (statusCode >= 400) {
-                          SimpleSnackbar().show(_words.ops, _messages.error_inv_prod);
+                          CoreSnackbar().show(_words.ops, _messages.error_inv_prod);
                         }
                       }),
                   // @formatter:on

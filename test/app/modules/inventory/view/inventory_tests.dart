@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/components/components_keys.dart';
+import 'package:shopingapp/app/core/components/core_components_keys.dart';
 import 'package:shopingapp/app/core/properties/db_urls.dart';
-import 'package:shopingapp/app/core/texts/global_messages.dart';
+import 'package:shopingapp/app/core/texts/core_messages.dart';
 import 'package:shopingapp/app/modules/inventory/core/components/custom_listtile/simple_listtile.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_labels.dart';
@@ -27,9 +27,9 @@ class InventoryTests {
   final UiTestUtils uiTestUtils;
   final TestDbUtils dbTestUtils;
   final TestsUtils testUtils;
-  final _messages = Get.find<GlobalMessages>();
+  final _messages = Get.find<CoreMessages>();
   final _labels = Get.put(InventoryLabels());
-  final _keys = Get.find<ComponentsKeys>();
+  final _keys = Get.find<CoreComponentsKeys>();
   final _keysOv = Get.find<OverviewKeys>();
   final _keysInv = Get.find<InventoryKeys>();
 

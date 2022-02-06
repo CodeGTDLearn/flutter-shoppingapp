@@ -3,11 +3,11 @@ import 'package:get/get_utils/src/extensions/num_extensions.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 
-import '../../../../core/components/custom_alert_dialog.dart';
-import '../../../../core/components/snackbar/simple_snackbar.dart';
+import '../../../../core/components/core_alert_dialog.dart';
+import '../../../../core/components/snackbar/core_snackbar.dart';
 import '../../../../core/properties/properties.dart';
-import '../../../../core/texts/global_labels.dart';
-import '../../../../core/texts/global_messages.dart';
+import '../../../../core/texts/core_labels.dart';
+import '../../../../core/texts/core_messages.dart';
 import '../../controller/cart_controller.dart';
 import '../../entity/cart_item.dart';
 import '../cart_icons.dart';
@@ -17,8 +17,8 @@ class DismissibleCartItem extends StatelessWidget {
   final CartItem _cartItem;
   final _controller = Get.find<CartController>();
   final _icons = Get.find<CartIcons>();
-  final _messages = Get.find<GlobalMessages>();
-  final _words = Get.find<GlobalLabels>();
+  final _messages = Get.find<CoreMessages>();
+  final _words = Get.find<CoreLabels>();
   final _labels = Get.find<CartLabels>();
 
   DismissibleCartItem.create(this._cartItem);
@@ -41,7 +41,7 @@ class DismissibleCartItem extends StatelessWidget {
         onDismissed: (direction) {
           _controller.removeCartItem(_cartItem);
           if (_controller.qtdeCartItemsObs.value.isEqual(0)) {
-            SimpleSnackbar().show(_words.suces, _messages.item_removed_cart);
+            CoreSnackbar().show(_words.suces, _messages.item_removed_cart);
             Future.delayed(Duration(milliseconds: DURATION)).then((value) => Get.back());
           }
         },
@@ -63,7 +63,7 @@ class DismissibleCartItem extends StatelessWidget {
                     trailing: Text('x${_cartItem.qtde}')))),
         //
         confirmDismiss: (direction) {
-          return CustomAlertDialog.showOptionDialog(
+          return CoreAlertDialog.showOptionDialog(
             context,
             _labels.label_title_dialog_dismis,
             '${_labels.label_message_dialog_dismis}${_cartItem.title} from the cart?',

@@ -5,12 +5,12 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
+import 'package:shopingapp/app/core/routes/core_routes.dart';
 
-import '../../../../../core/components/custom_indicator.dart';
-import '../../../../../core/components/snackbar/simple_snackbar.dart';
-import '../../../../../core/properties/routes.dart';
-import '../../../../../core/texts/global_labels.dart';
-import '../../../../../core/texts/global_messages.dart';
+import '../../../../../core/components/core_indicator_adaptive.dart';
+import '../../../../../core/components/snackbar/core_snackbar.dart';
+import '../../../../../core/texts/core_labels.dart';
+import '../../../../../core/texts/core_messages.dart';
 import '../../../../cart/controller/cart_controller.dart';
 import '../../overview_icons.dart';
 import '../../overview_keys.dart';
@@ -22,16 +22,16 @@ class AddCartScaffold implements IOverviewScaffold {
   final _cartController = Get.find<CartController>();
   GlobalKey<CartIconKey> gkCart = GlobalKey<CartIconKey>();
   late Function(GlobalKey) runAddToCardAnimation;
-  final _messages = Get.find<GlobalMessages>();
-  final _words = Get.find<GlobalLabels>();
+  final _messages = Get.find<CoreMessages>();
+  final _words = Get.find<CoreLabels>();
   final _keys = Get.find<OverviewKeys>();
 
   Widget overviewScaffold(_drawer, _controller, _appbar) {
     _appbar.cart = GestureDetector(
       onTap: () {
         _cartController.getAllCartItems().isEmpty
-            ? SimpleSnackbar().show(_words.ops, _messages.cart_no_items_yet)
-            : Get.toNamed(Routes.CART);
+            ? CoreSnackbar().show(_words.ops, _messages.cart_no_items_yet)
+            : Get.toNamed(CoreRoutes.CART);
       },
       child: AddToCartIcon(key: gkCart, icon: _icons.ico_shopcart()),
     );
@@ -60,7 +60,7 @@ class AddCartScaffold implements IOverviewScaffold {
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                      CustomIndicator.message(
+                      CoreIndicatorAdaptive.message(
                           message: _messages.no_products_yet, fontSize: 20)
                     ])))
               : AnimationLimiter(

@@ -4,11 +4,11 @@ import 'package:wc_form_validators/wc_form_validators.dart';
 
 import '../../../../../../core/properties/form_field_sizes.dart';
 import '../../../../../../core/properties/owasp_regex.dart';
-import '../../../../../../core/texts/global_messages.dart';
+import '../../../../../../core/texts/core_messages.dart';
 import 'icustom_validator.dart';
 
 class BarcodeValidator extends ICustomValidator {
-  final _messages = Get.find<GlobalMessages>();
+  final _messages = Get.find<CoreMessages>();
 
   @override
   FormFieldValidator<String> validator() {

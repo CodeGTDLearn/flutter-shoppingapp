@@ -4,12 +4,12 @@ import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../core/components/adaptive_widgets.dart';
-import '../../../core/components/appbar/custom_appbar.dart';
-import '../../../core/components/badge/badge_cart.dart';
+import '../../../core/components/appbar/core_appbar.dart';
+import '../../../core/components/badge/core_badge_cart.dart';
+import '../../../core/components/core_adaptive_widgets.dart';
 import '../../../core/properties/properties.dart';
-import '../../../core/utils/animations_utils.dart';
-import '../../../core/utils/ui_utils.dart';
+import '../../../core/utils/core_animations_utils.dart';
+import '../../../core/utils/core_ui_utils.dart';
 import '../../cart/controller/cart_controller.dart';
 import '../controller/overview_controller.dart';
 import '../core/overview_keys.dart';
@@ -21,11 +21,11 @@ class OverviewItemDetailsView extends StatelessWidget {
 
   final _controller = Get.find<OverviewController>();
   final _cartController = Get.find<CartController>();
-  final _animations = Get.find<AnimationsUtils>();
-  final _appbar = Get.find<CustomAppBar>();
-  final _uiUtils = Get.find<UiUtils>();
-  final _widgetUtils = Get.find<AdaptiveWidgets>();
-  var cart = Get.find<BadgeCart>();
+  final _animations = Get.find<CoreAnimationsUtils>();
+  final _appbar = Get.find<CoreAppBar>();
+  final _uiUtils = Get.find<CoreUiUtils>();
+  final _widgetUtils = Get.find<CoreAdaptiveWidgets>();
+  var cart = Get.find<CoreBadgeCart>();
   final _labels = Get.find<OverviewLabels>();
   final _keys = Get.find<OverviewKeys>();
 

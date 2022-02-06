@@ -1,9 +1,18 @@
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
+import 'package:shopingapp/app/core/components/modal/i_core_adaptive_modal.dart';
+import 'package:shopingapp/app/core/texts/core_labels.dart';
+import 'package:shopingapp/app/core/texts/core_messages.dart';
 
 import '../entity/product.dart';
 import '../service/i_inventory_service.dart';
 
 class InventoryController extends GetxController {
+  final _messages = Get.find<CoreMessages>();
+  final _labels = Get.find<CoreLabels>();
+  late final _modal;
+
   final IInventoryService service;
 
   var inventoryProductsObs = <Product>[].obs;
@@ -16,9 +25,9 @@ class InventoryController extends GetxController {
   // GERENCIA DE ESTADO REATIVA ou SIMPLES - COM O GET
   @override
   void onInit() {
-    // managedProductsObs.value = [];
     inventoryProductsObs.assignAll([]);
     getProducts();
+    _modal = Get.find<ICoreAdaptiveModal>();
     super.onInit();
   }
 
@@ -27,13 +36,17 @@ class InventoryController extends GetxController {
   }
 
   Future<List<Product>> getProducts() {
-    return service.getProducts().then((response) {
-      inventoryProductsObs.assignAll(response);
-      // response == null
-      //     ? inventoryProductsObs.assignAll([])
-      //     : inventoryProductsObs.assignAll(response);
-      return inventoryProductsObs.toList();
-    }).catchError((onError) => throw onError);
+    // @formatter:off
+    return service
+            .getProducts()
+            .then((response) {
+                 inventoryProductsObs.assignAll(response);
+                 // response == null
+                 //     ? inventoryProductsObs.assignAll([])
+                 //     : inventoryProductsObs.assignAll(response);
+                 return inventoryProductsObs.toList();})
+            .catchError((onError) => throw onError);
+    // @formatter:on
   }
 
   int getProductsQtde() {
@@ -46,9 +59,11 @@ class InventoryController extends GetxController {
 
   Future<Product> addProduct(Product _product) {
     // @formatter:off
-    return service.addProduct(_product).then((addedProduct) {
-      return addedProduct;
-    }).catchError((onError) => throw onError);
+    return service
+            .addProduct(_product)
+            .then((addedProduct) {
+                   return addedProduct;})
+            .catchError((onError) => throw onError);
     // @formatter:on
   }
 
@@ -77,5 +92,32 @@ class InventoryController extends GetxController {
 
   void updateInventoryProductsObs() {
     inventoryProductsObs.assignAll(service.getLocalDataInventoryProducts());
+  }
+
+  Future<void> modalToConfirmingStatusChange(
+      context,
+      Product product,
+      ) async {
+    return _modal.create(
+      context,
+      _messages.prod_add_stock_conf,
+      _labels.yes,
+      _labels.no,
+          () async {
+        // await updateStatus(product.id.toString()).then((status) async {
+        //   if (status == 'offline') {
+        //     CoreIndicatorAdaptive.message(
+        //         message: _messages.errorUpdateTryAgain, fontSize: 20);
+        //   }
+        //   if (status == 'online') await _elevatorUpdateOkClosingModal(status, product);
+        //   if (status == 'error') _elevatorUpdateFailingImpedingTheElevatorUpdate();
+        // });
+      },
+          () {
+        // statusButtonAnimation(color: Colors.red, blur: 15);
+        Get.back();
+        // _buttonScaleObs.value = false;
+      },
+    );
   }
 }

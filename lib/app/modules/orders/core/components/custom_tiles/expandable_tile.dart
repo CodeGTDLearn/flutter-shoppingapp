@@ -4,9 +4,9 @@ import 'package:get/instance_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../../core/components/adaptive_widgets.dart';
+import '../../../../../core/components/core_adaptive_widgets.dart';
 import '../../../../../core/properties/properties.dart';
-import '../../../../../core/utils/animations_utils.dart';
+import '../../../../../core/utils/core_animations_utils.dart';
 import '../../../../cart/controller/cart_controller.dart';
 import '../../../../cart/entity/cart_item.dart';
 import '../../../../overview/controller/overview_controller.dart';
@@ -18,10 +18,10 @@ import 'icustom_order_tile.dart';
 class ExpandableTile implements ICustomOrderTile {
   final _cartController = Get.find<CartController>();
   final _overViewController = Get.find<OverviewController>();
-  final _widgetUtils = Get.find<AdaptiveWidgets>();
+  final _widgetUtils = Get.find<CoreAdaptiveWidgets>();
   final size = MediaQuery.of(APP_CONTEXT_GLOBAL_KEY.currentContext!).size;
   final _labels = Get.find<OrdersLabels>();
-  final _animations = Get.find<AnimationsUtils>();
+  final _animations = Get.find<CoreAnimationsUtils>();
 
   @override
   Widget create(Order _order) {

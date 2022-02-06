@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/core/properties/db_urls.dart';
-import 'package:shopingapp/app/core/texts/global_messages.dart';
+import 'package:shopingapp/app/core/texts/core_messages.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 
 import '../../../../config/app_tests_properties.dart';
@@ -24,7 +24,7 @@ class InventoryViewValidationTest {
   final _bindings = Get.put(InventoryTestBindings());
   final _titles = Get.put(InventoryTestTitles());
   final _testUtils = Get.put(TestsUtils());
-  final _messages = Get.find<GlobalMessages>();
+  final _messages = Get.find<CoreMessages>();
   final _keysInv = Get.find<InventoryKeys>();
 
   InventoryViewValidationTest({required String testType}) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // ignore: avoid_classes_with_only_static_members
-class CustomAlertDialog {
+class CoreAlertDialog {
   static Future<bool?> showOptionDialog(
     BuildContext context,
     String title,

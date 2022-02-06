@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/components/components_keys.dart';
+import 'package:shopingapp/app/core/components/core_components_keys.dart';
 import 'package:shopingapp/app/core/properties/db_urls.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_keys.dart';
 
@@ -25,7 +25,7 @@ class OverviewViewTest {
   final _testUtils = Get.put(TestsUtils());
   final _globalUtils = Get.put(TestsGlobalUtils());
   final _keys = Get.find<OverviewKeys>();
-  final _keysSnack = Get.find<ComponentsKeys>();
+  final _keysSnack = Get.find<CoreComponentsKeys>();
 
   OverviewViewTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;

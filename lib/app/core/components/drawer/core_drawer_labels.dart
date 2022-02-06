@@ -1,4 +1,4 @@
-class CustomDrawerLabels {
+class CoreDrawerLabels {
   final _DRAWER_TITLE_APPBAR = "Hello Seller";
   final _DRAWER_LABEL_PRODUCTS = "Products";
   final _DRAWER_LABEL_CART = "Cart";

@@ -1,4 +1,5 @@
 import 'package:get/route_manager.dart';
+import 'package:shopingapp/app/core/routes/core_routes.dart';
 
 import '../../modules/cart/core/cart_bindings.dart';
 import '../../modules/cart/view/cart_view.dart';
@@ -12,52 +13,45 @@ import '../../modules/overview/core/bindings/overview_bindings.dart';
 import '../../modules/overview/core/bindings/overview_scaffold_bindings.dart';
 import '../../modules/overview/view/overview_item_details_view.dart';
 import '../../modules/overview/view/overview_view.dart';
-import '../components/appbar/appbars_bindings.dart';
-import '../components/drawer/custom_drawer_bindings.dart';
-import '../theme/global_theme_bindings.dart';
-import '../utils/utils_bindings.dart';
+import '../components/appbar/core_appbars_bindings.dart';
+import '../components/drawer/core_drawer_bindings.dart';
+import '../theme/core_theme_bindings.dart';
+import '../utils/core_utils_bindings.dart';
 
 // ignore: avoid_classes_with_only_static_members
-class Routes {
-  static const OVERVIEW_ALL = '/';
-  static const OVERVIEW_ITEM_DETAILS = '/item-details/';
-  static const CART = '/cart';
-  static const ORDERS = '/orders';
-  static const INVENTORY = '/inventory';
-  static const INVENTORY_ITEM_DETAILS = '/inventory-item-edit/';
-  static const INVENTORY_ITEM_IMAGE = '/inventory-item-image/';
-
-  // '$OVERVIEW_DETAIL_ROUTE:id'
-  // static const OVERVIEW_DETAIL = '/item-details/';
+class CoreRouter {
 
   // @formatter:off
   static List<GetPage> getAppRoutes = [
-    GetPage(name: OVERVIEW_ALL, page: () => OverviewView(), bindings: [
-      UtilsBindings(),
-      GlobalThemeBindings(),
-      CustomDrawerBindings(),
-      AppbarsBindings(),
+    GetPage(name: CoreRoutes.OVERVIEW_ALL, page: () => OverviewView(), bindings: [
+      CoreUtilsBindings(),
+      CoreThemeBindings(),
+      CoreDrawerBindings(),
+      CoreAppbarsBindings(),
       OverviewScaffoldBindings(),
       CartBindings(),
       OverviewBindings()]),
 
-    GetPage(name: CART, page: () => CartView(), bindings: [
-      AppbarsBindings(),
-      UtilsBindings(),
+    GetPage(name: CoreRoutes.CART, page: () => CartView(), bindings: [
+      CoreAppbarsBindings(),
+      CoreUtilsBindings(),
       CartBindings()]),
 
-    GetPage(name: '$OVERVIEW_ITEM_DETAILS:id', page: () => OverviewItemDetailsView()),
+    GetPage(name: '${CoreRoutes.OVERVIEW_ITEM_DETAILS}:id', page: () =>
+        OverviewItemDetailsView()),
 
-    GetPage(name: ORDERS, page: () => OrdersView(), bindings: [ OrdersBindings()]),
+    GetPage(name: CoreRoutes.ORDERS, page: () => OrdersView(), bindings: [
+      OrdersBindings()]),
 
-    GetPage(name: INVENTORY, page: () => InventoryView(), bindings: [
-      AppbarsBindings(),
-      UtilsBindings(),
+    GetPage(name: CoreRoutes.INVENTORY, page: () => InventoryView(), bindings: [
+      CoreAppbarsBindings(),
+      CoreUtilsBindings(),
       OverviewBindings(),
       InventoryBindings()]),
 
-    GetPage(name: '$INVENTORY_ITEM_DETAILS:id', page: () => InventoryDetailsView()),
-    GetPage(name: '$INVENTORY_ITEM_IMAGE', page: () => InventoryImageView()),
+    GetPage(name: '${CoreRoutes.INVENTORY_ITEM_DETAILS}:id', page: () =>
+        InventoryDetailsView()),
+    GetPage(name: '${CoreRoutes.INVENTORY_ITEM_IMAGE}', page: () => InventoryImageView()),
   ];
   // @formatter:on
 }

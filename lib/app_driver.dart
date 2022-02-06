@@ -3,16 +3,17 @@ import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 
 import 'app/core/properties/properties.dart';
-import 'app/core/properties/routes.dart';
+import 'app/core/routes/core_router.dart';
+import 'app/core/routes/core_routes.dart';
 import 'app/core/shared_preferences/shared_prefs_repo.dart';
-import 'app/core/theme/global_theme.dart';
-import 'app/core/theme/global_theme_controller.dart';
+import 'app/core/theme/core_theme.dart';
+import 'app/core/theme/core_theme_controller.dart';
 
 void main() => runApp(AppDriver());
 
 class AppDriver extends StatelessWidget {
-  final _appTheme = Get.put(GlobalTheme());
-  final _darkTheme = Get.put(GlobalThemeController());
+  final _appTheme = Get.put(CoreTheme());
+  final _darkTheme = Get.put(CoreThemeController());
   final _sharedPrefsRepo = Get.put(SharedPrefsRepo());
 
   @override
@@ -25,9 +26,9 @@ class AppDriver extends StatelessWidget {
       navigatorKey: APP_CONTEXT_GLOBAL_KEY,
       debugShowCheckedModeBanner: APP_DEBUG_CHECK,
       title: APP_TITLE,
-      theme: _appTheme.theme(_darkTheme.isDark.value),
-      initialRoute: Routes.OVERVIEW_ALL,
-      getPages: Routes.getAppRoutes,
+      theme: _appTheme.materialThemeData(_darkTheme.isDark.value),
+      initialRoute: CoreRoutes.OVERVIEW_ALL,
+      getPages: CoreRouter.getAppRoutes,
     );
   }
 }

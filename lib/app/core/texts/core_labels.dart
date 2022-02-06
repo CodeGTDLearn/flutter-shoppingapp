@@ -1,4 +1,4 @@
-class GlobalLabels {
+class CoreLabels {
   final _YES = 'Yes';
   final _NO = 'No';
   final _OK = 'Ok';

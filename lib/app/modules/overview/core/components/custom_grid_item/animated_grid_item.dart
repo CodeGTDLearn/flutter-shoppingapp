@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
 
-import '../../../../../core/components/snackbar/button_snackbar.dart';
-import '../../../../../core/components/snackbar/simple_snackbar.dart';
+import '../../../../../core/components/snackbar/core_button_snackbar.dart';
+import '../../../../../core/components/snackbar/core_snackbar.dart';
 import '../../../../../core/properties/properties.dart';
-import '../../../../../core/texts/global_labels.dart';
-import '../../../../../core/texts/global_messages.dart';
-import '../../../../../core/utils/animations_utils.dart';
+import '../../../../../core/texts/core_labels.dart';
+import '../../../../../core/texts/core_messages.dart';
+import '../../../../../core/utils/core_animations_utils.dart';
 import '../../../../cart/controller/cart_controller.dart';
 import '../../../../inventory/entity/product.dart';
 import '../../../controller/overview_controller.dart';
@@ -22,13 +22,13 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
 
   final _icons = Get.find<OverviewIcons>();
   final _cartController = Get.find<CartController>();
-  final _animations = Get.find<AnimationsUtils>();
+  final _animations = Get.find<CoreAnimationsUtils>();
   final _uniqueController = OverviewController(service: Get.find<IOverviewService>());
   final String index;
   final void Function(GlobalKey)? onClick;
   final GlobalKey imageGlobalKey = GlobalKey();
-  final _messages = Get.find<GlobalMessages>();
-  final _words = Get.find<GlobalLabels>();
+  final _messages = Get.find<CoreMessages>();
+  final _words = Get.find<CoreLabels>();
   final _keys = Get.find<OverviewKeys>();
 
   AnimatedGridItem(this._product, this.index, {this.onClick});
@@ -98,8 +98,8 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
         onPressed: () {
           uniqueController.toggleFavoriteStatus(product.id!).then((response) {
             response
-                ? SimpleSnackbar().show(_words.suces, _messages.tog_status_suces)
-                : SimpleSnackbar().show(_words.ops, _messages.tog_status_error);
+                ? CoreSnackbar().show(_words.suces, _messages.tog_status_suces)
+                : CoreSnackbar().show(_words.ops, _messages.tog_status_error);
           });
         });
   }
@@ -112,7 +112,7 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
         onPressed: () {
           uniqueController.elevateGridItemAnimation(false);
           _cartController.addCartItem(product);
-          ButtonSnackbar(
+          CoreButtonSnackbar(
             context: context,
             labelButton: _words.undo(),
             function: () => _cartController.addCartItemUndo(product),

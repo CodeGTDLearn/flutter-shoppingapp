@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ComponentsIcons {
+class CoreComponentsIcons {
   final _PRODUCTS = Icon(Icons.format_list_bulleted);
   final _CART = Icon(Icons.shop);
   final _ORDERS = Icon(Icons.payment);

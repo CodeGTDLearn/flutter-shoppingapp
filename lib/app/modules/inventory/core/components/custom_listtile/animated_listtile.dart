@@ -1,13 +1,14 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../core/components/custom_alert_dialog.dart';
-import '../../../../../core/components/snackbar/simple_snackbar.dart';
+import '../../../../../core/components/core_alert_dialog.dart';
+import '../../../../../core/components/snackbar/core_snackbar.dart';
 import '../../../../../core/properties/properties.dart';
-import '../../../../../core/texts/global_labels.dart';
-import '../../../../../core/texts/global_messages.dart';
-import '../../../../../core/utils/animations_utils.dart';
+import '../../../../../core/texts/core_labels.dart';
+import '../../../../../core/texts/core_messages.dart';
+import '../../../../../core/utils/core_animations_utils.dart';
 import '../../../../overview/controller/overview_controller.dart';
 import '../../../controller/inventory_controller.dart';
 import '../../../entity/product.dart';
@@ -22,9 +23,9 @@ class AnimatedListTile implements ICustomListTile {
   final _icons = Get.find<InventoryIcons>();
   final _inventoryController = Get.find<InventoryController>();
   final _overviewController = Get.find<OverviewController>();
-  final _animations = Get.find<AnimationsUtils>();
-  final _messages = Get.find<GlobalMessages>();
-  final _words = Get.find<GlobalLabels>();
+  final _animations = Get.find<CoreAnimationsUtils>();
+  final _messages = Get.find<CoreMessages>();
+  final _words = Get.find<CoreLabels>();
   final _keys = Get.find<InventoryKeys>();
   final _labels = Get.find<InventoryLabels>();
 
@@ -42,7 +43,7 @@ class AnimatedListTile implements ICustomListTile {
         return ListTile(
             key: Key('${_keys.k_inv_item_key}$_id'),
             leading: _openInventoryImageViewProduct(_product),
-            title: Text(_product.title),
+            title: _rowTitleStockqtde(_product),
             trailing: Container(
                 width: 100,
                 child: Row(children: <Widget>[
@@ -50,6 +51,22 @@ class AnimatedListTile implements ICustomListTile {
                   _deleteIconButton(_id, context, _product),
                 ])));
       },
+    );
+  }
+
+  Row _rowTitleStockqtde(Product _product) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(_product.title),
+        Text(_product.stockQtde.toString(),
+            style: GoogleFonts.lato(
+                textStyle: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.red,
+            )))
+      ],
     );
   }
 
@@ -66,7 +83,7 @@ class AnimatedListTile implements ICustomListTile {
         // @formatter:off
                     onPressed: ()
                         {
-                            CustomAlertDialog.showOptionDialog(
+                            CoreAlertDialog.showOptionDialog(
                             context,
                             _labels.inv_edt_del_conf_tit,
                             '${_labels.inv_edt_del_conf_message}${_product.title}',
@@ -94,10 +111,10 @@ class AnimatedListTile implements ICustomListTile {
         _inventoryController.updateInventoryProductsObs();
         _overviewController.deleteProduct(_id);
         _overviewController.updateFilteredProductsObs();
-        SimpleSnackbar().show(_words.suces, _messages.suces_inv_prod_del);
+        CoreSnackbar().show(_words.suces, _messages.suces_inv_prod_del);
       }
       if (statusCode >= 400) {
-        SimpleSnackbar().show(_words.ops, _messages.error_inv_prod);
+        CoreSnackbar().show(_words.ops, _messages.error_inv_prod);
       }
     });
   }

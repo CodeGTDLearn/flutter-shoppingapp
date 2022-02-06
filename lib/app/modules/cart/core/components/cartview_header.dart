@@ -3,12 +3,12 @@ import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 
-import '../../../../core/components/custom_alert_dialog.dart';
-import '../../../../core/components/custom_indicator.dart';
-import '../../../../core/components/snackbar/simple_snackbar.dart';
+import '../../../../core/components/core_alert_dialog.dart';
+import '../../../../core/components/core_indicator_adaptive.dart';
+import '../../../../core/components/snackbar/core_snackbar.dart';
 import '../../../../core/properties/properties.dart';
-import '../../../../core/texts/global_labels.dart';
-import '../../../../core/texts/global_messages.dart';
+import '../../../../core/texts/core_labels.dart';
+import '../../../../core/texts/core_messages.dart';
 import '../../controller/cart_controller.dart';
 import '../cart_keys.dart';
 import '../cart_labels.dart';
@@ -17,8 +17,8 @@ class CartViewHeader extends StatelessWidget {
   final _width;
   final _height;
   final CartController _controller;
-  final _messages = Get.find<GlobalMessages>();
-  final _words = Get.find<GlobalLabels>();
+  final _messages = Get.find<CoreMessages>();
+  final _words = Get.find<CoreLabels>();
   final _labels = Get.find<CartLabels>();
   final _keys = Get.find<CartKeys>();
 
@@ -56,7 +56,7 @@ class CartViewHeader extends StatelessWidget {
                       height: _height * 0.08,
                       child: Obx(() => (_controller.qtdeCartItemsObs.value == 0)
                           ? _controller.renderListView.value
-                              ? CustomIndicator.radius(_width * 0.3)
+                              ? CoreIndicatorAdaptive.radius(_width * 0.3)
                               : _addOrderButton(enabled: false)
                           : _addOrderButton(enabled: true)))
                 ]))));
@@ -73,7 +73,7 @@ class CartViewHeader extends StatelessWidget {
                   style: TextStyle(color: Theme.of(_context).disabledColor)),
           onPressed: enabled
               ? () {
-                  CustomAlertDialog.showOptionDialog(
+                  CoreAlertDialog.showOptionDialog(
                     _context,
                     _words.confirm(),
                     _labels.label_dialog_ordernow,
@@ -88,11 +88,11 @@ class CartViewHeader extends StatelessWidget {
                         _controller.renderListView.value = false;
                         await Future.delayed(Duration(milliseconds: 500));
                         _controller.clearCart.call();
-                        SimpleSnackbar().show(_words.suces, _messages.suces_ord_add);
+                        CoreSnackbar().show(_words.suces, _messages.suces_ord_add);
                         await Future.delayed(Duration(milliseconds: DURATION + 2000));
                         Get.back.call();
                       }).catchError((error) {
-                        SimpleSnackbar(5000).show('${_words.ops()}$error', _messages
+                        CoreSnackbar(5000).show('${_words.ops()}$error', _messages
                             .error_ord());
                       })
                     },

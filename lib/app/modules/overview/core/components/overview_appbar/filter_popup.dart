@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 
-import '../../../../../core/components/snackbar/simple_snackbar.dart';
-import '../../../../../core/texts/global_labels.dart';
-import '../../../../../core/texts/global_messages.dart';
+import '../../../../../core/components/snackbar/core_snackbar.dart';
+import '../../../../../core/texts/core_labels.dart';
+import '../../../../../core/texts/core_messages.dart';
 import '../../../controller/overview_controller.dart';
 import '../../overview_keys.dart';
 import '../../overview_labels.dart';
@@ -13,8 +13,8 @@ import 'filter_options_enum.dart';
 class FilterPopup extends StatelessWidget {
   final _controller = Get.find<OverviewController>();
   final FilterOptionsEnum filter = FilterOptionsEnum.All;
-  final _messages = Get.find<GlobalMessages>();
-  final _words = Get.find<GlobalLabels>();
+  final _messages = Get.find<CoreMessages>();
+  final _words = Get.find<CoreLabels>();
   final _labels = Get.find<OverviewLabels>();
   final _keys = Get.find<OverviewKeys>();
 
@@ -40,7 +40,7 @@ class FilterPopup extends StatelessWidget {
             ],
         onSelected: (value) {
           _controller.getFavoritesQtde() == 0
-              ? SimpleSnackbar().show(_words.ops(), _messages.overview_no_favs_yet)
+              ? CoreSnackbar().show(_words.ops(), _messages.overview_no_favs_yet)
               : value == FilterOptionsEnum.All
                   ? _controller.applyPopupFilter(FilterOptionsEnum.All)
                   : _controller.applyPopupFilter(FilterOptionsEnum.Fav);

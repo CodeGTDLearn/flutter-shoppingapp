@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 
-import '../../../core/components/appbar/custom_appbar.dart';
+import '../../../core/components/appbar/core_appbar.dart';
 
 // ignore: must_be_immutable
 class InventoryImageView extends StatelessWidget {
   final String? title;
   final String? imageUrl;
 
-  final _appbar = Get.find<CustomAppBar>();
+  final _appbar = Get.find<CoreAppBar>();
 
   InventoryImageView([this.title, this.imageUrl]);
 
