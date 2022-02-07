@@ -7,7 +7,7 @@ class InventoryLabels {
   final _INVENTORY_EDIT_FIELD_DESCRIPT = "Description";
   final _INVENTORY_EDIT_IMAGE_TITLE = "Image";
   final _INVENTORY_EDIT_FIELD_IMAGE_URL = "Image URL";
-  final _INVENTORY_EDIT_FIELD_BARCODE_URL = "Bar Code";
+  final _INVENTORY_EDIT_FIELD_CODE = "BarCode | QRCode";
   final _INVENTORY_EDIT_DELETE_TITLE = "Inventory Deletion";
   final _INVENTORY_EDIT_DELETE_CONFIRMATION = "Really wanna remove: ";
 
@@ -16,6 +16,8 @@ class InventoryLabels {
   final _HINT_TITLE_FIELD = "title";
   final _HINT_DESCRIPTION_FIELD = "Description";
   final _HINT_URL_FIELD = "Image Url";
+  final _INVENTORY_EDIT_QRCODE_HINT = "QRCode";
+  final _INVENTORY_EDIT_BARCODE_HINT = "BarCode";
 
   get inv_tit_page => _INVENTORY_PAGE_TITLE;
 
@@ -31,7 +33,7 @@ class InventoryLabels {
 
   get inv_edt_lbl_imgurl => _INVENTORY_EDIT_FIELD_IMAGE_URL;
 
-  get inv_edt_lbl_barcode => _INVENTORY_EDIT_FIELD_BARCODE_URL;
+  get inv_edt_lbl_code => _INVENTORY_EDIT_FIELD_CODE;
 
   get inv_edt_img_tit => _INVENTORY_EDIT_IMAGE_TITLE;
 
@@ -47,4 +49,8 @@ class InventoryLabels {
   get descript_hint => _HINT_DESCRIPTION_FIELD;
 
   get url_hint => _HINT_URL_FIELD;
+
+  get barcode_hint => _INVENTORY_EDIT_BARCODE_HINT;
+
+  get qrcode_hint => _INVENTORY_EDIT_QRCODE_HINT;
 }

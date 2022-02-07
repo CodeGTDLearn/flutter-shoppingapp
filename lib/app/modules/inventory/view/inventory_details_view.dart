@@ -1,4 +1,3 @@
-import 'package:currency_textfield/currency_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/instance_manager.dart';
@@ -6,11 +5,7 @@ import 'package:get/state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/components/appbar/core_appbar.dart';
-import '../../../core/components/snackbar/core_snackbar.dart';
 import '../../../core/properties/owasp_regex.dart';
-import '../../../core/properties/properties.dart';
-import '../../../core/texts/core_labels.dart';
-import '../../../core/texts/core_messages.dart';
 import '../../../core/utils/core_animations_utils.dart';
 import '../controller/inventory_controller.dart';
 import '../core/components/custom_form_field/custom_form_field.dart';
@@ -18,7 +13,7 @@ import '../core/components/custom_form_field/field_properties/description_proper
 import '../core/components/custom_form_field/field_properties/price_properties.dart';
 import '../core/components/custom_form_field/field_properties/title_properties.dart';
 import '../core/components/custom_form_field/field_properties/url_properties.dart';
-import '../core/components/custom_form_field/validators/barcode_validator.dart';
+import '../core/components/custom_form_field/validators/code_field_validator.dart';
 import '../core/components/custom_form_field/validators/description_validator.dart';
 import '../core/components/custom_form_field/validators/price_validator.dart';
 import '../core/components/custom_form_field/validators/title_validator.dart';
@@ -27,7 +22,7 @@ import '../core/inventory_icons.dart';
 import '../core/inventory_keys.dart';
 import '../core/inventory_labels.dart';
 import '../entity/product.dart';
-import 'inventory_image_view.dart';
+import 'inventory_product_zoom_view.dart';
 
 // todo: refazer usando o video do rodrigohaman
 // https://www.youtube.com/watch?v=GEC4LF40J6k&t=309s
@@ -43,13 +38,11 @@ class InventoryDetailsView extends StatefulWidget {
 }
 
 class _InventoryDetailsViewState extends State<InventoryDetailsView> {
-  final _words = Get.find<CoreLabels>();
   final _labels = Get.find<InventoryLabels>();
   final _appbar = Get.find<CoreAppBar>();
   final _controller = Get.find<InventoryController>();
   final _animations = Get.find<CoreAnimationsUtils>();
   final _icons = Get.find<InventoryIcons>();
-  final _messages = Get.find<CoreMessages>();
   final _keys = Get.find<InventoryKeys>();
   late var _formKey;
 
@@ -72,36 +65,38 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     _startingFormInstances();
     _definingFormTask_updateOrAdd();
     return Scaffold(
-        appBar: _appbar.create(
-            Get.arguments == null
-                ? _labels.inv_edt_lbl_add_appbar
-                : _labels.inv_edt_lbl_edit_appbar,
-            Get.back,
-            actions: [
-              IconButton(
-                  key: Key(_keys.k_inv_edit_save_btn),
-                  icon: _icons.ico_btn_appbar(),
-                  onPressed: () => _saveForm(context))
-            ]),
-        body: Padding(
-            padding: EdgeInsets.all(16),
-            child: Form(
-                key: _formKey,
-                child: SingleChildScrollView(
-                    child: Column(children: [
-                  _titleField(context),
-                  _priceField(context),
-                  _descrField(context),
-                  _imageRow(context),
-                  _space(percent: 0.03),
-                  _barcodeRow(context),
-                  _space(percent: 0.06),
-                  _stockRow(),
-                  _space(percent: 0.02),
-                ])))));
+      // resizeToAvoidBottomInset: false,
+      appBar: _appbar.create(
+          Get.arguments == null
+              ? _labels.inv_edt_lbl_add_appbar
+              : _labels.inv_edt_lbl_edit_appbar,
+          Get.back,
+          actions: [
+            IconButton(
+                key: Key(_keys.k_inv_edit_save_btn),
+                icon: _icons.ico_btn_appbar(),
+                onPressed: () => _saveForm(context))
+          ]),
+      body: Padding(
+          padding: EdgeInsets.all(16),
+          child: Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                    _titleField(context),
+                    _priceField(context),
+                    _descrField(context),
+                    _productImageAndUrlFieldRow(context),
+                    SizedBox(height: Get.height * 0.03),
+                    _codeFieldRow(context),
+                    SizedBox(height: Get.height * 0.06),
+                    _stockQtdeAndButtonsRow(context, _product),
+                    SizedBox(height: Get.height * 0.02),
+                  ])))),
+    );
   }
-
-  SizedBox _space({required double percent}) => SizedBox(height: Get.height * percent);
 
   TextFormField _descrField(BuildContext context) {
     return CustomFormField(DescriptionProperties()).create(
@@ -125,7 +120,8 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
         validator: PriceValidator().validator(),
         onFieldSubmitted: (_) => _setFocus(_nodeDescr, context),
         node: _nodePrice,
-        controller: _product.price.toString() == '0.0' ? _priceController() : null);
+        controller:
+            _product.price.toString() == '0.0' ? _controller.priceController() : null);
   }
 
   TextFormField _titleField(BuildContext context) {
@@ -139,21 +135,21 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
         onFieldSubmitted: (_) => _setFocus(_nodePrice, context));
   }
 
-  Row _stockRow() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        IconButton(
-          icon: Icon(Icons.add_circle_outline),
-          onPressed: () {},
-          focusNode: _nodeBarcodeButton,
-          iconSize: 50.00,
-          padding: EdgeInsets.only(right: Get.width * 0.05),
-        ),
-        Container(
-            width: Get.width * 0.4,
-            child: Text(
-              _product.stockQtde.toString(),
+  Row _stockQtdeAndButtonsRow(BuildContext context, Product product) {
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+      IconButton(
+        icon: Icon(Icons.add_circle_outline),
+        onPressed: () => _controller.modalStockQtdeUpdateAddingOrSubtractingItems(context,
+            product: product, addition: true),
+        focusNode: _nodeBarcodeButton,
+        iconSize: 50.00,
+        padding: EdgeInsets.only(right: Get.width * 0.05),
+      ),
+      Container(
+          width: Get.width * 0.4,
+          child: Obx(
+            () => Text(
+              _controller.productsStockQtdeObs.value.toString(),
               textAlign: TextAlign.center,
               style: GoogleFonts.lato(
                   textStyle: const TextStyle(
@@ -162,52 +158,58 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
                 fontWeight: FontWeight.bold,
               )),
             ),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Colors.white),
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: const [
-                  BoxShadow(
-                      color: Colors.grey,
-                      spreadRadius: 3,
-                      offset: Offset(1.0, 1.0),
-                      blurRadius: 5.0)
-                ])),
-        IconButton(
-          icon: Icon(Icons.remove_circle_outline_outlined),
-          onPressed: () {},
-          focusNode: _nodeBarcodeButton,
-          iconSize: 50.00,
-          padding: EdgeInsets.only(left: Get.width * 0.05),
-        ),
-      ],
-    );
+          ),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: Colors.white),
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: const [
+                BoxShadow(
+                    color: Colors.grey,
+                    spreadRadius: 3,
+                    offset: Offset(1.0, 1.0),
+                    blurRadius: 5.0)
+              ])),
+      IconButton(
+        icon: Icon(Icons.remove_circle_outline_outlined),
+        onPressed: () => _controller.modalStockQtdeUpdateAddingOrSubtractingItems(context,
+            product: product, addition: false),
+        focusNode: _nodeBarcodeButton,
+        iconSize: 50.00,
+        padding: EdgeInsets.only(left: Get.width * 0.05),
+      )
+    ]);
   }
 
-  Row _barcodeRow(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: CustomFormField(DescriptionProperties()).create(
-              product: _product,
-              initialValue: _product.barcode,
-              context: context,
-              label: _labels.inv_edt_lbl_barcode,
-              key: _keys.k_inv_edit_barcode_fld,
-              validator: BarcodeValidator().validator(),
-              onFieldSubmitted: (_) => _setFocus(_nodeBarcodeButton, context),
-              node: _nodeBarcode),
-        ),
-        IconButton(
-          icon: Icon(Icons.qr_code),
-          onPressed: () {},
-          focusNode: _nodeBarcodeButton,
-        )
-      ],
-    );
+  Row _codeFieldRow(BuildContext context) {
+    return Row(children: [
+      IconButton(
+        icon: Icon(Icons.qr_code_scanner),
+        tooltip: _labels.qrcode_hint,
+        onPressed: _controller.scanQRCode,
+        focusNode: _nodeBarcodeButton,
+      ),
+      Expanded(
+        child: CustomFormField(DescriptionProperties()).create(
+            product: _product,
+            initialValue: _product.code,
+            context: context,
+            label: _labels.inv_edt_lbl_code,
+            key: _keys.k_inv_edit_barcode_fld,
+            validator: CodeFieldValidator().validator(),
+            onFieldSubmitted: (_) => _setFocus(_nodeBarcodeButton, context),
+            node: _nodeBarcode),
+      ),
+      IconButton(
+        icon: Icon(Icons.qr_code),
+        tooltip: _labels.barcode_hint,
+        onPressed: _controller.scanBarCode,
+        focusNode: _nodeBarcodeButton,
+      )
+    ]);
   }
 
-  Row _imageRow(BuildContext context) {
+  Row _productImageAndUrlFieldRow(BuildContext context) {
     return Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
       Container(
           width: 100,
@@ -216,7 +218,8 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
           decoration: BoxDecoration(border: Border.all(width: 0.5, color: Colors.grey)),
           child: Obx(() => _controller.imgUrlPreviewObs.value
               ? _animations.openContainer(
-                  openingWidget: InventoryImageView(_product.title, _product.imageUrl),
+                  openingWidget:
+                      InventoryProductZoomView(_product.title, _product.imageUrl),
                   closingWidget: FittedBox(
                       child: Image.network(_urlControl.text, fit: BoxFit.cover)))
               : Center(child: _icons.ico_edt_no_img()))),
@@ -243,10 +246,11 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
         ? () {
             _product = _controller.getProductById(_productId!);
             _controller.imgUrlPreviewObs.value = true;
+            _controller.productsStockQtdeObs.value = _product.stockQtde;
           }.call()
         : () {
             _product = Product.emptyInitialized();
-            _nodeImgUrl.addListener(_previewImageUrl);
+            _nodeImgUrl.addListener(_previewProductImage);
             _controller.imgUrlPreviewObs.value = false;
           }.call();
 
@@ -265,12 +269,12 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     _nodeImgUrl = Get.find<FocusNode>(tag: 'urlNode');
   }
 
-  void _previewImageUrl() {
+  void _previewProductImage() {
     var isUnsafeUrl = RegExp(OWASP_SAFE_URL, caseSensitive: false)
             .firstMatch(_urlControl.text.trim()) ==
         null;
-    var lostFocus = !_nodeImgUrl.hasFocus;
 
+    var lostFocus = !_nodeImgUrl.hasFocus;
     if (lostFocus && isUnsafeUrl) return null;
     if (lostFocus) _controller.imgUrlPreviewObs.value = true;
   }
@@ -279,52 +283,14 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
 
-    _product.id == null ? _save(_product, _context) : _update(_product, _context);
+    _product.id == null
+        ? _controller.saveProductInForm(_product, _context)
+        : _controller.updateProductInForm(_product, _context);
+
     Get.back();
-  }
-
-  void _save(Product _product, BuildContext _context) {
-    // @formatter:off
-    _controller.addProduct(_product).then((product) {
-      _controller.updateInventoryProductsObs();
-    }).whenComplete(() {
-      CoreSnackbar().show(_words.suces, _messages.suces_inv_prod_add);
-    }).catchError((onError) {
-      Get.defaultDialog(
-          title: _words.ops, middleText: _messages.error_inv_prod, textConfirm:
-      _words.ok(),
-          onConfirm:
-      Get.back);
-    });
-    // @formatter:on
-  }
-
-  void _update(Product _product, BuildContext _context) {
-    // @formatter:off
-    _controller.updateProduct(_product).then((statusCode) {
-      if (statusCode >= 200 && statusCode < 400) {
-        _controller.updateInventoryProductsObs();
-        CoreSnackbar().show(_words.suces, _messages.suces_inv_prod_upd);
-      }
-      if (statusCode >= 400) {
-        Get.defaultDialog(
-            title: _words.ops, middleText: _messages.error_inv_prod,
-            textConfirm:
-        _words.ok,
-            onConfirm: Get.back);
-      }
-    });
-    // @formatter:on
   }
 
   void _setFocus(FocusNode node, BuildContext _context) {
     return FocusScope.of(_context).requestFocus(node);
-  }
-
-  CurrencyTextFieldController _priceController() {
-    return CurrencyTextFieldController(
-        rightSymbol: CURRENCY_FORMAT,
-        decimalSymbol: DECIMAL_SYMBOL,
-        thousandSymbol: THOUSAND_SYMBOL);
   }
 }

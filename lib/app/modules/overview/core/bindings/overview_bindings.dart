@@ -14,12 +14,14 @@ import '../overview_labels.dart';
 
 class OverviewBindings extends Bindings {
   void dependencies() {
+
     Get.lazyPut(() => CoreLabels());
-    Get.lazyPut(() => OverviewIcons());
     Get.lazyPut(() => CoreMessages());
-    Get.lazyPut(() => OverviewLabels());
     Get.lazyPut(() => CoreComponentsKeys());
     Get.lazyPut(() => CoreDrawerLabels());
+
+    Get.lazyPut(() => OverviewIcons());
+    Get.lazyPut(() => OverviewLabels());
     Get.lazyPut<IOverviewRepo>(() => OverviewRepoHttpFirebase());
     Get.lazyPut<IOverviewService>(() => OverviewService(repo: Get.find<IOverviewRepo>()));
     Get.lazyPut(() => OverviewController(service: Get.find<IOverviewService>()));

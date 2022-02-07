@@ -5,7 +5,7 @@ import 'package:get/state_manager.dart';
 
 import '../../../core/components/appbar/core_sliver_appbar.dart';
 import '../../../core/components/badge/core_badge_cart.dart';
-import '../../../core/components/core_indicator_adaptive.dart';
+import '../../../core/components/core_adaptive_indicator.dart';
 import '../../../core/texts/core_messages.dart';
 import '../../orders/core/components/custom_listview/staggered_sliver_listview.dart';
 import '../controller/orders_controller.dart';
@@ -24,7 +24,7 @@ class OrdersView extends StatelessWidget {
     return Scaffold(
         body: Obx(
       () => _controller.ordersObs.isEmpty
-          ? CoreIndicatorAdaptive.message(message: _messages.no_orders_yet, fontSize: 20)
+          ? CoreAdaptiveIndicator.message(message: _messages.no_orders_yet, fontSize: 20)
           : CustomScrollView(slivers: [
               _sliverAppbar.create(_labels.title_page, Get.back, actions: [_cartBadge]),
               StaggeredSliverListview().ordersListview(_controller.ordersObs.toList())

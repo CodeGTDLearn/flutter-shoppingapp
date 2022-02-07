@@ -13,7 +13,7 @@ import '../../../../overview/controller/overview_controller.dart';
 import '../../../controller/inventory_controller.dart';
 import '../../../entity/product.dart';
 import '../../../view/inventory_details_view.dart';
-import '../../../view/inventory_image_view.dart';
+import '../../../view/inventory_product_zoom_view.dart';
 import '../../inventory_icons.dart';
 import '../../inventory_keys.dart';
 import '../../inventory_labels.dart';
@@ -72,7 +72,7 @@ class AnimatedListTile implements ICustomListTile {
 
   OpenContainer<Object> _openInventoryImageViewProduct(Product _product) {
     return _animations.openContainer(
-        openingWidget: InventoryImageView(_product.title, _product.imageUrl),
+        openingWidget: InventoryProductZoomView(_product.title, _product.imageUrl),
         closingWidget: CircleAvatar(backgroundImage: NetworkImage(_product.imageUrl)));
   }
 

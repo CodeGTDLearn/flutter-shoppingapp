@@ -5,24 +5,24 @@ import '../properties/properties.dart';
 import 'core_components_keys.dart';
 
 // ignore: must_be_immutable
-class CoreIndicatorAdaptive extends StatefulWidget {
+class CoreAdaptiveIndicator extends StatefulWidget {
   double? radius;
   String? message;
   double? fontSize;
   bool _showCircularProgressIndicator = true;
   final _keys = Get.find<CoreComponentsKeys>();
 
-  CoreIndicatorAdaptive.message({required this.message, required this.fontSize});
+  CoreAdaptiveIndicator.message({required this.message, required this.fontSize});
 
-  CoreIndicatorAdaptive.radius([this.radius]);
+  CoreAdaptiveIndicator.radius([this.radius]);
 
-  CoreIndicatorAdaptive();
+  CoreAdaptiveIndicator();
 
   @override
-  _CoreIndicatorAdaptiveState createState() => _CoreIndicatorAdaptiveState();
+  _CoreAdaptiveIndicatorState createState() => _CoreAdaptiveIndicatorState();
 }
 
-class _CoreIndicatorAdaptiveState extends State<CoreIndicatorAdaptive> {
+class _CoreAdaptiveIndicatorState extends State<CoreAdaptiveIndicator> {
   @override
   void initState() {
     super.initState();

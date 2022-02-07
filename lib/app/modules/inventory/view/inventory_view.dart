@@ -5,7 +5,7 @@ import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 
 import '../../../core/components/appbar/core_sliver_appbar.dart';
-import '../../../core/components/core_indicator_adaptive.dart';
+import '../../../core/components/core_adaptive_indicator.dart';
 import '../../../core/texts/core_messages.dart';
 import '../../../core/utils/core_animations_utils.dart';
 import '../../overview/controller/overview_controller.dart';
@@ -32,7 +32,7 @@ class InventoryView extends StatelessWidget {
     return Scaffold(
         body: Obx(
       () => (_controller.inventoryProductsObs.toList().isEmpty
-          ? CoreIndicatorAdaptive.message(message: _messages.no_inv_prod_yet, fontSize: 20)
+          ? CoreAdaptiveIndicator.message(message: _messages.no_inv_prod_yet, fontSize: 20)
           : RefreshIndicator(
               onRefresh: _controller.getProducts,
               child: _controller.inventoryProductsObs.toList().isEmpty

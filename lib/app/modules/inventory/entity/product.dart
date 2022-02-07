@@ -13,7 +13,7 @@ class Product {
   String imageUrl;
   double price;
   bool isFavorite;
-  String barcode;
+  String code;
   int stockQtde;
 
   Product({
@@ -23,7 +23,7 @@ class Product {
     required this.price,
     required this.imageUrl,
     required this.stockQtde,
-    this.barcode = "",
+    this.code = "",
     this.isFavorite = false,
   });
 
@@ -34,7 +34,7 @@ class Product {
     this.imageUrl = '',
     this.isFavorite = false,
     this.stockQtde = 10,
-    this.barcode = "",
+    this.code = "",
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);

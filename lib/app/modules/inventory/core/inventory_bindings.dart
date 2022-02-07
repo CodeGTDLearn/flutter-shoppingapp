@@ -1,5 +1,7 @@
+
 import 'package:get/instance_manager.dart';
 
+import '../../../core/components/modal/core_modal_bindings.dart';
 import '../../overview/service/i_overview_service.dart';
 import '../controller/inventory_controller.dart';
 import '../repo/i_inventory_repo.dart';
@@ -14,9 +16,13 @@ import 'inventory_labels.dart';
 
 class InventoryBindings extends Bindings {
   void dependencies() {
+
     Get.lazyPut(() => InventoryKeys());
     Get.lazyPut(() => InventoryIcons());
     Get.lazyPut(() => InventoryLabels());
+
+    CoreModalBindings().dependencies();
+
     Get.lazyPut<ICustomInventoryListview>(() => StaggeredSliverListview());
     Get.lazyPut<IInventoryRepo>(() => InventoryRepoHttpFirebase());
     Get.lazyPut<IInventoryService>(() => InventoryService(

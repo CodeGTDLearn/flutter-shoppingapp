@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
-import 'package:shopingapp/app/core/routes/core_routes.dart';
 
 import '../../../modules/cart/controller/cart_controller.dart';
 import '../../../modules/cart/core/cart_keys.dart';
 import '../../../modules/overview/core/overview_icons.dart';
+import '../../routes/core_routes.dart';
 import '../../texts/core_labels.dart';
 import '../../texts/core_messages.dart';
 import '../snackbar/core_snackbar.dart';

@@ -1,27 +1,54 @@
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
-import 'package:shopingapp/app/core/platform/cupertino_styles.dart';
+import 'package:flutter/services.dart';
 
 import 'i_core_adaptive_modal.dart';
 
 class CoreModalCupertino implements ICoreAdaptiveModal {
   @override
   void create(
-    BuildContext context,
-    String content,
-    String labelYes,
-    String labelNo,
-    Function actionYes,
-    Function actionNo,
-  ) {
+    BuildContext context, {
+    String? title,
+    String? content,
+    required bool contentField,
+    TextInputType? contentFieldKeyboardType,
+    String? contentFieldPlaceholder,
+    TextEditingController? contentFieldController,
+    List<TextInputFormatter>? inputFormatters,
+    String? labelYes,
+    String? labelNo,
+    Function? actionYes,
+    Function? actionNo,
+  }) {
+    var _contentField = CupertinoTextField(
+      autofocus: true,
+      controller: contentFieldController,
+      textInputAction: TextInputAction.go,
+      keyboardType: contentFieldKeyboardType,
+      inputFormatters: inputFormatters,
+      placeholder: contentFieldPlaceholder,
+    );
+
+    var textButtonYes = labelYes == null
+        ? null
+        : CupertinoButton(onPressed: () => actionYes!.call(), child: Text(labelYes));
+
+    var textButtonNo = labelNo == null
+        ? null
+        : CupertinoButton(onPressed: () => actionNo!.call(), child: Text(labelNo));
+
     var cupertinoAlertDialog = CupertinoAlertDialog(
-        title: Text("View: ${Platform.operatingSystem}"),
-        content: Text(content,style: CupertinoStyles.modalText),
-        actions: [
-          CupertinoButton(child: Text(labelYes), onPressed: () => actionYes.call()),
-          CupertinoButton(child: Text(labelNo), onPressed: () => actionNo.call()),
-        ]);
+      title: title == null ? null : Text(title),
+      content: contentField
+          ? _contentField
+          : content == null
+              ? null
+              : Text(content),
+      actions: [
+        textButtonYes!,
+        textButtonNo!,
+      ],
+    );
 
     showCupertinoDialog(
       context: context,

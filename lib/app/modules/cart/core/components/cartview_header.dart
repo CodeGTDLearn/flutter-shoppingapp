@@ -3,8 +3,8 @@ import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 
+import '../../../../core/components/core_adaptive_indicator.dart';
 import '../../../../core/components/core_alert_dialog.dart';
-import '../../../../core/components/core_indicator_adaptive.dart';
 import '../../../../core/components/snackbar/core_snackbar.dart';
 import '../../../../core/properties/properties.dart';
 import '../../../../core/texts/core_labels.dart';
@@ -56,7 +56,7 @@ class CartViewHeader extends StatelessWidget {
                       height: _height * 0.08,
                       child: Obx(() => (_controller.qtdeCartItemsObs.value == 0)
                           ? _controller.renderListView.value
-                              ? CoreIndicatorAdaptive.radius(_width * 0.3)
+                              ? CoreAdaptiveIndicator.radius(_width * 0.3)
                               : _addOrderButton(enabled: false)
                           : _addOrderButton(enabled: true)))
                 ]))));

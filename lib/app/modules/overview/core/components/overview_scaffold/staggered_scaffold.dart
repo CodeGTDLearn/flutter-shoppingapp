@@ -3,7 +3,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 
-import '../../../../../core/components/core_indicator_adaptive.dart';
+import '../../../../../core/components/core_adaptive_indicator.dart';
 import '../../../../../core/texts/core_messages.dart';
 import '../../overview_keys.dart';
 import '../custom_grid_item/animated_grid_item.dart';
@@ -24,7 +24,7 @@ class StaggeredScaffold implements IOverviewScaffold {
             ? SingleChildScrollView(
                 child: Center(
                     child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                CoreIndicatorAdaptive.message(message: _messages.no_products_yet, fontSize: 20)
+                CoreAdaptiveIndicator.message(message: _messages.no_products_yet, fontSize: 20)
               ])))
             : CustomScrollView(slivers: [
                 _sliverAppbar,

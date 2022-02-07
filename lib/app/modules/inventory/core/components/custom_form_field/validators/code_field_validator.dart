@@ -7,7 +7,7 @@ import '../../../../../../core/properties/owasp_regex.dart';
 import '../../../../../../core/texts/core_messages.dart';
 import 'icustom_validator.dart';
 
-class BarcodeValidator extends ICustomValidator {
+class CodeFieldValidator extends ICustomValidator {
   final _messages = Get.find<CoreMessages>();
 
   @override

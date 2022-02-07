@@ -5,13 +5,13 @@ import 'package:get/route_manager.dart';
 import '../../../core/components/appbar/core_appbar.dart';
 
 // ignore: must_be_immutable
-class InventoryImageView extends StatelessWidget {
+class InventoryProductZoomView extends StatelessWidget {
   final String? title;
   final String? imageUrl;
 
   final _appbar = Get.find<CoreAppBar>();
 
-  InventoryImageView([this.title, this.imageUrl]);
+  InventoryProductZoomView([this.title, this.imageUrl]);
 
   @override
   Widget build(BuildContext context) {

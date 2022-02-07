@@ -162,7 +162,7 @@ class InventoryControllerTests {
     test(_titles.controller_reload_view, () {
       _controller.getProducts().then((_) {
         expect(_controller.renderInventoryItemDetailsViewObs.value, isFalse);
-        _controller.switchInventoryItemFormToCustomIndicator();
+        _controller.switchInventoryItemFormToCoreAdaptiveIndicator();
         expect(_controller.renderInventoryItemDetailsViewObs.value, isTrue);
       });
     });

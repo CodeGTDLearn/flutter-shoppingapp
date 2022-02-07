@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
-import 'package:shopingapp/app/core/routes/core_routes.dart';
 
 import '../../../../../core/components/snackbar/core_button_snackbar.dart';
 import '../../../../../core/components/snackbar/core_snackbar.dart';
-import '../../../../../core/properties/propertiesdart';
+import '../../../../../core/properties/properties.dart';
+import '../../../../../core/routes/core_routes.dart';
+import '../../../../../core/texts/core_labels.dart';
 import '../../../../../core/texts/core_messages.dart';
 import '../../../../cart/controller/cart_controller.dart';
 import '../../../../inventory/entity/product.dart';
