@@ -9,7 +9,7 @@ final APP_CONTEXT_GLOBAL_KEY = GlobalKey<NavigatorState>();
 //NO IMAGE-URL
 const NO_IMAGE_AVAILABLE =
     "https://icon-library.com/images/no-picture-available-icon/no-picture-available-icon-1.jpg";
-const IMAGE_PLACEHOLDER = "assets/load.gif";
+const IMAGE_PLACEHOLDER = "assets/images/circular_placeholder.gif";
 
 //FLUSHBAR + GETX-SNACKBAR
 const DURATION = 1000;

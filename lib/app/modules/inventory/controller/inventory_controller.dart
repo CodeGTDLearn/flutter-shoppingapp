@@ -24,35 +24,37 @@ class InventoryController extends GetxController {
   final IInventoryService service;
 
   var productsStockQtdeObs = 0.obs;
-  var inventoryProductsObs = <Product>[].obs;
-  var renderInventoryItemDetailsViewObs = false.obs;
-  var imgUrlPreviewObs = false.obs;
-  var inventoryImageZoomObs = false.obs;
+  var productCodeObs = "".obs;
+  var productsObs = <Product>[].obs;
+  var productImageUrlPreviewObs = false.obs;
+
+  // var renderItemDetailsViewObs = false.obs;
+  // var inventoryImageZoomObs = false.obs;
 
   InventoryController({required this.service});
 
   // GERENCIA DE ESTADO REATIVA ou SIMPLES - COM O GET
   @override
   void onInit() {
-    inventoryProductsObs.assignAll([]);
+    productsObs.assignAll([]);
     getProducts();
     super.onInit();
   }
 
-  void toggleInventoryImageZoomObs() {
-    inventoryImageZoomObs.value = !inventoryImageZoomObs.value;
-  }
+  // void toggleInventoryImageZoomObs() {
+  //   inventoryImageZoomObs.value = !inventoryImageZoomObs.value;
+  // }
 
   Future<List<Product>> getProducts() {
     // @formatter:off
     return service
             .getProducts()
             .then((response) {
-                 inventoryProductsObs.assignAll(response);
+                 productsObs.assignAll(response);
                  // response == null
                  //     ? inventoryProductsObs.assignAll([])
                  //     : inventoryProductsObs.assignAll(response);
-                 return inventoryProductsObs.toList();})
+                 return productsObs.toList();})
             .catchError((onError) => throw onError);
     // @formatter:on
   }
@@ -83,28 +85,28 @@ class InventoryController extends GetxController {
     // @formatter:off
     var responseFuture = service.deleteProduct(id).then((statusCode) {
       if (statusCode >= 400) {
-        inventoryProductsObs.assignAll(service.getLocalDataInventoryProducts());
+        productsObs.assignAll(service.getLocalDataInventoryProducts());
       }
       return statusCode;
     });
 
-    inventoryProductsObs.assignAll(service.getLocalDataInventoryProducts());
+    productsObs.assignAll(service.getLocalDataInventoryProducts());
 
     return responseFuture;
     // @formatter:on
   }
 
-  void switchInventoryItemFormToCoreAdaptiveIndicator() {
-    renderInventoryItemDetailsViewObs.value = !renderInventoryItemDetailsViewObs.value;
-  }
+  // void switchInventoryItemFormToCoreAdaptiveIndicator() {
+  //   renderItemDetailsViewObs.value = !renderItemDetailsViewObs.value;
+  // }
 
   void updateInventoryProductsObs() {
-    inventoryProductsObs.assignAll(service.getLocalDataInventoryProducts());
+    productsObs.assignAll(service.getLocalDataInventoryProducts());
   }
 
-  Future<void> modalStockQtdeUpdateAddingOrSubtractingItems(
+  Future<void> stockAddOrRemoveItems(
     context, {
-    required Product product,
+    required Product item,
     required bool addition,
   }) async {
     var _modal = Get.put<ICoreAdaptiveModal>(CoreModalMaterial(), tag: "deleteModal");
@@ -127,21 +129,21 @@ class InventoryController extends GetxController {
       labelNo: _labels.no,
       actionYes: () async {
         var _number = int.parse(_textFieldController.text.trim());
-        var stockQtde = product.stockQtde;
+        var stockQtde = item.stockQtde;
         addition
             ? () async {
-                product.stockQtde = stockQtde + _number;
-                await updateProduct(product).then((status) async {
-                  productsStockQtdeObs.value = product.stockQtde;
+                item.stockQtde = stockQtde + _number;
+                await updateProduct(item).then((status) async {
+                  productsStockQtdeObs.value = item.stockQtde;
                   Get.back();
                   Get.delete(tag: "deleteModal");
                 });
               }.call()
-            : product.stockQtde >= _number
+            : item.stockQtde >= _number
                 ? () async {
-                    product.stockQtde = stockQtde - _number;
-                    await updateProduct(product).then((status) async {
-                      productsStockQtdeObs.value = product.stockQtde;
+                    item.stockQtde = stockQtde - _number;
+                    await updateProduct(item).then((status) async {
+                      productsStockQtdeObs.value = item.stockQtde;
                       Get.back();
                     });
                   }.call()
@@ -193,28 +195,27 @@ class InventoryController extends GetxController {
     // @formatter:on
   }
 
-  Future<String> scanQRCode() async {
+  Future<String> scanCode({var barcode = true}) async {
+    // @formatter:off
     return FlutterBarcodeScanner.scanBarcode(
-      "#ff6666",
-      "Cancel",
-      true,
-      ScanMode.QR,
-    ).then((scannedQrCode) => scannedQrCode);
-  }
-
-  Future<String> scanBarCode() async {
-    return FlutterBarcodeScanner.scanBarcode(
-      "#ff6666",
-      "Cancel",
-      true,
-      ScanMode.BARCODE,
-    ).then((scannedQrCode) => scannedQrCode);
+           "#ff6666",
+           "Cancel",
+           true,
+           barcode ? ScanMode.BARCODE : ScanMode.QR,)
+           .then((scannedCode) => productCodeObs.value = scannedCode)
+           .catchError((onError) {
+              Get.defaultDialog(content: Text(_messages.code_read_error_message));
+            });
+   // @formatter:on
   }
 }
 
-// return repo
-//     .getNotonlineElevators()
-//     .catchError((onError) {
-//        Get.defaultDialog(content: Text(onError.toString()));
-//        return <Elevator>[];}
-//     );
+// Future<List<Elevator>> getNotonlineElevators() {
+//   // @formatter:off
+//   return repo
+//       .getNotonlineElevators()
+//       .catchError((onError) {
+//     Get.defaultDialog(content: Text(onError.toString()));
+//     return <Elevator>[];});
+//   // @formatter:on
+// }

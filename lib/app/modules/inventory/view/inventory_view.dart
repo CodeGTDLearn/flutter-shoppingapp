@@ -31,11 +31,11 @@ class InventoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Obx(
-      () => (_controller.inventoryProductsObs.toList().isEmpty
+      () => (_controller.productsObs.toList().isEmpty
           ? CoreAdaptiveIndicator.message(message: _messages.no_inv_prod_yet, fontSize: 20)
           : RefreshIndicator(
               onRefresh: _controller.getProducts,
-              child: _controller.inventoryProductsObs.toList().isEmpty
+              child: _controller.productsObs.toList().isEmpty
                   ? Center(child: Text(_messages.no_inv_prod_yet))
                   : CustomScrollView(slivers: [
                       _sliverAppbar.create(_labels.inv_tit_page, () {
@@ -43,7 +43,7 @@ class InventoryView extends StatelessWidget {
                         Get.back();
                       }, actions: [_addNewProductAppbarButton()]),
                       _sliverListView
-                          .inventoryListview(_controller.inventoryProductsObs.toList()),
+                          .inventoryListview(_controller.productsObs.toList()),
                     ]),
             )),
     ));

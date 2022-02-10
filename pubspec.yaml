@@ -48,8 +48,14 @@ dev_dependencies:
   json_serializable: ^6.1.3
 
 flutter:
+
   uses-material-design: true
 
   assets:
-    - apple.png
-    - load.gif
+    - assets/images/apple.png
+    - assets/images/circular_placeholder.gif
+
+  fonts:
+    - family: barcode
+      fonts:
+        - asset: assets/fonts/barcode_scan.ttf

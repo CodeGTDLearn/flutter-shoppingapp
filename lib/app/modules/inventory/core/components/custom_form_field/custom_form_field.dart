@@ -21,6 +21,7 @@ class CustomFormField {
     FormFieldValidator<String>? validator,
     FocusNode? node,
     TextEditingController? controller,
+    bool? enable,
   }) {
     var map = properties.properties();
     return TextFormField(
@@ -43,6 +44,7 @@ class CustomFormField {
       onFieldSubmitted: (_) => onFieldSubmitted,
       onSaved: (fieldValue) => _loadProductWithFieldValue(label, product, fieldValue),
       focusNode: node,
+      enabled: enable,
     );
   }
 

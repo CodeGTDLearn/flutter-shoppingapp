@@ -37,7 +37,7 @@ class InventoryControllerTests {
 
     test(_titles.controller_GetManagedProductsObs, () {
       _controller.getProducts().then((_) {
-        var list = _controller.inventoryProductsObs.toList();
+        var list = _controller.productsObs.toList();
         expect(list[0].id, _products.elementAt(0).id);
         expect(list[0].title, _products.elementAt(0).title);
       });
@@ -61,7 +61,7 @@ class InventoryControllerTests {
 
     test(_titles.controller_get_products_qtde, () {
       _controller.getProducts().then((value) {
-        expect(_newProduct, isNot(isIn(_controller.inventoryProductsObs.toList())));
+        expect(_newProduct, isNot(isIn(_controller.productsObs.toList())));
         expect(_controller.getProductsQtde(), 4);
         _controller.addProduct(_newProduct).then((response) {
           expect(_controller.getProductsQtde(), 5);
@@ -75,7 +75,7 @@ class InventoryControllerTests {
         var found = _controller.getProductById(products[0].id!);
         expect(found.id, _product0.id);
         expect(found.title, _product0.title);
-        expect(found, isIn(_controller.inventoryProductsObs.toList()));
+        expect(found, isIn(_controller.productsObs.toList()));
       });
       // @formatter:on
     });
@@ -96,7 +96,7 @@ class InventoryControllerTests {
       });
       _controller.getProducts().then((_) {
         expect(_controller.getProductById(_product1.id!),
-            isIn(_controller.inventoryProductsObs.toList()));
+            isIn(_controller.productsObs.toList()));
         _controller.updateProduct(_product1).then((response) {
           expect(response, 200);
         });
@@ -107,7 +107,7 @@ class InventoryControllerTests {
       _controller.getProducts().then((_) {
         expect(
           _newProduct.id,
-          isNot(isIn(_controller.inventoryProductsObs.toList())),
+          isNot(isIn(_controller.productsObs.toList())),
         );
         _newProduct;
         _controller.updateProduct(_newProduct).then((response) {
@@ -124,16 +124,16 @@ class InventoryControllerTests {
         _service.addLocalDataInventoryProducts(productTest);
         expect(_service.getLocalDataInventoryProducts().length, 5);
 
-        expect(_controller.inventoryProductsObs.toList().length, 4);
+        expect(_controller.productsObs.toList().length, 4);
         _controller.updateInventoryProductsObs();
-        expect(_controller.inventoryProductsObs.toList().length, 5);
+        expect(_controller.productsObs.toList().length, 5);
       });
     });
 
     test(_titles.controller_delete_product_status_200, () {
       _controller.getProducts().then((_) {
         expect(_controller.getProductById(_product1.id!),
-            isIn(_controller.inventoryProductsObs.toList()));
+            isIn(_controller.productsObs.toList()));
         _controller.deleteProduct(_product1.id!).then((response) {
           expect(response, 200);
         });
@@ -143,7 +143,7 @@ class InventoryControllerTests {
     test(_titles.controller_delete_transaction, () {
       _controller.getProducts().then((_) {
         expect(_controller.getProductById(_product1.id!),
-            isIn(_controller.inventoryProductsObs.toList()));
+            isIn(_controller.productsObs.toList()));
         _controller.deleteProduct(_product1.id!).then((response) {
           expect(response, 200);
         });
@@ -153,18 +153,18 @@ class InventoryControllerTests {
     test(_titles.controller_delete_transaction_exc, () {
       _controller.getProducts().then((_) {
         expect(_controller.getProductById(_product1.id!),
-            isIn(_controller.inventoryProductsObs.toList()));
+            isIn(_controller.productsObs.toList()));
         expect(
             () => _controller.deleteProduct(_newProduct.id!), throwsA(isA<RangeError>()));
       });
     });
 
-    test(_titles.controller_reload_view, () {
-      _controller.getProducts().then((_) {
-        expect(_controller.renderInventoryItemDetailsViewObs.value, isFalse);
-        _controller.switchInventoryItemFormToCoreAdaptiveIndicator();
-        expect(_controller.renderInventoryItemDetailsViewObs.value, isTrue);
-      });
-    });
+    // test(_titles.controller_reload_view, () {
+    //   _controller.getProducts().then((_) {
+    //     expect(_controller.renderItemDetailsViewObs.value, isFalse);
+    //     _controller.switchInventoryItemFormToCoreAdaptiveIndicator();
+    //     expect(_controller.renderItemDetailsViewObs.value, isTrue);
+    //   });
+    // });
   }
 }

@@ -38,12 +38,12 @@ class InventoryDetailsView extends StatefulWidget {
 }
 
 class _InventoryDetailsViewState extends State<InventoryDetailsView> {
-  final _labels = Get.find<InventoryLabels>();
-  final _appbar = Get.find<CoreAppBar>();
   final _controller = Get.find<InventoryController>();
   final _animations = Get.find<CoreAnimationsUtils>();
+  final _labels = Get.find<InventoryLabels>();
   final _icons = Get.find<InventoryIcons>();
   final _keys = Get.find<InventoryKeys>();
+  final _appbar = Get.find<CoreAppBar>();
   late var _formKey;
 
   @override
@@ -65,7 +65,6 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     _startingFormInstances();
     _definingFormTask_updateOrAdd();
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
       appBar: _appbar.create(
           Get.arguments == null
               ? _labels.inv_edt_lbl_add_appbar
@@ -90,7 +89,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
                     _descrField(context),
                     _productImageAndUrlFieldRow(context),
                     SizedBox(height: Get.height * 0.03),
-                    _codeFieldRow(context),
+                    _barcodeFieldRow(context),
                     SizedBox(height: Get.height * 0.06),
                     _stockQtdeAndButtonsRow(context, _product),
                     SizedBox(height: Get.height * 0.02),
@@ -138,27 +137,27 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
   Row _stockQtdeAndButtonsRow(BuildContext context, Product product) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
       IconButton(
-        icon: Icon(Icons.add_circle_outline),
-        onPressed: () => _controller.modalStockQtdeUpdateAddingOrSubtractingItems(context,
-            product: product, addition: true),
-        focusNode: _nodeBarcodeButton,
-        iconSize: 50.00,
-        padding: EdgeInsets.only(right: Get.width * 0.05),
-      ),
+          icon: Icon(Icons.add_circle_outline),
+          onPressed: () =>
+              _controller.stockAddOrRemoveItems(context, item: product, addition: true),
+          focusNode: _nodeBarcodeButton,
+          iconSize: 50.00,
+          padding: EdgeInsets.only(right: Get.width * 0.05)),
       Container(
           width: Get.width * 0.4,
-          child: Obx(
-            () => Text(
-              _controller.productsStockQtdeObs.value.toString(),
-              textAlign: TextAlign.center,
-              style: GoogleFonts.lato(
-                  textStyle: const TextStyle(
-                color: Colors.blue,
-                fontSize: 50,
-                fontWeight: FontWeight.bold,
-              )),
-            ),
-          ),
+          child: Obx(() {
+            return Text(
+                _controller.productsStockQtdeObs.value <= 9
+                    ? _controller.productsStockQtdeObs.value.toString().padLeft(2, '0')
+                    : _controller.productsStockQtdeObs.value.toString(),
+                textAlign: TextAlign.center,
+                style: GoogleFonts.lato(
+                    textStyle: const TextStyle(
+                  color: Colors.blue,
+                  fontSize: 50,
+                  fontWeight: FontWeight.bold,
+                )));
+          }),
           decoration: BoxDecoration(
               color: Colors.white,
               border: Border.all(color: Colors.white),
@@ -171,41 +170,39 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
                     blurRadius: 5.0)
               ])),
       IconButton(
-        icon: Icon(Icons.remove_circle_outline_outlined),
-        onPressed: () => _controller.modalStockQtdeUpdateAddingOrSubtractingItems(context,
-            product: product, addition: false),
-        focusNode: _nodeBarcodeButton,
-        iconSize: 50.00,
-        padding: EdgeInsets.only(left: Get.width * 0.05),
-      )
+          icon: Icon(Icons.remove_circle_outline_outlined),
+          onPressed: () =>
+              _controller.stockAddOrRemoveItems(context, item: product, addition: false),
+          focusNode: _nodeBarcodeButton,
+          iconSize: 50.00,
+          padding: EdgeInsets.only(left: Get.width * 0.05))
     ]);
   }
 
-  Row _codeFieldRow(BuildContext context) {
+  Row _barcodeFieldRow(BuildContext context) {
     return Row(children: [
       IconButton(
-        icon: Icon(Icons.qr_code_scanner),
-        tooltip: _labels.qrcode_hint,
-        onPressed: _controller.scanQRCode,
-        focusNode: _nodeBarcodeButton,
-      ),
-      Expanded(
-        child: CustomFormField(DescriptionProperties()).create(
-            product: _product,
-            initialValue: _product.code,
-            context: context,
-            label: _labels.inv_edt_lbl_code,
-            key: _keys.k_inv_edit_barcode_fld,
-            validator: CodeFieldValidator().validator(),
-            onFieldSubmitted: (_) => _setFocus(_nodeBarcodeButton, context),
-            node: _nodeBarcode),
-      ),
+          icon: Icon(IconData(0xe900, fontFamily: 'barcode')),
+          tooltip: _labels.qrcode_hint,
+          onPressed: () => _controller.scanCode(barcode: true),
+          focusNode: _nodeBarcodeButton),
+      Obx(() => Expanded(
+          child: CustomFormField(DescriptionProperties()).create(
+              product: _product,
+              initialValue: _product.code,
+              context: context,
+              // label: _labels.inv_edt_lbl_code,
+              label: _controller.productCodeObs.value,
+              key: _keys.k_inv_edit_barcode_fld,
+              validator: BarcodeFieldValidator().validator(),
+              onFieldSubmitted: (_) => _setFocus(_nodeBarcodeButton, context),
+              node: _nodeBarcode,
+              enable: false))),
       IconButton(
-        icon: Icon(Icons.qr_code),
-        tooltip: _labels.barcode_hint,
-        onPressed: _controller.scanBarCode,
-        focusNode: _nodeBarcodeButton,
-      )
+          icon: Icon(Icons.qr_code_scanner_sharp),
+          tooltip: _labels.barcode_hint,
+          onPressed: () => _controller.scanCode(barcode: false),
+          focusNode: _nodeBarcodeButton)
     ]);
   }
 
@@ -216,7 +213,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
           height: 100,
           margin: EdgeInsets.only(top: 20, right: 10),
           decoration: BoxDecoration(border: Border.all(width: 0.5, color: Colors.grey)),
-          child: Obx(() => _controller.imgUrlPreviewObs.value
+          child: Obx(() => _controller.productImageUrlPreviewObs.value
               ? _animations.openContainer(
                   openingWidget:
                       InventoryProductZoomView(_product.title, _product.imageUrl),
@@ -245,13 +242,13 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     findId
         ? () {
             _product = _controller.getProductById(_productId!);
-            _controller.imgUrlPreviewObs.value = true;
+            _controller.productImageUrlPreviewObs.value = true;
             _controller.productsStockQtdeObs.value = _product.stockQtde;
           }.call()
         : () {
             _product = Product.emptyInitialized();
             _nodeImgUrl.addListener(_previewProductImage);
-            _controller.imgUrlPreviewObs.value = false;
+            _controller.productImageUrlPreviewObs.value = false;
           }.call();
 
     _urlControl.text = _product.imageUrl;
@@ -276,7 +273,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
 
     var lostFocus = !_nodeImgUrl.hasFocus;
     if (lostFocus && isUnsafeUrl) return null;
-    if (lostFocus) _controller.imgUrlPreviewObs.value = true;
+    if (lostFocus) _controller.productImageUrlPreviewObs.value = true;
   }
 
   void _saveForm(BuildContext _context) {

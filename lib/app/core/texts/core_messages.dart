@@ -18,6 +18,8 @@ class CoreMessages {
   final _INVENTORY_DETAILS_FORMAT_NUMBER_MESSAGE = "Please, provide a proper value.";
   final _INVENTORY_DETAILS_ONLY_TEXTNUMBER_MESSAGE =
       "Please, only text and number are allowed.";
+  final _INVENTORY_DETAILS_CODE_READING_ERROR_MESSAGE = "Code Read not done";
+
 
   final _INVENTORY_DETAILS_FORMAT_PRICE_MESSAGE = "Please, type the price properly.";
   final _INVENTORY_DETAILS_FORMAT_URL_MESSAGE = "Please, provide proper URL.";
@@ -130,6 +132,8 @@ class CoreMessages {
   get stock_addition_hint => _INVENTORY_DETAILS_UPDATE_STOCK_ADDITION_HINT;
 
   get stock_subtraction_hint => _INVENTORY_DETAILS_UPDATE_STOCK_SUBTRACTION_HINT;
+
+  get code_read_error_message => _INVENTORY_DETAILS_CODE_READING_ERROR_MESSAGE;
 // String DRW_TXT_NO_MAN_PROD_YET() => DRAWER_COMPONENT_TEXT_NO_MANAGED_PRODUCTS_YET;
 
 // String DRW_TXT_CART() => DRAWER_COMPONENT_TEXT_CART_NO_PRODUCTS_YET;

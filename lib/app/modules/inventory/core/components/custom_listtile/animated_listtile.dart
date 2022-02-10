@@ -59,7 +59,11 @@ class AnimatedListTile implements ICustomListTile {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(_product.title),
-        Text(_product.stockQtde.toString(),
+        Text(
+            // _product.stockQtde.toString()
+            _product.stockQtde <= 9
+                ? _product.stockQtde.toString().padLeft(2, '0')
+                : _product.stockQtde.toString(),
             style: GoogleFonts.lato(
                 textStyle: const TextStyle(
               fontSize: 20,
