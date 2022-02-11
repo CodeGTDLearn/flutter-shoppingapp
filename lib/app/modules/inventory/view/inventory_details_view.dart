@@ -3,6 +3,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shopingapp/app/modules/inventory/core/neumorphic_button/neumorphic_button.dart';
 
 import '../../../core/components/appbar/core_appbar.dart';
 import '../../../core/properties/owasp_regex.dart';
@@ -136,13 +137,17 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
 
   Row _stockQtdeAndButtonsRow(BuildContext context, Product product) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-      IconButton(
-          icon: Icon(Icons.add_circle_outline),
-          onPressed: () =>
-              _controller.stockAddOrRemoveItems(context, item: product, addition: true),
-          focusNode: _nodeBarcodeButton,
+      NeumorphicButton().button(
+          milliseconds: 200,
+          height: Get.height * 0.1,
+          width: Get.width * 0.2,
+          downButtonShadowColor: Colors.grey[300]!,
+          upButtonShadowColor: Colors.grey[500]!,
+          buttonAndBackgroundColor: Colors.white,
           iconSize: 50.00,
-          padding: EdgeInsets.only(right: Get.width * 0.05)),
+          iconButton: Icons.add_circle_outline,
+          onTap: () =>
+              _controller.stockAddOrRemoveItems(context, item: product, addition: true)),
       Container(
           width: Get.width * 0.4,
           child: Obx(() {
@@ -169,13 +174,24 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
                     offset: Offset(1.0, 1.0),
                     blurRadius: 5.0)
               ])),
-      IconButton(
-          icon: Icon(Icons.remove_circle_outline_outlined),
-          onPressed: () =>
-              _controller.stockAddOrRemoveItems(context, item: product, addition: false),
-          focusNode: _nodeBarcodeButton,
+      NeumorphicButton().button(
+          milliseconds: 200,
+          height: Get.height * 0.1,
+          width: Get.width * 0.2,
+          downButtonShadowColor: Colors.grey[300]!,
+          upButtonShadowColor: Colors.grey[500]!,
+          buttonAndBackgroundColor: Colors.white,
           iconSize: 50.00,
-          padding: EdgeInsets.only(left: Get.width * 0.05))
+          iconButton: Icons.remove_circle_outline_outlined,
+          onTap: () =>
+              _controller.stockAddOrRemoveItems(context, item: product, addition: false)),
+      // IconButton(
+      //     icon: Icon(Icons.remove_circle_outline_outlined),
+      //     onPressed: () =>
+      //         _controller.stockAddOrRemoveItems(context, item: product, addition: false),
+      //     focusNode: _nodeBarcodeButton,
+      //     iconSize: 50.00,
+      //     padding: EdgeInsets.only(left: Get.width * 0.05))
     ]);
   }
 
@@ -184,7 +200,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
       IconButton(
           icon: Icon(IconData(0xe900, fontFamily: 'barcode')),
           tooltip: _labels.qrcode_hint,
-          onPressed: () => _controller.scanCode(barcode: true),
+          onPressed: () => _controller.scanCode(barcode: true, successBeep: true),
           focusNode: _nodeBarcodeButton),
       Obx(() => Expanded(
           child: CustomFormField(DescriptionProperties()).create(
@@ -201,7 +217,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
       IconButton(
           icon: Icon(Icons.qr_code_scanner_sharp),
           tooltip: _labels.barcode_hint,
-          onPressed: () => _controller.scanCode(barcode: false),
+          onPressed: () => _controller.scanCode(barcode: false, successBeep: true),
           focusNode: _nodeBarcodeButton)
     ]);
   }

@@ -2,6 +2,7 @@ import 'package:currency_textfield/currency_textfield.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:flutter_beep/flutter_beep.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
@@ -104,8 +105,7 @@ class InventoryController extends GetxController {
     productsObs.assignAll(service.getLocalDataInventoryProducts());
   }
 
-  Future<void> stockAddOrRemoveItems(
-    context, {
+  Future<void> stockAddOrRemoveItems(context, {
     required Product item,
     required bool addition,
   }) async {
@@ -123,7 +123,7 @@ class InventoryController extends GetxController {
         FilteringTextInputFormatter.deny(RegExp(' ')),
       ],
       contentFieldPlaceholder:
-          addition ? _messages.stock_addition_hint : _messages.stock_subtraction_hint,
+      addition ? _messages.stock_addition_hint : _messages.stock_subtraction_hint,
       contentFieldController: _textFieldController,
       labelYes: _labels.yes,
       labelNo: _labels.no,
@@ -132,22 +132,22 @@ class InventoryController extends GetxController {
         var stockQtde = item.stockQtde;
         addition
             ? () async {
-                item.stockQtde = stockQtde + _number;
-                await updateProduct(item).then((status) async {
-                  productsStockQtdeObs.value = item.stockQtde;
-                  Get.back();
-                  Get.delete(tag: "deleteModal");
-                });
-              }.call()
+          item.stockQtde = stockQtde + _number;
+          await updateProduct(item).then((status) async {
+            productsStockQtdeObs.value = item.stockQtde;
+            Get.back();
+            Get.delete(tag: "deleteModal");
+          });
+        }.call()
             : item.stockQtde >= _number
-                ? () async {
-                    item.stockQtde = stockQtde - _number;
-                    await updateProduct(item).then((status) async {
-                      productsStockQtdeObs.value = item.stockQtde;
-                      Get.back();
-                    });
-                  }.call()
-                : CoreSnackbar().show(_labels.ops, _messages.zero_stock_message);
+            ? () async {
+          item.stockQtde = stockQtde - _number;
+          await updateProduct(item).then((status) async {
+            productsStockQtdeObs.value = item.stockQtde;
+            Get.back();
+          });
+        }.call()
+            : CoreSnackbar().show(_labels.ops, _messages.zero_stock_message);
         Get.delete(tag: "deleteModal");
       },
       actionNo: Get.back,
@@ -195,18 +195,24 @@ class InventoryController extends GetxController {
     // @formatter:on
   }
 
-  Future<String> scanCode({var barcode = true}) async {
+  void scanCode({var barcode = true, successBeep = true}) async {
     // @formatter:off
     return FlutterBarcodeScanner.scanBarcode(
-           "#ff6666",
-           "Cancel",
-           true,
-           barcode ? ScanMode.BARCODE : ScanMode.QR,)
-           .then((scannedCode) => productCodeObs.value = scannedCode)
+              "#ff6666",
+              "Cancel",
+              true,
+              barcode ? ScanMode.BARCODE : ScanMode.QR)
+           .then((scannedCode) async {
+              productCodeObs.value = scannedCode;
+              // await Future.delayed(Duration(milliseconds: 1000));
+              if (successBeep) FlutterBeep.beep();
+              // await Future.delayed(Duration(milliseconds: 5000));
+              // Get.back();
+           })
            .catchError((onError) {
               Get.defaultDialog(content: Text(_messages.code_read_error_message));
             });
-   // @formatter:on
+    // @formatter:on
   }
 }
 

@@ -9,6 +9,7 @@ import 'app/core/shared_preferences/shared_prefs_repo.dart';
 import 'app/core/theme/core_theme.dart';
 import 'app/core/theme/core_theme_controller.dart';
 
+// Solving MULTIDEX problem: https://www.youtube.com/watch?v=afW7dAndEyw
 void main() => runApp(AppDriver());
 
 class AppDriver extends StatelessWidget {

@@ -114,7 +114,7 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
           _cartController.addCartItem(product);
           CoreButtonSnackbar(
             context: context,
-            labelButton: _words.undo(),
+            labelButton: _words.undo,
             function: () => _cartController.addCartItemUndo(product),
           ).show(_words.done, "${product.title}${_messages.item_cart_added}");
         },
