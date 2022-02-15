@@ -23,7 +23,6 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
   void onInit() {
     reloadQtdeAndAmountCart();
     super.onInit();
-
     _badgeShopCartAnimationSetup();
   }
 

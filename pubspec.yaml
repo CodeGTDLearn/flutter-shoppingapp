@@ -19,8 +19,8 @@ dependencies:
   intl: 0.17.0
   wc_form_validators: 1.0.0
   string_validator: 0.3.0
-  shared_preferences: ^2.0.11
   get: ^4.6.1
+  get_storage: ^2.0.3
   http: 0.13.4
   shadow: 1.0.0
   faker: 2.0.0

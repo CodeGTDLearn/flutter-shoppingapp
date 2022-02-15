@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
+import 'package:get_storage/get_storage.dart';
 
+import 'app/core/local_storage/local_storage_controller.dart';
 import 'app/core/properties/properties.dart';
 import 'app/core/routes/core_router.dart';
 import 'app/core/routes/core_routes.dart';
-import 'app/core/shared_preferences/shared_prefs_repo.dart';
 import 'app/core/theme/core_theme.dart';
-import 'app/core/theme/core_theme_controller.dart';
 
 // Solving MULTIDEX problem: https://www.youtube.com/watch?v=afW7dAndEyw
-void main() => runApp(AppDriver());
+void main() async {
+  await GetStorage.init();
+  runApp(AppDriver());
+}
 
 class AppDriver extends StatelessWidget {
-  final _appTheme = Get.put(CoreTheme());
-  final _darkTheme = Get.put(CoreThemeController());
-  final _sharedPrefsRepo = Get.put(SharedPrefsRepo());
+  final _theme = Get.put(CoreTheme());
+  final _localStorage = Get.put(LocalStorageController());
 
   @override
   Widget build(BuildContext context) {
-    _sharedPrefsRepo.get('isDarkOption').then((darkOption) => darkOption == null
-        ? _darkTheme.isDark.value = false
-        : _darkTheme.isDark.value = darkOption);
-
     return GetMaterialApp(
       navigatorKey: APP_CONTEXT_GLOBAL_KEY,
       debugShowCheckedModeBanner: APP_DEBUG_CHECK,
       title: APP_TITLE,
-      theme: _appTheme.materialThemeData(_darkTheme.isDark.value),
+      theme: _theme.materialLight,
+      darkTheme: _theme.materialDark,
+      themeMode: _localStorage.getTheme(),
       initialRoute: CoreRoutes.OVERVIEW_ALL,
       getPages: CoreRouter.getAppRoutes,
     );

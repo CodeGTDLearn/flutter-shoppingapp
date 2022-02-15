@@ -3,7 +3,6 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shopingapp/app/modules/inventory/core/neumorphic_button/neumorphic_button.dart';
 
 import '../../../core/components/appbar/core_appbar.dart';
 import '../../../core/properties/owasp_regex.dart';
@@ -22,6 +21,7 @@ import '../core/components/custom_form_field/validators/url_validator.dart';
 import '../core/inventory_icons.dart';
 import '../core/inventory_keys.dart';
 import '../core/inventory_labels.dart';
+import '../core/neumorphic_button/neumorphic_button.dart';
 import '../entity/product.dart';
 import 'inventory_product_zoom_view.dart';
 

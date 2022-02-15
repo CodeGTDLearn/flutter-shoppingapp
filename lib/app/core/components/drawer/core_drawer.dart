@@ -6,10 +6,10 @@ import 'package:get/state_manager.dart';
 import '../../../modules/cart/controller/cart_controller.dart';
 import '../../../modules/inventory/controller/inventory_controller.dart';
 import '../../../modules/orders/controller/orders_controller.dart';
+import '../../local_storage/local_storage_controller.dart';
 import '../../routes/core_routes.dart';
 import '../../texts/core_labels.dart';
 import '../../texts/core_messages.dart';
-import '../../theme/core_theme_controller.dart';
 import '../core_components_icons.dart';
 import '../core_components_keys.dart';
 import '../snackbar/core_snackbar.dart';
@@ -27,7 +27,7 @@ class CoreDrawer extends StatelessWidget {
   final _keys = Get.find<CoreComponentsKeys>();
 
   // final _overview = Get.find<OverviewController>();
-  final _darkThemeController = Get.find<CoreThemeController>();
+  final _storage = Get.find<LocalStorageController>();
 
   @override
   Widget build(BuildContext context) {
@@ -73,12 +73,15 @@ class CoreDrawer extends StatelessWidget {
             notRoutingWithoutQtdeEvaluation: false,
             key: _keys.k_drw_inventory_opt4(),
             context: context),
-        Obx(() => SwitchListTile(
+        Obx(() =>
+            SwitchListTile(
             key: Key(_keys.k_drw_darkthm_opt5()),
             secondary: _icons.ico_switch(),
             title: Text(_labels.label_dark_theme),
-            value: _darkThemeController.isDark.value,
-            onChanged: _darkThemeController.toggleDarkTheme))
+            subtitle:Text(_labels.label_content_dark_theme) ,
+            value: _storage.darkModelObs.value,
+            onChanged: (_) => _storage.switchTheme())
+        )
       ])),
     );
   }

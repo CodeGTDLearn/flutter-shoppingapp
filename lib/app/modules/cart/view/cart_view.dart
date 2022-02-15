@@ -30,25 +30,29 @@ class CartView extends StatelessWidget {
               return Column(children: [
                 CartViewHeader(_width, _height, _controller),
                 SizedBox(height: _height * 0.01),
-                Expanded(
-                    child: Obx(() => _controller.renderListView.value
-                        ? Container(
-                            child: CartStaggeredListview(
-                            fadeEffect: false,
-                            invertTargetPosition: false,
-                            verticalOffset: (_height * 0.625),
-                          ).customCartListview(_controller.getAllCartItems()))
-                        : Container(
-                            child: Stack(alignment: Alignment.center, children: [
-                            CartStaggeredListview(
-                              fadeEffect: false,
-                              invertTargetPosition: true,
-                              verticalOffset: -(_height * 0.564),
-                            ).customCartListview(_controller.getAllCartItems()),
-                            _transparentGradientShaderMask()
-                          ]))))
+                _listCartItems(_height,_controller)
               ]);
             })));
+  }
+
+  Expanded _listCartItems(double _height, CartController controller) {
+    return Expanded(
+                  child: Obx(() => controller.renderListView.value
+                      ? Container(
+                          child: CartStaggeredListview(
+                          fadeEffect: false,
+                          invertTargetPosition: false,
+                          verticalOffset: (_height * 0.625),
+                        ).customCartListview(controller.getAllCartItems()))
+                      : Container(
+                          child: Stack(alignment: Alignment.center, children: [
+                          CartStaggeredListview(
+                            fadeEffect: false,
+                            invertTargetPosition: true,
+                            verticalOffset: -(_height * 0.564),
+                          ).customCartListview(controller.getAllCartItems()),
+                          _transparentGradientShaderMask()
+                        ]))));
   }
 
   Widget _transparentGradientShaderMask() {

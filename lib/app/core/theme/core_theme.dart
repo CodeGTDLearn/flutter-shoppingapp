@@ -2,16 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CoreTheme {
-  ThemeData materialThemeData(bool isDark) {
-    return ThemeData(
-        cardColor: Colors.white,
-        // brightness: isDark ? DARK : LIGHT,
-        fontFamily: 'Lato',
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.pink).copyWith(
-          secondary: Colors.deepOrange,
-          brightness: isDark ? Brightness.dark : Brightness.light,
-        ));
-  }
+
+  final materialLight = ThemeData(
+    scaffoldBackgroundColor: Colors.white,
+    cardColor: Colors.white,
+    fontFamily: 'Lato',
+    // colorScheme: darkScheme,
+    primaryColor: Colors.pink,
+    brightness: Brightness.light,
+  );
+
+  final materialDark = ThemeData(
+    scaffoldBackgroundColor: Colors.black,
+    cardColor: Colors.deepPurple,
+    fontFamily: 'Lato',
+    // colorScheme: darkScheme,
+    primaryColor: Colors.blueGrey,
+    brightness: Brightness.dark,
+  );
 
   CupertinoThemeData cupertinoTheme() {
     return const CupertinoThemeData(
@@ -21,10 +29,10 @@ class CoreTheme {
       brightness: Brightness.light,
       textTheme: CupertinoTextThemeData(
           navLargeTitleTextStyle: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 22.0,
-            color: CupertinoColors.activeGreen,
-          )),
+        fontWeight: FontWeight.bold,
+        fontSize: 22.0,
+        color: CupertinoColors.activeGreen,
+      )),
     );
   }
 }

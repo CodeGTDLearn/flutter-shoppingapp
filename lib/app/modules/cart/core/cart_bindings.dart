@@ -1,8 +1,8 @@
 import 'package:get/instance_manager.dart';
+import 'package:shopingapp/app/modules/cart/repo/cart_repo_local_storage.dart';
 
 import '../../orders/service/i_orders_service.dart';
 import '../controller/cart_controller.dart';
-import '../repo/cart_repo.dart';
 import '../repo/i_cart_repo.dart';
 import '../service/cart_service.dart';
 import '../service/i_cart_service.dart';
@@ -15,7 +15,8 @@ class CartBindings extends Bindings {
     Get.lazyPut(() => CartKeys());
     Get.lazyPut(() => CartLabels());
     Get.lazyPut(() => CartIcons());
-    Get.lazyPut<ICartRepo>(() => CartRepo());
+    // Get.lazyPut<ICartRepo>(() => CartRepoMemory());
+    Get.lazyPut<ICartRepo>(() => CartRepoLocalStorage());
     Get.lazyPut<ICartService>(() => CartService(repo: Get.find<ICartRepo>()));
     Get.lazyPut(() => CartController(
         cartService: Get.find<ICartService>(),

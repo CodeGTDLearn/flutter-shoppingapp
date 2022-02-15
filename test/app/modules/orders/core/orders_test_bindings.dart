@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:get/get_common/get_reset.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
-import 'package:shopingapp/app/modules/cart/repo/cart_repo.dart';
+import 'package:shopingapp/app/modules/cart/repo/cart_repo_memory.dart';
 import 'package:shopingapp/app/modules/cart/repo/i_cart_repo.dart';
 import 'package:shopingapp/app/modules/cart/service/cart_service.dart';
 import 'package:shopingapp/app/modules/cart/service/i_cart_service.dart';
@@ -41,7 +41,7 @@ class OrdersTestBindings {
           () => OrdersController(service: Get.find<IOrdersService>()));
 
       //CART
-      Get.lazyPut<ICartRepo>(() => CartRepo());
+      Get.lazyPut<ICartRepo>(() => CartRepoMemory());
       Get.lazyPut<ICartService>(() => CartService(repo: Get.find<ICartRepo>()));
       Get.lazyPut(() => CartController(
           cartService: Get.find<ICartService>(),

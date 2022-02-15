@@ -6,11 +6,11 @@ import 'package:flutter_beep/flutter_beep.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
-import 'package:shopingapp/app/core/components/modal/core_modal_material.dart';
-import 'package:shopingapp/app/core/components/snackbar/core_snackbar.dart';
-import 'package:shopingapp/app/core/properties/properties.dart';
 
+import '../../../core/components/modal/core_modal_material.dart';
 import '../../../core/components/modal/i_core_adaptive_modal.dart';
+import '../../../core/components/snackbar/core_snackbar.dart';
+import '../../../core/properties/properties.dart';
 import '../../../core/texts/core_labels.dart';
 import '../../../core/texts/core_messages.dart';
 import '../entity/product.dart';

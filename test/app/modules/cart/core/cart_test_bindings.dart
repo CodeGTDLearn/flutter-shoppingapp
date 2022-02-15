@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:get/get_common/get_reset.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shopingapp/app/modules/cart/controller/cart_controller.dart';
-import 'package:shopingapp/app/modules/cart/repo/cart_repo.dart';
+import 'package:shopingapp/app/modules/cart/repo/cart_repo_memory.dart';
 import 'package:shopingapp/app/modules/cart/repo/i_cart_repo.dart';
 import 'package:shopingapp/app/modules/cart/service/cart_service.dart';
 import 'package:shopingapp/app/modules/cart/service/i_cart_service.dart';
@@ -19,7 +19,7 @@ import '../../orders/repo/orders_mocked_repo.dart';
 import '../../overview/repo/overview_mocked_repo.dart';
 
 class CartTestBindings {
-  final ICartRepo _mocked_repo = CartRepo();
+  final ICartRepo _mocked_repo = CartRepoMemory();
 
   void _bindingsBuilder(ICartRepo cartRepo) {
     Get.reset();

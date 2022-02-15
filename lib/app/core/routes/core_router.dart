@@ -14,7 +14,7 @@ import '../../modules/overview/view/overview_item_details_view.dart';
 import '../../modules/overview/view/overview_view.dart';
 import '../components/appbar/core_appbars_bindings.dart';
 import '../components/drawer/core_drawer_bindings.dart';
-import '../theme/core_theme_bindings.dart';
+import '../local_storage/local_storage_bindings.dart';
 import '../utils/core_utils_bindings.dart';
 import 'core_routes.dart';
 
@@ -25,7 +25,7 @@ class CoreRouter {
   static List<GetPage> getAppRoutes = [
     GetPage(name: CoreRoutes.OVERVIEW_ALL, page: () => OverviewView(), bindings: [
       CoreUtilsBindings(),
-      CoreThemeBindings(),
+      LocalStorageBindings(),
       CoreDrawerBindings(),
       CoreAppbarsBindings(),
       OverviewScaffoldBindings(),
