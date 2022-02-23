@@ -4,10 +4,13 @@ class CartLabels {
   final _CART_LABEL_ORDER_NOW = "Order Now";
   final _CART_LABEL_KEEP_SHOP = "Keep Shopping";
   final _CART_TOOLTIP_CLEAR_ALL = "Clear All";
+  final _CART_PRODUCT_UNAVAILABLE = "Unavailable";
   final _CART_LABEL_ALERTDIALOG_DISMIS_CONFIRM = "Are you sure?";
   final _CART_MESSAGE_ALERTDIALOG_DISMISS_CONFIRM = "Do you really want remove: ";
   final _CART_MESSAGE_ALERTDIALOG_CLEAR_ALL = "Do you really want clear the cart?";
   final _CART_MESSAGE_ALERTDIALOG_ORDER_NOW = "Do you want Add your Order?";
+
+
 
   get label_title_page => _CART_TITLE_PAGE;
 
@@ -26,4 +29,6 @@ class CartLabels {
   get label_dialog_clearall => _CART_MESSAGE_ALERTDIALOG_CLEAR_ALL;
 
   get label_dialog_ordernow => _CART_MESSAGE_ALERTDIALOG_ORDER_NOW;
+
+  get label_unavailable => _CART_PRODUCT_UNAVAILABLE;
 }

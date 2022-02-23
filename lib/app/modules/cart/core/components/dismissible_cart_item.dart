@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/num_extensions.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:shopingapp/app/core/components/core_product_tile.dart';
 
 import '../../../../core/components/core_alert_dialog.dart';
 import '../../../../core/components/snackbar/core_snackbar.dart';
@@ -20,22 +22,29 @@ class DismissibleCartItem extends StatelessWidget {
   final _messages = Get.find<CoreMessages>();
   final _words = Get.find<CoreLabels>();
   final _labels = Get.find<CartLabels>();
+  final _item = Get.find<CoreProductTile>();
 
   DismissibleCartItem.create(this._cartItem);
 
   @override
   Widget build(BuildContext context) {
+
+    // var fadeImage = FadeInImage(
+    //   placeholder: AssetImage(IMAGE_PLACEHOLDER),
+    //   image: NetworkImage(_cartItem.imageUrl),
+    //   fit: BoxFit.cover,
+    // );
+
     return Dismissible(
         key: Key(_cartItem.id),
         background: Container(
-          child: _icons.CRT_ICO_DISM(),
-          alignment: Alignment.centerRight,
-          padding: EdgeInsets.only(right: 20),
-          margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-          decoration: BoxDecoration(
-              color: Theme.of(context).errorColor,
-              borderRadius: BorderRadius.circular(2)),
-        ),
+            child: _icons.CRT_ICO_DISM(),
+            alignment: Alignment.centerRight,
+            padding: EdgeInsets.only(right: 20),
+            margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+            decoration: BoxDecoration(
+                color: Theme.of(context).errorColor,
+                borderRadius: BorderRadius.circular(2))),
         direction: DismissDirection.endToStart,
         //
         onDismissed: (direction) {
@@ -46,21 +55,8 @@ class DismissibleCartItem extends StatelessWidget {
           }
         },
         //
-        child: Card(
-            elevation: 5,
-            shadowColor: Colors.black,
-            margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-            child: Padding(
-                padding: EdgeInsets.all(8),
-                child: ListTile(
-                    leading: CircleAvatar(
-                        child: Padding(
-                      padding: EdgeInsets.all(5),
-                      child: FittedBox(child: Text('\$${_cartItem.price}')),
-                    )),
-                    title: Text(_cartItem.title),
-                    subtitle: Text('Total \$${(_cartItem.price).toStringAsFixed(2)}'),
-                    trailing: Text('x${_cartItem.qtde}')))),
+        // child: _simplesCard(fadeImage),
+        child: _item.tile(_cartItem, 200),
         //
         confirmDismiss: (direction) {
           return CoreAlertDialog.showOptionDialog(
@@ -74,4 +70,28 @@ class DismissibleCartItem extends StatelessWidget {
           );
         });
   }
+
+  Widget _simplesCard(FadeInImage fadeImage) {
+    return Card(
+          elevation: 5,
+          shadowColor: Colors.black,
+          margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          child: Padding(
+              padding: EdgeInsets.all(8),
+              child: ListTile(
+                  leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(12.0), child: fadeImage),
+                  title: Text(_cartItem.title),
+                  subtitle: Text('\$${(_cartItem.price).toStringAsFixed(2)}'),
+                  trailing: Text('x ${_cartItem.qtde}',
+                      style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                        fontSize: 18,
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                      ))))));
+  }
+
+  BoxShadow _boxShadow() =>
+      BoxShadow(color: Colors.grey, offset: Offset(1.0, 1.0), blurRadius: 3.0);
 }

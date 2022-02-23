@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:shopingapp/app/modules/cart/entity/cart_item.dart';
+
+import '../../modules/cart/entity/cart_item.dart';
 
 class LocalStorageController extends GetxController {
   final _localStorage = GetStorage();
@@ -27,17 +27,18 @@ class LocalStorageController extends GetxController {
   }
 
   Map<String, CartItem> getCartItemsLocalStorage() {
-    final keyHasData = _localStorage.hasData(_keyLocalCartItems);
-    final keyData = _localStorage.read(_keyLocalCartItems);
-    Map<String, dynamic> keyData_decode_FromString_toJson = jsonDecode(keyData);
+    final localCartItemsFound = _localStorage.hasData(_keyLocalCartItems);
+    var _localCartItems = <String, CartItem>{};
 
-    Map<String, CartItem> finalMap_ToBe_Returned = {};
+    if (localCartItemsFound) {
+      var _getCartItems = _localStorage.read(_keyLocalCartItems);
+      Map<String, dynamic> keyData_decode_FromString_toJson = jsonDecode(_getCartItems);
+      keyData_decode_FromString_toJson.forEach((key, value) {
+        _localCartItems.putIfAbsent(key, () => CartItem.fromJson(value));
+      });
+    }
 
-    keyData_decode_FromString_toJson.forEach((key, value) {
-      finalMap_ToBe_Returned.putIfAbsent(key, () => CartItem.fromJson(value));
-    });
-
-    return keyHasData ? finalMap_ToBe_Returned : {};
+    return localCartItemsFound ? _localCartItems : {};
   }
 
   void saveCartItemsLocalStorage(Map<String, CartItem> cartItemList) {

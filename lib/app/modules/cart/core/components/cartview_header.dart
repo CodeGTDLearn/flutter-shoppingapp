@@ -75,26 +75,28 @@ class CartViewHeader extends StatelessWidget {
               ? () {
                   CoreAlertDialog.showOptionDialog(
                     _context,
-                    _words.confirm(),
+                    _words.confirm,
                     _labels.label_dialog_ordernow,
-                    _words.yes(),
+                    _words.yes,
                     _labels.label_keep_shop,
               // @formatter:off
                     () => {
                       _controller
-                          .addOrder(_controller.getAllCartItems().values.toList(),
-                              _controller.amountCartItemsObs.value)
-                          .then((_) async {
-                        _controller.renderListView.value = false;
-                        await Future.delayed(Duration(milliseconds: 500));
-                        _controller.clearCart.call();
-                        CoreSnackbar().show(_words.suces, _messages.suces_ord_add);
-                        await Future.delayed(Duration(milliseconds: DURATION + 2000));
-                        Get.back.call();
-                      }).catchError((error) {
-                        CoreSnackbar(5000).show('${_words.ops()}$error', _messages
+                       .addOrder(
+                              _controller.getAllCartItems().values.toList(),
+                              _controller.amountCartItemsObs.value,
+                       )
+                       .then((_) async {
+                          _controller.renderListView.value = false;
+                          await Future.delayed(Duration(milliseconds: 500));
+                          _controller.clearCart.call();
+                          CoreSnackbar().show(_words.suces, _messages.suces_ord_add);
+                          await Future.delayed(Duration(milliseconds: DURATION + 2000));
+                          Get.back.call();
+                       }).catchError((error) {
+                          CoreSnackbar(5000).show('${_words.ops()}$error', _messages
                             .error_ord());
-                      })
+                       })
                     },
                     () => {Get.back()},
                     // @formatter:on

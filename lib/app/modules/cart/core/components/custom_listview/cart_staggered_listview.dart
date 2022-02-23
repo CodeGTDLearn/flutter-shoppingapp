@@ -34,12 +34,12 @@ class CartStaggeredListview implements ICustomCartListview {
   });
 
   @override
-  Widget customCartListview(Map<String, CartItem> mapCartItems) {
-    mapCartItems = invertTargetPosition ? reverseMap(mapCartItems) : mapCartItems;
+  Widget customCartListview(Map<String, CartItem> cartItems) {
+    cartItems = invertTargetPosition ? reverseMap(cartItems) : cartItems;
     return AnimationLimiter(
         child: ListView.builder(
             reverse: invertTargetPosition,
-            itemCount: mapCartItems.length,
+            itemCount: cartItems.length,
             itemBuilder: (context, index) {
               return AnimationConfiguration.staggeredList(
                   position: index,
@@ -51,10 +51,10 @@ class CartStaggeredListview implements ICustomCartListview {
                           ? FadeInAnimation(
                               curve: fadeCurve,
                               child: DismissibleCartItem.create(
-                                  mapCartItems.values.elementAt(index)),
+                                  cartItems.values.elementAt(index)),
                             )
                           : DismissibleCartItem.create(
-                              mapCartItems.values.elementAt(index))));
+                              cartItems.values.elementAt(index))));
             }));
   }
 

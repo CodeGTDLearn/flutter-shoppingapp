@@ -1,8 +1,8 @@
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/local_storage/local_storage_controller.dart';
-import 'package:shopingapp/app/modules/cart/entity/cart_item.dart';
-import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
+import '../../../core/local_storage/local_storage_controller.dart';
+import '../../inventory/entity/product.dart';
+import '../entity/cart_item.dart';
 import 'i_cart_repo.dart';
 
 class CartRepoLocalStorage implements ICartRepo {
