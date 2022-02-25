@@ -188,7 +188,7 @@ class CartTests {
     await tester.drag(finder.key('${_productsList[0].id}'), Offset(-500.0, 0.0));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(AlertDialog), findsOneWidget);
-    expect(finder.text(_labels.label_title_dialog_dismis()), findsOneWidget);
+    expect(finder.text(_labels.titleDialogDismis()), findsOneWidget);
     await tester.tap(finder.text(_words.yes()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(typeDismisCartItem, findsOneWidget);
@@ -197,7 +197,7 @@ class CartTests {
     await tester.drag(finder.key('${_productsList[1].id}'), Offset(-500.0, 0.0));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(AlertDialog), findsOneWidget);
-    expect(finder.text(_labels.label_title_dialog_dismis()), findsOneWidget);
+    expect(finder.text(_labels.titleDialogDismis()), findsOneWidget);
     await tester.tap(finder.text(_words.yes()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(typeDismisCartItem, findsNothing);
@@ -224,7 +224,7 @@ class CartTests {
     await tester.drag(keyCartItemProduct1, Offset(-500.0, 0.0));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(AlertDialog), findsOneWidget);
-    expect(finder.text(_labels.label_title_dialog_dismis()), findsOneWidget);
+    expect(finder.text(_labels.titleDialogDismis()), findsOneWidget);
     await tester.tap(finder.text(_words.yes()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(typeCardCartItem, findsNothing);
@@ -251,7 +251,7 @@ class CartTests {
     await tester.drag(keyCartItemProduct1, Offset(-500.0, 0.0));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(finder.type(AlertDialog), findsOneWidget);
-    expect(finder.text(_labels.label_title_dialog_dismis()), findsOneWidget);
+    expect(finder.text(_labels.titleDialogDismis()), findsOneWidget);
     await tester.tap(finder.text(_words.no()));
     await tester.pumpAndSettle(testUtils.delay(DELAY));
     expect(typeCardCartItem, findsOneWidget);

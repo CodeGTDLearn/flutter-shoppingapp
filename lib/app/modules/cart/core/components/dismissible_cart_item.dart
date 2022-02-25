@@ -22,19 +22,13 @@ class DismissibleCartItem extends StatelessWidget {
   final _messages = Get.find<CoreMessages>();
   final _words = Get.find<CoreLabels>();
   final _labels = Get.find<CartLabels>();
-  final _item = Get.find<CoreProductTile>();
+  final _productTile = Get.find<CoreProductTile>();
 
   DismissibleCartItem.create(this._cartItem);
 
   @override
   Widget build(BuildContext context) {
-
-    // var fadeImage = FadeInImage(
-    //   placeholder: AssetImage(IMAGE_PLACEHOLDER),
-    //   image: NetworkImage(_cartItem.imageUrl),
-    //   fit: BoxFit.cover,
-    // );
-
+    var size = MediaQuery.of(context).size;
     return Dismissible(
         key: Key(_cartItem.id),
         background: Container(
@@ -56,13 +50,18 @@ class DismissibleCartItem extends StatelessWidget {
         },
         //
         // child: _simplesCard(fadeImage),
-        child: _item.tile(_cartItem, 200),
+        child: _productTile.tile(
+          _cartItem,
+          _labels.available,
+          size.width * 0.4,
+          size.height * 0.17,
+        ),
         //
         confirmDismiss: (direction) {
           return CoreAlertDialog.showOptionDialog(
             context,
-            _labels.label_title_dialog_dismis,
-            '${_labels.label_message_dialog_dismis}${_cartItem.title} from the cart?',
+            _labels.titleDialogDismis,
+            '${_labels.messageDialogDismis}${_cartItem.title} from the cart?',
             _words.yes(),
             _words.no(),
             () => {},
@@ -73,23 +72,23 @@ class DismissibleCartItem extends StatelessWidget {
 
   Widget _simplesCard(FadeInImage fadeImage) {
     return Card(
-          elevation: 5,
-          shadowColor: Colors.black,
-          margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-          child: Padding(
-              padding: EdgeInsets.all(8),
-              child: ListTile(
-                  leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(12.0), child: fadeImage),
-                  title: Text(_cartItem.title),
-                  subtitle: Text('\$${(_cartItem.price).toStringAsFixed(2)}'),
-                  trailing: Text('x ${_cartItem.qtde}',
-                      style: GoogleFonts.lato(
-                          textStyle: TextStyle(
-                        fontSize: 18,
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                      ))))));
+        elevation: 5,
+        shadowColor: Colors.black,
+        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        child: Padding(
+            padding: EdgeInsets.all(8),
+            child: ListTile(
+                leading: ClipRRect(
+                    borderRadius: BorderRadius.circular(12.0), child: fadeImage),
+                title: Text(_cartItem.title),
+                subtitle: Text('\$${(_cartItem.price).toStringAsFixed(2)}'),
+                trailing: Text('x ${_cartItem.qtde}',
+                    style: GoogleFonts.lato(
+                        textStyle: TextStyle(
+                      fontSize: 18,
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                    ))))));
   }
 
   BoxShadow _boxShadow() =>

@@ -42,7 +42,7 @@ class CartViewHeader extends StatelessWidget {
                   Container(
                       width: _width * 0.15,
                       child:
-                          Text(_labels.label_card_cart, style: TextStyle(fontSize: 20))),
+                          Text(_labels.cardCart, style: TextStyle(fontSize: 20))),
                   Container(
                       width: _width * 0.25,
                       child: Obx(() => Chip(
@@ -67,18 +67,18 @@ class CartViewHeader extends StatelessWidget {
       return TextButton(
           key: Key(_keys.k_crt_ordnow_btn()),
           child: enabled
-              ? Text(_labels.label_ordernow_btn,
+              ? Text(_labels.orderNowBtn,
                   style: TextStyle(color: Theme.of(_context).primaryColor))
-              : Text(_labels.label_ordernow_btn,
+              : Text(_labels.orderNowBtn,
                   style: TextStyle(color: Theme.of(_context).disabledColor)),
           onPressed: enabled
               ? () {
                   CoreAlertDialog.showOptionDialog(
                     _context,
                     _words.confirm,
-                    _labels.label_dialog_ordernow,
+                    _labels.dialogOrderNow,
                     _words.yes,
-                    _labels.label_keep_shop,
+                    _labels.keepShop,
               // @formatter:off
                     () => {
                       _controller

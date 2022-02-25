@@ -24,10 +24,10 @@ class OrdersTests {
   final UiTestUtils uiTestUtils;
   final TestDbUtils dbTestUtils;
   final TestsUtils testUtils;
-  final _messages = Get.find<CoreMessages>();
-  final _keys = Get.find<CoreComponentsKeys>();
-  final _keysOv = Get.find<OverviewKeys>();
-  final _keysCart = Get.find<CartKeys>();
+  final _messages = Get.put(CoreMessages());
+  final _keys = Get.put(CoreComponentsKeys());
+  final _keysOv = Get.put(OverviewKeys());
+  final _keysCart = Get.put(CartKeys());
 
   OrdersTests({
     required this.isWidgetTest,

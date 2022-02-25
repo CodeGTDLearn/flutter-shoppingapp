@@ -6,7 +6,7 @@ import 'icustom_cart_listview.dart';
 
 class CartSimpleListview implements ICustomCartListview {
   @override
-  Widget customCartListview(Map<String, CartItem> mapCartItems) {
+  Widget listview(Map<String, CartItem> mapCartItems) {
     return ListView.builder(
         itemCount: mapCartItems.length,
         itemBuilder: (ctx, item) {

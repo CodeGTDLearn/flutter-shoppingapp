@@ -19,40 +19,42 @@ class CartView extends StatelessWidget {
   Widget build(BuildContext context) {
     _controller.renderListView.value = true;
     return Scaffold(
-        appBar: _appbar.create(_labels.label_title_page, Get.back,
+        appBar: _appbar.create(_labels.titlePage, Get.back,
             actions: [ClearCartButton(_controller)]),
         body: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
+            // width: MediaQuery.of(context).size.width,
+            // height: MediaQuery.of(context).size.height,
             child: LayoutBuilder(builder: (_, constraint) {
-              var _height = constraint.maxHeight;
-              var _width = constraint.maxWidth;
-              return Column(children: [
-                CartViewHeader(_width, _height, _controller),
-                SizedBox(height: _height * 0.01),
-                _listCartItems(_height,_controller)
-              ]);
-            })));
+          var _height = constraint.maxHeight;
+          var _width = constraint.maxWidth;
+          return Column(children: [
+            CartViewHeader(_width, _height, _controller),
+            SizedBox(height: _height * 0.01),
+            _cartItems(_height, _width, _controller)
+          ]);
+        })));
   }
 
-  Expanded _listCartItems(double _height, CartController controller) {
+  Expanded _cartItems(double _height, double _width, CartController controller) {
     return Expanded(
-                  child: Obx(() => controller.renderListView.value
-                      ? Container(
-                          child: CartStaggeredListview(
-                          fadeEffect: false,
-                          invertTargetPosition: false,
-                          verticalOffset: (_height * 0.625),
-                        ).customCartListview(controller.getAllCartItems()))
-                      : Container(
-                          child: Stack(alignment: Alignment.center, children: [
-                          CartStaggeredListview(
-                            fadeEffect: false,
-                            invertTargetPosition: true,
-                            verticalOffset: -(_height * 0.564),
-                          ).customCartListview(controller.getAllCartItems()),
-                          _transparentGradientShaderMask()
-                        ]))));
+        child: Obx(() => controller.renderListView.value
+            ? Container(
+                width: _width * 0.93,
+                child: CartStaggeredListview(
+                  fadeEffect: false,
+                  invertTargetPosition: false,
+                  verticalOffset: (_height * 0.625),
+                ).listview(controller.getAllCartItems()))
+            : Container(
+                width: _width * 0.93,
+                child: Stack(alignment: Alignment.center, children: [
+                  CartStaggeredListview(
+                    fadeEffect: false,
+                    invertTargetPosition: true,
+                    verticalOffset: -(_height * 0.564),
+                  ).listview(controller.getAllCartItems()),
+                  _transparentGradientShaderMask()
+                ]))));
   }
 
   Widget _transparentGradientShaderMask() {

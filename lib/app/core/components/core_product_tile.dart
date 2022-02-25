@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../modules/cart/controller/cart_controller.dart';
 import '../../modules/cart/entity/cart_item.dart';
-import '../../modules/orders/core/orders_labels.dart';
 import '../../modules/overview/controller/overview_controller.dart';
 import '../../modules/overview/view/overview_item_details_view.dart';
 import '../properties/properties.dart';
@@ -16,9 +15,8 @@ class CoreProductTile {
   final _overViewController = Get.find<OverviewController>();
   final _widgetUtils = Get.find<CoreAdaptiveWidgets>();
   final _animations = Get.find<CoreAnimationsUtils>();
-  final _labels = Get.find<OrdersLabels>();
 
-  Widget tile(CartItem cartItem, double width) {
+  Widget tile(CartItem cartItem, String label, double width, double height) {
     return Container(
         decoration: BoxDecoration(
             border: Border(bottom: BorderSide(color: Colors.grey.shade200))),
@@ -30,7 +28,8 @@ class CoreProductTile {
                     flex: 3,
                     child: _buttonImage(
                       cartItem.imageUrl,
-                      width * 0.3,
+                      width,
+                      height,
                       cartItem.id,
                     )),
                 Expanded(
@@ -47,7 +46,7 @@ class CoreProductTile {
                   left: 85,
                   child: Container(
                       child: _widgetUtils.elevatedButton(
-                          text: _labels.again,
+                          text: label,
                           textStyle: GoogleFonts.lato(
                               textStyle: TextStyle(
                                   shadows: [_boxShadow()],
@@ -64,36 +63,34 @@ class CoreProductTile {
 
   Row _titlePriceQtdeRow(CartItem cartItem, double width) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      _text('${cartItem.title}', 22, width * 0.4),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          RichText(
-              text: TextSpan(
-                  text: '${cartItem.price.toString()}',
+      _text('${cartItem.title}', 22, width * 0.95),
+      Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+        RichText(
+            text: TextSpan(
+                text: '${cartItem.price.toString()}',
+                style: GoogleFonts.lato(
+                    textStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                )),
+                children: <TextSpan>[
+              TextSpan(
+                  text: '\$',
                   style: GoogleFonts.lato(
                       textStyle: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold)),
-                  children: <TextSpan>[
-                TextSpan(
-                    text: '\$',
-                    style: GoogleFonts.lato(
-                        textStyle: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.normal,
-                    )))
-              ])),
-          Text('x ${cartItem.qtde}',
-              style: GoogleFonts.lato(
-                  textStyle: TextStyle(
-                fontSize: 18,
-                color: Colors.red,
-                fontWeight: FontWeight.bold,
-              ))),
-        ],
-      )
+                    fontSize: 15,
+                    fontWeight: FontWeight.normal,
+                  )))
+            ])),
+        Text('x ${cartItem.qtde}',
+            style: GoogleFonts.lato(
+                textStyle: TextStyle(
+              fontSize: 18,
+              color: Colors.red,
+              fontWeight: FontWeight.bold,
+            )))
+      ])
     ]);
   }
 
@@ -125,7 +122,7 @@ class CoreProductTile {
             ))));
   }
 
-  Widget _buttonImage(String url, double width, String cartItemId) {
+  Widget _buttonImage(String url, double width, double height, String cartItemId) {
     var fadeImage = FadeInImage(
       placeholder: AssetImage(IMAGE_PLACEHOLDER),
       image: NetworkImage(url),
@@ -136,7 +133,7 @@ class CoreProductTile {
       openingWidget: OverviewItemDetailsView(cartItemId),
       closingWidget: Container(
           width: width,
-          height: width,
+          height: height,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(9.0),
               color: Colors.white,

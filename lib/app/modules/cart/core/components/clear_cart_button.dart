@@ -30,7 +30,7 @@ class ClearCartButton extends StatelessWidget {
         onPressed: () => CoreAlertDialog.showOptionDialog(
               context,
               _words.attent,
-              _labels.label_dialog_clearall,
+              _labels.dialogClearAll,
               _words.yes,
               _words.no,
               () async {
@@ -43,6 +43,6 @@ class ClearCartButton extends StatelessWidget {
               },
               () async {},
             ),
-        tooltip: _labels.label_tootip_clear_cart);
+        tooltip: _labels.tootipClearCart);
   }
 }

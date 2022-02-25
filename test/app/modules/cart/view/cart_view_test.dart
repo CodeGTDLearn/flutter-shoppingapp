@@ -22,7 +22,7 @@ class CartViewTest {
   final _bindings = Get.put(CartTestBindings());
   final _testUtils = Get.put(TestsUtils());
   final _globalUtils = Get.put(TestsGlobalUtils());
-  final _mock = Get.find<MockedDatasource>();
+  final _mock = Get.put(MockedDatasource());
 
   CartViewTest({required String testType}) {
     _isWidgetTest = testType == WIDGET_TEST;

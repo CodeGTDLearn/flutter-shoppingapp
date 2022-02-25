@@ -5,30 +5,31 @@ class CartLabels {
   final _CART_LABEL_KEEP_SHOP = "Keep Shopping";
   final _CART_TOOLTIP_CLEAR_ALL = "Clear All";
   final _CART_PRODUCT_UNAVAILABLE = "Unavailable";
+  final _CART_PRODUCT_AVAILABLE = "Available";
   final _CART_LABEL_ALERTDIALOG_DISMIS_CONFIRM = "Are you sure?";
   final _CART_MESSAGE_ALERTDIALOG_DISMISS_CONFIRM = "Do you really want remove: ";
   final _CART_MESSAGE_ALERTDIALOG_CLEAR_ALL = "Do you really want clear the cart?";
   final _CART_MESSAGE_ALERTDIALOG_ORDER_NOW = "Do you want Add your Order?";
 
+  get titlePage => _CART_TITLE_PAGE;
 
+  get cardCart => _CART_LABEL_CARD;
 
-  get label_title_page => _CART_TITLE_PAGE;
+  get orderNowBtn => _CART_LABEL_ORDER_NOW;
 
-  get label_card_cart => _CART_LABEL_CARD;
+  get keepShop => _CART_LABEL_KEEP_SHOP;
 
-  get label_ordernow_btn => _CART_LABEL_ORDER_NOW;
+  get tootipClearCart => _CART_TOOLTIP_CLEAR_ALL;
 
-  get label_keep_shop => _CART_LABEL_KEEP_SHOP;
+  get titleDialogDismis => _CART_LABEL_ALERTDIALOG_DISMIS_CONFIRM;
 
-  get label_tootip_clear_cart => _CART_TOOLTIP_CLEAR_ALL;
+  get messageDialogDismis => _CART_MESSAGE_ALERTDIALOG_DISMISS_CONFIRM;
 
-  get label_title_dialog_dismis => _CART_LABEL_ALERTDIALOG_DISMIS_CONFIRM;
+  get dialogClearAll => _CART_MESSAGE_ALERTDIALOG_CLEAR_ALL;
 
-  get label_message_dialog_dismis => _CART_MESSAGE_ALERTDIALOG_DISMISS_CONFIRM;
+  get dialogOrderNow => _CART_MESSAGE_ALERTDIALOG_ORDER_NOW;
 
-  get label_dialog_clearall => _CART_MESSAGE_ALERTDIALOG_CLEAR_ALL;
+  get unavailable => _CART_PRODUCT_UNAVAILABLE;
 
-  get label_dialog_ordernow => _CART_MESSAGE_ALERTDIALOG_ORDER_NOW;
-
-  get label_unavailable => _CART_PRODUCT_UNAVAILABLE;
+  get available => _CART_PRODUCT_AVAILABLE;
 }

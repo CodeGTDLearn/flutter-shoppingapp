@@ -33,16 +33,22 @@ class ProductDataBuilder {
   }
 
   Product ProductWithoutId_imageMap() {
+    var random = Random();
     var _title = TEST_IMAGE_URL_MAP.keys.elementAt(_randomPosition);
     var _url = TEST_IMAGE_URL_MAP.values.elementAt(_randomPosition);
 
+    var _qtde = random.nextInt(15);
+    var _price = double.parse((random.nextDouble() * 99.99).toStringAsFixed(2));
+    var _descript = """The best $_title ever! Wonderful product. Only \$ $_price. Only 
+    $_qtde available.""";
+
     return Product(
       title: _title,
-      description: "The best ever Description Product.",
-      price: 99.99,
+      description: _descript,
+      price: _price,
       imageUrl: _url,
       isFavorite: false,
-      stockQtde: 10,
+      stockQtde: _qtde,
     );
   }
 }

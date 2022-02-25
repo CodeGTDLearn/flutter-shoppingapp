@@ -11,7 +11,7 @@ import '../../orders_labels.dart';
 import 'icustom_order_tile.dart';
 
 class ExpandableTile implements ICustomOrderTile {
-  final _constraints = MediaQuery.of(APP_CONTEXT_GLOBAL_KEY.currentContext!).size;
+  final _size = MediaQuery.of(APP_CONTEXT_GLOBAL_KEY.currentContext!).size;
   final _labels = Get.find<OrdersLabels>();
 
   @override
@@ -39,21 +39,20 @@ class ExpandableTile implements ICustomOrderTile {
 
   Widget _listView(Order order) {
     Get.create(() => CoreProductTile());
-    final _tile = Get.find<CoreProductTile>();
+    final _productTile = Get.find<CoreProductTile>();
 
     return Column(children: [
       Container(
-          height: order.cartItems.length * _constraints.height * 0.16,
+          height: order.cartItems.length * _size.height * 0.16,
           child: LayoutBuilder(builder: (_, dims) {
-            return ListView(
-              padding: EdgeInsets.only(top: 1, bottom: 1),
-              children: [
-                ...order.cartItems.map((cartItem) => _tile.tile(
-                      cartItem,
-                      _constraints.width,
-                    ))
-              ],
-            );
+            return ListView(padding: EdgeInsets.only(top: 1, bottom: 1), children: [
+              ...order.cartItems.map((cartItem) => _productTile.tile(
+                    cartItem,
+                    _labels.again,
+                    _size.width * 0.33,
+                    _size.height * 0.15,
+                  ))
+            ]);
           })),
       Container(
           alignment: AlignmentDirectional.centerEnd,
