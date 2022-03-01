@@ -18,4 +18,6 @@ abstract class IInventoryService {
   Future<int> deleteProduct(String id);
 
   void clearDataSavingLists();
+
+  bool checkItemAvailability(String id);
 }

@@ -3,12 +3,12 @@ import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shopingapp/app/core/texts/core_labels.dart';
 
 import '../../../core/components/appbar/core_appbar.dart';
 import '../../../core/components/badge/core_badge_cart.dart';
 import '../../../core/components/core_adaptive_widgets.dart';
 import '../../../core/properties/properties.dart';
+import '../../../core/texts/core_labels.dart';
 import '../../../core/utils/core_animations_utils.dart';
 import '../../../core/utils/core_ui_utils.dart';
 import '../../cart/controller/cart_controller.dart';

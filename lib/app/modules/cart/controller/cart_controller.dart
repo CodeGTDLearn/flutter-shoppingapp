@@ -21,7 +21,7 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
 
   @override
   void onInit() {
-    reloadQtdeAndAmountCart();
+    reloadQtdeAndAmountCart(getAllCartItems());
     super.onInit();
     _badgeShopCartAnimationSetup();
   }
@@ -32,34 +32,39 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
 
   void addCartItem(Product product) {
     cartService.addCartItem(product);
-    reloadQtdeAndAmountCart();
+    reloadQtdeAndAmountCart(getAllCartItems());
     _badgeShopCartAnimationPlay();
   }
 
   void addCartItemUndo(Product product) {
     cartService.addCartItemUndo(product);
-    reloadQtdeAndAmountCart();
+    reloadQtdeAndAmountCart(getAllCartItems());
   }
 
-  void reloadQtdeAndAmountCart() {
-    amountCartItemsObs.value = cartService.amountCartItems();
-    qtdeCartItemsObs.value = cartService.qtdeCartItems();
+  void reloadQtdeAndAmountCart(Map<String, CartItem> cartItems) {
+    var cartItems = cartService.getAllCartItems();
+    amountCartItemsObs.value = cartService.amountCartItems(cartItems);
+    qtdeCartItemsObs.value = cartService.qtdeCartItems(cartItems);
   }
 
   void removeCartItem(CartItem cartItem) {
     cartService.removeCartItem(cartItem);
-    reloadQtdeAndAmountCart();
+    reloadQtdeAndAmountCart(getAllCartItems());
   }
 
   void clearCart() {
     cartService.clearCart();
-    reloadQtdeAndAmountCart();
+    reloadQtdeAndAmountCart(getAllCartItems());
   }
 
   Future<Order> addOrder(List<CartItem> cartItems, double amount) {
     return ordersService
         .addOrder(cartItems, amount)
         .catchError((onError) => throw onError);
+  }
+
+  Map<String, CartItem> getAllAvailableCartItems(Map<String, CartItem> cartItems){
+    return cartService.getAllAvailableCartItems(cartItems);
   }
 
   void _badgeShopCartAnimationSetup() {

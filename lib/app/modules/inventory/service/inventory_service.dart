@@ -17,12 +17,13 @@ class InventoryService implements IInventoryService {
   @override
   Future<List<Product>> getProducts() {
     // @formatter:off
-    return repo.getProducts().then((products) {
-      clearDataSavingLists();
-      _localInventoryProducts = products;
-      _orderDataSavingLists();
-      return getLocalDataInventoryProducts();
-    });
+    return repo.getProducts()
+               .then((products) {
+                 clearDataSavingLists();
+                 _localInventoryProducts = products;
+                 _orderDataSavingLists();
+                 return getLocalDataInventoryProducts();
+               });
     // @formatter:on
   }
 
@@ -97,6 +98,14 @@ class InventoryService implements IInventoryService {
   @override
   void clearDataSavingLists() {
     _localInventoryProducts = [];
+  }
+
+  @override
+  bool checkItemAvailability(String id) {
+    var _index = _localInventoryProducts.indexWhere((item) => item.id == id);
+    var productFound = _index >= 0;
+    if (productFound) return getProductById(id).stockQtde > 0;
+    return false;
   }
 
   void _orderDataSavingLists() {

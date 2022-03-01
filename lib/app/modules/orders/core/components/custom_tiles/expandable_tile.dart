@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:shopingapp/app/core/components/core_product_tile.dart';
 
+import '../../../../../core/components/core_product_tile.dart';
 import '../../../../../core/properties/properties.dart';
 import '../../../entity/order.dart';
 import '../../orders_labels.dart';

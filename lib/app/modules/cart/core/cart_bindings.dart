@@ -1,7 +1,7 @@
 import 'package:get/instance_manager.dart';
-import 'package:shopingapp/app/core/components/core_product_tile.dart';
-import 'package:shopingapp/app/modules/orders/core/orders_labels.dart';
 
+import '../../../core/components/core_product_tile.dart';
+import '../../orders/core/orders_labels.dart';
 import '../../orders/service/i_orders_service.dart';
 import '../controller/cart_controller.dart';
 import '../repo/cart_repo_local_storage.dart';
@@ -19,7 +19,7 @@ class CartBindings extends Bindings {
     Get.lazyPut(() => CartIcons());
     Get.lazyPut(() => CoreProductTile());
     Get.lazyPut(()=>OrdersLabels());
-    // Get.lazyPut<ICartRepo>(() => CartRepoMemory());
+
     Get.lazyPut<ICartRepo>(() => CartRepoLocalStorage());
     Get.lazyPut<ICartService>(() => CartService(repo: Get.find<ICartRepo>()));
     Get.lazyPut(() => CartController(

@@ -21,6 +21,7 @@ class CartViewHeader extends StatelessWidget {
   final _words = Get.find<CoreLabels>();
   final _labels = Get.find<CartLabels>();
   final _keys = Get.find<CartKeys>();
+  var availableItems;
 
   CartViewHeader(
     this._width,
@@ -30,6 +31,10 @@ class CartViewHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var items = _controller.getAllCartItems();
+    availableItems = _controller.getAllAvailableCartItems(items);
+    _controller.reloadQtdeAndAmountCart(availableItems);
+
     return Card(
         elevation: 5,
         shadowColor: Colors.black,
@@ -41,8 +46,7 @@ class CartViewHeader extends StatelessWidget {
                 child: Row(children: [
                   Container(
                       width: _width * 0.15,
-                      child:
-                          Text(_labels.cardCart, style: TextStyle(fontSize: 20))),
+                      child: Text(_labels.cardCart, style: TextStyle(fontSize: 20))),
                   Container(
                       width: _width * 0.25,
                       child: Obx(() => Chip(
@@ -73,30 +77,32 @@ class CartViewHeader extends StatelessWidget {
                   style: TextStyle(color: Theme.of(_context).disabledColor)),
           onPressed: enabled
               ? () {
+                  _controller.reloadQtdeAndAmountCart(availableItems);
+
+            // @formatter:off
                   CoreAlertDialog.showOptionDialog(
                     _context,
                     _words.confirm,
                     _labels.dialogOrderNow,
                     _words.yes,
                     _labels.keepShop,
-              // @formatter:off
                     () => {
-                      _controller
+                       _controller
                        .addOrder(
-                              _controller.getAllCartItems().values.toList(),
-                              _controller.amountCartItemsObs.value,
-                       )
+                              availableItems.values.toList(),
+                              _controller.amountCartItemsObs.value,)
+
                        .then((_) async {
                           _controller.renderListView.value = false;
                           await Future.delayed(Duration(milliseconds: 500));
                           _controller.clearCart.call();
                           CoreSnackbar().show(_words.suces, _messages.suces_ord_add);
                           await Future.delayed(Duration(milliseconds: DURATION + 2000));
-                          Get.back.call();
-                       }).catchError((error) {
+                          Get.back.call();})
+
+                       .catchError((error) {
                           CoreSnackbar(5000).show('${_words.ops()}$error', _messages
-                            .error_ord());
-                       })
+                            .error_ord());})
                     },
                     () => {Get.back()},
                     // @formatter:on

@@ -22,20 +22,18 @@ class CartView extends StatelessWidget {
         appBar: _appbar.create(_labels.titlePage, Get.back,
             actions: [ClearCartButton(_controller)]),
         body: Container(
-            // width: MediaQuery.of(context).size.width,
-            // height: MediaQuery.of(context).size.height,
             child: LayoutBuilder(builder: (_, constraint) {
           var _height = constraint.maxHeight;
           var _width = constraint.maxWidth;
           return Column(children: [
             CartViewHeader(_width, _height, _controller),
             SizedBox(height: _height * 0.01),
-            _cartItems(_height, _width, _controller)
+            _cartItemsList(_height, _width, _controller)
           ]);
         })));
   }
 
-  Expanded _cartItems(double _height, double _width, CartController controller) {
+  Expanded _cartItemsList(double _height, double _width, CartController controller) {
     return Expanded(
         child: Obx(() => controller.renderListView.value
             ? Container(

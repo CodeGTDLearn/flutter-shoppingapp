@@ -119,7 +119,7 @@ class CartServiceTests {
       expect(_product0.id.toString(), isIn(_service.getAllCartItems()));
       expect(_product1.id.toString(), isIn(_service.getAllCartItems()));
 
-      expect(_service.amountCartItems(), allOf([_product0.price + _product1.price]));
+      expect(_service.amountCartItems(_service.getAllCartItems()), allOf([_product0.price + _product1.price]));
     });
   }
 }

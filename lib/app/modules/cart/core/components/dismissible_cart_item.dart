@@ -3,9 +3,9 @@ import 'package:get/get_utils/src/extensions/num_extensions.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shopingapp/app/core/components/core_product_tile.dart';
 
 import '../../../../core/components/core_alert_dialog.dart';
+import '../../../../core/components/core_product_tile.dart';
 import '../../../../core/components/snackbar/core_snackbar.dart';
 import '../../../../core/properties/properties.dart';
 import '../../../../core/texts/core_labels.dart';
@@ -49,7 +49,6 @@ class DismissibleCartItem extends StatelessWidget {
           }
         },
         //
-        // child: _simpleCard(fadeImage),
         child: _productTile.tile(
           _cartItem,
           _coreLabels.available,

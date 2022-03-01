@@ -20,8 +20,7 @@ import 'core_routes.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class CoreRouter {
-
-  // @formatter:off
+   // @formatter:off
   static List<GetPage> getAppRoutes = [
     GetPage(name: CoreRoutes.OVERVIEW_ALL, page: () => OverviewView(), bindings: [
       CoreUtilsBindings(),
@@ -30,7 +29,8 @@ class CoreRouter {
       CoreAppbarsBindings(),
       OverviewScaffoldBindings(),
       CartBindings(),
-      OverviewBindings()]),
+      OverviewBindings(),
+    ]),
 
     GetPage(name: CoreRoutes.CART, page: () => CartView(), bindings: [
       CoreAppbarsBindings(),

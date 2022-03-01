@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shopingapp/app/core/texts/core_labels.dart';
 
 import '../../modules/cart/entity/cart_item.dart';
-import '../../modules/overview/controller/overview_controller.dart';
+import '../../modules/inventory/controller/inventory_controller.dart';
 import '../../modules/overview/view/overview_item_details_view.dart';
 import '../properties/properties.dart';
+import '../texts/core_labels.dart';
 import '../utils/core_animations_utils.dart';
 import 'core_adaptive_widgets.dart';
 
 class CoreProductTile {
-  final _overViewController = Get.find<OverviewController>();
+  final _controller = Get.find<InventoryController>();
   final _widgetUtils = Get.find<CoreAdaptiveWidgets>();
   final _animations = Get.find<CoreAnimationsUtils>();
   final _labels = Get.find<CoreLabels>();
 
-  Widget tile(CartItem cartItem, String label, double width, double height) {
-    var availableProduct = _overViewController.checkProductAvailability(cartItem.id);
+  Widget tile(
+    CartItem cartItem,
+    String label,
+    double width,
+    double height,
+  ) {
+    var availableProduct = _controller.checkItemAvailability(cartItem.id);
 
     return Container(
         decoration: BoxDecoration(
@@ -128,7 +133,7 @@ class CoreProductTile {
   }
 
   Widget _buttonImage(String url, double width, double height, String cartItemId) {
-    var availableProduct = _overViewController.checkProductAvailability(cartItemId);
+    var availableProduct = _controller.checkItemAvailability(cartItemId);
 
     var fadeImage = FadeInImage(
       placeholder: AssetImage(IMAGE_PLACEHOLDER),

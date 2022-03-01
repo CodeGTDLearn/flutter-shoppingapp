@@ -42,10 +42,6 @@ class InventoryController extends GetxController {
     super.onInit();
   }
 
-  // void toggleInventoryImageZoomObs() {
-  //   inventoryImageZoomObs.value = !inventoryImageZoomObs.value;
-  // }
-
   Future<List<Product>> getProducts() {
     // @formatter:off
     return service
@@ -96,10 +92,6 @@ class InventoryController extends GetxController {
     return responseFuture;
     // @formatter:on
   }
-
-  // void switchInventoryItemFormToCoreAdaptiveIndicator() {
-  //   renderItemDetailsViewObs.value = !renderItemDetailsViewObs.value;
-  // }
 
   void updateInventoryProductsObs() {
     productsObs.assignAll(service.getLocalDataInventoryProducts());
@@ -214,14 +206,8 @@ class InventoryController extends GetxController {
             });
     // @formatter:on
   }
-}
 
-// Future<List<Elevator>> getNotonlineElevators() {
-//   // @formatter:off
-//   return repo
-//       .getNotonlineElevators()
-//       .catchError((onError) {
-//     Get.defaultDialog(content: Text(onError.toString()));
-//     return <Elevator>[];});
-//   // @formatter:on
-// }
+  bool checkItemAvailability(String inventoryItem) {
+    return service.checkItemAvailability(inventoryItem);
+  }
+}

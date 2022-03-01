@@ -157,12 +157,4 @@ class OverviewService implements IOverviewService {
     _localDataAllProducts.reversed;
     _localDataFavoritesProducts.reversed;
   }
-
-  @override
-  bool checkProductAvailability(String id) {
-    var _index = _localDataAllProducts.indexWhere((item) => item.id == id);
-    var productFound = _index >= 0;
-    if (productFound) return getProductById(id).stockQtde > 0;
-    return false;
-  }
 }
