@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 // erro Gradle + flutter_staggered_animations:
 // Script 'C:\flutter\packages\flutter_tools\gradle\flutter.gradle' line: 1005
@@ -8,6 +9,9 @@ import 'package:flutter/widgets.dart';
 // d) flutter pub get;
 // e) dart pub cache clean.
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:get/instance_manager.dart';
+import 'package:shopingapp/app/core/local_storage/local_storage_controller.dart';
+import 'package:shopingapp/app/modules/overview/controller/overview_controller.dart';
 
 import '../../../../../core/properties/properties.dart';
 import '../../../entity/cart_item.dart';
@@ -22,6 +26,9 @@ class CartStaggeredListview implements ICustomCartListview {
   final invertTargetPosition;
   final fadeEffect;
   final fadeCurve;
+
+  final _overviewController = Get.find<OverviewController>();
+  final _controller = Get.find<LocalStorageController>();
 
   CartStaggeredListview({
     this.itemCount = ITEM_COUNT,
@@ -48,13 +55,26 @@ class CartStaggeredListview implements ICustomCartListview {
                       verticalOffset: verticalOffset,
                       horizontalOffset: horizontalOffset,
                       child: fadeEffect
-                          ? FadeInAnimation(
-                              curve: fadeCurve,
-                              child: DismissibleCartItem.create(
-                                  cartItems.values.elementAt(index)),
-                            )
-                          : DismissibleCartItem.create(
-                              cartItems.values.elementAt(index))));
+                          ? () {
+                              var item = cartItems.values.elementAt(index);
+
+                              var available =
+                                  _overviewController.checkProductAvailability(item.id);
+                              if(!available) _controller.removeCartItemsFromLocalStorage(item.id);
+                              return FadeInAnimation(
+                                  curve: fadeCurve,
+                                  child: DismissibleCartItem.create(item));
+                            }.call()
+                          : () {
+                              var item = cartItems.values.elementAt(index);
+                              var available =
+                                  _overviewController.checkProductAvailability(item.id);
+                              return available
+                                  ? DismissibleCartItem.create(item)
+                                  : Container(
+                                      color: Colors.red,
+                                    );
+                            }.call()));
             }));
   }
 

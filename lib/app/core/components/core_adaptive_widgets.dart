@@ -29,12 +29,14 @@ class CoreAdaptiveWidgets {
     required Function onPressed,
     required text,
     required textStyle,
+    Color? color,
   }) {
     return PlatformElevatedButton(
       onPressed: () => onPressed.call(),
       child: PlatformText(text, style: textStyle),
       material: (_, __) => MaterialElevatedButtonData(
         style: ElevatedButton.styleFrom(
+          onPrimary: color,
           padding: EdgeInsets.only(
             left: 6,
             right: 6,
@@ -42,7 +44,7 @@ class CoreAdaptiveWidgets {
         ),
       ),
       cupertino: (_, __) => CupertinoElevatedButtonData(
-        // minSize: 15,
+        color: color,
         padding: EdgeInsets.fromLTRB(15.0, 2.0, 15.0, 2.0),
       ),
     );

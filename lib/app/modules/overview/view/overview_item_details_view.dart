@@ -3,6 +3,7 @@ import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shopingapp/app/core/texts/core_labels.dart';
 
 import '../../../core/components/appbar/core_appbar.dart';
 import '../../../core/components/badge/core_badge_cart.dart';
@@ -27,6 +28,7 @@ class OverviewItemDetailsView extends StatelessWidget {
   final _widgetUtils = Get.find<CoreAdaptiveWidgets>();
   var cart = Get.find<CoreBadgeCart>();
   final _labels = Get.find<OverviewLabels>();
+  final _coreLabels = Get.find<CoreLabels>();
   final _keys = Get.find<OverviewKeys>();
 
   OverviewItemDetailsView([this._id]);
@@ -84,16 +86,23 @@ class OverviewItemDetailsView extends StatelessWidget {
                       Text('${_product.title}',
                           style: TextStyle(fontSize: _height * 0.03)),
                       SizedBox(height: _height * 0.03),
-                      Text('\$${_product.price}',
+                      Text('${_coreLabels.currency} ${_product.price}',
                           style: TextStyle(fontSize: _height * 0.03)),
                       SizedBox(height: _height * 0.03),
                       Container(
                           padding: EdgeInsets.symmetric(horizontal: 10),
-                          height: _height * 0.3,
+                          height: _height * 0.2,
                           width: double.infinity,
                           child: Text(_product.description,
                               textAlign: TextAlign.center,
                               style: Theme.of(context).textTheme.bodyText2)),
+                      SizedBox(height: _height * 0.03),
+                      Text('${_coreLabels.available}: ${_product.stockQtde}',
+                          style: GoogleFonts.lato(
+                              textStyle: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold))),
                       SizedBox(height: _height * 0.03),
                       Container(
                           height: _height * 0.1,

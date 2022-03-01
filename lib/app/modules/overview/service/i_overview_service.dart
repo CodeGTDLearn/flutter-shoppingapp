@@ -25,4 +25,6 @@ abstract class IOverviewService {
   Product getProductById(String id);
 
   void clearDataSavingLists();
+
+  bool checkProductAvailability(String cartItemId);
 }

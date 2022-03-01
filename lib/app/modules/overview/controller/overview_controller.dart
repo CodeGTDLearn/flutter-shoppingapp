@@ -80,4 +80,8 @@ class OverviewController extends GetxController {
   int getProductsQtde() {
     return service.getProductsQtde();
   }
+
+  bool checkProductAvailability(String cartItemId) {
+    return service.checkProductAvailability(cartItemId);
+  }
 }

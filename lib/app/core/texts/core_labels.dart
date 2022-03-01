@@ -10,6 +10,14 @@ class CoreLabels {
   final _SUCESS = "Sucess";
   final _ATTENTION = "Attention";
   final _CONFIRMATION = "Confirmation";
+  final _UNAVAILABLE = "Unavailable";
+  final _AVAILABLE = "Available";
+  final _PARTIAL = "Partial: ";
+  final _CURRENCY = "Can\$:";
+
+  get currency => _CURRENCY;
+
+  get partial => _PARTIAL;
 
   get yes => _YES;
 
@@ -30,4 +38,8 @@ class CoreLabels {
   get attent => _ATTENTION;
 
   get confirm => _CONFIRMATION;
+
+  get unavailable => _UNAVAILABLE;
+
+  get available => _AVAILABLE;
 }

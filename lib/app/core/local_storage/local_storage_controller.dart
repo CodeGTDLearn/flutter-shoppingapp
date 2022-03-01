@@ -27,10 +27,10 @@ class LocalStorageController extends GetxController {
   }
 
   Map<String, CartItem> getCartItemsLocalStorage() {
-    final localCartItemsFound = _localStorage.hasData(_keyLocalCartItems);
+    final cartItems = _localStorage.hasData(_keyLocalCartItems);
     var _localCartItems = <String, CartItem>{};
 
-    if (localCartItemsFound) {
+    if (cartItems) {
       var _getCartItems = _localStorage.read(_keyLocalCartItems);
       Map<String, dynamic> keyData_decode_FromString_toJson = jsonDecode(_getCartItems);
       keyData_decode_FromString_toJson.forEach((key, value) {
@@ -38,7 +38,7 @@ class LocalStorageController extends GetxController {
       });
     }
 
-    return localCartItemsFound ? _localCartItems : {};
+    return cartItems ? _localCartItems : {};
   }
 
   void saveCartItemsLocalStorage(Map<String, CartItem> cartItemList) {
@@ -48,6 +48,21 @@ class LocalStorageController extends GetxController {
 
   void clearCartItemsLocalStorage() {
     _localStorage.remove(_keyLocalCartItems);
+  }
+
+  Map<String, CartItem> removeCartItemsFromLocalStorage(String id) {
+    final cartItems = _localStorage.hasData(_keyLocalCartItems);
+    var _localItems = <String, CartItem>{};
+
+    if (cartItems) {
+      var _getCartItems = _localStorage.read(_keyLocalCartItems);
+      Map<String, dynamic> keyData_decode_FromString_toJson = jsonDecode(_getCartItems);
+      keyData_decode_FromString_toJson.forEach((key, value) {
+        if (value.val(id) != id) _localItems.putIfAbsent(key, () => CartItem.fromJson(value));
+      });
+    }
+
+    return cartItems ? _localItems : {};
   }
 
   bool _getTheme() => _localStorage.read(_keyDarkMode) ?? false;

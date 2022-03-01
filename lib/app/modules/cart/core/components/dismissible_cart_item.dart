@@ -20,7 +20,7 @@ class DismissibleCartItem extends StatelessWidget {
   final _controller = Get.find<CartController>();
   final _icons = Get.find<CartIcons>();
   final _messages = Get.find<CoreMessages>();
-  final _words = Get.find<CoreLabels>();
+  final _coreLabels = Get.find<CoreLabels>();
   final _labels = Get.find<CartLabels>();
   final _productTile = Get.find<CoreProductTile>();
 
@@ -44,33 +44,33 @@ class DismissibleCartItem extends StatelessWidget {
         onDismissed: (direction) {
           _controller.removeCartItem(_cartItem);
           if (_controller.qtdeCartItemsObs.value.isEqual(0)) {
-            CoreSnackbar().show(_words.suces, _messages.item_removed_cart);
+            CoreSnackbar().show(_coreLabels.suces, _messages.item_removed_cart);
             Future.delayed(Duration(milliseconds: DURATION)).then((value) => Get.back());
           }
         },
         //
-        // child: _simplesCard(fadeImage),
+        // child: _simpleCard(fadeImage),
         child: _productTile.tile(
           _cartItem,
-          _labels.available,
+          _coreLabels.available,
           size.width * 0.4,
           size.height * 0.17,
         ),
-        //
+
         confirmDismiss: (direction) {
           return CoreAlertDialog.showOptionDialog(
             context,
             _labels.titleDialogDismis,
             '${_labels.messageDialogDismis}${_cartItem.title} from the cart?',
-            _words.yes(),
-            _words.no(),
+            _coreLabels.yes,
+            _coreLabels.no,
             () => {},
             () => {},
           );
         });
   }
 
-  Widget _simplesCard(FadeInImage fadeImage) {
+  Widget _simpleCard(FadeInImage fadeImage) {
     return Card(
         elevation: 5,
         shadowColor: Colors.black,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shopingapp/app/core/texts/core_labels.dart';
 
-import '../../modules/cart/controller/cart_controller.dart';
 import '../../modules/cart/entity/cart_item.dart';
 import '../../modules/overview/controller/overview_controller.dart';
 import '../../modules/overview/view/overview_item_details_view.dart';
@@ -11,12 +11,14 @@ import '../utils/core_animations_utils.dart';
 import 'core_adaptive_widgets.dart';
 
 class CoreProductTile {
-  final _cartController = Get.find<CartController>();
   final _overViewController = Get.find<OverviewController>();
   final _widgetUtils = Get.find<CoreAdaptiveWidgets>();
   final _animations = Get.find<CoreAnimationsUtils>();
+  final _labels = Get.find<CoreLabels>();
 
   Widget tile(CartItem cartItem, String label, double width, double height) {
+    var availableProduct = _overViewController.checkProductAvailability(cartItem.id);
+
     return Container(
         decoration: BoxDecoration(
             border: Border(bottom: BorderSide(color: Colors.grey.shade200))),
@@ -26,12 +28,7 @@ class CoreProductTile {
               Row(children: [
                 Expanded(
                     flex: 3,
-                    child: _buttonImage(
-                      cartItem.imageUrl,
-                      width,
-                      height,
-                      cartItem.id,
-                    )),
+                    child: _buttonImage(cartItem.imageUrl, width, height, cartItem.id)),
                 Expanded(
                     flex: 7,
                     child: Column(
@@ -46,17 +43,24 @@ class CoreProductTile {
                   left: 85,
                   child: Container(
                       child: _widgetUtils.elevatedButton(
-                          text: label,
-                          textStyle: GoogleFonts.lato(
-                              textStyle: TextStyle(
-                                  shadows: [_boxShadow()],
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.normal)),
-                          onPressed: () => _cartController.addCartItem(
-                                _overViewController.getProductById(cartItem.id),
-                              ))))
+                    text: availableProduct ? label : _labels.unavailable,
+                    textStyle: GoogleFonts.lato(
+                        textStyle: TextStyle(
+                            shadows: [_boxShadow()],
+                            fontSize: 15,
+                            color: availableProduct ? Colors.white : Colors.yellow,
+                            fontWeight: FontWeight.normal)),
+                    onPressed: () => {},
+                  )))
             ])));
   }
+
+  // bool _checkProductAvailability(String cartItemId) {
+  //   var productFound = _overViewController.getProductById(cartItemId) != -1;
+  //   var productQtde = _overViewController.getProductById(cartItemId).stockQtde;
+  //   var availableProduct = (productFound && productQtde > 0);
+  //   return availableProduct;
+  // }
 
   BoxShadow _boxShadow() =>
       BoxShadow(color: Colors.grey, offset: Offset(1.0, 1.0), blurRadius: 3.0);
@@ -99,7 +103,8 @@ class CoreProductTile {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Divider(),
-        Text('Partial: ${(cartItem.qtde * cartItem.price).toStringAsFixed(2)}\$',
+        Text(
+            '${_labels.partial} ${(cartItem.qtde * cartItem.price).toStringAsFixed(2)}\$',
             style: GoogleFonts.lato(
                 textStyle: TextStyle(
               fontSize: 15,
@@ -123,26 +128,36 @@ class CoreProductTile {
   }
 
   Widget _buttonImage(String url, double width, double height, String cartItemId) {
+    var availableProduct = _overViewController.checkProductAvailability(cartItemId);
+
     var fadeImage = FadeInImage(
       placeholder: AssetImage(IMAGE_PLACEHOLDER),
       image: NetworkImage(url),
       fit: BoxFit.cover,
     );
 
-    return _animations.openContainer(
-      openingWidget: OverviewItemDetailsView(cartItemId),
-      closingWidget: Container(
-          width: width,
-          height: height,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(9.0),
-              color: Colors.white,
-              boxShadow: [_boxShadow()]),
-          child: ClipRRect(
+    var container = Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(9.0),
-            child: fadeImage,
-          )),
-    );
+            color: Colors.white,
+            boxShadow: [_boxShadow()]),
+        child: ClipRRect(
+            borderRadius: BorderRadius.circular(9.0),
+            child: availableProduct
+                ? fadeImage
+                : ColorFiltered(
+                    colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(0.95), // 0 = Colored, 1 = Black & White
+                        BlendMode.saturation),
+                    child: fadeImage)));
+    return availableProduct
+        ? _animations.openContainer(
+            openingWidget: OverviewItemDetailsView(cartItemId),
+            closingWidget: container,
+          )
+        : container;
     // );
   }
 }
