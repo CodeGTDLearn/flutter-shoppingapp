@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
+import 'package:shopingapp/app/modules/cart/entity/cart_item.dart';
 
 import '../../../../core/components/core_adaptive_indicator.dart';
 import '../../../../core/components/core_alert_dialog.dart';
@@ -21,7 +22,7 @@ class CartViewHeader extends StatelessWidget {
   final _words = Get.find<CoreLabels>();
   final _labels = Get.find<CartLabels>();
   final _keys = Get.find<CartKeys>();
-  var availableItems;
+  Map<String, CartItem> _availableItems = {};
 
   CartViewHeader(
     this._width,
@@ -32,8 +33,8 @@ class CartViewHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var items = _controller.getAllCartItems();
-    availableItems = _controller.getAllAvailableCartItems(items);
-    _controller.reloadQtdeAndAmountCart(availableItems);
+    _availableItems = _controller.getAllAvailableCartItems(items);
+    if (_availableItems.isNotEmpty) _controller.reloadQtdeAndAmountCart(_availableItems);
 
     return Card(
         elevation: 5,
@@ -62,11 +63,12 @@ class CartViewHeader extends StatelessWidget {
                           ? _controller.renderListView.value
                               ? CoreAdaptiveIndicator.radius(_width * 0.3)
                               : _addOrderButton(enabled: false)
-                          : _addOrderButton(enabled: true)))
+                          : _addOrderButton(enabled: _availableItems.isNotEmpty)))
                 ]))));
   }
 
   Builder _addOrderButton({required bool enabled}) {
+    if (_availableItems.isNotEmpty) _controller.reloadQtdeAndAmountCart(_availableItems);
     return Builder(builder: (_context) {
       return TextButton(
           key: Key(_keys.k_crt_ordnow_btn()),
@@ -77,8 +79,6 @@ class CartViewHeader extends StatelessWidget {
                   style: TextStyle(color: Theme.of(_context).disabledColor)),
           onPressed: enabled
               ? () {
-                  _controller.reloadQtdeAndAmountCart(availableItems);
-
             // @formatter:off
                   CoreAlertDialog.showOptionDialog(
                     _context,
@@ -89,8 +89,8 @@ class CartViewHeader extends StatelessWidget {
                     () => {
                        _controller
                        .addOrder(
-                              availableItems.values.toList(),
-                              _controller.amountCartItemsObs.value,)
+                              _availableItems.values.toList(),
+                              _controller.amountCartItemsObs.value)
 
                        .then((_) async {
                           _controller.renderListView.value = false;

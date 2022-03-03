@@ -5,7 +5,7 @@ class OrdersLabels {
 
   get again => _ORDER_AGAIN;
 
-  get title_page => _ORDERS_TITLE_PAGE;
+  get titlePage => _ORDERS_TITLE_PAGE;
 
-  get total_tile => _ORDERS_TOTAL_CARD;
+  get totalTile => _ORDERS_TOTAL_CARD;
 }

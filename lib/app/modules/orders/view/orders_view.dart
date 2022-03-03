@@ -23,19 +23,18 @@ class OrdersView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _controller.getOrders();
-    return Scaffold(
-        appBar: _controller.ordersObs.isNotEmpty
-            ? PreferredSize(
-                preferredSize: Size.fromHeight(MediaQuery.of(context).size.width),
-                child: _appbar.create("Orders", Get.back))
-            : null,
-        body: Obx(
-          () => _controller.ordersObs.isEmpty
+    return Obx(
+            () => Scaffold(
+        appBar: _controller.ordersObs.isEmpty ? _appbar.create(_labels.titlePage, Get.back) : null,
+        body:
+        // Obx(
+        //   () =>
+          _controller.ordersObs.isEmpty
               ? CoreAdaptiveIndicator.message(
                   message: _messages.no_orders_yet, fontSize: 20)
               : CustomScrollView(slivers: [
                   _sliverAppbar
-                      .create(_labels.title_page, Get.back, actions: [_cartBadge]),
+                      .create(_labels.titlePage, Get.back, actions: [_cartBadge]),
                   StaggeredSliverListview().ordersListview(_controller.ordersObs.toList())
                 ]),
         ));

@@ -32,7 +32,7 @@ class ExpandableTile implements ICustomOrderTile {
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.only(right: 40.0, top: 5.0, bottom: 5.0),
                   width: double.infinity,
-                  child: Text("${_labels.total_tile} ${_order.amount}\$")),
+                  child: Text("${_labels.totalTile} ${_order.amount}\$")),
               expanded: _listView(_order))),
     );
   }
