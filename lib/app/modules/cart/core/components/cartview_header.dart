@@ -101,8 +101,8 @@ class CartViewHeader extends StatelessWidget {
                           Get.back.call();})
 
                        .catchError((error) {
-                          CoreSnackbar(5000).show('${_words.ops()}$error', _messages
-                            .error_ord());})
+                          CoreSnackbar(5000).show('${_words.ops}$error', _messages
+                            .error_ord);})
                     },
                     () => {Get.back()},
                     // @formatter:on

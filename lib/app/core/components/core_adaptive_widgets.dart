@@ -36,7 +36,7 @@ class CoreAdaptiveWidgets {
       child: PlatformText(text, style: textStyle),
       material: (_, __) => MaterialElevatedButtonData(
         style: ElevatedButton.styleFrom(
-          onPrimary: color,
+          primary: color,
           padding: EdgeInsets.only(
             left: 6,
             right: 6,

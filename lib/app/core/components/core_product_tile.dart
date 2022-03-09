@@ -22,7 +22,7 @@ class CoreProductTile {
     double width,
     double height,
   ) {
-    var availableProduct = _controller.checkItemAvailability(cartItem.id);
+    var availabilityProduct = _controller.checkItemAvailability(cartItem.id);
 
     return Container(
         decoration: BoxDecoration(
@@ -39,38 +39,36 @@ class CoreProductTile {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          _titlePriceQtdeRow(cartItem, width),
+                          _titlePriceRow(cartItem, width),
                           _subtotalColumn(cartItem)
                         ]))
               ]),
               Positioned(
                   bottom: 0,
                   left: 85,
-                  child: Container(
-                      child: _widgetUtils.elevatedButton(
-                    text: availableProduct ? label : _labels.unavailable,
-                    textStyle: GoogleFonts.lato(
-                        textStyle: TextStyle(
-                            shadows: [_boxShadow()],
-                            fontSize: 15,
-                            color: availableProduct ? Colors.white : Colors.yellow,
-                            fontWeight: FontWeight.normal)),
-                    onPressed: () => {},
-                  )))
+                  child: _availabilityTag(availabilityProduct, label))
             ])));
   }
 
-  // bool _checkProductAvailability(String cartItemId) {
-  //   var productFound = _overViewController.getProductById(cartItemId) != -1;
-  //   var productQtde = _overViewController.getProductById(cartItemId).stockQtde;
-  //   var availableProduct = (productFound && productQtde > 0);
-  //   return availableProduct;
-  // }
+  Container _availabilityTag(bool availabilityProduct, String label) {
+    return Container(
+        child: _widgetUtils.elevatedButton(
+      color: availabilityProduct ? Colors.blue : Colors.red,
+      text: availabilityProduct ? label : _labels.unavailable,
+      textStyle: GoogleFonts.lato(
+          textStyle: TextStyle(
+              shadows: [_boxShadow()],
+              fontSize: 15,
+              color: availabilityProduct ? Colors.white : Colors.yellow,
+              fontWeight: FontWeight.normal)),
+      onPressed: () => {},
+    ));
+  }
 
   BoxShadow _boxShadow() =>
       BoxShadow(color: Colors.grey, offset: Offset(1.0, 1.0), blurRadius: 3.0);
 
-  Row _titlePriceQtdeRow(CartItem cartItem, double width) {
+  Row _titlePriceRow(CartItem cartItem, double width) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       _text('${cartItem.title}', 22, width * 0.95),
       Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
