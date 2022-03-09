@@ -13,11 +13,14 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
   late AnimationController _badgeShopCartAnimationController;
   late Animation badgeShopCartAnimation;
 
-  var renderListView = true.obs;
+  var renderListViewObs = true.obs;
   var qtdeCartItemsObs = 0.obs;
   var amountCartItemsObs = 0.0.obs;
 
-  CartController({required this.cartService, required this.ordersService});
+  CartController({
+    required this.cartService,
+    required this.ordersService,
+  });
 
   @override
   void onInit() {
@@ -31,9 +34,14 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
   }
 
   void addCartItem(Product product) {
+    var price = product.price;
+    var stockQtde = product.stockQtde;
+
     cartService.addCartItem(product);
+    _badgeAnimationPlay();
+    renderListViewObs.value = !renderListViewObs.value;
     reloadQtdeAndAmountCart(getAllCartItems());
-    _badgeShopCartAnimationPlay();
+    if (stockQtde < 1) amountCartItemsObs.value = amountCartItemsObs.value - price;
   }
 
   void addCartItemUndo(Product product) {
@@ -43,6 +51,11 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
 
   void reloadQtdeAndAmountCart(Map<String, CartItem> cartItems) {
     var cartItems = cartService.getAllCartItems();
+    amountCartItemsObs.value = cartService.amountCartItems(cartItems);
+    qtdeCartItemsObs.value = cartService.qtdeCartItems(cartItems);
+  }
+
+  void reloadQtdeAndAmountCartAvailableItems(Map<String, CartItem> cartItems) {
     amountCartItemsObs.value = cartService.amountCartItems(cartItems);
     qtdeCartItemsObs.value = cartService.qtdeCartItems(cartItems);
   }
@@ -63,7 +76,7 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
         .catchError((onError) => throw onError);
   }
 
-  Map<String, CartItem> getAllAvailableCartItems(Map<String, CartItem> cartItems){
+  Map<String, CartItem> getAllAvailableCartItems(Map<String, CartItem> cartItems) {
     return cartService.getAllAvailableCartItems(cartItems);
   }
 
@@ -82,7 +95,7 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
     );
   }
 
-  void _badgeShopCartAnimationPlay() async {
+  void _badgeAnimationPlay() async {
     await _badgeShopCartAnimationController.forward();
     await _badgeShopCartAnimationController.reverse();
   }

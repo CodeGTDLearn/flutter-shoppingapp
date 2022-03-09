@@ -17,7 +17,7 @@ class CartView extends StatelessWidget {
   final _labels = Get.find<CartLabels>();
 
   Widget build(BuildContext context) {
-    _controller.renderListView.value = true;
+    _controller.renderListViewObs.value = true;
     return Scaffold(
         appBar: _appbar.create(_labels.titlePage, Get.back,
             actions: [ClearCartButton(_controller)]),
@@ -35,12 +35,12 @@ class CartView extends StatelessWidget {
 
   Expanded _cartItemsList(double _height, double _width, CartController controller) {
     return Expanded(
-        child: Obx(() => controller.renderListView.value
+        child: Obx(() => controller.renderListViewObs.value
             ? Container(
                 width: _width * 0.93,
                 child: CartStaggeredListview(
                   fadeEffect: false,
-                  invertTargetPosition: false,
+                  // invertTargetPosition: false,
                   verticalOffset: (_height * 0.625),
                 ).listview(controller.getAllCartItems()))
             : Container(
@@ -48,10 +48,11 @@ class CartView extends StatelessWidget {
                 child: Stack(alignment: Alignment.center, children: [
                   CartStaggeredListview(
                     fadeEffect: false,
-                    invertTargetPosition: true,
-                    verticalOffset: -(_height * 0.564),
+                    // horizontalOffset: (_height * 0.9),
+                    // invertTargetPosition: true,
+                    // verticalOffset: -(_height * 0.9),
                   ).listview(controller.getAllCartItems()),
-                  _transparentGradientShaderMask()
+                  // _transparentGradientShaderMask()
                 ]))));
   }
 

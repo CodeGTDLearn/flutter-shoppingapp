@@ -24,6 +24,8 @@ class CartBindings extends Bindings {
     Get.lazyPut<ICartService>(() => CartService(repo: Get.find<ICartRepo>()));
     Get.lazyPut(() => CartController(
         cartService: Get.find<ICartService>(),
-        ordersService: Get.find<IOrdersService>()));
+        ordersService: Get.find<IOrdersService>(),
+
+    ));
   }
 }

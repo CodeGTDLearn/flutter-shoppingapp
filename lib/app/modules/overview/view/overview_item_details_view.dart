@@ -3,6 +3,7 @@ import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
 import '../../../core/components/appbar/core_appbar.dart';
 import '../../../core/components/badge/core_badge_cart.dart';
@@ -60,28 +61,7 @@ class OverviewItemDetailsView extends StatelessWidget {
                 child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Column(children: [
-                      Container(
-                          height: _height * 0.3,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              // color: Colors.black,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.grey,
-                                    offset: Offset(1.0, 1.0),
-                                    blurRadius: 10.0)
-                              ]),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10.0),
-                            child: GestureDetector(
-                                onTap: _controller.toggleOverviewItemDetailsImageZoomObs,
-                                child: FadeInImage(
-                                    key: Key(_keys.k_ov_itm_det_page_img()),
-                                    placeholder: AssetImage(IMAGE_PLACEHOLDER),
-                                    image: NetworkImage(_product.imageUrl),
-                                    fit: BoxFit.cover)),
-                          )),
+                      _productImage(_height, _product),
                       SizedBox(height: _height * 0.03),
                       Text('${_product.title}',
                           style: TextStyle(fontSize: _height * 0.03)),
@@ -89,34 +69,60 @@ class OverviewItemDetailsView extends StatelessWidget {
                       Text('${_coreLabels.currency} ${_product.price}',
                           style: TextStyle(fontSize: _height * 0.03)),
                       SizedBox(height: _height * 0.03),
-                      Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          height: _height * 0.2,
-                          width: double.infinity,
-                          child: Text(_product.description,
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.bodyText2)),
+                      _productDescription(_height, _product, context),
                       SizedBox(height: _height * 0.03),
-                      Text('${_coreLabels.available}: ${_product.stockQtde}',
-                          style: GoogleFonts.lato(
-                              textStyle: TextStyle(
-                                  color: Colors.red,
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold))),
+                      _productQtde(_product),
                       SizedBox(height: _height * 0.03),
-                      Container(
-                          height: _height * 0.1,
-                          width: _width * 0.5,
-                          color: Colors.red,
-                          child: _widgetUtils.elevatedButton(
-                              onPressed: () => _cartController.addCartItem(_product),
-                              text: _labels.buy_btn,
-                              textStyle: GoogleFonts.lato(
-                                  textStyle: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold)))),
+                      _addCartButton(_height, _width, _product),
                       SizedBox(height: _height * 0.1),
                     ]))))));
+  }
+
+  Text _productQtde(Product _product) {
+    return Text('${_coreLabels.available}: ${_product.stockQtde}',
+        style: GoogleFonts.lato(
+            textStyle:
+                TextStyle(color: Colors.red, fontSize: 30, fontWeight: FontWeight.bold)));
+  }
+
+  Container _productDescription(double _height, Product _product, BuildContext context) {
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        height: _height * 0.2,
+        width: double.infinity,
+        child: Text(_product.description,
+            textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2));
+  }
+
+  Container _addCartButton(double _height, double _width, Product _product) {
+    return Container(
+        height: _height * 0.1,
+        width: _width * 0.5,
+        color: Colors.red,
+        child: _widgetUtils.elevatedButton(
+            onPressed: () => _cartController.addCartItem(_product),
+            text: _labels.buy_btn,
+            textStyle: GoogleFonts.lato(
+                textStyle: TextStyle(
+                    color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold))));
+  }
+
+  Container _productImage(double _height, Product _product) {
+    return Container(
+        height: _height * 0.3,
+        width: double.infinity,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), boxShadow: [
+          BoxShadow(color: Colors.grey, offset: Offset(1.0, 1.0), blurRadius: 10.0)
+        ]),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10.0),
+          child: GestureDetector(
+              onTap: _controller.toggleOverviewItemDetailsImageZoomObs,
+              child: FadeInImage(
+                  key: Key(_keys.k_ov_itm_det_page_img()),
+                  placeholder: AssetImage(IMAGE_PLACEHOLDER),
+                  image: NetworkImage(_product.imageUrl),
+                  fit: BoxFit.cover)),
+        ));
   }
 }

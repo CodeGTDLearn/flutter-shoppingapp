@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
+import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../modules/cart/entity/cart_item.dart';
@@ -39,8 +40,8 @@ class CoreProductTile {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          _titlePriceRow(cartItem, width),
-                          _subtotalColumn(cartItem)
+                          _titlePriceQuantity(cartItem, width),
+                          _subtotal(availabilityProduct, cartItem)
                         ]))
               ]),
               Positioned(
@@ -68,7 +69,7 @@ class CoreProductTile {
   BoxShadow _boxShadow() =>
       BoxShadow(color: Colors.grey, offset: Offset(1.0, 1.0), blurRadius: 3.0);
 
-  Row _titlePriceRow(CartItem cartItem, double width) {
+  Row _titlePriceQuantity(CartItem cartItem, double width) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       _text('${cartItem.title}', 22, width * 0.95),
       Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
@@ -101,13 +102,17 @@ class CoreProductTile {
     ]);
   }
 
-  Column _subtotalColumn(CartItem cartItem) {
+  Column _subtotal(bool availabilityProduct, CartItem cartItem) {
+    var _qtde = cartItem.qtde;
+    var _price = cartItem.price;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Divider(),
         Text(
-            '${_labels.partial} ${(cartItem.qtde * cartItem.price).toStringAsFixed(2)}\$',
+            availabilityProduct
+                ? '${_labels.partial} ${(_qtde * _price).toStringAsFixed(2)}\$'
+                : "0.00\$",
             style: GoogleFonts.lato(
                 textStyle: TextStyle(
               fontSize: 15,
