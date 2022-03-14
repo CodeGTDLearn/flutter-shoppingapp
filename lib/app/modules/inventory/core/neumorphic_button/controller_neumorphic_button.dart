@@ -1,7 +1,8 @@
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 
-class ControllerNeumorphicButton extends GetxController with GetSingleTickerProviderStateMixin {
+class ControllerNeumorphicButton extends GetxController
+    with GetSingleTickerProviderStateMixin {
   //SCALE-ADJUSTMENTS
   late AnimationController _scaleController;
   late Animation<double> scaleAnimation;

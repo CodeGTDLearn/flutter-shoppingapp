@@ -1,3 +1,5 @@
+import 'package:shopingapp/app/modules/cart/entity/cart_item.dart';
+
 import '../../overview/service/i_overview_service.dart';
 import '../entity/product.dart';
 import '../repo/i_inventory_repo.dart';
@@ -106,6 +108,16 @@ class InventoryService implements IInventoryService {
     var productFound = _index >= 0;
     if (productFound) return getProductById(id).stockQtde > 0;
     return false;
+  }
+
+  @override
+  void updateStockItemsQuantity(Map<String, CartItem> cartItems) {
+    var availableCartItems = <String, CartItem>{};
+    cartItems.forEach((key, cartItem) {
+      var product = getProductById(cartItem.id);
+      product.stockQtde = product.stockQtde - cartItem.qtde;
+      updateProduct(product);
+    });
   }
 
   void _orderDataSavingLists() {

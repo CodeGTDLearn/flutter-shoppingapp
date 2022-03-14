@@ -1,3 +1,5 @@
+import 'package:shopingapp/app/modules/cart/entity/cart_item.dart';
+
 import '../entity/product.dart';
 
 abstract class IInventoryService {
@@ -20,4 +22,6 @@ abstract class IInventoryService {
   void clearDataSavingLists();
 
   bool checkItemAvailability(String id);
+
+  void updateStockItemsQuantity(Map<String, CartItem> cartItems);
 }

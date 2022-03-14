@@ -58,7 +58,8 @@ class LocalStorageController extends GetxController {
       var _getCartItems = _localStorage.read(_keyLocalCartItems);
       Map<String, dynamic> keyData_decode_FromString_toJson = jsonDecode(_getCartItems);
       keyData_decode_FromString_toJson.forEach((key, value) {
-        if (value.val(id) != id) _localItems.putIfAbsent(key, () => CartItem.fromJson(value));
+        if (value.val(id) != id)
+          _localItems.putIfAbsent(key, () => CartItem.fromJson(value));
       });
     }
 

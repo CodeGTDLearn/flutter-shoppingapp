@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
-import 'package:shopingapp/app/core/components/appbar/core_appbar.dart';
 
+import '../../../core/components/appbar/core_appbar.dart';
 import '../../../core/components/appbar/core_sliver_appbar.dart';
 import '../../../core/components/badge/core_badge_cart.dart';
 import '../../../core/components/core_adaptive_indicator.dart';
@@ -23,20 +23,22 @@ class OrdersView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _controller.getOrders();
-    return Obx(
-            () => Scaffold(
-        appBar: _controller.ordersObs.isEmpty ? _appbar.create(_labels.titlePage, Get.back) : null,
-        body:
-        // Obx(
-        //   () =>
-          _controller.ordersObs.isEmpty
-              ? CoreAdaptiveIndicator.message(
-                  message: _messages.no_orders_yet, fontSize: 20)
-              : CustomScrollView(slivers: [
-                  _sliverAppbar
-                      .create(_labels.titlePage, Get.back, actions: [_cartBadge]),
-                  StaggeredSliverListview().ordersListview(_controller.ordersObs.toList())
-                ]),
+    return Obx(() => Scaffold(
+          appBar: _controller.ordersObs.isEmpty
+              ? _appbar.create(_labels.titlePage, Get.back)
+              : null,
+          body:
+              // Obx(
+              //   () =>
+              _controller.ordersObs.isEmpty
+                  ? CoreAdaptiveIndicator.message(
+                      message: _messages.no_orders_yet, fontSize: 20)
+                  : CustomScrollView(slivers: [
+                      _sliverAppbar
+                          .create(_labels.titlePage, Get.back, actions: [_cartBadge]),
+                      StaggeredSliverListview()
+                          .ordersListview(_controller.ordersObs.toList())
+                    ]),
         ));
   }
 

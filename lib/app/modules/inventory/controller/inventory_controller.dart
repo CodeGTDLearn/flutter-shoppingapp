@@ -13,6 +13,7 @@ import '../../../core/components/snackbar/core_snackbar.dart';
 import '../../../core/properties/properties.dart';
 import '../../../core/texts/core_labels.dart';
 import '../../../core/texts/core_messages.dart';
+import '../../cart/entity/cart_item.dart';
 import '../entity/product.dart';
 import '../service/i_inventory_service.dart';
 
@@ -97,7 +98,8 @@ class InventoryController extends GetxController {
     productsObs.assignAll(service.getLocalDataInventoryProducts());
   }
 
-  Future<void> stockAddOrRemoveItems(context, {
+  Future<void> modalStockAddOrRemoveItems(
+    context, {
     required Product item,
     required bool addition,
   }) async {
@@ -115,7 +117,7 @@ class InventoryController extends GetxController {
         FilteringTextInputFormatter.deny(RegExp(' ')),
       ],
       contentFieldPlaceholder:
-      addition ? _messages.stock_addition_hint : _messages.stock_subtraction_hint,
+          addition ? _messages.stock_addition_hint : _messages.stock_subtraction_hint,
       contentFieldController: _textFieldController,
       labelYes: _labels.yes,
       labelNo: _labels.no,
@@ -124,22 +126,22 @@ class InventoryController extends GetxController {
         var stockQtde = item.stockQtde;
         addition
             ? () async {
-          item.stockQtde = stockQtde + _number;
-          await updateProduct(item).then((status) async {
-            productsStockQtdeObs.value = item.stockQtde;
-            Get.back();
-            Get.delete(tag: "deleteModal");
-          });
-        }.call()
+                item.stockQtde = stockQtde + _number;
+                await updateProduct(item).then((status) async {
+                  productsStockQtdeObs.value = item.stockQtde;
+                  Get.back();
+                  Get.delete(tag: "deleteModal");
+                });
+              }.call()
             : item.stockQtde >= _number
-            ? () async {
-          item.stockQtde = stockQtde - _number;
-          await updateProduct(item).then((status) async {
-            productsStockQtdeObs.value = item.stockQtde;
-            Get.back();
-          });
-        }.call()
-            : CoreSnackbar().show(_labels.ops, _messages.zero_stock_message);
+                ? () async {
+                    item.stockQtde = stockQtde - _number;
+                    await updateProduct(item).then((status) async {
+                      productsStockQtdeObs.value = item.stockQtde;
+                      Get.back();
+                    });
+                  }.call()
+                : CoreSnackbar().show(_labels.ops, _messages.zero_stock_message);
         Get.delete(tag: "deleteModal");
       },
       actionNo: Get.back,
@@ -209,5 +211,9 @@ class InventoryController extends GetxController {
 
   bool checkItemAvailability(String inventoryItem) {
     return service.checkItemAvailability(inventoryItem);
+  }
+
+  updateStockItemsQuantity(Map<String, CartItem> cartItems) {
+    return service.updateStockItemsQuantity(cartItems);
   }
 }

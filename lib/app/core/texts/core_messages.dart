@@ -20,7 +20,6 @@ class CoreMessages {
       "Please, only text and number are allowed.";
   final _INVENTORY_DETAILS_CODE_READING_ERROR_MESSAGE = "Code Read not done";
 
-
   final _INVENTORY_DETAILS_FORMAT_PRICE_MESSAGE = "Please, type the price properly.";
   final _INVENTORY_DETAILS_FORMAT_URL_MESSAGE = "Please, provide proper URL.";
   final _INVENTORY_DETAILS_ZERO_PRODUCT_STOCK_MESSAGE =

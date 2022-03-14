@@ -32,7 +32,8 @@ class InventoryView extends StatelessWidget {
     return Scaffold(
         body: Obx(
       () => (_controller.productsObs.toList().isEmpty
-          ? CoreAdaptiveIndicator.message(message: _messages.no_inv_prod_yet, fontSize: 20)
+          ? CoreAdaptiveIndicator.message(
+              message: _messages.no_inv_prod_yet, fontSize: 20)
           : RefreshIndicator(
               onRefresh: _controller.getProducts,
               child: _controller.productsObs.toList().isEmpty
@@ -42,8 +43,7 @@ class InventoryView extends StatelessWidget {
                         _overviewController.updateFilteredProductsObs();
                         Get.back();
                       }, actions: [_addNewProductAppbarButton()]),
-                      _sliverListView
-                          .inventoryListview(_controller.productsObs.toList()),
+                      _sliverListView.inventoryListview(_controller.productsObs.toList()),
                     ]),
             )),
     ));

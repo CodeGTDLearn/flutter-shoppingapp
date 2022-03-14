@@ -55,7 +55,6 @@ class DismissibleCartItem extends StatelessWidget {
           size.width * 0.4,
           size.height * 0.17,
         ),
-
         confirmDismiss: (direction) {
           return CoreAlertDialog.showOptionDialog(
             context,

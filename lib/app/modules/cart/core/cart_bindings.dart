@@ -18,14 +18,13 @@ class CartBindings extends Bindings {
     Get.lazyPut(() => CartLabels());
     Get.lazyPut(() => CartIcons());
     Get.lazyPut(() => CoreProductTile());
-    Get.lazyPut(()=>OrdersLabels());
+    Get.lazyPut(() => OrdersLabels());
 
     Get.lazyPut<ICartRepo>(() => CartRepoLocalStorage());
     Get.lazyPut<ICartService>(() => CartService(repo: Get.find<ICartRepo>()));
     Get.lazyPut(() => CartController(
-        cartService: Get.find<ICartService>(),
-        ordersService: Get.find<IOrdersService>(),
-
-    ));
+          cartService: Get.find<ICartService>(),
+          ordersService: Get.find<IOrdersService>(),
+        ));
   }
 }

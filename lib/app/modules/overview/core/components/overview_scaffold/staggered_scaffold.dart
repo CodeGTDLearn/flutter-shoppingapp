@@ -24,7 +24,8 @@ class StaggeredScaffold implements IOverviewScaffold {
             ? SingleChildScrollView(
                 child: Center(
                     child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                CoreAdaptiveIndicator.message(message: _messages.no_products_yet, fontSize: 20)
+                CoreAdaptiveIndicator.message(
+                    message: _messages.no_products_yet, fontSize: 20)
               ])))
             : CustomScrollView(slivers: [
                 _sliverAppbar,

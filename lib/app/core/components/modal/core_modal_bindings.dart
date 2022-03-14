@@ -8,11 +8,9 @@ import 'i_core_adaptive_modal.dart';
 
 class CoreModalBindings extends Bindings {
   void dependencies() {
-
     var _isApple = Platform.isIOS || Platform.isMacOS;
 
     Get.lazyPut<ICoreAdaptiveModal>(
         () => _isApple ? CoreModalCupertino() : CoreModalMaterial());
-
   }
 }

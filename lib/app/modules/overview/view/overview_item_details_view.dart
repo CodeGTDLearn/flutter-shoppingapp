@@ -3,7 +3,6 @@ import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 
 import '../../../core/components/appbar/core_appbar.dart';
 import '../../../core/components/badge/core_badge_cart.dart';
@@ -13,6 +12,7 @@ import '../../../core/texts/core_labels.dart';
 import '../../../core/utils/core_animations_utils.dart';
 import '../../../core/utils/core_ui_utils.dart';
 import '../../cart/controller/cart_controller.dart';
+import '../../inventory/entity/product.dart';
 import '../controller/overview_controller.dart';
 import '../core/overview_keys.dart';
 import '../core/overview_labels.dart';

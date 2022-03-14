@@ -29,7 +29,7 @@ class CartRepoLocalStorage implements ICartRepo {
       });
     } else {
       _cartItems.putIfAbsent(product.id!,
-              () => CartItem(product.id!, product.title, 1, product.price, product.imageUrl));
+          () => CartItem(product.id!, product.title, 1, product.price, product.imageUrl));
     }
     _localStorage.saveCartItemsLocalStorage(_cartItems);
   }
@@ -43,9 +43,9 @@ class CartRepoLocalStorage implements ICartRepo {
     productQuantity == 1
         ? _cartItems.remove(product.id)
         : _cartItems.update(
-        product.id!,
+            product.id!,
             (item) =>
-            CartItem(item.id, item.title, item.qtde - 1, item.price, item.imageUrl));
+                CartItem(item.id, item.title, item.qtde - 1, item.price, item.imageUrl));
     _localStorage.saveCartItemsLocalStorage(_cartItems);
   }
 

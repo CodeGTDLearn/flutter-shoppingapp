@@ -4,10 +4,10 @@ linter:
   rules:
     public_member_api_docs: false
 
-#    Sort directive sections alphabetically: false
+    #    Sort directive sections alphabetically: false
     constant_identifier_names: false
-#    avoid_positional_boolean_parameters: false
-#    prefer_mixin: false
+    #    avoid_positional_boolean_parameters: false
+    #    prefer_mixin: false
     type_annotate_public_apis: false
     lines_longer_than_80_chars: false
     non_constant_identifier_names: false

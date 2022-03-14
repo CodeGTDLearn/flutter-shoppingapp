@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
+import 'package:shopingapp/app/modules/inventory/controller/inventory_controller.dart';
 
 import '../../../../core/components/core_alert_dialog.dart';
 import '../../../../core/components/snackbar/core_snackbar.dart';
@@ -16,7 +17,8 @@ import '../cart_labels.dart';
 class CartViewHeader extends StatelessWidget {
   final _width;
   final _height;
-  final CartController _controller;
+  final CartController _cartController;
+  final InventoryController _invController;
   final _messages = Get.find<CoreMessages>();
   final _words = Get.find<CoreLabels>();
   final _labels = Get.find<CartLabels>();
@@ -26,15 +28,12 @@ class CartViewHeader extends StatelessWidget {
   CartViewHeader(
     this._width,
     this._height,
-    this._controller,
+    this._cartController,
+    this._invController,
   );
 
   @override
   Widget build(BuildContext context) {
-    var items = _controller.getAllCartItems();
-    _availableItems = _controller.getAllAvailableCartItems(items);
-    if (_availableItems.isNotEmpty) _controller.reloadQtdeAndAmountCartAvailableItems(_availableItems);
-
     return Card(
         elevation: 5,
         shadowColor: Colors.black,
@@ -49,79 +48,67 @@ class CartViewHeader extends StatelessWidget {
                       child: Text(_labels.cardCart, style: TextStyle(fontSize: 20))),
                   Container(
                       width: _width * 0.25,
-                      child: Obx(() => Chip(
-                          label: Text(
-                              _controller.amountCartItemsObs.value.toStringAsFixed(2),
-                              style: TextStyle(color: Colors.white)),
-                          backgroundColor: Theme.of(context).primaryColor))),
+                      child: Chip(
+                          label: Obx(() => Text(
+                              _cartController.amountCartItemsObs.value.toStringAsFixed(2),
+                              style: TextStyle(color: Colors.white))),
+                          backgroundColor: Theme.of(context).primaryColor)),
                   SizedBox(width: _width * 0.18),
                   Container(
+                      color: Colors.blue,
                       width: _width * 0.3,
                       height: _height * 0.08,
-                      child:
-                      Obx(() =>
-                      _controller.qtdeCartItemsObs.value == 0
-                          ? _addOrderButton(enabled: false)
-                          : _addOrderButton(enabled: true)
-                      )
-                      // Obx(() =>
-                      //     (_controller.qtdeCartItemsObs.value == 0)
-                      //     ? _controller.renderListViewObs.value
-                      //         ? CoreAdaptiveIndicator.radius(_width * 0.3)
-                      //         : _addOrderButton(enabled: false)
-                      //     : _addOrderButton(enabled: true)
-                      // )
-                  )
+                      child: _addOrderButton(enabled: true, context: context))
                 ]))));
   }
-// todo: button problem
-  Widget _addOrderButton({required bool enabled}) {
-    if (_availableItems.isNotEmpty) _controller.reloadQtdeAndAmountCart(_availableItems);
-    return SingleChildScrollView(
-      child: Builder(builder: (_context) {
-        // o builder esta pegando o context.. Assim, precisamos
-        // pegar a nova height desse context AQUI de redefinir uma altura aki
-        return  TextButton(
-              key: Key(_keys.k_crt_ordnow_btn()),
-              child: enabled
-                  ? Text(_labels.orderNowBtn,
-                      style: TextStyle(color: Theme.of(_context).primaryColor))
-                  : Text(_labels.orderNowBtn,
-                      style: TextStyle(color: Theme.of(_context).disabledColor)),
-              onPressed: enabled
-                  ? () {
-                // @formatter:off
-                      CoreAlertDialog.showOptionDialog(
-                        _context,
-                        _words.confirm,
-                        _labels.dialogOrderNow,
-                        _words.yes,
-                        _labels.keepShop,
-                        () => {
-                           _controller
-                           .addOrder(
-                                  _availableItems.values.toList(),
-                                  _controller.amountCartItemsObs.value)
 
-                           .then((_) async {
-                              _controller.renderListViewObs.value = false;
-                              await Future.delayed(Duration(milliseconds: 500));
-                              _controller.clearCart.call();
-                              CoreSnackbar().show(_words.suces, _messages.suces_ord_add);
-                              await Future.delayed(Duration(milliseconds: DURATION + 2000));
-                              Get.back.call();})
+  Widget _addOrderButton({required bool enabled, required BuildContext context}) {
+    var _items = _cartController.getAllCartItems();
+    _availableItems = _cartController.getAllAvailableCartItems(_items);
 
-                           .catchError((error) {
-                              CoreSnackbar(5000).show('${_words.ops}$error', _messages
-                                .error_ord);})
-                        },
-                        () => {Get.back()},
-                        // @formatter:on
-                      );
-                    }
-                  : null)
-        ;
-      }),
-    );
+    if (_availableItems.isNotEmpty) _cartController.reloadQtdeAndAmountCart();
+
+    return TextButton(
+        key: Key(_keys.k_crt_ordnow_btn()),
+        child: enabled
+            ? Text(_labels.orderNowBtn, style: TextStyle(color: Colors.red))
+            : Text(_labels.orderNowBtn, style: TextStyle(color: Colors.grey)),
+        onPressed: enabled
+            ? () => _availableItems.isNotEmpty
+                ? _processingOrderAddittion(context)
+                : Get.defaultDialog(content: Text(_labels.allItemUnavailable))
+            : null);
+  }
+
+  void _processingOrderAddittion(BuildContext context) {
+    // @formatter:off
+    CoreAlertDialog.showOptionDialog(
+    context,
+    _words.confirm,
+    _labels.dialogOrderNow,
+    _words.yes,
+    _labels.keepShop,
+    () => {
+      _cartController
+          .addOrder(
+            _availableItems.values.toList(),
+            _cartController.amountCartItemsObs.value
+          )
+          .then((_) async {
+            _cartController.renderListViewObs.value = false;
+            await Future.delayed(Duration(milliseconds: 500));
+            _cartController.clearCart;
+            // todo: decreaseing stock
+            await _invController.updateStockItemsQuantity(_availableItems);
+            CoreSnackbar().show(_words.suces, _messages.suces_ord_add);
+            await Future.delayed(Duration(milliseconds: DURATION + 1000));
+            Get.back.call();
+          })
+          .catchError((error) {
+             CoreSnackbar(5000).show('${_words.ops}$error', _messages.error_ord);
+          })
+    },
+    () => {Get.back()});
+    // @formatter:on
   }
 }

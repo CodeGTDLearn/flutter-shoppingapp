@@ -13,7 +13,7 @@ class InventoryKeys {
   final _INVENTORY_EDIT_VIEW_FIELD_URL_KEY = 'inventory_edit_field_url_key';
   final _INVENTORY_EDIT_BARCODE_FIELD_KEY = 'inventory_edit_field_barcode_key';
 
-  get k_inv_edit_barcode_fld =>_INVENTORY_EDIT_BARCODE_FIELD_KEY;
+  get k_inv_edit_barcode_fld => _INVENTORY_EDIT_BARCODE_FIELD_KEY;
 
   get k_inv_add_btn_appbar => _INVENTORY_APPBAR_ADD_BUTTON_KEY;
 

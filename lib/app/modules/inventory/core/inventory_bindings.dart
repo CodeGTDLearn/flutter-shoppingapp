@@ -1,4 +1,3 @@
-
 import 'package:get/instance_manager.dart';
 
 import '../../../core/components/modal/core_modal_bindings.dart';
@@ -16,7 +15,6 @@ import 'inventory_labels.dart';
 
 class InventoryBindings extends Bindings {
   void dependencies() {
-
     Get.lazyPut(() => InventoryKeys());
     Get.lazyPut(() => InventoryIcons());
     Get.lazyPut(() => InventoryLabels());

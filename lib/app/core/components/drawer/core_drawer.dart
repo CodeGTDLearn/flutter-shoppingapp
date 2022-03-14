@@ -73,15 +73,13 @@ class CoreDrawer extends StatelessWidget {
             notRoutingWithoutQtdeEvaluation: false,
             key: _keys.k_drw_inventory_opt4(),
             context: context),
-        Obx(() =>
-            SwitchListTile(
+        Obx(() => SwitchListTile(
             key: Key(_keys.k_drw_darkthm_opt5()),
             secondary: _icons.ico_switch(),
             title: Text(_labels.label_dark_theme),
-            subtitle:Text(_labels.label_content_dark_theme) ,
+            subtitle: Text(_labels.label_content_dark_theme),
             value: _storage.darkModelObs.value,
-            onChanged: (_) => _storage.switchTheme())
-        )
+            onChanged: (_) => _storage.switchTheme()))
       ])),
     );
   }

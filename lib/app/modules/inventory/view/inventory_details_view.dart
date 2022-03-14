@@ -147,7 +147,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
           iconSize: 50.00,
           iconButton: Icons.add_circle_outline,
           onTap: () =>
-              _controller.stockAddOrRemoveItems(context, item: product, addition: true)),
+              _controller.modalStockAddOrRemoveItems(context, item: product, addition: true)),
       Container(
           width: Get.width * 0.4,
           child: Obx(() {
@@ -184,7 +184,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
           iconSize: 50.00,
           iconButton: Icons.remove_circle_outline_outlined,
           onTap: () =>
-              _controller.stockAddOrRemoveItems(context, item: product, addition: false)),
+              _controller.modalStockAddOrRemoveItems(context, item: product, addition: false)),
       // IconButton(
       //     icon: Icon(Icons.remove_circle_outline_outlined),
       //     onPressed: () =>

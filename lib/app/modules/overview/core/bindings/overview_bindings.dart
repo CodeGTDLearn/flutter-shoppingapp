@@ -14,7 +14,6 @@ import '../overview_labels.dart';
 
 class OverviewBindings extends Bindings {
   void dependencies() {
-
     Get.lazyPut(() => CoreLabels());
     Get.lazyPut(() => CoreMessages());
     Get.lazyPut(() => CoreComponentsKeys());

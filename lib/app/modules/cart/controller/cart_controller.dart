@@ -24,9 +24,9 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
 
   @override
   void onInit() {
-    reloadQtdeAndAmountCart(getAllCartItems());
-    super.onInit();
+    reloadQtdeAndAmountCart();
     _badgeShopCartAnimationSetup();
+    super.onInit();
   }
 
   Map<String, CartItem> getAllCartItems() {
@@ -40,19 +40,21 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
     cartService.addCartItem(product);
     _badgeAnimationPlay();
     renderListViewObs.value = !renderListViewObs.value;
-    reloadQtdeAndAmountCart(getAllCartItems());
+    reloadQtdeAndAmountCart();
     if (stockQtde < 1) amountCartItemsObs.value = amountCartItemsObs.value - price;
   }
 
   void addCartItemUndo(Product product) {
     cartService.addCartItemUndo(product);
-    reloadQtdeAndAmountCart(getAllCartItems());
+    reloadQtdeAndAmountCart();
   }
 
-  void reloadQtdeAndAmountCart(Map<String, CartItem> cartItems) {
-    var cartItems = cartService.getAllCartItems();
-    amountCartItemsObs.value = cartService.amountCartItems(cartItems);
-    qtdeCartItemsObs.value = cartService.qtdeCartItems(cartItems);
+  void reloadQtdeAndAmountCart() {
+    var allCartItems = cartService.getAllCartItems();
+    qtdeCartItemsObs.value = cartService.qtdeCartItems(allCartItems);
+
+    var availableCartItems = cartService.getAllCartItems();
+    amountCartItemsObs.value = cartService.amountCartItems(availableCartItems);
   }
 
   void reloadQtdeAndAmountCartAvailableItems(Map<String, CartItem> cartItems) {
@@ -62,12 +64,12 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
 
   void removeCartItem(CartItem cartItem) {
     cartService.removeCartItem(cartItem);
-    reloadQtdeAndAmountCart(getAllCartItems());
+    reloadQtdeAndAmountCart();
   }
 
   void clearCart() {
     cartService.clearCart();
-    reloadQtdeAndAmountCart(getAllCartItems());
+    reloadQtdeAndAmountCart();
   }
 
   Future<Order> addOrder(List<CartItem> cartItems, double amount) {

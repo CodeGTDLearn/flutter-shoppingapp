@@ -36,7 +36,9 @@ class CartService implements ICartService {
 
   double amountCartItems(Map<String, CartItem> cartItems) {
     var total = 0.0;
-    cartItems.forEach((key, item) {
+    var _availableCartIitems = getAllAvailableCartItems(cartItems);
+
+    _availableCartIitems.forEach((key, item) {
       total += item.price * item.qtde;
     });
     return total;

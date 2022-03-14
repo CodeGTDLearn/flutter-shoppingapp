@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CoreTheme {
-
   final materialLight = ThemeData(
     scaffoldBackgroundColor: Colors.white,
     cardColor: Colors.white,
