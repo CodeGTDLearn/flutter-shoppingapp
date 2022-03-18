@@ -13,7 +13,7 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
   late AnimationController _badgeShopCartAnimationController;
   late Animation badgeShopCartAnimation;
 
-  var renderListViewObs = true.obs;
+  var redrawListCartObs = true.obs;
   var qtdeCartItemsObs = 0.obs;
   var amountCartItemsObs = 0.0.obs;
 
@@ -39,7 +39,7 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
 
     cartService.addCartItem(product);
     _badgeAnimationPlay();
-    renderListViewObs.value = !renderListViewObs.value;
+    redrawListCart();
     reloadQtdeAndAmountCart();
     if (stockQtde < 1) amountCartItemsObs.value = amountCartItemsObs.value - price;
   }
@@ -65,6 +65,10 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
   void removeCartItem(CartItem cartItem) {
     cartService.removeCartItem(cartItem);
     reloadQtdeAndAmountCart();
+  }
+
+  void redrawListCart() {
+    redrawListCartObs.value = !redrawListCartObs.value;
   }
 
   void clearCart() {

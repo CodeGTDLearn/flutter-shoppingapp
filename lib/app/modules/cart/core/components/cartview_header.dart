@@ -49,9 +49,12 @@ class CartViewHeader extends StatelessWidget {
                   Container(
                       width: _width * 0.25,
                       child: Chip(
-                          label: Obx(() => Text(
-                              _cartController.amountCartItemsObs.value.toStringAsFixed(2),
-                              style: TextStyle(color: Colors.white))),
+                          label: Obx(() {
+                            var _total = _cartController.amountCartItemsObs.value;
+                            return Text(
+                                _total.isNegative ? " 00.00" : _total.toStringAsFixed(2),
+                                style: TextStyle(color: Colors.white));
+                          }),
                           backgroundColor: Theme.of(context).primaryColor)),
                   SizedBox(width: _width * 0.18),
                   Container(
@@ -94,21 +97,21 @@ class CartViewHeader extends StatelessWidget {
             _availableItems.values.toList(),
             _cartController.amountCartItemsObs.value
           )
-          .then((_) async {
-            _cartController.renderListViewObs.value = false;
+          .then((_) async  {
+            _cartController.redrawListCart();
             await Future.delayed(Duration(milliseconds: 500));
-            _cartController.clearCart;
-            // todo: decreaseing stock
-            await _invController.updateStockItemsQuantity(_availableItems);
+            _cartController.clearCart();
+            _invController.updateStockItemsQuantity(_availableItems);
             CoreSnackbar().show(_words.suces, _messages.suces_ord_add);
-            await Future.delayed(Duration(milliseconds: DURATION + 1000));
-            Get.back.call();
+            await Future.delayed(Duration(milliseconds: DURATION + 400));
+            Navigator.of(context).pop();
           })
           .catchError((error) {
              CoreSnackbar(5000).show('${_words.ops}$error', _messages.error_ord);
           })
+
     },
-    () => {Get.back()});
+    () => {});
     // @formatter:on
   }
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
+import 'package:get/state_manager.dart';
+import 'package:shopingapp/app/core/properties/properties.dart';
 import 'package:shopingapp/app/modules/inventory/controller/inventory_controller.dart';
 
 import '../../../core/components/appbar/core_appbar.dart';
@@ -18,6 +20,7 @@ class CartView extends StatelessWidget {
   final _labels = Get.find<CartLabels>();
 
   Widget build(BuildContext context) {
+    _cartController.redrawListCartObs.value = true;
     return Scaffold(
         appBar: _appbar.create(
           _labels.titlePage,
@@ -37,36 +40,47 @@ class CartView extends StatelessWidget {
                   _invController,
                 )),
             Flexible(child: SizedBox(height: _height * 0.01)),
-            Flexible(flex: 7, child: _cartItemsList(_height, _width, _cartController))
+            Flexible(
+                flex: 7,
+                child: _cartItemsList(
+                  _height,
+                  _width,
+                  _cartController,
+                ))
           ]);
         })));
   }
 
   Widget _cartItemsList(double _height, double _width, CartController controller) {
-    return controller.renderListViewObs.value
+    return Obx(() => controller.redrawListCartObs.value
         ? Container(
-            width: _width * 0.93,
             child: CartStaggeredListview(
-              fadeEffect: false,
-              verticalOffset: (_height * 0.625),
-            ).listview(controller.getAllCartItems()))
+            fadeEffect: false,
+            invertTargetPosition: false,
+            verticalOffset: _height * 0.625,
+          ).listview(controller.getAllCartItems()))
         : Container(
-            width: _width * 0.93,
-            child: CartStaggeredListview(
-              fadeEffect: false,
-            ).listview(controller.getAllCartItems()));
+            child: Stack(alignment: Alignment.center, children: [
+            CartStaggeredListview(
+              fadeEffect: true,
+              invertTargetPosition: true,
+              verticalOffset: -(_height * 0.564),
+            ).listview(controller.getAllCartItems()),
+            _transparentGradientShaderMask()
+          ])));
   }
 }
-// Widget _transparentGradientShaderMask() {
-//   return ShaderMask(
-//       shaderCallback: (rect) {
-//         return LinearGradient(
-//           begin: Alignment.bottomCenter,
-//           end: Alignment.topCenter,
-//           colors: [Colors.black, Colors.transparent],
-//         ).createShader(
-//             Rect.fromLTRB(0, 0, rect.width, rect.height * TRANSPARENCY_LAYER_LISTVIEW));
-//       },
-//       blendMode: BlendMode.dstIn,
-//       child: Container(color: Colors.white));
-// }
+
+Widget _transparentGradientShaderMask() {
+  return ShaderMask(
+      shaderCallback: (rect) {
+        return LinearGradient(
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
+          colors: [Colors.black, Colors.transparent],
+        ).createShader(
+            Rect.fromLTRB(0, 0, rect.width, rect.height * TRANSPARENCY_LAYER_LISTVIEW));
+      },
+      blendMode: BlendMode.dstIn,
+      child: Container(color: Colors.white));
+}

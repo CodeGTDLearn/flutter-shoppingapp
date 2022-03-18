@@ -34,7 +34,7 @@ class ClearCartButton extends StatelessWidget {
               _words.yes,
               _words.no,
               () async {
-                _controller.renderListViewObs.value = false;
+                _controller.redrawListCartObs.value = false;
                 await Future.delayed(Duration(milliseconds: 500));
                 _controller.clearCart.call();
                 CoreSnackbar().show(_words.suces, _messages.suces_ord_clean);
