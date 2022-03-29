@@ -55,4 +55,21 @@ class CartRepoMemory implements ICartRepo {
   void clearCart() {
     if (getAllCartItems().isNotEmpty) _cartItems.clear();
   }
+
+  @override
+  int getCartItemQtdeById(String cartItemId) {
+    // TODO: implement getCartItemQtdeById
+    throw UnimplementedError();
+  }
+
+  @override
+  void removeCartItemById(String cartItemId) {
+    // TODO: implement removeCartItemById
+  }
+
+  @override
+  CartItem getCartItemById(String cartItemId) {
+    // TODO: implement getCartItemById
+    throw UnimplementedError();
+  }
 }

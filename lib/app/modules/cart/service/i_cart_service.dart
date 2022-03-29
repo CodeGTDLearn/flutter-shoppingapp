@@ -12,9 +12,15 @@ abstract class ICartService {
 
   void removeCartItem(CartItem cartItem);
 
+  void removeCartItemById(String cartItemId);
+
   double amountCartItems(Map<String, CartItem> carItems);
 
   int qtdeCartItems(Map<String, CartItem> carItems);
+
+  int getCartItemQtdeById(String cartItemId);
+
+  CartItem getCartItemById(String cartItemId);
 
   void clearCart();
 }

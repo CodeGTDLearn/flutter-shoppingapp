@@ -33,7 +33,12 @@ class CoreProductTile {
               Row(children: [
                 Expanded(
                     flex: 3,
-                    child: _buttonImage(cartItem.imageUrl, width, height, cartItem.id)),
+                    child: _buttonImageOpenOverviewItemDetail(
+                      cartItem.imageUrl,
+                      width,
+                      height,
+                      cartItem.id,
+                    )),
                 Expanded(
                     flex: 7,
                     child: Column(
@@ -134,7 +139,12 @@ class CoreProductTile {
             ))));
   }
 
-  Widget _buttonImage(String url, double width, double height, String cartItemId) {
+  Widget _buttonImageOpenOverviewItemDetail(
+    String url,
+    double width,
+    double height,
+    String cartItemId,
+  ) {
     var availableProduct = _controller.checkItemAvailability(cartItemId);
 
     var fadeImage = FadeInImage(

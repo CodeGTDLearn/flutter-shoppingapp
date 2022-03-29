@@ -1,9 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
+import 'package:shopingapp/app/core/texts/core_labels.dart';
 
+import '../../../core/components/snackbar/core_snackbar.dart';
 import '../../inventory/entity/product.dart';
 import '../../orders/entity/order.dart';
 import '../../orders/service/i_orders_service.dart';
+import '../core/cart_labels.dart';
 import '../entity/cart_item.dart';
 import '../service/i_cart_service.dart';
 
@@ -12,10 +17,13 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
   final IOrdersService ordersService;
   late AnimationController _badgeShopCartAnimationController;
   late Animation badgeShopCartAnimation;
+  final _labels = Get.find<CartLabels>();
+  final _coreLabels = Get.find<CoreLabels>();
 
   var redrawListCartObs = true.obs;
   var qtdeCartItemsObs = 0.obs;
   var amountCartItemsObs = 0.0.obs;
+  var availableItemsLabelInOverviewItemDetailsObs = 0.obs;
 
   CartController({
     required this.cartService,
@@ -36,12 +44,38 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
   void addCartItem(Product product) {
     var price = product.price;
     var stockQtde = product.stockQtde;
+    var cartItemQtdeById = cartService.getCartItemQtdeById(product.id!);
 
-    cartService.addCartItem(product);
-    _badgeAnimationPlay();
+    if (stockQtde > cartItemQtdeById) {
+      cartService.addCartItem(product);
+      _badgeAnimationPlay();
+      reloadQtdeAndAmountCart();
+      availableItemsLabelInOverviewItemDetailsObs.value =
+          cartService.getCartItemQtdeById(product.id!);
+      if (stockQtde < 1) amountCartItemsObs.value = amountCartItemsObs.value - price;
+    }
+
+    if (stockQtde == cartItemQtdeById) {
+      CoreSnackbar().show(_coreLabels.attent, _labels.noCartItemProductInStock);
+    }
     redrawListCart();
-    reloadQtdeAndAmountCart();
-    if (stockQtde < 1) amountCartItemsObs.value = amountCartItemsObs.value - price;
+  }
+
+
+  void removeCartItemById(String cartItemId) {
+    if (cartService.getCartItemQtdeById(cartItemId) > 0) {
+      cartService.removeCartItemById(cartItemId);
+      reloadQtdeAndAmountCart();
+    }
+
+    if (cartService.getCartItemQtdeById(cartItemId) == 0) {
+      var cartItem = cartService.getCartItemById(cartItemId);
+      removeCartItem(cartItem);
+      availableItemsLabelInOverviewItemDetailsObs.value =
+          cartService.getCartItemQtdeById(cartItemId);
+      CoreSnackbar().show(_coreLabels.attent, _labels.noCartItemInTheCart);
+    }
+    redrawListCart();
   }
 
   void addCartItemUndo(Product product) {
@@ -104,5 +138,9 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
   void _badgeAnimationPlay() async {
     await _badgeShopCartAnimationController.forward();
     await _badgeShopCartAnimationController.reverse();
+  }
+
+  int getCartItemQtdeById(String cartItemId) {
+    return cartService.getCartItemQtdeById(cartItemId);
   }
 }

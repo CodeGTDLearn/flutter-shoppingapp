@@ -61,7 +61,7 @@ class OverviewController extends GetxController {
     // @formatter:on
   }
 
-  void toggleOverviewItemDetailsImageZoomObs() {
+  void toggleOverviewItemDetailsImageZoom() {
     overviewItemDetailsImageZoomObs.value = !overviewItemDetailsImageZoomObs.value;
   }
 

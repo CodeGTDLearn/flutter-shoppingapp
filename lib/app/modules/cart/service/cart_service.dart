@@ -30,6 +30,10 @@ class CartService implements ICartService {
     repo.removeCartItem(cartItem);
   }
 
+  void removeCartItemById(String cartItemId) {
+    repo.removeCartItemById(cartItemId);
+  }
+
   void clearCart() {
     repo.clearCart();
   }
@@ -58,5 +62,15 @@ class CartService implements ICartService {
       if (available) availableCartItems.putIfAbsent(key, () => cartItem);
     });
     return availableCartItems;
+  }
+
+  @override
+  int getCartItemQtdeById(String cartItemId) {
+    return repo.getCartItemQtdeById(cartItemId);
+  }
+
+  @override
+  CartItem getCartItemById(String cartItemId) {
+    return repo.getCartItemById(cartItemId);
   }
 }

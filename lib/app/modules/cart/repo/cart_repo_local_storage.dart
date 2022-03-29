@@ -28,8 +28,15 @@ class CartRepoLocalStorage implements ICartRepo {
         );
       });
     } else {
-      _cartItems.putIfAbsent(product.id!,
-          () => CartItem(product.id!, product.title, 1, product.price, product.imageUrl));
+      _cartItems.putIfAbsent(
+          product.id!,
+          () => CartItem(
+                product.id!,
+                product.title,
+                1,
+                product.price,
+                product.imageUrl,
+              ));
     }
     _localStorage.saveCartItemsLocalStorage(_cartItems);
   }
@@ -44,8 +51,13 @@ class CartRepoLocalStorage implements ICartRepo {
         ? _cartItems.remove(product.id)
         : _cartItems.update(
             product.id!,
-            (item) =>
-                CartItem(item.id, item.title, item.qtde - 1, item.price, item.imageUrl));
+            (item) => CartItem(
+                  item.id,
+                  item.title,
+                  item.qtde - 1,
+                  item.price,
+                  item.imageUrl,
+                ));
     _localStorage.saveCartItemsLocalStorage(_cartItems);
   }
 
@@ -56,8 +68,47 @@ class CartRepoLocalStorage implements ICartRepo {
   }
 
   @override
+  void removeCartItemById(String cartItemId) {
+    var qtde = 0;
+    _cartItems.forEach((key, value) {
+      if (key == cartItemId) qtde = value.qtde;
+    });
+
+    if (qtde > 0) {
+      _cartItems.update(
+          cartItemId,
+          (item) => CartItem(
+                item.id,
+                item.title,
+                item.qtde - 1,
+                item.price,
+                item.imageUrl,
+              ));
+      _localStorage.saveCartItemsLocalStorage(_cartItems);
+    }
+  }
+
+  @override
+  CartItem getCartItemById(String cartItemId) {
+    var cart;
+    _cartItems.forEach((key, value) {
+      if (key == cartItemId) cart = value;
+    });
+    return cart;
+  }
+
+  @override
   void clearCart() {
     if (getAllCartItems().isNotEmpty) _cartItems.clear();
     _localStorage.clearCartItemsLocalStorage();
+  }
+
+  @override
+  int getCartItemQtdeById(String cartItemId) {
+    var returnQtde = 0;
+    _cartItems.forEach((key, value) {
+      if (key.compareTo(cartItemId) == 0) returnQtde = value.qtde;
+    });
+    return returnQtde;
   }
 }

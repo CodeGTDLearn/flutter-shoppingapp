@@ -34,7 +34,7 @@ class CoreAdaptiveWidgets {
   }) {
     return PlatformElevatedButton(
       onPressed: () => onPressed.call(),
-      child: PlatformText(text, style: textStyle),
+      child: PlatformText(text, style: textStyle,textAlign: TextAlign.center),
       material: (_, __) => MaterialElevatedButtonData(
         style: ElevatedButton.styleFrom(
           primary: color,

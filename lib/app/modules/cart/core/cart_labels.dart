@@ -5,8 +5,8 @@ class CartLabels {
   final _CART_LABEL_KEEP_SHOP = "Keep Shopping";
   final _CART_TOOLTIP_CLEAR_ALL = "Clear All";
 
-  // final _CART_PRODUCT_UNAVAILABLE = "Unavailable";
-  // final _CART_PRODUCT_AVAILABLE = "Available";
+  final _CART_ITEM_REMOVING_BLOCKED = "This product is not in the Cart, anymore.";
+  final _CART_ITEM_ADDING_BLOCKED = "This product is not in the Stock, anymore.";
   final _CART_LABEL_ALERTDIALOG_DISMIS_CONFIRM = "Are you sure?";
   final _CART_MESSAGE_ALERTDIALOG_DISMISS_CONFIRM = "Do you really want remove: ";
   final _CART_MESSAGE_ALERTDIALOG_CLEAR_ALL = "Do you really want clear the cart?";
@@ -34,7 +34,8 @@ class CartLabels {
 
   get dialogOrderNow => _CART_MESSAGE_ALERTDIALOG_ORDER_NOW;
 
-// get unavailable => _CART_PRODUCT_UNAVAILABLE;
-//
-// get available => _CART_PRODUCT_AVAILABLE;
+  get noCartItemInTheCart => _CART_ITEM_REMOVING_BLOCKED;
+
+  get noCartItemProductInStock => _CART_ITEM_ADDING_BLOCKED;
+
 }

@@ -63,10 +63,10 @@ class CartView extends StatelessWidget {
             child: Stack(alignment: Alignment.center, children: [
             CartStaggeredListview(
               fadeEffect: true,
-              invertTargetPosition: true,
+              invertTargetPosition: false,
               verticalOffset: -(_height * 0.564),
             ).listview(controller.getAllCartItems()),
-            _transparentGradientShaderMask()
+            // _transparentGradientShaderMask()
           ])));
   }
 }

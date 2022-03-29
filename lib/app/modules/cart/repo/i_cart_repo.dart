@@ -10,5 +10,11 @@ abstract class ICartRepo {
 
   void removeCartItem(CartItem cartItem);
 
+  void removeCartItemById(String cartItemId);
+
+  int getCartItemQtdeById(String cartItemId);
+
+  CartItem getCartItemById(String cartItemId);
+
   void clearCart();
 }

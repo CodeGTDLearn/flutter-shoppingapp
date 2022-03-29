@@ -41,11 +41,13 @@ class OverviewItemDetailsView extends StatelessWidget {
     var _appBar = _appbar.create(_product.title, Get.back, actions: [cart]);
     var _appbarZoomPage = _appbar.create(
       _labels.detail_return_btn,
-      _controller.toggleOverviewItemDetailsImageZoomObs,
+      _controller.toggleOverviewItemDetailsImageZoom,
       icon: Icons.zoom_out,
     );
     var _height = _uiUtils.usefulHeight(context, _appBar.preferredSize.height);
     var _width = _uiUtils.usefulWidth(context);
+    _cartController.availableItemsLabelInOverviewItemDetailsObs.value =
+        _cartController.getCartItemQtdeById(_id!);
 
     return Obx(() => Scaffold(
         appBar:
@@ -56,7 +58,7 @@ class OverviewItemDetailsView extends StatelessWidget {
             zoomObservable: _controller.overviewItemDetailsImageZoomObs,
             title: _product.title,
             imageUrl: _product.imageUrl,
-            observableToggleMethod: _controller.toggleOverviewItemDetailsImageZoomObs,
+            observableToggleMethod: _controller.toggleOverviewItemDetailsImageZoom,
             closeBuilder: SingleChildScrollView(
                 child: Padding(
                     padding: const EdgeInsets.all(20.0),
@@ -71,15 +73,20 @@ class OverviewItemDetailsView extends StatelessWidget {
                       SizedBox(height: _height * 0.03),
                       _productDescription(_height, _product, context),
                       SizedBox(height: _height * 0.03),
-                      _productQtde(_product),
+                      _productQtde(_cartController
+                          .availableItemsLabelInOverviewItemDetailsObs.value
+                          .toString()),
                       SizedBox(height: _height * 0.03),
-                      _addCartButton(_height, _width, _product),
+                      Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                        _addItemButton(_height, _width * 0.8, _product),
+                        _removeItemButton(_height, _width * 0.8, _product),
+                      ]),
                       SizedBox(height: _height * 0.1),
                     ]))))));
   }
 
-  Text _productQtde(Product _product) {
-    return Text('${_coreLabels.available}: ${_product.stockQtde}',
+  Text _productQtde(String stockQtdeProduct) {
+    return Text('${_coreLabels.available}: $stockQtdeProduct',
         style: GoogleFonts.lato(
             textStyle:
                 TextStyle(color: Colors.red, fontSize: 30, fontWeight: FontWeight.bold)));
@@ -94,14 +101,27 @@ class OverviewItemDetailsView extends StatelessWidget {
             textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyText2));
   }
 
-  Container _addCartButton(double _height, double _width, Product _product) {
+  Container _addItemButton(double _height, double _width, Product _product) {
     return Container(
         height: _height * 0.1,
         width: _width * 0.5,
         color: Colors.red,
         child: _widgetUtils.elevatedButton(
             onPressed: () => _cartController.addCartItem(_product),
-            text: _labels.buy_btn,
+            text: _labels.add_item_btn,
+            textStyle: GoogleFonts.lato(
+                textStyle: TextStyle(
+                    color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold))));
+  }
+
+  Container _removeItemButton(double _height, double _width, Product _product) {
+    return Container(
+        height: _height * 0.1,
+        width: _width * 0.5,
+        color: Colors.red,
+        child: _widgetUtils.elevatedButton(
+            onPressed: () => _cartController.removeCartItemById(_product.id!),
+            text: _labels.remove_item_btn,
             textStyle: GoogleFonts.lato(
                 textStyle: TextStyle(
                     color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold))));
@@ -117,7 +137,7 @@ class OverviewItemDetailsView extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10.0),
           child: GestureDetector(
-              onTap: _controller.toggleOverviewItemDetailsImageZoomObs,
+              onTap: _controller.toggleOverviewItemDetailsImageZoom,
               child: FadeInImage(
                   key: Key(_keys.k_ov_itm_det_page_img()),
                   placeholder: AssetImage(IMAGE_PLACEHOLDER),
