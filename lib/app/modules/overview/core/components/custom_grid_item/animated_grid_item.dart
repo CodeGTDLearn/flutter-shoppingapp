@@ -105,12 +105,16 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
   }
 
   IconButton _shopCartButton(
-      String index, OverviewController uniqueController, Product product, context) {
+    String index,
+    OverviewController individualController,
+    Product product,
+    context,
+  ) {
     return IconButton(
         key: Key("${_keys.k_ov_grd_crt_btn}$index"),
         icon: _icons.ico_shopcart(),
         onPressed: () {
-          uniqueController.elevateGridItemAnimation(false);
+          individualController.elevateGridItemAnimation(false);
           _cartController.addCartItem(product);
           CoreButtonSnackbar(
             context: context,

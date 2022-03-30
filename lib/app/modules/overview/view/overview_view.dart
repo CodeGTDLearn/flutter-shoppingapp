@@ -7,10 +7,10 @@ import '../core/components/overview_appbar/overview_sliver_appbar.dart';
 import '../core/components/overview_scaffold/ioverview_scaffold.dart';
 
 class OverviewView extends StatelessWidget {
+  final _scaffold = Get.find<IOverviewScaffold>();
   final _drawer = Get.find<CoreDrawer>();
   final _controller = Get.find<OverviewController>();
   final _appbar = Get.find<OverviewSliverAppBar>();
-  final _scaffold = Get.find<IOverviewScaffold>();
 
   @override
   Widget build(BuildContext context) {

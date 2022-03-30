@@ -21,6 +21,7 @@ class OverviewBindings extends Bindings {
 
     Get.lazyPut(() => OverviewIcons());
     Get.lazyPut(() => OverviewLabels());
+
     Get.lazyPut<IOverviewRepo>(() => OverviewRepoHttpFirebase());
     Get.lazyPut<IOverviewService>(() => OverviewService(repo: Get.find<IOverviewRepo>()));
     Get.lazyPut(() => OverviewController(service: Get.find<IOverviewService>()));

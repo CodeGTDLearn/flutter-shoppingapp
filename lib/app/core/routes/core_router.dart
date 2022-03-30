@@ -1,4 +1,7 @@
 import 'package:get/route_manager.dart';
+import 'package:shopingapp/app/core/components/appbar/core_sliver_appbar_bindings.dart';
+import 'package:shopingapp/app/core/components/badge/core_badge_cart_bindings.dart';
+import 'package:shopingapp/app/core/components/modal/core_modal_bindings.dart';
 
 import '../../modules/cart/core/cart_bindings.dart';
 import '../../modules/cart/view/cart_view.dart';
@@ -26,6 +29,8 @@ class CoreRouter {
       CoreUtilsBindings(),
       LocalStorageBindings(),
       CoreDrawerBindings(),
+      CoreBadgeCartBindings(),
+      CoreSliverAppBarBindings(),
       CoreAppbarsBindings(),
       OverviewScaffoldBindings(),
       CartBindings(),
@@ -41,10 +46,13 @@ class CoreRouter {
         OverviewItemDetailsView()),
 
     GetPage(name: CoreRoutes.ORDERS, page: () => OrdersView(), bindings: [
+      CoreAppbarsBindings(),
       OrdersBindings()]),
 
     GetPage(name: CoreRoutes.INVENTORY, page: () => InventoryView(), bindings: [
       CoreAppbarsBindings(),
+      CoreModalBindings(),
+      CoreSliverAppBarBindings(),
       CoreUtilsBindings(),
       OverviewBindings(),
       InventoryBindings()]),

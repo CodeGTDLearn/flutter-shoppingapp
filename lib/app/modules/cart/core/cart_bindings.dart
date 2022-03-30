@@ -18,6 +18,7 @@ class CartBindings extends Bindings {
     Get.lazyPut(() => CartLabels());
     Get.lazyPut(() => CartIcons());
     Get.lazyPut(() => CoreProductTile());
+
     Get.lazyPut(() => OrdersLabels());
 
     Get.lazyPut<ICartRepo>(() => CartRepoLocalStorage());

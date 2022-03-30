@@ -47,7 +47,7 @@ class OverviewItemDetailsView extends StatelessWidget {
     var _height = _uiUtils.usefulHeight(context, _appBar.preferredSize.height);
     var _width = _uiUtils.usefulWidth(context);
     _cartController.availableItemsLabelInOverviewItemDetailsObs.value =
-        _cartController.getCartItemQtdeById(_id!);
+        _product.stockQtde - _cartController.getCartItemQtdeById(_id!);
 
     return Obx(() => Scaffold(
         appBar:
@@ -120,7 +120,7 @@ class OverviewItemDetailsView extends StatelessWidget {
         width: _width * 0.5,
         color: Colors.red,
         child: _widgetUtils.elevatedButton(
-            onPressed: () => _cartController.removeCartItemById(_product.id!),
+            onPressed: () => _cartController.removeCartItemById(_product),
             text: _labels.remove_item_btn,
             textStyle: GoogleFonts.lato(
                 textStyle: TextStyle(

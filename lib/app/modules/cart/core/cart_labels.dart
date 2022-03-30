@@ -34,7 +34,7 @@ class CartLabels {
 
   get dialogOrderNow => _CART_MESSAGE_ALERTDIALOG_ORDER_NOW;
 
-  get noCartItemInTheCart => _CART_ITEM_REMOVING_BLOCKED;
+  get cartItemAbsent => _CART_ITEM_REMOVING_BLOCKED;
 
   get noCartItemProductInStock => _CART_ITEM_ADDING_BLOCKED;
 

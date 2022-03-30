@@ -44,37 +44,52 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
   void addCartItem(Product product) {
     var price = product.price;
     var stockQtde = product.stockQtde;
-    var cartItemQtdeById = cartService.getCartItemQtdeById(product.id!);
+    var cartItemQtde = cartService.getCartItemQtdeById(product.id!);
 
-    if (stockQtde > cartItemQtdeById) {
+    if (stockQtde > cartItemQtde) {
       cartService.addCartItem(product);
       _badgeAnimationPlay();
       reloadQtdeAndAmountCart();
-      availableItemsLabelInOverviewItemDetailsObs.value =
-          cartService.getCartItemQtdeById(product.id!);
+      var remainingStockItems = stockQtde - cartService.getCartItemQtdeById(product.id!);
+      availableItemsLabelInOverviewItemDetailsObs.value = remainingStockItems;
       if (stockQtde < 1) amountCartItemsObs.value = amountCartItemsObs.value - price;
     }
 
-    if (stockQtde == cartItemQtdeById) {
+    if (stockQtde == cartItemQtde) {
       CoreSnackbar().show(_coreLabels.attent, _labels.noCartItemProductInStock);
     }
+
     redrawListCart();
   }
 
+  void removeCartItemById(Product product) {
+    var cartItemQtde = cartService.getCartItemQtdeById(product.id!);
+    var cartItem;
+    var price;
+    var stockQtde;
+    var remainingStock;
 
-  void removeCartItemById(String cartItemId) {
-    if (cartService.getCartItemQtdeById(cartItemId) > 0) {
-      cartService.removeCartItemById(cartItemId);
+    if(cartItemQtde != 0){
+      cartItem = cartService.getCartItemById(product.id!);
+      price = cartItem.price;
+      stockQtde = product.stockQtde;
+      remainingStock = 0;
+    }
+
+    if (cartItemQtde > 0) {
+      cartService.removeCartItemById(product.id!);
+      _badgeAnimationPlay();
       reloadQtdeAndAmountCart();
+      remainingStock = stockQtde - (--cartItemQtde);
+      availableItemsLabelInOverviewItemDetailsObs.value = remainingStock;
+      if (stockQtde < 1) amountCartItemsObs.value = amountCartItemsObs.value - price;
+      if (stockQtde == remainingStock) removeCartItem(cartItem);
     }
 
-    if (cartService.getCartItemQtdeById(cartItemId) == 0) {
-      var cartItem = cartService.getCartItemById(cartItemId);
-      removeCartItem(cartItem);
-      availableItemsLabelInOverviewItemDetailsObs.value =
-          cartService.getCartItemQtdeById(cartItemId);
-      CoreSnackbar().show(_coreLabels.attent, _labels.noCartItemInTheCart);
+    if (cartItemQtde == 0) {
+      CoreSnackbar().show(_coreLabels.attent, _labels.cartItemAbsent);
     }
+
     redrawListCart();
   }
 
@@ -108,6 +123,7 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
   void clearCart() {
     cartService.clearCart();
     reloadQtdeAndAmountCart();
+    redrawListCart();
   }
 
   Future<Order> addOrder(List<CartItem> cartItems, double amount) {

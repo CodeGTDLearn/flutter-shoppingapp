@@ -1,6 +1,5 @@
 import 'package:get/instance_manager.dart';
 
-import '../../../core/components/appbar/core_appbars_bindings.dart';
 import '../controller/orders_controller.dart';
 import '../repo/i_orders_repo.dart';
 import '../repo/orders_repo_http_firebase.dart';
@@ -13,7 +12,7 @@ import 'orders_labels.dart';
 class OrdersBindings extends Bindings {
   void dependencies() {
     Get.lazyPut(() => OrdersLabels());
-    CoreAppbarsBindings().dependencies();
+    // CoreAppbarsBindings().dependencies();
     Get.lazyPut<ICustomOrderTile>(() => ExpandableTile());
 
     Get.lazyPut<IOrdersRepo>(() => OrdersRepoHttpFirebase());
