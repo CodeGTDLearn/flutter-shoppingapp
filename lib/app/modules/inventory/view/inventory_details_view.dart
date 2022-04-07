@@ -92,6 +92,8 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
                     SizedBox(height: Get.height * 0.03),
                     _barcodeFieldRow(context),
                     SizedBox(height: Get.height * 0.06),
+                    _discountSlider(context),
+                    SizedBox(height: Get.height * 0.06),
                     _stockQtdeAndButtonsRow(context, _product),
                     SizedBox(height: Get.height * 0.02),
                   ])))),
@@ -146,8 +148,8 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
           buttonAndBackgroundColor: Colors.white,
           iconSize: 50.00,
           iconButton: Icons.add_circle_outline,
-          onTap: () =>
-              _controller.modalStockAddOrRemoveItems(context, item: product, addition: true)),
+          onTap: () => _controller.modalStockAddOrRemoveItems(context,
+              item: product, addition: true)),
       Container(
           width: Get.width * 0.4,
           child: Obx(() {
@@ -183,8 +185,8 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
           buttonAndBackgroundColor: Colors.white,
           iconSize: 50.00,
           iconButton: Icons.remove_circle_outline_outlined,
-          onTap: () =>
-              _controller.modalStockAddOrRemoveItems(context, item: product, addition: false)),
+          onTap: () => _controller.modalStockAddOrRemoveItems(context,
+              item: product, addition: false)),
       // IconButton(
       //     icon: Icon(Icons.remove_circle_outline_outlined),
       //     onPressed: () =>
@@ -220,6 +222,25 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
           onPressed: () => _controller.scanCode(barcode: false, successBeep: true),
           focusNode: _nodeBarcodeButton)
     ]);
+  }
+
+  Container _discountSlider(BuildContext context) {
+    return Container(
+        child: Slider.adaptive(
+            min: 0,
+            max: 100,
+            label:"${_controller.slideDiscountObs.value}",
+            value: _controller.slideDiscountObs.value,
+            onChanged: (newDiscount) {
+              _controller.setSlideDiscount(newDiscount);
+            })
+        // PlatformSlider(
+        //   min: 0,
+        //   max: 100,
+        //   value: _controller.slideDiscountObs.value,
+        //   onChanged: (newDiscount) {_controller.setSlideDiscount(newDiscount);},
+        // )
+        );
   }
 
   Row _productImageAndUrlFieldRow(BuildContext context) {

@@ -83,6 +83,7 @@ class CartRepoLocalStorage implements ICartRepo {
                 item.qtde - 1,
                 item.price,
                 item.imageUrl,
+                item.imageUrl,
               ));
       _localStorage.saveCartItemsLocalStorage(_cartItems);
     }

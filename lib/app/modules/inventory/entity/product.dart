@@ -15,6 +15,7 @@ class Product {
   bool isFavorite;
   String code;
   int stockQtde;
+  double discount;
 
   Product({
     this.id,
@@ -25,6 +26,7 @@ class Product {
     required this.stockQtde,
     this.code = "",
     this.isFavorite = false,
+    this.discount = 1.0,
   });
 
   Product.emptyInitialized({

@@ -30,10 +30,16 @@ class InventoryController extends GetxController {
   var productsObs = <Product>[].obs;
   var productImageUrlPreviewObs = false.obs;
 
+  var slideDiscountObs = 0.0.obs;
+
   // var renderItemDetailsViewObs = false.obs;
   // var inventoryImageZoomObs = false.obs;
 
   InventoryController({required this.service});
+
+  void setSlideDiscount(double range) {
+    slideDiscountObs.value = range;
+  }
 
   // GERENCIA DE ESTADO REATIVA ou SIMPLES - COM O GET
   @override
