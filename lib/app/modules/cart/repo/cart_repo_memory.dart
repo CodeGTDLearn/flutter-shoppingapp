@@ -24,11 +24,20 @@ class CartRepoMemory implements ICartRepo {
           item.qtde + 1,
           item.price,
           item.imageUrl,
+          item.discount,
         );
       });
     } else {
-      _cartItems.putIfAbsent(product.id!,
-          () => CartItem(product.id!, product.title, 1, product.price, product.imageUrl));
+      _cartItems.putIfAbsent(
+          product.id!,
+          () => CartItem(
+                product.id!,
+                product.title,
+                1,
+                product.price,
+                product.imageUrl,
+                product.discount,
+              ));
     }
   }
 
@@ -42,8 +51,14 @@ class CartRepoMemory implements ICartRepo {
         ? _cartItems.remove(product.id)
         : _cartItems.update(
             product.id!,
-            (item) =>
-                CartItem(item.id, item.title, item.qtde - 1, item.price, item.imageUrl));
+            (item) => CartItem(
+                  item.id,
+                  item.title,
+                  item.qtde - 1,
+                  item.price,
+                  item.imageUrl,
+                  item.discount,
+                ));
   }
 
   @override

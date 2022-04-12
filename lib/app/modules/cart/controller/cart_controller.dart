@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
-import 'package:shopingapp/app/core/texts/core_labels.dart';
 
 import '../../../core/components/snackbar/core_snackbar.dart';
+import '../../../core/texts/core_labels.dart';
 import '../../inventory/entity/product.dart';
 import '../../orders/entity/order.dart';
 import '../../orders/service/i_orders_service.dart';

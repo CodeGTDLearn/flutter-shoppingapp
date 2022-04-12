@@ -1,7 +1,4 @@
 import 'package:get/route_manager.dart';
-import 'package:shopingapp/app/core/components/appbar/core_sliver_appbar_bindings.dart';
-import 'package:shopingapp/app/core/components/badge/core_badge_cart_bindings.dart';
-import 'package:shopingapp/app/core/components/modal/core_modal_bindings.dart';
 
 import '../../modules/cart/core/cart_bindings.dart';
 import '../../modules/cart/view/cart_view.dart';
@@ -16,7 +13,10 @@ import '../../modules/overview/core/bindings/overview_scaffold_bindings.dart';
 import '../../modules/overview/view/overview_item_details_view.dart';
 import '../../modules/overview/view/overview_view.dart';
 import '../components/appbar/core_appbars_bindings.dart';
+import '../components/appbar/core_sliver_appbar_bindings.dart';
+import '../components/badge/core_badge_cart_bindings.dart';
 import '../components/drawer/core_drawer_bindings.dart';
+import '../components/modal/core_modal_bindings.dart';
 import '../local_storage/local_storage_bindings.dart';
 import '../utils/core_utils_bindings.dart';
 import 'core_routes.dart';

@@ -1,5 +1,4 @@
-import 'package:shopingapp/app/modules/cart/entity/cart_item.dart';
-
+import '../../cart/entity/cart_item.dart';
 import '../entity/product.dart';
 
 abstract class IInventoryService {

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
-import 'package:shopingapp/app/core/properties/properties.dart';
-import 'package:shopingapp/app/modules/inventory/controller/inventory_controller.dart';
 
 import '../../../core/components/appbar/core_appbar.dart';
+import '../../../core/properties/properties.dart';
+import '../../inventory/controller/inventory_controller.dart';
 import '../controller/cart_controller.dart';
 import '../core/cart_labels.dart';
 import '../core/components/cartview_header.dart';

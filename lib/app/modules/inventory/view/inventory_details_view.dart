@@ -226,21 +226,41 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
 
   Container _discountSlider(BuildContext context) {
     return Container(
-        child: Slider.adaptive(
-            min: 0,
-            max: 100,
-            label:"${_controller.slideDiscountObs.value}",
-            value: _controller.slideDiscountObs.value,
-            onChanged: (newDiscount) {
-              _controller.setSlideDiscount(newDiscount);
-            })
-        // PlatformSlider(
-        //   min: 0,
-        //   max: 100,
-        //   value: _controller.slideDiscountObs.value,
-        //   onChanged: (newDiscount) {_controller.setSlideDiscount(newDiscount);},
-        // )
-        );
+        alignment: Alignment.center,
+        // height: 100,
+        child: Column(children: [
+          Obx(
+            () => Text('${_labels.discountLabel}: ${_controller.discountObs.value}',
+                style: GoogleFonts.lato(
+                    textStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ))),
+          ),
+          Row(children: [
+            Flexible(
+                flex: 1,
+                child: Obx(() => Switch.adaptive(
+                    value: _controller.enableSliderObs.value,
+                    onChanged: (enable) {
+                      _controller.enableSlider(enable);
+                    }))),
+            Flexible(
+                flex: 6,
+                child: Obx(() => Slider.adaptive(
+                    min: 0,
+                    max: 100,
+                    divisions: 10,
+                    value: _controller.discountObs.value,
+                    label: '${_controller.discountObs.value.toStringAsFixed(0)}%',
+                    onChanged: _controller.enableSliderObs.value
+                        ? (newValue) {
+                            _controller.setDiscountObs(newValue);
+                          }
+                        : null)))
+          ])
+        ]));
   }
 
   Row _productImageAndUrlFieldRow(BuildContext context) {

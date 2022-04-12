@@ -18,6 +18,7 @@ class InventoryLabels {
   final _HINT_URL_FIELD = "Image Url";
   final _INVENTORY_EDIT_QRCODE_HINT = "QRCode";
   final _INVENTORY_EDIT_BARCODE_HINT = "BarCode";
+  final _DISCOUNT_LABEL = 'Discount';
 
   get inv_tit_page => _INVENTORY_PAGE_TITLE;
 
@@ -53,4 +54,6 @@ class InventoryLabels {
   get barcode_hint => _INVENTORY_EDIT_BARCODE_HINT;
 
   get qrcode_hint => _INVENTORY_EDIT_QRCODE_HINT;
+
+  get discountLabel => _DISCOUNT_LABEL;
 }

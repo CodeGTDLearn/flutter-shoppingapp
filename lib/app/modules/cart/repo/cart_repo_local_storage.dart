@@ -25,6 +25,7 @@ class CartRepoLocalStorage implements ICartRepo {
           item.qtde + 1,
           item.price,
           item.imageUrl,
+          item.discount,
         );
       });
     } else {
@@ -36,6 +37,7 @@ class CartRepoLocalStorage implements ICartRepo {
                 1,
                 product.price,
                 product.imageUrl,
+                product.discount,
               ));
     }
     _localStorage.saveCartItemsLocalStorage(_cartItems);
@@ -57,6 +59,7 @@ class CartRepoLocalStorage implements ICartRepo {
                   item.qtde - 1,
                   item.price,
                   item.imageUrl,
+                  item.discount,
                 ));
     _localStorage.saveCartItemsLocalStorage(_cartItems);
   }
@@ -83,7 +86,7 @@ class CartRepoLocalStorage implements ICartRepo {
                 item.qtde - 1,
                 item.price,
                 item.imageUrl,
-                item.imageUrl,
+                item.discount,
               ));
       _localStorage.saveCartItemsLocalStorage(_cartItems);
     }

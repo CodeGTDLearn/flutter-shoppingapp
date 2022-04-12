@@ -1,5 +1,4 @@
-import 'package:shopingapp/app/modules/cart/entity/cart_item.dart';
-
+import '../../cart/entity/cart_item.dart';
 import '../../overview/service/i_overview_service.dart';
 import '../entity/product.dart';
 import '../repo/i_inventory_repo.dart';

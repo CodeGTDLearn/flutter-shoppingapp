@@ -14,6 +14,7 @@ class CartItemDatabuilder {
       1,
       product.price,
       product.imageUrl,
+      product.discount,
     );
   }
 
@@ -26,6 +27,7 @@ class CartItemDatabuilder {
         Faker().randomGenerator.decimal(min: 22.0).toStringAsFixed(2),
       ),
       TEST_IMAGE_URL_MAP.values.toList()[_randomPosition],
+      0.0,
     );
   }
 

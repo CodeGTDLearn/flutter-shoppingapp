@@ -37,6 +37,7 @@ class Product {
     this.isFavorite = false,
     this.stockQtde = 10,
     this.code = "",
+    this.discount = 0.0,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
