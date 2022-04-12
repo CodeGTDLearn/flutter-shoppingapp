@@ -47,12 +47,6 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
   final _appbar = Get.find<CoreAppBar>();
   late var _formKey;
 
-  @override
-  void initState() {
-    super.initState();
-    _formKey = _keys.k_inv_form_gkey;
-  }
-
   late Product _product;
   var _urlControl;
   var _nodePrice;
@@ -60,6 +54,15 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
   var _nodeImgUrl;
   var _nodeBarcode;
   var _nodeBarcodeButton;
+
+  @override
+  void initState() {
+    super.initState();
+    _formKey = _keys.k_inv_form_gkey;
+    _loadProductVariable();
+    _controller.enableDiscountSliderObs.value = false;
+    _controller.discountObs.value = _product.discount;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,9 +95,9 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
                     SizedBox(height: Get.height * 0.03),
                     _barcodeFieldRow(context),
                     SizedBox(height: Get.height * 0.06),
-                    _discountSlider(context),
+                    _discountSlider(context, _product),
                     SizedBox(height: Get.height * 0.06),
-                    _stockQtdeAndButtonsRow(context, _product),
+                    _stockQtdeAndNeumorphicButtons(context, _product),
                     SizedBox(height: Get.height * 0.02),
                   ])))),
     );
@@ -137,7 +140,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
         onFieldSubmitted: (_) => _setFocus(_nodePrice, context));
   }
 
-  Row _stockQtdeAndButtonsRow(BuildContext context, Product product) {
+  Row _stockQtdeAndNeumorphicButtons(BuildContext context, Product product) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
       NeumorphicButton().button(
           milliseconds: 200,
@@ -187,13 +190,6 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
           iconButton: Icons.remove_circle_outline_outlined,
           onTap: () => _controller.modalStockAddOrRemoveItems(context,
               item: product, addition: false)),
-      // IconButton(
-      //     icon: Icon(Icons.remove_circle_outline_outlined),
-      //     onPressed: () =>
-      //         _controller.stockAddOrRemoveItems(context, item: product, addition: false),
-      //     focusNode: _nodeBarcodeButton,
-      //     iconSize: 50.00,
-      //     padding: EdgeInsets.only(left: Get.width * 0.05))
     ]);
   }
 
@@ -224,39 +220,40 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     ]);
   }
 
-  Container _discountSlider(BuildContext context) {
+  Container _discountSlider(BuildContext context, Product product) {
     return Container(
         alignment: Alignment.center,
         // height: 100,
         child: Column(children: [
-          Obx(
-            () => Text('${_labels.discountLabel}: ${_controller.discountObs.value}',
-                style: GoogleFonts.lato(
-                    textStyle: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ))),
-          ),
+          Obx(() => Text(
+              '${_labels.discountLabel}: '
+              '${_controller.discountObs.value.toStringAsFixed(0)} %',
+              style: GoogleFonts.lato(
+                  textStyle: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              )))),
           Row(children: [
             Flexible(
                 flex: 1,
                 child: Obx(() => Switch.adaptive(
-                    value: _controller.enableSliderObs.value,
+                    value: _controller.enableDiscountSliderObs.value,
                     onChanged: (enable) {
-                      _controller.enableSlider(enable);
+                      _controller.enableDiscountSlider(enable);
                     }))),
             Flexible(
                 flex: 6,
                 child: Obx(() => Slider.adaptive(
                     min: 0,
                     max: 100,
-                    divisions: 10,
+                    divisions: 20,
                     value: _controller.discountObs.value,
                     label: '${_controller.discountObs.value.toStringAsFixed(0)}%',
-                    onChanged: _controller.enableSliderObs.value
+                    onChanged: _controller.enableDiscountSliderObs.value
                         ? (newValue) {
-                            _controller.setDiscountObs(newValue);
+                            _controller.setDiscountSlider(newValue);
+                            product.discount = newValue;
                           }
                         : null)))
           ])
@@ -293,22 +290,30 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
   }
 
   void _definingFormTask_updateOrAdd() {
-    var findId = Get.parameters['id'] != null || widget._id != null;
-    var _productId = widget._id == null ? Get.parameters['id'] : widget._id!;
+    var _idFound = Get.parameters['id'] != null || widget._id != null;
 
-    findId
+    _idFound
         ? () {
-            _product = _controller.getProductById(_productId!);
+            // _product = _controller.getProductById(_productId!);
             _controller.productImageUrlPreviewObs.value = true;
             _controller.productsStockQtdeObs.value = _product.stockQtde;
           }.call()
         : () {
-            _product = Product.emptyInitialized();
+            // _product = Product.emptyInitialized();
             _nodeImgUrl.addListener(_previewProductImage);
             _controller.productImageUrlPreviewObs.value = false;
           }.call();
 
     _urlControl.text = _product.imageUrl;
+  }
+
+  void _loadProductVariable() {
+    var _idFound = Get.parameters['id'] != null || widget._id != null;
+    var _productId = widget._id ?? Get.parameters['id'];
+
+    _product = _idFound
+        ? _product = _controller.getProductById(_productId!)
+        : _product = Product.emptyInitialized();
   }
 
   void _startingFormInstances() {

@@ -26,7 +26,7 @@ class Product {
     required this.stockQtde,
     this.code = "",
     this.isFavorite = false,
-    this.discount = 1.0,
+    this.discount = 0,
   });
 
   Product.emptyInitialized({
@@ -37,7 +37,7 @@ class Product {
     this.isFavorite = false,
     this.stockQtde = 10,
     this.code = "",
-    this.discount = 0.0,
+    this.discount = 0,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);

@@ -30,7 +30,7 @@ class InventoryController extends GetxController {
   var productsObs = <Product>[].obs;
   var productImageUrlPreviewObs = false.obs;
 
-  var enableSliderObs =  false.obs;
+  var enableDiscountSliderObs = false.obs;
   var discountObs = 0.0.obs;
 
   // var renderItemDetailsViewObs = false.obs;
@@ -38,12 +38,12 @@ class InventoryController extends GetxController {
 
   InventoryController({required this.service});
 
-  void setDiscountObs(double range) {
-    discountObs.value = range;
+  void setDiscountSlider(double discount) {
+    discountObs.value = discount;
   }
 
-  void enableSlider(bool enable) {
-    enableSliderObs.value = enable;
+  void enableDiscountSlider(bool enable) {
+    enableDiscountSliderObs.value = enable;
   }
 
   // GERENCIA DE ESTADO REATIVA ou SIMPLES - COM O GET
@@ -227,5 +227,4 @@ class InventoryController extends GetxController {
   updateStockItemsQuantity(Map<String, CartItem> cartItems) {
     return service.updateStockItemsQuantity(cartItems);
   }
-
 }

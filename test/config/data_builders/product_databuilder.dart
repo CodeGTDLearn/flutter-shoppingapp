@@ -18,6 +18,7 @@ class ProductDataBuilder {
           ".com/images/large-previews/eae/clothes-3-1466560.jpg",
       isFavorite: true,
       stockQtde: 10,
+      discount: 0,
     );
   }
 
@@ -29,6 +30,7 @@ class ProductDataBuilder {
       imageUrl: TEST_IMAGE_URL_MAP.values.elementAt(0),
       isFavorite: false,
       stockQtde: 10,
+      discount: 0,
     );
   }
 
@@ -39,8 +41,7 @@ class ProductDataBuilder {
 
     var _qtde = random.nextInt(15);
     var _price = double.parse((random.nextDouble() * 99.99).toStringAsFixed(2));
-    var _descript = """The best $_title ever! Wonderful product. Only \$ $_price. Only 
-    $_qtde available.""";
+    var _descript = """The best $_title ever! Wonderful product.""";
 
     return Product(
       title: _title,
@@ -49,6 +50,7 @@ class ProductDataBuilder {
       imageUrl: _url,
       isFavorite: false,
       stockQtde: _qtde,
+      discount: 0,
     );
   }
 }

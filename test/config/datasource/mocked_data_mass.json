@@ -50,7 +50,10 @@
       "description": "A red shirt - it is pretty red!",
       "price": 29.99,
       "imageUrl": "https://images.freeimages.com/images/large-previews/eae/clothes-3-1466560.jpg",
-      "isFavorite": false
+      "isFavorite": false,
+      "stockQtde": 5,
+      "code": "",
+      "discount": 0
     },
     {
       "id": "p2",
@@ -58,7 +61,10 @@
       "description": "A nice pair of trousers.",
       "price": 99.99,
       "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Trousers%2C_dress_%28AM_1960.022-8%29.jpg/512px-Trousers%2C_dress_%28AM_1960.022-8%29.jpg",
-      "isFavorite": false
+      "isFavorite": false,
+      "stockQtde": 7,
+      "code": "",
+      "discount": 0
     },
     {
       "id": "p3",
@@ -66,7 +72,10 @@
       "description": "Warm and cozy - exactly what you need for the winter.",
       "price": 19.99,
       "imageUrl": "https://live.staticflickr.com/4043/4438260868_cc79b3369d_z.jpg",
-      "isFavorite": true
+      "isFavorite": true,
+      "stockQtde": 9,
+      "code": "",
+      "discount": 0
     },
     {
       "id": "p4",
@@ -74,7 +83,10 @@
       "description": "Prepare any meal you want.",
       "price": 49.99,
       "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg",
-      "isFavorite": false
+      "isFavorite": false,
+      "stockQtde": 4,
+      "code": "",
+      "discount": 0
     }
   ]
 }
