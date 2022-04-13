@@ -14,11 +14,11 @@ class ProductDataBuilder {
       title: Faker().food.dish(),
       description: Faker().food.cuisine(),
       price: num.parse(Faker().randomGenerator.decimal().toStringAsFixed(2)).toDouble(),
-      imageUrl: "https://images.freeimages"
-          ".com/images/large-previews/eae/clothes-3-1466560.jpg",
+      imageUrl: TEST_IMAGE_URL_MAP.values.elementAt(_randomPosition),
       isFavorite: true,
-      stockQtde: 10,
-      discount: 0,
+      stockQtde: Random().nextInt(15) + 1,
+      discount:
+          double.parse((Random().nextDouble() * Random().nextInt(45)).toStringAsFixed(2)),
     );
   }
 
@@ -26,11 +26,11 @@ class ProductDataBuilder {
     return Product(
       title: '${Random().nextInt(9).toString()} Red Tomatoes',
       description: "The best Red tomatoes ever.",
-      price: 99.99,
+      price: num.parse(Faker().randomGenerator.decimal().toStringAsFixed(2)).toDouble(),
       imageUrl: TEST_IMAGE_URL_MAP.values.elementAt(0),
       isFavorite: false,
-      stockQtde: 10,
-      discount: 0,
+      stockQtde: Random().nextInt(15) + 1,
+      discount: double.parse((Random().nextDouble() * Random().nextInt(45)).toStringAsFixed(2)),
     );
   }
 
@@ -50,7 +50,7 @@ class ProductDataBuilder {
       imageUrl: _url,
       isFavorite: false,
       stockQtde: _qtde,
-      discount: 0,
+      discount: double.parse((Random().nextDouble() * Random().nextInt(45)).toStringAsFixed(2)),
     );
   }
 }

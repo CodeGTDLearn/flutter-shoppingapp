@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/instance_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,6 +10,7 @@ import '../../../../../core/properties/properties.dart';
 import '../../../../../core/texts/core_labels.dart';
 import '../../../../../core/texts/core_messages.dart';
 import '../../../../../core/utils/core_animations_utils.dart';
+import '../../../../../core/utils/core_ui_utils.dart';
 import '../../../../overview/controller/overview_controller.dart';
 import '../../../controller/inventory_controller.dart';
 import '../../../entity/product.dart';
@@ -26,12 +28,14 @@ class AnimatedListTile implements ICustomListTile {
   final _animations = Get.find<CoreAnimationsUtils>();
   final _messages = Get.find<CoreMessages>();
   final _words = Get.find<CoreLabels>();
+  final _uiUtils = Get.find<CoreUiUtils>();
   final _keys = Get.find<InventoryKeys>();
   final _labels = Get.find<InventoryLabels>();
 
   @override
   Widget customListTile(Product _product) {
     var _id = _product.id!;
+    CoreUiUtils().printDeviceSize();
 
     return OpenContainer(
       transitionDuration: Duration(milliseconds: DELAY_MILLISEC_LISTTILE),
@@ -40,38 +44,73 @@ class AnimatedListTile implements ICustomListTile {
         return InventoryDetailsView(_id);
       },
       closedBuilder: (context, void Function() openContainer) {
-        return ListTile(
+        return Container(
             key: Key('${_keys.k_inv_item_key}$_id'),
-            leading: _openInventoryImageViewProduct(_product),
-            title: _rowTitleStockqtde(_product),
-            trailing: Container(
-                width: 100,
-                child: Row(children: <Widget>[
-                  _updateIconButton(_id, openContainer, context),
-                  _deleteIconButton(_id, context, _product),
-                ])));
+            padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _openInventoryImageViewProduct(_product),
+                _rowTitleDiscountStockqtde(_product),
+                _containerUpdateAndDeleteButtons(_id, openContainer, context, _product)
+              ],
+            ));
       },
     );
   }
 
-  Row _rowTitleStockqtde(Product _product) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(_product.title),
-        Text(
-            // _product.stockQtde.toString()
-            _product.stockQtde <= 9
-                ? _product.stockQtde.toString().padLeft(2, '0')
-                : _product.stockQtde.toString(),
-            style: GoogleFonts.lato(
-                textStyle: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.red,
-            )))
-      ],
+  Container _containerUpdateAndDeleteButtons(String _id, void openContainer(), BuildContext context, Product _product) {
+    return Container(
+                  width: 100,
+                  child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                    _updateIconButton(
+                      _id,
+                      openContainer,
+                      context,
+                    ),
+                    _deleteIconButton(_id, context, _product),
+                  ]));
+  }
+
+  Widget _rowTitleDiscountStockqtde(Product _product) {
+    return Container(
+      padding: EdgeInsets.only(left: 5),
+      //todo: 3.2 is 0.53
+      width: _uiUtils.logicalWidthNoContext() * 0.53,
+
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(_product.title),
+          SizedBox(width: 10),
+          Row(
+            children: [
+              _product.discount == 0
+                  ? SizedBox()
+                  : Text('-${_lessThanNineCompleteZero(_product.discount.toInt())} off',
+                      style: GoogleFonts.lato(
+                          textStyle: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue,
+                      ))),
+              SizedBox(width: 10),
+              Text('${_lessThanNineCompleteZero(_product.stockQtde)}x',
+                  style: GoogleFonts.lato(
+                      textStyle: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ))),
+            ],
+          )
+        ],
+      ),
     );
+  }
+
+  String _lessThanNineCompleteZero(int number) {
+    return number <= 9 ? number.toString().padLeft(2, '0') : number.toString();
   }
 
   OpenContainer<Object> _openInventoryImageViewProduct(Product _product) {

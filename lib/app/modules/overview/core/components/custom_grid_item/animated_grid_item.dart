@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../core/components/snackbar/core_button_snackbar.dart';
 import '../../../../../core/components/snackbar/core_snackbar.dart';
@@ -53,13 +54,13 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
                   borderRadius: BorderRadius.circular(10.0)),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10.0),
-                child: customGridTile(context, _product, index, _uniqueController),
+                child: gridItemAnimation(context, _product, index, _uniqueController),
               ))),
     );
   }
 
   @override
-  Widget customGridTile(
+  Widget gridItemAnimation(
     context,
     Product product,
     String index,
@@ -72,23 +73,85 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
 
     return _animations.openContainer(
       openingWidget: OverviewItemDetailsView(product.id),
-      closingWidget: GridTile(
+      closingWidget: _stackGridItemDiscount(
+        index,
+        fadeImage,
+        context,
+        uniqueController,
+        product,
+      ),
+    );
+  }
+
+  Stack _stackGridItemDiscount(
+    String index,
+    FadeInImage fadeImage,
+    context,
+    OverviewController uniqueController,
+    Product product,
+  ) {
+    var size = MediaQuery.of(context).size;
+    var discount = product.discount;
+    return Stack(
+      children: [
+        GridTile(
           key: Key("${_keys.k_ov_itm_det_page()}$index"),
           child: Container(
               key: imageGlobalKey,
               child:
                   ClipRRect(borderRadius: BorderRadius.circular(10.0), child: fadeImage)),
           footer: GridTileBar(
-              leading:
-                  Obx(() => _favoriteButton(index, context, uniqueController, product)),
-              title: Text(product.title, key: Key("${_keys.k_ov_grd_prd_tit()}$index")),
-              trailing: _shopCartButton(index, uniqueController, product, context),
-              backgroundColor: Colors.black87)),
+              leading: Obx(() => _favoriteButton(
+                    index,
+                    context,
+                    uniqueController,
+                    product,
+                  )),
+              title: Text(
+                product.title,
+                key: Key("${_keys.k_ov_grd_prd_tit()}$index"),
+              ),
+              trailing: _shopCartButton(
+                index,
+                uniqueController,
+                product,
+                context,
+              ),
+              backgroundColor: Colors.black87),
+        ),
+        discount == 0
+            ? Container()
+            : Positioned(
+                top: size.height * 0.0,
+                child: Container(
+                  alignment: Alignment.center,
+                  height: size.height * 0.055,
+                  width: size.width * 0.18,
+                  child: Text(
+                    '${discount.toStringAsFixed(0)} off',
+                    style: GoogleFonts.lato(
+                        textStyle: TextStyle(
+                      color: Colors.black,
+                      fontSize: size.height * 0.025,
+                      fontWeight: FontWeight.bold,
+                    )),
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+              ),
+      ],
     );
   }
 
   IconButton _favoriteButton(
-      String index, context, OverviewController uniqueController, Product product) {
+    String index,
+    context,
+    OverviewController uniqueController,
+    Product product,
+  ) {
     return IconButton(
         key: Key("${_keys.k_ov_grd_fav_btn}$index"),
         color: Theme.of(context).colorScheme.secondary,

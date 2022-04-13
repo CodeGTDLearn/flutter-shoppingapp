@@ -38,12 +38,12 @@ class SimpleGridItem extends StatelessWidget implements ICustomGridtile {
             borderRadius: BorderRadius.circular(10.0)),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
-          child: customGridTile(context, _product, index, _uniqueController),
+          child: gridItemAnimation(context, _product, index, _uniqueController),
         ));
   }
 
   @override
-  Widget customGridTile(
+  Widget gridItemAnimation(
     context,
     Product product,
     String index,

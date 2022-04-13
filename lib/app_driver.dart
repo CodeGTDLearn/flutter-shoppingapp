@@ -9,7 +9,6 @@ import 'app/core/routes/core_router.dart';
 import 'app/core/routes/core_routes.dart';
 import 'app/core/theme/core_theme.dart';
 
-// Solving MULTIDEX problem: https://www.youtube.com/watch?v=afW7dAndEyw
 void main() async {
   await GetStorage.init();
   runApp(AppDriver());

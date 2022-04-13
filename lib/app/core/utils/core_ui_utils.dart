@@ -27,11 +27,45 @@ class CoreUiUtils {
     return WidgetsBinding.instance!.window.physicalSize;
   }
 
-  double widthNoContext() {
+  double devicePixelRatio() {
+    return WidgetsBinding.instance!.window.devicePixelRatio;
+  }
+
+  void printDeviceSize() {
+    print('This is the physical size of this device: ${sizeNoContext()}');
+  }
+
+  double physycalWidthNoContext() {
     return sizeNoContext().width;
   }
 
-  double heightNoContext() {
+  double physicalHeightNoContext() {
     return sizeNoContext().height;
+  }
+
+  // UI-TEST-DIMENSIONS CONSIDERATIONS
+//
+// * EXPLANATIONS:
+//   - FLUTTER:
+//     + Uses "Logical Pixels" (not physical pixels)
+//       -> LOGICAL PIXEL = 38 Pixel/centimeter
+//       -> Flutter USES "LOGICAL PIXEL" in "ALL DEVICES/SCREENS"
+//          => LOGICAL PIXEL allow find the same dimensions ALL SCREEN SIZES
+//       -> Flutter "DOES NOT USES" physical pixels
+//
+//   - DevicePixelRatio:
+//     + given in "Device Specs"
+//
+// * FORMULAS:
+//   - DevicePixelRatio:
+//     + Physical Pixels / Logical Pixels
+//   - Find the Logical Pixels (FLUTTER):
+//     + Physical Pixels (Size)  / DevicePixelRatio
+  double logicalHeightNoContext() {
+    return physicalHeightNoContext() / devicePixelRatio();
+  }
+
+  double logicalWidthNoContext() {
+    return physycalWidthNoContext() / devicePixelRatio();
   }
 }
