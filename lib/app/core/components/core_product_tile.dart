@@ -109,18 +109,32 @@ class CoreProductTile {
   Column _subtotal(bool availabilityProduct, CartItem cartItem) {
     var _qtde = cartItem.qtde;
     var _price = cartItem.price;
+    var _totalDiscount = cartItem.price * (cartItem.discount / 100) * cartItem.qtde;
+    var discountText =
+        '${cartItem.discount}% ${_labels.discount}: ${(_totalDiscount)
+        .toStringAsFixed(2)}\$';
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Divider(),
+        Text(availabilityProduct && cartItem.discount != 0 ? discountText : "",
+            style: GoogleFonts.alata(
+                textStyle: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.normal,
+              color: Colors.red,
+            ))),
+        Divider(),
         Text(
             availabilityProduct
-                ? '${_labels.partial} ${(_qtde * _price).toStringAsFixed(2)}\$'
+                ? '${_labels.partial} ${((_qtde * _price) - _totalDiscount).toStringAsFixed(2)}\$'
                 : "0.00\$",
             style: GoogleFonts.lato(
                 textStyle: TextStyle(
-              fontSize: 15,
+              fontSize: 17,
               fontWeight: FontWeight.normal,
+              color: Colors.blue,
             ))),
       ],
     );

@@ -13,6 +13,7 @@ class CoreLabels {
   final _UNAVAILABLE = "Unavailable";
   final _AVAILABLE = "Available";
   final _PARTIAL = "Partial: ";
+  final _DISCOUNT = "Off";
   final _CURRENCY = "Can\$:";
 
   get currency => _CURRENCY;
@@ -42,4 +43,6 @@ class CoreLabels {
   get unavailable => _UNAVAILABLE;
 
   get available => _AVAILABLE;
+
+  get discount => _DISCOUNT;
 }

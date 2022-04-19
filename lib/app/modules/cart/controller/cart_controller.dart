@@ -32,7 +32,7 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
 
   @override
   void onInit() {
-    reloadQtdeAndAmountCart();
+    reloadQuantityAndAmountCart();
     _badgeShopCartAnimationSetup();
     super.onInit();
   }
@@ -49,7 +49,7 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
     if (stockQtde > cartItemQtde) {
       cartService.addCartItem(product);
       _badgeAnimationPlay();
-      reloadQtdeAndAmountCart();
+      reloadQuantityAndAmountCart();
       var remainingStockItems = stockQtde - cartService.getCartItemQtdeById(product.id!);
       availableItemsLabelInOverviewItemDetailsObs.value = remainingStockItems;
       if (stockQtde < 1) amountCartItemsObs.value = amountCartItemsObs.value - price;
@@ -79,7 +79,7 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
     if (cartItemQtde > 0) {
       cartService.removeCartItemById(product.id!);
       _badgeAnimationPlay();
-      reloadQtdeAndAmountCart();
+      reloadQuantityAndAmountCart();
       remainingStock = stockQtde - (--cartItemQtde);
       availableItemsLabelInOverviewItemDetailsObs.value = remainingStock;
       if (stockQtde < 1) amountCartItemsObs.value = amountCartItemsObs.value - price;
@@ -95,10 +95,10 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
 
   void addCartItemUndo(Product product) {
     cartService.addCartItemUndo(product);
-    reloadQtdeAndAmountCart();
+    reloadQuantityAndAmountCart();
   }
 
-  void reloadQtdeAndAmountCart() {
+  void reloadQuantityAndAmountCart() {
     var allCartItems = cartService.getAllCartItems();
     qtdeCartItemsObs.value = cartService.qtdeCartItems(allCartItems);
 
@@ -106,14 +106,14 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
     amountCartItemsObs.value = cartService.amountCartItems(availableCartItems);
   }
 
-  void reloadQtdeAndAmountCartAvailableItems(Map<String, CartItem> cartItems) {
+  void reloadAvailableCartItemsQuantityAndAmount(Map<String, CartItem> cartItems) {
     amountCartItemsObs.value = cartService.amountCartItems(cartItems);
     qtdeCartItemsObs.value = cartService.qtdeCartItems(cartItems);
   }
 
   void removeCartItem(CartItem cartItem) {
     cartService.removeCartItem(cartItem);
-    reloadQtdeAndAmountCart();
+    reloadQuantityAndAmountCart();
   }
 
   void redrawListCart() {
@@ -122,7 +122,7 @@ class CartController extends GetxController with GetSingleTickerProviderStateMix
 
   void clearCart() {
     cartService.clearCart();
-    reloadQtdeAndAmountCart();
+    reloadQuantityAndAmountCart();
     redrawListCart();
   }
 

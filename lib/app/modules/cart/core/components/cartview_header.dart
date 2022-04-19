@@ -69,7 +69,7 @@ class CartViewHeader extends StatelessWidget {
     var _items = _cartController.getAllCartItems();
     _availableItems = _cartController.getAllAvailableCartItems(_items);
 
-    if (_availableItems.isNotEmpty) _cartController.reloadQtdeAndAmountCart();
+    if (_availableItems.isNotEmpty) _cartController.reloadQuantityAndAmountCart();
 
     return TextButton(
         key: Key(_keys.k_crt_ordnow_btn()),

@@ -128,7 +128,7 @@ class AnimatedGridItem extends StatelessWidget implements ICustomGridtile {
                   height: size.height * 0.055,
                   width: size.width * 0.18,
                   child: Text(
-                    '${discount.toStringAsFixed(0)} off',
+                    '${discount.toStringAsFixed(0)}% off',
                     style: GoogleFonts.lato(
                         textStyle: TextStyle(
                       color: Colors.black,

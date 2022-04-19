@@ -87,7 +87,7 @@ class AnimatedListTile implements ICustomListTile {
             children: [
               _product.discount == 0
                   ? SizedBox()
-                  : Text('-${_lessThanNineCompleteZero(_product.discount.toInt())} off',
+                  : Text('${_lessThanNineCompleteZero(_product.discount.toInt())}% off',
                       style: GoogleFonts.lato(
                           textStyle: const TextStyle(
                         fontSize: 14,

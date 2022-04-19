@@ -68,8 +68,7 @@ class OverviewItemDetailsView extends StatelessWidget {
                       Text('${_product.title}',
                           style: TextStyle(fontSize: _height * 0.03)),
                       SizedBox(height: _height * 0.03),
-                      Text('${_coreLabels.currency} ${_product.price}',
-                          style: TextStyle(fontSize: _height * 0.03)),
+                      _productPrice(_product, _height),
                       SizedBox(height: _height * 0.03),
                       _productDescription(_height, _product, context),
                       SizedBox(height: _height * 0.03),
@@ -85,11 +84,58 @@ class OverviewItemDetailsView extends StatelessWidget {
                     ]))))));
   }
 
+  Widget _productPrice(Product _product, double _height) {
+    var finalPrice = _product.price;
+
+    if (_product.discount != 0) finalPrice = _product.price - (_product.discount / 100);
+
+    var noDiscountFinalPrice = Text(
+      '${_coreLabels.currency} $finalPrice',
+      style: GoogleFonts.lato(
+          textStyle:
+              TextStyle(color: Colors.red, fontSize: 30, fontWeight: FontWeight.bold)),
+    );
+
+    var discountFinalPrice = RichText(
+        text: TextSpan(
+            text: '${_coreLabels.currency} ${_product.price.toStringAsPrecision(2)}',
+            style: GoogleFonts.lato(
+                textStyle: TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            )),
+            children: [
+          TextSpan(
+              text: '    ${_product.discount}% off    ',
+              style: GoogleFonts.lato(
+                  textStyle: TextStyle(
+                color: Colors.red,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              )),
+              children: [
+                TextSpan(
+                  text: 'After: ${_coreLabels.currency} ${finalPrice.toStringAsFixed(2)}',
+                  style: GoogleFonts.lato(
+                      textStyle: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  )),
+                )
+              ])
+        ]));
+    return _product.discount == 0 ? noDiscountFinalPrice : discountFinalPrice;
+  }
+
   Text _productQtde(String stockQtdeProduct) {
-    return Text('${_coreLabels.available}: $stockQtdeProduct',
-        style: GoogleFonts.lato(
-            textStyle:
-                TextStyle(color: Colors.red, fontSize: 30, fontWeight: FontWeight.bold)));
+    return Text(
+      '${_coreLabels.available}: $stockQtdeProduct',
+      style: GoogleFonts.lato(
+          textStyle:
+              TextStyle(color: Colors.red, fontSize: 30, fontWeight: FontWeight.bold)),
+    );
   }
 
   Container _productDescription(double _height, Product _product, BuildContext context) {
