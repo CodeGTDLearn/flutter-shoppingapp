@@ -27,6 +27,7 @@ class InventoryController extends GetxController {
 
   var productsStockQtdeObs = 0.obs;
   var productCodeObs = "".obs;
+  var arrivalDateObs = "".obs;
   var productsObs = <Product>[].obs;
   var productImageUrlPreviewObs = false.obs;
 
@@ -199,13 +200,16 @@ class InventoryController extends GetxController {
 
   void scanCode({var barcode = true, successBeep = true}) async {
     // @formatter:off
-    return FlutterBarcodeScanner.scanBarcode(
+    return FlutterBarcodeScanner
+           .scanBarcode(
               "#ff6666",
               "Cancel",
               true,
               barcode ? ScanMode.BARCODE : ScanMode.QR)
            .then((scannedCode) async {
+             var date = DateTime.now();
               productCodeObs.value = scannedCode;
+              arrivalDateObs.value = "${date.day.toString()}/${date.month.toString()}/${date.year.toString()}";
               // await Future.delayed(Duration(milliseconds: 1000));
               if (successBeep) FlutterBeep.beep();
               // await Future.delayed(Duration(milliseconds: 5000));

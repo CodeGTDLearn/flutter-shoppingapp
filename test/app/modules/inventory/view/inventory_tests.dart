@@ -8,7 +8,7 @@ import 'package:shopingapp/app/modules/inventory/core/components/custom_listtile
 import 'package:shopingapp/app/modules/inventory/core/inventory_keys.dart';
 import 'package:shopingapp/app/modules/inventory/core/inventory_labels.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
-import 'package:shopingapp/app/modules/inventory/view/inventory_details_view.dart';
+import 'package:shopingapp/app/modules/inventory/view/inventory_details_view/inventory_details_view.dart';
 import 'package:shopingapp/app/modules/inventory/view/inventory_view.dart';
 import 'package:shopingapp/app/modules/overview/core/components/custom_grid_item/animated_grid_item.dart';
 import 'package:shopingapp/app/modules/overview/core/overview_keys.dart';

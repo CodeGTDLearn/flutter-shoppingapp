@@ -3,7 +3,7 @@ import 'package:get/route_manager.dart';
 import '../../modules/cart/core/cart_bindings.dart';
 import '../../modules/cart/view/cart_view.dart';
 import '../../modules/inventory/core/inventory_bindings.dart';
-import '../../modules/inventory/view/inventory_details_view.dart';
+import '../../modules/inventory/view/inventory_details_view/inventory_details_view.dart';
 import '../../modules/inventory/view/inventory_product_zoom_view.dart';
 import '../../modules/inventory/view/inventory_view.dart';
 import '../../modules/orders/core/orders_bindings.dart';

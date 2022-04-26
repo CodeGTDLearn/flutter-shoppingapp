@@ -4,32 +4,27 @@ import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../core/components/appbar/core_appbar.dart';
-import '../../../core/properties/owasp_regex.dart';
-import '../../../core/utils/core_animations_utils.dart';
-import '../controller/inventory_controller.dart';
-import '../core/components/custom_form_field/custom_form_field.dart';
-import '../core/components/custom_form_field/field_properties/dates_properties.dart';
-import '../core/components/custom_form_field/field_properties/description_properties.dart';
-import '../core/components/custom_form_field/field_properties/price_properties.dart';
-import '../core/components/custom_form_field/field_properties/title_properties.dart';
-import '../core/components/custom_form_field/field_properties/url_properties.dart';
-import '../core/components/custom_form_field/validators/code_field_validator.dart';
-import '../core/components/custom_form_field/validators/date_validator.dart';
-import '../core/components/custom_form_field/validators/description_validator.dart';
-import '../core/components/custom_form_field/validators/price_validator.dart';
-import '../core/components/custom_form_field/validators/title_validator.dart';
-import '../core/components/custom_form_field/validators/url_validator.dart';
-import '../core/inventory_icons.dart';
-import '../core/inventory_keys.dart';
-import '../core/inventory_labels.dart';
-import '../core/neumorphic_button/neumorphic_button.dart';
-import '../entity/product.dart';
-import 'inventory_product_zoom_view.dart';
+import '../../../../core/components/appbar/core_appbar.dart';
+import '../../../../core/properties/owasp_regex.dart';
+import '../../../../core/utils/core_animations_utils.dart';
+import '../../controller/inventory_controller.dart';
+import '../../core/components/custom_form_field/custom_form_field.dart';
+import '../../core/components/custom_form_field/field_properties/description_properties.dart';
+import '../../core/components/custom_form_field/field_properties/price_properties.dart';
+import '../../core/components/custom_form_field/field_properties/title_properties.dart';
+import '../../core/components/custom_form_field/field_properties/url_properties.dart';
+import '../../core/components/custom_form_field/validators/code_field_validator.dart';
+import '../../core/components/custom_form_field/validators/description_validator.dart';
+import '../../core/components/custom_form_field/validators/price_validator.dart';
+import '../../core/components/custom_form_field/validators/title_validator.dart';
+import '../../core/components/custom_form_field/validators/url_validator.dart';
+import '../../core/inventory_icons.dart';
+import '../../core/inventory_keys.dart';
+import '../../core/inventory_labels.dart';
+import '../../core/neumorphic_button/neumorphic_button.dart';
+import '../../entity/product.dart';
+import '../inventory_product_zoom_view.dart';
 
-// todo: refazer usando o video do rodrigohaman
-// https://www.youtube.com/watch?v=GEC4LF40J6k&t=309s
-// https://www.youtube.com/watch?v=R8cPBD9eZQY&t=513s
 // ignore: must_be_immutable
 class InventoryDetailsView extends StatefulWidget {
   final String? _id;
@@ -47,6 +42,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
   final _icons = Get.find<InventoryIcons>();
   final _keys = Get.find<InventoryKeys>();
   final _appbar = Get.find<CoreAppBar>();
+
   late var _formKey;
 
   late Product _product;
@@ -65,10 +61,12 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     _loadProductVariable();
     _controller.enableDiscountSliderObs.value = false;
     _controller.discountObs.value = _product.discount;
+    _controller.productCodeObs.value = _product.code;
+    _controller.arrivalDateObs.value = _formatDate(_product.arrivalDate);
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     _startingFormInstances();
     _definingFormTask_updateOrAdd();
     return Scaffold(
@@ -94,21 +92,78 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
                     _titleField(context),
                     _priceField(context),
                     _descriptionField(context),
-                    _productImageAndUrlImage(context),
+                    _productImageAndUrlImageField(context),
                     SizedBox(height: Get.height * 0.03),
                     _barcodeField(context),
                     SizedBox(height: Get.height * 0.06),
-                    _arrivalDateAndExpirationDate(context),
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                      Expanded(
+                          flex: 2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                  padding: const EdgeInsets.only(bottom: 3),
+                                  child: Text(_labels.inv_arr_date_fld_lbl,
+                                      style: GoogleFonts.lato(
+                                          textStyle: TextStyle(
+                                              color: Colors.grey, fontSize: 12)))),
+                              Obx(() => Text(_controller.arrivalDateObs.value,
+                                  key: Key(_keys.k_inv_arr_date_fld),
+                                  textAlign: TextAlign.left,
+                                  style: GoogleFonts.lato(
+                                      textStyle:
+                                          TextStyle(color: Colors.black, fontSize: 17))))
+                            ],
+                          )),
+                      Expanded(
+                          flex: 2,
+                          child: GestureDetector(
+                            onTap: () async {
+                              var newData = await showDatePicker(
+                                  context: context,
+                                  initialDate: _product.expirationDate,
+                                  firstDate: DateTime(_product.arrivalDate.year),
+                                  lastDate: DateTime(_product.arrivalDate.year + 2));
+                              if (newData == null) return;
+                              setState(() => _product.expirationDate = newData);
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                    padding: const EdgeInsets.only(bottom: 3),
+                                    child: Text(_labels.inv_exp_date_fld_lbl,
+                                        style: GoogleFonts.lato(
+                                            textStyle: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 12,
+                                          // fontWeight: FontWeight.bold,
+                                        )))),
+                                Text(
+                                  _formatDate(_product.expirationDate),
+                                  key: Key(_keys.k_inv_exp_date_fld),
+                                  textAlign: TextAlign.left,
+                                  style: GoogleFonts.lato(
+                                      textStyle: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 17,
+                                  )),
+                                ),
+                              ],
+                            ),
+                          ))
+                    ]),
                     SizedBox(height: Get.height * 0.06),
                     _discountSlider(context, _product),
                     SizedBox(height: Get.height * 0.06),
-                    _stockQtdeAndNeumorphicButtons(context, _product),
+                    _stockQtdeButtons(context, _product),
                     SizedBox(height: Get.height * 0.02),
                   ])))),
     );
   }
 
-  TextFormField _descriptionField(BuildContext context) {
+  TextFormField _descriptionField(context) {
     return CustomFormField(DescriptionProperties()).create(
         product: _product,
         initialValue: _product.description,
@@ -120,7 +175,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
         node: _nodeDescr);
   }
 
-  TextFormField _priceField(BuildContext context) {
+  TextFormField _priceField(context) {
     return CustomFormField(PriceProperties()).create(
         product: _product,
         initialValue: _product.price.toString(),
@@ -134,7 +189,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
             _product.price.toString() == '0.0' ? _controller.priceController() : null);
   }
 
-  TextFormField _titleField(BuildContext context) {
+  TextFormField _titleField(context) {
     return CustomFormField(TitleProperties()).create(
         product: _product,
         initialValue: _product.title,
@@ -145,7 +200,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
         onFieldSubmitted: (_) => _setFocus(_nodePrice, context));
   }
 
-  Row _stockQtdeAndNeumorphicButtons(BuildContext context, Product product) {
+  Row _stockQtdeButtons(context, Product product) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
       NeumorphicButton().button(
           milliseconds: 200,
@@ -198,7 +253,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     ]);
   }
 
-  Row _barcodeField(BuildContext context) {
+  Row _barcodeField(context) {
     return Row(children: [
       IconButton(
           icon: Icon(IconData(0xe900, fontFamily: 'barcode')),
@@ -225,7 +280,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     ]);
   }
 
-  Container _discountSlider(BuildContext context, Product product) {
+  Container _discountSlider(context, Product product) {
     return Container(
         alignment: Alignment.center,
         // height: 100,
@@ -265,7 +320,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
         ]));
   }
 
-  Row _productImageAndUrlImage(BuildContext context) {
+  Row _productImageAndUrlImageField(context) {
     return Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
       Container(
           width: 100,
@@ -345,7 +400,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     if (lostFocus) _controller.productImageUrlPreviewObs.value = true;
   }
 
-  void _saveForm(BuildContext _context) {
+  void _saveForm(_context) {
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
 
@@ -356,44 +411,10 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     Get.back();
   }
 
-  void _setFocus(FocusNode node, BuildContext _context) {
+  void _setFocus(FocusNode node, _context) {
     return FocusScope.of(_context).requestFocus(node);
   }
 
-  //https://www.youtube.com/watch?v=yMZpwXQcP2E
-  Widget _arrivalDateAndExpirationDate(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Expanded(
-            flex: 2,
-            child: Container(
-                child: TextFormField(
-              enabled: false,
-              initialValue: _product.arrivalDate.toString(),
-              decoration: InputDecoration(labelText: _labels.inv_arr_date_fld_lbl),
-              validator: DateValidator().validator(),
-              key: Key(_keys.k_inv_arr_date_fld),
-            ))),
-        Expanded(
-            flex: 2,
-            child: Container(
-                child: CustomFormField(DateProperties()).create(
-              product: _product,
-              initialValue: _product.expirationDate.toString(),
-              context: context,
-              label: _labels.inv_exp_date_fld_lbl,
-              key: _keys.k_inv_exp_date_fld,
-              validator: DateValidator().validator(),
-              onFieldSubmitted: (_) => _setFocus(_nodeDescr, context),
-              node: _nodeExpirationDate,
-            ))),
-        // IconButton(
-        //     icon: Icon(IconData(0xe900, fontFamily: 'barcode')),
-        //     tooltip: _labels.qrcode_hint,
-        //     onPressed: () => _controller.scanCode(barcode: true, successBeep: true),
-        //     focusNode: _nodeBarcodeButton),
-      ],
-    );
-  }
+  String _formatDate(DateTime date) =>
+      "${date.day.toString()}/${date.month.toString()}/${date.year.toString()}";
 }

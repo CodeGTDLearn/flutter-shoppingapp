@@ -14,7 +14,7 @@ import '../../../../../core/utils/core_ui_utils.dart';
 import '../../../../overview/controller/overview_controller.dart';
 import '../../../controller/inventory_controller.dart';
 import '../../../entity/product.dart';
-import '../../../view/inventory_details_view.dart';
+import '../../../view/inventory_details_view/inventory_details_view.dart';
 import '../../../view/inventory_product_zoom_view.dart';
 import '../../inventory_icons.dart';
 import '../../inventory_keys.dart';
