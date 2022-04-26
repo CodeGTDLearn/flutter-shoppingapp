@@ -9,11 +9,13 @@ import '../../../core/properties/owasp_regex.dart';
 import '../../../core/utils/core_animations_utils.dart';
 import '../controller/inventory_controller.dart';
 import '../core/components/custom_form_field/custom_form_field.dart';
+import '../core/components/custom_form_field/field_properties/dates_properties.dart';
 import '../core/components/custom_form_field/field_properties/description_properties.dart';
 import '../core/components/custom_form_field/field_properties/price_properties.dart';
 import '../core/components/custom_form_field/field_properties/title_properties.dart';
 import '../core/components/custom_form_field/field_properties/url_properties.dart';
 import '../core/components/custom_form_field/validators/code_field_validator.dart';
+import '../core/components/custom_form_field/validators/date_validator.dart';
 import '../core/components/custom_form_field/validators/description_validator.dart';
 import '../core/components/custom_form_field/validators/price_validator.dart';
 import '../core/components/custom_form_field/validators/title_validator.dart';
@@ -53,6 +55,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
   var _nodeDescr;
   var _nodeImgUrl;
   var _nodeBarcode;
+  var _nodeExpirationDate;
   var _nodeBarcodeButton;
 
   @override
@@ -90,10 +93,12 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
                       children: [
                     _titleField(context),
                     _priceField(context),
-                    _descrField(context),
-                    _productImageAndUrlFieldRow(context),
+                    _descriptionField(context),
+                    _productImageAndUrlImage(context),
                     SizedBox(height: Get.height * 0.03),
-                    _barcodeFieldRow(context),
+                    _barcodeField(context),
+                    SizedBox(height: Get.height * 0.06),
+                    _arrivalDateAndExpirationDate(context),
                     SizedBox(height: Get.height * 0.06),
                     _discountSlider(context, _product),
                     SizedBox(height: Get.height * 0.06),
@@ -103,7 +108,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     );
   }
 
-  TextFormField _descrField(BuildContext context) {
+  TextFormField _descriptionField(BuildContext context) {
     return CustomFormField(DescriptionProperties()).create(
         product: _product,
         initialValue: _product.description,
@@ -193,7 +198,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     ]);
   }
 
-  Row _barcodeFieldRow(BuildContext context) {
+  Row _barcodeField(BuildContext context) {
     return Row(children: [
       IconButton(
           icon: Icon(IconData(0xe900, fontFamily: 'barcode')),
@@ -260,7 +265,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
         ]));
   }
 
-  Row _productImageAndUrlFieldRow(BuildContext context) {
+  Row _productImageAndUrlImage(BuildContext context) {
     return Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
       Container(
           width: 100,
@@ -321,7 +326,9 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     Get.put(FocusNode(), tag: 'priceNode');
     Get.put(FocusNode(), tag: 'descNode');
     Get.put(FocusNode(), tag: 'urlNode');
+    Get.put(FocusNode(), tag: 'expirationDate');
 
+    _nodeExpirationDate = Get.find<FocusNode>(tag: 'expirationDate');
     _urlControl = Get.find<TextEditingController>(tag: 'urlControl');
     _nodePrice = Get.find<FocusNode>(tag: 'priceNode');
     _nodeDescr = Get.find<FocusNode>(tag: 'descNode');
@@ -351,5 +358,42 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
 
   void _setFocus(FocusNode node, BuildContext _context) {
     return FocusScope.of(_context).requestFocus(node);
+  }
+
+  //https://www.youtube.com/watch?v=yMZpwXQcP2E
+  Widget _arrivalDateAndExpirationDate(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+            flex: 2,
+            child: Container(
+                child: TextFormField(
+              enabled: false,
+              initialValue: _product.arrivalDate.toString(),
+              decoration: InputDecoration(labelText: _labels.inv_arr_date_fld_lbl),
+              validator: DateValidator().validator(),
+              key: Key(_keys.k_inv_arr_date_fld),
+            ))),
+        Expanded(
+            flex: 2,
+            child: Container(
+                child: CustomFormField(DateProperties()).create(
+              product: _product,
+              initialValue: _product.expirationDate.toString(),
+              context: context,
+              label: _labels.inv_exp_date_fld_lbl,
+              key: _keys.k_inv_exp_date_fld,
+              validator: DateValidator().validator(),
+              onFieldSubmitted: (_) => _setFocus(_nodeDescr, context),
+              node: _nodeExpirationDate,
+            ))),
+        // IconButton(
+        //     icon: Icon(IconData(0xe900, fontFamily: 'barcode')),
+        //     tooltip: _labels.qrcode_hint,
+        //     onPressed: () => _controller.scanCode(barcode: true, successBeep: true),
+        //     focusNode: _nodeBarcodeButton),
+      ],
+    );
   }
 }

@@ -12,4 +12,4 @@ const FIELD_PRICE_MAX_SIZE = 10;
 const FIELD_URL_MIN_SIZE = 10;
 const FIELD_URL_MAX_SIZE = 135;
 
-// const FORMAT_CURRENCY = r"/^(\$?\d{1,3}(?:,?\d{3})*(?:\.\d{2})?|\.\d{2})?$/";
+const FORMAT_DATE = r"[0-9]{2}(/)[0-9]{2}(/)[0-9]{4}";

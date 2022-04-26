@@ -11,6 +11,8 @@ class InventoryKeys {
   final _INVENTORY_EDIT_VIEW_FIELD_PRICE_KEY = 'inventory_edit_field_price_key';
   final _INVENTORY_EDIT_VIEW_FIELD_DESCRIPT_KEY = 'inventory_edit_field_descript_key';
   final _INVENTORY_EDIT_VIEW_FIELD_URL_KEY = 'inventory_edit_field_url_key';
+  final _INVENTORY_EDIT_VIEW_FIELD_ARRIVAL_DATE_KEY = 'inventory_edit_field_arrivdate_key';
+  final _INVENTORY_EDIT_VIEW_FIELD_EXPIRATION_DATE_KEY = 'inventory_edit_field_expdate_key';
   final _INVENTORY_EDIT_BARCODE_FIELD_KEY = 'inventory_edit_field_barcode_key';
 
   get k_inv_edit_barcode_fld => _INVENTORY_EDIT_BARCODE_FIELD_KEY;
@@ -34,4 +36,8 @@ class InventoryKeys {
   get k_inv_edit_fld_descr => _INVENTORY_EDIT_VIEW_FIELD_DESCRIPT_KEY;
 
   get k_inv_edit_fld_imgurl => _INVENTORY_EDIT_VIEW_FIELD_URL_KEY;
+
+  get k_inv_arr_date_fld => _INVENTORY_EDIT_VIEW_FIELD_ARRIVAL_DATE_KEY;
+
+  get k_inv_exp_date_fld => _INVENTORY_EDIT_VIEW_FIELD_EXPIRATION_DATE_KEY;
 }

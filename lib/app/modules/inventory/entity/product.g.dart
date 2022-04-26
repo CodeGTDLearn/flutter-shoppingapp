@@ -16,6 +16,12 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       code: json['code'] as String? ?? "",
       isFavorite: json['isFavorite'] as bool? ?? false,
       discount: (json['discount'] as num?)?.toDouble() ?? 0,
+      arrivalDate: json['arrivalDate'] == null
+          ? null
+          : DateTime.parse(json['arrivalDate'] as String),
+      expirationDate: json['expirationDate'] == null
+          ? null
+          : DateTime.parse(json['expirationDate'] as String),
     );
 
 Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
@@ -28,4 +34,6 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'code': instance.code,
       'stockQtde': instance.stockQtde,
       'discount': instance.discount,
+      'arrivalDate': instance.arrivalDate.toIso8601String(),
+      'expirationDate': instance.expirationDate.toIso8601String(),
     };

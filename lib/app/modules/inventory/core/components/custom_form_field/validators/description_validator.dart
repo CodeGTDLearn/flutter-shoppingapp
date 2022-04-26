@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:wc_form_validators/wc_form_validators.dart';
 
-import '../../../../../../core/properties/form_field_sizes.dart';
+import '../../../../../../core/properties/form_field_properties.dart';
 import '../../../../../../core/properties/owasp_regex.dart';
 import '../../../../../../core/texts/core_messages.dart';
 import 'icustom_validator.dart';

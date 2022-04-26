@@ -16,6 +16,8 @@ class Product {
   String code;
   int stockQtde;
   double discount;
+  late DateTime arrivalDate;
+  late DateTime expirationDate;
 
   Product({
     this.id,
@@ -27,7 +29,10 @@ class Product {
     this.code = "",
     this.isFavorite = false,
     this.discount = 0,
-  });
+    DateTime? arrivalDate,
+    DateTime? expirationDate,
+  })  : arrivalDate = arrivalDate ?? DateTime.now(),
+        expirationDate = arrivalDate ?? DateTime.now();
 
   Product.emptyInitialized({
     this.title = '',
@@ -38,6 +43,8 @@ class Product {
     this.stockQtde = 10,
     this.code = "",
     this.discount = 0,
+    final arrivalDate,
+    final expirationDate,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);

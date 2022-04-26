@@ -1,4 +1,4 @@
-import '../properties/form_field_sizes.dart';
+import '../properties/form_field_properties.dart';
 
 class CoreMessages {
   final _CART_ITEM_ADDED = " Added in the cart.";
@@ -19,6 +19,7 @@ class CoreMessages {
   final _INVENTORY_DETAILS_ONLY_TEXTNUMBER_MESSAGE =
       "Please, only text and number are allowed.";
   final _INVENTORY_DETAILS_CODE_READING_ERROR_MESSAGE = "Code Read not done";
+  final _INVENTORY_DETAILS_FORMAT_DATE_MESSAGE = "Please, provide proper date.";
 
   final _INVENTORY_DETAILS_FORMAT_PRICE_MESSAGE = "Please, type the price properly.";
   final _INVENTORY_DETAILS_FORMAT_URL_MESSAGE = "Please, provide proper URL.";
@@ -48,6 +49,7 @@ class CoreMessages {
       "There is no Products in Inventory, yet";
   final _ADAPTIVE_INDICATOR_FAVORITES_NOT_FOUND_YET = "Favorites not found, yet.";
   final _ADAPTIVE_INDICATOR_NO_ORDERS_DONE_YET = "No orders were done, yet.";
+
 
   //CUSTOM DRAWER MESSAGES
   // final DRAWER_COMPONENT_TEXT_CART_NO_PRODUCTS_YET = "No Products in the cart, Yet";
@@ -126,6 +128,8 @@ class CoreMessages {
 
   get zero_stock_message => _INVENTORY_DETAILS_ZERO_PRODUCT_STOCK_MESSAGE;
 
+  get format_date_message => _INVENTORY_DETAILS_FORMAT_DATE_MESSAGE;
+
   get update_stock_title => _INVENTORY_DETAILS_UPDATE_STOCK_TITLE;
 
   get stock_addition_hint => _INVENTORY_DETAILS_UPDATE_STOCK_ADDITION_HINT;
@@ -133,6 +137,7 @@ class CoreMessages {
   get stock_subtraction_hint => _INVENTORY_DETAILS_UPDATE_STOCK_SUBTRACTION_HINT;
 
   get code_read_error_message => _INVENTORY_DETAILS_CODE_READING_ERROR_MESSAGE;
+
 // String DRW_TXT_NO_MAN_PROD_YET() => DRAWER_COMPONENT_TEXT_NO_MANAGED_PRODUCTS_YET;
 
 // String DRW_TXT_CART() => DRAWER_COMPONENT_TEXT_CART_NO_PRODUCTS_YET;

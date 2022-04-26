@@ -33,9 +33,6 @@ class InventoryController extends GetxController {
   var enableDiscountSliderObs = false.obs;
   var discountObs = 0.0.obs;
 
-  // var renderItemDetailsViewObs = false.obs;
-  // var inventoryImageZoomObs = false.obs;
-
   InventoryController({required this.service});
 
   void setDiscountSlider(double discount) {

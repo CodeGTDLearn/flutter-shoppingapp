@@ -53,7 +53,9 @@
       "isFavorite": false,
       "stockQtde": 5,
       "code": "",
-      "discount": 0
+      "discount": 0,
+      "arrivalDate": "2014-01-01T23:28:56.782Z",
+      "expirationDate": "2014-01-15T23:28:56.782Z"
     },
     {
       "id": "p2",
@@ -64,7 +66,9 @@
       "isFavorite": false,
       "stockQtde": 7,
       "code": "",
-      "discount": 0
+      "discount": 0,
+      "arrivalDate": "2014-01-01T23:28:56.782Z",
+      "expirationDate": "2014-01-15T23:28:56.782Z"
     },
     {
       "id": "p3",
@@ -75,7 +79,9 @@
       "isFavorite": true,
       "stockQtde": 9,
       "code": "",
-      "discount": 0
+      "discount": 0,
+      "arrivalDate": "2014-01-01T23:28:56.782Z",
+      "expirationDate": "2014-01-15T23:28:56.782Z"
     },
     {
       "id": "p4",
@@ -86,7 +92,9 @@
       "isFavorite": false,
       "stockQtde": 4,
       "code": "",
-      "discount": 0
+      "discount": 0,
+      "arrivalDate": "2014-01-01T23:28:56.782Z",
+      "expirationDate": "2014-01-15T23:28:56.782Z"
     }
   ]
 }

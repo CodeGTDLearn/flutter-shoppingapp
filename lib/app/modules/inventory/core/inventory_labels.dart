@@ -8,6 +8,8 @@ class InventoryLabels {
   final _INVENTORY_EDIT_IMAGE_TITLE = "Image";
   final _INVENTORY_EDIT_FIELD_IMAGE_URL = "Image URL";
   final _INVENTORY_EDIT_FIELD_CODE = "BarCode | QRCode";
+  final _INVENTORY_EDIT_FIELD_ARRIVAL_DATE = "Arrival";
+  final _INVENTORY_EDIT_FIELD_EXPIRATION_DATE = "Expiration";
   final _INVENTORY_EDIT_DELETE_TITLE = "Inventory Deletion";
   final _INVENTORY_EDIT_DELETE_CONFIRMATION = "Really wanna remove: ";
 
@@ -56,4 +58,8 @@ class InventoryLabels {
   get qrcode_hint => _INVENTORY_EDIT_QRCODE_HINT;
 
   get discountLabel => _DISCOUNT_LABEL;
+
+  get inv_arr_date_fld_lbl => _INVENTORY_EDIT_FIELD_ARRIVAL_DATE;
+
+  get inv_exp_date_fld_lbl => _INVENTORY_EDIT_FIELD_EXPIRATION_DATE;
 }
