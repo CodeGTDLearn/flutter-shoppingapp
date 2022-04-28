@@ -48,19 +48,21 @@ test, study, apply, explore Flutter as a definitive crossplatform and crossdevic
         - Route management;
         - Dependency/instance management;
         - Utilities.
-2. [Firebase Authentication](https://firebase.google.com/docs/auth)
-    - The Google Firebase Authentication
-3. [Flutter Integration](https://flutter.dev/docs/cookbook/testing/integration/introduction)
+
+2. [Flutter Integration](https://flutter.dev/docs/cookbook/testing/integration/introduction)
     - The Google Oficial package to create Widget Tests, as well as, Functional/UI Tests.
-4. [Firebase Realtime Database](https://firebase.google.com/docs/database/)
+3. [Firebase Realtime Database](https://firebase.google.com/docs/database/)
     - The Firebase Realtime Database. For technical reasons for this project firestore was not the best choice.
-5. [S.O.L.I.D.](https://scotch.io/bar-talk/s-o-l-i-d-the-first-five-principles-of-object-oriented-design)
+4. [S.O.L.I.D.](https://scotch.io/bar-talk/s-o-l-i-d-the-first-five-principles-of-object-oriented-design)
     - The First 5 Principles of Object-Oriented Design
-6. [Flutter Staggered Animations](https://pub.dev/packages/flutter_staggered_animations)
+5. [Flutter Staggered Animations](https://pub.dev/packages/flutter_staggered_animations)
     - Easily add staggered animations to your ListView, GridView, Column and Row children as shown in Material Design
       guidelines
-7. [JSON annotation](https://pub.dev/packages/json_annotation)
+6. [JSON annotation](https://pub.dev/packages/json_annotation)
     - Defines the annotations used by json_serializable to create code for JSON serialization and deserialization.
+7. [Mobx](https://pub.dev/packages/mobx)
+   - State-management library that makes it simple to
+     connect the reactive data of your application with the UI.
 
 #### Packages removed:
 
@@ -68,8 +70,7 @@ test, study, apply, explore Flutter as a definitive crossplatform and crossdevic
 projects with some additional goodies highly inspired by Splat. One of the strongest point of this libray is taht it
 does not need the **context** to work; hence, it can be used in anywhere in the application.~~
 
-~~2. [Mobx](https://pub.dev/packages/mobx) - State management: A state-management library that makes it simple to
-connect the reactive data of your application with the UI.~~
+
 
 ~~3. [Flutter_modular](https://pub.dev/packages/flutter_modular) - Modular gives us a structure that allows us to manage
 dependency injection and routes in just one file per module, so we can organize our files with that in mind.~~

@@ -9,7 +9,7 @@ import '../../../../../core/texts/core_messages.dart';
 import '../../../../overview/controller/overview_controller.dart';
 import '../../../controller/inventory_controller.dart';
 import '../../../entity/product.dart';
-import '../../../view/inventory_details_view/inventory_details_view.dart';
+import '../../../view/inventory_details_view.dart';
 import '../../inventory_icons.dart';
 import '../../inventory_keys.dart';
 import 'icustom_listtile.dart';

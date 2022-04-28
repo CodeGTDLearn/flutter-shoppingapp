@@ -14,7 +14,7 @@ import '../core/components/custom_listview/icustom_inventory_listview.dart';
 import '../core/inventory_icons.dart';
 import '../core/inventory_keys.dart';
 import '../core/inventory_labels.dart';
-import 'inventory_details_view/inventory_details_view.dart';
+import 'inventory_details_view.dart';
 
 class InventoryView extends StatelessWidget {
   final _controller = Get.find<InventoryController>();

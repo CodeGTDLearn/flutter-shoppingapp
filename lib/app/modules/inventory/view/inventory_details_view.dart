@@ -4,26 +4,26 @@ import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../core/components/appbar/core_appbar.dart';
-import '../../../../core/properties/owasp_regex.dart';
-import '../../../../core/utils/core_animations_utils.dart';
-import '../../controller/inventory_controller.dart';
-import '../../core/components/custom_form_field/custom_form_field.dart';
-import '../../core/components/custom_form_field/field_properties/description_properties.dart';
-import '../../core/components/custom_form_field/field_properties/price_properties.dart';
-import '../../core/components/custom_form_field/field_properties/title_properties.dart';
-import '../../core/components/custom_form_field/field_properties/url_properties.dart';
-import '../../core/components/custom_form_field/validators/code_field_validator.dart';
-import '../../core/components/custom_form_field/validators/description_validator.dart';
-import '../../core/components/custom_form_field/validators/price_validator.dart';
-import '../../core/components/custom_form_field/validators/title_validator.dart';
-import '../../core/components/custom_form_field/validators/url_validator.dart';
-import '../../core/inventory_icons.dart';
-import '../../core/inventory_keys.dart';
-import '../../core/inventory_labels.dart';
-import '../../core/neumorphic_button/neumorphic_button.dart';
-import '../../entity/product.dart';
-import '../inventory_product_zoom_view.dart';
+import '../../../core/components/appbar/core_appbar.dart';
+import '../../../core/properties/owasp_regex.dart';
+import '../../../core/utils/core_animations_utils.dart';
+import '../controller/inventory_controller.dart';
+import '../core/components/custom_form_field/custom_form_field.dart';
+import '../core/components/custom_form_field/field_properties/description_properties.dart';
+import '../core/components/custom_form_field/field_properties/price_properties.dart';
+import '../core/components/custom_form_field/field_properties/title_properties.dart';
+import '../core/components/custom_form_field/field_properties/url_properties.dart';
+import '../core/components/custom_form_field/validators/code_field_validator.dart';
+import '../core/components/custom_form_field/validators/description_validator.dart';
+import '../core/components/custom_form_field/validators/price_validator.dart';
+import '../core/components/custom_form_field/validators/title_validator.dart';
+import '../core/components/custom_form_field/validators/url_validator.dart';
+import '../core/inventory_icons.dart';
+import '../core/inventory_keys.dart';
+import '../core/inventory_labels.dart';
+import '../core/neumorphic_button/neumorphic_button.dart';
+import '../entity/product.dart';
+import 'inventory_product_zoom_view.dart';
 
 // ignore: must_be_immutable
 class InventoryDetailsView extends StatefulWidget {
@@ -68,7 +68,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
   @override
   Widget build(context) {
     _startingFormInstances();
-    _definingFormTask_updateOrAdd();
+    _defineFormTask_updateOrAdd();
     return Scaffold(
       appBar: _appbar.create(
           Get.arguments == null
@@ -258,14 +258,14 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
       IconButton(
           icon: Icon(IconData(0xe900, fontFamily: 'barcode')),
           tooltip: _labels.qrcode_hint,
-          onPressed: () => _controller.scanCode(barcode: true, successBeep: true),
+          onPressed: () =>
+              _controller.scanBarcodeOrQrcode(barcode: true, successBeep: true),
           focusNode: _nodeBarcodeButton),
       Obx(() => Expanded(
           child: CustomFormField(DescriptionProperties()).create(
               product: _product,
               initialValue: _product.code,
               context: context,
-              // label: _labels.inv_edt_lbl_code,
               label: _controller.productCodeObs.value,
               key: _keys.k_inv_edit_barcode_fld,
               validator: BarcodeFieldValidator().validator(),
@@ -275,7 +275,16 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
       IconButton(
           icon: Icon(Icons.qr_code_scanner_sharp),
           tooltip: _labels.barcode_hint,
-          onPressed: () => _controller.scanCode(barcode: false, successBeep: true),
+          onPressed: () async {
+            await _controller.scanBarcodeOrQrcode(barcode: false, successBeep: true);
+            _product.code = _controller.productCodeObs.value;
+            var _date = DateTime.now();
+            _controller.arrivalDateObs.value = _formatDate(_date);
+            _product.arrivalDate = _date;
+            // _controller.productCodeObs.value == "-1"
+            //     ? _labels.read_again
+            //     : _product.code = _controller.productCodeObs.value;
+          },
           focusNode: _nodeBarcodeButton)
     ]);
   }
@@ -349,7 +358,7 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     ]);
   }
 
-  void _definingFormTask_updateOrAdd() {
+  void _defineFormTask_updateOrAdd() {
     var _idFound = Get.parameters['id'] != null || widget._id != null;
 
     _idFound
@@ -411,8 +420,8 @@ class _InventoryDetailsViewState extends State<InventoryDetailsView> {
     Get.back();
   }
 
-  void _setFocus(FocusNode node, _context) {
-    return FocusScope.of(_context).requestFocus(node);
+  void _setFocus(FocusNode node, context) {
+    return FocusScope.of(context).requestFocus(node);
   }
 
   String _formatDate(DateTime date) =>

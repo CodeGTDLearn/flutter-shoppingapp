@@ -21,6 +21,7 @@ class InventoryLabels {
   final _INVENTORY_EDIT_QRCODE_HINT = "QRCode";
   final _INVENTORY_EDIT_BARCODE_HINT = "BarCode";
   final _DISCOUNT_LABEL = 'Discount';
+  final _INVENTORY_QRCODE_READ_AGAIN = "Read Again!!!";
 
   get inv_tit_page => _INVENTORY_PAGE_TITLE;
 
@@ -62,4 +63,6 @@ class InventoryLabels {
   get inv_arr_date_fld_lbl => _INVENTORY_EDIT_FIELD_ARRIVAL_DATE;
 
   get inv_exp_date_fld_lbl => _INVENTORY_EDIT_FIELD_EXPIRATION_DATE;
+
+  get read_again => _INVENTORY_QRCODE_READ_AGAIN;
 }

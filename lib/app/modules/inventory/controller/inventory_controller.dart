@@ -164,7 +164,7 @@ class InventoryController extends GetxController {
         thousandSymbol: THOUSAND_SYMBOL);
   }
 
-  void saveProductInForm(Product _product, BuildContext _context) {
+  void saveProductInForm(Product _product, _context) {
     // @formatter:off
     addProduct(_product).then((product) {
       updateInventoryProductsObs();
@@ -180,7 +180,7 @@ class InventoryController extends GetxController {
     // @formatter:on
   }
 
-  void updateProductInForm(Product _product, BuildContext _context) {
+  void updateProductInForm(Product _product, _context) {
     // @formatter:off
     updateProduct(_product).then((statusCode) {
       if (statusCode >= 200 && statusCode < 400) {
@@ -198,7 +198,7 @@ class InventoryController extends GetxController {
     // @formatter:on
   }
 
-  void scanCode({var barcode = true, successBeep = true}) async {
+  scanBarcodeOrQrcode({var barcode = true, successBeep = true}) async {
     // @formatter:off
     return FlutterBarcodeScanner
            .scanBarcode(
@@ -209,13 +209,11 @@ class InventoryController extends GetxController {
            .then((scannedCode) async {
              var date = DateTime.now();
               productCodeObs.value = scannedCode;
-              arrivalDateObs.value = "${date.day.toString()}/${date.month.toString()}/${date.year.toString()}";
-              // await Future.delayed(Duration(milliseconds: 1000));
-              if (successBeep) FlutterBeep.beep();
-              // await Future.delayed(Duration(milliseconds: 5000));
-              // Get.back();
+              // arrivalDateObs.value = "${date.day.toString()}/${date.month.toString()}/${date.year.toString()}";
+              if (successBeep) FlutterBeep.beep(true);
            })
            .catchError((onError) {
+              FlutterBeep.beep(false);
               Get.defaultDialog(content: Text(_messages.code_read_error_message));
             });
     // @formatter:on
