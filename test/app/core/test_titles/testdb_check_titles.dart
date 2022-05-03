@@ -10,4 +10,6 @@ class TestDbCheckTitles {
   get load_db_products_sample_data => 'Load Product Db-Test';
 
   get load_db_orders_sample_data => 'Load Orders Db-Test';
+
+  get load_db_depots_sample_data => 'Load Depots Db-Test';
 }

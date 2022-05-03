@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
 import 'package:http/http.dart' as http;
+import 'package:shopingapp/app/modules/inventory/entity/inventory_depo.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/orders/entity/order.dart';
 
@@ -187,6 +188,34 @@ class TestDbUtils {
     return await Future.value(outputList);
   }
 
+  Future<List<dynamic>> add_multipleDepots({
+    required String collectionUrl,
+    required Function dataBuilder,
+    required int totalItems,
+  }) async {
+    var inputList = <Object>[];
+    var outputList = <Object>[];
+
+    for (var i = 0; i < totalItems; i++) {
+      inputList.add(dataBuilder.call());
+    }
+
+    for (var item = 1; item <= inputList.length; item++) {
+      await addObject(
+        object: inputList[item - 1],
+        collectionUrl: collectionUrl,
+      ).then((response) {
+        outputList.add(response);
+        _addDepot_message(
+          collectionUrl: collectionUrl,
+          depot: response,
+          number: item.toString(),
+        );
+      });
+    }
+    return await Future.value(outputList);
+  }
+
   final _headerLine = "||> >=====================================> DB ACTION "
       ">======================================>\n";
 
@@ -278,4 +307,28 @@ class TestDbUtils {
         '     $statusTxt\n'
         '$_footerLine');
   }
+
+  void _addDepot_message({
+    required String collectionUrl,
+    required InventoryDepo depot,
+    String number = '',
+    int? statusCode,
+  }) {
+    var statusTxt = statusCode == null ? '' : '- Status: $statusCode';
+
+    var body = '  ';
+    depot.toJson().forEach((key, value) => body += '* $key: $value\n       ');
+
+    print('$_headerLine '
+        '     Adding Object: $number\n'
+        '     - URL: $collectionUrl\n'
+        '     - ID: ${depot.id}\n'
+        '     - Type: ${depot.runtimeType.toString()}\n'
+        '     - Body:\n'
+        '     $body'
+        '     $statusTxt\n'
+        '$_footerLine');
+  }
+
+
 }

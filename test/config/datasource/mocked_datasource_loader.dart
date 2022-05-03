@@ -75,5 +75,21 @@ class MockedDatasourceLoader {
         expect(_outputList.length, sampleDbTotalItems);
       }
     });
+
+    testWidgets(_titles.load_db_depots_sample_data, (tester) async {
+      if (start) {
+        await _dbUtils
+            .add_multipleDepots(
+                collectionUrl: DEPOTS_URL,
+                totalItems: sampleDbTotalItems,
+                dataBuilder: () =>
+                    OrderDatabuilder().OrderId_with_ProductList(_outputList))
+            .then((value) {
+          _outputList = value;
+        });
+
+        expect(_outputList.length, sampleDbTotalItems);
+      }
+    });
   }
 }

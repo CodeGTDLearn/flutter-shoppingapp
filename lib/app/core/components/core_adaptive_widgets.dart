@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-// ignore: avoid_classes_with_only_static_members
 // PUB-DEV: https://pub.dev/packages/flutter_platform_widgets
+// ignore: avoid_classes_with_only_static_members
 class CoreAdaptiveWidgets {
   PlatformIconButton iconButton({
     required Function onPressed,
