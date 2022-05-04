@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:shopingapp/app/modules/inventory/entity/inventory_depo.dart';
 import 'package:shopingapp/app/modules/inventory/entity/inventory_depot.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/orders/entity/order.dart';

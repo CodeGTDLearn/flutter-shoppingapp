@@ -4,15 +4,18 @@ import 'package:shopingapp/app/core/properties/db_urls.dart';
 
 import '../../app/core/test_titles/testdb_check_titles.dart';
 import '../app_tests_properties.dart';
+import '../data_builders/depot_databuilder.dart';
 import '../data_builders/order_databuilder.dart';
 import '../data_builders/product_databuilder.dart';
 import '../utils/testdb_utils.dart';
 import '../utils/tests_global_utils.dart';
+import 'mocked_datasource.dart';
 
 class MockedDatasourceLoader {
   final _dbUtils = Get.put(TestDbUtils());
   final _titles = Get.put(TestDbCheckTitles());
   final _globalUtils = Get.put(TestsGlobalUtils());
+  final _datasource= Get.put(MockedDatasource());
   late int sampleDbTotalItems;
   var _outputList;
 
@@ -44,10 +47,8 @@ class MockedDatasourceLoader {
     testWidgets(_titles.load_db_products_sample_data, (tester) async {
       if (start) {
         var inputList = <Object>[];
-        // var outputList;
-        var items = sampleDbTotalItems;
 
-        for (var i = 0; i < items; i++) {
+        for (var i = 0; i < sampleDbTotalItems; i++) {
           inputList.add(ProductDataBuilder().ProductWithoutId_imageMap());
         }
 
@@ -78,17 +79,14 @@ class MockedDatasourceLoader {
 
     testWidgets(_titles.load_db_depots_sample_data, (tester) async {
       if (start) {
-        await _dbUtils
-            .add_multipleDepots(
-                collectionUrl: DEPOTS_URL,
-                totalItems: sampleDbTotalItems,
-                dataBuilder: () =>
-                    OrderDatabuilder().OrderId_with_ProductList(_outputList))
-            .then((value) {
-          _outputList = value;
-        });
+        var inputList = DepotDataBuilder().ListDepot();
 
-        expect(_outputList.length, sampleDbTotalItems);
+        await _dbUtils
+            .add_multipleDepots(collectionUrl: DEPOTS_URL, objectList: inputList)
+            .then((value) => _outputList = value);
+
+        expect(_outputList.length, inputList.length);
+        expect(_outputList[0], inputList[0]);
       }
     });
   }

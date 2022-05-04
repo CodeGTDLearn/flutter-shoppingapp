@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import '../../entity/inventory_depo.dart';
+import '../../entity/inventory_depot.dart';
 import 'inventory_depos_view_i.dart';
 
 class InventoryDeposView extends StatefulWidget{
@@ -22,7 +22,7 @@ class _InventoryDeposViewState extends State<InventoryDeposView>  implements
   }
 
   @override
-  List<InventoryDepo> onLoadDepos(List<InventoryDepo> listDepos) {
+  List<InventoryDepot> onLoadDepos(List<InventoryDepot> listDepos) {
     return listDepos;
   }
 }

@@ -23,7 +23,7 @@ class InventoryDepot {
     required this.longitude,
   });
 
-  factory InventoryDepot.fromJson(Map<String, dynamic> json) => _$InventoryDepoFromJson(json);
+  factory InventoryDepot.fromJson(Map<String, dynamic> json) => _$InventoryDepotFromJson(json);
 
-  Map<String, dynamic> toJson() => _$InventoryDepoToJson(this);
+  Map<String, dynamic> toJson() => _$InventoryDepotToJson(this);
 }

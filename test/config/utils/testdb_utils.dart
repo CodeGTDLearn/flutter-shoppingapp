@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
 import 'package:http/http.dart' as http;
-import 'package:shopingapp/app/modules/inventory/entity/inventory_depo.dart';
+import 'package:shopingapp/app/modules/inventory/entity/inventory_depot.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/orders/entity/order.dart';
 
@@ -188,7 +188,7 @@ class TestDbUtils {
     return await Future.value(outputList);
   }
 
-  Future<List<dynamic>> add_multipleDepots({
+  Future<List<dynamic>> add_multipleDepots2({
     required String collectionUrl,
     required Function dataBuilder,
     required int totalItems,
@@ -214,6 +214,28 @@ class TestDbUtils {
       });
     }
     return await Future.value(outputList);
+  }
+
+  Future<List<dynamic>> add_multipleDepots({
+    required List<Object> objectList,
+    required String collectionUrl,
+  }) async {
+    var listReturn = <Object>[];
+
+    for (var item = 1; item <= objectList.length; item++) {
+      await addObject(
+        object: objectList[item - 1],
+        collectionUrl: collectionUrl,
+      ).then((response) {
+        listReturn.add(response);
+        _addDepot_message(
+          collectionUrl: collectionUrl,
+          depot: response,
+          number: item.toString(),
+        );
+      });
+    }
+    return await Future.value(listReturn);
   }
 
   final _headerLine = "||> >=====================================> DB ACTION "
@@ -308,9 +330,9 @@ class TestDbUtils {
         '$_footerLine');
   }
 
-  void _addDepot_message({
+  void _addDepot_message<E>({
     required String collectionUrl,
-    required InventoryDepo depot,
+    required InventoryDepot depot,
     String number = '',
     int? statusCode,
   }) {

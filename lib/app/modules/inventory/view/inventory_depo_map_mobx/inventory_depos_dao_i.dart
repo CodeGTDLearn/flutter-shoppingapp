@@ -1,7 +1,6 @@
 
-
-import '../../entity/inventory_depo.dart';
+import '../../entity/inventory_depot.dart';
 
 abstract class InventoryDeposDaoI {
-    Future<List<InventoryDepo>> getDeposData();
+    Future<List<InventoryDepot>> getDeposData();
 }

@@ -1,12 +1,12 @@
 import 'package:mobx/mobx.dart';
 
-import '../../entity/inventory_depo.dart';
+import '../../entity/inventory_depot.dart';
 import 'inventory_depos_dao_i.dart';
 import 'inventory_depos_view_i.dart';
 
-part 'inventory_depos_presenter.g.dart';
+part 'inventory_depot_presenter.g.dart';
 
-class InventoryDeposPresenter = _Presenter with _$InventoryDeposPresenter;
+class InventoryDepotPresenter = _Presenter with _$InventoryDepotPresenter;
 //https://flutterappworld.com/flutter-mvp-demo/
 //https://www.youtube.com/watch?v=I2AgSDAEZSE
 abstract class _Presenter with Store {
@@ -14,7 +14,7 @@ abstract class _Presenter with Store {
   late InventoryDeposDaoI _dao;
 
   @observable
-  late InventoryDepo depo;
+  late InventoryDepot depo;
 
   @action
   void getDeposData() {

@@ -1,9 +1,9 @@
 
 
-import '../../entity/inventory_depo.dart';
+import '../../entity/inventory_depot.dart';
 
 abstract class InventoryDeposViewI {
 
-  List<InventoryDepo> onLoadDepos(List<InventoryDepo> listDepos);
+  List<InventoryDepot> onLoadDepos(List<InventoryDepot> listDepos);
 
 }
