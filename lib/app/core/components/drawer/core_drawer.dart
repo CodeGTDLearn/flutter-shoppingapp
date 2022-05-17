@@ -25,8 +25,6 @@ class CoreDrawer extends StatelessWidget {
   final _orders = Get.find<OrdersController>();
   final _inventory = Get.find<InventoryController>();
   final _keys = Get.find<CoreComponentsKeys>();
-
-  // final _overview = Get.find<OverviewController>();
   final _storage = Get.find<LocalStorageController>();
 
   @override
@@ -36,15 +34,6 @@ class CoreDrawer extends StatelessWidget {
       child: Drawer(
           child: Column(children: [
         AppBar(title: Text(_labels.label_appbar), automaticallyImplyLeading: false),
-        // _drawerItem(
-        //     quantityItems: _overview.getProductsQtde(),
-        //     leadIcon: DRW_ICO_PROD,
-        //     title: DRW_LBL_PROD,
-        //     message: DRW_NO_DATA,
-        //     route: AppRoutes.OVERVIEW_ALL,
-        //     notRoutingWithoutQtdeEvaluation: false,
-        //     key: K_DRW_OV_OP1,
-        //     context: context),
         _drawerItem(
             // quantityItems: _cart.qtdeCartItems(),
             quantityItems: _cart.qtdeCartItemsObs.value,
@@ -72,6 +61,15 @@ class CoreDrawer extends StatelessWidget {
             route: CoreRoutes.INVENTORY,
             notRoutingWithoutQtdeEvaluation: false,
             key: _keys.k_drw_inventory_opt4(),
+            context: context),
+        _drawerItem(
+            quantityItems: _inventory.getProductsQtde(),
+            leadIcon: _icons.ico_warehouse(),
+            title: _labels.label_warehouse,
+            message: _messages.no_warehouses_found,
+            route: CoreRoutes.WAREHOUSE,
+            notRoutingWithoutQtdeEvaluation: false,
+            key: _keys.k_drw_warehouse_opt5(),
             context: context),
         Obx(() => SwitchListTile(
             key: Key(_keys.k_drw_darkthm_opt5()),

@@ -8,4 +8,5 @@ class CoreRoutes {
   static const INVENTORY = '/inventory';
   static const INVENTORY_ITEM_DETAILS = '/inventory-item-edit/';
   static const INVENTORY_ITEM_IMAGE = '/inventory-item-image/';
+  static const WAREHOUSE = '/warehouse';
 }

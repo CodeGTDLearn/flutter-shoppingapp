@@ -11,5 +11,5 @@ class TestDbCheckTitles {
 
   get load_db_orders_sample_data => 'Load Orders Db-Test';
 
-  get load_db_depots_sample_data => 'Load Depots Db-Test';
+  get load_db_warehouse_sample_data => 'Load Warehouses Db-Test';
 }

@@ -4,9 +4,9 @@ import 'package:shopingapp/app/core/properties/db_urls.dart';
 
 import '../../app/core/test_titles/testdb_check_titles.dart';
 import '../app_tests_properties.dart';
-import '../data_builders/depot_databuilder.dart';
 import '../data_builders/order_databuilder.dart';
 import '../data_builders/product_databuilder.dart';
+import '../data_builders/warehouse_databuilder.dart';
 import '../utils/testdb_utils.dart';
 import '../utils/tests_global_utils.dart';
 import 'mocked_datasource.dart';
@@ -77,12 +77,12 @@ class MockedDatasourceLoader {
       }
     });
 
-    testWidgets(_titles.load_db_depots_sample_data, (tester) async {
+    testWidgets(_titles.load_db_warehouse_sample_data, (tester) async {
       if (start) {
-        var inputList = DepotDataBuilder().ListDepot();
+        var inputList = WarehouseDataBuilder().WarehouseList();
 
         await _dbUtils
-            .add_multipleDepots(collectionUrl: DEPOTS_URL, objectList: inputList)
+            .add_multipleDepots(collectionUrl: WAREHOUSES_URL, objectList: inputList)
             .then((value) => _outputList = value);
 
         expect(_outputList.length, inputList.length);

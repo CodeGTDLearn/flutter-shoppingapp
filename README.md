@@ -1,6 +1,5 @@
 ## ShoppingApp Concepo-Proof
-### 1 Table of Contents
-
+### Table of Contents
 <!-- AUTO-GENERATED-CONTENT:START (TOC:collapse=true&collapseText="Click to expand") -->
 <details>
 <summary>"Click to expand"</summary>
@@ -8,27 +7,45 @@
 <!-- AUTO-GENERATED-CONTENT:END -->
 
 * [About the Project](#about-the-project)
+* [Layers Architecture](#layers-architecture)
 * [Getting Started](#getting-started)
 * [Project Sectors](#project-sectors)
 * [Built With](#built-with)
 * [Contributing](#contributing)
 * [Contact](#contact)
-
 </details>
 
-### 2 About The Project
+### About The Project
 
 Shopping App in Flutter is a concept proof of a Shopping App in Flutter. The focus of this app is to apply fundamental
 concepts from Flutter Architecture, such as state management, firebase authentication, firebase Realtime Database,
 dependency management, route management , etc...
 
-### 3 Getting Started
+### Layers Architecture
+
+This project use two arcitectures: MVC and MVP. The reason is simply for testing/learning purpouses. There are many 
+ways to architect an app in Flutter. And one of the most known ways to architect an app is MVC. 
+
+MVC wants to achieve this by categorizing the files, you can have a more readable code structure by separating what 
+is where and what it does.
+- [MVC with MobX and Solid](https://www.youtube.com/watch?v=xXfQZSwOwZk)
+
+The MVP 
+architecture pattern is a derivation from the MVC pattern wherein the Controller is replaced by the Presenter. The MVP divides an application into three layers: Model, View, and Presenter.
+The Layers Standards used are:
+- [Flutter - MVP Architecture](https://www.youtube.com/watch?v=I2AgSDAEZSE)
+- [Flutter Step2 #3 | Architectures Standards](https://www.youtube.com/watch?v=4KBqWANDbE4&t=1440s)
+- [Flutter MVP demo](https://flutterappworld.com/flutter-mvp-demo/)
+  - [GitHub Repo](https://github.com/yendangn/Flutter-MVP-Demo)
+- [Flutter + MVP = A love story](https://pt.linkedin.com/pulse/flutter-mvp-love-story-gladyouasked-h%C3%ADgor-lapa)
+
+### Getting Started
 
 Flutter framework is a pretty new tool in the development world. Even though it has Google as its provider, this
 framework should be explored and tested before to be used in actual projects . Hence, the purpose of this project is
 test, study, apply, explore Flutter as a definitive crossplatform and crossdevice development strategy.
 
-### 4 Project Sectors
+### Project Sectors
 
 1. Overview
 2. Cart
@@ -38,7 +55,7 @@ test, study, apply, explore Flutter as a definitive crossplatform and crossdevic
 6. Custom Widgets
 7. Core App
 
-### 5 Built With
+### Built With
 
 1. [Get](https://pub.dev/packages/get)
     - GetX is an extra-light and powerful solution for Flutter. It combines high performance state management,
@@ -63,6 +80,9 @@ test, study, apply, explore Flutter as a definitive crossplatform and crossdevic
 7. [Mobx](https://pub.dev/packages/mobx)
    - State-management library that makes it simple to
      connect the reactive data of your application with the UI.
+   - Sources:
+     - [MVC and MobX](https://www.youtube.com/watch?v=xXfQZSwOwZk)
+     - [MobX without code generator](https://www.youtube.com/watch?v=3-IF98geNOI)
 
 #### Packages removed:
 
@@ -71,8 +91,8 @@ projects with some additional goodies highly inspired by Splat. One of the stron
 does not need the **context** to work; hence, it can be used in anywhere in the application.~~
 
 
-
-~~3. [Flutter_modular](https://pub.dev/packages/flutter_modular) - Modular gives us a structure that allows us to manage
+~~2. [Flutter_modular](https://pub.dev/packages/flutter_modular) - Modular gives us a structure that allows us to 
+manage
 dependency injection and routes in just one file per module, so we can organize our files with that in mind.~~
 
 ## Contact

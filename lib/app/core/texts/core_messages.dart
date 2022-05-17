@@ -45,11 +45,10 @@ class CoreMessages {
 //CUSTOM CIRCULAR PROGRESS INDICATOR
   final _ADAPTIVE_INDICATOR_NO_ORDERS_YET = "There is no Orders, yet";
   final _ADAPTIVE_INDICATOR_NO_PRODUCTS_YET = "There is no Products, yet";
-  final _ADAPTIVE_INDICATOR_NO_INVENT_PRODUCTS_YET =
-      "There is no Products in Inventory, yet";
+  final _ADAPTIVE_INDICATOR_NO_INVENT_PRODUCTS_YET = "There is no Products in Inventory, yet";
   final _ADAPTIVE_INDICATOR_FAVORITES_NOT_FOUND_YET = "Favorites not found, yet.";
   final _ADAPTIVE_INDICATOR_NO_ORDERS_DONE_YET = "No orders were done, yet.";
-
+  final _ADAPTIVE_INDICATOR_NO_WAREHOUSE_YET = "No warehouses were found, yet.";
 
   //CUSTOM DRAWER MESSAGES
   // final DRAWER_COMPONENT_TEXT_CART_NO_PRODUCTS_YET = "No Products in the cart, Yet";
@@ -85,6 +84,8 @@ class CoreMessages {
   get overview_no_favs_yet => _ADAPTIVE_INDICATOR_FAVORITES_NOT_FOUND_YET;
 
   get orders_done_yet => _ADAPTIVE_INDICATOR_NO_ORDERS_DONE_YET;
+
+  get no_warehouses_found => _ADAPTIVE_INDICATOR_NO_WAREHOUSE_YET;
 
   get invNoItemsYet => _INVENTORY_NO_PRODUCTS_YET;
 

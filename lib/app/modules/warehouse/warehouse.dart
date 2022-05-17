@@ -1,12 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'inventory_depot.g.dart';
+part 'warehouse.g.dart';
 
 // flutter pub run build_runner watch
 // flutter pub run build_runner build
 // flutter pub run build_runner build --delete-conflicting-outputs
 @JsonSerializable()
-class InventoryDepot {
+class Warehouse {
   String id;
   String name;
   String address;
@@ -14,7 +14,7 @@ class InventoryDepot {
   double latitude;
   double longitude;
 
-  InventoryDepot({
+  Warehouse({
     required this.id,
     required this.name,
     required this.address,
@@ -23,7 +23,7 @@ class InventoryDepot {
     required this.longitude,
   });
 
-  factory InventoryDepot.fromJson(Map<String, dynamic> json) => _$InventoryDepotFromJson(json);
+  factory Warehouse.fromJson(Map<String, dynamic> json) => _$WarehouseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$InventoryDepotToJson(this);
+  Map<String, dynamic> toJson() => _$WarehouseToJson(this);
 }

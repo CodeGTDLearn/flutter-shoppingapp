@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:shopingapp/app/modules/inventory/entity/inventory_depot.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/orders/entity/order.dart';
 import 'package:shopingapp/app/modules/overview/core/components/overview_appbar/filter_options_enum.dart';
+import 'package:shopingapp/app/modules/warehouse/warehouse.dart';
 
 import '../app_tests_properties.dart';
 
@@ -74,11 +74,11 @@ class MockedDatasource {
   }
 
   // DEPOTS DATASOURCE
-  List<InventoryDepot> depots() {
+  List<Warehouse> depots() {
     final file = File(_MockedDataMassPathFile);
     final json = jsonDecode(file.readAsStringSync())["depots"];
-    List<InventoryDepot> result =
-        json.map<InventoryDepot>((json) => InventoryDepot.fromJson(json)).toList();
+    List<Warehouse> result =
+        json.map<Warehouse>((json) => Warehouse.fromJson(json)).toList();
     return result;
   }
 }

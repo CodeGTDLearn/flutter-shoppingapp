@@ -5,6 +5,7 @@ class CoreComponentsIcons {
   final _CART = Icon(Icons.shop);
   final _ORDERS = Icon(Icons.payment);
   final _INVENTORY = Icon(Icons.edit);
+  final _WAREHOUSE = Icon(Icons.add_business_rounded);
   final _SWITCHER_DARKTHEME = Icon(Icons.lightbulb_outline);
   final _NONE = Icon(Icons.hourglass_empty);
 
@@ -13,6 +14,8 @@ class CoreComponentsIcons {
   Icon ico_ord() => _ORDERS;
 
   Icon ico_inv() => _INVENTORY;
+
+  Icon ico_warehouse() => _WAREHOUSE;
 
   Icon ico_switch() => _SWITCHER_DARKTHEME;
 

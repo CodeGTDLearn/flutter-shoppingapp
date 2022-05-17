@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/instance_manager.dart';
 import 'package:http/http.dart' as http;
-import 'package:shopingapp/app/modules/inventory/entity/inventory_depot.dart';
 import 'package:shopingapp/app/modules/inventory/entity/product.dart';
 import 'package:shopingapp/app/modules/orders/entity/order.dart';
+import 'package:shopingapp/app/modules/warehouse/warehouse.dart';
 
 import '../app_tests_properties.dart';
 import 'tests_utils.dart';
@@ -208,7 +208,7 @@ class TestDbUtils {
         outputList.add(response);
         _addDepot_message(
           collectionUrl: collectionUrl,
-          depot: response,
+          warehouse: response,
           number: item.toString(),
         );
       });
@@ -230,7 +230,7 @@ class TestDbUtils {
         listReturn.add(response);
         _addDepot_message(
           collectionUrl: collectionUrl,
-          depot: response,
+          warehouse: response,
           number: item.toString(),
         );
       });
@@ -332,20 +332,20 @@ class TestDbUtils {
 
   void _addDepot_message<E>({
     required String collectionUrl,
-    required InventoryDepot depot,
+    required Warehouse warehouse,
     String number = '',
     int? statusCode,
   }) {
     var statusTxt = statusCode == null ? '' : '- Status: $statusCode';
 
     var body = '  ';
-    depot.toJson().forEach((key, value) => body += '* $key: $value\n       ');
+    warehouse.toJson().forEach((key, value) => body += '* $key: $value\n       ');
 
     print('$_headerLine '
         '     Adding Object: $number\n'
         '     - URL: $collectionUrl\n'
-        '     - ID: ${depot.id}\n'
-        '     - Type: ${depot.runtimeType.toString()}\n'
+        '     - ID: ${warehouse.id}\n'
+        '     - Type: ${warehouse.runtimeType.toString()}\n'
         '     - Body:\n'
         '     $body'
         '     $statusTxt\n'

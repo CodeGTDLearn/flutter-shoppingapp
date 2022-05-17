@@ -5,6 +5,7 @@ class CoreComponentsKeys {
   final _DRAWER_CART_OPTION_KEY = "drawwer_cart_option";
   final _DRAWER_ORDER_OPTION_KEY = "drawwer_order_option";
   final _DRAWER_INVENTORY_OPTION_KEY = "drawwer_inventory_option";
+  final _DRAWER_WAREHOUSE_OPTION_KEY = "drawwer_warehouse_option";
   final _DRAWER_DARK_MODE_OPTION_KEY = "drawwer_dark_mode_option";
   final _DRAWER_APPBAR_KEY = "drawer_button_key";
   final _CUSTOM_PROGRESS_INDICATOR_KEY = 'custom_circ_progr_indicator_key';
@@ -30,6 +31,8 @@ class CoreComponentsKeys {
   String k_drw_orders_opt3() => _DRAWER_ORDER_OPTION_KEY;
 
   String k_drw_inventory_opt4() => _DRAWER_INVENTORY_OPTION_KEY;
+
+  String k_drw_warehouse_opt5() => _DRAWER_WAREHOUSE_OPTION_KEY;
 
   String k_drw_darkthm_opt5() => _DRAWER_DARK_MODE_OPTION_KEY;
 }
