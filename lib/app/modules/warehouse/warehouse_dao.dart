@@ -4,8 +4,11 @@ import 'package:http/http.dart' as http;
 
 import '../../core/properties/db_urls.dart';
 import 'warehouse.dart';
-import 'warehouse_dao_i.dart';
 import 'warehouse_exception.dart';
+
+abstract class WarehouseDaoI {
+  Future<List<Warehouse>> getWarehouses();
+}
 
 class WarehouseDao implements WarehouseDaoI {
   @override

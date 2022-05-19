@@ -4,7 +4,12 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'warehouse.dart';
 import 'warehouse_presenter.dart';
-import 'warehouse_view_i.dart';
+
+abstract class WarehouseViewI {
+  List<Warehouse> onLoadWarehouses();
+
+  void incrementIntObsAction();
+}
 
 class WarehouseView extends StatefulWidget {
   const WarehouseView({Key? key}) : super(key: key);
@@ -15,8 +20,6 @@ class WarehouseView extends StatefulWidget {
 
 class _WarehouseViewState extends State<WarehouseView> implements WarehouseViewI {
   late WarehousePresenter _presenter;
-
-  int _counterObs = 0;
 
   @override
   void initState() {
@@ -35,14 +38,12 @@ class _WarehouseViewState extends State<WarehouseView> implements WarehouseViewI
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
+            const Text('You have pushed the button this many times:'),
             Observer(
                 builder: (_) => Text(
-                  '${_presenter.intObs.value}',
-                  style: const TextStyle(fontSize: 20),
-                )),
+                      '${_presenter.intObs.value}',
+                      style: const TextStyle(fontSize: 20),
+                    )),
           ],
         ),
       ),
@@ -56,7 +57,8 @@ class _WarehouseViewState extends State<WarehouseView> implements WarehouseViewI
 
   @override
   void incrementIntObsAction() {
-    _presenter.incrementIntObsAction();
+    _presenter.incrementIntObsActionStyle1();
+    // _presenter.incrementIntObsActionStyle2();
   }
 
   @override

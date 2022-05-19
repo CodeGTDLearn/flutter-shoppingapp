@@ -23,21 +23,19 @@ dependency management, route management , etc...
 
 ### Layers Architecture
 
-This project use two arcitectures: MVC and MVP. The reason is simply for testing/learning purpouses. There are many 
-ways to architect an app in Flutter. And one of the most known ways to architect an app is MVC. 
+This project use two arcitectures: MVC and MVP. The reason for have two both architectures in only one project is 
+simply for testing/learning purpouses. There are many ways to architecture an app in Flutter. The most known is MVC. 
 
-MVC wants to achieve this by categorizing the files, you can have a more readable code structure by separating what 
+* MVC wants to achieve this by categorizing the files, you can have a more readable code structure by separating what 
 is where and what it does.
-- [MVC with MobX and Solid](https://www.youtube.com/watch?v=xXfQZSwOwZk)
+  - [MVC with MobX and Solid](https://www.youtube.com/watch?v=xXfQZSwOwZk)
 
-The MVP 
-architecture pattern is a derivation from the MVC pattern wherein the Controller is replaced by the Presenter. The MVP divides an application into three layers: Model, View, and Presenter.
+* MVP architecture pattern is a derivation from the MVC pattern wherein the Controller is replaced by the Presenter. The MVP divides an application into three layers: Model, View, and Presenter.
 The Layers Standards used are:
-- [Flutter - MVP Architecture](https://www.youtube.com/watch?v=I2AgSDAEZSE)
-- [Flutter Step2 #3 | Architectures Standards](https://www.youtube.com/watch?v=4KBqWANDbE4&t=1440s)
-- [Flutter MVP demo](https://flutterappworld.com/flutter-mvp-demo/)
-  - [GitHub Repo](https://github.com/yendangn/Flutter-MVP-Demo)
-- [Flutter + MVP = A love story](https://pt.linkedin.com/pulse/flutter-mvp-love-story-gladyouasked-h%C3%ADgor-lapa)
+  - [Flutter - MVP Architecture](https://www.youtube.com/watch?v=I2AgSDAEZSE)
+  - [Flutter Step2 #3 | Architectures Standards](https://www.youtube.com/watch?v=4KBqWANDbE4&t=1440s)
+  - [Flutter MVP demo](https://flutterappworld.com/flutter-mvp-demo/) | [GitHub Repo](https://github.com/yendangn/Flutter-MVP-Demo)
+  - [Flutter + MVP = A love story](https://pt.linkedin.com/pulse/flutter-mvp-love-story-gladyouasked-h%C3%ADgor-lapa)
 
 ### Getting Started
 
