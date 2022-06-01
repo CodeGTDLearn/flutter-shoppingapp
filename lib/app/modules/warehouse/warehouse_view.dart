@@ -5,12 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'warehouse.dart';
 import 'warehouse_presenter.dart';
 
-abstract class WarehouseViewI {
-  List<Warehouse> onLoadWarehouses();
-
-  void incrementIntObsAction();
-}
-
 class WarehouseView extends StatefulWidget {
   const WarehouseView({Key? key}) : super(key: key);
 
@@ -18,7 +12,7 @@ class WarehouseView extends StatefulWidget {
   State<WarehouseView> createState() => _WarehouseViewState();
 }
 
-class _WarehouseViewState extends State<WarehouseView> implements WarehouseViewI {
+class _WarehouseViewState extends State<WarehouseView> implements WarehouseViewContractI {
   late WarehousePresenter _presenter;
 
   @override

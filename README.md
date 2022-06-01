@@ -1,11 +1,5 @@
-## ShoppingApp Concepo-Proof
-### Table of Contents
-<!-- AUTO-GENERATED-CONTENT:START (TOC:collapse=true&collapseText="Click to expand") -->
-<details>
-<summary>"Click to expand"</summary>
-
-<!-- AUTO-GENERATED-CONTENT:END -->
-
+## ShoppingApp Concept-Proof
+### Index
 * [About the Project](#about-the-project)
 * [Layers Architecture](#layers-architecture)
 * [Getting Started](#getting-started)
@@ -13,7 +7,6 @@
 * [Built With](#built-with)
 * [Contributing](#contributing)
 * [Contact](#contact)
-</details>
 
 ### About The Project
 
@@ -26,16 +19,27 @@ dependency management, route management , etc...
 This project use two arcitectures: MVC and MVP. The reason for have two both architectures in only one project is 
 simply for testing/learning purpouses. There are many ways to architecture an app in Flutter. The most known is MVC. 
 
-* MVC wants to achieve this by categorizing the files, you can have a more readable code structure by separating what 
-is where and what it does.
-  - [MVC with MobX and Solid](https://www.youtube.com/watch?v=xXfQZSwOwZk)
+* **_MVC_** architecture pattern aims to separate ‘the areas of work.’ It’s meant to separate ‘the areas of responsibility’ when developing software. With MVC, this means separating ‘the interface’ from ‘the functionality’ from ‘the data’ that makes up the application. To decouple these three major areas in the software allows for efficient modular coding, code reuse, and parallel development:
+  - Model: the source for data. In some implementations, it contains the business logic. The layers that belong to this area, are: Entities + Dao + Service
+  - View: concerned with how data (not necessarily that in the Model) is displayed in the user interface.
+  - Controller: controls what data is displayed, answers to both system or user events, and, in some implementations, contains the business logic.
+  * Sources: 
+    * [MVC with MobX and Solid](https://www.youtube.com/watch?v=xXfQZSwOwZk)
+    * [Flutter + MVC at Last!](https://medium.com/follow-flutter/flutter-mvc-at-last-275a0dc1e730)
 
-* MVP architecture pattern is a derivation from the MVC pattern wherein the Controller is replaced by the Presenter. The MVP divides an application into three layers: Model, View, and Presenter.
-The Layers Standards used are:
-  - [Flutter - MVP Architecture](https://www.youtube.com/watch?v=I2AgSDAEZSE)
-  - [Flutter Step2 #3 | Architectures Standards](https://www.youtube.com/watch?v=4KBqWANDbE4&t=1440s)
-  - [Flutter MVP demo](https://flutterappworld.com/flutter-mvp-demo/) | [GitHub Repo](https://github.com/yendangn/Flutter-MVP-Demo)
-  - [Flutter + MVP = A love story](https://pt.linkedin.com/pulse/flutter-mvp-love-story-gladyouasked-h%C3%ADgor-lapa)
+* **_MVP_** architecture pattern is a derivation from the MVC pattern wherein the Controller is replaced by the Presenter. The MVP divides an application into three layers:
+  * Model: The layers that belong to this area, are: Entities + Dao 
+  * View: Idem above
+  * Presenter: It is the conexion between Model and View, meaning ot will handle app logic, get data from repository and update view.
+  * Sources:
+    - [Flutter - MVP Architecture](https://www.youtube.com/watch?v=I2AgSDAEZSE)
+    - [Flutter Step2 #3 | Architectures Standards](https://www.youtube.com/watch?v=4KBqWANDbE4&t=1440s)
+    - [Flutter MVP demo](https://flutterappworld.com/flutter-mvp-demo/) | [GitHub Repo](https://github.com/yendangn/Flutter-MVP-Demo)
+
+
+* **_Diagram_**
+  ![Screenshot](assets\images\mvc-mvp.jfif)
+
 
 ### Getting Started
 
@@ -76,26 +80,33 @@ test, study, apply, explore Flutter as a definitive crossplatform and crossdevic
 6. [JSON annotation](https://pub.dev/packages/json_annotation)
     - Defines the annotations used by json_serializable to create code for JSON serialization and deserialization.
 7. [Mobx](https://pub.dev/packages/mobx)
+   - Action approach, meaning no-code-generator is being used
    - State-management library that makes it simple to
      connect the reactive data of your application with the UI.
    - Sources:
      - [MVC and MobX](https://www.youtube.com/watch?v=xXfQZSwOwZk)
      - [MobX without code generator](https://www.youtube.com/watch?v=3-IF98geNOI)
 
-#### Packages removed:
-
-~~1. [Get_It](https://pub.dev/packages/get_it) - Dependency injection: A simple Service Locator for Dart and Flutter
-projects with some additional goodies highly inspired by Splat. One of the strongest point of this libray is taht it
-does not need the **context** to work; hence, it can be used in anywhere in the application.~~
-
-
-~~2. [Flutter_modular](https://pub.dev/packages/flutter_modular) - Modular gives us a structure that allows us to 
-manage
-dependency injection and routes in just one file per module, so we can organize our files with that in mind.~~
 
 ## Contact
 Paulo Alves - pvba02@gmail.com Project
 Link: [https://github.com/PauloPortfolio/4-shopingapp-2](https://github.com/PauloPortfolio/4-shopingapp-2)
 
-### Observations:
-* [Multidex bug](https://www.youtube.com/watch?v=afW7dAndEyw)
+## Observations:
+<!-- AUTO-GENERATED-CONTENT:START (TOC:collapse=true&collapseText="Click to expand") -->
+<details>
+<summary>"Click to expand"</summary>
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+Packages removed:
+
+~~1. [Get_It](https://pub.dev/packages/get_it) - Dependency injection: A simple Service Locator for Dart and Flutter
+projects with some additional goodies highly inspired by Splat. One of the strongest point of this libray is taht it
+does not need the **context** to work; hence, it can be used in anywhere in the application.~~
+
+~~2. [Flutter_modular](https://pub.dev/packages/flutter_modular) - Modular gives us a structure that allows us to
+manage
+dependency injection and routes in just one file per module, so we can organize our files with that in mind.~~
+
+ [3. Multidex bug](https://www.youtube.com/watch?v=afW7dAndEyw)
+</details>

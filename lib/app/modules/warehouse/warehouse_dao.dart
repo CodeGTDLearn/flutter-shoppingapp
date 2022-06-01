@@ -4,11 +4,8 @@ import 'package:http/http.dart' as http;
 
 import '../../core/properties/db_urls.dart';
 import 'warehouse.dart';
+import 'warehouse_dao_i.dart';
 import 'warehouse_exception.dart';
-
-abstract class WarehouseDaoI {
-  Future<List<Warehouse>> getWarehouses();
-}
 
 class WarehouseDao implements WarehouseDaoI {
   @override
@@ -23,10 +20,9 @@ class WarehouseDao implements WarehouseDaoI {
       throw WarehouseException("StatusCode:$statusCode, Error:${response.reasonPhrase}");
     }
 
-    final json_From_StringBody = json.decode(stringBody);
-    var list_From_JsonResulting =
-        json_From_StringBody.map<Warehouse>(Warehouse.fromJson).toList();
+    final jsonFromStringBody = json.decode(stringBody);
+    var listFromJson = jsonFromStringBody.map<Warehouse>(Warehouse.fromJson).toList();
 
-    return list_From_JsonResulting;
+    return listFromJson;
   }
 }

@@ -2,37 +2,48 @@ import 'package:mobx/mobx.dart';
 
 import 'warehouse.dart';
 import 'warehouse_dao.dart';
-import 'warehouse_view.dart';
+import 'warehouse_dao_i.dart';
 
 //https://flutterappworld.com/flutter-mvp-demo/
 //https://www.youtube.com/watch?v=I2AgSDAEZSE
-class WarehousePresenter {
-  final WarehouseViewI _view;
-  late final WarehouseDaoI _dao;
+abstract class WarehouseViewContractI {
+  List<Warehouse> onLoadWarehouses();
+  void incrementIntObsAction();
+}
 
-  WarehousePresenter(this._view) {
+class WarehousePresenter {
+  final WarehouseViewContractI _viewContract;
+  late final WarehouseDaoI _dao;
+//https://youtu.be/I2AgSDAEZSE
+  //45:12 - construindo o presenter
+  WarehousePresenter(this._viewContract) {
     _dao = WarehouseDao();
   }
 
   final warehousesObs = ObservableList<Warehouse>(name: "_warehousesObs");
-
   final intObs = Observable<int>(0, name: "_intObs");
 
+  // @formatter:off
   void loadWarehousesObsAction() {
     var string = runtimeType.toString();
     print(string);
     runInAction(
       () {
-        _dao.getWarehouses().then((warehouses) => _view.onLoadWarehouses())
-            // .catchError((onError) => "cc")
+        _dao
+            .getWarehouses()
+            .then((warehouses) => _viewContract.onLoadWarehouses())
+            .catchError((onError) => "cc")
             ;
       },
       // name: string,
     );
   }
+  // @formatter:on
 
   /*╔═══════════════════════╗
     ║ STYLE 01: MobX ACTION ║
+    ╠═══════════════════════╣
+    ║   NO-CODE-GENERATOR   ║
     ╠═══════════════════════╣
     ║        Action         ║
     ╚═══════════════════════╝*/
@@ -43,6 +54,8 @@ class WarehousePresenter {
 
   /*╔═══════════════════════╗
     ║ STYLE 02: MobX ACTION ║
+    ╠═══════════════════════╣
+    ║   NO-CODE-GENERATOR   ║
     ╠═══════════════════════╣
     ║      runInAction      ║
     ╚═══════════════════════╝*/
