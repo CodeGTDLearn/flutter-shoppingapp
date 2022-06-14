@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../../core/properties/db_urls.dart';
+import 'core/warehouse_exception.dart';
 import 'warehouse.dart';
 import 'warehouse_dao_i.dart';
-import 'warehouse_exception.dart';
 
 class WarehouseDao implements WarehouseDaoI {
   @override
