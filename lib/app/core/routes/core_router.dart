@@ -12,7 +12,6 @@ import '../../modules/overview/core/bindings/overview_bindings.dart';
 import '../../modules/overview/core/bindings/overview_scaffold_bindings.dart';
 import '../../modules/overview/view/overview_item_details_view.dart';
 import '../../modules/overview/view/overview_view.dart';
-import '../../modules/warehouse/warehouse_view.dart';
 import '../components/appbar/core_appbars_bindings.dart';
 import '../components/appbar/core_sliver_appbar_bindings.dart';
 import '../components/badge/core_badge_cart_bindings.dart';
@@ -58,9 +57,7 @@ class CoreRouter {
       OverviewBindings(),
       InventoryBindings()]),
 
-    GetPage(name: CoreRoutes.WAREHOUSE, page: () => WarehouseView()),
-
-    GetPage(name: '${CoreRoutes.INVENTORY_ITEM_DETAILS}:id', page: () =>
+   GetPage(name: '${CoreRoutes.INVENTORY_ITEM_DETAILS}:id', page: () =>
         InventoryDetailsView()),
     GetPage(name: '${CoreRoutes.INVENTORY_ITEM_IMAGE}', page: () => InventoryProductZoomView()),
   ];

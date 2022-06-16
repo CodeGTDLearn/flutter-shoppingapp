@@ -29,7 +29,7 @@ import 'config/app_tests_properties.dart';
 import 'config/datasource/mocked_datasource_loader.dart';
 
 void main() {
-  // NO ERASE:  String.fromEnvironment => MUST BE CONSTANT!!!
+  // NO REMOVE:  String.fromEnvironment => MUST BE CONSTANT!!!
   const _env = String.fromEnvironment("testType", defaultValue: WIDGET_TEST);
   if (_env == WIDGET_TEST) _unitTests();
   if (_env == INTEGRATION_TEST) _integrationTests();
@@ -41,9 +41,9 @@ void main() {
 // MEANING, IN THE ALL METHODS 'FOR-EACH' A NEW MOCKED-DATASOURCE
 // IS LOADED, THEREFORE, EACH THE TESTS CAN HAVE ITS OWN STATE
 void _unitTests() {
-  final SKIP_GROUP = false;
+  final SKIP_GROUP = true;
 
-  CartTestGroups().groups(skipGroup: SKIP_GROUP);
+  CartTestGroups().groups(skipGroup: false);
   InventoryTestGroups().groups(skipGroup: SKIP_GROUP);
   OrdersTestGroups().groups(skipGroup: SKIP_GROUP);
   OverviewTestGroups().groups(skipGroup: SKIP_GROUP);
@@ -56,7 +56,7 @@ void _unitTests() {
 // ONCE, A REAL DATABASE (FIREBASE) IS BEING USED
 // IT IS IMPOSSIBLE ISOLATE THE STATE FOR EACH-TEST
 // HENCE, 'ALL-TESTS' SHOULD BE EXECUTED TOGETHER
-// BECAUSE THE SHARE THE DB-STATE
+// BECAUSE THE DB-STATE SHARING.
 void _integrationTests() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
