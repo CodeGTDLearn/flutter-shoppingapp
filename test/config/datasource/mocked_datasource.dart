@@ -13,35 +13,34 @@ class MockedDatasource {
 
   // PRODUCTS DATASOURCE
   List<Product> products() {
-    final file = File(_MockedDataMassPathFile);
-    final json = jsonDecode(file.readAsStringSync())["products"];
-    List<Product> result = json.map<Product>((json) => Product.fromJson(json)).toList();
-    return result;
+    List<Product> productList = _generateProductListFromFile();
+    return productList;
   }
 
   Product product() {
-    final file = File(_MockedDataMassPathFile);
-    final json = jsonDecode(file.readAsStringSync())["products"];
-    List<Product> result = json.map<Product>((json) => Product.fromJson(json)).toList();
-    return result.elementAt(0);
+    List<Product> productList = _generateProductListFromFile();
+    return productList.elementAt(0);
   }
 
   List<Product> favoritesProducts() {
-    final file = File(_MockedDataMassPathFile);
-    final json = jsonDecode(file.readAsStringSync())["products"];
-    List<Product> list = json.map<Product>((json) => Product.fromJson(json)).toList();
+    List<Product> productList = _generateProductListFromFile();
     var listReturn = <Product>[];
-    for (var item in list) {
+    for (var item in productList) {
       if (item.isFavorite) listReturn.add(item);
     }
     return listReturn;
   }
 
   Product productById(String id) {
-    final file = File(_MockedDataMassPathFile);
-    final json = jsonDecode(file.readAsStringSync())["products"];
-    List<Product> list = json.map<Product>((json) => Product.fromJson(json)).toList();
-    return list.firstWhere((element) => element.id == id);
+    List<Product> productList = _generateProductListFromFile();
+    return productList.firstWhere((element) => element.id == id);
+  }
+
+  List<Product> _generateProductListFromFile() {
+    final jsonContentFile = File(_MockedDataMassPathFile);
+    final List<dynamic> genericList = jsonDecode(jsonContentFile.readAsStringSync())["products"];
+    final List<Product> productList = genericList.map((item) => Product.fromJson(item)).toList();
+    return productList;
   }
 
   List<Product> productsByFilter(FilterOptionsEnum filter) {
@@ -56,17 +55,20 @@ class MockedDatasource {
 
   // ORDERS DATASOURCE
   List<Order> orders() {
-    final file = File(_MockedDataMassPathFile);
-    final json = jsonDecode(file.readAsStringSync())["orders"];
-    List<Order> result = json.map<Order>((json) => Order.fromJson(json)).toList();
-    return result;
+    List<Order> orderList = _generateOrderListFromFile();
+    return orderList;
+  }
+
+  List<Order> _generateOrderListFromFile() {
+    final jsonContentFile = File(_MockedDataMassPathFile);
+    final List<dynamic> genericList = jsonDecode(jsonContentFile.readAsStringSync())["orders"];
+    final List<Order> orderList = genericList.map((item) => Order.fromJson(item)).toList();
+    return orderList;
   }
 
   Order order() {
-    final file = File(_MockedDataMassPathFile);
-    final json = jsonDecode(file.readAsStringSync())["orders"];
-    List<Order> result = json.map<Order>((json) => Order.fromJson(json)).toList();
-    return result.elementAt(0);
+    List<Order> orderList = _generateOrderListFromFile();
+    return orderList.elementAt(0);
   }
 
   List<Order> ordersEmpty() {
@@ -75,10 +77,14 @@ class MockedDatasource {
 
   // DEPOTS DATASOURCE
   List<Warehouse> depots() {
-    final file = File(_MockedDataMassPathFile);
-    final json = jsonDecode(file.readAsStringSync())["depots"];
-    List<Warehouse> result =
-        json.map<Warehouse>((json) => Warehouse.fromJson(json)).toList();
-    return result;
+    List<Warehouse> warehouseList = _generateWarehouseListFromFile();
+    return warehouseList;
+  }
+
+  List<Warehouse> _generateWarehouseListFromFile() {
+    final jsonContentFile = File(_MockedDataMassPathFile);
+    final List<dynamic> genericList = jsonDecode(jsonContentFile.readAsStringSync())["depots"];
+    final List<Warehouse> warehouseList = genericList.map((item) => Warehouse.fromJson(item)).toList();
+    return warehouseList;
   }
 }

@@ -16,7 +16,7 @@ class CartServiceTests {
     final _builder = Get.put(ProductDataBuilder());
 
     setUp(() {
-      Get.create(() => CartTestBindings());
+      Get.put(CartTestBindings());
       Get.find<CartTestBindings>().bindingsBuilder(isWidgetTest: true);
       _service = Get.find<ICartService>();
       _product0 = _builder.ProductWithId();

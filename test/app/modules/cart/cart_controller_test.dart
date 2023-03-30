@@ -20,12 +20,12 @@ class CartControllerTests {
     final _mock = Get.find<MockedDatasource>();
 
     setUp(() {
-      Get.create(() => CartTestBindings());
+      Get.put(CartTestBindings());
       Get.find<CartTestBindings>().bindingsBuilder(isWidgetTest: true);
       _controller = Get.find<CartController>();
       _product0 = _builder.ProductWithId();
       _product1 = _builder.ProductWithId();
-      _order1 = _mock.orders().elementAt(0);
+      _order1 = _mock.order();
     });
 
     test(_titles.controller_get_all_products, () {

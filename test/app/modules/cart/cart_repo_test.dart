@@ -19,10 +19,9 @@ class CartRepoTests {
     var _product0, _product1;
     final _titles = Get.find<CartTestTitles>();
     final _mock = Get.put(MockedDatasource());
-    Get.create(CartTestBindings.new);
 
     setUpAll(() {
-      // Get.create(() => CartTestBindings());
+      Get.put(CartTestBindings());
       Get.find<CartTestBindings>().bindingsBuilder(isWidgetTest: true);
       _repo = Get.find<ICartRepo>();
       _product0 = _mock.products().elementAt(0);

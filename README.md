@@ -5,8 +5,7 @@
 * [Getting Started](#getting-started)
 * [Project Sectors](#project-sectors)
 * [Built With](#built-with)
-* [Contributing](#contributing)
-* [Contact](#contact)
+* [Observations](#observations)
 
 ### About The Project
 
@@ -38,7 +37,7 @@ simply for testing/learning purpouses. There are many ways to architecture an ap
 
 
 * **_Diagram_**
-  ![Screenshot](assets\images\mvc-mvp.jfif)
+  ![Screenshot](\assets\images\mvc-mvp.jfif)
 
 
 ### Getting Started
@@ -88,11 +87,7 @@ test, study, apply, explore Flutter as a definitive crossplatform and crossdevic
      - [MobX without code generator](https://www.youtube.com/watch?v=3-IF98geNOI)
 
 
-## Contact
-Paulo Alves - pvba02@gmail.com Project
-Link: [https://github.com/PauloPortfolio/4-shopingapp-2](https://github.com/PauloPortfolio/4-shopingapp-2)
-
-## Observations:
+## Observations
 <!-- AUTO-GENERATED-CONTENT:START (TOC:collapse=true&collapseText="Click to expand") -->
 <details>
 <summary>"Click to expand"</summary>

@@ -7,10 +7,11 @@ import '../../../core/properties/db_urls.dart';
 import '../../inventory/entity/product.dart';
 import 'i_overview_repo.dart';
 
-// -------------- FLUTTER ERROR: FIREBASE RULES DEADLINE/DATE EXPIRE!!! ------------------
-// I/flutter ( 8038): The following _TypeError was thrown running a test:
-// I/flutter ( 8038): type 'String' is not a subtype of type 'Map<String, dynamic>'
-// -------------- SOLUTION: RENEW/REDATE FIREBASE RULES DEADLINE/DATE --------------------
+/*╔═══════════════════════════════════════════════════════════════╗
+  ║    'String' is not a subtype of type 'Map<String, dynamic>'   ║
+  ╠═══════════════════════════════════════════════════════════════╣
+  ║     SOLUTION: RENEW/REDATE FIREBASE RULES DEADLINE/DATE       ║
+  ╚═══════════════════════════════════════════════════════════════╝*/
 class OverviewRepoHttpFirebase implements IOverviewRepo {
   @override
   Future<List<Product>> getProducts() {
